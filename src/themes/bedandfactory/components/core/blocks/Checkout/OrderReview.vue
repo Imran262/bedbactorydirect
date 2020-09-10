@@ -128,7 +128,7 @@ import Modal from "theme/components/core/Modal";
 import { OrderReview } from "@vue-storefront/core/modules/checkout/components/OrderReview";
 import { OrderModule } from "@vue-storefront/core/modules/order";
 import { registerModule } from "@vue-storefront/core/lib/modules";
-import BraintreeDropin from "src/modules/vsf-payment-braintree/components/Dropin";
+import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
 
 export default {
   components: {
@@ -136,7 +136,7 @@ export default {
     ButtonFull,
     CartSummary,
     Modal,
-    BraintreeDropin
+    BraintreeDropin,
   },
   mixins: [OrderReview, Composite],
   validations: {
@@ -155,18 +155,18 @@ export default {
       this.$store.dispatch("notification/spawnNotification", {
         type: "error",
         message: this.$t(result.result),
-        action1: { label: this.$t("OK") }
+        action1: { label: this.$t("OK") },
       });
     },
-    checkedFn: function() {
+    checkedFn: function () {
       var to_detail_elem = document.getElementsByClassName(
         "checkout-top-detail"
       )[1];
       to_detail_elem.classList.add("top-detail-active");
       // var tick_elem = document.getElementsByClassName("non-selected-tick")[0];
       // tick_elem.classList.add("tick-active");
-    }
-  }
+    },
+  },
 };
 </script>
 

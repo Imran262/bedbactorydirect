@@ -111,8 +111,8 @@ import {
   currentStoreView
 } from "@vue-storefront/core/lib/multistore";
 import { htmlDecode } from "@vue-storefront/core/filters";
-import ActiveFilters from "src/modules/vsf-layered-navigation/components/ActiveFilters.vue";
-import Sidebar from "src/modules/vsf-layered-navigation/components/Sidebar";
+import ActiveFilters from "src/modules/vsf-l-navigation/components/ActiveFilters.vue";
+import Sidebar from "src/modules/vsf-l-navigation/components/Sidebar";
 import UspBar from "theme/components/theme/blocks/UspBar/UspBar";
 import CmsBlock from "theme/components/core/blocks/Cms/Block";
 import CategoryDescription from "theme/components/core/blocks/CategoryDescription/CategoryDescription";

@@ -19,8 +19,8 @@ import { InitialResourcesModule } from "@vue-storefront/core/modules/initial-res
 
 // import { DeviceModule } from './device/index';
 import { registerModule } from "@vue-storefront/core/lib/modules";
-import { LayeredNavigationModule } from "./vsf-layered-navigation";
-import { Braintree } from "./vsf-payment-braintree";
+import { LayeredNavigationModule } from "./vsf-l-navigation";
+import { Braintree } from "./vsf-p-braintree";
 // TODO:distributed across proper pages BEFORE 1.11
 export function registerClientModules() {
   registerModule(UrlModule);
