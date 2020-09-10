@@ -869,7 +869,7 @@
     }
   },
   "urlModule": {
-    "enableMapFallbackUrl": false,
+    "enableMapFallbackUrl": true,
     "endpoint": "/api/url",
     "map_endpoint": "/api/url/map"
   },
