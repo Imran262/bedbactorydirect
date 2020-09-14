@@ -5264,6 +5264,20 @@ braces@^3.0.1:
   dependencies:
     fill-range "^7.0.1"
 
+braintree-web-drop-in@^1.14.1:
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/braintree-web-drop-in/-/braintree-web-drop-in-1.24.0.tgz#884c8e52decb633460ada6a326ab0e516a9bdb81"
+  integrity sha512-f4sedu5n1VpbkR+R5mDvSy4k3vWfZe1RTdQYaBsba9oY6+HxyoSigETOdQ+KcZSQnh6uopP1NYFPWoZwJ/rqTg==
+  dependencies:
+    "@braintree/asset-loader" "0.4.4"
+    "@braintree/browser-detection" "1.10.0"
+    "@braintree/class-list" "0.2.0"
+    "@braintree/event-emitter" "0.4.1"
+    "@braintree/uuid" "0.1.0"
+    "@braintree/wrap-promise" "2.1.0"
+    braintree-web "3.65.0"
+    promise-polyfill "8.1.3"
+
 braintree-web-drop-in@^1.23.0:
   version "1.23.0"
   resolved "https://registry.yarnpkg.com/braintree-web-drop-in/-/braintree-web-drop-in-1.23.0.tgz#89b1cb819c513f7faa79bde1d15e0e36826e3353"
@@ -5297,7 +5311,7 @@ braintree-web@3.63.0:
     promise-polyfill "8.1.3"
     restricted-input "2.1.1"
 
-braintree-web@^3.64.2:
+braintree-web@3.65.0, braintree-web@^3.40.0, braintree-web@^3.64.2:
   version "3.65.0"
   resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.65.0.tgz#3641e4ea553eeab1b986c7c64fda31e8396ed58a"
   integrity sha512-xjFPJ/xAoF7tBlq4enGiQxk54YkGGi1U3XvMb4LGeK5RsLEq8Ey01wgAYARqTEqalIucLRyBFJn9Xprfm4lX8w==
@@ -5318,7 +5332,7 @@ braintree-web@^3.64.2:
     promise-polyfill "8.1.3"
     restricted-input "3.0.3"
 
-braintree@^2.24.0:
+braintree@^2.14.0, braintree@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/braintree/-/braintree-2.24.0.tgz#6d48e12f715daf1f2e7fee86ab99c00ae0adc415"
   integrity sha512-VqZnFrXerJM5oJv6QYOsJN3cGdJdyu+H1UudzfvUqKLNQxYCkaTpPcgZZoTndz76bPhamTuqOqbqf32m0GZJGw==
@@ -9340,6 +9354,11 @@ hasha@^2.2.0:
     is-stream "^1.0.1"
     pinkie-promise "^2.0.0"
 
+he@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
+  integrity sha1-k0EP0hsAlzUVH4howvJx80J+I/0=
+
 he@1.2.x, he@^1.1.0, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -12501,6 +12520,13 @@ node-gyp@^5.0.2:
     semver "^5.7.1"
     tar "^4.4.12"
     which "^1.3.1"
+
+node-html-parser@^1.1.16:
+  version "1.2.20"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-1.2.20.tgz#37e9ebc627dbe3ff446eea4ac93e3d254b7c6ee4"
+  integrity sha512-1fUpYjAducDrrBSE0etRUV1tM+wSFTudmrslMXuk35wL/L29E7e1CLQn4CNzFLnqtYpmDlWhkD6VUloyHA0dwA==
+  dependencies:
+    he "1.1.1"
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -17230,6 +17256,13 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
+vsf-cms-block-mixin@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vsf-cms-block-mixin/-/vsf-cms-block-mixin-1.1.1.tgz#1143782f5e51699d5d4c6fb93c6b3e731292f966"
+  integrity sha512-qOmyu0Ovfl/GuvNKAk4xQ9qfADfxEg2n2m5wXBjPcQke1EX2Nxh6l6hicmIUiqgttWxKbMp8kE/LS/sw1YewIw==
+  dependencies:
+    node-html-parser "^1.1.16"
+
 vue-analytics@^5.16.1:
   version "5.22.1"
   resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.22.1.tgz#9d6b32da56daee1b9dfb23a267b50349a03f710f"
@@ -17351,6 +17384,11 @@ vue-offline@^1.0.8:
   resolved "https://registry.yarnpkg.com/vue-offline/-/vue-offline-1.0.204.tgz#9c9c0e98fc29cb3334b57848dd4c6f6cd9607d6d"
   integrity sha512-4dYUE81k9tLSPbx7qlJDyKw2QNdNL7aJMuBAfrAhtCjZdZsiXoaS56QApZaTh8BV3yG6sbTdbAD6hDaEYHe3EQ==
 
+vue-progressbar@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/vue-progressbar/-/vue-progressbar-0.7.5.tgz#414730892252b1e45582d4979dec93038e007f79"
+  integrity sha512-VeNG/inMsFbvdCTS7lJ1gjDAKSUZdqkhW9gS1tb0we1rqFKxR+BCEiVUgw5C84vODKb14M2GWHTw0WVdpoVg6g==
+
 vue-router@^3.0.1, vue-router@^3.1.3:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.6.tgz#45f5a3a3843e31702c061dd829393554e4328f89"
@@ -17369,6 +17407,11 @@ vue-server-renderer@^2.6.10, vue-server-renderer@^2.6.11:
     resolve "^1.2.0"
     serialize-javascript "^2.1.2"
     source-map "0.5.6"
+
+vue-slider-component@^2.8.10:
+  version "2.8.16"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.8.16.tgz#b2036f816ed64fa4fcd6741219b80c5063b4fd60"
+  integrity sha512-06gDoheKMU8TdqjoofIJaYfXw3uuWOXF2I14d/F5yW/8iOxnoI4Ks9WSXy8RWY+gs62GBE6tQXHDSX/H6IOaAw==
 
 vue-ssr-webpack-plugin@^3.0.0:
   version "3.0.0"
