@@ -1,6 +1,6 @@
 export default {
   title: 'Default Theme',
-  titleTemplate: '%s - Vue Storefront',
+  titleTemplate: '%s',
   htmlAttrs: {
     lang: 'en'
   },
