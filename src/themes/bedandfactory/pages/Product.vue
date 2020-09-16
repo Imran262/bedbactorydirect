@@ -81,7 +81,10 @@
               class="mb20 uppercase cl-secondary b-t-prod-sku"
               itemprop="sku"
               :content="getCurrentProduct.sku"
-            >{{ $t("SKU: {sku}", { sku: getCurrentProduct.sku }) }}</div>
+            >
+            SKU: 
+            <!-- {{ $t("SKU: {sku}", { sku: getCurrentProduct.sku }) }}  -->
+            {{getCurrentProduct.sku }}</div>
             <div
               class="mb20 uppercase cl-secondary outofstock"
               v-if="!getCurrentProduct.stock.qty"
