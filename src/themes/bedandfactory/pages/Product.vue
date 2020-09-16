@@ -271,7 +271,19 @@
                 getCurrentProduct.custom_options.length > 0
               "
               :product="getCurrentProduct"
+              :color="false"
             />
+            <div
+              v-if="getCurrentProduct.custom_options &&
+                getCurrentProduct.custom_options.length > 0"
+            >
+              <div v-if="getCurrentProduct.custom_options.length > 1">
+                <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button> {{colorPickerCheck}}
+                <div id="overlay" @click="hideColorPicker" v-if="colorPickerCheck" />
+                {{getCurrentProduct.custom_options[2]}}
+                <color-picker :colors="getCurrentProduct" v-if="colorPickerCheck" />
+              </div>
+            </div>
             <div class="product-qty-and-add-to-cart">
               <product-quantity
                 class="product-quantity bt-product-qty row m0 mb35"
@@ -548,8 +560,10 @@ import ReviewStars from "../../../modules/reviews-module/components/ReviewStars"
 import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidget";
 import ProductPrice from "theme/components/core/ProductPrice.vue";
 import axios from "axios";
+import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker";
 export default {
   components: {
+    ColorPicker,
     AddToCart,
     AddToCompare,
     AddToWishlist,
@@ -598,7 +612,8 @@ export default {
       ProDeliveryShow: true,
       ProReviewShow: true,
       ProDimensionShow: true,
-      reviewData: null
+      reviewData: null,
+      colorPickerCheck: false
     };
   },
   computed: {
@@ -768,6 +783,12 @@ export default {
     }
   },
   methods: {
+    showColorPicker() {
+      this.colorPickerCheck=true;
+    },
+    hideColorPicker() {
+      this.colorPickerCheck = false;
+    },
     showDetails(event) {
       this.detailsOpen = true;
       event.target.classList.add("hidden");
@@ -933,6 +954,18 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
 .product {
   &__add-to-compare {
     display: none;
