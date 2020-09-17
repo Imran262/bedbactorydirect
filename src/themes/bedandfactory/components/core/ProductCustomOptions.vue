@@ -1,18 +1,31 @@
 <template>
   <div>
-    {{product.custom_options.length}}
-        <!-- {{product.custom_options[0]}} -->
+    <!-- in custom options  {{color}}
+    {{product.custom_options.length}} -->
+
+    <!-- {{product.custom_options[0]}} -->
     <form class="custom-options">
       <div
         v-for="(option,count) in product.custom_options"
         :key="('customOption_' + option.option_id)"
       >
+
+        <!-- {{(count>1 && color)}}
+        {{(count<=1 && !color)}} -->
         <div v-if="count>1 && color">
+          <h4 class="basin-head">{{ option.title }}</h4>
+
+          <!-- First conditoin is true
+          {{count }}
+          {{color }} -->
           <!-- <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button>
           <div id="overlay" @click="hideColorPicker" v-if="hamza" />
-          <color-picker :colors="option" v-if="hamza" /> -->
-          <div class="mt5 mb5 relative basin_size" v-if="option.type === 'select' || option.type === 'drop_down'" >
-              drop_down
+          <color-picker :colors="option" v-if="hamza" />-->
+          <div
+            class="mt5 mb5 relative basin_size"
+            v-if="option.type === 'select' || option.type === 'drop_down'"
+          >
+
             <select
               :name="'customOption_' + option.option_id"
               class="m0 no-outline"
@@ -34,11 +47,14 @@
             </select>
           </div>
         </div>
-        <div v-if="count<=1" class="custom-option mb15 basin">
+        <div v-if="count<=1 && !color " class="custom-option mb15 basin">
+          <!-- second condition is true
+          {{ count }}
+          {{ color }} -->
           <h4 class="basin-head">{{ option.title }}</h4>
-          <input v-if="option.type === 'field'"
+          <input
+            v-if="option.type === 'field'"
             class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
-            
             type="text"
             :name="('customOption_' + option.option_id)"
             focus
@@ -46,8 +62,13 @@
             :placeholder="option.title"
             @change="optionChanged(option)"
           />
-          <div class="m5 relative" v-for="opval in option.values" :key="opval.option_type_id" v-if="option.type === 'radio'">
-              radio
+          <div
+            class="m5 relative"
+            v-for="opval in option.values"
+            :key="opval.option_type_id"
+            v-if="option.type === 'radio'"
+          >
+            <!-- radio -->
             <input
               @change="optionChanged(option)"
               type="radio"
@@ -64,8 +85,11 @@
               v-html="opval.title"
             />
           </div>
-          <div class="mt5 mb5 relative basin_size" v-if="option.type === 'select' || option.type === 'drop_down'" >
-              drop_down
+          <div
+            class="mt5 mb5 relative basin_size"
+            v-if="option.type === 'select' || option.type === 'drop_down'"
+          >
+            drop_down
             <select
               :name="'customOption_' + option.option_id"
               class="m0 no-outline"
@@ -86,7 +110,12 @@
               </template>
             </select>
           </div>
-          <div class="m5 relative" v-for="opval in option.values" :key="opval.option_type_id" v-if="option.type === 'checkbox'">
+          <div
+            class="m5 relative"
+            v-for="opval in option.values"
+            :key="opval.option_type_id"
+            v-if="option.type === 'checkbox'"
+          >
             checkbox
             <input
               @change="optionChanged(option)"
@@ -120,17 +149,17 @@ import { ProductCustomOptions } from "@vue-storefront/core/modules/catalog/compo
 export default {
   mixins: [ProductCustomOptions],
   components: {
-//    ColorPicker
+    //    ColorPicker
   },
   data() {
     return {
       hamza: false
     };
   },
-  props:{
-    color:{
+  props: {
+    color: {
       type: Boolean,
-      required:true
+      required: true
     }
   },
   methods: {

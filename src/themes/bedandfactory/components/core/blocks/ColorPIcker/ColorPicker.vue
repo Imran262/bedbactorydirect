@@ -1,21 +1,15 @@
 <template>
   <div class="color-picker">
-        <product-custom-options
-                v-if="
-                    colors.custom_options &&
-                    colors.custom_options.length > 0
-                "
-                :product="colors"
-                :color="true"
-                />
+<!-- {{      (colors.custom_options && colors.custom_options.length > 0 ) }} -->
+    <product-custom-options
+      v-if="colors.custom_options && colors.custom_options.length > 0"
+      :product="colors"
+      :color="true"
+    />
   </div>
-  
 </template>
 
 <script>
-
-
-
 import ProductCustomOptions from "theme/components/core/ProductCustomOptions.vue";
 import { mapState } from "vuex";
 import i18n from "@vue-storefront/i18n";
@@ -135,9 +129,9 @@ $color-mine-shaft: color(mine-shaft);
 .color-picker {
   height: 100%;
   width: 30%;
-  /* background-color: red; */
+  background-color: whitesmoke;
   position: absolute;
-  top: 135px;
+  top: 382px;
   /* left: 10px; */
   right: 0px;
   z-index: 2;

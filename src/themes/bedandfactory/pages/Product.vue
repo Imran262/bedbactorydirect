@@ -278,9 +278,9 @@
                 getCurrentProduct.custom_options.length > 0"
             >
               <div v-if="getCurrentProduct.custom_options.length > 1">
-                <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button> {{colorPickerCheck}}
+                <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button> 
                 <div id="overlay" @click="hideColorPicker" v-if="colorPickerCheck" />
-                {{getCurrentProduct.custom_options[2]}}
+                <!-- {{getCurrentProduct.custom_options[2]}} -->
                 <color-picker :colors="getCurrentProduct" v-if="colorPickerCheck" />
               </div>
             </div>
@@ -958,7 +958,7 @@ $bg-secondary: color(secondary, $colors-background);
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 135px;
   left: 0;
   right: 0;
   bottom: 0;
