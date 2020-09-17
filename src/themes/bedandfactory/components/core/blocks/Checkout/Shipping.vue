@@ -193,7 +193,7 @@
             <p class="col-xs-12 col-sm-12 col-md-6 phone-text empty" />
             <p
               class="col-xs-12 col-sm-12 col-md-6 phone-text"
-            >Phone number will only be used to give delivery updates via text message.</p>
+            >phone number will only be used for delivery updates.</p>
             <h4 class="col-xs-12">{{ $t('Shipping method') }}</h4>
             <div v-if="getShippingMethods.length === 0">No Delivery Methods Found</div>
 
@@ -208,7 +208,7 @@
             "
             >
               <label class="radioStyled">
-                Select your delivery day
+                select your preferred delivery day
                 <input
                   type="radio"
                   name="choose-date"
