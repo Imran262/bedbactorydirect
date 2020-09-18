@@ -1,7 +1,7 @@
 <template>
   <div class="addtocart-popup">
-    {{ disabled }}
-    {{isProductDisabled}}
+    <!-- {{ disabled }}
+    {{isProductDisabled}} -->
     <button-full
       @click.native="
         addToCart(product);

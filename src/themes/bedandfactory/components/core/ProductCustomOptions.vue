@@ -88,7 +88,7 @@
             class="mt5 mb5 relative basin_size"
             v-if="option.type === 'select' || option.type === 'drop_down'"
           >
-            drop_down hello
+            <!-- drop_down hello -->
             <select
             ref="dropDown"
               :name="'customOption_' + option.option_id"
@@ -113,8 +113,8 @@
                 <option v-else :value="opval.option_type_id" :key="key">{{ opval.title }}</option>
               </template>
             </select>
-             hello
-            {{option.option_id}}
+             <!-- hello
+            {{option.option_id}} -->
             <!-- {{makeList()}} -->
           </div>
           <div

@@ -29,15 +29,15 @@ export default {
   },
   computed: {
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.componentLoaded = true;
-      disableBodyScroll(this.$refs.container);
-    });
-  },
-  destroyed() {
-    clearAllBodyScrollLocks();
-  },
+  // mounted() {
+  //   this.$nextTick(() => {
+  //     this.componentLoaded = true;
+  //     disableBodyScroll(this.$refs.container);
+  //   });
+  // },
+  // destroyed() {
+  //   clearAllBodyScrollLocks();
+  // },
   methods: {
   }
 };

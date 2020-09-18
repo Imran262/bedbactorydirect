@@ -909,9 +909,16 @@ export default {
     },
     showColorPicker() {
       this.colorPickerCheck = true;
+      //  document.body.style.overflow("hidden");
+    //  let scrollDisable = document.getElementsByTagName("body");
+    //  scrollDisable.style.overflow("hidden");
+    //    console.log( "  document.body",scrollDisable);
+    document.body.style.overflow = 'hidden';
+    
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
+      document.body.style.overflow = 'scroll';
     },
     showDetails(event) {
       this.detailsOpen = true;
