@@ -301,9 +301,9 @@
               />
               <div class="row m0 bt-product-addtocartbtn">
                
-                {{getCurrentCustomOptions}}
+                <!-- {{getCurrentCustomOptions}} -->
                 <!-- {{isAddToCartDisabled}} -->
-                {{!isAddToCartDisabled}}
+                <!-- {{!isAddToCartDisabled}} -->
                 <add-to-cart
                   :product="getCurrentProduct"
                   :custom-options="getCurrentCustomOptions"
@@ -712,20 +712,20 @@ export default {
       );
     },
     isAddToCartDisabled() {
-      console.log(
-        "1122 isss ADD to cart is ",
-        this.quantityError ||
-          this.isStockInfoLoading ||
-          (this.isOnline && this.isSimpleOrConfigurable),
-        " \nQuantity",
-        this.quantityError,
-        " \n sStockInfoLoading",
-        this.isStockInfoLoading,
-        " \nisOnline",
-        this.isOnline,
-        " \nisSimpleOrConfigurable",
-        this.isSimpleOrConfigurable
-      );
+      // console.log(
+      //   "1122 isss ADD to cart is ",
+      //   this.quantityError ||
+      //     this.isStockInfoLoading ||
+      //     (this.isOnline && this.isSimpleOrConfigurable),
+      //   " \nQuantity",
+      //   this.quantityError,
+      //   " \n sStockInfoLoading",
+      //   this.isStockInfoLoading,
+      //   " \nisOnline",
+      //   this.isOnline,
+      //   " \nisSimpleOrConfigurable",
+      //   this.isSimpleOrConfigurable
+      // );
       return (
         this.quantityError ||
         this.isStockInfoLoading ||

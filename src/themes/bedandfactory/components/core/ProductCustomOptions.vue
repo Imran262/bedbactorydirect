@@ -96,10 +96,7 @@
               v-model="inputValues['customOption_' + option.option_id]"
               @focus="$emit('focus')"
               @blur="$emit('blur')"
-              @change="
-              optionChanged(option);
-              makeList();
-              "
+              @change="optionChanged(option);"
             >
            
               <!-- <option
@@ -171,28 +168,28 @@ export default {
     }
   },
   methods: {
-    makeList(option) {
-      console.log("112233 options are ", this.options.length);
-      console.log("Here we are");
+    // makeList(option) {
+    //   console.log("112233 options are ", this.options.length);
+    //   console.log("Here we are");
       
-      console.log("refernce is ",this.$refs.dropDown);
+    //   console.log("refernce is ",this.$refs.dropDown);
       
-      if (this.options.length > 0) {
-      }
-    },
-    setOptions() {
-      console.log("1122 Custom options are ", this.customOptions.length);
-      this.customOptions.forEach((option, index) => {
-        console.log("Now traversing Option no ", index);
-        this.optionChanged(option);
-      });
-    },
-    sendStorageOption(option) {
-      this.$emit("storage", option);
-    },
-    sendSizeOption(option) {
-      this.$emit("size", option);
-    }
+    //   if (this.options.length > 0) {
+    //   }
+    // },
+    // setOptions() {
+    //   console.log("1122 Custom options are ", this.customOptions.length);
+    //   this.customOptions.forEach((option, index) => {
+    //     console.log("Now traversing Option no ", index);
+    //     this.optionChanged(option);
+    //   });
+    // },
+    // sendStorageOption(option) {
+    //   this.$emit("storage", option);
+    // },
+    // sendSizeOption(option) {
+    //   this.$emit("size", option);
+    // }
   }
 };
 </script>

@@ -31,9 +31,9 @@ export const ProductCustomOptions = {
 
       return customOptions.reduce((selectedOptions, option) => {
         const fieldName = customOptionFieldName(option);
-        console.log('112255', fieldName);
+      //  console.log('112255', fieldName);
         selectedOptions[fieldName] = selectedCustomOptionValue(option.type, option.values, this.inputValues[fieldName])
-        console.log('112255',   selectedOptions);
+      //  console.log('112255',   selectedOptions);
         return selectedOptions
       }, {})
     }
@@ -64,7 +64,7 @@ export const ProductCustomOptions = {
       }
     },
     optionChanged (option) {
-      console.log('1144 Current options is ',option.title ,typeof option ,JSON.stringify(option));
+    //  console.log('1144 Current options is ',option.title ,typeof option ,JSON.stringify(option));
       const fieldName = customOptionFieldName(option)
       this.validateField(option)
       this.setCustomOptionValue({ optionId: option.option_id, optionValue: this.selectedOptions[fieldName] })

@@ -82,7 +82,7 @@ export default {
       isAddingToCart: "cart/getIsAdding"
     }),
     isProductDisabled() {
-      console.log("11223 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart);
+   //   console.log("11223 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart);
       return (
         this.disabled ||
         formatProductMessages(this.product.errors) !== "" ||
