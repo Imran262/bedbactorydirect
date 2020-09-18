@@ -221,8 +221,46 @@
                 />
               </label>
             </div>
+            <!-- available date are
+            {{getMinDate}}
+            <br />
+            {{getMaxDate}}
+            <br />
+            {{disabledDateFn}} -->
+            <!-- {{disabledDateFn}}
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            {{attributes}}
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />-->
             <no-ssr>
               <v-calendar
+                v-if="
+                getMinDate &&
+                  getMaxDate &&
+                  disabledDateFn &&
+                  attributes &&
+                  isCalendarSelected
+              "
+                class="calendar col-md-6 col-xs-12"
+                v-model="date"
+                is-required
+                color="blue"
+                ref="vCalendarRef"
+                @dayclick="handleOnClick"
+                is-inline
+                :attributes="attributes"
+                :available-dates="disabledDateFn"
+              />
+              <!-- Original <v-calendar
                 v-if="
                 getMinDate &&
                   getMaxDate &&
@@ -241,7 +279,7 @@
                 is-inline
                 :attributes="attributes"
                 :available-dates="disabledDateFn"
-              />
+              /> -->
             </no-ssr>
 
             <!-- Here we are {{ shippingSlotsData &&
@@ -402,7 +440,7 @@
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
-  unicodeAlphaNum,
+  unicodeAlphaNum
 } from "@vue-storefront/core/helpers/validators";
 import { Shipping } from "@vue-storefront/core/modules/checkout/components/Shipping";
 
@@ -420,7 +458,7 @@ import {
   addMonths,
   differenceInDays,
   differenceInMonths,
-  parseISO,
+  parseISO
 } from "date-fns";
 
 export default {
@@ -436,7 +474,7 @@ export default {
       isCalendarSelected: true,
       shouldShowChooseDate: true,
       selectedMethod: null,
-      isDaySelected: null,
+      isDaySelected: null
     };
   },
 
@@ -452,7 +490,7 @@ export default {
         this.$refs.shippingMethodWithoutDate &&
         this.$refs.shippingMethodWithoutDate.length > 0
       ) {
-        this.$refs.shippingMethodWithoutDate.forEach((option) => {
+        this.$refs.shippingMethodWithoutDate.forEach(option => {
           if (option) option.checked = false;
         });
       }
@@ -501,7 +539,7 @@ export default {
         await this.changeCountry();
         const address = {
           country_id: this.shipping.country,
-          postcode: this.shipping.zipCode,
+          postcode: this.shipping.zipCode
         };
         this.date = "";
         this.shippingSlotsData = [];
@@ -566,8 +604,8 @@ export default {
         const days = differenceInDays(endDate, startDate);
 
         return [...Array(days + 1).keys()]
-          .map((i) => addDays(startDate, i))
-          .map((item) => {
+          .map(i => addDays(startDate, i))
+          .map(item => {
             return item.toISOString().slice(0, 10);
           });
       }
@@ -576,8 +614,8 @@ export default {
         const months = differenceInMonths(endDate, startDate);
 
         return [...Array(months + 1).keys()]
-          .map((i) => addMonths(startDate, i))
-          .map((item) => item.toISOString().slice(0, 10));
+          .map(i => addMonths(startDate, i))
+          .map(item => item.toISOString().slice(0, 10));
       }
     },
     async postalcodelookup() {
@@ -654,15 +692,15 @@ export default {
         city: ele3,
         streetAddress: ele1,
         state: ele4,
-        zipCode: ele5,
+        zipCode: ele5
       });
       await this.updateShippingOptions();
     },
 
-    shipcheckedFn: function () {
+    shipcheckedFn: function() {
       var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
       tick_elem.classList.add("tick-active");
-    },
+    }
   },
   components: {
     ButtonFull,
@@ -672,7 +710,7 @@ export default {
     BaseSelect,
     "no-ssr": NoSSR,
     "v-calendar": () => import("v-calendar/lib/components/date-picker.umd"),
-    ShippingMethod,
+    ShippingMethod
   },
   created() {
     const craftyplugin = document.createElement("script");
@@ -686,12 +724,12 @@ export default {
       getShippingMethods: "shipping/getShippingMethods",
       getPersonalDetails: "checkout/getPersonalDetails",
       getShippingDetails: "checkout/getShippingDetails",
-      getCartToken: "cart/getCartToken",
+      getCartToken: "cart/getCartToken"
     }),
     getShippingMethodsWithoutDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const shippingArrayWithoutDates = this.getShippingMethods.filter(
-        (shippingMethod) =>
+        shippingMethod =>
           regex.test(shippingMethod.method_code) !==
           !regex.test(shippingMethod.method_code)
       );
@@ -701,55 +739,77 @@ export default {
     getShippingMethodsWithDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const shippingArrayWithDates = this.getShippingMethods.filter(
-        (shippingMethod) => regex.test(shippingMethod.method_code)
+        shippingMethod => regex.test(shippingMethod.method_code)
       );
       console.log("", shippingArrayWithDates);
       return shippingArrayWithDates;
     },
     countryOptions() {
-      return this.countries.map((item) => {
+      return this.countries.map(item => {
         return {
           value: item.code,
-          label: item.name,
+          label: item.name
         };
       });
     },
     attributes() {
       // console.log("Attributes calling function changeDateOrder");
+      // let newDate = new Date("December 25, 1995 23:15:00");
+      // newDate = new Date("11/02/2020");
+      // console.log("1122 Date is ", newDate, " \n Day is ", newDate.getDay());
+
       return [
         // Attributes for dates
+
         ...this.getShippingMethods.map((shippingMethod, index) => ({
-          dates: new Date(
-            this.changeDateOrder(
-              this.getDateFromMethodCode(shippingMethod.method_code)
-            )
-          ),
+          dates: {
+            start: new Date(
+              this.changeDateOrder(
+                this.getDateFromMethodCode(shippingMethod.method_code)
+              )
+            ),
+            weekdays: [1, 2, 3]
+          },
           popover: {
             label: `The price is ${shippingMethod.price_incl_tax}`,
-            hideIndicator: true,
+            hideIndicator: true
           },
           customData: shippingMethod,
-        })),
+          weekdays: [1, 2, 3]
+        }))
       ];
     },
 
     disabledDateFn() {
       // console.log("11122 disable date function calling changeDateOrder", this.getSortedDates);
 
-      const dotteddates = this.getSortedDates.map((item) => {
+      const dotteddates = this.getSortedDates.map(item => {
         // console.log("11111111", item, typeof item);
 
         this.changeDateOrder(item);
       });
       // return true;
       const allDatesArr = this.getAllDates(this.getMinDate, this.getMaxDate);
-      console.log("allDatesArr", allDatesArr);
+      console.log(" ", allDatesArr);
       const finalDateArray = allDatesArr.filter(
-        (singleDate) => !dotteddates.includes(singleDate)
+        singleDate => !dotteddates.includes(singleDate)
       );
+      const finalFinal = finalDateArray.filter(date => {
+        let newDate = new Date(date);
+        // console.log(
+        //   "112233 Date is ",
+        //   newDate,
+        //   " \n Day is ",
+        //   newDate.getDay()
+        // );
+        // date = newDate;
+        return newDate.getDay() != 0;
+      });
       console.log("finalDateArray", finalDateArray);
-      return finalDateArray;
+      // console.log("after removing Sundays", finalFinal);
+      return finalFinal;
     },
+    getDatesWithoutSunday(finalDates) {},
     getMinDate() {
       if (this.getSortedDates[0]) {
         const minDate = this.getSortedDates[0].split("/");
@@ -775,14 +835,14 @@ export default {
     getSortedDates() {
       // console.log("In get sorted dates functions");
       return this.getShippingMethods
-        .map((shippingMethod) =>
+        .map(shippingMethod =>
           this.getDateFromMethodCode(shippingMethod.method_code)
         )
-        .filter((dateStr) => dateStr !== undefined)
+        .filter(dateStr => dateStr !== undefined)
         .sort((a, b) => {
           return a > b ? 1 : a < b ? -1 : 0;
         });
-    },
+    }
   },
   watch: {
     getShippingMethodsWithoutDates() {
@@ -796,48 +856,48 @@ export default {
     },
     isCalendarSelected() {
       // this.selectFirstShippingMethod();
-    },
+    }
   },
   validations: {
     shipping: {
       firstName: {
         required,
         minLength: minLength(2),
-        unicodeAlpha,
+        unicodeAlpha
       },
       lastName: {
         required,
-        unicodeAlpha,
+        unicodeAlpha
       },
       country: {
-        required,
+        required
       },
       streetAddress: {
         required,
-        unicodeAlphaNum,
+        unicodeAlphaNum
       },
       apartmentNumber: {
         required,
-        unicodeAlphaNum,
+        unicodeAlphaNum
       },
       shippingMethod: {
-        required,
+        required
       },
       zipCode: {
         required,
         minLength: minLength(3),
-        unicodeAlphaNum,
+        unicodeAlphaNum
       },
       city: {
         required,
-        unicodeAlpha,
+        unicodeAlpha
       },
       phoneNumber: {
         required,
-        maxLength: maxLength(11),
-      },
-    },
-  },
+        maxLength: maxLength(11)
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
