@@ -20,7 +20,7 @@
     </div>
     <div class="row pl20 pr20" v-if="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-11 col-sm-9 col-md-10">
+      <div class="col-xs-11 col-sm-12 col-md-10">
         <div class="row" v-if="isActive">
           <base-checkbox
             class="col-xs-12 mb15"
@@ -223,9 +223,14 @@
           <div class="col-xs-12">
             <h4>{{ $t('Payment method') }}</h4>
           </div>
-          <div v-for="(method, index) in paymentMethods" :key="index" class="col-md-6">
+          <div v-for="(method, index) in paymentMethods" :key="index" class="col-md-12 payment-method-inner">
             <label class="radioStyled">
-              {{ method.title ? method.title : method.name }}
+              <template v-if="method.code === 'braintree'">
+                Pay By Card
+              </template>
+              <template v-else>
+                {{ method.title ? method.title : method.name }}
+              </template>
               <input
                 type="radio"
                 :value="method.code"
@@ -235,6 +240,22 @@
               />
               <span class="checkmark" />
             </label>
+            <div class="bank-card" v-if="method.code === 'braintree'">
+                <ul>
+                  <li>
+                    <img src="/assets/footer/footer-master-card-icon.png" />
+                  </li>
+                  <li>
+                    <img src="/assets/footer/footer-master-pro-icon.png" />
+                  </li>
+                  <li>
+                    <img src="/assets/footer/footer-visa-icon.png" />
+                  </li>
+                  <li>
+                    <img src="/assets/footer/footer-paypal-icon.png" />
+                  </li>
+                </ul>
+              </div>
           </div>
           <span
             class="validation-error"
@@ -510,6 +531,7 @@ button.find-address {
   label {
     color: #676767;
     font-size: 16px;
+        float: left;
   }
   .checkmark {
     &:after {
@@ -587,6 +609,12 @@ span.postcodelookup-required {
 .billing-payment .payment-phone-number {
   margin-top: 20px;
 }
+.payment-method-inner:nth-child(2n + 1) {
+    display: none;
+}
+.bank-card {
+    display: flex;
+}
 @media (min-width: 320px) and (max-width: 480px) {
   .bank-card ul {
     padding-left: 5px;
@@ -629,5 +657,10 @@ span.postcodelookup-required {
   .billing-payment input {
     margin-top: 10px;
   }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .bank-card ul li img{
+    width: 35px;
+}
 }
 </style>
