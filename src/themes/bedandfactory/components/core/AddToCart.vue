@@ -1,5 +1,7 @@
 <template>
   <div class="addtocart-popup">
+    {{ disabled }}
+    {{isProductDisabled}}
     <button-full
       @click.native="
         addToCart(product);
@@ -80,6 +82,7 @@ export default {
       isAddingToCart: "cart/getIsAdding"
     }),
     isProductDisabled() {
+      console.log("11223 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart);
       return (
         this.disabled ||
         formatProductMessages(this.product.errors) !== "" ||

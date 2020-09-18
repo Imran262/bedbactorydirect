@@ -265,7 +265,7 @@
               "
               :product="getCurrentProduct"
             />
-            <product-custom-options
+            <product-custom-options 
               v-else-if="
                 getCurrentProduct.custom_options &&
                 getCurrentProduct.custom_options.length > 0
@@ -278,10 +278,10 @@
                 getCurrentProduct.custom_options.length > 0"
             >
               <div v-if="getCurrentProduct.custom_options.length > 1">
-                <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button> 
+                <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button>
                 <div id="overlay" @click="hideColorPicker" v-if="colorPickerCheck" />
                 <!-- {{getCurrentProduct.custom_options[2]}} -->
-                <color-picker :colors="getCurrentProduct" v-if="colorPickerCheck" />
+                <color-picker :customOptions="customCustomOptions" :colors="getCurrentProduct" v-show="colorPickerCheck" />
               </div>
             </div>
             <div class="product-qty-and-add-to-cart">
@@ -300,6 +300,10 @@
                 @error="handleQuantityError"
               />
               <div class="row m0 bt-product-addtocartbtn">
+               
+                {{getCurrentCustomOptions}}
+                <!-- {{isAddToCartDisabled}} -->
+                {{!isAddToCartDisabled}}
                 <add-to-cart
                   :product="getCurrentProduct"
                   :custom-options="getCurrentCustomOptions"
@@ -613,7 +617,8 @@ export default {
       ProReviewShow: true,
       ProDimensionShow: true,
       reviewData: null,
-      colorPickerCheck: false
+      colorPickerCheck: false,
+      customCustomOptions: this.getOptions()
     };
   },
   computed: {
@@ -707,6 +712,20 @@ export default {
       );
     },
     isAddToCartDisabled() {
+      console.log(
+        "1122 isss ADD to cart is ",
+        this.quantityError ||
+          this.isStockInfoLoading ||
+          (this.isOnline && this.isSimpleOrConfigurable),
+        " \nQuantity",
+        this.quantityError,
+        " \n sStockInfoLoading",
+        this.isStockInfoLoading,
+        " \nisOnline",
+        this.isOnline,
+        " \nisSimpleOrConfigurable",
+        this.isSimpleOrConfigurable
+      );
       return (
         this.quantityError ||
         this.isStockInfoLoading ||
@@ -783,8 +802,113 @@ export default {
     }
   },
   methods: {
+    getOptions(){
+  //    return this.getCurrentProduct
+      return [
+        {
+          image_size_x: "0",
+          image_size_y: "0",
+          max_characters: "0",
+          price: 0,
+          values: [
+            {
+              price: 0,
+              option_type_id: 17409,
+              price_type: "fixed",
+              sku: "3ft",
+              title: "Single",
+              sort_order: 0
+            },
+            {
+              price: 70,
+              option_type_id: 17410,
+              price_type: "fixed",
+              sku: "4ft",
+              title: "Small Double",
+              sort_order: 1
+            },
+            {
+              price: 70,
+              option_type_id: 17411,
+              price_type: "fixed",
+              sku: "4ft6",
+              title: "Double",
+              sort_order: 2
+            },
+            {
+              price: 110,
+              option_type_id: 17412,
+              price_type: "fixed",
+              sku: "5ft",
+              title: "King",
+              sort_order: 3
+            },
+            {
+              price: 200,
+              option_type_id: 17413,
+              price_type: "fixed",
+              sku: "6ft",
+              title: "Super King",
+              sort_order: 4
+            }
+          ],
+          price_type: null,
+          option_id: 13,
+          is_require: true,
+          type: "select",
+          title: "Size",
+          sort_order: 1
+        },
+        {
+          image_size_x: "0",
+          image_size_y: "0",
+          max_characters: "0",
+          price: 0,
+          values: [
+            {
+              price: 0,
+              option_type_id: 17414,
+              price_type: "fixed",
+              sku: "standard",
+              title: "No Storage",
+              sort_order: 0
+            },
+            {
+              price: 60,
+              option_type_id: 17415,
+              price_type: "fixed",
+              sku: "2drs",
+              title: "2 Drawers Side",
+              sort_order: 1
+            },
+            {
+              price: 60,
+              option_type_id: 17416,
+              price_type: "fixed",
+              sku: "2dre",
+              title: "2 Drawers End",
+              sort_order: 2
+            },
+            {
+              price: 100,
+              option_type_id: 17417,
+              price_type: "fixed",
+              sku: "4dr",
+              title: "4 Drawers",
+              sort_order: 3
+            }
+          ],
+          price_type: null,
+          option_id: 14,
+          is_require: true,
+          type: "select",
+          title: "Storage",
+          sort_order: 2
+        }
+      ]
+    },
     showColorPicker() {
-      this.colorPickerCheck=true;
+      this.colorPickerCheck = true;
     },
     hideColorPicker() {
       this.colorPickerCheck = false;

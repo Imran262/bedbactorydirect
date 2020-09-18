@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- in custom options  {{color}}
-    {{product.custom_options.length}} -->
+    {{product.custom_options.length}}-->
 
     <!-- {{product.custom_options[0]}} -->
     <form class="custom-options">
@@ -9,15 +9,15 @@
         v-for="(option,count) in product.custom_options"
         :key="('customOption_' + option.option_id)"
       >
-
+        <!-- {{option}} -->
         <!-- {{(count>1 && color)}}
-        {{(count<=1 && !color)}} -->
-        <div v-if="count>1 && color">
+        {{(count<=1 && !color)}}-->
+        <div v-if="count>1 && color" class="custom-option mb15 basin">
           <h4 class="basin-head">{{ option.title }}</h4>
-
+          <!-- about to call function {{ setOptions()}} -->
           <!-- First conditoin is true
           {{count }}
-          {{color }} -->
+          {{color }}-->
           <!-- <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button>
           <div id="overlay" @click="hideColorPicker" v-if="hamza" />
           <color-picker :colors="option" v-if="hamza" />-->
@@ -25,7 +25,6 @@
             class="mt5 mb5 relative basin_size"
             v-if="option.type === 'select' || option.type === 'drop_down'"
           >
-
             <select
               :name="'customOption_' + option.option_id"
               class="m0 no-outline"
@@ -50,7 +49,7 @@
         <div v-if="count<=1 && !color " class="custom-option mb15 basin">
           <!-- second condition is true
           {{ count }}
-          {{ color }} -->
+          {{ color }}-->
           <h4 class="basin-head">{{ option.title }}</h4>
           <input
             v-if="option.type === 'field'"
@@ -89,15 +88,20 @@
             class="mt5 mb5 relative basin_size"
             v-if="option.type === 'select' || option.type === 'drop_down'"
           >
-            drop_down
+            drop_down hello
             <select
+            ref="dropDown"
               :name="'customOption_' + option.option_id"
               class="m0 no-outline"
               v-model="inputValues['customOption_' + option.option_id]"
               @focus="$emit('focus')"
               @blur="$emit('blur')"
-              @change="optionChanged(option)"
+              @change="
+              optionChanged(option);
+              makeList();
+              "
             >
+           
               <!-- <option
               v-for="(opval, key) in option.values"
               :key="key"
@@ -109,6 +113,9 @@
                 <option v-else :value="opval.option_type_id" :key="key">{{ opval.title }}</option>
               </template>
             </select>
+             hello
+            {{option.option_id}}
+            <!-- {{makeList()}} -->
           </div>
           <div
             class="m5 relative"
@@ -145,6 +152,7 @@
 
 <script>
 import { ProductCustomOptions } from "@vue-storefront/core/modules/catalog/components/ProductCustomOptions.ts";
+import { changeFilterQuery } from '@vue-storefront/core/modules/catalog-next/helpers/filterHelpers';
 //import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker";
 export default {
   mixins: [ProductCustomOptions],
@@ -153,7 +161,7 @@ export default {
   },
   data() {
     return {
-      hamza: false
+      options: []
     };
   },
   props: {
@@ -163,11 +171,27 @@ export default {
     }
   },
   methods: {
-    showColorPicker() {
-      this.hamza = true;
+    makeList(option) {
+      console.log("112233 options are ", this.options.length);
+      console.log("Here we are");
+      
+      console.log("refernce is ",this.$refs.dropDown);
+      
+      if (this.options.length > 0) {
+      }
     },
-    hideColorPicker() {
-      this.hamza = false;
+    setOptions() {
+      console.log("1122 Custom options are ", this.customOptions.length);
+      this.customOptions.forEach((option, index) => {
+        console.log("Now traversing Option no ", index);
+        this.optionChanged(option);
+      });
+    },
+    sendStorageOption(option) {
+      this.$emit("storage", option);
+    },
+    sendSizeOption(option) {
+      this.$emit("size", option);
     }
   }
 };

@@ -1,11 +1,11 @@
 <template>
   <div class="color-picker">
-<!-- {{      (colors.custom_options && colors.custom_options.length > 0 ) }} -->
+    <!-- {{      (colors.custom_options && colors.custom_options.length > 0 ) }} -->
     <product-custom-options
       v-if="colors.custom_options && colors.custom_options.length > 0"
       :product="colors"
       :color="true"
-    />
+    />  
   </div>
 </template>
 
@@ -13,84 +13,21 @@
 import ProductCustomOptions from "theme/components/core/ProductCustomOptions.vue";
 import { mapState } from "vuex";
 import i18n from "@vue-storefront/i18n";
-import SidebarMenu from "@vue-storefront/core/compatibility/components/blocks/SidebarMenu/SidebarMenu";
-import SubBtn from "theme/components/core/blocks/SidebarMenu/SubBtn";
-import SubCategory from "theme/components/core/blocks/SidebarMenu/SubCategory";
-import { formatCategoryLink } from "@vue-storefront/core/modules/url/helpers";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import { require } from "vue-analytics";
 
 export default {
   components: {
-    SubCategory,
-    SubBtn,
     ProductCustomOptions
-  },
-  mixins: [SidebarMenu],
-  data() {
-    return {
-      myAccountLinks: [
-        {
-          id: 1,
-          name: i18n.t("My profile"),
-          url: "/my-account"
-        },
-        {
-          id: 2,
-          name: i18n.t("My shipping details"),
-          url: "/my-account/shipping-details"
-        },
-        {
-          id: 3,
-          name: i18n.t("My newsletter"),
-          url: "/my-account/newsletter"
-        },
-        {
-          id: 4,
-          name: i18n.t("My orders"),
-          url: "/my-account/orders"
-        },
-        {
-          id: 5,
-          name: i18n.t("My loyalty card"),
-          url: "#"
-        },
-        {
-          id: 6,
-          name: i18n.t("My product reviews"),
-          url: "#"
-        }
-      ],
-      componentLoaded: false
-    };
   },
   props: {
     colors: {
       type: Object,
+      default: false,
       required: true
     }
   },
   computed: {
-    mainListStyles() {
-      return this.submenu.depth
-        ? `transform: translateX(${this.submenu.depth * 100}%)`
-        : false;
-    },
-    ...mapState({
-      submenu: state => state.ui.submenu,
-      currentUser: state => state.user.current
-    }),
-    getSubmenu() {
-      return this.submenu;
-    },
-    visibleCategories() {
-      return this.categories.filter(category => {
-        return category.product_count > 0 || category.children_count > 0;
-      });
-    },
-    isCurrentMenuShowed() {
-      return !this.getSubmenu || !this.getSubmenu.depth;
-    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -102,18 +39,6 @@ export default {
     clearAllBodyScrollLocks();
   },
   methods: {
-    login() {
-      if (!this.currentUser && this.isCurrentMenuShowed) {
-        this.$nextTick(() => {
-          this.$store.commit("ui/setAuthElem", "login");
-          this.$bus.$emit("modal-show", "modal-signup");
-          this.$router.push({ name: "my-account" });
-        });
-      }
-    },
-    categoryLink(category) {
-      return formatCategoryLink(category);
-    }
   }
 };
 </script>
@@ -131,7 +56,7 @@ $color-mine-shaft: color(mine-shaft);
   width: 30%;
   background-color: whitesmoke;
   position: absolute;
-  top: 382px;
+  top: 300px;
   /* left: 10px; */
   right: 0px;
   z-index: 2;
