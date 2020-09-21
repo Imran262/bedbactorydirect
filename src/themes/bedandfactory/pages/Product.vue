@@ -173,7 +173,7 @@
                 <div class="h5" v-for="option in getProductOptions" :key="option.id">
                   <h4 class="variants-label basin-head" data-testid="variantsLabel">
                     {{ option.label }}
-                    <span class="weight-700">{{ getOptionLabel(option) }}</span>
+                    <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                   </h4>
                   <div class="row top-xs m0 pt15 pb40 variants-wrapper">
                     <div class="sizes basin_size" v-if="option.label == 'Color'">
