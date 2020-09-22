@@ -596,6 +596,7 @@ export default {
         return shippingMethod.match(regex)[0];
       } else {
         console.log("Else", shippingMethod);
+         return false;
       }
     },
 
