@@ -594,9 +594,6 @@ export default {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       if (shippingMethod && shippingMethod.match(regex)) {
         return shippingMethod.match(regex)[0];
-      } else {
-        console.log("Else", shippingMethod);
-         return false;
       }
     },
 

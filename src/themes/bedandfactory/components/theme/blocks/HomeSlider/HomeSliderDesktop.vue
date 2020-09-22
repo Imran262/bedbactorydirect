@@ -11,7 +11,6 @@ export default {
   components: {
     SliderDesktop
   },
-  mixins: [SliderDesktop],
   data() {
     return {
       slides: [
