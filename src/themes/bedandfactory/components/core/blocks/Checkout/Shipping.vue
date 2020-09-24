@@ -91,7 +91,7 @@
               class="col-xs-12 mb10"
               type="text"
               name="street-address"
-              :placeholder="$t('Street name *')"
+              :placeholder="$t('Street name and House/Apartment number *')"
               v-model.trim="shipping.streetAddress"
               @blur="$v.shipping.streetAddress.$touch()"
               autocomplete="address-line1"
@@ -105,7 +105,7 @@
               class="col-xs-12 mb10"
               type="text"
               name="apartment-number"
-              :placeholder="$t('House/Apartment number *')"
+              :placeholder="$t(' ')"
               v-model.trim="shipping.apartmentNumber"
               @blur="$v.shipping.apartmentNumber.$touch()"
               autocomplete="address-line2"
@@ -139,12 +139,12 @@
               class="col-xs-12 col-sm-6 mb10"
               type="text"
               name="state"
-              :placeholder="$t('State / Province')"
+              :placeholder="$t('County')"
               v-model.trim="shipping.state"
               autocomplete="address-level1"
             />
 
-            <base-input
+            <!-- <base-input
               class="col-xs-12 col-sm-6 mb10"
               type="text"
               name="zip-code"
@@ -162,10 +162,10 @@
                 text: $t('Name must have at least 3 letters.')
               }
             ]"
-            />
+            /> -->
 
             <base-select
-              class="col-xs-12 col-sm-6 mb10"
+              class="col-xs-12 col-sm-6 mb0"
               name="countries"
               :options="countryOptions"
               :selected="shipping.country"
@@ -183,12 +183,13 @@
             />
 
             <base-input
-              class="col-xs-12 mb10"
+              class="col-xs-12 col-sm-6 mb0"
               type="text"
               name="phone-number"
               :placeholder="$t('Phone Number')"
               v-model.trim="shipping.phoneNumber"
               autocomplete="tel"
+              
             />
             <p class="col-xs-12 col-sm-12 col-md-6 phone-text empty" />
             <p
