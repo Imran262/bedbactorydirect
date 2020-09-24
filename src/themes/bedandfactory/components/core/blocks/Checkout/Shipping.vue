@@ -144,25 +144,15 @@
               autocomplete="address-level1"
             />
 
-            <!-- <base-input
-              class="col-xs-12 col-sm-6 mb10"
+            <base-input
+              class="col-xs-12 col-sm-6 mb10 hidden"
               type="text"
               name="zip-code"
               :placeholder="$t('Zip-code *')"
               v-model.trim="shipping.zipCode"
               @blur="$v.shipping.zipCode.$touch()"
               autocomplete="postal-code"
-              :validations="[
-              {
-                condition: $v.shipping.zipCode.$error && !$v.shipping.zipCode.required,
-                text: $t('Field is required')
-              },
-              {
-                condition: !$v.shipping.zipCode.minLength,
-                text: $t('Name must have at least 3 letters.')
-              }
-            ]"
-            /> -->
+            />
 
             <base-select
               class="col-xs-12 col-sm-6 mb0"
@@ -189,7 +179,6 @@
               :placeholder="$t('Phone Number')"
               v-model.trim="shipping.phoneNumber"
               autocomplete="tel"
-              
             />
             <p class="col-xs-12 col-sm-12 col-md-6 phone-text empty" />
             <p
@@ -223,7 +212,7 @@
               </label>
             </div>
             <no-ssr>
-                            <!-- <v-calendar
+              <!-- <v-calendar
               v-if="
                 getMinDate &&
                   getMaxDate &&
@@ -242,31 +231,31 @@
               is-inline
               :attributes="attributes"
               :available-dates="disabledDateFn"
-            /> -->
-           
+              />-->
+
               <v-calendar
-              v-if="
+                v-if="
                 getMinDate &&
                   getMaxDate &&
                   disabledDateFn &&
                   attributes &&
                   isCalendarSelected
               "
-              class="calendar col-md-6 col-xs-12"
-              v-model="date"
-              is-required
-              color="blue"
-              ref="vCalendarRef"
-              @dayclick="handleOnClick"
-              is-inline
-              :attributes="attributes"
-              :available-dates="disabledDateFn"
-            />
+                class="calendar col-md-6 col-xs-12"
+                v-model="date"
+                is-required
+                color="blue"
+                ref="vCalendarRef"
+                @dayclick="handleOnClick"
+                is-inline
+                :attributes="attributes"
+                :available-dates="disabledDateFn"
+              />
             </no-ssr>
-  
+
             <!-- Here we are {{ shippingSlotsData &&
                 shippingSlotsData.length > 0 &&
-                isCalendarSelected }} -->
+            isCalendarSelected }}-->
             <div
               class="calendar-right col-md-6 col-xs-12"
               v-if="
@@ -294,8 +283,8 @@
                           true
                       "
                       >
-                      <!-- £-Pallet -->
-                      £-Pallet
+                        <!-- £-Pallet -->
+                        £-Pallet
                       </template>
                       <template
                         v-if="
@@ -336,7 +325,7 @@
                 <strong>Please select delivery date</strong>
               </p>
             </div>
-           
+
             <!-- 
             <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
               <label class="radioStyled">
@@ -356,9 +345,16 @@
               v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required"
             >{{ $t('Field is required') }}</span>-->
           </div>
+          <span
+            class="validation-error"
+            v-if="
+              $v.shipping.shippingMethod.$error &&
+                !$v.shipping.shippingMethod.required
+            "
+          >{{ $t('Field is required') }}</span>
         </form>
       </div>
-       <div
+      <div
         class="col-xs-12 col-sm-12 col-md-12"
         v-if="$v.shipping.$invalid || (isCalendarSelected && shippingSlotsData.length === 0)"
       >
@@ -377,7 +373,7 @@
             <button-full
               data-testid="shippingSubmit"
               @click.native="sendDataToCheckout(); shipcheckedFn();"
-              :disabled="$v.shipping.$invalid || shippingMethods.length <= 0"
+              :disabled="$v.shipping.$invalid || getShippingMethods.length === 0 || (isCalendarSelected && shippingSlotsData.length === 0)"
             >{{ $t('Continue to payment') }}</button-full>
           </div>
         </div>
@@ -449,7 +445,7 @@ import {
 
 export default {
   inheritAttrs: false,
-  
+
   //  ShippingMethod
   data() {
     return {
@@ -463,7 +459,7 @@ export default {
       isDaySelected: null
     };
   },
-  
+
   methods: {
     handleShippingMethodWithoutDateClick() {
       if (this.isCalendarSelected) {
@@ -545,7 +541,7 @@ export default {
         console.error(error);
       }
     },
-     selectFirstShippingMethod() {
+    selectFirstShippingMethod() {
       if (this.isCalendarSelected && this.getSortedDates[0]) {
         setTimeout(async () => {
           const selectionDate = this.getSortedDates[0].split("/");
@@ -584,7 +580,7 @@ export default {
         console.log("Else", shippingMethod);
       }
     },
-    
+
     getAllDates(startDate, endDate, interval = "DAY") {
       if (interval === "DAY") {
         const days = differenceInDays(endDate, startDate);
@@ -686,7 +682,7 @@ export default {
     shipcheckedFn: function() {
       var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
       tick_elem.classList.add("tick-active");
-    },   
+    }
   },
   components: {
     ButtonFull,
@@ -707,10 +703,10 @@ export default {
   mixins: [Shipping],
   computed: {
     ...mapGetters({
-      getShippingMethods: 'shipping/getShippingMethods',
-      getPersonalDetails: 'checkout/getPersonalDetails',
-      getShippingDetails: 'checkout/getShippingDetails',
-      getCartToken: 'cart/getCartToken'
+      getShippingMethods: "shipping/getShippingMethods",
+      getPersonalDetails: "checkout/getPersonalDetails",
+      getShippingDetails: "checkout/getShippingDetails",
+      getCartToken: "cart/getCartToken"
     }),
     getShippingMethodsWithoutDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
@@ -756,7 +752,7 @@ export default {
         }))
       ];
     },
-    
+
     disabledDateFn() {
       // console.log("11122 disable date function calling changeDateOrder", this.getSortedDates);
 
