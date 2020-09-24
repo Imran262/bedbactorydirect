@@ -173,12 +173,31 @@
             />
 
             <base-input
-              class="col-xs-12 col-sm-6 mb0"
-              type="text"
-              name="phone-number"
-              :placeholder="$t('Phone Number')"
-              v-model.trim="shipping.phoneNumber"
-              autocomplete="tel"
+              class="col-xs-12 col-sm-12 col-md-6 mb0 shipping-phone-number"
+            type="tel"
+            onkeydown="return event.keyCode !== 69"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            name="phone-number"
+            :placeholder="$t('Phone Number *')"
+            v-model.trim="shipping.phoneNumber"
+            @blur="$v.shipping.phoneNumber.$touch()"
+            autocomplete="tel"
+            :validations="[
+              {
+                condition:
+                  $v.shipping.phoneNumber.$error &&
+                  !$v.shipping.phoneNumber.required,
+
+                text: $t('Field is required')
+              },
+              {
+                condition:
+                  !$v.shipping.phoneNumber.maxLength,
+
+                text: $t('Phone number maximum length is 11 digits')
+              }
+            ]"
             />
             <p class="col-xs-12 col-sm-12 col-md-6 phone-text empty" />
             <p
