@@ -208,7 +208,7 @@
             "
             >
               <label class="radioStyled">
-                select your preferred delivery day
+                Select your preferred delivery day
                 <input
                   type="radio"
                   name="choose-date"
@@ -221,70 +221,51 @@
                 />
               </label>
             </div>
-            <!-- available date are
-            {{getMinDate}}
-            <br />
-            {{getMaxDate}}
-            <br />
-            {{disabledDateFn}} -->
-            <!-- {{disabledDateFn}}
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            {{attributes}}
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />-->
             <no-ssr>
+                            <!-- <v-calendar
+              v-if="
+                getMinDate &&
+                  getMaxDate &&
+                  disabledDateFn &&
+                  attributes &&
+                  isCalendarSelected
+              "
+              class="calendar col-md-6 col-xs-12"
+              v-model="date"
+              is-required
+              color="blue"
+              ref="vCalendarRef"
+              @dayclick="handleOnClick"
+              :min-date="getMinDate"
+              :max-date="getMaxDate"
+              is-inline
+              :attributes="attributes"
+              :available-dates="disabledDateFn"
+            /> -->
+           
               <v-calendar
-                v-if="
+              v-if="
                 getMinDate &&
                   getMaxDate &&
                   disabledDateFn &&
                   attributes &&
                   isCalendarSelected
               "
-                class="calendar col-md-6 col-xs-12"
-                v-model="date"
-                is-required
-                color="blue"
-                ref="vCalendarRef"
-                @dayclick="handleOnClick"
-                is-inline
-                :attributes="attributes"
-                :available-dates="disabledDateFn"
-              />
-              <!-- Original <v-calendar
-                v-if="
-                getMinDate &&
-                  getMaxDate &&
-                  disabledDateFn &&
-                  attributes &&
-                  isCalendarSelected
-              "
-                class="calendar col-md-6 col-xs-12"
-                v-model="date"
-                is-required
-                color="blue"
-                ref="vCalendarRef"
-                @dayclick="handleOnClick"
-                :min-date="getMinDate"
-                :max-date="getMaxDate"
-                is-inline
-                :attributes="attributes"
-                :available-dates="disabledDateFn"
-              /> -->
+              class="calendar col-md-6 col-xs-12"
+              v-model="date"
+              is-required
+              color="blue"
+              ref="vCalendarRef"
+              @dayclick="handleOnClick"
+              is-inline
+              :attributes="attributes"
+              :available-dates="disabledDateFn"
+            />
             </no-ssr>
-
+  
             <!-- Here we are {{ shippingSlotsData &&
                 shippingSlotsData.length > 0 &&
-            isCalendarSelected }}-->
+                isCalendarSelected }} -->
             <div
               class="calendar-right col-md-6 col-xs-12"
               v-if="
@@ -311,7 +292,10 @@
                           -1) ==
                           true
                       "
-                      >£-Pallet</template>
+                      >
+                      <!-- £-Pallet -->
+                      £-Pallet
+                      </template>
                       <template
                         v-if="
                         (slotData.customData.method_code.indexOf('DPD') !==
@@ -320,11 +304,12 @@
                       "
                       >DPD parcel</template>
                       <span v-if="selectedMethod == slotData.customData.method_code">
-                        | £-
+                        <!-- | £- -->
+                        <!-- £ -->
                         {{
                         slotData.customData.amount === 0
                         ? 'Free Delivery'
-                        : slotData.customData.amount
+                        : '£ '+slotData.customData.amount
                         }}
                       </span>
                       <input
@@ -350,7 +335,7 @@
                 <strong>Please select delivery date</strong>
               </p>
             </div>
-
+           
             <!-- 
             <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
               <label class="radioStyled">
@@ -372,7 +357,7 @@
           </div>
         </form>
       </div>
-      <div
+       <div
         class="col-xs-12 col-sm-12 col-md-12"
         v-if="$v.shipping.$invalid || (isCalendarSelected && shippingSlotsData.length === 0)"
       >
@@ -463,7 +448,7 @@ import {
 
 export default {
   inheritAttrs: false,
-
+  
   //  ShippingMethod
   data() {
     return {
@@ -477,7 +462,7 @@ export default {
       isDaySelected: null
     };
   },
-
+  
   methods: {
     handleShippingMethodWithoutDateClick() {
       if (this.isCalendarSelected) {
@@ -559,7 +544,7 @@ export default {
         console.error(error);
       }
     },
-    selectFirstShippingMethod() {
+     selectFirstShippingMethod() {
       if (this.isCalendarSelected && this.getSortedDates[0]) {
         setTimeout(async () => {
           const selectionDate = this.getSortedDates[0].split("/");
@@ -594,9 +579,11 @@ export default {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       if (shippingMethod && shippingMethod.match(regex)) {
         return shippingMethod.match(regex)[0];
+      } else {
+        console.log("Else", shippingMethod);
       }
     },
-
+    
     getAllDates(startDate, endDate, interval = "DAY") {
       if (interval === "DAY") {
         const days = differenceInDays(endDate, startDate);
@@ -698,7 +685,7 @@ export default {
     shipcheckedFn: function() {
       var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
       tick_elem.classList.add("tick-active");
-    }
+    },   
   },
   components: {
     ButtonFull,
@@ -719,10 +706,10 @@ export default {
   mixins: [Shipping],
   computed: {
     ...mapGetters({
-      getShippingMethods: "shipping/getShippingMethods",
-      getPersonalDetails: "checkout/getPersonalDetails",
-      getShippingDetails: "checkout/getShippingDetails",
-      getCartToken: "cart/getCartToken"
+      getShippingMethods: 'shipping/getShippingMethods',
+      getPersonalDetails: 'checkout/getPersonalDetails',
+      getShippingDetails: 'checkout/getShippingDetails',
+      getCartToken: 'cart/getCartToken'
     }),
     getShippingMethodsWithoutDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
@@ -752,32 +739,23 @@ export default {
     },
     attributes() {
       // console.log("Attributes calling function changeDateOrder");
-      // let newDate = new Date("December 25, 1995 23:15:00");
-      // newDate = new Date("11/02/2020");
-      // console.log("1122 Date is ", newDate, " \n Day is ", newDate.getDay());
-
       return [
         // Attributes for dates
-
         ...this.getShippingMethods.map((shippingMethod, index) => ({
-          dates: {
-            start: new Date(
-              this.changeDateOrder(
-                this.getDateFromMethodCode(shippingMethod.method_code)
-              )
-            ),
-            weekdays: [1, 2, 3]
-          },
+          dates: new Date(
+            this.changeDateOrder(
+              this.getDateFromMethodCode(shippingMethod.method_code)
+            )
+          ),
           popover: {
             label: `The price is ${shippingMethod.price_incl_tax}`,
             hideIndicator: true
           },
-          customData: shippingMethod,
-          weekdays: [1, 2, 3]
+          customData: shippingMethod
         }))
       ];
     },
-
+    
     disabledDateFn() {
       // console.log("11122 disable date function calling changeDateOrder", this.getSortedDates);
 
@@ -788,10 +766,12 @@ export default {
       });
       // return true;
       const allDatesArr = this.getAllDates(this.getMinDate, this.getMaxDate);
-      console.log(" ", allDatesArr);
+      console.log("allDatesArr", allDatesArr);
       const finalDateArray = allDatesArr.filter(
         singleDate => !dotteddates.includes(singleDate)
       );
+      // console.log("finalDateArray", finalDateArray);
+      // return finalDateArray;
       const finalFinal = finalDateArray.filter(date => {
         let newDate = new Date(date);
         // console.log(
@@ -807,7 +787,6 @@ export default {
       // console.log("after removing Sundays", finalFinal);
       return finalFinal;
     },
-    getDatesWithoutSunday(finalDates) {},
     getMinDate() {
       if (this.getSortedDates[0]) {
         const minDate = this.getSortedDates[0].split("/");
