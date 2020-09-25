@@ -4,7 +4,7 @@
     class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
   >
     <!-- <CmsBlock :identifier="'megamenu'" /> -->
-    <MegaMenu  :identifier="'megamenu'" />
+    <MegaMenu  :identifier="'megamenunew'" />
   </div>
 </template>
 <script>
