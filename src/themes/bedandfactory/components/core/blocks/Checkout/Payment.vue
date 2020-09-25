@@ -286,6 +286,7 @@
 }
 :style="{ backgroundColor: '#4dba87' }" -->
                 <button-outline
+                color='light'
                   :style="{ backgroundColor: '#32BFB3' }"
                   class="cl-white"
                   :class="[!couponCode ? 'bgcolor' : '']"
@@ -419,7 +420,7 @@ import {
   unicodeAlphaNum,
 } from "@vue-storefront/core/helpers/validators";
 import { Payment } from "@vue-storefront/core/modules/checkout/components/Payment";
-
+import i18n from '@vue-storefront/i18n';
 import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
 import BaseInput from "theme/components/core/blocks/Form/BaseInput";
 import BaseSelect from "theme/components/core/blocks/Form/BaseSelect";
