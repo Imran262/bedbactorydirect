@@ -72,7 +72,7 @@
         <div
           v-if="segment.value != null && segment.code === 'shipping'"
           class="col-xs align-right"
-        >{{ (segment.value * 1.2) | price }}</div>
+        >{{ (segment.value) | price }}</div>
         <div
           v-else-if="segment.value != null"
           class="col-xs align-right"
