@@ -20,9 +20,9 @@
               class="col-xs align-right cl-accent h4"
             >
               {{
-              segment.value * 1.2 === 0
+              segment.value === 0
               ? 'Free Delivery'
-              : (segment.value * 1.2) | price
+              : (segment.value) | price
               }}
             </div>
             <div
