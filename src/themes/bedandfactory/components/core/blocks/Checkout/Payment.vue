@@ -4,13 +4,16 @@
     <div class="row pl20 pr20">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="row">
-          <div class="col-xs-12 col-md-7" :class="{ 'cl-bg-tertiary': !isFilled && !isActive }">
-            <h3 class="m0 mb5">{{ $t('Billing Details') }}</h3>
+          <div
+            class="col-xs-12 col-md-7"
+            :class="{ 'cl-bg-tertiary': !isFilled && !isActive }"
+          >
+            <h3 class="m0 mb5">{{ $t("Billing Details") }}</h3>
           </div>
           <div class="col-xs-12 col-md-12 pr30">
             <div class="lh30 flex start-lg" v-if="isFilled && !isActive">
               <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-                <span class="pr5">{{ $t('Edit payment') }}</span>
+                <span class="pr5">{{ $t("Edit payment") }}</span>
                 <i class="material-icons cl-tertiary">edit</i>
               </a>
             </div>
@@ -20,21 +23,23 @@
     </div>
     <div class="row pl20 pr20" v-if="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-11 col-sm-9 col-md-10">
+      <div class="col-xs-11 col-sm-12 col-md-10">
         <div class="row" v-if="isActive">
           <base-checkbox
             class="col-xs-12 mb15"
             id="sendToShippingAddressCheckbox"
             v-model="sendToShippingAddress"
             v-if="!isVirtualCart"
-          >{{ $t('Copy address data from shipping') }}</base-checkbox>
+            >{{ $t("Copy address data from shipping") }}</base-checkbox
+          >
 
           <base-checkbox
             v-if="hasBillingData()"
             class="col-xs-12 mb15"
             id="sendToBillingAddressCheckbox"
             v-model="sendToBillingAddress"
-          >{{ $t('Use my billing data') }}</base-checkbox>
+            >{{ $t("Use my billing data") }}</base-checkbox
+          >
 
           <base-input
             class="col-xs-12 col-sm-6 mb10"
@@ -46,13 +51,14 @@
             autocomplete="given-name"
             :validations="[
               {
-                condition: $v.payment.firstName.$error && !$v.payment.firstName.required,
-                text: $t('Field is required')
+                condition:
+                  $v.payment.firstName.$error && !$v.payment.firstName.required,
+                text: $t('Field is required'),
               },
               {
                 condition: !$v.payment.firstName.minLength,
-                text: $t('Name must have at least 2 letters.')
-              }
+                text: $t('Name must have at least 2 letters.'),
+              },
             ]"
           />
 
@@ -64,38 +70,49 @@
             v-model.trim="payment.lastName"
             @blur="$v.payment.lastName.$touch()"
             autocomplete="family-name"
-            :validations="[{
-              condition: $v.payment.lastName.$error && !$v.payment.lastName.required,
-              text: $t('Field is required')
-            }]"
+            :validations="[
+              {
+                condition:
+                  $v.payment.lastName.$error && !$v.payment.lastName.required,
+                text: $t('Field is required'),
+              },
+            ]"
           />
 
           <base-input
             class="col-xs-12 mb10"
             type="text"
             name="street-address"
-            :placeholder="$t('Street name *')"
+            :placeholder="$t('Street name and House/Apartment number *')"
             v-model.trim="payment.streetAddress"
             @blur="$v.payment.streetAddress.$touch()"
             autocomplete="address-line1"
-            :validations="[{
-              condition: $v.payment.streetAddress.$error && !$v.payment.streetAddress.required,
-              text: $t('Field is required')
-            }]"
+            :validations="[
+              {
+                condition:
+                  $v.payment.streetAddress.$error &&
+                  !$v.payment.streetAddress.required,
+                text: $t('Field is required'),
+              },
+            ]"
           />
 
           <base-input
             class="col-xs-12 mb10"
             type="text"
             name="apartment-number"
-            :placeholder="$t('House/Apartment number *')"
+            :placeholder="$t(' ')"
             v-model.trim="payment.apartmentNumber"
             @blur="$v.payment.apartmentNumber.$touch()"
             autocomplete="address-line2"
-            :validations="[{
-              condition: $v.payment.apartmentNumber.$error && !$v.payment.apartmentNumber.required,
-              text: $t('Field is required')
-            }]"
+            :validations="[
+              {
+                condition:
+                  $v.payment.apartmentNumber.$error &&
+                  !$v.payment.apartmentNumber.required,
+                text: $t('Field is required'),
+              },
+            ]"
           />
 
           <base-input
@@ -109,12 +126,12 @@
             :validations="[
               {
                 condition: $v.payment.city.$error && !$v.payment.city.required,
-                text: $t('Field is required')
+                text: $t('Field is required'),
               },
               {
                 condition: $v.payment.city.$error && $v.payment.city.required,
-                text: $t('Please provide valid city name')
-              }
+                text: $t('Please provide valid city name'),
+              },
             ]"
           />
 
@@ -137,13 +154,14 @@
             autocomplete="postal-code"
             :validations="[
               {
-                condition: $v.payment.zipCode.$error && !$v.payment.zipCode.required,
-                text: $t('Field is required')
+                condition:
+                  $v.payment.zipCode.$error && !$v.payment.zipCode.required,
+                text: $t('Field is required'),
               },
               {
                 condition: !$v.payment.zipCode.minLength,
-                text: $t('Zip-code must have at least 3 letters.')
-              }
+                text: $t('Zip-code must have at least 3 letters.'),
+              },
             ]"
           />
 
@@ -155,14 +173,18 @@
             :placeholder="$t('Country *')"
             :validations="[
               {
-                condition: $v.payment.country.$error && !$v.payment.country.required,
-                text: $t('Field is required')
-              }
+                condition:
+                  $v.payment.country.$error && !$v.payment.country.required,
+                text: $t('Field is required'),
+              },
             ]"
             v-model="payment.country"
             autocomplete="country-name"
             @blur="$v.payment.country.$touch()"
-            @change="$v.payment.country.$touch(); changeCountry();"
+            @change="
+              $v.payment.country.$touch();
+              changeCountry();
+            "
           />
 
           <base-input
@@ -178,7 +200,10 @@
             class="col-xs-12 mb15"
             id="generateInvoiceCheckbox"
             v-model="generateInvoice"
-          >{{ $t('I want to generate an invoice for the company') }}</base-checkbox>
+            >{{
+              $t("I want to generate an invoice for the company")
+            }}</base-checkbox
+          >
 
           <template v-if="generateInvoice">
             <base-input
@@ -189,10 +214,13 @@
               v-model.trim="payment.company"
               @blur="$v.payment.company.$touch()"
               autocomplete="organization"
-              :validations="[{
-                condition: $v.payment.company.$error && !$v.payment.company.required,
-                text: $t('Field is required')
-              }]"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.company.$error && !$v.payment.company.required,
+                  text: $t('Field is required'),
+                },
+              ]"
             />
 
             <base-input
@@ -205,41 +233,121 @@
               autocomplete="tax-id"
               :validations="[
                 {
-                  condition: $v.payment.taxId.$error && !$v.payment.taxId.required,
-                  text: $t('Field is required')
+                  condition:
+                    $v.payment.taxId.$error && !$v.payment.taxId.required,
+                  text: $t('Field is required'),
                 },
                 {
                   condition: !$v.payment.taxId.minLength,
-                  text: $t('Tax identification number must have at least 3 letters.')
-                }
+                  text: $t(
+                    'Tax identification number must have at least 3 letters.'
+                  ),
+                },
               ]"
             />
 
             <div class="col-xs-12 mb25">
-              <label class="fs16">{{ $t('We will send you the invoice to given e-mail address') }}</label>
+              <label class="fs16">{{
+                $t("We will send you the invoice to given e-mail address")
+              }}</label>
             </div>
           </template>
-
           <div class="col-xs-12">
-            <h4>{{ $t('Payment method') }}</h4>
+            <h4>{{ $t("Apply Coupon") }}</h4>
+            <div class="row py20">
+              <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
+                <button
+                  class="p10 brdr-none serif fs-medium cl-white bg-cl-puerto-rico voucher-code-btn"
+                  :style="{ backgroundColor: '#32BFB3' }"
+                  type="button"
+                  @click="addDiscountCoupon"
+                >
+                  {{ $t("I Have a Code") }}
+                </button>
+              </div>
+              <div
+                v-if="OnlineOnly && addCouponPressed"
+                class="col-xs-12 pt30 coupon-wrapper"
+              >
+                <div class="coupon-input">
+                  <label class="h6 cl-secondary">
+                    {{ $t("Enter your coupon if you have one") }}
+                  </label>
+                  <base-input
+                    type="text"
+                    id="couponinput"
+                    :autofocus="true"
+                    v-model.trim="couponCode"
+                    @keyup.enter="setCoupon"
+                  />
+                </div>
+                <!-- .bgcolor{
+  background-color: #B6EBE8 !important;
+}
+:style="{ backgroundColor: '#4dba87' }" -->
+                <button-outline
+                color='light'
+                  :style="{ backgroundColor: '#32BFB3' }"
+                  class="cl-white"
+                  :class="[!couponCode ? 'bgcolor' : '']"
+                  :disabled="!couponCode"
+                  @click.native="setCoupon"
+                  >{{ $t("Apply Voucher") }}</button-outline
+                >
+              </div>
+            </div>
           </div>
-          <div v-for="(method, index) in paymentMethods" :key="index" class="col-md-6">
+          <div class="col-xs-12">
+            <h4>{{ $t("Payment method") }}</h4>
+          </div>
+          <div
+            v-for="(method, index) in paymentMethods"
+            :key="index"
+            class="col-md-12 payment-method-inner"
+          >
             <label class="radioStyled">
-              {{ method.title ? method.title : method.name }}
+              <template v-if="method.code === 'braintree'"
+                >Pay By Card</template
+              >
+              <template v-else>{{
+                method.title ? method.title : method.name
+              }}</template>
               <input
                 type="radio"
                 :value="method.code"
                 name="payment-method"
                 v-model="payment.paymentMethod"
-                @change="$v.payment.paymentMethod.$touch(); changePaymentMethod();"
+                @change="
+                  $v.payment.paymentMethod.$touch();
+                  changePaymentMethod();
+                "
               />
               <span class="checkmark" />
             </label>
+            <div class="bank-card" v-if="method.code === 'braintree'">
+              <ul>
+                <li>
+                  <img src="/assets/footer/footer-master-card-icon.png" />
+                </li>
+                <li>
+                  <img
+                    src="/assets/fobutton-outlineoter/footer-master-pro-icon.png"
+                  />
+                </li>
+                <li>
+                  <img src="/assets/footer/footer-visa-icon.png" />
+                </li>
+                <li>
+                  <img src="/assets/footer/footer-paypal-icon.png" />
+                </li>
+              </ul>
+            </div>
           </div>
           <span
             class="validation-error"
             v-if="!$v.payment.paymentMethod.required"
-          >{{ $t('Field is required') }}</span>
+            >{{ $t("Field is required") }}</span
+          >
         </div>
       </div>
     </div>
@@ -249,11 +357,14 @@
         <div class="row">
           <div class="col-xs-12 col-md-8 px20 my30">
             <button-full
-              @click.native="sendDataToCheckout();
-                  paymentcheckedFn();"
+              @click.native="
+                sendDataToCheckout();
+                paymentcheckedFn();
+              "
               data-testid="paymentSubmit"
               :disabled="$v.payment.$invalid"
-            >{{ $t('Go review the order') }}</button-full>
+              >{{ $t("Go review the order") }}</button-full
+            >
           </div>
         </div>
       </div>
@@ -272,11 +383,15 @@
             </p>
             <div v-if="payment.phoneNumber">
               <span class="pr15">{{ payment.phoneNumber }}</span>
-              <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
+              <tooltip>{{
+                $t("Phone number may be needed by carrier")
+              }}</tooltip>
             </div>
-            <p v-if="generateInvoice">{{ payment.company }} {{ payment.taxId }}</p>
+            <p v-if="generateInvoice">
+              {{ payment.company }} {{ payment.taxId }}
+            </p>
             <div class="col-xs-12">
-              <h4>{{ $t('Payment method') }}</h4>
+              <h4>{{ $t("Payment method") }}</h4>
             </div>
             <div class="col-md-6 mb15">
               <label class="radioStyled">
@@ -302,34 +417,59 @@
 import { required, minLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
-  unicodeAlphaNum
+  unicodeAlphaNum,
 } from "@vue-storefront/core/helpers/validators";
 import { Payment } from "@vue-storefront/core/modules/checkout/components/Payment";
-
+import i18n from '@vue-storefront/i18n';
 import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
 import BaseInput from "theme/components/core/blocks/Form/BaseInput";
 import BaseSelect from "theme/components/core/blocks/Form/BaseSelect";
 import ButtonFull from "theme/components/theme/ButtonFull";
 import Tooltip from "theme/components/core/Tooltip";
+import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
+import VueOfflineMixin from "vue-offline/mixin";
+import ButtonOutline from "theme/components/theme/ButtonOutline";
+// import PaypalButton from '../../../../../../modules/vsf-paypal-integration/components/Button';
+// //import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
+
+// import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview';
+// import { OrderModule } from '@vue-storefront/core/modules/order';
+// import { registerModule } from '@vue-storefront/core/lib/modules';
+// import Composite from '@vue-storefront/core/mixins/composite';
 
 export default {
+  data() {
+    return {
+      radioCheckedFlag: false,
+      addCouponPressed: false,
+      couponCode: "",
+      isCouponApplied: null,
+    };
+  },
   components: {
     BaseCheckbox,
     BaseInput,
     BaseSelect,
     ButtonFull,
-    Tooltip
+    Tooltip,
+    ButtonOutline,
   },
   mixins: [Payment],
+  props: {
+    OnlineOnly: {
+      type: Boolean,
+    },
+  },
   computed: {
     countryOptions() {
-      return this.countries.map(item => {
+      return this.countries.map((item) => {
         return {
           value: item.code,
-          label: item.name
+          label: item.name,
         };
       });
-    }
+    },
   },
   validations() {
     if (!this.generateInvoice) {
@@ -338,36 +478,36 @@ export default {
           firstName: {
             required,
             minLength: minLength(2),
-            unicodeAlpha
+            unicodeAlpha,
           },
           lastName: {
             required,
-            unicodeAlpha
+            unicodeAlpha,
           },
           country: {
-            required
+            required,
           },
           streetAddress: {
             required,
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           apartmentNumber: {
             required,
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           zipCode: {
             required,
             minLength: minLength(3),
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           city: {
             required,
-            unicodeAlpha
+            unicodeAlpha,
           },
           paymentMethod: {
-            required
-          }
-        }
+            required,
+          },
+        },
       };
     } else {
       return {
@@ -375,58 +515,104 @@ export default {
           firstName: {
             required,
             minLength: minLength(2),
-            unicodeAlpha
+            unicodeAlpha,
           },
           lastName: {
             required,
-            unicodeAlpha
+            unicodeAlpha,
           },
           company: {
             required,
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           taxId: {
             required,
-            minLength: minLength(3)
+            minLength: minLength(3),
           },
           country: {
-            required
+            required,
           },
           streetAddress: {
             required,
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           apartmentNumber: {
             required,
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           zipCode: {
             required,
             minLength: minLength(3),
-            unicodeAlphaNum
+            unicodeAlphaNum,
           },
           city: {
             required,
-            unicodeAlpha
+            unicodeAlpha,
           },
           paymentMethod: {
-            required
-          }
-        }
+            required,
+          },
+        },
       };
     }
   },
   methods: {
-    paymentcheckedFn: function() {
+    ...mapActions({
+      applyCoupon: "cart/applyCoupon",
+    }),
+    paymentcheckedFn: function () {
+      this.radioCheckedFlag = true;
       var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
       var tick_elem1 = document.getElementsByClassName("non-selected-tick")[2];
       tick_elem.classList.add("tick-active");
       tick_elem1.classList.add("tick-active");
-    }
-  }
+    },
+    async setCoupon() {
+      try {
+        const couponApplied = await this.applyCoupon(this.couponCode);
+        this.addCouponPressed = false;
+        this.couponCode = "";
+        console.log("couponApplied", couponApplied);
+        if (couponApplied === true) {
+          this.$store.dispatch("notification/spawnNotification", {
+            type: "success",
+            message: i18n.t("Coupon Applied"),
+            action1: { label: i18n.t("OK") },
+          });
+        }
+      } catch (error) {
+        if (!this.getCoupon) {
+          this.$store.dispatch("notification/spawnNotification", {
+            type: "warning",
+            message: i18n.t(
+              "You've entered an incorrect coupon code. Please try again."
+            ),
+            action1: { label: i18n.t("OK") },
+          });
+        }
+      }
+    },
+    addDiscountCoupon() {
+      this.addCouponPressed = true;
+    },
+    onSuccess() {},
+    onFailure(result) {
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "error",
+        message: this.$t(result.result),
+        action1: { label: this.$t("OK") },
+      });
+    },
+  },
+  destroyed() {
+    this.radioCheckedFlag = false;
+  },
 };
 </script>
 <style lang="scss" scoped>
+.bgcolor {
+  background-color: #b6ebe8 !important;
+}
 .payment-first-name {
   display: none;
 }
@@ -510,6 +696,7 @@ button.find-address {
   label {
     color: #676767;
     font-size: 16px;
+    float: left;
   }
   .checkmark {
     &:after {
@@ -587,6 +774,12 @@ span.postcodelookup-required {
 .billing-payment .payment-phone-number {
   margin-top: 20px;
 }
+.payment-method-inner:nth-child(2n + 1) {
+  display: none;
+}
+.bank-card {
+  display: flex;
+}
 @media (min-width: 320px) and (max-width: 480px) {
   .bank-card ul {
     padding-left: 5px;
@@ -628,6 +821,11 @@ span.postcodelookup-required {
   }
   .billing-payment input {
     margin-top: 10px;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .bank-card ul li img {
+    width: 35px;
   }
 }
 </style>

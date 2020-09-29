@@ -91,7 +91,7 @@
               class="col-xs-12 mb10"
               type="text"
               name="street-address"
-              :placeholder="$t('Street name *')"
+              :placeholder="$t('Street name and House/Apartment number *')"
               v-model.trim="shipping.streetAddress"
               @blur="$v.shipping.streetAddress.$touch()"
               autocomplete="address-line1"
@@ -105,7 +105,7 @@
               class="col-xs-12 mb10"
               type="text"
               name="apartment-number"
-              :placeholder="$t('House/Apartment number *')"
+              :placeholder="$t(' ')"
               v-model.trim="shipping.apartmentNumber"
               @blur="$v.shipping.apartmentNumber.$touch()"
               autocomplete="address-line2"
@@ -139,33 +139,23 @@
               class="col-xs-12 col-sm-6 mb10"
               type="text"
               name="state"
-              :placeholder="$t('State / Province')"
+              :placeholder="$t('County')"
               v-model.trim="shipping.state"
               autocomplete="address-level1"
             />
 
             <base-input
-              class="col-xs-12 col-sm-6 mb10"
+              class="col-xs-12 col-sm-6 mb10 hidden"
               type="text"
               name="zip-code"
               :placeholder="$t('Zip-code *')"
               v-model.trim="shipping.zipCode"
               @blur="$v.shipping.zipCode.$touch()"
               autocomplete="postal-code"
-              :validations="[
-              {
-                condition: $v.shipping.zipCode.$error && !$v.shipping.zipCode.required,
-                text: $t('Field is required')
-              },
-              {
-                condition: !$v.shipping.zipCode.minLength,
-                text: $t('Name must have at least 3 letters.')
-              }
-            ]"
             />
 
             <base-select
-              class="col-xs-12 col-sm-6 mb10"
+              class="col-xs-12 col-sm-6 mb0"
               name="countries"
               :options="countryOptions"
               :selected="shipping.country"
@@ -183,17 +173,36 @@
             />
 
             <base-input
-              class="col-xs-12 mb10"
-              type="text"
-              name="phone-number"
-              :placeholder="$t('Phone Number')"
-              v-model.trim="shipping.phoneNumber"
-              autocomplete="tel"
+              class="col-xs-12 col-sm-12 col-md-6 mb0 shipping-phone-number"
+            type="tel"
+            onkeydown="return event.keyCode !== 69"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            name="phone-number"
+            :placeholder="$t('Phone Number *')"
+            v-model.trim="shipping.phoneNumber"
+            @blur="$v.shipping.phoneNumber.$touch()"
+            autocomplete="tel"
+            :validations="[
+              {
+                condition:
+                  $v.shipping.phoneNumber.$error &&
+                  !$v.shipping.phoneNumber.required,
+
+                text: $t('Field is required')
+              },
+              {
+                condition:
+                  !$v.shipping.phoneNumber.maxLength,
+
+                text: $t('Phone number maximum length is 11 digits')
+              }
+            ]"
             />
             <p class="col-xs-12 col-sm-12 col-md-6 phone-text empty" />
             <p
               class="col-xs-12 col-sm-12 col-md-6 phone-text"
-            >Phone number will only be used to give delivery updates via text message.</p>
+            >phone number will only be used for delivery updates.</p>
             <h4 class="col-xs-12">{{ $t('Shipping method') }}</h4>
             <div v-if="getShippingMethods.length === 0">No Delivery Methods Found</div>
 
@@ -208,7 +217,7 @@
             "
             >
               <label class="radioStyled">
-                Select your delivery day
+                Select your preferred delivery day
                 <input
                   type="radio"
                   name="choose-date"
@@ -222,6 +231,27 @@
               </label>
             </div>
             <no-ssr>
+              <!-- <v-calendar
+              v-if="
+                getMinDate &&
+                  getMaxDate &&
+                  disabledDateFn &&
+                  attributes &&
+                  isCalendarSelected
+              "
+              class="calendar col-md-6 col-xs-12"
+              v-model="date"
+              is-required
+              color="blue"
+              ref="vCalendarRef"
+              @dayclick="handleOnClick"
+              :min-date="getMinDate"
+              :max-date="getMaxDate"
+              is-inline
+              :attributes="attributes"
+              :available-dates="disabledDateFn"
+              />-->
+
               <v-calendar
                 v-if="
                 getMinDate &&
@@ -236,8 +266,6 @@
                 color="blue"
                 ref="vCalendarRef"
                 @dayclick="handleOnClick"
-                :min-date="getMinDate"
-                :max-date="getMaxDate"
                 is-inline
                 :attributes="attributes"
                 :available-dates="disabledDateFn"
@@ -273,7 +301,10 @@
                           -1) ==
                           true
                       "
-                      >Pallet</template>
+                      >
+                        <!-- £-Pallet -->
+                        £-Pallet
+                      </template>
                       <template
                         v-if="
                         (slotData.customData.method_code.indexOf('DPD') !==
@@ -282,11 +313,12 @@
                       "
                       >DPD parcel</template>
                       <span v-if="selectedMethod == slotData.customData.method_code">
-                        |
+                        <!-- | £- -->
+                        <!-- £ -->
                         {{
                         slotData.customData.amount === 0
                         ? 'Free Delivery'
-                        : slotData.customData.amount
+                        : '£ '+slotData.customData.amount
                         }}
                       </span>
                       <input
@@ -332,6 +364,13 @@
               v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required"
             >{{ $t('Field is required') }}</span>-->
           </div>
+          <span
+            class="validation-error"
+            v-if="
+              $v.shipping.shippingMethod.$error &&
+                !$v.shipping.shippingMethod.required
+            "
+          >{{ $t('Field is required') }}</span>
         </form>
       </div>
       <div
@@ -353,7 +392,7 @@
             <button-full
               data-testid="shippingSubmit"
               @click.native="sendDataToCheckout(); shipcheckedFn();"
-              :disabled="$v.shipping.$invalid || shippingMethods.length <= 0"
+              :disabled="$v.shipping.$invalid || getShippingMethods.length === 0 || (isCalendarSelected && shippingSlotsData.length === 0)"
             >{{ $t('Continue to payment') }}</button-full>
           </div>
         </div>
@@ -747,8 +786,22 @@ export default {
       const finalDateArray = allDatesArr.filter(
         singleDate => !dotteddates.includes(singleDate)
       );
+      // console.log("finalDateArray", finalDateArray);
+      // return finalDateArray;
+      const finalFinal = finalDateArray.filter(date => {
+        let newDate = new Date(date);
+        // console.log(
+        //   "112233 Date is ",
+        //   newDate,
+        //   " \n Day is ",
+        //   newDate.getDay()
+        // );
+        // date = newDate;
+        return newDate.getDay() != 0;
+      });
       console.log("finalDateArray", finalDateArray);
-      return finalDateArray;
+      // console.log("after removing Sundays", finalFinal);
+      return finalFinal;
     },
     getMinDate() {
       if (this.getSortedDates[0]) {

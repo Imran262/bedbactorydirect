@@ -5,7 +5,7 @@
     </div>
     <div class="col-xs">
       <div class="row">
-        <div class="col-xs-12 col-md-9 pb15">
+        <div class="col-xs-12 col-md-12 pb15">
           <div class="mb15">
             <div class="h4 weight-400 cl-accent serif">
               {{ product.name | htmlDecode }}
@@ -40,7 +40,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-md-3 serif">
+        <div class="col-xs-12 col-md-12 serif">
           <div v-if="isOnline && product.totals">
             <span class="h4 cl-error" v-if="product.totals.discount_amount">{{ product.totals.row_total - product.totals.discount_amount + product.totals.tax_amount | price(storeView) }} </span>
             <span class="price-original h5" v-if="product.totals.discount_amount">{{ product.totals.row_total_incl_tax | price(storeView) }}</span>

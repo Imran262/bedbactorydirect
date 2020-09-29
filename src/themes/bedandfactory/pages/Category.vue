@@ -61,7 +61,8 @@
                 @change="changeFilter"
                 :value="getCurrentSearchQuery.sort"
               />
-              {{ $t("{count} items", { count: getCategoryProductsTotal }) }}
+              {{getCategoryProductsTotal}}
+              <!-- {{ $t("{count} items", { count: getCategoryProductsTotal }) }} -->
             </div>
           </div>
           <!-- <p
