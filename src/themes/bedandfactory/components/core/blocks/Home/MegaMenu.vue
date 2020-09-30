@@ -51,10 +51,14 @@ export default {
   mixins: [cmsBlock],
   computed: {
     link() {
+      //console.log('dataIs', this.data);
+
       // console.log("Urllllll 2", this.data);
       var mainTopLinks = [];
       var i = 0;
-      var mbclasses = this.parsedContent.querySelectorAll(".sb-menu");
+
+      if(this.data){
+        var mbclasses = this.parsedContent.querySelectorAll(".sb-menu");
       // console.log('Sb -class ', mbclasses);
       [].forEach.call(mbclasses, mbclass => {
         // do whatever
@@ -152,6 +156,8 @@ export default {
       });
 
       // this.parsedContent.querySelectorAll('.mb_class').forEach(this.title);
+      }
+      
 
       return mainTopLinks;
       // return this.parsedContent.querySelector('a').attributes['href'];

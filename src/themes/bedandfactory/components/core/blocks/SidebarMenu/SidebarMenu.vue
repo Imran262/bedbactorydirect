@@ -15,7 +15,7 @@
         </button>
       </div>
     </div>
-    <MobileMegaMenuBlock :identifier="'megamenu'" />
+    <MobileMegaMenuBlock :identifier="'megamenunew'" />
   </div>
 </template>
 
