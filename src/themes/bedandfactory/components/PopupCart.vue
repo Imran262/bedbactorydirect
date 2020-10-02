@@ -1,6 +1,10 @@
 <template>
   <div class="addtocart-popups">
-    <modal name="modal-switcher" :width="950">
+    <modal
+      name="modal-switcher"
+      :width="950"
+      @popInterface="handlePopupAfteBack"
+    >
       <p slot="header" />
       <div slot="content" class="popup-modal-content">
         <div class="popup-content-container">
@@ -54,21 +58,29 @@
           <div class="row bottom-row-popup">
             <div class="col-md-5">
               <p class="basket-info">
-                <span class="basket-item-count">Basket: {{ totalQuantity }}</span>
+                <span class="basket-item-count"
+                  >Basket: {{ totalQuantity }}</span
+                >
                 <span class="basket-items-label">Item(s) -</span>
                 <span class="basket-items-total" v-if="subTotal !== undefined">
-                  <span class="subtotal" v-if="subTotal">&#163;{{ subTotal }}</span>
+                  <span class="subtotal" v-if="subTotal"
+                    >&#163;{{ subTotal }}</span
+                  >
                 </span>
               </p>
             </div>
             <div class="col-md-7">
               <div class="footer-btns-links">
-                <button class="btn-shopping" @click="popupclose">Continue Shopping</button>
+                <button class="btn-shopping" @click="popupclose">
+                  Continue Shopping
+                </button>
                 <router-link
                   :to="localizedRoute('/checkout')"
                   class="no-underline cl-secondary link btn-checkout"
                 >
-                  <button class="btn-checkout" @click="popupclose">PROCEED to checkout</button>
+                  <button class="btn-checkout" @click="popupclose">
+                    PROCEED to checkout
+                  </button>
                 </router-link>
               </div>
             </div>
@@ -76,6 +88,23 @@
         </div>
       </div>
     </modal>
+    <div class="bottom-row-popup mobile-bottom-row-popup" ref="mobBtnLinks">
+      <div class="col-md-12">
+        <div class="footer-btns-links">
+          <button class="btn-shopping" @click="popupclose">
+            CONTINUE SHOPPING
+          </button>
+          <router-link
+            :to="localizedRoute('/checkout')"
+            class="no-underline cl-secondary link btn-checkout"
+          >
+            <button class="btn-checkout" @click="popupclose">
+              PROCEED to checkout
+            </button>
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,11 +116,11 @@ import Modal from "theme/components/core/Modal.vue";
 import PopupImage from "theme/components/PopupImage";
 import {
   getThumbnailPath,
-  productThumbnailPath
+  productThumbnailPath,
 } from "@vue-storefront/core/helpers";
 import {
   getThumbnailForProduct,
-  getProductConfiguration
+  getProductConfiguration,
 } from "@vue-storefront/core/modules/cart/helpers";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import ProductPrice from "theme/components/core/ProductPrice.vue";
@@ -105,7 +134,7 @@ export default {
     Modal,
     PopupImage,
     Product,
-    ProductPrice
+    ProductPrice,
   },
   // mounted() {
   //   this.$nextTick(() => {
@@ -121,12 +150,12 @@ export default {
 
     if (this.popupProducts) {
       var popup_arr = [];
-      this.popupProducts.forEach(async item => {
+      this.popupProducts.forEach(async (item) => {
         const popup_product = await this.getProduct({
           options: { sku: item },
           setCurrentProduct: false,
           setCurrentCategoryPath: false,
-          selectDefaultVariant: false
+          selectDefaultVariant: false,
         });
         // console.log('popupProductsP_p', popup_product);
         popup_arr.push(popup_product);
@@ -145,18 +174,27 @@ export default {
       clearAllBodyScrollLocks();
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
-    }
+    },
+    handlePopupAfteBack(event) {
+      // console.log('handlePopupAfteBackhandlePopupAfteBack ', event);
+      this.$emit("popInterface", 0);
+    },
+    popupclose() {
+      clearAllBodyScrollLocks();
+      this.$bus.$emit("modal-hide", "modal-switcher");
+      this.$emit("popInterface", 0);
+    },
   },
   computed: {
     ...mapGetters({
       productsInCart: "cart/getCartItems",
       totalQuantity: "cart/getItemsTotalQuantity",
-      cartTotals: "cart/getTotals"
+      cartTotals: "cart/getTotals",
     }),
     image() {
       return {
         loading: this.thumbnail,
-        src: this.thumbnail
+        src: this.thumbnail,
       };
     },
     thumbnail() {
@@ -164,27 +202,27 @@ export default {
     },
     subTotal() {
       console.log("cartTotals", this.cartTotals);
-      const cartTotals = this.cartTotals.find(seg => seg.code === "subtotal");
+      const cartTotals = this.cartTotals.find((seg) => seg.code === "subtotal");
       if (cartTotals) {
         console.log("cartTotalvalues", cartTotals.value);
         return cartTotals.value;
       }
-    }
+    },
   },
   props: {
     product: {
       required: true,
-      type: Object
+      type: Object,
     },
     customOptions: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     priceValue: {
       type: Number,
-      default: 0
-    }
-  }
+      default: 0,
+    },
+  },
 };
 </script>
 <style scoped>
