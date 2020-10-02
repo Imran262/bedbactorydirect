@@ -11,7 +11,10 @@
                 <img src="/assets/placeholder.svg" />
               </div>
             </div>
-            <div v-else-if="getProductGallery.length >= 1" class="bt-product-gallery">
+            <div
+              v-else-if="getProductGallery.length >= 1"
+              class="bt-product-gallery"
+            >
               <product-gallery
                 ref="getProductGallery"
                 :offline="getOfflineImage"
@@ -74,7 +77,10 @@
             </h1>
             <div class="rating-top" @click="ProReviewShowFn">
               <a href="#uniqueReviews">
-                <ReviewStars :reviews="getReviews()" :product="getCurrentProduct" />
+                <ReviewStars
+                  :reviews="getReviews()"
+                  :product="getCurrentProduct"
+                />
               </a>
             </div>
             <div
@@ -82,17 +88,22 @@
               itemprop="sku"
               :content="getCurrentProduct.sku"
             >
-            SKU: 
-            <!-- {{ $t("SKU: {sku}", { sku: getCurrentProduct.sku }) }}  -->
-            {{getCurrentProduct.sku }}</div>
+              SKU:
+              <!-- {{ $t("SKU: {sku}", { sku: getCurrentProduct.sku }) }}  -->
+              {{ getCurrentProduct.sku }}
+            </div>
             <div
               class="mb20 uppercase cl-secondary outofstock"
               v-if="!getCurrentProduct.stock.qty"
-            >Out of Stock</div>
+            >
+              Out of Stock
+            </div>
             <div
               class="mb20 uppercase cl-secondary inStock"
               v-if="getCurrentProduct.stock.qty"
-            >In Stock</div>
+            >
+              In Stock
+            </div>
             <div class="mb20 cl-secondary" v-if="!getCurrentProduct.stock.qty">
               <small>
                 If you are happy to wait, continue with the order and our team
@@ -100,16 +111,25 @@
               </small>
             </div>
             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-              <meta itemprop="priceCurrency" :content="$store.state.storeView.i18n.currencyCode" />
+              <meta
+                itemprop="priceCurrency"
+                :content="$store.state.storeView.i18n.currencyCode"
+              />
               <meta
                 itemprop="price"
                 :content="
                   parseFloat(getCurrentProduct.price_incl_tax).toFixed(2)
                 "
               />
-              <meta itemprop="availability" :content="structuredData.availability" />
+              <meta
+                itemprop="availability"
+                :content="structuredData.availability"
+              />
               <meta itemprop="url" :content="getCurrentProduct.url_path" />
-              <div class="price serif bt-price-main" v-if="getCurrentProduct.type_id !== 'grouped'">
+              <div
+                class="price serif bt-price-main"
+                v-if="getCurrentProduct.type_id !== 'grouped'"
+              >
                 <div
                   v-if="
                     getCurrentProduct.price_incl_tax &&
@@ -162,23 +182,40 @@
                   }}
                 </div>-->
               </div>
-              <div class="cl-primary variants" v-if="getCurrentProduct.type_id == 'configurable'">
+              <div
+                class="cl-primary variants"
+                v-if="getCurrentProduct.type_id == 'configurable'"
+              >
                 <div
                   class="error"
                   v-if="
                     getCurrentProduct.errors &&
                     Object.keys(getCurrentProduct.errors).length > 0
                   "
-                >{{ getCurrentProduct.errors | formatProductMessages }}</div>
-                <div class="h5" v-for="option in getProductOptions" :key="option.id">
-                  <h4 class="variants-label basin-head" data-testid="variantsLabel">
+                >
+                  {{ getCurrentProduct.errors | formatProductMessages }}
+                </div>
+                <div
+                  class="h5"
+                  v-for="option in getProductOptions"
+                  :key="option.id"
+                >
+                  <h4
+                    class="variants-label basin-head"
+                    data-testid="variantsLabel"
+                  >
                     {{ option.label }}
                     <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                   </h4>
                   <div class="row top-xs m0 pt15 pb40 variants-wrapper">
-                    <div class="sizes basin_size" v-if="option.label == 'Color'">
+                    <div
+                      class="sizes basin_size"
+                      v-if="option.label == 'Color'"
+                    >
                       <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>Please select</option>
+                        <option :value="null" :key="2378695843" selected>
+                          Please select
+                        </option>
                         <template
                           v-for="filter in getAvailableFilters[
                             option.attribute_code
@@ -187,7 +224,9 @@
                           <option
                             :key="filter.id"
                             :value="JSON.stringify(filter)"
-                          >{{ filter.label }}</option>
+                          >
+                            {{ filter.label }}
+                          </option>
                         </template>
                       </select>
                       <!-- <color-selector
@@ -198,9 +237,14 @@
                         @change="changeFilter"
                       />-->
                     </div>
-                    <div class="sizes basin_size" v-else-if="option.label == 'Size'">
+                    <div
+                      class="sizes basin_size"
+                      v-else-if="option.label == 'Size'"
+                    >
                       <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>Please select</option>
+                        <option :value="null" :key="2378695843" selected>
+                          Please select
+                        </option>
                         <template
                           v-for="filter in getAvailableFilters[
                             option.attribute_code
@@ -209,7 +253,9 @@
                           <option
                             :key="filter.id"
                             :value="JSON.stringify(filter)"
-                          >{{ filter.label }}</option>
+                          >
+                            {{ filter.label }}
+                          </option>
                         </template>
                       </select>
                       <!-- <size-selector
@@ -222,9 +268,15 @@
                       />-->
                     </div>
 
-                    <div class="basin_size" :class="option.attribute_code" v-else>
+                    <div
+                      class="basin_size"
+                      :class="option.attribute_code"
+                      v-else
+                    >
                       <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>Please select</option>
+                        <option :value="null" :key="2378695843" selected>
+                          Please select
+                        </option>
                         <template
                           v-for="filter in getAvailableFilters[
                             option.attribute_code
@@ -233,7 +285,9 @@
                           <option
                             :key="filter.id"
                             :value="JSON.stringify(filter)"
-                          >{{ filter.label }}</option>
+                          >
+                            {{ filter.label }}
+                          </option>
                         </template>
                       </select>
                       <!-- <generic-selector
@@ -342,16 +396,24 @@
       />
     </lazy-hydrate>-->
 
-    <section class="container pt50 pb35 cl-accent details product-description-main">
+    <section
+      class="container pt50 pb35 cl-accent details product-description-main"
+    >
       <div class="row">
-        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 product-description-left">
-          <h2 class="h3 m0 mb10 serif lh20 details-dimension" @click="ProDimensionShowFn">
+        <div
+          class="col-lg-7 col-md-7 col-sm-12 col-xs-12 product-description-left"
+        >
+          <h2
+            class="h3 m0 mb10 serif lh20 details-dimension"
+            @click="ProDimensionShowFn"
+          >
             {{ $t("Description") }}
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon icon-rotate"
               id="product-dimension-icon-id"
-            >keyboard_arrow_right</i>
+              >keyboard_arrow_right</i
+            >
           </h2>
           <div
             v-if="ProDimensionShow"
@@ -361,7 +423,10 @@
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12 long-description">
                 <!-- <h2 class="m0 serif details-title">{{ $t('Product details') }}</h2> -->
-                <div class="h4 details-wrapper" :class="{ 'details-wrapper--open': detailsOpen }">
+                <div
+                  class="h4 details-wrapper"
+                  :class="{ 'details-wrapper--open': detailsOpen }"
+                >
                   <div class="row between-md m0">
                     <div class="col-xs-12 col-sm-12">
                       <div
@@ -387,13 +452,17 @@
               </div>
             </div>
           </div>
-          <h2 class="h3 m0 mb10 serif lh20 details-Delivery" @click="ProSpecificationsShowFn">
+          <h2
+            class="h3 m0 mb10 serif lh20 details-Delivery"
+            @click="ProSpecificationsShowFn"
+          >
             {{ $t("Specifications") }}
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
               id="product-Specifications-icon-id"
-            >keyboard_arrow_right</i>
+              >keyboard_arrow_right</i
+            >
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -413,15 +482,22 @@
               v-show="isOnline"
           />-->
 
-          <h2 class="h3 m0 mb10 serif lh20 details-Delivery" @click="ProDeliveryShowFn">
+          <h2
+            class="h3 m0 mb10 serif lh20 details-Delivery"
+            @click="ProDeliveryShowFn"
+          >
             {{ $t("Delivery Information") }}
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
               id="product-Delivery-icon-id"
-            >keyboard_arrow_right</i>
+              >keyboard_arrow_right</i
+            >
           </h2>
-          <div v-if="ProDeliveryShow" class="h4 Delivery-wrapper bt-Delivery-wrapper-show-close">
+          <div
+            v-if="ProDeliveryShow"
+            class="h4 Delivery-wrapper bt-Delivery-wrapper-show-close"
+          >
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
                 <div class="delivery-main">
@@ -451,18 +527,30 @@
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
               id="product-review-icon-id"
-            >keyboard_arrow_right</i>
+              >keyboard_arrow_right</i
+            >
           </h2>
-          <div v-if="ProReviewShow" class="h4 dimension-wrapper bt-review-wrapper-show-close">
+          <div
+            v-if="ProReviewShow"
+            class="h4 dimension-wrapper bt-review-wrapper-show-close"
+          >
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
-                <ReviewWidget :reviewsList="getReviews()" :product="getCurrentProduct" />
+                <ReviewWidget
+                  :reviewsList="getReviews()"
+                  :product="getCurrentProduct"
+                />
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 product-description-right">
-          <div class="bt-new-description-main" v-if="getCurrentProduct.short_description">
+        <div
+          class="col-lg-5 col-md-5 col-sm-12 col-xs-12 product-description-right"
+        >
+          <div
+            class="bt-new-description-main"
+            v-if="getCurrentProduct.short_description"
+          >
             <!-- <ProdReadmore :shortdesc="getCurrentProduct.short_description" /> -->
 
             <div v-html="getShortDescription" />
@@ -471,7 +559,10 @@
       </div>
     </section>
     <lazy-hydrate when-idle>
-      <related-products type="upsell" :heading="$t('We found other products you might like')" />
+      <related-products
+        type="upsell"
+        :heading="$t('We found other products you might like')"
+      />
     </lazy-hydrate>
     <!-- <lazy-hydrate when-idle>
       <promoted-offers single-banner />
@@ -525,19 +616,19 @@ import LazyHydrate from "vue-lazy-hydration";
 import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption.ts";
 import {
   getAvailableFiltersByProduct,
-  getSelectedFiltersByProduct
+  getSelectedFiltersByProduct,
 } from "@vue-storefront/core/modules/catalog/helpers/filters";
 import { isOptionAvailableAsync } from "@vue-storefront/core/modules/catalog/helpers/index";
 import {
   localizedRoute,
-  currentStoreView
+  currentStoreView,
 } from "@vue-storefront/core/lib/multistore";
 import { htmlDecode } from "@vue-storefront/core/filters";
 import { ReviewModule } from "@vue-storefront/core/modules/review";
 import { RecentlyViewedModule } from "@vue-storefront/core/modules/recently-viewed";
 import {
   registerModule,
-  isModuleRegistered
+  isModuleRegistered,
 } from "@vue-storefront/core/lib/modules";
 import { onlineHelper, isServer } from "@vue-storefront/core/helpers";
 import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks";
@@ -580,9 +671,9 @@ export default {
     ReviewWidget,
     ProductSimilarListingCarousel,
     ProductPrice,
-    Carousel: () => import("vue-carousel").then(Slider => Slider.Carousel),
-    Slide: () => import("vue-carousel").then(Slider => Slider.Slide),
-    "no-ssr": NoSSR
+    Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
+    Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
+    "no-ssr": NoSSR,
   },
   mixins: [ProductOption],
   directives: { focusClean },
@@ -601,7 +692,7 @@ export default {
       ProDeliveryShow: true,
       ProReviewShow: true,
       ProDimensionShow: true,
-      reviewData: null
+      reviewData: null,
     };
   },
   computed: {
@@ -612,10 +703,10 @@ export default {
       getCurrentProductConfiguration: "product/getCurrentProductConfiguration",
       getOriginalProduct: "product/getOriginalProduct",
       getCurrentCustomOptions: "product/getCurrentCustomOptions",
-      attributesByCode: "attribute/attributeListByCode"
+      attributesByCode: "attribute/attributeListByCode",
     }),
     getOptionLabel() {
-      return option => {
+      return (option) => {
         const configName = option.attribute_code
           ? option.attribute_code
           : option.label.toLowerCase();
@@ -633,7 +724,7 @@ export default {
           this.getCurrentProduct.stock &&
           this.getCurrentProduct.stock.is_in_stock
             ? "InStock"
-            : "OutOfStock"
+            : "OutOfStock",
       };
     },
     getProductOptions() {
@@ -662,12 +753,12 @@ export default {
           this.getCurrentProduct.image,
           config.products.thumbnails.width,
           config.products.thumbnails.height
-        )
+        ),
       };
     },
     getCustomAttributes() {
       return Object.values(this.attributesByCode)
-        .filter(a => {
+        .filter((a) => {
           return (
             a.is_visible &&
             a.is_user_defined &&
@@ -710,7 +801,7 @@ export default {
         formatShortDescUlInc = "<ul>" + formatShortDesc + "</ul>";
       }
       return formatShortDescUlInc;
-    }
+    },
   },
   async mounted() {
     await this.$store.dispatch(
@@ -722,7 +813,7 @@ export default {
         config.reviews.getReviews_endpoint + this.getCurrentProduct.id;
       axios
         .get(URL)
-        .then(res => {
+        .then((res) => {
           const response = res;
           if (response.status !== 200 && !review.data.length) {
             throw ("Error:", response.data[0].message);
@@ -730,7 +821,7 @@ export default {
             this.reviewData = response.data[1];
           }
         })
-        .catch(err => {
+        .catch((err) => {
           throw ("Error:", err);
         });
     } catch (err) {
@@ -743,7 +834,7 @@ export default {
       childSku:
         route && route.params && route.params.childSku
           ? route.params.childSku
-          : null
+          : null,
     });
     const loadBreadcrumbsPromise = store.dispatch(
       "product/loadProductBreadcrumbs",
@@ -756,7 +847,7 @@ export default {
     if (isServer) {
       next();
     } else {
-      next(vm => {
+      next((vm) => {
         vm.getQuantity();
       });
     }
@@ -767,8 +858,8 @@ export default {
         if (isOnline) {
           this.getQuantity();
         }
-      }
-    }
+      },
+    },
   },
   methods: {
     showDetails(event) {
@@ -781,7 +872,7 @@ export default {
         message: this.$t(
           "The product is out of stock and cannot be added to the cart!"
         ),
-        action1: { label: this.$t("OK") }
+        action1: { label: this.$t("OK") },
       });
     },
     notifyWrongAttributes() {
@@ -790,7 +881,7 @@ export default {
         message: this.$t(
           "No such configuration for the product. Please do choose another combination of attributes."
         ),
-        action1: { label: this.$t("OK") }
+        action1: { label: this.$t("OK") },
       });
     },
     changeFilter(variant) {
@@ -820,7 +911,7 @@ export default {
       currentConfig[option.type] = option;
       return isOptionAvailableAsync(this.$store, {
         product: this.getCurrentProduct,
-        configuration: currentConfig
+        configuration: currentConfig,
       });
     },
     async getQuantity() {
@@ -829,7 +920,7 @@ export default {
       try {
         const res = await this.$store.dispatch("stock/check", {
           product: this.getCurrentProduct,
-          qty: this.getCurrentProduct.qty
+          qty: this.getCurrentProduct.qty,
         });
         console.log("res ", res);
         this.maxQuantity = res.qty;
@@ -886,7 +977,7 @@ export default {
     },
     getReviews() {
       return this.reviewData;
-    }
+    },
   },
   metaInfo() {
     const storeView = currentStoreView();
@@ -903,13 +994,13 @@ export default {
                     ? this.getCurrentProduct.parentSku
                     : this.getCurrentProduct.sku,
                   slug: this.getCurrentProduct.slug,
-                  childSku: this.getCurrentProduct.sku
-                }
+                  childSku: this.getCurrentProduct.sku,
+                },
               },
               storeView.storeCode
             )
-          ).href
-        }
+          ).href,
+        },
       ],
       title: htmlDecode(
         this.getCurrentProduct.meta_title || this.getCurrentProduct.name
@@ -919,12 +1010,12 @@ export default {
             {
               vmid: "description",
               name: "description",
-              content: htmlDecode(this.getCurrentProduct.meta_description)
-            }
+              content: htmlDecode(this.getCurrentProduct.meta_description),
+            },
           ]
-        : []
+        : [],
     };
-  }
+  },
 };
 </script>
 
@@ -1024,7 +1115,7 @@ $bg-secondary: color(secondary, $colors-background);
 .details-wrapper {
   @media (max-width: 767px) {
     position: relative;
-    max-height: 140px;
+    // max-height: 140px;
     overflow: hidden;
     transition: all 0.3s ease;
     font-size: 14px;
