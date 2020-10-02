@@ -5,7 +5,8 @@
       v-if="colors.custom_options && colors.custom_options.length > 0"
       :product="colors"
       :color="true"
-    />  
+      @closeColorPickerModal="$emit('closeColorPickerModal')"
+    />
   </div>
 </template>
 
@@ -52,14 +53,18 @@ $color-gainsboro: color(gainsboro);
 $color-matterhorn: color(matterhorn);
 $color-mine-shaft: color(mine-shaft);
 .color-picker {
+  border-top: none !important;
+  -webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,0.55);
+  -moz-box-shadow: 0 0 15px 0 rgba(0,0,0,0.55);
+  box-shadow: 0 0 15px 0 rgba(0,0,0,0.55);
+  position: fixed!important;
+  top: 0;
+  right: 0;
   height: 100%;
-  width: 30%;
-  background-color: whitesmoke;
-  position: absolute;
-  top: 300px;
-  /* left: 10px; */
-  right: 0px;
-  z-index: 2;
+  background-color: #fafafa;
+  width: 36%;
+  padding: 14px;
+  z-index: 999999;
 }
 .overlay {
   position: fixed;
@@ -77,7 +82,15 @@ $color-mine-shaft: color(mine-shaft);
   height: 100vh;
   width: 350px;
   overflow: hidden;
-
+  .color-picker .custom-options .basin h4 {
+    font-size: 15px;
+    color: #3a5776;
+    font-weight: 700;
+    margin: 0;
+  }
+  .color-picker .custom-options .custom-option .basin_size select {
+    width: 100%;
+  }
   @media (max-width: 767px) {
     width: 100vh;
   }
@@ -134,6 +147,16 @@ $color-mine-shaft: color(mine-shaft);
         color: $color-matterhorn;
       }
     }
+  }
+}
+@media (max-width: 767px) {
+  .color-picker {
+    width: 88%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .color-picker{
+    width: 50%;
   }
 }
 </style>

@@ -82,7 +82,7 @@
               itemprop="sku"
               :content="getCurrentProduct.sku"
             >
-            SKU: 
+            SKU:
             <!-- {{ $t("SKU: {sku}", { sku: getCurrentProduct.sku }) }}  -->
             {{getCurrentProduct.sku }}</div>
             <div
@@ -268,7 +268,7 @@
               "
               :product="getCurrentProduct"
             />
-            <product-custom-options 
+            <product-custom-options
               v-else-if="
                 getCurrentProduct.custom_options &&
                 getCurrentProduct.custom_options.length > 0
@@ -281,10 +281,11 @@
                 getCurrentProduct.custom_options.length > 0"
             >
               <div v-if="getCurrentProduct.custom_options.length > 1">
-                <button type="button" @click="showColorPicker">{{ $t('Select color')}}</button>
+                <button class="select-color-button" type="button" @click="showColorPicker">{{ $t('Select color')}}
+                  <i class="material-icons p15 cl-bg-tertiary pointer select-color-icon">keyboard_arrow_right</i></button>
                 <div id="overlay" @click="hideColorPicker" v-if="colorPickerCheck" />
                 <!-- {{getCurrentProduct.custom_options[2]}} -->
-                <color-picker :customOptions="customCustomOptions" :colors="getCurrentProduct" v-show="colorPickerCheck" />
+                <color-picker :customOptions="customCustomOptions" :colors="getCurrentProduct" v-show="colorPickerCheck" @closeColorPickerModal="hideColorPicker" />
               </div>
             </div>
             <div class="product-qty-and-add-to-cart">
@@ -303,7 +304,7 @@
                 @error="handleQuantityError"
               />
               <div class="row m0 bt-product-addtocartbtn">
-               
+
                 <!-- {{getCurrentCustomOptions}} -->
                 <!-- {{isAddToCartDisabled}} -->
                 <!-- {{!isAddToCartDisabled}} -->
@@ -917,7 +918,7 @@ export default {
     //  scrollDisable.style.overflow("hidden");
     //    console.log( "  document.body",scrollDisable);
     document.body.style.overflow = 'hidden';
-    
+
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
@@ -1092,12 +1093,12 @@ $bg-secondary: color(secondary, $colors-background);
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 135px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 999;
   cursor: pointer;
 }
 .product {
@@ -1816,6 +1817,29 @@ span.field-value {
 }
 .vue-star-rating-rating-text {
   margin-top: 0 !important;
+}
+.select-color-button{
+  width: 350px;
+  background: #ffffff;
+  font-family: "Poppins", sans-serif;
+  color: #000;
+  font-size: 16px;
+  border: 3px solid #f0f1f2;
+  height: 44px;
+  text-align: left;
+  margin-bottom: 20px;
+  position: relative;
+}
+.select-color-button .select-color-icon{
+  padding: 0;
+  float: right;
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-weight: 500;
+  transform: rotate(90deg);
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .field-val-div {

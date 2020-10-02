@@ -15,10 +15,11 @@
         <!-- For color only -->
         <div v-if="count > 1 && color" class="custom-option mb15 basin">
           <h4 class="basin-head">{{ option.title }}</h4>
+          <span @click="$emit('closeColorPickerModal')" class="close-modal">×</span>
           <!-- {{option}} -->
           <!-- about to call function {{ setOptions()}} -->
           <div
-            class="mt5 mb5 relative basin_size"
+            class="mt5 mb5  basin_size"
             v-if="option.type === 'select' || option.type === 'drop_down'"
           >
             <select
@@ -49,11 +50,12 @@
                 </option>
               </template>
             </select>
-            <div
+            <div class="select-img-display"
               v-for="(value, vIndex) in option.values"
               :key="vIndex + value.option_type_id"
+              v-if="value.option_type_id == imageSrc"
             >
-              <div v-if="value.option_type_id == imageSrc">
+              <div >
                 <img
                   v-if="
                     !(
@@ -71,6 +73,7 @@
                 />
               </div>
             </div>
+            <div class="custom-attribute-list">
             <div
               v-for="(value, vIndex) in option.values"
               :key="vIndex + value.layer"
@@ -85,7 +88,10 @@
                 @click="setOption(value, option)"
               />
             </div>
-            <div></div>
+            </div>
+            <div class="green-grad-main">
+              <div class="green-grad confirm-extra">CONFIRM COLOUR</div>
+            </div>
           </div>
         </div>
         <!-- For all other options -->
@@ -224,7 +230,7 @@ export default {
     },
   },
   methods: {
-  
+
     setOption(value, option) {
       // console.log(
       //   "2244 in set option function",
@@ -313,15 +319,13 @@ export default {
     // sendSizeOption(option) {
     //   this.$emit("size", option);
     // }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
 .allImages {
-  width: 100px;
-}
-.selctedImage {
-  width: 100px;
+  width: 100%;
+  height: 100%;
 }
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
@@ -459,6 +463,69 @@ input[type="checkbox"] {
   }
 }
 
+.close-modal {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 30px;
+  color: #333;
+  top: 5px;
+}
+.color-picker .custom-options .custom-option .basin_size select {
+  width: 96.7%;
+}
+.custom-attribute-list div {
+  display: inline-block;
+  width: 78px;
+  height: 78px;
+  margin: 4px;
+  border-radius: 3px;
+  border: 1px solid;
+  overflow: hidden;
+  cursor: pointer;
+}
+.custom-attribute-list div:nth-child(n + 1) {
+  margin-left: 0;
+}
+.select-img-display {
+  width: 96.7%;
+  margin-top: 10px;
+}
+.select-img-display div img {
+  max-height: 200px;
+  width: 100%;
+}
+.custom-attribute-list{
+  margin: 20px 0;
+  max-height: calc(100vh - 155px);
+  height: 100%;
+  overflow: auto;
+}
+.green-grad-main {
+  background: #fafafa;
+  height: 75px;
+  width: 96.7%;
+  position: absolute;
+  bottom: 15px;
+}
+.green-grad.confirm-extra {
+  width: 100%;
+  max-width: calc(100% - 60px);
+  vertical-align: baseline;
+  position: absolute;
+  bottom: 22px;
+  border-radius: 4px;
+  padding: 0 1rem;
+  line-height: 45px;
+  font-size: 16px;
+  color: #fff;
+  font-family: Arial;
+  font-weight: 600;
+  display: inline-block;
+  background: #3fa39a url('../../assets/arrow-forward-white.png') no-repeat 100% 55%;
+  left: 0;
+  cursor: pointer;
+}
 @media (max-width: 767px) {
   .basin-head,
   .basin_size {
@@ -469,10 +536,39 @@ input[type="checkbox"] {
   .basin_size select {
     margin-left: 0px !important;
   }
+  .custom-attribute-list div {
+    width: 62px;
+    height: 62px;
+  }
+  .select-img-display div img{
+    max-height: 100px;
+  }
+  .green-grad.confirm-extra{
+    width: 100%;
+    max-width: calc(100% - 60px);
+  }
 }
 @media (min-width: 767px) and (max-width: 991px) {
   .basin .basin_size select {
     width: 250px;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .custom-attribute-list div{
+    width: calc(16.5% - 8px);
+    height: 60px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .green-grad.confirm-extra{
+    max-width: calc(100% - 55px);
+  }
+  .custom-attribute-list div{
+    width: calc(16.5% - 8px);
+  }
+  .select-img-display div img{
+    max-height: 100px;
   }
 }
 </style>
