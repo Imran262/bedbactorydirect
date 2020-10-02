@@ -256,6 +256,7 @@ export default {
       meta_title,
       meta_description,
       name,
+      url_path,
       slug
     } = this.getCurrentCategory;
     const meta = meta_description
@@ -275,6 +276,11 @@ export default {
 
     return {
       // link: [ { rel: 'amphtml', href: ampCategoryLink } ],
+
+      link: [
+        // { rel: "amphtml", href: ampCategoryLink },
+        { rel: "canonical", href: config.seo.siteUrlCanonical + url_path }
+      ],
       title: htmlDecode(meta_title || name),
       meta
     };

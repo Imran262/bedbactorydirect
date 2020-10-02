@@ -16,43 +16,80 @@
               <span class="added-text">Item Added to Basket</span>
             </div>
             <div class="col-xs-3 col-md-2 mainprod-image-col">
-              <template v-if="productsInCart.length">
+              <template v-if="variantSkuProduct">
+                <popup-image :image="variantImage" />
+              </template>
+              <template v-else>
                 <popup-image :image="image" />
               </template>
             </div>
             <div class="col-xs-9 col-md-7">
-              <template v-if="productsInCart.length">
+              <template v-if="variantSkuProduct">
+                <p class="popup-prod-name">{{ variantProdutName }}</p>
+              </template>
+              <template v-else>
                 <p class="popup-prod-name">{{ product.name }}</p>
               </template>
-              <template v-if="productsInCart.length">
-                <!-- {{product}} -->
-                <!-- <p class="product-amount">{{ (product.finalPriceInclTax + priceValue) | price }}</p>
+              <template v-if="variantSkuProduct">
+                <p class="product-amount">{{ priceValue | price }}</p>
+              </template>
+              <template v-else>
+                <p class="product-amount">
+                  {{ (product.finalPriceInclTax + priceValue) | price }}
+                </p>
                 <p class="product-save-amount" v-if="product.specialPrice">
-                  <span>
-                    Was:
+                  <span
+                    >Was:
                     {{
-                    (product.original_price_incl_tax + priceValue) | price
-                    }}
-                  </span>
+                      (product.original_price_incl_tax + priceValue) | price
+                    }}</span
+                  >
                   Save:
                   {{
-                  (product.original_price_incl_tax -
-                  product.special_price_incl_tax +
-                  priceValue)
-                  | price
+                    (product.original_price_incl_tax -
+                      product.special_price_incl_tax +
+                      priceValue)
+                      | price
                   }}
-                </p>-->
-                <product-price
-                  v-if="product.type_id !== 'grouped'"
-                  :product="product"
-                  :custom-options="customOptions"
-                />
+                </p>
               </template>
               <div class="stock-main">
                 <img src="/assets/checkout-non-selected-tick.png" />
-                <span v-if="product.stock.qty">In Stock</span>
-                <span v-else-if="!product.stock.qty">Out of Stock</span>
+                <span v-if="product.stock.is_in_stock == true">In Stock</span>
+                <span v-else-if="product.stock.is_in_stock == false"
+                  >Out of Stock</span
+                >
               </div>
+            </div>
+          </div>
+          <div
+            class="row essentials-heading"
+            v-if="popupProducts && popupProductSku.length > 0"
+          >
+            <h4 class="essentials-prod-heading">
+              Essential Items
+              <span class="essentials-sub-heading"
+                >You may require these for installation.</span
+              >
+            </h4>
+            <h4 class="essentials-prod-heading mobile-essentials-prod-heading">
+              <span class="essentials-sub-heading"
+                >You may require these for installation.</span
+              >
+              Essential Items
+            </h4>
+          </div>
+          <div
+            class="row essentials-products"
+            v-if="popupProducts && popupProductSku.length > 0"
+          >
+            <div
+              v-for="(popup_item, popup_index) in popupProductSku"
+              :key="popup_index"
+              :id="popup_item.sku"
+              class="col-md-4 popup-product-col"
+            >
+              <product-popup :pop-item="popup_item" />
             </div>
           </div>
           <div class="row bottom-row-popup">
@@ -109,11 +146,13 @@
 </template>
 
 <script>
-import Product from "theme/components/core/blocks/Microcart/Product";
 import Vue from "vue";
 import { mapGetters } from "vuex";
-import Modal from "theme/components/core/Modal.vue";
+import { mapActions } from "vuex";
 import PopupImage from "theme/components/PopupImage";
+import Modal from "theme/components/core/Modal.vue";
+import ProductPopup from "theme/components/ProductPopup";
+import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 import {
   getThumbnailPath,
   productThumbnailPath,
@@ -122,35 +161,115 @@ import {
   getThumbnailForProduct,
   getProductConfiguration,
 } from "@vue-storefront/core/modules/cart/helpers";
-import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
-import ProductPrice from "theme/components/core/ProductPrice.vue";
 
 export default {
   name: "PopupCart",
   data() {
-    return {};
+    return {
+      popupProductSku: [],
+      itemThumbnail: [],
+      componentLoaded: false,
+      variantSkuProduct: "",
+      variantProdutName: "",
+    };
   },
   components: {
-    Modal,
     PopupImage,
-    Product,
-    ProductPrice,
+    Modal,
+    ProductPopup,
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     this.componentLoaded = true;
-  //     this.$bus.$emit("modal-show", "modal-switcher");
-  //   });
-  // },
+  computed: {
+    // eslint-disable-next-line vue/return-in-computed-property
+    subTotal() {
+      const cartTotals = this.cartTotals.find((seg) => seg.code === "subtotal");
+      console.log("cartTotalscartTotals", cartTotals);
+      if (cartTotals) {
+        return cartTotals.value;
+      }
+    },
+    ...mapGetters({
+      productsInCart: "cart/getCartItems",
+      totalQuantity: "cart/getItemsTotalQuantity",
+      cartTotals: "cart/getTotals",
+    }),
+    image() {
+      return {
+        loading: this.thumbnail,
+        src: this.thumbnail,
+      };
+    },
+    variantImage() {
+      return {
+        loading: this.variantThumbnail,
+        src: this.variantThumbnail,
+      };
+    },
+    thumbnail() {
+      return getThumbnailForProduct(this.product);
+    },
+    variantThumbnail() {
+      return getThumbnailForProduct(this.variantSkuProduct);
+    },
+    popupProducts() {
+      // console.log('productsInCart', this.productsInCart);
+
+      if (this.productsInCart) {
+        var cartItemArray = new Array(0);
+        var cartProduct_obj_sku = this.productsInCart.map((item) => item.sku);
+      }
+      // console.log('cartItemArraycartItemArray', cartProduct_obj_sku);
+      let finalData_obj = "";
+      let sku_array = [];
+      let finalPop_obj_sku = [];
+      if (this.product.product_links) {
+        console.log("NOrmal Product");
+        let product_links = this.product.product_links;
+        console.log("product_links", product_links);
+        finalPop_obj_sku = product_links
+          .filter((item) => item.link_type === "crosssell")
+          .map((item) => item.linked_product_sku);
+      } else {
+        console.log("Variant Product", this.variantSkuProduct);
+        if (this.variantSkuProduct) {
+          let product_links = this.variantSkuProduct.product_links;
+          finalPop_obj_sku = product_links
+            .filter((item) => item.link_type === "crosssell")
+            .map((item) => item.linked_product_sku);
+        }
+      }
+      console.log("finalPop_obj_sku", finalPop_obj_sku);
+      // return;
+      if (finalPop_obj_sku) {
+        // console.log('if_finalPop_obj_sku');
+        const finalSkusArray = finalPop_obj_sku.filter(
+          (singleDate) => !cartProduct_obj_sku.includes(singleDate)
+        );
+        return finalSkusArray;
+      } else {
+        const finalSkusArray = "";
+        return finalSkusArray;
+      }
+    },
+  },
   async mounted() {
     this.$nextTick(() => {
       this.componentLoaded = true;
       this.$bus.$emit("modal-show", "modal-switcher");
     });
-
+    if (this.variantSku) {
+      const variantSkuPro = await this.getProduct({
+        options: { sku: this.variantSku },
+        setCurrentProduct: false,
+        setCurrentCategoryPath: false,
+        selectDefaultVariant: false,
+      });
+      this.variantSkuProduct = variantSkuPro;
+      this.variantProdutName = variantSkuPro.name;
+    }
     if (this.popupProducts) {
       var popup_arr = [];
       this.popupProducts.forEach(async (item) => {
+        console.log("popupProductsItem", item);
         const popup_product = await this.getProduct({
           options: { sku: item },
           setCurrentProduct: false,
@@ -169,44 +288,44 @@ export default {
       this.popupProductSku = popup_arr;
     }
   },
-  methods: {
-    popupclose() {
-      clearAllBodyScrollLocks();
-      this.$bus.$emit("modal-hide", "modal-switcher");
-      this.$emit("popInterface", 0);
+  watch: {
+    async popupProducts() {
+      // var popup_arr = [];
+      // this.popupProducts.forEach(async item => {
+      //   console.log('popupProducts', item);
+      //   const popup_product = await this.getProduct({
+      //     options: { sku: item },
+      //     setCurrentProduct: false,
+      //     setCurrentCategoryPath: false,
+      //     selectDefaultVariant: false
+      //   });
+      //   console.log('popupProductsP_p', popup_product);
+      //   popup_arr.push(popup_product);
+      //   const thumbnail = productThumbnailPath(popup_product);
+      //   Vue.set(
+      //     this.itemThumbnail,
+      //     item,
+      //     getThumbnailPath(thumbnail, 280, 280)
+      //   );
+      // });
+      // this.popupProductSku = popup_arr;
     },
+  },
+  methods: {
+    ...mapActions({
+      getProduct: "product/single",
+    }),
     handlePopupAfteBack(event) {
       // console.log('handlePopupAfteBackhandlePopupAfteBack ', event);
       this.$emit("popInterface", 0);
     },
+    close() {
+      this.$bus.$emit("modal-hide", "modal-switcher");
+    },
     popupclose() {
       clearAllBodyScrollLocks();
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
-    },
-  },
-  computed: {
-    ...mapGetters({
-      productsInCart: "cart/getCartItems",
-      totalQuantity: "cart/getItemsTotalQuantity",
-      cartTotals: "cart/getTotals",
-    }),
-    image() {
-      return {
-        loading: this.thumbnail,
-        src: this.thumbnail,
-      };
-    },
-    thumbnail() {
-      return getThumbnailForProduct(this.product);
-    },
-    subTotal() {
-      console.log("cartTotals", this.cartTotals);
-      const cartTotals = this.cartTotals.find((seg) => seg.code === "subtotal");
-      if (cartTotals) {
-        console.log("cartTotalvalues", cartTotals.value);
-        return cartTotals.value;
-      }
     },
   },
   props: {
@@ -214,13 +333,13 @@ export default {
       required: true,
       type: Object,
     },
-    customOptions: {
-      type: Object,
-      default: () => ({}),
-    },
     priceValue: {
       type: Number,
       default: 0,
+    },
+    variantSku: {
+      type: String,
+      default: "",
     },
   },
 };
@@ -620,27 +739,6 @@ h4.essentials-prod-heading.mobile-essentials-prod-heading {
 }
 .addtocart-popups .modal-content {
   padding: 15px 8px 0px 8px !important;
-}
-.popup-content-container .price .h3 .cl-mine-shaft {
-  font-size: 18px;
-  font-family: "Poppins", sans-serif;
-  color: #d10000b8;
-  text-align: left;
-  font-weight: 700;
-  margin: 5px 0px;
-}
-.popup-content-container .price .h3 .saving-price-detail-div {
-  width: 100%;
-  padding: 0;
-  margin-bottom: 10px;
-}
-.popup-content-container .price .h3 .saving-price-detail-div span {
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  color: #54575b !important;
-  text-decoration: none;
-  padding: 0;
 }
 @media (max-width: 767px) {
   .addtocart-popups .modal .modal-header {
