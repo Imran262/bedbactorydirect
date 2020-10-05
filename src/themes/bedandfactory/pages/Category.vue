@@ -21,14 +21,22 @@
             <h1>{{ getCurrentCategory.name }}</h1>
           </div>
         </div>
+        <div class="category-description category-description-top">
+          <CategoryDescriptionTop :id="getCmsBlockTopId" />
+        </div>
       </div>
       <div class="container">
         <div class="row m0">
           <div class="mobile-filter col-xs-6 mt25">
-            <button class="mobile-filters-button" @click="openFilters">{{ $t("Filters") }}</button>
+            <button class="mobile-filters-button" @click="openFilters">
+              {{ $t("Filters") }}
+            </button>
           </div>
           <div class="mobile-sorting col-xs-6 mt25">
-            <sort-by @change="changeFilter" :value="getCurrentSearchQuery.sort" />
+            <sort-by
+              @change="changeFilter"
+              :value="getCurrentSearchQuery.sort"
+            />
           </div>
         </div>
       </div>
@@ -36,11 +44,16 @@
     <div class="container pb60">
       <div class="row m0 pt15">
         <div class="col-md-3 start-xs category-filters">
-          <sidebar :filters="getAvailableFilters" @changeFilter="changeFilter" />
+          <sidebar
+            :filters="getAvailableFilters"
+            @changeFilter="changeFilter"
+          />
         </div>
         <div class="col-md-3 start-xs mobile-filters" v-show="mobileFilters">
           <div class="close-container absolute w-100">
-            <i class="material-icons p15 close cl-accent" @click="closeFilters">close</i>
+            <i class="material-icons p15 close cl-accent" @click="closeFilters"
+              >close</i
+            >
           </div>
           <sidebar
             class="mobile-filters-body"
@@ -50,10 +63,14 @@
           <div class="relative pb20 pt15">
             <div class="brdr-top-1 brdr-cl-primary absolute divider w-100" />
           </div>
-          <button-full class="mb20 btn__filter" @click.native="closeFilters">{{ $t("Filter") }}</button-full>
+          <button-full class="mb20 btn__filter" @click.native="closeFilters">{{
+            $t("Filter")
+          }}</button-full>
         </div>
         <div class="col-md-9 px10 border-box products-list">
-          <div class="col-xs-12 end-md m0 pb20 hidden-xs sb-item-number start-end">
+          <div
+            class="col-xs-12 end-md m0 pb20 hidden-xs sb-item-number start-end"
+          >
             <h1 class="hidden only-h1-tag">{{ getCurrentCategory.name }}</h1>
             <div class="sort-by-desktop">
               <sort-by
@@ -61,7 +78,7 @@
                 @change="changeFilter"
                 :value="getCurrentSearchQuery.sort"
               />
-              {{getCategoryProductsTotal}}
+              {{ getCategoryProductsTotal }}
               <!-- {{ $t("{count} items", { count: getCategoryProductsTotal }) }} -->
             </div>
           </div>
@@ -72,16 +89,26 @@
             <h4 data-testid="noProductsInfo">{{ $t("No products found!") }}</h4>
             <p>
               {{
-              $t(
-              "Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!"
-              )
+                $t(
+                  "Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!"
+                )
               }}
             </p>
           </div>
-          <lazy-hydrate :trigger-hydration="!loading" v-if="isLazyHydrateEnabled">
-            <product-listing :columns="defaultColumn" :products="getCategoryProducts" />
+          <lazy-hydrate
+            :trigger-hydration="!loading"
+            v-if="isLazyHydrateEnabled"
+          >
+            <product-listing
+              :columns="defaultColumn"
+              :products="getCategoryProducts"
+            />
           </lazy-hydrate>
-          <product-listing v-else :columns="defaultColumn" :products="getCategoryProducts" />
+          <product-listing
+            v-else
+            :columns="defaultColumn"
+            :products="getCategoryProducts"
+          />
         </div>
       </div>
     </div>
@@ -109,7 +136,7 @@ import rootStore from "@vue-storefront/core/store";
 import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks";
 import {
   localizedRoute,
-  currentStoreView
+  currentStoreView,
 } from "@vue-storefront/core/lib/multistore";
 import { htmlDecode } from "@vue-storefront/core/filters";
 import ActiveFilters from "src/modules/vsf-l-navigation/components/ActiveFilters.vue";
@@ -117,6 +144,7 @@ import Sidebar from "src/modules/vsf-l-navigation/components/Sidebar";
 import UspBar from "theme/components/theme/blocks/UspBar/UspBar";
 import CmsBlock from "theme/components/core/blocks/Cms/Block";
 import CategoryDescription from "theme/components/core/blocks/CategoryDescription/CategoryDescription";
+import CategoryDescriptionTop from "theme/components/core/blocks/CategoryDescription/CategoryDescriptionTop";
 const THEME_PAGE_SIZE = 50;
 
 const composeInitialPageState = async (store, route, forceLoad = false) => {
@@ -135,14 +163,14 @@ const composeInitialPageState = async (store, route, forceLoad = false) => {
     await store.dispatch("category-next/loadCategoryProducts", {
       route,
       category: currentCategory,
-      pageSize
+      pageSize,
     });
     const breadCrumbsLoader = store.dispatch(
       "category-next/loadCategoryBreadcrumbs",
       {
         category: currentCategory,
         currentRouteName: currentCategory.name,
-        omitCurrent: true
+        omitCurrent: true,
       }
     );
 
@@ -169,7 +197,8 @@ export default {
     ActiveFilters,
     UspBar,
     CmsBlock,
-    CategoryDescription
+    CategoryDescription,
+    CategoryDescriptionTop,
   },
   mixins: [onBottomScroll],
   data() {
@@ -177,7 +206,7 @@ export default {
       mobileFilters: false,
       defaultColumn: 4,
       loadingProducts: false,
-      loading: true
+      loading: true,
     };
   },
   computed: {
@@ -186,7 +215,7 @@ export default {
       getCategoryProducts: "category-next/getCategoryProducts",
       getCurrentCategory: "category-next/getCurrentCategory",
       getCategoryProductsTotal: "category-next/getCategoryProductsTotal",
-      getAvailableFilters: "category-next/getAvailableFilters"
+      getAvailableFilters: "category-next/getAvailableFilters",
     }),
     isLazyHydrateEnabled() {
       return config.ssr.lazyHydrateFor.includes("category-next.products");
@@ -196,7 +225,10 @@ export default {
     },
     getCmsBlockId() {
       return this.getCurrentCategory.landing_page;
-    }
+    },
+    getCmsBlockTopId() {
+      return this.getCurrentCategory.cms_block;
+    },
   },
   async asyncData({ store, route, context }) {
     // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
@@ -208,7 +240,7 @@ export default {
     // SSR no need to invoke SW caching here
     else if (!from.name) {
       // SSR but client side invocation, we need to cache products and invoke requests from asyncData for offline support
-      next(async vm => {
+      next(async (vm) => {
         vm.loading = true;
         await composeInitialPageState(vm.$store, to, true);
         await vm.$store.dispatch("category-next/cacheProducts", { route: to }); // await here is because we must wait for the hydration
@@ -216,7 +248,7 @@ export default {
       });
     } else {
       // Pure CSR, with no initial category state
-      next(async vm => {
+      next(async (vm) => {
         vm.loading = true;
         vm.$store.dispatch("category-next/cacheProducts", { route: to });
         vm.loading = false;
@@ -232,7 +264,7 @@ export default {
     },
     async changeFilter(filterVariant) {
       this.$store.dispatch("category-next/switchSearchFilters", [
-        filterVariant
+        filterVariant,
       ]);
     },
     columnChange(column) {
@@ -248,7 +280,7 @@ export default {
       } finally {
         this.loadingProducts = false;
       }
-    }
+    },
   },
   metaInfo() {
     const storeView = currentStoreView();
@@ -256,16 +288,15 @@ export default {
       meta_title,
       meta_description,
       name,
-      url_path,
-      slug
+      slug,
     } = this.getCurrentCategory;
     const meta = meta_description
       ? [
           {
             vmid: "description",
             name: "description",
-            content: htmlDecode(meta_description)
-          }
+            content: htmlDecode(meta_description),
+          },
         ]
       : [];
     /* const categoryLocaliedLink = localizedRoute({
@@ -276,15 +307,10 @@ export default {
 
     return {
       // link: [ { rel: 'amphtml', href: ampCategoryLink } ],
-
-      link: [
-        // { rel: "amphtml", href: ampCategoryLink },
-        { rel: "canonical", href: config.seo.siteUrlCanonical + url_path }
-      ],
       title: htmlDecode(meta_title || name),
-      meta
+      meta,
     };
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -543,5 +569,11 @@ html {
 }
 .only-h1-tag {
   display: none;
+}
+.category-description-top {
+  margin-top: 15px;
+}
+.category-description-top .block-content {
+  padding: 0;
 }
 </style>
