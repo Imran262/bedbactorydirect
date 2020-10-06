@@ -28,6 +28,8 @@ export default {
   },
   methods: {
     configureBraintree () {
+      // return false;
+      console.log('configureTheBrainTree');
       var self = this
       this.$store.dispatch('braintree/generateToken').then((resp) => {
         var dropin = require('braintree-web-drop-in')
@@ -45,7 +47,7 @@ export default {
           button.addEventListener('click', () => {
             if (dropinInstance.isPaymentMethodRequestable()) {
               setTimeout(() => {
-                dropinInstance.requestPaymentMethod((err, payload) => {
+                let requestedPaymentMethod = dropinInstance.requestPaymentMethod((err, payload) => {
                   if (!err) {
                     console.debug(payload)
                     // Submit payload.nonce to your server
@@ -55,13 +57,16 @@ export default {
                       payment_method_nonce: self.nonce
                     })
                   } else {
-                    console.error(err)
+                    console.error('ErrorIs', err);
                   }
-                }).catch((requestPaymentMethodErr) => {
-                  // No payment method is available.
-                  // An appropriate error will be shown in the UI.
-                  console.error(requestPaymentMethodErr)
-                })
+                });
+                if (requestedPaymentMethod) {
+                  requestedPaymentMethod.catch((requestPaymentMethodErr) => {
+                    // No payment method is available.
+                    // An appropriate error will be shown in the UI.
+                    console.error('catchingTheError', requestPaymentMethodErr)
+                  })
+                }
               }, 400)
             }
           })
