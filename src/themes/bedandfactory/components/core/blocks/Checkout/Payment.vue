@@ -774,9 +774,6 @@ span.postcodelookup-required {
 .billing-payment .payment-phone-number {
   margin-top: 20px;
 }
-.payment-method-inner:nth-child(2n + 1) {
-  display: none;
-}
 .bank-card {
   display: flex;
 }

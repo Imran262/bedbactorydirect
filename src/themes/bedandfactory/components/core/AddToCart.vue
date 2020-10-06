@@ -7,12 +7,14 @@
       "
       :disabled="isProductDisabled"
       data-testid="addToCart"
-    >{{ $t("Add to cart") }}</button-full>
+      >{{ $t("Add to cart") }}</button-full
+    >
     <popup-cart
       class="popup-main-cart"
       :product="product"
       :custom-options="customOptions"
       v-if="cartpopupshow"
+      @popInterface="handlePopupAfteBack"
     />
   </div>
 </template>
@@ -28,7 +30,7 @@ import PopupCart from "theme/components/PopupCart";
 export default {
   data() {
     return {
-      cartpopupshow: false
+      cartpopupshow: false,
     };
   },
   directives: { focusClean },
@@ -36,16 +38,16 @@ export default {
   props: {
     product: {
       required: true,
-      type: Object
+      type: Object,
     },
     customOptions: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     showPopUp(product) {
@@ -58,9 +60,9 @@ export default {
     async addToCart(product) {
       try {
         const diffLog = await this.$store.dispatch("cart/addItem", {
-          productToAdd: product
+          productToAdd: product,
         });
-        diffLog.clientNotifications.forEach(notificationData => {
+        diffLog.clientNotifications.forEach((notificationData) => {
           // this.notifyUser(notificationData);
         });
       } catch (message) {
@@ -71,13 +73,17 @@ export default {
     },
     notifyUser(notificationData) {
       this.$store.dispatch("notification/spawnNotification", notificationData, {
-        root: true
+        root: true,
       });
-    }
+    },
+    handlePopupAfteBack(event) {
+      console.log("EventEventEvent ", event);
+      this.cartpopupshow = event;
+    },
   },
   computed: {
     ...mapGetters({
-      isAddingToCart: "cart/getIsAdding"
+      isAddingToCart: "cart/getIsAdding",
     }),
     isProductDisabled() {
       return (
@@ -85,14 +91,14 @@ export default {
         formatProductMessages(this.product.errors) !== "" ||
         this.isAddingToCart
       );
-    }
+    },
   },
   beforeMount() {
     this.$bus.$on("product-after-removevariant", this.onAfterRemovedVariant);
   },
   beforeDestroy() {
     this.$bus.$off("product-after-removevariant");
-  }
+  },
 };
 </script>
 <style scoped>

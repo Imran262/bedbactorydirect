@@ -13,7 +13,7 @@ import { CmsModule } from "@vue-storefront/core/modules/cms";
 import { GoogleTagManagerModule } from "./google-tag-manager";
 // import { AmpRendererModule } from './amp-renderer';
 import { PaymentBackendMethodsModule } from "./payment-backend-methods";
-import { PaymentCashOnDeliveryModule } from "./payment-cash-on-delivery";
+// import { PaymentCashOnDeliveryModule } from "./payment-cash-on-delivery";
 import { NewsletterModule } from "@vue-storefront/core/modules/newsletter";
 import { InitialResourcesModule } from "@vue-storefront/core/modules/initial-resources";
 
@@ -28,7 +28,7 @@ export function registerClientModules() {
   registerModule(CheckoutModule); // To Checkout
   registerModule(CartModule);
   registerModule(PaymentBackendMethodsModule);
-  registerModule(PaymentCashOnDeliveryModule);
+  // registerModule(PaymentCashOnDeliveryModule);
   registerModule(WishlistModule); // Trigger on wishlist icon click
   registerModule(NotificationModule);
   registerModule(UserModule); // Trigger on user icon click

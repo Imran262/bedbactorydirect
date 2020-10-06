@@ -59,10 +59,7 @@
           <div class="col-xs-12 col-md-8 px20">
             <slot name="placeOrderButton">
               <button-full
-                @click.native="
-                  placeOrder();
-                  checkedFn();
-                "
+                @click.native="checkedFn();"
                 data-testid="orderReviewSubmit"
                 class="place-order-btn"
               >{{ $t("Place the order") }}</button-full>

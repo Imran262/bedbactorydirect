@@ -9,6 +9,7 @@ const Compare = () => import(/* webpackChunkName: "vsf-compare" */ 'theme/pages/
 const MyAccount = () => import(/* webpackChunkName: "vsf-my-account" */ 'theme/pages/MyAccount.vue')
 const Static = () => import(/* webpackChunkName: "vsf-static" */ 'theme/pages/Static.vue')
 const ResetPassword = () => import(/* webpackChunkName: "vsf-reset-password" */ 'theme/pages/ResetPassword.vue');
+const SearchResultPage = () => import(/* webpackChunkName: "vsf-reset-password" */ 'theme/pages/SearchResultPage.vue');
 const SwatchesPage = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/SwatchesPage.vue');
 const Success = () =>
@@ -51,6 +52,7 @@ let routes = [
   { name: 'create-password', path: '/create-password', component: ResetPassword },
   { name: 'page-not-found', path: '*', component: PageNotFound },
   { name: 'success', path: '/success', component: Success },
+  { name: 'SearchResultPage', path: '/search-result-page', component: SearchResultPage },
   {
     name: 'swatches',
     path: '/swatches',
