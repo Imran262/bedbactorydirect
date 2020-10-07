@@ -68,7 +68,7 @@
               data-testid="productName"
               itemprop="name"
             >
-              {{ getCurrentProduct.name | htmlDecode }}
+              {{ getCurrentProduct.name.toLowerCase() | htmlDecode }}
               <web-share
                 :title="getCurrentProduct.name | htmlDecode"
                 text="Check this product!"
@@ -1171,6 +1171,7 @@ h1.product-name {
   font-family: "Poppins", sans-serif;
   color: #54575b;
   margin: 10px 0px 10px 0px;
+  text-transform: capitalize;
 }
 .b-t-prod-sku {
   font-weight: 600;
