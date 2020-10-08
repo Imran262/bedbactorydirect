@@ -6,6 +6,7 @@
       :product="colors"
       :color="true"
       @closeColorPickerModal="$emit('closeColorPickerModal')"
+      @changeColor="$emit('selectedColor', $event)"
     />
   </div>
 </template>
@@ -26,7 +27,7 @@ export default {
       type: Object,
       default: false,
       required: true
-    }
+    },
   },
   computed: {
   },

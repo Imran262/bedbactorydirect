@@ -13,13 +13,16 @@
         <!-- {{(count>1 && color)}}
         {{(count<=1 && !color)}}-->
         <!-- For color only -->
+
         <div v-if="count > 1 && color" class="custom-option mb15 basin">
           <h4 class="basin-head">{{ option.title }}</h4>
-          <span @click="$emit('closeColorPickerModal')" class="close-modal">×</span>
+          <span @click="$emit('closeColorPickerModal')" class="close-modal"
+            >×</span
+          >
           <!-- {{option}} -->
-          <!-- about to call function {{ setOptions()}} -->
+          <!-- about to call function {{ showOptions()}} -->
           <div
-            class="mt5 mb5  basin_size"
+            class="mt5 mb5 basin_size"
             v-if="option.type === 'select' || option.type === 'drop_down'"
           >
             <select
@@ -30,7 +33,7 @@
               @focus="$emit('focus')"
               @blur="$emit('blur')"
               @change="
-                optionChanged(option);
+                setOption(option);
                 setImage();
               "
             >
@@ -50,12 +53,13 @@
                 </option>
               </template>
             </select>
-            <div class="select-img-display"
+            <div
+              class="select-img-display"
               v-for="(value, vIndex) in option.values"
               :key="vIndex + value.option_type_id"
               v-if="value.option_type_id == imageSrc"
             >
-              <div >
+              <div>
                 <img
                   v-if="
                     !(
@@ -73,24 +77,31 @@
                 />
               </div>
             </div>
-            <div class="custom-attribute-list">
-            <div
-              v-for="(value, vIndex) in option.values"
-              :key="vIndex + value.layer"
-            >
-              <img
-                class="allImages"
-                :src="
-                  'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
-                  value.layer
-                "
-                alt="Image"
-                @click="setOption(value, option)"
-              />
+            <div class="custom-attribute-list height-adjust">
+              <div
+                v-for="(value, vIndex) in option.values"
+                :key="vIndex + value.layer"
+              >
+                <img
+                  class="allImages"
+                  :src="
+                    'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                    value.layer
+                  "
+                  alt="Image"
+                  @click="
+                    showOption(value, option);
+                    setOption(option);
+                  "
+                />
+              </div>
             </div>
-            </div>
+
             <div class="green-grad-main">
-              <div class="green-grad confirm-extra">CONFIRM COLOUR</div>
+              <!-- {{showOptions()}} -->
+              <div @click="confirmColor()" class="green-grad confirm-extra">
+                CONFIRM COLOUR
+              </div>
             </div>
           </div>
         </div>
@@ -221,6 +232,8 @@ export default {
     return {
       options: [],
       imageSrc: "",
+      currentOption: null,
+      colorName: "",
     };
   },
   props: {
@@ -230,8 +243,28 @@ export default {
     },
   },
   methods: {
-
-    setOption(value, option) {
+    showOptions() {
+      console.log("1122 Current option is ", this.currentOption);
+    },
+    setOption(option) {
+      console.log(
+        "1122 About to set option ",
+        option,
+        "current option is",
+        this.currentOption
+      );
+      this.currentOption = option;
+    },
+    confirmColor() {
+      console.log("1122 Current option is ", this.currentOption);
+      if (this.currentOption) {
+        this.optionChanged(this.currentOption);
+        this.$emit("changeColor", this.colorName);
+        this.$emit("closeColorPickerModal");
+      } else {
+      }
+    },
+    showOption(value, option) {
       // console.log(
       //   "2244 in set option function",
       //   value,
@@ -249,7 +282,9 @@ export default {
       //   "\n before assignment",
       //   data1
       // );
+      console.log("1122 value", value);
       this.inputValues.customOption_15 = value.option_type_id;
+      this.colorName = value.title;
       data1 = this.$refs.colorImage;
       // console.log(
       //   "\n Selected value ",
@@ -258,7 +293,7 @@ export default {
       //   data1
       // );
       // this.setImage();
-      this.optionChanged(option);
+      // this.optionChanged(option);
       this.imageSrc = value.option_type_id;
       // setTimeout(()=>{
       //   console.log('Arsltest', this.$refs.colorImage[0].selectedOptions[0])
@@ -283,8 +318,9 @@ export default {
       //   typeof this.$refs.colorImage[0].selectedOptions,
       //   "\n\n\n"
       // );
-      let data = this.$refs.colorImage[0].selectedOptions[0].value;
-      this.imageSrc = data;
+      let data = this.$refs.colorImage[0].selectedOptions[0];
+      this.colorName = data.innerHTML;
+      this.imageSrc = data.value;
       // console.log(
       //   "1122 \n selected option is  ",
       //   data,
@@ -306,7 +342,7 @@ export default {
     //   if (this.options.length > 0) {
     //   }
     // },
-    // setOptions() {
+    // showOptions() {
     //   console.log("1122 Custom options are ", this.customOptions.length);
     //   this.customOptions.forEach((option, index) => {
     //     console.log("Now traversing Option no ", index);
@@ -319,10 +355,17 @@ export default {
     // sendSizeOption(option) {
     //   this.$emit("size", option);
     // }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
+.height-adjust {
+  height: calc(100vh - 212px);
+}
+.basin-text {
+  color: #54575b;
+  margin: 0px;
+}
 .allImages {
   width: 100%;
   height: 100%;
@@ -495,10 +538,10 @@ input[type="checkbox"] {
   max-height: 200px;
   width: 100%;
 }
-.custom-attribute-list{
+.custom-attribute-list {
   margin: 20px 0;
   max-height: calc(100vh - 155px);
-  height: 100%;
+  /* height: 100%; */
   overflow: auto;
 }
 .green-grad-main {
@@ -522,7 +565,8 @@ input[type="checkbox"] {
   font-family: Arial;
   font-weight: 600;
   display: inline-block;
-  background: #3fa39a url('../../assets/arrow-forward-white.png') no-repeat 100% 55%;
+  background: #3fa39a url("../../assets/arrow-forward-white.png") no-repeat 100%
+    55%;
   left: 0;
   cursor: pointer;
 }
@@ -540,10 +584,10 @@ input[type="checkbox"] {
     width: 62px;
     height: 62px;
   }
-  .select-img-display div img{
+  .select-img-display div img {
     max-height: 100px;
   }
-  .green-grad.confirm-extra{
+  .green-grad.confirm-extra {
     width: 100%;
     max-width: calc(100% - 60px);
   }
@@ -554,20 +598,20 @@ input[type="checkbox"] {
   }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-  .custom-attribute-list div{
+  .custom-attribute-list div {
     width: calc(16.5% - 8px);
     height: 60px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  .green-grad.confirm-extra{
+  .green-grad.confirm-extra {
     max-width: calc(100% - 55px);
   }
-  .custom-attribute-list div{
+  .custom-attribute-list div {
     width: calc(16.5% - 8px);
   }
-  .select-img-display div img{
+  .select-img-display div img {
     max-height: 100px;
   }
 }
