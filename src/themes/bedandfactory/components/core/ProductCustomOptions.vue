@@ -1,17 +1,10 @@
 <template>
   <div>
-    <!-- in custom options  {{color}}
-    {{product.custom_options.length}}-->
-
-    <!-- {{product.custom_options[0]}} -->
     <form class="custom-options">
       <div
         v-for="(option, count) in product.custom_options"
         :key="'customOption_' + option.option_id"
       >
-        <!-- {{option}} -->
-        <!-- {{(count>1 && color)}}
-        {{(count<=1 && !color)}}-->
         <!-- For color only -->
 
         <div v-if="count > 1 && color" class="custom-option mb15 basin">
@@ -19,8 +12,7 @@
           <span @click="$emit('closeColorPickerModal')" class="close-modal"
             >×</span
           >
-          <!-- {{option}} -->
-          <!-- about to call function {{ showOptions()}} -->
+
           <div
             class="mt5 mb5 basin_size"
             v-if="option.type === 'select' || option.type === 'drop_down'"
@@ -98,7 +90,6 @@
             </div>
 
             <div class="green-grad-main">
-              <!-- {{showOptions()}} -->
               <div @click="confirmColor()" class="green-grad confirm-extra">
                 CONFIRM COLOUR
               </div>
@@ -107,9 +98,6 @@
         </div>
         <!-- For all other options -->
         <div v-if="count <= 1 && !color" class="custom-option mb15 basin">
-          <!-- second condition is true
-          {{ count }}
-          {{ color }}-->
           <h4 class="basin-head">{{ option.title }}</h4>
           <input
             v-if="option.type === 'field'"
@@ -158,11 +146,6 @@
               @blur="$emit('blur')"
               @change="optionChanged(option)"
             >
-              <!-- <option
-              v-for="(opval, key) in option.values"
-              :key="key"
-              :value="opval.option_type_id"
-              >{{ opval.title }}</option>-->
               <option disabled value="" :key="2378695843" selected="selected">
                 Please select
               </option>
@@ -179,9 +162,6 @@
                 </option>
               </template>
             </select>
-            <!-- hello
-            {{option.option_id}} -->
-            <!-- {{makeList()}} -->
           </div>
           <div
             class="m5 relative"
@@ -222,12 +202,9 @@
 <script>
 import { ProductCustomOptions } from "@vue-storefront/core/modules/catalog/components/ProductCustomOptions.ts";
 import { changeFilterQuery } from "@vue-storefront/core/modules/catalog-next/helpers/filterHelpers";
-//import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker";
 export default {
   mixins: [ProductCustomOptions],
-  components: {
-    //    ColorPicker
-  },
+  components: {},
   data() {
     return {
       options: [],
@@ -243,20 +220,10 @@ export default {
     },
   },
   methods: {
-    showOptions() {
-      console.log("1122 Current option is ", this.currentOption);
-    },
     setOption(option) {
-      console.log(
-        "1122 About to set option ",
-        option,
-        "current option is",
-        this.currentOption
-      );
       this.currentOption = option;
     },
     confirmColor() {
-      console.log("1122 Current option is ", this.currentOption);
       if (this.currentOption) {
         this.optionChanged(this.currentOption);
         this.$emit("changeColor", this.colorName);
@@ -265,96 +232,18 @@ export default {
       }
     },
     showOption(value, option) {
-      // console.log(
-      //   "2244 in set option function",
-      //   value,
-      //   "\n selected option is ",
-      //   value.option_type_id,
-      //   "\n",
-      //   typeof this.inputValues,
-      //   "current color is ",
-      //   this.inputValues.customOption_15
-      // );
       let data1 = this.$refs.colorImage;
-      // console.log(
-      //   "1155\n Selected value ",
-      //   value.option_type_id,
-      //   "\n before assignment",
-      //   data1
-      // );
-      console.log("1122 value", value);
+      // console.log("1122 value", value);
       this.inputValues.customOption_15 = value.option_type_id;
       this.colorName = value.title;
       data1 = this.$refs.colorImage;
-      // console.log(
-      //   "\n Selected value ",
-      //   value.option_type_id,
-      //   "\n after assignment",
-      //   data1
-      // );
-      // this.setImage();
-      // this.optionChanged(option);
       this.imageSrc = value.option_type_id;
-      // setTimeout(()=>{
-      //   console.log('Arsltest', this.$refs.colorImage[0].selectedOptions[0])
-      //   let data = this.$refs.colorImage[0].selectedOptions[0].value;
-      //   console.log("\n after assignment", data);
-      //   this.imageSrc = value.option_type_id;
-      //   }, 100);
     },
     setImage() {
-      // console.log(
-      //   "1122 in set image function\n",
-      //   this.$refs.colorImage,
-      //   "\n\n\n"
-      // );
-      // console.log(
-      //   "1144 in set image function\n",
-      //   JSON.stringify(this.$refs.colorImage),
-      //   "\n\n\n"
-      // );
-      // console.log(
-      //   "1133 length\n",
-      //   typeof this.$refs.colorImage[0].selectedOptions,
-      //   "\n\n\n"
-      // );
       let data = this.$refs.colorImage[0].selectedOptions[0];
       this.colorName = data.innerHTML;
       this.imageSrc = data.value;
-      // console.log(
-      //   "1122 \n selected option is  ",
-      //   data,
-      //   "image source is ",
-      //   this.imageSrc
-      // );
-
-      // let input = this.$refs.colorImage[0].selectedOptions[0];
-      // // this.$refs.colorImage[0].selectedOptions[0].text = "red"
-      // console.log("1133 length\n", input, "\n\n\n");
-      // 0.selectedOption[0].label
     },
-    // makeList(option) {
-    //   console.log("112233 options are ", this.options.length);
-    //   console.log("Here we are");
-
-    //   console.log("refernce is ",this.$refs.dropDown);
-
-    //   if (this.options.length > 0) {
-    //   }
-    // },
-    // showOptions() {
-    //   console.log("1122 Custom options are ", this.customOptions.length);
-    //   this.customOptions.forEach((option, index) => {
-    //     console.log("Now traversing Option no ", index);
-    //     this.optionChanged(option);
-    //   });
-    // },
-    // sendStorageOption(option) {
-    //   this.$emit("storage", option);
-    // },
-    // sendSizeOption(option) {
-    //   this.$emit("size", option);
-    // }
   },
 };
 </script>
