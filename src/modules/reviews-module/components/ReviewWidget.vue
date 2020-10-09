@@ -41,8 +41,13 @@ export default {
   },
   watch: {
     allReviewsList(oldVal, newVal) {
-      this.reviews = this.reviewsList.reviews;
-      console.log("This is reviews in reivew widget", this.reviews);
+      if (this.reviewsList) {
+        this.reviews = this.reviewsList.reviews;
+        console.log("1122 This is reviews in reivew widget",typeof this.reviewsList, this.reviews);
+      }
+      else{
+
+      }
     },
   },
   computed: {
