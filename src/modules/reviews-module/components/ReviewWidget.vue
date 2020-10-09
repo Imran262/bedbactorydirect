@@ -43,7 +43,7 @@ export default {
     allReviewsList(oldVal, newVal) {
       if (this.reviewsList) {
         this.reviews = this.reviewsList.reviews;
-        console.log("1122 This is reviews in reivew widget",typeof this.reviewsList, this.reviews);
+      //  console.log("1122 This is reviews in reivew widget",typeof this.reviewsList, this.reviews);
       }
       else{
 
