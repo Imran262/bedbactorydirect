@@ -1,15 +1,18 @@
 <template>
   <form class="custom-options">
-    <div v-for="option in product.custom_options" :key="('customOption_' + option.option_id)">
+    <div
+      v-for="option in product.custom_options"
+      :key="'customOption_' + option.option_id"
+    >
       <div class="custom-option mb15 basin">
         <h4 class="basin-head">{{ option.title }}</h4>
         <input
           class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
           v-if="option.type === 'field'"
           type="text"
-          :name="('customOption_' + option.option_id)"
+          :name="'customOption_' + option.option_id"
           focus
-          v-model="inputValues[('customOption_' + option.option_id)]"
+          v-model="inputValues['customOption_' + option.option_id]"
           :placeholder="option.title"
           @change="optionChanged(option)"
         />
@@ -23,15 +26,15 @@
             @change="optionChanged(option)"
             type="radio"
             class="m0 no-outline"
-            :name="('customOption_' + option.option_id)"
-            :id="('customOption_' + opval.option_type_id)"
+            :name="'customOption_' + option.option_id"
+            :id="'customOption_' + opval.option_type_id"
             focus
             :value="opval.option_type_id"
-            v-model="inputValues[('customOption_' + option.option_id)]"
+            v-model="inputValues['customOption_' + option.option_id]"
           />
           <label
             class="pl10 lh20 h4 pointer"
-            :for="('customOption_' + opval.option_type_id)"
+            :for="'customOption_' + opval.option_type_id"
             v-html="opval.title"
           />
         </div>
@@ -40,22 +43,30 @@
           v-if="option.type === 'select' || option.type === 'drop_down'"
         >
           <select
+            ref="selectedOption"
             :name="'customOption_' + option.option_id"
             class="m0 no-outline"
             v-model="inputValues['customOption_' + option.option_id]"
             @focus="$emit('focus')"
             @blur="$emit('blur')"
-            @change="optionChanged(option)"
+            @change="optionChanged(option), setOption(option)"
           >
+      
             <!-- <option
               v-for="(opval, key) in option.values"
               :key="key"
               :value="opval.option_type_id"
             >{{ opval.title }}</option>-->
-            <option :value="null" :key="2378695843" selected>Please select</option>
+            <option :value="null" :key="2378695843" selected>
+              Please select
+            </option>
             <template v-for="(opval, key) in option.values">
-              <option v-if="key==0" :value="opval.option_type_id" :key="key">{{ opval.title }}</option>
-              <option v-else :value="opval.option_type_id" :key="key">{{ opval.title }}</option>
+              <option v-if="key == 0" :value="opval.option_type_id" :key="key">
+                {{ opval.title }}
+              </option>
+              <option v-else :value="opval.option_type_id" :key="key">
+                {{ opval.title }}
+              </option>
             </template>
           </select>
         </div>
@@ -70,22 +81,25 @@
             @change="optionChanged(option)"
             type="checkbox"
             class="m0 no-outline"
-            :name="('customOption_' + option.option_id)"
-            :id="('customOption_' + opval.option_type_id)"
+            :name="'customOption_' + option.option_id"
+            :id="'customOption_' + opval.option_type_id"
             focus
             :value="opval.option_type_id"
-            v-model="inputValues[('customOption_' + option.option_id)]"
+            v-model="inputValues['customOption_' + option.option_id]"
           />
           <label
             class="pl10 lh20 h4 pointer"
-            :for="('customOption_' + opval.option_type_id)"
+            :for="'customOption_' + opval.option_type_id"
             v-html="opval.title"
           />
         </div>
         <span
           class="error"
-          v-if="validation.results[('customOption_' + option.option_id)].error"
-        >{{ validation.results[('customOption_' + option.option_id)].message }}</span>
+          v-if="validation.results['customOption_' + option.option_id].error"
+          >{{
+            validation.results["customOption_" + option.option_id].message
+          }}</span
+        >
       </div>
     </div>
   </form>
@@ -95,7 +109,35 @@
 import { ProductCustomOptions } from "@vue-storefront/core/modules/catalog/components/ProductCustomOptions.ts";
 
 export default {
-  mixins: [ProductCustomOptions]
+  mixins: [ProductCustomOptions],
+  methods: {
+    setOption(option) {
+      console.log("option",option);
+      let obj = {
+        title : option.title,
+        option_id : option.option_id,
+        option_value : this.$refs.selectedOption[0].selectedOptions[0].label
+      }
+      console.log("1122 ",this.$refs.selectedOption[0].selectedOptions[0].label);
+      let data = this.$refs.selectedOption;
+      console.log("1122 Selected option is ", this.inputValues['customOption_' + option.option_id]);
+      console.log("1155 Final data is ", obj);
+     this.$emit('option-added', obj);
+    },
+    showOption(value, option) {
+      let data1 = this.$refs.colorImage;
+      console.log("1122 value", value);
+      this.inputValues.customOption_15 = value.option_type_id;
+      this.colorName = value.title;
+      data1 = this.$refs.colorImage;
+      this.imageSrc = value.option_type_id;
+    },
+    setImage() {
+      let data = this.$refs.colorImage[0].selectedOptions[0];
+      this.colorName = data.innerHTML;
+      this.imageSrc = data.value;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
