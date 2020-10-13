@@ -19,6 +19,10 @@ export default {
   directives: { focusClean },
   components: { ButtonFull },
   props: {
+    productOptions: {
+      required: true,
+      type: Array,
+    },
     product: {
       required: true,
       type: Object,
@@ -46,7 +50,7 @@ export default {
           val2: "",
         },
       };
-
+      console.log("112233  selected options are",this.productOptions);
       product.custom_options.forEach((option, index) => {
         console.log("1122 optionis", option);
         console.log(

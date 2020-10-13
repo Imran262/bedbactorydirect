@@ -89,7 +89,9 @@
               :id="popup_item.sku"
               class="col-md-4 popup-product-col"
             >
-              <product-popup :pop-item="popup_item" />
+              <product-popup 
+              :productOptions="productOptions"
+              :pop-item="popup_item" />
             </div>
           </div>
           <div class="row bottom-row-popup">
@@ -329,6 +331,10 @@ export default {
     },
   },
   props: {
+    productOptions: {
+      required: true,
+      type: Array,
+    },
     product: {
       required: true,
       type: Object,
