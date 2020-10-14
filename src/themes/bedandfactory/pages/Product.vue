@@ -1,6 +1,50 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
     <section class="product-top-section">
+      <template v-if="reviewData">
+        <div v-for="(review, count) in reviewData.reviews" :key="count">
+          <div
+            class
+            itemprop="review"
+            itemscope
+            itemtype="http://schema.org/Review"
+          >
+            <meta itemprop="reviewBody" :content="review.content" />
+            <meta itemprop="datePublished" :content="review.created_at" />
+            <div
+              class
+              itemprop="reviewRating"
+              itemscope
+              itemtype="http://schema.org/Rating"
+            >
+              <meta itemprop="ratingValue" :content="review.score" />
+            </div>
+            <div
+              class
+              itemprop="author"
+              itemscope
+              itemtype="http://schema.org/Person"
+            >
+              <meta itemprop="name" :content="review.user.display_name" />
+            </div>
+          </div>
+        </div>
+        <div
+          class
+          itemprop="aggregateRating"
+          itemscope
+          itemtype="http://schema.org/AggregateRating"
+        >
+          <meta
+            itemprop="ratingValue"
+            :content="reviewData.bottomline.average_score"
+          />
+          <meta
+            itemprop="ratingCount"
+            :content="reviewData.bottomline.total_review"
+          />
+        </div>
+      </template>
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
@@ -15,6 +59,7 @@
               v-else-if="getProductGallery.length >= 1"
               class="bt-product-gallery"
             >
+              <meta itemprop="image" :content="getProductGallery[0].src" />
               <product-gallery
                 ref="getProductGallery"
                 :offline="getOfflineImage"
@@ -125,7 +170,8 @@
                 itemprop="availability"
                 :content="structuredData.availability"
               />
-              <meta itemprop="url" :content="getCurrentProduct.url_path" />
+              <meta itemprop="url" :content="structuredData.contentUrl" />
+              <meta itemprop="priceValidUntil" content />
               <div
                 class="price serif bt-price-main"
                 v-if="getCurrentProduct.type_id !== 'grouped'"
@@ -311,6 +357,20 @@
                 </div>
               </div>
             </div>
+            <meta itemprop="url" :content="structuredData.contentUrl" />
+
+            <meta itemprop="aggregateRating" content />
+            <meta itemprop="brand" content="`bedfactorydirect`" />
+            <meta
+              itemprop="description"
+              :content="
+                getCurrentProduct.description ||
+                getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '')
+              "
+            />
+            <meta itemprop="image" :content="structuredData.imageUrl" />
+
+            <meta itemprop="gtin8" :content="getCurrentProduct.sku" />
             <product-links
               v-if="getCurrentProduct.type_id == 'grouped'"
               :products="getCurrentProduct.product_links"
@@ -728,6 +788,10 @@ export default {
           this.getCurrentProduct.stock.is_in_stock
             ? "InStock"
             : "OutOfStock",
+        contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
+          ? this.getCurrentProduct.url_path
+          : this.attachBaseUrl(this.getCurrentProduct.url_path),
+        imageUrl: this.getImageUrl(this.getCurrentProduct.image),
       };
     },
     getProductOptions() {
@@ -886,7 +950,7 @@ export default {
           // );
           if (prodOption.title === option.title) {
             prodOption = option;
-            this.sendProductCustomOptions[index] = option
+            this.sendProductCustomOptions[index] = option;
             this.sendProductCustomOptions[index];
             prodFlag = false;
             // console.log(
@@ -898,13 +962,32 @@ export default {
             if (index == this.sendProductCustomOptions.length - 1) {
               if (!prodFlag) {
                 this.sendProductCustomOptions.push(option);
-             //   console.log("1122667 ", this.sendProductCustomOptions);
+                //   console.log("1122667 ", this.sendProductCustomOptions);
               } else {
-             //   console.log("1122668 ", this.sendProductCustomOptions);
+                //   console.log("1122668 ", this.sendProductCustomOptions);
               }
             }
           }
         });
+      }
+    },
+    validateUrl(str) {
+      let pattern = /^((http|https):\/\/)/;
+      return pattern.test(str);
+    },
+    attachBaseUrl(str) {
+      if (config.server.baseUrl) {
+        return config.server.baseUrl + "/" + str;
+      }
+      return str;
+    },
+    getImageUrl(img) {
+      if (!img) {
+        return "";
+      }
+      let subPathImg = "img/250/250/resize/catalog/product";
+      if (!this.validateUrl(img)) {
+        return subPathImg + img;
       }
     },
     showDetails(event) {
