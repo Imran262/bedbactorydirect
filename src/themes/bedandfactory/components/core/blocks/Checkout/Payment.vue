@@ -23,7 +23,7 @@
     </div>
     <div class="row pl20 pr20" v-if="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-11 col-sm-12 col-md-10">
+      <div class="col-xs-11 col-sm-12 col-md-10" >
         <div class="row" v-if="isActive">
           <base-checkbox
             class="col-xs-12 mb15"
@@ -286,7 +286,7 @@
 }
 :style="{ backgroundColor: '#4dba87' }" -->
                 <button-outline
-                color='light'
+                  color="light"
                   :style="{ backgroundColor: '#32BFB3' }"
                   class="cl-white"
                   :class="[!couponCode ? 'bgcolor' : '']"
@@ -300,29 +300,70 @@
           <div class="col-xs-12">
             <h4>{{ $t("Payment method") }}</h4>
           </div>
+
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12 payment-method-inner"
           >
             <label class="radioStyled">
-              <template v-if="method.code === 'braintree'"
-                >Pay By Card</template
+              <template v-if="method.code === 'braintree'">
+                <p class="paymentTitle">Pay By Card</p></template
               >
-              <template v-else>{{
-                method.title ? method.title : method.name
-              }}</template>
+              <template v-else
+                ><p class="paymentTitle">
+                  {{ method.title ? method.title : method.name }}
+                </p></template
+              >
               <input
                 type="radio"
                 :value="method.code"
                 name="payment-method"
                 v-model="payment.paymentMethod"
+                @click="enablePaymentMethod(method.code)"
                 @change="
                   $v.payment.paymentMethod.$touch();
                   changePaymentMethod();
                 "
               />
               <span class="checkmark" />
+              <template v-if="method.code === 'braintree'">
+                <span v-if="showPaymentCard">
+                  <div class="order-review right-padding pt20 mb35">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="row paddingLeft pr20">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="row mb15 mt20">
+                            <div class="col-xs-12">
+                              <div class="row">
+                                <div class="cartsummary-wrapper">
+                                  <braintree-dropin
+                                    ref="braintreeREF"
+                                    @configured="setOption()"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="row pb35">
+                      <div class="col-xs-12 col-md-8 px20">
+                        <slot name="placeOrderButton">
+                          <button-full
+                            data-testid="orderReviewSubmit"
+                            class="place-order-btn"
+                            >{{ $t("Place the order") }}</button-full
+                          >
+                        </slot>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </template>
             </label>
             <div class="bank-card" v-if="method.code === 'braintree'">
               <ul>
@@ -351,65 +392,6 @@
         </div>
       </div>
     </div>
-    <div class="row" v-if="isActive">
-      <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row">
-          <div class="col-xs-12 col-md-8 px20 my30">
-            <button-full
-              @click.native="
-                sendDataToCheckout();
-                paymentcheckedFn();
-              "
-              data-testid="paymentSubmit"
-              :disabled="$v.payment.$invalid"
-              >{{ $t("Go review the order") }}</button-full
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row pl20" v-if="!isActive && isFilled">
-      <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row fs16 mb35">
-          <div class="col-xs-12 h4">
-            <p>{{ payment.firstName }} {{ payment.lastName }}</p>
-            <p>{{ payment.streetAddress }} {{ payment.apartmentNumber }}</p>
-            <p>{{ payment.city }} {{ payment.zipCode }}</p>
-            <p>
-              <span v-if="payment.state">{{ payment.state }},</span>
-              <span>{{ getCountryName() }}</span>
-            </p>
-            <div v-if="payment.phoneNumber">
-              <span class="pr15">{{ payment.phoneNumber }}</span>
-              <tooltip>{{
-                $t("Phone number may be needed by carrier")
-              }}</tooltip>
-            </div>
-            <p v-if="generateInvoice">
-              {{ payment.company }} {{ payment.taxId }}
-            </p>
-            <div class="col-xs-12">
-              <h4>{{ $t("Payment method") }}</h4>
-            </div>
-            <div class="col-md-6 mb15">
-              <label class="radioStyled">
-                {{ getPaymentMethod().title }}
-                <input
-                  type="radio"
-                  value
-                  checked
-                  disabled
-                  name="chosen-payment-method"
-                />
-                <span class="checkmark" />
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -420,7 +402,7 @@ import {
   unicodeAlphaNum,
 } from "@vue-storefront/core/helpers/validators";
 import { Payment } from "@vue-storefront/core/modules/checkout/components/Payment";
-import i18n from '@vue-storefront/i18n';
+import i18n from "@vue-storefront/i18n";
 import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
 import BaseInput from "theme/components/core/blocks/Form/BaseInput";
 import BaseSelect from "theme/components/core/blocks/Form/BaseSelect";
@@ -430,6 +412,7 @@ import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 import VueOfflineMixin from "vue-offline/mixin";
 import ButtonOutline from "theme/components/theme/ButtonOutline";
+import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
 // import PaypalButton from '../../../../../../modules/vsf-paypal-integration/components/Button';
 // //import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
 
@@ -445,6 +428,9 @@ export default {
       addCouponPressed: false,
       couponCode: "",
       isCouponApplied: null,
+      showPaymentCard: false,
+      showSubmitButton: false,
+      loaderCount: 0,
     };
   },
   components: {
@@ -454,6 +440,7 @@ export default {
     ButtonFull,
     Tooltip,
     ButtonOutline,
+    BraintreeDropin,
   },
   mixins: [Payment],
   props: {
@@ -557,6 +544,60 @@ export default {
     }
   },
   methods: {
+    setOption() {
+      let braintreeOptions = document.querySelectorAll(".braintree-option");
+      // console.log("1122 payment method is changed", braintreeOptions);
+      braintreeOptions.forEach((option) => {
+        // console.log("options are ", option.classList);
+        option.classList.forEach((classs) => {
+          // console.log("Helooooooooooooooooo");
+          // console.log(
+          //   "class is ",
+          //   classs ,
+          //   "classsssss",
+          //   "\n\n\n\n card ",
+          //   classs.search("card"),
+          //   (classs.search("card")!=-1)
+          // );
+          if (classs.search("card") != -1) {
+            // console.log("option is ",option);
+            option.click();
+            this.$bus.$emit(
+              "notification-progress-stop",
+              this.$t("loading braintree...")
+            );
+            this.showSubmitButton = true;
+          }
+        });
+      });
+    },
+    enablePaymentMethod(method) {
+      //       console.log("loderCount is ");
+      //       if(this.loaderCount==0){
+      // console.log("loder");
+      //       }
+
+   //  console.log("112233 About to call sendDataToCheckout", );
+
+      this.sendDataToCheckout();
+      this.showSubmitButton = false;
+    //  console.log("hellowww", this.showSubmitButton);
+      if (method === "braintree") {
+        if (!this.showPaymentCard) {
+        //  console.log("Will be going for  braintreesssssssssssssss");
+          this.$bus.$emit(
+            "notification-progress-start",
+            this.$t("loading braintree...")
+          );
+        } else {
+        //  console.log("Wont be going for  braintreessssssssssssss");
+        }
+
+        this.showPaymentCard = true;
+      } else {
+        this.showPaymentCard = false;
+      }
+    },
     ...mapActions({
       applyCoupon: "cart/applyCoupon",
     }),
@@ -610,6 +651,81 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.radioStyled {
+  padding-left: 0px !important;
+}
+.paddingLeft {
+  padding-left: 3%;
+}
+.paymentTitle {
+  padding-left: 26px;
+  margin: 0;
+}
+.order-review {
+  background: #fff;
+  padding: 12px 0px 0px 0px;
+  font-family: "Poppins", sans-serif;
+  -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
+  position: relative;
+  h3 {
+    color: #676767;
+    font-size: 22px;
+    width: 100%;
+    padding-bottom: 10px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+  }
+  .cl-tertiary {
+    margin-top: 15px;
+    .material-icons {
+      margin-top: 0px;
+    }
+  }
+  .border-top {
+    border-top: 1px solid #bdbdbd;
+  }
+  input:focus ~ label[data-v-63eab3fe],
+  input:not(.empty) ~ label[data-v-63eab3fe] {
+    top: -15px;
+    font-size: 14px;
+    color: #00998c;
+  }
+  span {
+    // color: #676767;
+  }
+  label {
+    color: #676767;
+    font-size: 16px;
+  }
+  input:checked + label {
+    &:before {
+      background-color: #00998c;
+      border-color: #00998c;
+      cursor: pointer;
+    }
+    &:after {
+      background-color: #00998c;
+    }
+  }
+  .button-container {
+    button {
+      background-color: #00bfb3;
+      border-radius: 5px;
+      padding: 12px 0px;
+      :hover {
+        border-radius: 5px;
+        background-color: #00998c;
+      }
+    }
+  }
+}
+.cartsummary-wrapper .cart-summary-main {
+  @media (min-width: 320px) {
+    display: none;
+  }
+}
 .bgcolor {
   background-color: #b6ebe8 !important;
 }
@@ -776,6 +892,8 @@ span.postcodelookup-required {
 }
 .bank-card {
   display: flex;
+  position: absolute;
+  left: 145px;
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .bank-card ul {
@@ -791,6 +909,10 @@ span.postcodelookup-required {
 }
 
 @media (min-width: 575px) and (max-width: 767px) {
+  .paymentTitle {
+    padding-left: 26px;
+    margin: 0;
+  }
   .radioStyled.sb-payment-method-label {
     font-size: 10px !important;
     line-height: 20px !important;
@@ -801,6 +923,15 @@ span.postcodelookup-required {
 }
 /*Payment all unchecked */
 @media (min-width: 320px) and (max-width: 767px) {
+  .right-padding {
+    margin-right: 25px;
+  }
+}
+@media (min-width: 320px) and (max-width: 767px) {
+  .paymentTitle {
+    /* padding-left: 26px; */
+    margin: 0;
+  }
   .find-address {
     margin-left: -10px !important;
     width: 100%;

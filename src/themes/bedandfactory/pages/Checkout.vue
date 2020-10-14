@@ -59,8 +59,8 @@
             :is-active="activeSection.shipping"
             v-if="!isVirtualCart"
           />
-          <payment class="line relative" :OnlineOnly="OnlineOnly" :is-active="activeSection.payment" />
-          <order-review class="line relative" :is-active="activeSection.orderReview" />
+          <payment class="line relative" :is-active="activeSection.payment" />
+          <!-- <order-review class="line relative" :is-active="activeSection.orderReview" /> -->
           <div id="custom-steps" />
         </div>
         <div class="hidden-xs col-sm-5 col-xs-12 bg-cl-secondary cart-summary">
@@ -73,18 +73,18 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import CurrentPage from "theme/mixins/currentPage";
-import Checkout from "@vue-storefront/core/pages/Checkout";
+import { mapState } from 'vuex';
+import CurrentPage from 'theme/mixins/currentPage';
+import Checkout from '@vue-storefront/core/pages/Checkout';
 
-import PersonalDetails from "theme/components/core/blocks/Checkout/PersonalDetails";
-import Shipping from "theme/components/core/blocks/Checkout/Shipping";
-import Payment from "theme/components/core/blocks/Checkout/Payment";
-import OrderReview from "theme/components/core/blocks/Checkout/OrderReview";
-import CartSummary from "theme/components/core/blocks/Checkout/CartSummary";
-import ThankYouPage from "theme/components/core/blocks/Checkout/ThankYouPage";
-import { registerModule } from "@vue-storefront/core/lib/modules";
-import { OrderModule } from "@vue-storefront/core/modules/order";
+import PersonalDetails from 'theme/components/core/blocks/Checkout/PersonalDetails';
+import Shipping from 'theme/components/core/blocks/Checkout/Shipping';
+import Payment from 'theme/components/core/blocks/Checkout/Payment';
+import OrderReview from 'theme/components/core/blocks/Checkout/OrderReview';
+import CartSummary from 'theme/components/core/blocks/Checkout/CartSummary';
+import ThankYouPage from 'theme/components/core/blocks/Checkout/ThankYouPage';
+import { registerModule } from '@vue-storefront/core/lib/modules';
+import { OrderModule } from '@vue-storefront/core/modules/order';
 
 export default {
   components: {
@@ -95,54 +95,54 @@ export default {
     CartSummary,
     ThankYouPage
   },
-  mixins: [Checkout],
+  mixins: [Checkout, CurrentPage],
   beforeCreate() {
     registerModule(OrderModule);
   },
   methods: {
     notifyEmptyCart() {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "warning",
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'warning',
         message: this.$t(
-          "Shopping cart is empty. Please add some products before entering Checkout"
+          'Shopping cart is empty. Please add some products before entering Checkout'
         ),
-        action1: { label: this.$t("OK") }
+        action1: { label: this.$t('OK') }
       });
     },
     notifyOutStock(chp) {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "error",
-        message: chp.name + this.$t(" is out of stock!"),
-        action1: { label: this.$t("OK") }
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
+        message: chp.name + this.$t(' is out of stock!'),
+        action1: { label: this.$t('OK') }
       });
     },
     notifyNotAvailable() {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "error",
-        message: this.$t("Some of the ordered products are not available!"),
-        action1: { label: this.$t("OK") }
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
+        message: this.$t('Some of the ordered products are not available!'),
+        action1: { label: this.$t('OK') }
       });
     },
-    notifyStockCheck() {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "warning",
+    notifyStockCheck () {
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'warning',
         message: this.$t(
-          "Stock check in progress, please wait while available stock quantities are checked"
+          'Stock check in progress, please wait while available stock quantities are checked'
         ),
-        action1: { label: this.$t("OK") }
+        action1: { label: this.$t('OK') }
       });
     },
-    notifyNoConnection() {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "warning",
+    notifyNoConnection () {
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'warning',
         message: this.$t(
-          "There is no Internet connection. You can still place your order. We will notify you if any of ordered products is not available because we cannot check it right now."
+          'There is no Internet connection. You can still place your order. We will notify you if any of ordered products is not available because we cannot check it right now.'
         ),
-        action1: { label: this.$t("OK") }
+        action1: { label: this.$t('OK') }
       });
     },
     gotoAccount() {
-      this.$bus.$emit("modal-toggle", "modal-signup");
+      this.$bus.$emit('modal-toggle', 'modal-signup');
     }
   },
   computed: {
@@ -159,7 +159,7 @@ export default {
   beforeMount() {
     // console.log('isThankYouPage' + this.$store.state.checkout.isThankYouPage);
     if (this.$store.state.checkout.isThankYouPage === false) {
-      console.log("isThankYouPage_IF ");
+      console.log('isThankYouPage_IF ');
       // this.$store.state.OrderDetail.orderdetail = this.$store.state.cart.platformTotals;
     }
   }
@@ -167,9 +167,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~theme/css/base/text";
-@import "~theme/css/variables/colors";
-@import "~theme/css/helpers/functions/color";
+@import '~theme/css/base/text';
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
 $bg-secondary: color(secondary, $colors-background);
 $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
@@ -221,7 +221,7 @@ $color-black: color(black);
       border: 1px solid $bg-secondary;
 
       &:after {
-        content: "";
+        content: '';
         position: absolute;
         display: none;
         top: 3px;
@@ -241,7 +241,7 @@ $color-black: color(black);
 
 .line {
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;
@@ -280,7 +280,7 @@ $color-black: color(black);
 }
 .return-shopping a {
   font-size: 26.1px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: bold;
   color: #54575b;
   background: url(/assets/return-shopinig-back.png);
@@ -308,7 +308,7 @@ $color-black: color(black);
 }
 .checkout-top-icons ul li span {
   font-size: 28px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: bold;
   line-height: 2;
   padding-left: 70px;

@@ -20,9 +20,9 @@
               class="col-xs align-right cl-accent h4"
             >
               {{
-              segment.value === 0
+              segment.value * 1.2 === 0
               ? 'Free Delivery'
-              : (segment.value) | price
+              : (segment.value * 1.2) | price
               }}
             </div>
             <div
@@ -41,12 +41,8 @@
             :key="index"
             v-if="segment.code === 'grand_total'"
           >
-            <div
-              class="col-xs col-md-6 col-lg-8 align-right grand-total-price grand-total"
-            >{{ segment.title }}</div>
-            <div
-              class="col-xs col-md-6 col-lg-4 align-right grand-total-price"
-            >{{ segment.value | price }}</div>
+            <div class="col-xs col-md-6 col-lg-8 align-right grand-total-price grand-total">{{ segment.title }}</div>
+            <div class="col-xs col-md-6 col-lg-4 align-right grand-total-price">{{ segment.value | price }}</div>
           </div>
         </div>
       </div>
@@ -78,8 +74,8 @@
 </template>
 
 <script>
-import { CartSummary } from "@vue-storefront/core/modules/checkout/components/CartSummary";
-import Product from "./Product";
+import { CartSummary } from '@vue-storefront/core/modules/checkout/components/CartSummary';
+import Product from './Product';
 
 export default {
   components: {
@@ -101,34 +97,34 @@ export default {
 }
 .order-summary-inner {
   background: #fff;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
 }
 .order-summary-bottom {
   background: #fff;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   padding: 25px;
   // margin: 0 25px 25px 25px;
 }
-.grand-total-price {
-  font-size: 22px;
+.grand-total-price{
+  font-size:22px;
 }
 .cart-summary-main {
   width: 88%;
 }
-@media (min-width: 575px) and (max-width: 767px) {
-  .grand-total-price {
+@media(min-width: 575px) and (max-width: 767px){
+  .grand-total-price{
+    font-size:14px;
+  }
+  .col-xs.cl-accent div{
     font-size: 14px;
   }
-  .col-xs.cl-accent div {
-    font-size: 14px;
-  }
-  .col-xs.cl-accent {
+   .col-xs.cl-accent{
     font-size: 14px;
   }
 }
@@ -146,13 +142,13 @@ export default {
   .grand-total-main {
     padding-left: 0;
   }
-  .grand-total-price {
+  .grand-total-price{
+    font-size:14px;
+  }
+  .col-xs.cl-accent div{
     font-size: 14px;
   }
-  .col-xs.cl-accent div {
-    font-size: 14px;
-  }
-  .col-xs.cl-accent {
+   .col-xs.cl-accent{
     font-size: 14px;
   }
 }

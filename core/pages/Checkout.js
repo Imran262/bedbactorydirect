@@ -168,7 +168,7 @@ export default {
     onAfterPaymentDetails (receivedData, validationResult) {
       this.payment = receivedData
       this.validationResults.payment = validationResult
-      this.activateSection('orderReview')
+      // this.activateSection('orderReview')
       this.savePaymentDetails()
     },
     onAfterShippingDetails (receivedData, validationResult) {

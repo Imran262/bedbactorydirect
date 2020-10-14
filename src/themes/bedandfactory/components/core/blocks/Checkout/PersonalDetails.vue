@@ -1,16 +1,21 @@
 <template>
   <div class="personal-details">
     <div class="non-selected-tick" />
-    <div class="row pl20">
+    <div class="row pl20 pr20">
       <!-- <div class="col-xs-1 col-sm-2 col-md-1">
         <div
           class="number-circle lh35 cl-white brdr-circle align-center weight-700"
-          :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
-        >1</div>
+          :class="{
+            'bg-cl-th-accent': isActive || isFilled,
+            'bg-cl-tertiary': !isFilled && !isActive
+          }"
+        >
+          1
+        </div>
       </div>-->
       <div class="col-xs-12 col-sm-9 col-md-12">
         <div class="row">
-          <div class="col-xs-12 col-md-12" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <div class="col-xs-12 col-md-12" :class="{ 'cl-bg-tertiary': !isFilled && !isActive }">
             <h3 class="m0 mb5">{{ $t('Your Details') }}</h3>
           </div>
           <div class="col-xs-12 col-md-5 pr45">
@@ -24,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="row pl20" v-if="isActive">
+    <div class="row pl20 pr20" v-if="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="row">
@@ -42,7 +47,9 @@
             autocomplete="given-name"
             :validations="[
               {
-                condition: $v.personalDetails.firstName.$error && !$v.personalDetails.firstName.required,
+                condition:
+                  $v.personalDetails.firstName.$error &&
+                  !$v.personalDetails.firstName.required,
                 text: $t('Field is required')
               },
               {
@@ -60,10 +67,14 @@
             v-model.trim="personalDetails.lastName"
             @blur="$v.personalDetails.lastName.$touch()"
             autocomplete="family-name"
-            :validations="[{
-              condition: $v.personalDetails.lastName.$error && !$v.personalDetails.lastName.required,
-              text: $t('Field is required')
-            }]"
+            :validations="[
+              {
+                condition:
+                  $v.personalDetails.lastName.$error &&
+                  !$v.personalDetails.lastName.required,
+                text: $t('Field is required')
+              }
+            ]"
           />
 
           <base-input
@@ -77,11 +88,15 @@
             @keyup.enter="sendDataToCheckout"
             :validations="[
               {
-                condition: $v.personalDetails.emailAddress.$error && !$v.personalDetails.emailAddress.required,
+                condition:
+                  $v.personalDetails.emailAddress.$error &&
+                  !$v.personalDetails.emailAddress.required,
                 text: $t('Field is required')
               },
               {
-                condition: !$v.personalDetails.emailAddress.email && $v.personalDetails.emailAddress.$error,
+                condition:
+                  !$v.personalDetails.emailAddress.email &&
+                  $v.personalDetails.emailAddress.$error,
                 text: $t('Please provide valid e-mail address.')
               }
             ]"
@@ -104,10 +119,16 @@
               v-model="password"
               @blur="$v.password.$touch()"
               autocomplete="new-password"
-              :validations="[{
-                condition: $v.password.$error && !$v.password.required,
-                text: $t('Field is required.')
-              }]"
+              :validations="[
+                {
+                  condition: $v.password.$error && !$v.password.required,
+                  text: $t('Field is required.')
+                },
+                {
+                  condition: !$v.password.minLength,
+                  text: $t('Password must have at least 8 letters.')
+                }
+              ]"
             />
 
             <base-input
@@ -123,7 +144,11 @@
                   text: $t('Field is required.')
                 },
                 {
-                  condition:!$v.rPassword.sameAsPassword,
+                  condition: !$v.rPassword.minLength,
+                  text: $t('Password must have at least 8 letters.')
+                },
+                {
+                  condition: !$v.rPassword.sameAsPassword,
                   text: $t('Passwords must be identical.')
                 }
               ]"
@@ -134,16 +159,21 @@
               id="acceptConditions"
               @blur="$v.acceptConditions.$touch()"
               v-model="acceptConditions"
-              :validations="[{
-                condition: !$v.acceptConditions.required && $v.acceptConditions.$error,
-                text: $t('You must accept the terms and conditions.')
-              }]"
+              :validations="[
+                {
+                  condition:
+                    !$v.acceptConditions.required && $v.acceptConditions.$error,
+                  text: $t('You must accept the terms and conditions.')
+                }
+              ]"
             >
               {{ $t('I accept ') }}
               <span
                 class="link pointer"
                 @click.prevent="$bus.$emit('modal-toggle', 'modal-terms')"
-              >{{ $t('Terms and conditions') }}</span>*
+              >
+                <router-link :to="localizedRoute('/i/terms')">{{ $t('Terms and conditions') }}</router-link>
+              </span>*
             </base-checkbox>
           </template>
         </div>
@@ -157,16 +187,25 @@
             <button-full
               data-testid="personalDetailsSubmit"
               @click.native="sendDataToCheckout(); checkedFn();"
-              :disabled="createAccount ? $v.$invalid : $v.personalDetails.$invalid"
-            >{{ $t((isVirtualCart ? 'Continue to payment' : 'Continue to Delivery')) }}</button-full>
+              :disabled="
+                createAccount ? $v.$invalid : $v.personalDetails.$invalid
+              "
+            >
+              {{
+              $t(
+              isVirtualCart ? 'Continue to payment' : 'Continue to Delivery'
+              )
+              }}
+            </button-full>
           </div>
           <div class="col-xs-12 col-md-5 center-xs end-md checkout-btn-text" v-if="!currentUser">
             <p class="h4 cl-accent">
               {{ $t('or') }}
-              <span
-                class="link pointer"
-                @click.prevent="gotoAccount"
-              >{{ $t('login to your account') }}</span>
+              <span class="link pointer" @click.prevent="gotoAccount">
+                {{
+                $t('login to your account')
+                }}
+              </span>
             </p>
           </div>
         </div>
@@ -177,7 +216,14 @@
       <div class="col-xs-12 col-sm-9 col-md-11">
         <div class="row fs16 mb35">
           <div class="col-xs-12 h4">
-            <p>{{ personalDetails.firstName }} {{ personalDetails.lastName }}</p>
+            <p>
+              <span class="firstName-text">
+                {{
+                personalDetails.firstName
+                }}
+              </span>
+              <span class="lastName-text">{{ personalDetails.lastName }}</span>
+            </p>
             <div>
               <span class="pr15">{{ personalDetails.emailAddress }}</span>
               <tooltip>{{ $t('We will send you details regarding the order') }}</tooltip>
@@ -189,9 +235,13 @@
                 v-model="createAccount"
                 disabled
               >{{ $t('Create a new account') }}</base-checkbox>
-              <p
-                class="h5 cl-tertiary"
-              >{{ $t('The new account will be created with the purchase. You will receive details on e-mail.') }}</p>
+              <p class="h5 cl-tertiary">
+                {{
+                $t(
+                'The new account will be created with the purchase. You will receive details on e-mail.'
+                )
+                }}
+              </p>
             </template>
           </div>
         </div>
@@ -201,20 +251,29 @@
 </template>
 
 <script>
-import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
-import { PersonalDetails } from "@vue-storefront/core/modules/checkout/components/PersonalDetails";
+import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
+import { PersonalDetails } from '@vue-storefront/core/modules/checkout/components/PersonalDetails';
 
-import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
-import BaseInput from "theme/components/core/blocks/Form/BaseInput";
-import ButtonFull from "theme/components/theme/ButtonFull";
-import Tooltip from "theme/components/core/Tooltip";
-
+import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox';
+import BaseInput from 'theme/components/core/blocks/Form/BaseInput';
+import ButtonFull from 'theme/components/theme/ButtonFull';
+import Tooltip from 'theme/components/core/Tooltip';
+import { mapGetters } from 'vuex';
+import axios from 'axios';
 export default {
   components: {
     ButtonFull,
     Tooltip,
     BaseCheckbox,
     BaseInput
+  },
+  computed: {
+    ...mapGetters({
+      isVirtualCart: 'cart/isVirtualCart',
+      getCartToken: 'cart/getCartToken',
+      getPersonalDetails: 'checkout/getPersonalDetails',
+      isLoggedIn: 'user/isLoggedIn'
+    })
   },
   mixins: [PersonalDetails],
   validations: {
@@ -232,11 +291,13 @@ export default {
       }
     },
     password: {
-      required
+      required,
+      minLength: minLength(8)
     },
     rPassword: {
       required,
-      sameAsPassword: sameAs("password")
+      minLength: minLength(8),
+      sameAsPassword: sameAs('password')
     },
     acceptConditions: {
       required
@@ -245,11 +306,11 @@ export default {
   methods: {
     checkedFn: function() {
       var to_detail_elem = document.getElementsByClassName(
-        "checkout-top-detail"
+        'checkout-top-detail'
       )[0];
-      to_detail_elem.classList.add("top-detail-active");
-      var tick_elem = document.getElementsByClassName("non-selected-tick")[0];
-      tick_elem.classList.add("tick-active");
+      to_detail_elem.classList.add('top-detail-active');
+      var tick_elem = document.getElementsByClassName('non-selected-tick')[0];
+      tick_elem.classList.add('tick-active');
     }
   }
 };
@@ -265,7 +326,7 @@ export default {
 .personal-details {
   background: #fff;
   padding: 12px 0px 0px 0px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
@@ -276,7 +337,7 @@ export default {
     width: 100%;
     padding-bottom: 10px;
     font-weight: 600;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
   .cl-tertiary {
     margin-top: 15px;

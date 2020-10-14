@@ -1,52 +1,68 @@
 <template>
-  <div class="order-review pt20 mb35">
-    <div class="row pl20">
+  <div class="order-review pt20">
+    <div class="non-selected-tick" />
+    <div class="row pl20 pr20">
       <!-- <div class="col-xs-1 col-sm-2 col-md-1">
-        <div
+         <div
           class="number-circle lh35 cl-white brdr-circle align-center weight-700"
-          :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
-        >{{ (isVirtualCart ? 3 : 4) }}</div>
+          :class="{
+            'bg-cl-th-accent': isActive || isFilled,
+            'bg-cl-tertiary': !isFilled && !isActive
+          }"
+        >
+          {{ isVirtualCart ? 3 : 4 }}
+        </div>
       </div>-->
-      <div class="col-xs-12 col-sm-9 col-md-12">
+      <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="row">
-          <div class="col-xs-12 col-md-12" :class="{ 'cl-bg-tertiary': !isFilled && !isActive }">
-            <h3 class="m0 mb5">{{ $t("Review order") }}</h3>
+          <div class="col-md-12" :class="{ 'cl-bg-tertiary': !isFilled && !isActive }">
+            <h3 class="m0 mb5">{{ $t('Review order') }}</h3>
           </div>
         </div>
       </div>
     </div>
     <div class="row pl20 pr20" v-show="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="col-xs-12 col-sm-9 col-md-11">
         <div id="checkout-order-review-additional-container">
           <div id="checkout-order-review-additional">&nbsp;</div>
         </div>
         <div class="row mb15 mt20">
           <div class="col-xs-12">
-            <!-- <p class="h4">{{ $t('Please check if all data are correct') }}</p> -->
+            <p class="h4">{{ $t('Please check if all data are correct') }}</p>
             <div class="row">
               <div class="cartsummary-wrapper">
-                <!-- <cart-summary /> -->
-                <div class="payment">
-                  <braintree-dropin />
-                </div>
+                <cart-summary />
               </div>
-              <!-- <base-checkbox
+              <div class="payment">
+                <braintree-dropin v-if="payment.paymentMethod === 'braintree'" />
+                <!-- <form id="sagepayform" class="col-xs-11 col-sm-9 col-md-10 sageform" @submit.prevent="">
+                  <SagePayDropin />
+                  <button>submit</button>
+                </form>-->
+                <!-- <CheckoutPaymentDropin v-if="payment.paymentMethod === 'checkoutcom_card_payment'" /> -->
+                <!-- <SagePayDropin v-if="payment.paymentMethod === 'sagepaysuitepi'" /> -->
+              </div>
+              <base-checkbox
                 class="col-xs-11 col-sm-12 col-md-8 bg-cl-secondary p15 mb35 ml10"
                 id="acceptTermsCheckbox"
                 @blur="$v.orderReview.terms.$touch()"
                 v-model="orderReview.terms"
-                :validations="[{
-                  condition: !$v.orderReview.terms.required && $v.orderReview.terms.$error,
-                  text: $t('Field is required')
-                }]"
+                :validations="[
+                  {
+                    condition:
+                      !$v.orderReview.terms.required &&
+                      $v.orderReview.terms.$error,
+                    text: $t('Field is required')
+                  }
+                ]"
               >
                 {{ $t('I agree to') }}
                 <span
                   class="link pointer"
                   @click.prevent="$bus.$emit('modal-toggle', 'modal-terms')"
                 >{{ $t('Terms and conditions') }}</span>
-              </base-checkbox>-->
+              </base-checkbox>
             </div>
           </div>
         </div>
@@ -54,15 +70,17 @@
     </div>
     <div class="row" v-show="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="row pb35">
+      <div class="col-xs-12 col-sm-9 col-md-11">
+        <div class="row">
           <div class="col-xs-12 col-md-8 px20">
             <slot name="placeOrderButton">
+              <!-- <paypal-button v-if="payment.paymentMethod === 'paypal_express'" /> -->
               <button-full
-                @click.native="checkedFn();"
+                v-if="payment.paymentMethod !== 'sagepaysuitepi' && payment.paymentMethod !== 'checkoutcom_card_payment'"
+                @click.native="placeOrder(), OrederReviewFn()"
                 data-testid="orderReviewSubmit"
                 class="place-order-btn"
-              >{{ $t("Place the order") }}</button-full>
+              >{{ $t('Place the order') }}</button-full>
             </slot>
           </div>
         </div>
@@ -70,7 +88,7 @@
     </div>
 
     <modal name="modal-terms">
-      <p slot="header">{{ $t("Terms and conditions") }}</p>
+      <p slot="header">{{ $t('Terms and conditions') }}</p>
       <div slot="content">
         <p>
           This website ("website") is operated by Luma Inc., which includes Luma
@@ -115,33 +133,33 @@
 </template>
 
 <script>
-import { required } from "vuelidate/lib/validators";
-import Composite from "@vue-storefront/core/mixins/composite";
+import { required } from 'vuelidate/lib/validators';
+import Composite from '@vue-storefront/core/mixins/composite';
 
-import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
-import ButtonFull from "theme/components/theme/ButtonFull";
-import CartSummary from "theme/components/core/blocks/Checkout/CartSummary";
-import Modal from "theme/components/core/Modal";
-import { OrderReview } from "@vue-storefront/core/modules/checkout/components/OrderReview";
-import { OrderModule } from "@vue-storefront/core/modules/order";
-import { registerModule } from "@vue-storefront/core/lib/modules";
+import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox';
+import ButtonFull from 'theme/components/theme/ButtonFull';
+import CartSummary from 'theme/components/core/blocks/Checkout/CartSummary';
+import Modal from 'theme/components/core/Modal';
+import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview';
+import { OrderModule } from '@vue-storefront/core/modules/order';
+import { registerModule } from '@vue-storefront/core/lib/modules';
+// import PaypalButton from '../../../../../../modules/vsf-paypal-integration/components/Button';
+import { mapGetters } from 'vuex';
 import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
-
+// import SagePayDropin from 'src/modules/vsf-sagepay-integration/components/SagePayDropin';
+// import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
 export default {
   components: {
-    BaseCheckbox,
     ButtonFull,
     CartSummary,
     Modal,
-    BraintreeDropin,
+    BraintreeDropin
   },
   mixins: [OrderReview, Composite],
-  validations: {
-    // orderReview: {
-    //   terms: {
-    //     required
-    //   }
-    // }
+  computed: {
+    payment() {
+      return this.$store.state.checkout.paymentDetails;
+    }
   },
   beforeCreate() {
     registerModule(OrderModule);
@@ -149,21 +167,19 @@ export default {
   methods: {
     onSuccess() {},
     onFailure(result) {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "error",
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
         message: this.$t(result.result),
-        action1: { label: this.$t("OK") },
+        action1: { label: this.$t('OK') }
       });
     },
-    checkedFn: function () {
+    OrederReviewFn: function() {
       var to_detail_elem = document.getElementsByClassName(
-        "checkout-top-detail"
+        'checkout-top-detail'
       )[1];
-      to_detail_elem.classList.add("top-detail-active");
-      // var tick_elem = document.getElementsByClassName("non-selected-tick")[0];
-      // tick_elem.classList.add("tick-active");
-    },
-  },
+      to_detail_elem.classList.add('top-detail-active');
+    }
+  }
 };
 </script>
 
@@ -172,71 +188,42 @@ export default {
   text-decoration: underline;
 }
 
-.cartsummary-wrapper .cart-summary-main {
-  @media (min-width: 320px) {
+.cartsummary-wrapper {
+  @media (min-width: 767px) {
     display: none;
   }
 }
 .order-review {
   background: #fff;
   padding: 12px 0px 0px 0px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+  margin: 25px 0px;
   -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   position: relative;
-  h3 {
-    color: #676767;
-    font-size: 22px;
-    width: 100%;
-    padding-bottom: 10px;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
-  }
-  .cl-tertiary {
-    margin-top: 15px;
-    .material-icons {
-      margin-top: 0px;
-    }
-  }
-  .border-top {
-    border-top: 1px solid #bdbdbd;
-  }
-  input:focus ~ label[data-v-63eab3fe],
-  input:not(.empty) ~ label[data-v-63eab3fe] {
-    top: -15px;
-    font-size: 14px;
-    color: #00998c;
-  }
-  span {
-    // color: #676767;
-  }
-  label {
-    color: #676767;
-    font-size: 16px;
-  }
-  input:checked + label {
-    &:before {
-      background-color: #00998c;
-      border-color: #00998c;
-      cursor: pointer;
-    }
-    &:after {
-      background-color: #00998c;
-    }
-  }
-  .button-container {
-    button {
-      background-color: #00bfb3;
-      border-radius: 5px;
-      padding: 12px 0px;
-      :hover {
-        border-radius: 5px;
-        background-color: #00998c;
-      }
-    }
-  }
 }
+.order-review h3 {
+  color: #676767;
+  font-size: 22px;
+  width: 100%;
+  padding-bottom: 10px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+.place-order-btn {
+  background-color: #676767;
+  border-radius: 5px;
+  font-size: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+/**SagePay */
+.payment {
+  width: 100%;
+}
+/**SagePay */
 .non-selected-tick {
   background: url(/assets/checkout-non-selected-tick.png) no-repeat 100% 100%;
   position: absolute;
@@ -253,10 +240,12 @@ export default {
   width: 40px;
   height: 30px;
 }
-.top-detail-active {
-  background: url(/assets/checkout-top-detail-img.png) no-repeat !important;
-}
-.top-detail-active span {
-  color: #01998c !important;
+.tick-active {
+  background: url(/assets/checkout-selectd-tick.png) no-repeat 100% 100% !important;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 30px;
 }
 </style>
