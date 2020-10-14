@@ -570,7 +570,7 @@
                       <span class="purple">next working day delivery</span>
                     </router-link>
                   </span>-->
-                  <cms-block :identifier="'pro_del_block'" />
+                  <cms-block :identifier="'delivery_Info'" />
                   <!--<router-link to="/i/deliveryinfo">
                     <span class="purple">delivery page</span>
                   </router-link>-->
