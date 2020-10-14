@@ -869,38 +869,38 @@ export default {
       let prodFlag = true;
       if (this.sendProductCustomOptions.length == 0) {
         this.sendProductCustomOptions.push(option);
-        console.log("11226610 ", this.sendProductCustomOptions);
+        // console.log("11226610 ", this.sendProductCustomOptions);
       } else {
         this.sendProductCustomOptions.forEach((prodOption, index) => {
-          console.log(
-            "\n",
-            "prodOption.title",
-            prodOption,
-            "\n",
-            " option.title",
-            option,
-            "\n",
-            index,
-            "\n",
-            this.sendProductCustomOptions.length
-          );
+          // console.log(
+          //   "\n",
+          //   "prodOption.title",
+          //   prodOption,
+          //   "\n",
+          //   " option.title",
+          //   option,
+          //   "\n",
+          //   index,
+          //   "\n",
+          //   this.sendProductCustomOptions.length
+          // );
           if (prodOption.title === option.title) {
             prodOption = option;
             this.sendProductCustomOptions[index] = option
             this.sendProductCustomOptions[index];
             prodFlag = false;
-            console.log(
-              "1122669 indexer",
-              index,
-              this.sendProductCustomOptions[index]
-            );
+            // console.log(
+            //   "1122669 indexer",
+            //   index,
+            //   this.sendProductCustomOptions[index]
+            // );
           } else {
             if (index == this.sendProductCustomOptions.length - 1) {
               if (!prodFlag) {
                 this.sendProductCustomOptions.push(option);
-                console.log("1122667 ", this.sendProductCustomOptions);
+             //   console.log("1122667 ", this.sendProductCustomOptions);
               } else {
-                console.log("1122668 ", this.sendProductCustomOptions);
+             //   console.log("1122668 ", this.sendProductCustomOptions);
               }
             }
           }

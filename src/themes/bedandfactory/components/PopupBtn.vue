@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button class="carousel-addtocart-btn" @click="myFunction(product)">
+    <!-- <button class="carousel-addtocart-btn" @click="myFunction(product)">
       New Button
-    </button>
+    </button> -->
     <!-- :disabled="isProductDisabled" -->
     <button-full
       @click.native="addToCart(product), showAdding(prodId)"
@@ -47,10 +47,10 @@ export default {
       this.$forceUpdate();
     },
     async myFunction(product) {
-      console.log("2233 in test funtion");
+    //  console.log("2233 in test funtion");
       let optionType = "Size";
       let selectedOption = "Single";
-      console.log("112233  selected options are", this.productOptions);
+    //  console.log("112233  selected options are", this.productOptions);
 
       product.custom_options.forEach((option, index) => {
         this.productOptions.forEach((prodOption, prodIndex) => {
@@ -91,29 +91,29 @@ export default {
     async addToCart(product) {
       let optionType = "Size";
       let selectedOption = "Single";
-      console.log("112233  selected options are", this.productOptions);
+    //  console.log("112233  selected options are", this.productOptions);
 
       product.custom_options.forEach((option, index) => {
         this.productOptions.forEach((prodOption, prodIndex) => {
           if (option.title == prodOption.title) {
           }
-          console.log("1122 optionis", option);
-          console.log(
-            "\n\n\n\nThis is the original product",
-            this.getCurrentProduct.product_option.extension_attributes
-              .custom_options
-          );
+     //     console.log("1122 optionis", option);
+     //     console.log(
+          //   "\n\n\n\nThis is the original product",
+          //   this.getCurrentProduct.product_option.extension_attributes
+          //     .custom_options
+          // );
           if (option.title == prodOption.title) {
             option.values.forEach((val, valIndex) => {
               if (val.title == prodOption.option_value) {
-                console.log("value is ", val);
-                console.log(
-                  "Desired values are ",
-                  "\n\noption_id",
-                  option.option_id,
-                  "\noption_value ",
-                  val.option_type_id
-                );
+                // console.log("value is ", val);
+                // console.log(
+                //   "Desired values are ",
+                //   "\n\noption_id",
+                //   option.option_id,
+                //   "\noption_value ",
+                //   val.option_type_id
+                // );
                 let obj2 = {
                   [option.option_id]: {
                     option_id: option.option_id,
@@ -121,7 +121,7 @@ export default {
                   },
                 };
                 let obj3 = { [option.option_id]: obj2 };
-                console.log("Desired object is ", obj2, "\n\n\n\n", obj3);
+                // console.log("Desired object is ", obj2, "\n\n\n\n", obj3);
                 product.product_option.extension_attributes.custom_options = obj2;
               }
             });

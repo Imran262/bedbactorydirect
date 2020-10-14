@@ -112,21 +112,21 @@ export default {
   mixins: [ProductCustomOptions],
   methods: {
     setOption(option) {
-      console.log("option",option);
+   //   console.log("option",option);
       let obj = {
         title : option.title,
         option_id : option.option_id,
         option_value : this.$refs.selectedOption[0].selectedOptions[0].label
       }
-      console.log("1122 ",this.$refs.selectedOption[0].selectedOptions[0].label);
+     // console.log("1122 ",this.$refs.selectedOption[0].selectedOptions[0].label);
       let data = this.$refs.selectedOption;
-      console.log("1122 Selected option is ", this.inputValues['customOption_' + option.option_id]);
-      console.log("1155 Final data is ", obj);
+      // console.log("1122 Selected option is ", this.inputValues['customOption_' + option.option_id]);
+      // console.log("1155 Final data is ", obj);
      this.$emit('option-added', obj);
     },
     showOption(value, option) {
       let data1 = this.$refs.colorImage;
-      console.log("1122 value", value);
+   //   console.log("1122 value", value);
       this.inputValues.customOption_15 = value.option_type_id;
       this.colorName = value.title;
       data1 = this.$refs.colorImage;
