@@ -328,6 +328,7 @@
                 getCurrentProduct.custom_options.length > 0
               "
               :product="getCurrentProduct"
+              @option-added="addCustomOption($event)"
             />
             <div class="product-qty-and-add-to-cart">
               <product-quantity
@@ -346,6 +347,7 @@
               />
               <div class="row m0 bt-product-addtocartbtn">
                 <add-to-cart
+                  :productOptions="sendProductCustomOptions"
                   :product="getCurrentProduct"
                   :custom-options="getCurrentCustomOptions"
                   :disabled="!isAddToCartDisabled"
@@ -693,6 +695,7 @@ export default {
       ProReviewShow: true,
       ProDimensionShow: true,
       reviewData: null,
+      sendProductCustomOptions: [],
     };
   },
   computed: {
@@ -862,6 +865,48 @@ export default {
     },
   },
   methods: {
+    addCustomOption(option) {
+      let prodFlag = true;
+      if (this.sendProductCustomOptions.length == 0) {
+        this.sendProductCustomOptions.push(option);
+        // console.log("11226610 ", this.sendProductCustomOptions);
+      } else {
+        this.sendProductCustomOptions.forEach((prodOption, index) => {
+          // console.log(
+          //   "\n",
+          //   "prodOption.title",
+          //   prodOption,
+          //   "\n",
+          //   " option.title",
+          //   option,
+          //   "\n",
+          //   index,
+          //   "\n",
+          //   this.sendProductCustomOptions.length
+          // );
+          if (prodOption.title === option.title) {
+            prodOption = option;
+            this.sendProductCustomOptions[index] = option
+            this.sendProductCustomOptions[index];
+            prodFlag = false;
+            // console.log(
+            //   "1122669 indexer",
+            //   index,
+            //   this.sendProductCustomOptions[index]
+            // );
+          } else {
+            if (index == this.sendProductCustomOptions.length - 1) {
+              if (!prodFlag) {
+                this.sendProductCustomOptions.push(option);
+             //   console.log("1122667 ", this.sendProductCustomOptions);
+              } else {
+             //   console.log("1122668 ", this.sendProductCustomOptions);
+              }
+            }
+          }
+        });
+      }
+    },
     showDetails(event) {
       this.detailsOpen = true;
       event.target.classList.add("hidden");

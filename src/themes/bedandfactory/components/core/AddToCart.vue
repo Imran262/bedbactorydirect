@@ -10,6 +10,7 @@
       >{{ $t("Add to cart") }}</button-full
     >
     <popup-cart
+      :productOptions="productOptions"
       class="popup-main-cart"
       :product="product"
       :custom-options="customOptions"
@@ -36,6 +37,10 @@ export default {
   directives: { focusClean },
   components: { ButtonFull, PopupCart },
   props: {
+    productOptions: {
+      required: true,
+      type: Array,
+    },
     product: {
       required: true,
       type: Object,
