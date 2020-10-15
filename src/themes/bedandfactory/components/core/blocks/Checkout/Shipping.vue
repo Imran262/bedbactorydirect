@@ -337,19 +337,19 @@
               </template>
             </div>
           </div>
-          <div v-else class="pl20">
+          <!-- <div v-else class="pl20">
             <p v-if="getMinDate && getMaxDate && isCalendarSelected">
               <strong>Please select delivery date</strong>
             </p>
-          </div>
-          <template v-if="getShippingMethodsWithoutDates.length > 0">
+          </div> -->
+          <!-- <template v-if="getShippingMethodsWithoutDates.length > 0">
             <div
               class="col-md-12 col-xs-12"
               v-for="method in getShippingMethodsWithoutDates"
               :key="method.method_code"
             >
               <label class="radioStyled">
-                {{ method.method_title }}
+              Hello  {{ method.method_title }}
                 {{
                   method.amount === 0 && method.method_code === 'collection'
                     ? ''
@@ -377,7 +377,7 @@
                 :is-calendar-selected="isCalendarSelected"
               />
             </div>
-          </template>
+          </template> -->
           <!-- <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
             <label class="radioStyled">
               {{ method.method_title }} | {{ method.amount | price }}
