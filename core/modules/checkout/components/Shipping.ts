@@ -36,7 +36,8 @@ export const Shipping = {
         street: ['', ''],
         postcode: '',
         telephone: ''
-      }
+      },
+      currentShippingMethod: null
     }
   },
   computed: {
@@ -180,6 +181,9 @@ export const Shipping = {
           payment_method: this.paymentMethod[0].code
         })
       }
+    },
+    resetCurrentShippingMethod(){
+      this.currentShippingMethod = null
     },
     notInMethods (method) {
       let availableMethods = this.shippingMethods
