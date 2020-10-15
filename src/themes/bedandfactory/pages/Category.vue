@@ -4,6 +4,16 @@
     <header>
       <div class="container">
         <breadcrumbs />
+        <div
+          class
+          itemprop="review"
+          itemscope
+          itemtype="http://schema.org/Organization"
+        >
+          <meta itemprop="url" :content="webUrl" />
+          <meta itemprop="name" :content="title" />
+          <meta itemprop="logo" :content="webUrl+logo" />
+        </div>
         <!-- <div class="row middle-sm">
           <h1 class="col-sm-8 category-title mb10">{{ getCurrentCategory.name }}</h1>
           <div class="sorting col-sm-2 align-right mt50">
@@ -146,7 +156,6 @@ import CmsBlock from "theme/components/core/blocks/Cms/Block";
 import CategoryDescription from "theme/components/core/blocks/CategoryDescription/CategoryDescription";
 import CategoryDescriptionTop from "theme/components/core/blocks/CategoryDescription/CategoryDescriptionTop";
 const THEME_PAGE_SIZE = 50;
-
 const composeInitialPageState = async (store, route, forceLoad = false) => {
   try {
     const filters = getSearchOptionsFromRouteParams(route.params);
@@ -207,6 +216,9 @@ export default {
       defaultColumn: 4,
       loadingProducts: false,
       loading: true,
+      webUrl: "bedfactorydirect.co.uk",
+      logo : 'assets/logo.svg',
+      title : 'heyy'
     };
   },
   computed: {
@@ -310,6 +322,10 @@ export default {
       title: htmlDecode(meta_title || name),
       meta,
     };
+  },
+  mounted() {
+    this.webUrl = config.api.url;
+    this.title= config.seo.defaultTitle ;
   },
 };
 </script>

@@ -18,21 +18,30 @@
       </p>
       <p class="product-save-amount" v-if="popItem.specialPrice">
         <span>Was: {{ popItem.original_price_incl_tax | price }}</span>
-        Save: {{ popItem.original_price_incl_tax - popItem.special_price_incl_tax | price }}
+        Save:
+        {{
+          (popItem.original_price_incl_tax - popItem.special_price_incl_tax)
+            | price
+        }}
       </p>
       <div class="stock-main">
-        <img src="/assets/checkout-non-selected-tick.png">
+        <img src="/assets/checkout-non-selected-tick.png" />
         <span v-if="popItem.stock.is_in_stock == true">In Stock</span>
         <span v-else-if="popItem.stock.is_in_stock == false">Out of Stock</span>
       </div>
       <div class="poup-btn-cart-main">
-        <popup-btn :product="popItem" class="poup-btn-cart" :prod-id="popItem.sku" />
+        <popup-btn
+          :productOptions="productOptions"
+          :product="popItem"
+          class="poup-btn-cart"
+          :prod-id="popItem.sku"
+        />
       </div>
     </div>
     <div class="col-md-12 successfull-added" :data-success-attr="popItem.sku">
       <div class="success-content-main">
         <div class="success-tick">
-          <img src="/assets/checkout-non-selected-tick.png">
+          <img src="/assets/checkout-non-selected-tick.png" />
         </div>
         <div class="success-prod-name">
           <span>{{ popItem.name }}</span> - is added to your cart
@@ -42,31 +51,35 @@
   </div>
 </template>
 <script>
-import PopupImage from 'theme/components/PopupImage';
-import PopupBtn from 'theme/components/PopupBtn';
-import { onlineHelper, isServer } from '@vue-storefront/core/helpers';
+import PopupImage from "theme/components/PopupImage";
+import PopupBtn from "theme/components/PopupBtn";
+import { onlineHelper, isServer } from "@vue-storefront/core/helpers";
 import {
   getThumbnailForProduct,
-  getProductConfiguration
-} from '@vue-storefront/core/modules/cart/helpers';
+  getProductConfiguration,
+} from "@vue-storefront/core/modules/cart/helpers";
 export default {
-  name: 'ProductPopup',
+  name: "ProductPopup",
   data() {
     return {
       maxQuantity: 0,
       quantityError: false,
-      isStockInfoLoading: false
+      isStockInfoLoading: false,
     };
   },
   components: {
     PopupImage,
-    PopupBtn
+    PopupBtn,
   },
   props: {
+    productOptions: {
+      required: true,
+      type: Array,
+    },
     popItem: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     isOnline(value) {
@@ -75,21 +88,21 @@ export default {
     image() {
       return {
         loading: this.thumbnail,
-        src: this.thumbnail
+        src: this.thumbnail,
       };
     },
     thumbnail() {
       return getThumbnailForProduct(this.popItem);
-    }
+    },
   },
   methods: {
     prodClick() {
-      this.$bus.$emit('modal-hide', 'modal-switcher');
+      this.$bus.$emit("modal-hide", "modal-switcher");
       document
-        .getElementsByClassName('mobile-bottom-row-popup')[0]
-        .classList.toggle('bottom-row-hidden');
-    }
-  }
+        .getElementsByClassName("mobile-bottom-row-popup")[0]
+        .classList.toggle("bottom-row-hidden");
+    },
+  },
 };
 </script>
 <style scoped>
@@ -108,7 +121,7 @@ export default {
 p.popup_item_name {
   margin: 0;
   font-size: 11px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #54575b;
   text-align: left;
   font-weight: 600;
@@ -129,7 +142,7 @@ p.popup_item_name:hover a {
 
 p.product-amount {
   font-size: 18px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #d10000b8;
   text-align: left;
   font-weight: 700;
@@ -163,7 +176,7 @@ p.product-amount {
 }
 .success-content-main {
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 13px;
 }
 
