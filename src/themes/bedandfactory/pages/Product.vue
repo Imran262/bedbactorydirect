@@ -361,12 +361,17 @@
 
             <meta itemprop="aggregateRating" content />
             <meta itemprop="brand" content="`bedfactorydirect`" />
-            <meta
+             <meta v-if="getCurrentProduct.description ||
+                getCurrentProduct.short_description"
               itemprop="description"
               :content="
                 getCurrentProduct.description ||
-                getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '')
-              "
+                getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '') "
+            />
+            <meta
+            v-else
+              itemprop="description"
+              :content="' '"
             />
             <meta itemprop="image" :content="structuredData.imageUrl" />
 
