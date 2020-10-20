@@ -361,17 +361,12 @@
 
             <meta itemprop="aggregateRating" content />
             <meta itemprop="brand" content="`bedfactorydirect`" />
-             <meta v-if="getCurrentProduct.description ||
-                getCurrentProduct.short_description"
+            <meta
               itemprop="description"
               :content="
                 getCurrentProduct.description ||
-                getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '') "
-            />
-            <meta
-            v-else
-              itemprop="description"
-              :content="' '"
+                getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '')
+              "
             />
             <meta itemprop="image" :content="structuredData.imageUrl" />
 
@@ -394,7 +389,41 @@
               "
               :product="getCurrentProduct"
               @option-added="addCustomOption($event)"
+              :color="false"
             />
+            <div
+              v-if="
+                getCurrentProduct.custom_options &&
+                getCurrentProduct.custom_options.length > 0
+              "
+            >
+              <div v-if="getCurrentProduct.custom_options.length > 1">
+                <button
+                  class="select-color-button"
+                  type="button"
+                  @click="showColorPicker"
+                >
+                  {{ getColorName() }}
+                  <i
+                    class="material-icons p15 cl-bg-tertiary pointer select-color-icon"
+                    >keyboard_arrow_right</i
+                  >
+                </button>
+                <div
+                  id="overlay"
+                  @click="hideColorPicker"
+                  v-if="colorPickerCheck"
+                />
+                <!-- {{getCurrentProduct.custom_options[2]}} -->
+                <color-picker
+                  
+                  :colors="getCurrentProduct"
+                  v-show="colorPickerCheck"
+                  @closeColorPickerModal="hideColorPicker"
+                  @selectedColor="setColorName($event)"
+                />
+              </div>
+            </div>
             <div class="product-qty-and-add-to-cart">
               <product-quantity
                 class="product-quantity bt-product-qty row m0 mb35"
@@ -709,8 +738,10 @@ import ReviewStars from "../../../modules/reviews-module/components/ReviewStars"
 import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidget";
 import ProductPrice from "theme/components/core/ProductPrice.vue";
 import axios from "axios";
+import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker";
 export default {
   components: {
+    ColorPicker,
     AddToCart,
     AddToCompare,
     AddToWishlist,
@@ -761,6 +792,8 @@ export default {
       ProDimensionShow: true,
       reviewData: null,
       sendProductCustomOptions: [],
+      colorPickerCheck: false,
+      colorName:"Select Colour" ,
     };
   },
   computed: {
@@ -934,6 +967,12 @@ export default {
     },
   },
   methods: {
+    setColorName(name) {
+      this.colorName = name;
+    },
+    getColorName() {
+      return this.colorName;
+    },
     addCustomOption(option) {
       let prodFlag = true;
       if (this.sendProductCustomOptions.length == 0) {
@@ -994,6 +1033,18 @@ export default {
       if (!this.validateUrl(img)) {
         return subPathImg + img;
       }
+    },
+    showColorPicker() {
+      this.colorPickerCheck = true;
+      //  document.body.style.overflow("hidden");
+      //  let scrollDisable = document.getElementsByTagName("body");
+      //  scrollDisable.style.overflow("hidden");
+      //    console.log( "  document.body",scrollDisable);
+      document.body.style.overflow = "hidden";
+    },
+    hideColorPicker() {
+      this.colorPickerCheck = false;
+      document.body.style.overflow = "scroll";
     },
     showDetails(event) {
       this.detailsOpen = true;
@@ -1160,6 +1211,18 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  cursor: pointer;
+}
 .product {
   &__add-to-compare {
     display: none;
@@ -1877,6 +1940,29 @@ span.field-value {
 }
 .vue-star-rating-rating-text {
   margin-top: 0 !important;
+}
+.select-color-button {
+  width: 350px;
+  background: #ffffff;
+  font-family: "Poppins", sans-serif;
+  color: #000;
+  font-size: 16px;
+  border: 3px solid #f0f1f2;
+  height: 44px;
+  text-align: left;
+  margin-bottom: 20px;
+  position: relative;
+}
+.select-color-button .select-color-icon {
+  padding: 0;
+  float: right;
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-weight: 500;
+  transform: rotate(90deg);
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .field-val-div {
