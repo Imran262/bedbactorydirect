@@ -397,7 +397,14 @@
                 getCurrentProduct.custom_options.length > 0
               "
             >
-             <div v-if="getCurrentProduct.isFabric !== 0 && getCurrentProduct.isFabric !== '0' && getCurrentProduct.isFabric !== ' ' && getCurrentProduct.isFabric !== false">
+              <div
+                v-if="
+                  getCurrentProduct.isFabric !== 0 &&
+                  getCurrentProduct.isFabric !== '0' &&
+                  getCurrentProduct.isFabric !== ' ' &&
+                  getCurrentProduct.isFabric !== false
+                "
+              >
                 <button
                   class="select-color-button"
                   type="button"
@@ -416,7 +423,6 @@
                 />
                 <!-- {{getCurrentProduct.custom_options[2]}} -->
                 <color-picker
-                  
                   :colors="getCurrentProduct"
                   v-show="colorPickerCheck"
                   @closeColorPickerModal="hideColorPicker"
@@ -793,7 +799,7 @@ export default {
       reviewData: null,
       sendProductCustomOptions: [],
       colorPickerCheck: false,
-      colorName:"Select Colour" ,
+      colorName: "Select Colour",
     };
   },
   computed: {
