@@ -245,7 +245,7 @@ export default {
     showOption(value, option) {
       let data1 = this.$refs.colorImage;
       // console.log("1122 value", value);
-      this.inputValues.customOption_15 = value.option_type_id;
+      this.inputValues["customOption_"+option.option_id] = value.option_type_id;
       this.colorName = value.title;
       data1 = this.$refs.colorImage;
       this.imageSrc = value.option_type_id;
