@@ -48,6 +48,65 @@
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <a itemprop="item" href="https://example.com/books">
+              <span itemprop="name">Books</span></a
+            >
+            <meta itemprop="position" content="1" />
+          </li>
+        </ol>
+
+        <!-- <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <div
+            v-for="(breadcrumb, index) in breadcrumbs"
+            :key="index + breadcrumb"
+          >
+            <li
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="item" itemscope>
+                <meta itemprop="name" :content="breadcrumb" />
+                <meta itemprop="position" :content="index + 1" />
+              </span>
+            </li>
+          </div>
+        </ol> -->
+
+        <div itemscope itemtype="https://schema.org/BreadcrumbList">
+          <div
+            v-for="(breadcrumb, index) in breadcrumbs"
+            :key="index + breadcrumb"
+          >
+            <div
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <div itemprop="item" itemscope itemtype="https://schema.org/item">
+              <meta itemprop="name" :content="breadcrumb" />
+              <meta itemprop="position" :content="index + 1" />
+              </div>
+            </div>
+          </div>
+        </div>
+        --> --> --> Hello {{ getBreadcrumbsCurrent }} <br />{{
+          getBreadcrumbsRoutes
+        }}
+        <!-- {{ getAllBreadcrumbs() }} -->
+        <div
+          v-for="(breadcrumb, index) in breadcrumbs"
+          :key="index + breadcrumb"
+        >
+          <br />
+          {{ breadcrumb }}
+        </div>
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
@@ -753,6 +812,7 @@ export default {
       ProReviewShow: true,
       ProDimensionShow: true,
       reviewData: null,
+      breadcrumbs: [],
     };
   },
   computed: {
@@ -764,6 +824,8 @@ export default {
       getOriginalProduct: "product/getOriginalProduct",
       getCurrentCustomOptions: "product/getCurrentCustomOptions",
       attributesByCode: "attribute/attributeListByCode",
+      getBreadcrumbsCurrent: "breadcrumbs/getBreadcrumbsCurrent",
+      getBreadcrumbsRoutes: "breadcrumbs/getBreadcrumbsRoutes",
     }),
     getOptionLabel() {
       return (option) => {
@@ -891,6 +953,7 @@ export default {
     } catch (err) {
       console.error("error message", err);
     }
+    this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -926,6 +989,18 @@ export default {
     },
   },
   methods: {
+    getAllBreadcrumbs() {
+      console.log("1122 Breadcrumbs are : ");
+      this.getBreadcrumbsRoutes.forEach((route, index) => {
+        console.log("route is ", route.name);
+        this.breadcrumbs.push(route.name);
+        console.log(index, "     ", this.getBreadcrumbsRoutes.length);
+        if (index == this.getBreadcrumbsRoutes.length - 1) {
+          console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
+          this.breadcrumbs.push(this.getBreadcrumbsCurrent);
+        }
+      });
+    },
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;
       return pattern.test(str);
