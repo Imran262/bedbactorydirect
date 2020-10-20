@@ -80,18 +80,21 @@
         </ol> -->
 
         <div itemscope itemtype="https://schema.org/BreadcrumbList">
-          <div
-            v-for="(breadcrumb, index) in breadcrumbs"
-            :key="index + breadcrumb"
-          >
+          <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
+            current breadcrumb is {{breadcrumb}}
             <div
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
             >
-              <div itemprop="item" itemscope itemtype="https://schema.org/item">
-              <meta itemprop="name" :content="breadcrumb" />
-              <meta itemprop="position" :content="index + 1" />
+              <div
+                itemprop="item"
+                itemscope
+                itemtype="https://schema.org/item"
+                :href="breadcrumb.route_link"
+              >
+                <meta itemprop="name" :content="breadcrumb.name" />
+                <meta itemprop="position" :content="index + 1" />
               </div>
             </div>
           </div>
@@ -993,11 +996,11 @@ export default {
       console.log("1122 Breadcrumbs are : ");
       this.getBreadcrumbsRoutes.forEach((route, index) => {
         console.log("route is ", route.name);
-        this.breadcrumbs.push(route.name);
+        this.breadcrumbs.push(route);
         console.log(index, "     ", this.getBreadcrumbsRoutes.length);
         if (index == this.getBreadcrumbsRoutes.length - 1) {
           console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          this.breadcrumbs.push(this.getBreadcrumbsCurrent);
+          //  this.breadcrumbs.push(this.getBreadcrumbsCurrent);
         }
       });
     },
