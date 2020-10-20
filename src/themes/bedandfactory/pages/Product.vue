@@ -397,7 +397,7 @@
                 getCurrentProduct.custom_options.length > 0
               "
             >
-              <div v-if="getCurrentProduct.custom_options.length > 1">
+             <div v-if="getCurrentProduct.isFabric !== 0 && getCurrentProduct.isFabric !== '0' && getCurrentProduct.isFabric !== ' ' && getCurrentProduct.isFabric !== false">
                 <button
                   class="select-color-button"
                   type="button"
