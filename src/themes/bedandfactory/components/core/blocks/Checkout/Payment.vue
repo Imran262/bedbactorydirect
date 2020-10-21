@@ -23,7 +23,7 @@
     </div>
     <div class="row pl20 pr20" v-if="isActive">
       <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
-      <div class="col-xs-11 col-sm-12 col-md-10" >
+      <div class="col-xs-11 col-sm-12 col-md-10">
         <div class="row" v-if="isActive">
           <base-checkbox
             class="col-xs-12 mb15"
@@ -326,8 +326,8 @@
                   changePaymentMethod();
                 "
               />
-              <CheckoutPaymentDropin/>
-            <!-- <CheckoutPaymentDropin
+              
+              <!-- <CheckoutPaymentDropin
               v-if="
                 payment.paymentMethod === 'checkoutcom_card_payment' &&
                   payment.paymentMethod === method.code &&
@@ -374,7 +374,9 @@
                   </div>
                 </span>
               </template>
-              
+              <template v-if="method.code === 'checkoutcom_card_payment'">
+                <CheckoutPaymentDropin />
+              </template>
             </label>
             <div class="bank-card" v-if="method.code === 'braintree'">
               <ul>
@@ -424,7 +426,7 @@ import { mapActions, mapGetters } from "vuex";
 import VueOfflineMixin from "vue-offline/mixin";
 import ButtonOutline from "theme/components/theme/ButtonOutline";
 import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
-import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
+import CheckoutPaymentDropin from "src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin";
 // import PaypalButton from '../../../../../../modules/vsf-paypal-integration/components/Button';
 // //import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
 
@@ -453,9 +455,17 @@ export default {
     Tooltip,
     ButtonOutline,
     BraintreeDropin,
-    CheckoutPaymentDropin
+    CheckoutPaymentDropin,
   },
   mixins: [Payment],
+  async created() {
+    let checkoutCdn = document.createElement('script');
+    checkoutCdn.setAttribute(
+      'src',
+      'https://cdn.checkout.com/js/framesv2.min.js'
+    );
+    await document.head.appendChild(checkoutCdn);
+  },
   props: {
     OnlineOnly: {
       type: Boolean,
@@ -590,20 +600,20 @@ export default {
       // console.log("loder");
       //       }
 
-   //  console.log("112233 About to call sendDataToCheckout", );
+      //  console.log("112233 About to call sendDataToCheckout", );
 
       this.sendDataToCheckout();
       this.showSubmitButton = false;
-    //  console.log("hellowww", this.showSubmitButton);
+      //  console.log("hellowww", this.showSubmitButton);
       if (method === "braintree") {
         if (!this.showPaymentCard) {
-        //  console.log("Will be going for  braintreesssssssssssssss");
+          //  console.log("Will be going for  braintreesssssssssssssss");
           this.$bus.$emit(
             "notification-progress-start",
             this.$t("loading braintree...")
           );
         } else {
-        //  console.log("Wont be going for  braintreessssssssssssss");
+          //  console.log("Wont be going for  braintreessssssssssssss");
         }
 
         this.showPaymentCard = true;
