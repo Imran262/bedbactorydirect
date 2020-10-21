@@ -4,15 +4,18 @@
     <div class="row pl20 pr20">
       <div class="col-xs-12 col-sm-9 col-md-12">
         <div class="row">
-          <div class="col-xs-12 col-md-12" :class="{ 'cl-bg-tertiary': !isFilled && !isActive }">
+          <div
+            class="col-xs-12 col-md-12"
+            :class="{ 'cl-bg-tertiary': !isFilled && !isActive }"
+          >
             <h3 class="m0 mb5">
-              {{ $t('Delivery Address') }}
+              {{ $t("Delivery Address") }}
             </h3>
           </div>
           <div class="col-xs-12 col-md-4">
             <div class="lh30 flex" v-if="isFilled && !isActive">
               <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-                <span class="pr5 pl45">{{ $t('Edit Delivery Detail') }}</span>
+                <span class="pr5 pl45">{{ $t("Edit Delivery Detail") }}</span>
                 <i class="material-icons cl-tertiary">edit</i>
               </a>
             </div>
@@ -39,17 +42,23 @@
               @click="postalcodelookup()"
               @input="postalcodelookup()"
               @blur="updateShippingOptions"
+            />
+            <button
+              type="button"
+              class="find-address"
+              onclick="cp_obj_1.doLookup()"
+              @click="resetCurrentShippingMethodFromTS"
             >
-            <button type="button" class="find-address" onclick="cp_obj_1.doLookup()" @click="resetCurrentShippingMethodFromTS">
               Find Address
             </button>
             <span
               v-if="shipping.zipCode === '' && postcodelookup_blur === 1"
               class="postcodelookup-required"
-            >Field is required</span>
+              >Field is required</span
+            >
           </div>
           <div class="postcode-select" id="crafty_postcode_result_display_1">
-&nbsp;
+            &nbsp;
           </div>
 
           <base-checkbox
@@ -58,7 +67,7 @@
             id="shipToMyAddressCheckbox"
             v-model="shipToMyAddress"
           >
-            {{ $t('Ship to my default address') }}
+            {{ $t("Ship to my default address") }}
           </base-checkbox>
           <base-input
             class="col-xs-12 col-sm-6 mb10 shipping-first-name"
@@ -73,12 +82,12 @@
                 condition:
                   $v.shipping.firstName.$error &&
                   !$v.shipping.firstName.required,
-                text: $t('Field is required')
+                text: $t('Field is required'),
               },
               {
                 condition: !$v.shipping.firstName.minLength,
-                text: $t('Name must have at least 2 letters.')
-              }
+                text: $t('Name must have at least 2 letters.'),
+              },
             ]"
           />
 
@@ -94,8 +103,8 @@
               {
                 condition:
                   $v.shipping.lastName.$error && !$v.shipping.lastName.required,
-                text: $t('Field is required')
-              }
+                text: $t('Field is required'),
+              },
             ]"
           />
           <base-input
@@ -119,8 +128,8 @@
                 condition:
                   $v.shipping.streetAddress.$error &&
                   !$v.shipping.streetAddress.required,
-                text: $t('Field is required')
-              }
+                text: $t('Field is required'),
+              },
             ]"
           />
 
@@ -146,12 +155,12 @@
               {
                 condition:
                   $v.shipping.city.$error && !$v.shipping.city.required,
-                text: $t('Field is required')
+                text: $t('Field is required'),
               },
               {
                 condition: $v.shipping.city.$error && $v.shipping.city.required,
-                text: $t('Please provide valid city name')
-              }
+                text: $t('Please provide valid city name'),
+              },
             ]"
           />
 
@@ -174,8 +183,8 @@
               {
                 condition:
                   $v.shipping.country.$error && !$v.shipping.country.required,
-                text: $t('Field is required')
-              }
+                text: $t('Field is required'),
+              },
             ]"
             v-model="shipping.country"
             autocomplete="country-name"
@@ -208,24 +217,22 @@
                   $v.shipping.phoneNumber.$error &&
                   !$v.shipping.phoneNumber.required,
 
-                text: $t('Field is required')
+                text: $t('Field is required'),
               },
               {
-                condition:
-                  !$v.shipping.phoneNumber.maxLength,
+                condition: !$v.shipping.phoneNumber.maxLength,
 
-                text: $t('Phone number maximum length is 11 digits')
-              }
+                text: $t('Phone number maximum length is 11 digits'),
+              },
             ]"
           />
           <p class="col-xs-12 col-sm-12 col-md-6 phone-text empty" />
-          <p
-            class="col-xs-12 col-sm-12 col-md-6 phone-text"
-          >
-            Phone number will only be used to give delivery updates via text message.
+          <p class="col-xs-12 col-sm-12 col-md-6 phone-text">
+            Phone number will only be used to give delivery updates via text
+            message.
           </p>
           <h4 class="col-xs-12">
-            {{ $t('Delivery method') }}
+            {{ $t("Delivery method") }}
           </h4>
           <div v-if="getShippingMethods.length === 0">
             No Delivery Methods Found
@@ -235,20 +242,20 @@
             class="col-md-12 col-xs-12"
             v-if="
               getMinDate &&
-                getMaxDate &&
-                disabledDateFn &&
-                attributes &&
-                shouldShowChooseDate
+              getMaxDate &&
+              disabledDateFn &&
+              attributes &&
+              shouldShowChooseDate
             "
           >
             <label class="radioStyled">
-              Select your delivery day
+              Select your preferred delivery day
               <input
                 type="radio"
                 name="choose-date"
                 ref="chooseDate"
                 @click="handleChooseDateClick"
-              >
+              />
               <span
                 class="checkmark black-border-checkmark"
                 :class="isCalendarSelected ? 'customselectedclass' : ''"
@@ -259,10 +266,10 @@
             <v-calendar
               v-if="
                 getMinDate &&
-                  getMaxDate &&
-                  disabledDateFn &&
-                  attributes &&
-                  isCalendarSelected
+                getMaxDate &&
+                disabledDateFn &&
+                attributes &&
+                isCalendarSelected
               "
               class="calendar col-md-6 col-xs-12"
               v-model="date"
@@ -281,8 +288,8 @@
             class="calendar-right col-md-6 col-xs-12"
             v-if="
               shippingSlotsData &&
-                shippingSlotsData.length > 0 &&
-                isCalendarSelected
+              shippingSlotsData.length > 0 &&
+              isCalendarSelected
             "
           >
             <div class="calendar-ineer-main">
@@ -290,8 +297,8 @@
                 <div
                   v-if="
                     slotData &&
-                      slotData.customData &&
-                      slotData.customData.method_code
+                    slotData.customData &&
+                    slotData.customData.method_code
                   "
                   :key="slotData.customData.method_code"
                   class="calendar-right-inner"
@@ -301,21 +308,25 @@
                       v-if="
                         (slotData.customData.method_code.indexOf('Kerbside') !==
                           -1) ==
-                          true
+                        true
                       "
-                    >Pallet</template>
+                      >Pallet</template
+                    >
                     <template
                       v-if="
                         (slotData.customData.method_code.indexOf('DPD') !==
                           -1) ==
-                          true
+                        true
                       "
-                    >DPD parcel</template>
-                    <span v-if="selectedMethod == slotData.customData.method_code">
+                      >DPD parcel</template
+                    >
+                    <span
+                      v-if="selectedMethod == slotData.customData.method_code"
+                    >
                     
                       {{
                         slotData.customData.amount === 0
-                          ? 'Free Delivery'
+                          ? "Free Delivery"
                           : calendarPriceCurrency + slotData.customData.amount
                       }}
                     </span>
@@ -330,7 +341,7 @@
                         changeShippingMethod('fromInput0');
                         selectedMethod = slotData.customData.method_code;
                       "
-                    >
+                    />
                     <span class="checkmark black-border-checkmark" />
                   </label>
                 </div>
@@ -342,7 +353,42 @@
               <strong>Please select delivery date</strong>
             </p>
           </div>
-         
+          <!-- <template v-if="getShippingMethodsWithoutDates.length > 0">
+            <div
+              class="col-md-12 col-xs-12"
+              v-for="method in getShippingMethodsWithoutDates"
+              :key="method.method_code"
+            >
+              <label class="radioStyled">
+              Hello  {{ method.method_title }}
+                {{
+                  method.amount === 0 && method.method_code === 'collection'
+                    ? ''
+                    : method.amount === 0
+                      ? ' | Free Delivery'
+                      : ` | ${method.amount}`
+                }}
+                <input
+                  type="radio"
+                  :value="method.method_code"
+                  @click="handleShippingMethodWithoutDateClick"
+                  ref="shippingMethodWithoutDate"
+                  name="shipping-method"
+                  v-model="shipping.shippingMethod"
+                  @change="
+                    $v.shipping.shippingMethod.$touch();
+                    changeShippingMethod('fromInput');
+                  "
+                >
+                <span class="checkmark black-border-checkmark" />
+              </label>
+              <ShippingMethod
+                :identifier="method.method_code"
+                :current-method="shipping.shippingMethod"
+                :is-calendar-selected="isCalendarSelected"
+              />
+            </div>
+          </template> -->
           <!-- <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
             <label class="radioStyled">
               {{ method.method_title }} | {{ method.amount | price }}
@@ -363,13 +409,26 @@
             class="validation-error"
             v-if="
               $v.shipping.shippingMethod.$error &&
-                !$v.shipping.shippingMethod.required
+              !$v.shipping.shippingMethod.required
             "
-          >{{ $t('Field is required') }}</span>
+            >{{ $t("Field is required") }}</span
+          >
         </form>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12" v-if="$v.shipping.$invalid || (isCalendarSelected && shippingSlotsData.length === 0)">
-        <div class="mb8 cl-error" v-if="$v.shipping.$invalid || (isCalendarSelected && shippingSlotsData.length === 0)">
+      <div
+        class="col-xs-12 col-sm-12 col-md-12"
+        v-if="
+          $v.shipping.$invalid ||
+          (isCalendarSelected && shippingSlotsData.length === 0)
+        "
+      >
+        <div
+          class="mb8 cl-error"
+          v-if="
+            $v.shipping.$invalid ||
+            (isCalendarSelected && shippingSlotsData.length === 0)
+          "
+        >
           Please Enter All required fields*
         </div>
       </div>
@@ -386,10 +445,12 @@
                   shipcheckedFn();
                 "
                 :disabled="
-                  $v.shipping.$invalid || getShippingMethods.length === 0 || (isCalendarSelected && shippingSlotsData.length === 0)
+                  $v.shipping.$invalid ||
+                  getShippingMethods.length === 0 ||
+                  (isCalendarSelected && shippingSlotsData.length === 0)
                 "
               >
-                {{ $t('Continue to payment') }}
+                {{ $t("Continue to payment") }}
               </button-full>
             </div>
           </div>
@@ -401,7 +462,10 @@
           <div class="row fs16 mb35">
             <div class="col-xs-12 h4" data-testid="shippingAddressSummary">
               <p>{{ shipping.firstName }} {{ shipping.lastName }}</p>
-              <p>{{ shipping.company }} {{ shipping.streetAddress }} {{ shipping.apartmentNumber }}</p>
+              <p>
+                {{ shipping.company }} {{ shipping.streetAddress }}
+                {{ shipping.apartmentNumber }}
+              </p>
               <p>{{ shipping.city }} {{ shipping.zipCode }}</p>
               <p>
                 <span v-if="shipping.state">{{ shipping.state }},</span>
@@ -409,10 +473,12 @@
               </p>
               <div v-if="shipping.phoneNumber">
                 <span class="pr15">{{ shipping.phoneNumber }}</span>
-                <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
+                <tooltip>{{
+                  $t("Phone number may be needed by carrier")
+                }}</tooltip>
               </div>
               <div class="col-xs-12">
-                <h4>{{ $t('Shipping method') }}</h4>
+                <h4>{{ $t("Shipping method") }}</h4>
               </div>
               <div class="col-md-6 mb15">
                 <label class="radioStyled">
@@ -424,7 +490,7 @@
                     checked
                     disabled
                     name="chosen-shipping-method"
-                  >
+                  />
                   <span class="checkmark black-border-checkmark" />
                 </label>
               </div>
@@ -437,31 +503,31 @@
 </template>
 
 <script>
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
-  unicodeAlphaNum
-} from '@vue-storefront/core/helpers/validators';
-import { Shipping } from '@vue-storefront/core/modules/checkout/components/Shipping';
+  unicodeAlphaNum,
+} from "@vue-storefront/core/helpers/validators";
+import { Shipping } from "@vue-storefront/core/modules/checkout/components/Shipping";
 
-import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox';
-import BaseInput from 'theme/components/core/blocks/Form/BaseInput';
-import BaseSelect from 'theme/components/core/blocks/Form/BaseSelect';
-import ShippingMethod from 'theme/components/theme/blocks/ShippingMethod/ShippingMethodBlock';
-import ButtonFull from 'theme/components/theme/ButtonFull';
-import Tooltip from 'theme/components/core/Tooltip';
+import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
+import BaseInput from "theme/components/core/blocks/Form/BaseInput";
+import BaseSelect from "theme/components/core/blocks/Form/BaseSelect";
+import ShippingMethod from "theme/components/theme/blocks/ShippingMethod/ShippingMethodBlock";
+import ButtonFull from "theme/components/theme/ButtonFull";
+import Tooltip from "theme/components/core/Tooltip";
 // import VCalendar from 'v-calendar/lib/components/date-picker.umd';
-import NoSSR from 'vue-no-ssr';
-import { mapGetters, mapActions } from 'vuex';
-import { CartService } from '@vue-storefront/core/data-resolver';
-import config from 'config';
+import NoSSR from "vue-no-ssr";
+import { mapGetters, mapActions } from "vuex";
+import { CartService } from "@vue-storefront/core/data-resolver";
+import config from "config";
 import {
   addDays,
   addMonths,
   differenceInDays,
   differenceInMonths,
-  parseISO
-} from 'date-fns';
+  parseISO,
+} from "date-fns";
 
 export default {
   inheritAttrs: false,
@@ -475,11 +541,11 @@ export default {
       shouldShowChooseDate: true,
       selectedMethod: null,
       isDaySelected: null,
-      calendarPriceCurrency: '£'
+      calendarPriceCurrency: "£",
     };
   },
   methods: {
-    resetCurrentShippingMethodFromTS () {
+    resetCurrentShippingMethodFromTS() {
       this.resetCurrentShippingMethod();
     },
     handleShippingMethodWithoutDateClick() {
@@ -493,7 +559,7 @@ export default {
         this.$refs.shippingMethodWithoutDate &&
         this.$refs.shippingMethodWithoutDate.length > 0
       ) {
-        this.$refs.shippingMethodWithoutDate.forEach(option => {
+        this.$refs.shippingMethodWithoutDate.forEach((option) => {
           if (option) option.checked = false;
         });
       }
@@ -522,17 +588,17 @@ export default {
         this.selectedMethod = e.attributes[0].customData.method_code;
         this.shipping.methodCode = e.attributes[0].customData.method_code;
         this.manuallySetDateShippingMethod();
-        this.changeShippingMethod('handleOnClick');
+        this.changeShippingMethod("handleOnClick");
         this.calendarPriceCurrency = config.i18n.currencySign;
       }
     },
     manuallySetDateShippingMethod() {
-      console.log('shippingMethodRef', this.$refs.shippingMethodRef);
+      console.log("shippingMethodRef", this.$refs.shippingMethodRef);
       setTimeout(() => {
         const methodChecked = this.$refs.shippingMethodRef;
-        console.log('methodChecked ', methodChecked);
+        console.log("methodChecked ", methodChecked);
         if (methodChecked[0]) {
-          console.log('methodCheckedTrue ', methodChecked[0]);
+          console.log("methodCheckedTrue ", methodChecked[0]);
           methodChecked[0].click();
         }
       }, 100);
@@ -543,14 +609,14 @@ export default {
         await this.changeCountry();
         const address = {
           country_id: this.shipping.country,
-          postcode: this.shipping.zipCode
+          postcode: this.shipping.zipCode,
         };
-        this.date = '';
+        this.date = "";
         this.shippingSlotsData = [];
         const { result } = await CartService.getShippingMethods(address);
         console.log(result);
         await this.$store.commit(
-          'checkout/checkout/SET_SHIPPING_METHOD',
+          "checkout/checkout/SET_SHIPPING_METHOD",
           result
         );
         if (
@@ -566,11 +632,11 @@ export default {
     selectFirstShippingMethod() {
       if (this.isCalendarSelected && this.getSortedDates[0]) {
         setTimeout(async () => {
-          const selectionDate = this.getSortedDates[0].split('/');
+          const selectionDate = this.getSortedDates[0].split("/");
           const month = selectionDate[0];
           const day = selectionDate[1];
           const year = selectionDate[2];
-          const finalDate = [year, month, day].join('-');
+          const finalDate = [year, month, day].join("-");
           const dayObject = await document.querySelector(`.id-${finalDate}`)
             .firstChild.firstChild;
           console.log(dayObject);
@@ -580,13 +646,13 @@ export default {
     },
     changeDateOrder(date) {
       if (date) {
-        const dateArray = date.split('/');
+        const dateArray = date.split("/");
         const month = dateArray[0];
         const day = dateArray[1];
         const year = dateArray[2];
 
         const changedArray = [year, month, day];
-        return changedArray.join('-');
+        return changedArray.join("-");
       } else {
         // To make sure it doesnt return undefined values. In reference to FLOR-253
         return false;
@@ -597,35 +663,35 @@ export default {
       if (shippingMethod && shippingMethod.match(regex)) {
         return shippingMethod.match(regex)[0];
       } else {
-        console.log('Else', shippingMethod);
+        console.log("Else", shippingMethod);
       }
     },
-    getAllDates(startDate, endDate, interval = 'DAY') {
-      if (interval === 'DAY') {
+    getAllDates(startDate, endDate, interval = "DAY") {
+      if (interval === "DAY") {
         const days = differenceInDays(endDate, startDate);
 
         return [...Array(days + 1).keys()]
-          .map(i => addDays(startDate, i))
-          .map(item => {
+          .map((i) => addDays(startDate, i))
+          .map((item) => {
             return item.toISOString().slice(0, 10);
           });
       }
 
-      if (interval === 'MONTH') {
+      if (interval === "MONTH") {
         const months = differenceInMonths(endDate, startDate);
 
         return [...Array(months + 1).keys()]
-          .map(i => addMonths(startDate, i))
-          .map(item => item.toISOString().slice(0, 10));
+          .map((i) => addMonths(startDate, i))
+          .map((item) => item.toISOString().slice(0, 10));
       }
     },
     async postalcodelookup() {
-      console.log('Here ' + this.count++);
+      console.log("Here " + this.count++);
       if (this.count++ > 1) {
-        console.log('gree');
+        console.log("gree");
       } else {
-        console.log('less');
-        const craftyplugin_args = document.createElement('script');
+        console.log("less");
+        const craftyplugin_args = document.createElement("script");
         craftyplugin_args.innerHTML = `var cp_access_token = "0408b-db3a6-cc0af-02842";
           var cp_obj_1 = CraftyPostcodeCreate();
           cp_obj_1.set("access_token", cp_access_token);
@@ -684,32 +750,32 @@ export default {
            });`;
         document.head.appendChild(craftyplugin_args);
       }
-      var ele1 = document.getElementsByName('street-address')[0].value;
+      var ele1 = document.getElementsByName("street-address")[0].value;
       this.shipping.streetAddress = ele1;
-      var ele2 = document.getElementsByName('apartment-number')[0].value;
+      var ele2 = document.getElementsByName("apartment-number")[0].value;
       this.shipping.apartmentNumber = ele2;
-      var ele3 = document.getElementsByName('city')[0].value;
+      var ele3 = document.getElementsByName("city")[0].value;
       this.shipping.city = ele3;
-      var ele4 = document.getElementsByName('state')[0].value;
+      var ele4 = document.getElementsByName("state")[0].value;
       this.shipping.state = ele4;
-      var ele5 = document.getElementsByName('postcode')[0].value;
+      var ele5 = document.getElementsByName("postcode")[0].value;
       this.shipping.zipCode = ele5;
-      var ele6 = document.getElementsByName('company-name')[0].value;
+      var ele6 = document.getElementsByName("company-name")[0].value;
       this.shipping.company = ele6;
-      await this.$store.commit('checkout/checkout/SAVE_SHIPPING_DETAILS', {
+      await this.$store.commit("checkout/checkout/SAVE_SHIPPING_DETAILS", {
         apartmentNumber: ele2,
         city: ele3,
         streetAddress: ele1,
         company: ele6,
         state: ele4,
-        zipCode: ele5
+        zipCode: ele5,
       });
       await this.updateShippingOptions();
     },
-    shipcheckedFn: function() {
-      var tick_elem = document.getElementsByClassName('non-selected-tick')[1];
-      tick_elem.classList.add('tick-active');
-    }
+    shipcheckedFn: function () {
+      var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
+      tick_elem.classList.add("tick-active");
+    },
   },
   components: {
     ButtonFull,
@@ -717,40 +783,40 @@ export default {
     BaseCheckbox,
     BaseInput,
     BaseSelect,
-    'no-ssr': NoSSR,
-    'v-calendar': () => import('v-calendar/lib/components/date-picker.umd'),
-    ShippingMethod
+    "no-ssr": NoSSR,
+    "v-calendar": () => import("v-calendar/lib/components/date-picker.umd"),
+    ShippingMethod,
   },
   created() {
-    const craftyplugin = document.createElement('script');
-    craftyplugin.setAttribute('src', '/assets/js/crafty_postcode.class.js');
+    const craftyplugin = document.createElement("script");
+    craftyplugin.setAttribute("src", "/assets/js/crafty_postcode.class.js");
     document.head.appendChild(craftyplugin);
-    this.shipping.country = 'GB';
+    this.shipping.country = "GB";
   },
   mixins: [Shipping],
   computed: {
     ...mapGetters({
-      getShippingMethods: 'shipping/getShippingMethods',
-      getPersonalDetails: 'checkout/getPersonalDetails',
-      getShippingDetails: 'checkout/getShippingDetails',
-      getCartToken: 'cart/getCartToken'
+      getShippingMethods: "shipping/getShippingMethods",
+      getPersonalDetails: "checkout/getPersonalDetails",
+      getShippingDetails: "checkout/getShippingDetails",
+      getCartToken: "cart/getCartToken",
     }),
     getShippingMethodsWithoutDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const shippingArrayWithoutDates = this.getShippingMethods.filter(
-        shippingMethod =>
+        (shippingMethod) =>
           regex.test(shippingMethod.method_code) !==
           !regex.test(shippingMethod.method_code)
       );
-      console.log('', shippingArrayWithoutDates);
+      console.log("", shippingArrayWithoutDates);
       return shippingArrayWithoutDates;
     },
     getShippingMethodsWithDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const shippingArrayWithDates = this.getShippingMethods.filter(
-        shippingMethod => regex.test(shippingMethod.method_code)
+        (shippingMethod) => regex.test(shippingMethod.method_code)
       );
-      console.log('', shippingArrayWithDates);
+      console.log("", shippingArrayWithDates);
       return shippingArrayWithDates;
     },
     countryOptions() {
@@ -764,10 +830,10 @@ export default {
       this.shipping.firstName = this.getPersonalDetails.firstName.trim();
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.shipping.lastName = this.getPersonalDetails.lastName.trim();
-      return this.countries.map(item => {
+      return this.countries.map((item) => {
         return {
           value: item.code,
-          label: item.name
+          label: item.name,
         };
       });
     },
@@ -782,32 +848,32 @@ export default {
           ),
           popover: {
             label: `The price is ${shippingMethod.price_incl_tax}`,
-            hideIndicator: true
+            hideIndicator: true,
           },
-          customData: shippingMethod
-        }))
+          customData: shippingMethod,
+        })),
       ];
     },
     disabledDateFn() {
-      const dotteddates = this.getSortedDates.map(item =>
+      const dotteddates = this.getSortedDates.map((item) =>
         this.changeDateOrder(item)
       );
       const allDatesArr = this.getAllDates(this.getMinDate, this.getMaxDate);
-      console.log('allDatesArr', allDatesArr);
+      console.log("allDatesArr", allDatesArr);
       const finalDateArray = allDatesArr.filter(
-        singleDate => !dotteddates.includes(singleDate)
+        (singleDate) => !dotteddates.includes(singleDate)
       );
-      console.log('finalDateArray', finalDateArray);
+      console.log("finalDateArray", finalDateArray);
       return finalDateArray;
     },
     // eslint-disable-next-line vue/return-in-computed-property
     getMinDate() {
       if (this.getSortedDates[0]) {
-        const minDate = this.getSortedDates[0].split('/');
+        const minDate = this.getSortedDates[0].split("/");
         const month = minDate[0];
         const day = minDate[1];
         const year = minDate[2];
-        const finalDate = [year, month, day].join('-');
+        const finalDate = [year, month, day].join("-");
         return new Date(finalDate);
       }
     },
@@ -816,27 +882,27 @@ export default {
       if (this.getSortedDates[0]) {
         const maxDate = this.getSortedDates[
           this.getSortedDates.length - 1
-        ].split('/');
+        ].split("/");
         const month = maxDate[0];
         const day = maxDate[1];
         const year = maxDate[2];
-        const finalDate = [year, month, day].join('-');
+        const finalDate = [year, month, day].join("-");
         return new Date(finalDate);
       }
     },
     getSortedDates() {
       return this.getShippingMethods
-        .map(shippingMethod =>
+        .map((shippingMethod) =>
           this.getDateFromMethodCode(shippingMethod.method_code)
         )
-        .filter(dateStr => dateStr !== undefined)
+        .filter((dateStr) => dateStr !== undefined)
         .sort((a, b) => {
           var c = new Date(a);
           var d = new Date(b);
-          return c-d;
+          return c - d;
           // return a > b ? 1 : a < b ? -1 : 0;
         });
-    }
+    },
   },
   watch: {
     getShippingMethodsWithoutDates() {
@@ -850,44 +916,44 @@ export default {
     },
     isCalendarSelected() {
       // this.selectFirstShippingMethod();
-    }
+    },
   },
   validations: {
     shipping: {
       firstName: {
         required,
         minLength: minLength(2),
-        unicodeAlpha
+        unicodeAlpha,
       },
       lastName: {
         required,
-        unicodeAlpha
+        unicodeAlpha,
       },
       country: {
-        required
+        required,
       },
       streetAddress: {
         required,
-        unicodeAlphaNum
+        unicodeAlphaNum,
       },
       shippingMethod: {
-        required
+        required,
       },
       zipCode: {
         required,
         minLength: minLength(3),
-        unicodeAlphaNum
+        unicodeAlphaNum,
       },
       city: {
         required,
-        unicodeAlpha
+        unicodeAlpha,
       },
       phoneNumber: {
         required,
-        maxLength: maxLength(11)
-      }
-    }
-  }
+        maxLength: maxLength(11),
+      },
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -934,7 +1000,7 @@ button.find-address {
 .billing-details {
   background: #fff;
   padding: 12px 0px 0px 0px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 25px 0px;
   -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
@@ -946,7 +1012,7 @@ button.find-address {
     width: 100%;
     padding-bottom: 10px;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
   .border-top {
     border-top: 1px solid #bdbdbd;
@@ -1011,7 +1077,7 @@ button.find-address {
       background-color: transparent;
       border-radius: 5px;
       margin-bottom: 10px;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
       color: #676767;
       font-size: 15px;
     }
@@ -1043,7 +1109,7 @@ p.phone-text {
   background-color: transparent;
   border-radius: 5px;
   margin-bottom: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #676767;
   font-size: 15px;
   padding-left: 5px;
@@ -1107,10 +1173,10 @@ p.phone-text {
     margin-bottom: 0;
     margin-top: 20px;
   }
-  .billing-payment .postcode-select select{
+  .billing-payment .postcode-select select {
     margin-top: 40px !important;
   }
-  .billing-payment input{
+  .billing-payment input {
     margin-top: 10px;
   }
   #crafty_postcode_result_display_1 img {

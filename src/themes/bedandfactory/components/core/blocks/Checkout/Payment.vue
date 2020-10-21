@@ -326,7 +326,17 @@
                   changePaymentMethod();
                 "
               />
+              <CheckoutPaymentDropin/>
+            <!-- <CheckoutPaymentDropin
+              v-if="
+                payment.paymentMethod === 'checkoutcom_card_payment' &&
+                  payment.paymentMethod === method.code &&
+                  !$v.payment.$invalid &&
+                  radioCheckedFlag
+              "
+            /> -->
               <span class="checkmark" />
+
               <template v-if="method.code === 'braintree'">
                 <span v-if="showPaymentCard">
                   <div class="order-review right-padding pt20 mb35">
@@ -364,6 +374,7 @@
                   </div>
                 </span>
               </template>
+              
             </label>
             <div class="bank-card" v-if="method.code === 'braintree'">
               <ul>
@@ -413,6 +424,7 @@ import { mapActions, mapGetters } from "vuex";
 import VueOfflineMixin from "vue-offline/mixin";
 import ButtonOutline from "theme/components/theme/ButtonOutline";
 import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
+import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
 // import PaypalButton from '../../../../../../modules/vsf-paypal-integration/components/Button';
 // //import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
 
@@ -441,6 +453,7 @@ export default {
     Tooltip,
     ButtonOutline,
     BraintreeDropin,
+    CheckoutPaymentDropin
   },
   mixins: [Payment],
   props: {
