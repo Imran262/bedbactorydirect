@@ -21,6 +21,7 @@ import { InitialResourcesModule } from "@vue-storefront/core/modules/initial-res
 import { registerModule } from "@vue-storefront/core/lib/modules";
 import { LayeredNavigationModule } from "./vsf-l-navigation";
 import { Braintree } from "./vsf-p-braintree";
+import { CheckoutPaymentModule } from "./vsf-checkout-integration";
 // TODO:distributed across proper pages BEFORE 1.11
 export function registerClientModules() {
   registerModule(UrlModule);
@@ -42,6 +43,7 @@ export function registerClientModules() {
   registerModule(InitialResourcesModule);
   registerModule(LayeredNavigationModule);
   registerModule(Braintree);
+  registerModule(CheckoutPaymentModule);
   // registerModule(DeviceModule)
 }
 
