@@ -1,7 +1,6 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
     <section class="product-top-section">
-      {{getCurrentProduct}}
       <template v-if="reviewData">
         <div v-for="(review, count) in reviewData.reviews" :key="count">
           <div
