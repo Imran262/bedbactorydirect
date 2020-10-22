@@ -306,26 +306,15 @@
             :key="index"
             class="col-md-12 payment-method-inner"
           >
-            <label class="radioStyled">
+            <label class="radioStyled" v-if="method.code !== 'braintree'">
               <template v-if="method.code === 'braintree'">
-                <!-- <p class="paymentTitle">Pay By Card</p> -->
-              </template>
+                <p class="paymentTitle">Pay By Card</p></template
+              >
               <template v-else
                 ><p class="paymentTitle">
                   {{ method.title ? method.title : method.name }}
-                </p>
-                <input
-                  type="radio"
-                  :value="method.code"
-                  name="payment-method"
-                  v-model="payment.paymentMethod"
-                  @click="enablePaymentMethod(method.code)"
-                  @change="
-                    $v.payment.paymentMethod.$touch();
-                    changePaymentMethod();
-                  "
-                />
-              </template>
+                </p></template
+              >
               <input
                 type="radio"
                 :value="method.code"
@@ -337,7 +326,7 @@
                   changePaymentMethod();
                 "
               />
-
+              
               <!-- <CheckoutPaymentDropin
               v-if="
                 payment.paymentMethod === 'checkoutcom_card_payment' &&
@@ -347,22 +336,21 @@
               "
             /> -->
               <span class="checkmark" />
+
               <template v-if="method.code === 'braintree'">
-                <!-- <template v-if="method.code === 'braintree'">
-                  <span v-if="showPaymentCard">
-                    <div class="order-review right-padding pt20 mb35">
-                      <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="row paddingLeft pr20">
-                          <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="row mb15 mt20">
-                              <div class="col-xs-12">
-                                <div class="row">
-                                  <div class="cartsummary-wrapper">
-                                    <braintree-dropin
-                                      ref="braintreeREF"
-                                      @configured="setOption()"
-                                    />
-                                  </div>
+                <span v-if="showPaymentCard">
+                  <div class="order-review right-padding pt20 mb35">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="row paddingLeft pr20">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="row mb15 mt20">
+                            <div class="col-xs-12">
+                              <div class="row">
+                                <div class="cartsummary-wrapper">
+                                  <braintree-dropin
+                                    ref="braintreeREF"
+                                    @configured="setOption()"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -370,21 +358,21 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="row pb35">
-                        <div class="col-xs-12 col-md-8 px20">
-                          <slot name="placeOrderButton">
-                            <button-full
-                              data-testid="orderReviewSubmit"
-                              class="place-order-btn"
-                              >{{ $t("Place the order") }}</button-full
-                            >
-                          </slot>
-                        </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="row pb35">
+                      <div class="col-xs-12 col-md-8 px20">
+                        <slot name="placeOrderButton">
+                          <button-full
+                            data-testid="orderReviewSubmit"
+                            class="place-order-btn"
+                            >{{ $t("Place the order") }}</button-full
+                          >
+                        </slot>
                       </div>
                     </div>
-                  </span>
-                </template> -->
+                  </div>
+                </span>
               </template>
               <template v-if="method.code === 'checkoutcom_card_payment'">
                 <CheckoutPaymentDropin />
@@ -471,10 +459,10 @@ export default {
   },
   mixins: [Payment],
   async created() {
-    let checkoutCdn = document.createElement("script");
+    let checkoutCdn = document.createElement('script');
     checkoutCdn.setAttribute(
-      "src",
-      "https://cdn.checkout.com/js/framesv2.min.js"
+      'src',
+      'https://cdn.checkout.com/js/framesv2.min.js'
     );
     await document.head.appendChild(checkoutCdn);
   },
