@@ -300,7 +300,7 @@
           <div class="col-xs-12">
             <h4>{{ $t("Payment method") }}</h4>
           </div>
-
+          <!-- {{paymentMethods}} -->
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
@@ -326,7 +326,7 @@
                   changePaymentMethod();
                 "
               />
-              
+              <span class="checkmark" :class="!radioCheckedFlag ? 'allunchecked' : ''"/>
               <!-- <CheckoutPaymentDropin
               v-if="
                 payment.paymentMethod === 'checkoutcom_card_payment' &&
@@ -335,7 +335,6 @@
                   radioCheckedFlag
               "
             /> -->
-              <span class="checkmark" />
 
               <template v-if="method.code === 'braintree'">
                 <span v-if="showPaymentCard">
@@ -375,7 +374,9 @@
                 </span>
               </template>
               <template v-if="method.code === 'checkoutcom_card_payment'">
-                <CheckoutPaymentDropin />
+                <span v-if="showCheckoutCom">
+                  <CheckoutPaymentDropin />
+                </span>
               </template>
             </label>
             <!-- <div class="bank-card" v-if="method.code === 'braintree'">
@@ -443,6 +444,7 @@ export default {
       couponCode: "",
       isCouponApplied: null,
       showPaymentCard: false,
+      showCheckoutCom: false,
       showSubmitButton: false,
       loaderCount: 0,
     };
@@ -459,10 +461,10 @@ export default {
   },
   mixins: [Payment],
   async created() {
-    let checkoutCdn = document.createElement('script');
+    let checkoutCdn = document.createElement("script");
     checkoutCdn.setAttribute(
-      'src',
-      'https://cdn.checkout.com/js/framesv2.min.js'
+      "src",
+      "https://cdn.checkout.com/js/framesv2.min.js"
     );
     await document.head.appendChild(checkoutCdn);
   },
@@ -600,10 +602,12 @@ export default {
       // console.log("loder");
       //       }
 
-      //  console.log("112233 About to call sendDataToCheckout", );
+      // console.log("112233 About to call sendDataToCheckout",method );
 
       this.sendDataToCheckout();
+      this.paymentcheckedFn();
       this.showSubmitButton = false;
+      this.showCheckoutCom = false;
       //  console.log("hellowww", this.showSubmitButton);
       if (method === "braintree") {
         if (!this.showPaymentCard) {
@@ -617,8 +621,11 @@ export default {
         }
 
         this.showPaymentCard = true;
+      } else if (method === "checkoutcom_card_payment") {
+        this.showCheckoutCom = true;
       } else {
         this.showPaymentCard = false;
+        this.showCheckoutCom = false;
       }
     },
     ...mapActions({
@@ -626,10 +633,10 @@ export default {
     }),
     paymentcheckedFn: function () {
       this.radioCheckedFlag = true;
-      var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
-      var tick_elem1 = document.getElementsByClassName("non-selected-tick")[2];
-      tick_elem.classList.add("tick-active");
-      tick_elem1.classList.add("tick-active");
+      // var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
+      // var tick_elem1 = document.getElementsByClassName("non-selected-tick")[2];
+      // tick_elem.classList.add("tick-active");
+      // tick_elem1.classList.add("tick-active");
     },
     async setCoupon() {
       try {
@@ -674,6 +681,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.allunchecked:after {
+  display: none !important;
+}
 .radioStyled {
   padding-left: 0px !important;
 }
@@ -681,7 +691,7 @@ export default {
   padding-left: 3%;
 }
 .paymentTitle {
-  padding-left: 26px;
+  padding-left: 30px;
   margin: 0;
 }
 .order-review {
