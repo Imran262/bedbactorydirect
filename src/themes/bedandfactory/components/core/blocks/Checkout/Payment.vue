@@ -308,13 +308,24 @@
           >
             <label class="radioStyled">
               <template v-if="method.code === 'braintree'">
-                <p class="paymentTitle">Pay By Card</p></template
-              >
+                <!-- <p class="paymentTitle">Pay By Card</p> -->
+              </template>
               <template v-else
                 ><p class="paymentTitle">
                   {{ method.title ? method.title : method.name }}
-                </p></template
-              >
+                </p>
+                <input
+                  type="radio"
+                  :value="method.code"
+                  name="payment-method"
+                  v-model="payment.paymentMethod"
+                  @click="enablePaymentMethod(method.code)"
+                  @change="
+                    $v.payment.paymentMethod.$touch();
+                    changePaymentMethod();
+                  "
+                />
+              </template>
               <input
                 type="radio"
                 :value="method.code"
@@ -326,7 +337,7 @@
                   changePaymentMethod();
                 "
               />
-              
+
               <!-- <CheckoutPaymentDropin
               v-if="
                 payment.paymentMethod === 'checkoutcom_card_payment' &&
@@ -336,21 +347,22 @@
               "
             /> -->
               <span class="checkmark" />
-
               <template v-if="method.code === 'braintree'">
-                <span v-if="showPaymentCard">
-                  <div class="order-review right-padding pt20 mb35">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="row paddingLeft pr20">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                          <div class="row mb15 mt20">
-                            <div class="col-xs-12">
-                              <div class="row">
-                                <div class="cartsummary-wrapper">
-                                  <braintree-dropin
-                                    ref="braintreeREF"
-                                    @configured="setOption()"
-                                  />
+                <!-- <template v-if="method.code === 'braintree'">
+                  <span v-if="showPaymentCard">
+                    <div class="order-review right-padding pt20 mb35">
+                      <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="row paddingLeft pr20">
+                          <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="row mb15 mt20">
+                              <div class="col-xs-12">
+                                <div class="row">
+                                  <div class="cartsummary-wrapper">
+                                    <braintree-dropin
+                                      ref="braintreeREF"
+                                      @configured="setOption()"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -358,27 +370,27 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="row pb35">
-                      <div class="col-xs-12 col-md-8 px20">
-                        <slot name="placeOrderButton">
-                          <button-full
-                            data-testid="orderReviewSubmit"
-                            class="place-order-btn"
-                            >{{ $t("Place the order") }}</button-full
-                          >
-                        </slot>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="row pb35">
+                        <div class="col-xs-12 col-md-8 px20">
+                          <slot name="placeOrderButton">
+                            <button-full
+                              data-testid="orderReviewSubmit"
+                              class="place-order-btn"
+                              >{{ $t("Place the order") }}</button-full
+                            >
+                          </slot>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </span>
+                  </span>
+                </template> -->
               </template>
               <template v-if="method.code === 'checkoutcom_card_payment'">
                 <CheckoutPaymentDropin />
               </template>
             </label>
-            <div class="bank-card" v-if="method.code === 'braintree'">
+            <!-- <div class="bank-card" v-if="method.code === 'braintree'">
               <ul>
                 <li>
                   <img src="/assets/footer/footer-master-card-icon.png" />
@@ -395,7 +407,7 @@
                   <img src="/assets/footer/footer-paypal-icon.png" />
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <span
             class="validation-error"
@@ -459,10 +471,10 @@ export default {
   },
   mixins: [Payment],
   async created() {
-    let checkoutCdn = document.createElement('script');
+    let checkoutCdn = document.createElement("script");
     checkoutCdn.setAttribute(
-      'src',
-      'https://cdn.checkout.com/js/framesv2.min.js'
+      "src",
+      "https://cdn.checkout.com/js/framesv2.min.js"
     );
     await document.head.appendChild(checkoutCdn);
   },
