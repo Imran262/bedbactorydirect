@@ -1,5 +1,5 @@
 <template>
-  <div class="payment pt20 billing-payment">
+  <div class="payment pt20 billing-payment" id="scrollToPayment">
     <div class="non-selected-tick" />
     <div class="row pl20 pr20">
       <div class="col-xs-12 col-sm-12 col-md-12">
@@ -22,7 +22,6 @@
       </div>
     </div>
     <div class="row pl20 pr20" v-if="isActive">
-      <!-- <div class="hidden-xs col-sm-2 col-md-1" /> -->
       <div class="col-xs-11 col-sm-12 col-md-10">
         <div class="row" v-if="isActive">
           <base-checkbox
@@ -281,10 +280,6 @@
                     @keyup.enter="setCoupon"
                   />
                 </div>
-                <!-- .bgcolor{
-  background-color: #B6EBE8 !important;
-}
-:style="{ backgroundColor: '#4dba87' }" -->
                 <button-outline
                   color="light"
                   :style="{ backgroundColor: '#32BFB3' }"
@@ -300,13 +295,13 @@
           <div class="col-xs-12">
             <h4>{{ $t("Payment method") }}</h4>
           </div>
-
+          <!-- {{paymentMethods}} -->
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12 payment-method-inner"
           >
-            <label class="radioStyled">
+            <label class="radioStyled" v-if="method.code !== 'braintree'">
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card</p></template
               >
@@ -326,17 +321,7 @@
                   changePaymentMethod();
                 "
               />
-              
-              <!-- <CheckoutPaymentDropin
-              v-if="
-                payment.paymentMethod === 'checkoutcom_card_payment' &&
-                  payment.paymentMethod === method.code &&
-                  !$v.payment.$invalid &&
-                  radioCheckedFlag
-              "
-            /> -->
-              <span class="checkmark" />
-
+              <span class="checkmark" :class="!radioCheckedFlag ? 'allunchecked' : ''"/>
               <template v-if="method.code === 'braintree'">
                 <span v-if="showPaymentCard">
                   <div class="order-review right-padding pt20 mb35">
@@ -375,27 +360,11 @@
                 </span>
               </template>
               <template v-if="method.code === 'checkoutcom_card_payment'">
-                <CheckoutPaymentDropin />
+                <span v-if="showCheckoutCom">
+                  <CheckoutPaymentDropin />
+                </span>
               </template>
             </label>
-            <div class="bank-card" v-if="method.code === 'braintree'">
-              <ul>
-                <li>
-                  <img src="/assets/footer/footer-master-card-icon.png" />
-                </li>
-                <li>
-                  <img
-                    src="/assets/fobutton-outlineoter/footer-master-pro-icon.png"
-                  />
-                </li>
-                <li>
-                  <img src="/assets/footer/footer-visa-icon.png" />
-                </li>
-                <li>
-                  <img src="/assets/footer/footer-paypal-icon.png" />
-                </li>
-              </ul>
-            </div>
           </div>
           <span
             class="validation-error"
@@ -427,13 +396,6 @@ import VueOfflineMixin from "vue-offline/mixin";
 import ButtonOutline from "theme/components/theme/ButtonOutline";
 import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
 import CheckoutPaymentDropin from "src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin";
-// import PaypalButton from '../../../../../../modules/vsf-paypal-integration/components/Button';
-// //import CheckoutPaymentDropin from 'src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin';
-
-// import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview';
-// import { OrderModule } from '@vue-storefront/core/modules/order';
-// import { registerModule } from '@vue-storefront/core/lib/modules';
-// import Composite from '@vue-storefront/core/mixins/composite';
 
 export default {
   data() {
@@ -443,6 +405,7 @@ export default {
       couponCode: "",
       isCouponApplied: null,
       showPaymentCard: false,
+      showCheckoutCom: false,
       showSubmitButton: false,
       loaderCount: 0,
     };
@@ -459,10 +422,10 @@ export default {
   },
   mixins: [Payment],
   async created() {
-    let checkoutCdn = document.createElement('script');
+    let checkoutCdn = document.createElement("script");
     checkoutCdn.setAttribute(
-      'src',
-      'https://cdn.checkout.com/js/framesv2.min.js'
+      "src",
+      "https://cdn.checkout.com/js/framesv2.min.js"
     );
     await document.head.appendChild(checkoutCdn);
   },
@@ -569,19 +532,8 @@ export default {
   methods: {
     setOption() {
       let braintreeOptions = document.querySelectorAll(".braintree-option");
-      // console.log("1122 payment method is changed", braintreeOptions);
       braintreeOptions.forEach((option) => {
-        // console.log("options are ", option.classList);
         option.classList.forEach((classs) => {
-          // console.log("Helooooooooooooooooo");
-          // console.log(
-          //   "class is ",
-          //   classs ,
-          //   "classsssss",
-          //   "\n\n\n\n card ",
-          //   classs.search("card"),
-          //   (classs.search("card")!=-1)
-          // );
           if (classs.search("card") != -1) {
             // console.log("option is ",option);
             option.click();
@@ -595,30 +547,23 @@ export default {
       });
     },
     enablePaymentMethod(method) {
-      //       console.log("loderCount is ");
-      //       if(this.loaderCount==0){
-      // console.log("loder");
-      //       }
-
-      //  console.log("112233 About to call sendDataToCheckout", );
-
       this.sendDataToCheckout();
+      this.paymentcheckedFn();
       this.showSubmitButton = false;
-      //  console.log("hellowww", this.showSubmitButton);
+      this.showCheckoutCom = false;
       if (method === "braintree") {
         if (!this.showPaymentCard) {
-          //  console.log("Will be going for  braintreesssssssssssssss");
           this.$bus.$emit(
             "notification-progress-start",
             this.$t("loading braintree...")
           );
-        } else {
-          //  console.log("Wont be going for  braintreessssssssssssss");
         }
-
         this.showPaymentCard = true;
+      } else if (method === "checkoutcom_card_payment") {
+        this.showCheckoutCom = true;
       } else {
         this.showPaymentCard = false;
+        this.showCheckoutCom = false;
       }
     },
     ...mapActions({
@@ -626,10 +571,6 @@ export default {
     }),
     paymentcheckedFn: function () {
       this.radioCheckedFlag = true;
-      var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
-      var tick_elem1 = document.getElementsByClassName("non-selected-tick")[2];
-      tick_elem.classList.add("tick-active");
-      tick_elem1.classList.add("tick-active");
     },
     async setCoupon() {
       try {
@@ -674,6 +615,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.allunchecked:after {
+  display: none !important;
+}
 .radioStyled {
   padding-left: 0px !important;
 }
@@ -681,7 +625,7 @@ export default {
   padding-left: 3%;
 }
 .paymentTitle {
-  padding-left: 26px;
+  padding-left: 30px;
   margin: 0;
 }
 .order-review {

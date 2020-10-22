@@ -775,6 +775,17 @@ export default {
     shipcheckedFn: function () {
       var tick_elem = document.getElementsByClassName("non-selected-tick")[1];
       tick_elem.classList.add("tick-active");
+      setTimeout(() => {
+        const headerClass = document.getElementsByClassName('header')[0];
+        const headerHeight = parseFloat(headerClass.offsetHeight);
+        const scrollToPayment = document.getElementById('scrollToPayment')
+        const elementPosition = scrollToPayment.offsetTop;
+        const offsetPosition = elementPosition - headerHeight;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }, 10);
     },
   },
   components: {
