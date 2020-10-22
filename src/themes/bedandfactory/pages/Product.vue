@@ -1,6 +1,7 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
     <section class="product-top-section">
+      {{getCurrentProduct}}
       <template v-if="reviewData">
         <div v-for="(review, count) in reviewData.reviews" :key="count">
           <div
@@ -610,7 +611,9 @@
                       <span class="purple">next working day delivery</span>
                     </router-link>
                   </span>-->
-                  <cms-block :identifier="'delivery_Info'" />
+                  BLock is {{getCurrentProduct.delivery_cms_block}} block
+                  <br />
+                  <cms-block :identifier="getCurrentProduct.delivery_cms_block ? getCurrentProduct.delivery_cms_block:'delivery_Info'" />
                   <!--<router-link to="/i/deliveryinfo">
                     <span class="purple">delivery page</span>
                   </router-link>-->
