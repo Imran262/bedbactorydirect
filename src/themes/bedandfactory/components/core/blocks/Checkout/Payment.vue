@@ -295,7 +295,7 @@
           <div class="col-xs-12">
             <h4>{{ $t("Payment method") }}</h4>
           </div>
-          <!-- {{paymentMethods}} -->
+          <!-- {{ paymentMethods }} -->
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
@@ -321,7 +321,10 @@
                   changePaymentMethod();
                 "
               />
-              <span class="checkmark" :class="!radioCheckedFlag ? 'allunchecked' : ''"/>
+              <span
+                class="checkmark"
+                :class="!radioCheckedFlag ? 'allunchecked' : ''"
+              />
               <template v-if="method.code === 'braintree'">
                 <span v-if="showPaymentCard">
                   <div class="order-review right-padding pt20 mb35">
@@ -364,6 +367,36 @@
                   <CheckoutPaymentDropin />
                 </span>
               </template>
+              <!-- {{method.code}}
+              {{showPaypal}} -->
+              <template v-if="method.code === 'paypal_express'">
+                <span v-if="showPaypal">
+                  <paypal-button />
+                </span>
+              </template>
+
+             
+              <!-- <span @click="handleOrderSubmit">
+                <paypal-button
+                  v-if="
+                    payment.paymentMethod === 'paypal_express' &&
+                    payment.paymentMethod === method.code &&
+                    !$v.payment.$invalid &&
+                    radioCheckedFlag
+                  "
+                />
+              </span>
+              <p
+                v-if="
+                  payment.paymentMethod === 'paypal_express' &&
+                  payment.paymentMethod === method.code &&
+                  !$v.payment.$invalid &&
+                  radioCheckedFlag
+                "
+              >
+                Please note! &nbsp;Once you click the 'paypal' button a new
+                window will open for you to complete your order
+              </p> -->
             </label>
           </div>
           <span
@@ -396,6 +429,7 @@ import VueOfflineMixin from "vue-offline/mixin";
 import ButtonOutline from "theme/components/theme/ButtonOutline";
 import BraintreeDropin from "src/modules/vsf-p-braintree/components/Dropin";
 import CheckoutPaymentDropin from "src/modules/vsf-checkout-integration/components/CheckoutPaymentDropin";
+import PaypalButton from "src/modules/vsf-payment-paypal/components/Button";
 
 export default {
   data() {
@@ -406,6 +440,7 @@ export default {
       isCouponApplied: null,
       showPaymentCard: false,
       showCheckoutCom: false,
+      showPaypal: false,
       showSubmitButton: false,
       loaderCount: 0,
     };
@@ -419,6 +454,7 @@ export default {
     ButtonOutline,
     BraintreeDropin,
     CheckoutPaymentDropin,
+    PaypalButton,
   },
   mixins: [Payment],
   async created() {
@@ -551,6 +587,7 @@ export default {
       this.paymentcheckedFn();
       this.showSubmitButton = false;
       this.showCheckoutCom = false;
+      this.showPaypal = false;
       if (method === "braintree") {
         if (!this.showPaymentCard) {
           this.$bus.$emit(
@@ -561,9 +598,17 @@ export default {
         this.showPaymentCard = true;
       } else if (method === "checkoutcom_card_payment") {
         this.showCheckoutCom = true;
-      } else {
+        this.showPaypal = false;
+      } else if (method === "paypal_express") {
+     //   console.log("1122 pay pal ");
         this.showPaymentCard = false;
         this.showCheckoutCom = false;
+        this.showPaypal = true;
+      } else {
+       // console.log("1122 else  ");
+        this.showPaymentCard = false;
+        this.showCheckoutCom = false;
+        this.showPaypal = false;
       }
     },
     ...mapActions({
