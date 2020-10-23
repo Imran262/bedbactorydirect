@@ -48,67 +48,22 @@
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
-        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-          <li
-            itemprop="itemListElement"
-            itemscope
-            itemtype="https://schema.org/ListItem"
-          >
-            <a itemprop="item" href="https://example.com/books">
-              <span itemprop="name">Books</span></a
-            >
-            <meta itemprop="position" content="1" />
-          </li>
-        </ol>
-
-        <!-- <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-          <div
-            v-for="(breadcrumb, index) in breadcrumbs"
-            :key="index + breadcrumb"
-          >
-            <li
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-            >
-              <span itemprop="item" itemscope>
-                <meta itemprop="name" :content="breadcrumb" />
-                <meta itemprop="position" :content="index + 1" />
-              </span>
-            </li>
-          </div>
-        </ol> -->
-
         <div itemscope itemtype="https://schema.org/BreadcrumbList">
           <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
-            current breadcrumb is {{breadcrumb}}
+            <!-- current breadcrumb iss {{breadcrumb}} -->
             <div
               itemprop="itemListElement"
               itemscope
               itemtype="https://schema.org/ListItem"
             >
-              <div
+              <a
                 itemprop="item"
-                itemscope
-                itemtype="https://schema.org/item"
-                :href="breadcrumb.route_link"
-              >
+                :href="breadcrumb.route_link">
                 <meta itemprop="name" :content="breadcrumb.name" />
                 <meta itemprop="position" :content="index + 1" />
-              </div>
+              </a>
             </div>
           </div>
-        </div>
-        --> --> --> Hello {{ getBreadcrumbsCurrent }} <br />{{
-          getBreadcrumbsRoutes
-        }}
-        <!-- {{ getAllBreadcrumbs() }} -->
-        <div
-          v-for="(breadcrumb, index) in breadcrumbs"
-          :key="index + breadcrumb"
-        >
-          <br />
-          {{ breadcrumb }}
         </div>
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
@@ -993,14 +948,18 @@ export default {
   },
   methods: {
     getAllBreadcrumbs() {
-      console.log("1122 Breadcrumbs are : ");
+      // console.log("1122 Breadcrumbs are : ");
       this.getBreadcrumbsRoutes.forEach((route, index) => {
-        console.log("route is ", route.name);
+        // console.log("route is ", route.name);
         this.breadcrumbs.push(route);
-        console.log(index, "     ", this.getBreadcrumbsRoutes.length);
+        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
         if (index == this.getBreadcrumbsRoutes.length - 1) {
-          console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          //  this.breadcrumbs.push(this.getBreadcrumbsCurrent);
+          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
+          let current={};
+          this.breadcrumbs.push({
+            name:this.getBreadcrumbsCurrent,
+            route_link:this.$route.path
+          });
         }
       });
     },
