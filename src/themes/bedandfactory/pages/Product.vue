@@ -362,12 +362,22 @@
             <meta itemprop="aggregateRating" content />
             <meta itemprop="brand" content="`bedfactorydirect`" />
             <meta
+              v-if="
+                getCurrentProduct.description ||
+                getCurrentProduct.short_description
+              "
               itemprop="description"
               :content="
                 getCurrentProduct.description ||
                 getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '')
               "
             />
+            <meta
+            v-else
+              itemprop="description"
+              :content="' '"
+            />	            />
+
             <meta itemprop="image" :content="structuredData.imageUrl" />
 
             <meta itemprop="gtin8" :content="getCurrentProduct.sku" />
@@ -612,7 +622,13 @@
                   </span>-->
                   <!-- BLock is {{getCurrentProduct.delivery_cms_block}} block -->
                   <!-- <br /> -->
-                  <cms-block :identifier="getCurrentProduct.delivery_cms_block ? getCurrentProduct.delivery_cms_block:'delivery_Info'" />
+                  <cms-block
+                    :identifier="
+                      getCurrentProduct.delivery_cms_block
+                        ? getCurrentProduct.delivery_cms_block
+                        : 'delivery_Info'
+                    "
+                  />
                   <!--<router-link to="/i/deliveryinfo">
                     <span class="purple">delivery page</span>
                   </router-link>-->
