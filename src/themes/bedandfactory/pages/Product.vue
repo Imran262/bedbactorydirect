@@ -372,11 +372,7 @@
                 getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '')
               "
             />
-            <meta
-            v-else
-              itemprop="description"
-              :content="' '"
-            />	            />
+            <meta v-else itemprop="description" :content="' '" />
 
             <meta itemprop="image" :content="structuredData.imageUrl" />
 
