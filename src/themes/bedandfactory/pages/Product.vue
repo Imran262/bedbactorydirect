@@ -48,6 +48,21 @@
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
+        <div itemscope itemtype="https://schema.org/BreadcrumbList">
+          <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
+            <!-- current breadcrumb iss {{ breadcrumb }} -->
+            <div
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <a itemprop="item" :href="breadcrumb.route_link">
+                <meta itemprop="name" :content="breadcrumb.name" />
+                <meta itemprop="position" :content="index + 1" />
+              </a>
+            </div>
+          </div>
+        </div>
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
@@ -814,6 +829,7 @@ export default {
       sendProductCustomOptions: [],
       colorPickerCheck: false,
       colorName: "Select Colour",
+      breadcrumbs: [],
     };
   },
   computed: {
@@ -825,6 +841,8 @@ export default {
       getOriginalProduct: "product/getOriginalProduct",
       getCurrentCustomOptions: "product/getCurrentCustomOptions",
       attributesByCode: "attribute/attributeListByCode",
+      getBreadcrumbsCurrent: "breadcrumbs/getBreadcrumbsCurrent",
+      getBreadcrumbsRoutes: "breadcrumbs/getBreadcrumbsRoutes",
     }),
     getOptionLabel() {
       return (option) => {
@@ -952,6 +970,7 @@ export default {
     } catch (err) {
       console.error("error message", err);
     }
+    this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -998,7 +1017,8 @@ export default {
       if (this.sendProductCustomOptions.length == 0) {
         this.sendProductCustomOptions.push(option);
         // console.log("11226610 ", this.sendProductCustomOptions);
-      } else {
+      } 
+      else {
         this.sendProductCustomOptions.forEach((prodOption, index) => {
           // console.log(
           //   "\n",
@@ -1022,7 +1042,8 @@ export default {
             //   index,
             //   this.sendProductCustomOptions[index]
             // );
-          } else {
+          } 
+          else {
             if (index == this.sendProductCustomOptions.length - 1) {
               if (!prodFlag) {
                 this.sendProductCustomOptions.push(option);
@@ -1034,6 +1055,22 @@ export default {
           }
         });
       }
+    },
+    getAllBreadcrumbs() {
+      // console.log("1122 Breadcrumbs are : ");
+      this.getBreadcrumbsRoutes.forEach((route, index) => {
+        // console.log("route is ", route.name);
+        this.breadcrumbs.push(route);
+        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
+        if (index == this.getBreadcrumbsRoutes.length - 1) {
+          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
+          let current={};
+          this.breadcrumbs.push({
+            name:this.getBreadcrumbsCurrent,
+            route_link:this.$route.path
+          });
+        }
+      });
     },
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;
