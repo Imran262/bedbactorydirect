@@ -56,6 +56,7 @@ import _ from "lodash";
 // /home/ejaz/vsf/BEDFACTORY/BFD/bfdvuestore/src/themes/bedandfactory/components/theme/blocks/Reviews/ReviewsList.vue
 // import OrderReviewList from 'theme/components/theme/blocks/Reviews/ReviewsList';
 import OrderReviewList from "theme/components/theme/blocks/Reviews/list/OrderReviewList";
+import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess';
 
 // import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList';
 // import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess';
