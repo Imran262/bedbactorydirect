@@ -14,6 +14,8 @@ const SwatchesPage = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/SwatchesPage.vue');
 const Success = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/Success.vue');
+const CheckoutSuccess = () =>
+  import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/CheckoutSuccess.vue');
 
 let routes = [
   { name: 'home', path: '/', component: Home, alias: '/pwa.html' },
@@ -53,6 +55,7 @@ let routes = [
   { name: 'page-not-found', path: '*', component: PageNotFound },
   { name: 'success', path: '/success', component: Success },
   { name: 'SearchResultPage', path: '/search-result-page', component: SearchResultPage },
+  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess },
   {
     name: 'swatches',
     path: '/swatches',
