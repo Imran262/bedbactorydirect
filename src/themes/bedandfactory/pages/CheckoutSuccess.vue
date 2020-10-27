@@ -7,7 +7,9 @@
         </h2>
       </div>
     </header>
-  <div> Success </div>
+  <div> Success 
+      
+  </div>
   </div>
 </template>
 
@@ -16,6 +18,12 @@ import VueOfflineMixin from 'vue-offline/mixin';
 import Composite from '@vue-storefront/core/mixins/composite';
 import {isServer} from '@vue-storefront/core/helpers';
 import _ from 'lodash';
+// import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList';
+// /home/ejaz/vsf/BEDFACTORY/BFD/bfdvuestore/src/themes/bedandfactory/components/theme/blocks/Reviews/ReviewsList.vue
+import OrderReviewList from 'theme/components/theme/blocks/Reviews/ReviewsList';
+
+
+
 // import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList';
 // import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess';
 // import RegisterAccountSuccess from 'theme/components/theme/blocks/RegisterAccountSuccess/RegisterAccountSuccess';
