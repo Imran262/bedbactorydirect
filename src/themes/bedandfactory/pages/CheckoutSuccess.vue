@@ -7,22 +7,55 @@
         </h2>
       </div>
     </header>
-  <div> Success 
-      
-  </div>
+    <div class="container mobile-container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-padding">
+          <div v-if="OnlineOnly" class="success-header row">
+            <div class="col-md-3 col-lg-2 col-xs-4 non-selected-tick" />
+            <div class="col-md-9 col-lg-10 col-xs-8 success-heading">
+              <p class="order-received">
+                Your Order has been received!
+              </p>
+              <p class="order-received-text">
+                Please keep an eye on your inbox, we'll send you an email shortly
+              </p>
+            </div>
+          </div>
+          <div v-if="OnlineOnly" class="seccess-body row">
+            <div class="col-md-12 inner-success">
+                <span v-if="purchaserName" class="purchaser-text">
+                  <label
+                    class="purchaser-name"
+                  >{{ purchaserName }}</label>, thank you for your purchase!
+                </span>
+                <span v-if="backendOrderId">
+                  Your personal Order ID is:
+                  <label class="order-num">{{ backendOrderId }}</label>
+                </span>
+                <span>You will receive an order confirmation email with full details of your order.</span>
+              </div>
+          </div>
+            <div v-if="getAddressInformation">
+              <DeliveryInformationSuccess :address-information="getAddressInformation" />
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-padding" v-if="lastOrderItem && getCartItems && getCartItems && getFinalItems && orderPriceElements && getPersonalDetails">
+          <OrderReviewList :products="getFinalItems" :totals="orderPriceElements" :address-information="getAddressInformation" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import VueOfflineMixin from 'vue-offline/mixin';
-import Composite from '@vue-storefront/core/mixins/composite';
-import {isServer} from '@vue-storefront/core/helpers';
-import _ from 'lodash';
+import VueOfflineMixin from "vue-offline/mixin";
+import Composite from "@vue-storefront/core/mixins/composite";
+import { isServer } from "@vue-storefront/core/helpers";
+import _ from "lodash";
 // import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList';
 // /home/ejaz/vsf/BEDFACTORY/BFD/bfdvuestore/src/themes/bedandfactory/components/theme/blocks/Reviews/ReviewsList.vue
-import OrderReviewList from 'theme/components/theme/blocks/Reviews/ReviewsList';
-
-
+// import OrderReviewList from 'theme/components/theme/blocks/Reviews/ReviewsList';
+import OrderReviewList from "theme/components/theme/blocks/Reviews/list/OrderReviewList";
 
 // import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList';
 // import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess';
@@ -30,12 +63,13 @@ import OrderReviewList from 'theme/components/theme/blocks/Reviews/ReviewsList';
 // import ThingsToRememberSuccess from 'theme/components/theme/blocks/ThingsToRememberSuccess/ThingsToRememberSuccess';
 
 export default {
-  name: 'SuccessPage',
+  name: "SuccessPage",
   mixins: [Composite, VueOfflineMixin],
   data() {
     return {
-      lastOrderItem: null
-    }
+      lastOrderItem: null,
+      newlast:null
+    };
   },
   components: {
     // OrderReviewList,
@@ -46,34 +80,38 @@ export default {
   computed: {
     backendOrderId() {
       if (this.lastOrderItem) {
-        return this.lastOrderItem.confirmation.backendOrderId
+        return this.lastOrderItem.confirmation.backendOrderId;
       }
-      return undefined
+      return undefined;
     },
     getAddressInformation() {
       if (this.lastOrderItem) {
-        return this.lastOrderItem.order.addressInformation
+        return this.lastOrderItem.order.addressInformation;
       }
-      return undefined
+      return undefined;
     },
     purchaserName() {
       if (this.lastOrderItem) {
-        return this.lastOrderItem.order.addressInformation.billingAddress.firstname
+        return this.lastOrderItem.order.addressInformation.billingAddress
+          .firstname;
       }
-      return undefined
+      return undefined;
     },
     getPersonalDetails() {
       if (this.lastOrderItem) {
-        const firstName = this.lastOrderItem.order.addressInformation.billingAddress.firstname
-        const lastName = this.lastOrderItem.order.addressInformation.billingAddress.lastname
-        const email = this.lastOrderItem.order.addressInformation.billingAddress.email
+        const firstName = this.lastOrderItem.order.addressInformation
+          .billingAddress.firstname;
+        const lastName = this.lastOrderItem.order.addressInformation
+          .billingAddress.lastname;
+        const email = this.lastOrderItem.order.addressInformation.billingAddress
+          .email;
         return {
           firstName,
           lastName,
-          email
-        }
+          email,
+        };
       }
-      return undefined
+      return undefined;
     },
     // orderElements() {
     //   if (this.$store.state.order.last_order_confirmation !== null) {
@@ -100,45 +138,61 @@ export default {
       }
     },
     getFinalItems() {
-      const merged = _.merge(_.keyBy(this.getCartItems, 'name'), _.keyBy(this.getOrderItems, 'name'));
+      const merged = _.merge(
+        _.keyBy(this.getCartItems, "name"),
+        _.keyBy(this.getOrderItems, "name")
+      );
       const values = _.values(merged);
-      const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
-      const simpleProducts = values.filter(value => !(value.extension_attributes && value.extension_attributes.original_item_sku))
+      const extensionAttributes = values.filter(
+        (value) =>
+          value.extension_attributes &&
+          value.extension_attributes.original_item_sku
+      );
+      const simpleProducts = values.filter(
+        (value) =>
+          !(
+            value.extension_attributes &&
+            value.extension_attributes.original_item_sku
+          )
+      );
       let finalItems = [];
       if (extensionAttributes.length > 0) {
         const reducedProducts = extensionAttributes.reduce((acc, current) => {
-          const skuKey = current['extension_attributes']['original_item_sku']
+          const skuKey = current["extension_attributes"]["original_item_sku"];
           if (!(skuKey in acc) && !acc[skuKey]) {
-            return { ...acc, [skuKey]: [current] }
+            return { ...acc, [skuKey]: [current] };
           }
-          return { ...acc, [skuKey]: [...acc[skuKey], current] }
-        }, {})
+          return { ...acc, [skuKey]: [...acc[skuKey], current] };
+        }, {});
 
         for (const item of _.values(reducedProducts)) {
-          const reducedItem = item.reduce((acc, current) => {
-            const price = acc.price_incl_tax
+          const reducedItem = item.reduce(
+            (acc, current) => {
+              const price = acc.price_incl_tax;
 
-            return {
-              price_incl_tax: price + current.price_incl_tax,
-              name: current.extension_attributes.product_name,
-              sku: current.extension_attributes.original_item_sku,
-              qty: current.qty
-            }
-          }, { price_incl_tax: 0 })
+              return {
+                price_incl_tax: price + current.price_incl_tax,
+                name: current.extension_attributes.product_name,
+                sku: current.extension_attributes.original_item_sku,
+                qty: current.qty,
+              };
+            },
+            { price_incl_tax: 0 }
+          );
 
-          finalItems.push(reducedItem)
+          finalItems.push(reducedItem);
         }
       }
       if (simpleProducts.length > 0) {
-        finalItems = [...finalItems, ...simpleProducts]
+        finalItems = [...finalItems, ...simpleProducts];
       }
-      return finalItems
-    }
+      return finalItems;
+    },
   },
   methods: {
     removeLastOrderItem() {
-      localStorage.removeItem('lastOrderItem')
-    }
+      localStorage.removeItem("lastOrderItem");
+    },
   },
   async mounted() {
     if (!isServer) {
@@ -146,25 +200,25 @@ export default {
         if (performance.navigation.type === 1) {
           await this.removeLastOrderItem();
         }
-        const lastOrderItem = localStorage.getItem('lastOrderItem')
+        const lastOrderItem = localStorage.getItem("lastOrderItem");
         this.lastOrderItem = JSON.parse(lastOrderItem);
-        console.log('lastOrderItemIs', this.lastOrderItem);
+        console.log("lastOrderItemIs",lastOrderItem, this.lastOrderItem);
         // Check if its a reload
         if (this.lastOrderItem && this.lastOrderItem.confirmation) {
-          this.$bus.$emit('checkout_com-order-placed', this.lastOrderItem);
+          this.$bus.$emit("checkout_com-order-placed", this.lastOrderItem);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
   },
   beforeDestroy() {
-    this.removeLastOrderItem()
+    this.removeLastOrderItem();
   },
   destroyed() {
-    this.$bus.$off('checkout_com-order-placed')
-  }
-}
+    this.$bus.$off("checkout_com-order-placed");
+  },
+};
 </script>
 
 <style scoped>
@@ -184,38 +238,38 @@ export default {
 }
 .success-heading {
   color: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 p.order-received {
   font-size: 24px;
   font-weight: 700;
   margin: 7px 0 0 0;
-  font-family: 'Poppins', sans-serif;
-      text-align: center;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
 }
 
 p.order-received-text {
   font-weight: 500;
   font-size: 18px;
-  margin:0px;
+  margin: 0px;
   text-align: center;
 }
-.col-padding{
+.col-padding {
   padding-right: 35px;
   padding-left: 20px;
 }
 .seccess-body {
   padding: 25px 0px;
   font-size: 17px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #54575b;
 }
 
 .seccess-body span {
   display: block;
   padding-bottom: 15px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 span.purchaser-text {
@@ -223,18 +277,18 @@ span.purchaser-text {
   font-weight: 600;
   color: #54575b;
   padding-bottom: 15px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 label.order-num {
   color: #00a997;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 table.order-item {
   width: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   border-spacing: 0;
   padding: 0;
 }
@@ -284,33 +338,33 @@ td.footer-last-cel {
   text-align: left;
   text-align: center;
 }
-@media(max-width: 423px){
+@media (max-width: 423px) {
   p.order-received {
-      font-size: 12px !important;
-    }
-    p.order-received-text{
-      font-size: 12px !important;
-    }
+    font-size: 12px !important;
   }
-@media(max-width: 767px){
-  .mobile-container{
+  p.order-received-text {
+    font-size: 12px !important;
+  }
+}
+@media (max-width: 767px) {
+  .mobile-container {
     padding: 0px;
   }
-  .mobile-container .row{
+  .mobile-container .row {
     margin: 0px;
   }
-  .mobile-container  .col-padding {
-      padding-right: 0px;
-      padding-left: 0px;
+  .mobile-container .col-padding {
+    padding-right: 0px;
+    padding-left: 0px;
   }
   p.order-received {
     font-size: 16px;
   }
   p.order-received-text {
-      font-size: 14px;
+    font-size: 14px;
   }
-  .seccess-body .inner-success{
-    padding: 0px 20px
+  .seccess-body .inner-success {
+    padding: 0px 20px;
   }
   span.purchaser-text {
     font-size: 16px;
@@ -319,10 +373,10 @@ td.footer-last-cel {
     font-size: 14px;
   }
 }
-@media(min-width: 767px) and (max-width: 991px){
-  .col-padding{
+@media (min-width: 767px) and (max-width: 991px) {
+  .col-padding {
     padding-right: 20px;
-    padding-left: 20p
+    padding-left: 20p;
   }
 }
 </style>
