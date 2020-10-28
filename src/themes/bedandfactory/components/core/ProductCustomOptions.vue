@@ -16,8 +16,7 @@
               option.iscolor == true) &&
             color
           "
-        >
-          Hello
+        > 
           <div class="custom-option mb15 basin">
             <h4 class="basin-head">{{ option.title }}</h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
