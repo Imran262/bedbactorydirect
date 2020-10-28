@@ -320,12 +320,14 @@ export default {
     handlePopupAfteBack(event) {
       // console.log('handlePopupAfteBackhandlePopupAfteBack ', event);
       this.$emit("popInterface", 0);
+
     },
     close() {
+      var x = document.getElementsByTagName("BODY")[0];
+      x.style.overflow ="scroll";
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
-      clearAllBodyScrollLocks();
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     },
