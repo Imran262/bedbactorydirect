@@ -202,46 +202,7 @@
                     :product="getCurrentProduct"
                     :custom-options="getCurrentCustomOptions"
                   />
-                  <!-- <span class="h2 cl-mine-shaft weight-700">
-                    {{
-                      (getCurrentProduct.price_incl_tax *
-                        getCurrentProduct.qty)
-                        | price
-                    }} </span
-                  >&nbsp;
-                  <span class="price-original h3 ori-price-custom">
-                    <span class="was-price">
-                      Was
-                      {{
-                        (getCurrentProduct.original_price_incl_tax *
-                          getCurrentProduct.qty)
-                          | price
-                      }}
-                    </span>
-                    <span class="save-amount">
-                      Save:
-                      {{
-                        ((getCurrentProduct.original_price_incl_tax -
-                          getCurrentProduct.price_incl_tax) *
-                          getCurrentProduct.qty)
-                          | price
-                      }}
-                    </span>
-                  </span>-->
                 </div>
-                <!-- <div
-                  class="h2 cl-mine-shaft weight-700"
-                  v-if="
-                    !getCurrentProduct.special_price &&
-                    getCurrentProduct.price_incl_tax
-                  "
-                >
-                  {{
-                  getCurrentProduct.qty > 0
-                  ? getCurrentProduct.price_incl_tax * getCurrentProduct.qty
-                  : getCurrentProduct.price_incl_tax | price
-                  }}
-                </div>-->
               </div>
               <div
                 class="cl-primary variants"
@@ -396,6 +357,8 @@
               v-if="getCurrentProduct.type_id == 'grouped'"
               :products="getCurrentProduct.product_links"
             />
+            <!-- {{getCurrentProduct}} -->
+            <!-- Value OF is FABRIC {{getCurrentProduct.isFabric}} -->
             <product-bundle-options
               v-if="
                 getCurrentProduct.bundle_options &&
@@ -828,7 +791,7 @@ export default {
       reviewData: null,
       sendProductCustomOptions: [],
       colorPickerCheck: false,
-      colorName: "Select Colour",
+      colorName: "",
       breadcrumbs: [],
     };
   },
@@ -1010,15 +973,26 @@ export default {
       this.colorName = name;
     },
     getColorName() {
-      return this.colorName;
+      if (this.colorName == "") {
+        this.getCurrentProduct.custom_options.forEach((option) => {
+          if (
+            option.iscolor == 1 ||
+            option.iscolor == "1" ||
+            option.iscolor == true
+          ) {
+            this.colorName = "Please Select " + option.title;
+          }
+        });
+      } else {
+        return this.colorName;
+      }
     },
     addCustomOption(option) {
       let prodFlag = true;
       if (this.sendProductCustomOptions.length == 0) {
         this.sendProductCustomOptions.push(option);
         // console.log("11226610 ", this.sendProductCustomOptions);
-      } 
-      else {
+      } else {
         this.sendProductCustomOptions.forEach((prodOption, index) => {
           // console.log(
           //   "\n",
@@ -1042,8 +1016,7 @@ export default {
             //   index,
             //   this.sendProductCustomOptions[index]
             // );
-          } 
-          else {
+          } else {
             if (index == this.sendProductCustomOptions.length - 1) {
               if (!prodFlag) {
                 this.sendProductCustomOptions.push(option);
@@ -1064,10 +1037,10 @@ export default {
         // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
         if (index == this.getBreadcrumbsRoutes.length - 1) {
           // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          let current={};
+          let current = {};
           this.breadcrumbs.push({
-            name:this.getBreadcrumbsCurrent,
-            route_link:this.$route.path
+            name: this.getBreadcrumbsCurrent,
+            route_link: this.$route.path,
           });
         }
       });
