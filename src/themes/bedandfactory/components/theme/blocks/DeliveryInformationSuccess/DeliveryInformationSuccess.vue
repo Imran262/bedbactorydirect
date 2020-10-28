@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-6 col-md-6 col-xs-6 address-info">
+    <div class="col-lg-12 col-md-12 col-xs-12 address-info">
       <h3 class="coming">
           It's coming to...
         </h3>
@@ -13,27 +13,6 @@
       </div>
       <div class="address-icon col-lg-4 col-md-6 col-sm-4 col-xs-3">
         <img src="assets/box.png">
-      </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-xs-6 shipping">
-      <div class="shipping-detail">
-        <h3 data-v-71335ca3="" class="coming">
-          Delivery Method:
-        </h3>
-        <p>{{ (getAddressInformation && getAddressInformation.shipping_method_code === 'collection')? 'Collection from our Stoke-on-Trent warehouse (within 3 days)': getAddressInformation.shipping_method_code }}</p>
-      </div>
-      <div class="icon-box">
-        <div class="icon">
-          <img src="assets/back-arrow.png">
-        </div>
-      </div>
-      <div class="arriving">
-        <h3 data-v-71335ca3="">
-          Arriving
-        </h3>
-         <p v-if="getShippingMethodDate">
-          {{ getShippingMethodDate }}
-        </p>
       </div>
     </div>
   </div>
@@ -169,7 +148,7 @@ export default {
       margin-right: 0px;
       padding: 10px 5px 0px 5px;
       img{
-        margin-top: 33px;
+        margin-top: 0px !important;
         margin-right: -100px;
         float: right;
         width: 45px !important;
@@ -205,7 +184,7 @@ export default {
       }
     }
     .address-info .delivery-info, .address-info .address-icon{
-      float: left;
+      /* float: left; */
       width: auto;
     }
   }
@@ -215,11 +194,14 @@ export default {
     }
     .address-info{
       margin-right: 0;
+      img{
+      margin-top: 20px;
+    }
     }
   }
   @media(min-width: 767px) and (max-width: 991px){
     .address-info img{
-      margin-top: 40px;
+      margin-top: 20px;
     }
   }
   @media(min-width: 767px){

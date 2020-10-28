@@ -3,7 +3,7 @@
     <header class="thank-you-title bg-cl-secondary pl20">
       <div class="container">
         <h2 class="category-title hidden">
-          {{ $t('Order confirmation') }}
+          {{ $t('Order confirmation') }}  
         </h2>
       </div>
     </header>
@@ -15,6 +15,16 @@
             <div class="col-md-9 col-lg-10 col-xs-8 success-heading">
               <p class="order-received">
                 Your Order has been received!
+                 <!-- {{lastOrderItem}} -->
+
+                 <!-- purchaserName{{purchaserName}}<br />
+                 backendOrderId{{backendOrderId}}<br />
+                 getAddressInformation{{getAddressInformation}}<br />
+                 getCartItems{{getCartItems}}<br />
+                 lastOrderItem{{lastOrderItem}}<br />
+                 getFinalItems{{getFinalItems}}<br />
+                 orderPriceElements{{orderPriceElements}}<br />
+                 getPersonalDetails{{getPersonalDetails}}<br /> -->
               </p>
               <p class="order-received-text">
                 Please keep an eye on your inbox, we'll send you an email shortly
@@ -73,8 +83,8 @@ export default {
     };
   },
   components: {
-    // OrderReviewList,
-    // DeliveryInformationSuccess,
+    OrderReviewList,
+    DeliveryInformationSuccess
     // RegisterAccountSuccess,
     // ThingsToRememberSuccess
   },
@@ -233,7 +243,7 @@ export default {
   background: #00a997;
 }
 .success-header .non-selected-tick {
-  /* background: url(../assets/tick.png) no-repeat; */
+  background: url(../assets/tick.png) no-repeat;
   height: 80px;
   width: 100%;
 }
