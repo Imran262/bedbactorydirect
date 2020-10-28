@@ -59,8 +59,8 @@ export default {
   methods: {
     showPopUp(product) {
       this.cartpopupshow = true;
-      var x = document.getElementsByTagName("BODY")[0];
-      x.style.overflow ="hidden";
+      // var x = document.getElementsByTagName("BODY")[0];
+      // x.style.overflow ="hidden";
       this.$bus.$emit("modal-show", "modal-switcher");
     },
     onAfterRemovedVariant() {
