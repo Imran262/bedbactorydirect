@@ -89,9 +89,10 @@
               :id="popup_item.sku"
               class="col-md-4 popup-product-col"
             >
-              <product-popup 
-              :productOptions="productOptions"
-              :pop-item="popup_item" />
+              <product-popup
+                :productOptions="productOptions"
+                :pop-item="popup_item"
+              />
             </div>
           </div>
           <div class="row bottom-row-popup">
@@ -320,14 +321,14 @@ export default {
     handlePopupAfteBack(event) {
       // console.log('handlePopupAfteBackhandlePopupAfteBack ', event);
       this.$emit("popInterface", 0);
-
     },
     close() {
       var x = document.getElementsByTagName("BODY")[0];
-      x.style.overflow ="scroll";
+      x.style.overflow = "scroll";
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
+      clearAllBodyScrollLocks();
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     },
