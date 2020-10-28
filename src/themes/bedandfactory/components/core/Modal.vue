@@ -85,8 +85,6 @@ export default {
     },
     close() {
       this.toggle(false);
-    //  console.log("ali")
-      this.$emit("clearscroll")
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     },

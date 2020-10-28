@@ -328,6 +328,8 @@ export default {
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
+      var x = document.getElementsByTagName("BODY")[0];
+      x.style.overflow = "scroll";
       clearAllBodyScrollLocks();
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
