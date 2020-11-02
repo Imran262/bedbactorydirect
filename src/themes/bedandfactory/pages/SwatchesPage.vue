@@ -434,7 +434,7 @@ export default {
             address_line1: this.user.addressLine1,
             town: this.user.orderTown,
             postcode: this.user.postCode,
-            country: "United Kingdom",
+            country: "GB",
             street: this.user.addressLine1,
             country_code: "UK",
             // country_code: "US",
