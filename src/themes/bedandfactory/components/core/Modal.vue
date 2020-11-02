@@ -85,6 +85,7 @@ export default {
     },
     close() {
       this.toggle(false);
+      this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     },
   },

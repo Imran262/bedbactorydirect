@@ -1,196 +1,219 @@
 <template>
   <div>
     <form class="custom-options">
+      <!-- {{product.custom_options}} -->
       <div
         v-for="(option, count) in product.custom_options"
-        :key="'customOption_' + option.option_id"
+        :key="'customOption_' + option.option_id + count"
       >
+        <!-- Value of iscolor {{option.iscolor}} -->
         <!-- For color only -->
-        <div v-if="count > 1 && color" class="custom-option mb15 basin">
-          <h4 class="basin-head">{{ option.title }}</h4>
-          <span @click="$emit('closeColorPickerModal')" class="close-modal"
-            >×</span
-          >
+        <h4 v-if="!color" class="basin-head">{{ option.title }}</h4>
+        <div
+          v-if="
+            (option.iscolor == 1 ||
+              option.iscolor == '1' ||
+              option.iscolor == true) &&
+            color
+          "
+        > 
+          <div class="custom-option mb15 basin">
+            <h4 class="basin-head">{{ option.title }}</h4>
+            <span @click="$emit('closeColorPickerModal')" class="close-modal">
+            </span>
 
-          <div
-            class="mt5 mb5 basin_size"
-            v-if="option.type === 'select' || option.type === 'drop_down'"
-          >
-            <select
-              ref="colorImage"
-              :name="'customOption_' + option.option_id"
-              class="m0 no-outline"
-              v-model="inputValues['customOption_' + option.option_id]"
-              @focus="$emit('focus')"
-              @blur="$emit('blur')"
-              @change="
-                setOption(option);
-                setImage();
-              "
-            >
-              <option disabled value="" :key="2378695843" selected="selected">
-                Please select
-              </option>
-              <template v-for="(opval, key) in option.values">
-                <option
-                  v-if="key == 0"
-                  :value="opval.option_type_id"
-                  :key="key"
-                >
-                  {{ opval.title }}
-                </option>
-                <option v-else :value="opval.option_type_id" :key="key">
-                  {{ opval.title }}
-                </option>
-              </template>
-            </select>
             <div
-              class="select-img-display"
-              v-for="(value, vIndex) in option.values"
-              :key="vIndex + value.option_type_id"
-              v-if="value.option_type_id == imageSrc"
+              class="mt5 mb5 basin_size"
+              v-if="option.type === 'select' || option.type === 'drop_down'"
             >
-              <div>
-                <img
-                  v-if="
-                    !(
-                      value.layer == '' ||
-                      value.layer == null ||
-                      value.layer == ' '
-                    )
-                  "
-                  class="selctedImage"
-                  :src="
-                    'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
-                    value.layer
-                  "
-                  alt="Image"
-                />
-              </div>
-            </div>
-            <div class="custom-attribute-list height-adjust">
-              <div
-                v-for="(value, vIndex) in option.values"
-                :key="vIndex + value.layer"
+              <select
+                ref="colorImage"
+                :name="'customOption_' + option.option_id"
+                class="m0 no-outline"
+                v-model="inputValues['customOption_' + option.option_id]"
+                @focus="$emit('focus')"
+                @blur="$emit('blur')"
+                @change="
+                  setOption(option);
+                  setImage();
+                "
               >
-                <img
-                  class="allImages"
-                  :src="
-                    'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
-                    value.layer
-                  "
-                  alt="Image"
-                  @click="
-                    showOption(value, option);
-                    setOption(option);
-                  "
-                />
+                <option disabled value="" :key="2378695843" selected="selected">
+                  Please select
+                </option>
+                <template v-for="(opval, key) in option.values">
+                  <option
+                    v-if="key == 0"
+                    :value="opval.option_type_id"
+                    :key="key"
+                  >
+                    {{ opval.title }}
+                  </option>
+                  <option v-else :value="opval.option_type_id" :key="key">
+                    {{ opval.title }}
+                  </option>
+                </template>
+              </select>
+              <div
+                class="select-img-display"
+                v-for="(value, vIndex) in option.values"
+                :key="vIndex + value.option_type_id"
+                v-if="value.option_type_id == imageSrc"
+              >
+                <div>
+                  <img
+                    v-if="
+                      !(
+                        value.layer == '' ||
+                        value.layer == null ||
+                        value.layer == ' '
+                      )
+                    "
+                    class="selctedImage"
+                    :src="
+                      'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                      value.layer
+                    "
+                    alt="Image"
+                  />
+                </div>
               </div>
-            </div>
+              <div class="custom-attribute-list height-adjust">
+                <div
+                  v-for="(value, vIndex) in option.values"
+                  :key="vIndex + value.layer"
+                >
+                  <img
+                    class="allImages"
+                    :src="
+                      'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                      value.layer
+                    "
+                    alt="Image"
+                    @click="
+                      showOption(value, option);
+                      setOption(option);
+                    "
+                  />
+                </div>
+              </div>
 
-            <div class="green-grad-main">
-              <div @click="confirmColor()" class="green-grad confirm-extra">
-                CONFIRM COLOUR
+              <div class="green-grad-main">
+                <div @click="confirmColor()" class="green-grad confirm-extra">
+                  CONFIRM COLOUR
+                </div>
               </div>
             </div>
           </div>
         </div>
         <!-- For all other options -->
-        <div v-if="count <= 1 && !color" class="custom-option mb15 basin">
-          <h4 class="basin-head">{{ option.title }}</h4>
-          <input
-            class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
-            v-if="option.type === 'field'"
-            type="text"
-            :name="'customOption_' + option.option_id"
-            focus
-            v-model="inputValues['customOption_' + option.option_id]"
-            :placeholder="option.title"
-            @change="optionChanged(option)"
-          />
-          <div
-            class="m5 relative"
-            v-for="opval in option.values"
-            :key="opval.option_type_id"
-            v-if="option.type === 'radio'"
-          >
+        <div
+          v-else-if="
+            (option.iscolor == 0 ||
+              option.iscolor == '0' ||
+              option.iscolor == ' ' ||
+              option.iscolor == false) &&
+            !color
+          "
+        >
+          <div class="custom-option mb15 basin">
+            <!-- <h4 class="basin-head">{{ option.title }}</h4> -->
             <input
+              class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
+              v-if="option.type === 'field'"
+              type="text"
+              :name="'customOption_' + option.option_id"
+              focus
+              v-model="inputValues['customOption_' + option.option_id]"
+              :placeholder="option.title"
               @change="optionChanged(option)"
-              type="radio"
-              class="m0 no-outline"
-              :name="'customOption_' + option.option_id"
-              :id="'customOption_' + opval.option_type_id"
-              focus
-              :value="opval.option_type_id"
-              v-model="inputValues['customOption_' + option.option_id]"
             />
-            <label
-              class="pl10 lh20 h4 pointer"
-              :for="'customOption_' + opval.option_type_id"
-              v-html="opval.title"
-            />
-          </div>
-          <div
-            class="mt5 mb5 relative basin_size"
-            v-if="option.type === 'select' || option.type === 'drop_down'"
-          >
-            <select
-              ref="selectedOption"
-              :name="'customOption_' + option.option_id"
-              class="m0 no-outline"
-              focus
-              v-model="inputValues['customOption_' + option.option_id]"
-              @focus="$emit('focus')"
-              @blur="$emit('blur')"
-              @change="optionChanged(option), setCrossOptions(option)"
+            <div
+              class="m5 relative"
+              v-for="opval in option.values"
+              :key="opval.option_type_id"
+              v-if="option.type === 'radio'"
             >
-              <option :value="null" :key="2378695843" selected>
-                Please select
-              </option>
-              <template v-for="(opval, key) in option.values">
-                <option
-                  v-if="key == 0"
-                  :value="opval.option_type_id"
-                  :key="key"
-                >
-                  {{ opval.title }}
+              <input
+                @change="optionChanged(option)"
+                type="radio"
+                class="m0 no-outline"
+                :name="'customOption_' + option.option_id"
+                :id="'customOption_' + opval.option_type_id"
+                focus
+                :value="opval.option_type_id"
+                v-model="inputValues['customOption_' + option.option_id]"
+              />
+              <label
+                class="pl10 lh20 h4 pointer"
+                :for="'customOption_' + opval.option_type_id"
+                v-html="opval.title"
+              />
+            </div>
+            <div
+              class="mt5 mb5 relative basin_size"
+              v-if="option.type === 'select' || option.type === 'drop_down'"
+            >
+              <select
+                ref="selectedOption"
+                :name="'customOption_' + option.option_id"
+                class="m0 no-outline"
+                focus
+                v-model="inputValues['customOption_' + option.option_id]"
+                @focus="$emit('focus')"
+                @blur="$emit('blur')"
+                @change="optionChanged(option), setCrossOptions(option)"
+              >
+                <option :value="null" :key="2378695843" selected>
+                  Please select
                 </option>
-                <option v-else :value="opval.option_type_id" :key="key">
-                  {{ opval.title }}
-                </option>
-              </template>
-            </select>
-          </div>
+                <template v-for="(opval, key) in option.values">
+                  <option
+                    v-if="key == 0"
+                    :value="opval.option_type_id"
+                    :key="key"
+                  >
+                    {{ opval.title }}
+                  </option>
+                  <option v-else :value="opval.option_type_id" :key="key">
+                    {{ opval.title }}
+                  </option>
+                </template>
+              </select>
+            </div>
 
-          <div
-            class="m5 relative"
-            v-for="opval in option.values"
-            :key="opval.option_type_id"
-            v-if="option.type === 'checkbox'"
-          >
-            <input
-              @change="optionChanged(option)"
-              type="checkbox"
-              class="m0 no-outline"
-              :name="'customOption_' + option.option_id"
-              :id="'customOption_' + opval.option_type_id"
-              focus
-              :value="opval.option_type_id"
-              v-model="inputValues['customOption_' + option.option_id]"
-            />
-            <label
-              class="pl10 lh20 h4 pointer"
-              :for="'customOption_' + opval.option_type_id"
-              v-html="opval.title"
-            />
+            <div
+              class="m5 relative"
+              v-for="opval in option.values"
+              :key="opval.option_type_id"
+              v-if="option.type === 'checkbox'"
+            >
+              <input
+                @change="optionChanged(option)"
+                type="checkbox"
+                class="m0 no-outline"
+                :name="'customOption_' + option.option_id"
+                :id="'customOption_' + opval.option_type_id"
+                focus
+                :value="opval.option_type_id"
+                v-model="inputValues['customOption_' + option.option_id]"
+              />
+              <label
+                class="pl10 lh20 h4 pointer"
+                :for="'customOption_' + opval.option_type_id"
+                v-html="opval.title"
+              />
+            </div>
+            <span
+              class="error"
+              v-if="
+                validation.results['customOption_' + option.option_id].error
+              "
+              >{{
+                validation.results["customOption_" + option.option_id].message
+              }}</span
+            >
           </div>
-          <span
-            class="error"
-            v-if="validation.results['customOption_' + option.option_id].error"
-            >{{
-              validation.results["customOption_" + option.option_id].message
-            }}</span
-          >
         </div>
       </div>
     </form>
@@ -245,7 +268,7 @@ export default {
     showOption(value, option) {
       let data1 = this.$refs.colorImage;
       // console.log("1122 value", value);
-      this.inputValues["customOption_"+option.option_id] = value.option_type_id;
+      this.inputValues["customOption_" + option.option_id] = value.option_type_id;
       this.colorName = value.title;
       data1 = this.$refs.colorImage;
       this.imageSrc = value.option_type_id;

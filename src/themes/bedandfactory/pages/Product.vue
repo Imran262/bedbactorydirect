@@ -48,6 +48,21 @@
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
+        <div itemscope itemtype="https://schema.org/BreadcrumbList">
+          <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
+            <!-- current breadcrumb iss {{ breadcrumb }} -->
+            <div
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <a itemprop="item" :href="breadcrumb.route_link">
+                <meta itemprop="name" :content="breadcrumb.name" />
+                <meta itemprop="position" :content="index + 1" />
+              </a>
+            </div>
+          </div>
+        </div>
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
@@ -187,46 +202,7 @@
                     :product="getCurrentProduct"
                     :custom-options="getCurrentCustomOptions"
                   />
-                  <!-- <span class="h2 cl-mine-shaft weight-700">
-                    {{
-                      (getCurrentProduct.price_incl_tax *
-                        getCurrentProduct.qty)
-                        | price
-                    }} </span
-                  >&nbsp;
-                  <span class="price-original h3 ori-price-custom">
-                    <span class="was-price">
-                      Was
-                      {{
-                        (getCurrentProduct.original_price_incl_tax *
-                          getCurrentProduct.qty)
-                          | price
-                      }}
-                    </span>
-                    <span class="save-amount">
-                      Save:
-                      {{
-                        ((getCurrentProduct.original_price_incl_tax -
-                          getCurrentProduct.price_incl_tax) *
-                          getCurrentProduct.qty)
-                          | price
-                      }}
-                    </span>
-                  </span>-->
                 </div>
-                <!-- <div
-                  class="h2 cl-mine-shaft weight-700"
-                  v-if="
-                    !getCurrentProduct.special_price &&
-                    getCurrentProduct.price_incl_tax
-                  "
-                >
-                  {{
-                  getCurrentProduct.qty > 0
-                  ? getCurrentProduct.price_incl_tax * getCurrentProduct.qty
-                  : getCurrentProduct.price_incl_tax | price
-                  }}
-                </div>-->
               </div>
               <div
                 class="cl-primary variants"
@@ -362,12 +338,18 @@
             <meta itemprop="aggregateRating" content />
             <meta itemprop="brand" content="`bedfactorydirect`" />
             <meta
+              v-if="
+                getCurrentProduct.description ||
+                getCurrentProduct.short_description
+              "
               itemprop="description"
               :content="
                 getCurrentProduct.description ||
                 getCurrentProduct.short_description.replace(/(<([^>]+)>)/gi, '')
               "
             />
+            <meta v-else itemprop="description" :content="' '" />
+
             <meta itemprop="image" :content="structuredData.imageUrl" />
 
             <meta itemprop="gtin8" :content="getCurrentProduct.sku" />
@@ -375,6 +357,8 @@
               v-if="getCurrentProduct.type_id == 'grouped'"
               :products="getCurrentProduct.product_links"
             />
+            <!-- {{getCurrentProduct}} -->
+            <!-- Value OF is FABRIC {{getCurrentProduct.isFabric}} -->
             <product-bundle-options
               v-if="
                 getCurrentProduct.bundle_options &&
@@ -612,7 +596,13 @@
                   </span>-->
                   <!-- BLock is {{getCurrentProduct.delivery_cms_block}} block -->
                   <!-- <br /> -->
-                  <cms-block :identifier="getCurrentProduct.delivery_cms_block ? getCurrentProduct.delivery_cms_block:'delivery_Info'" />
+                  <cms-block
+                    :identifier="
+                      getCurrentProduct.delivery_cms_block
+                        ? getCurrentProduct.delivery_cms_block
+                        : 'delivery_Info'
+                    "
+                  />
                   <!--<router-link to="/i/deliveryinfo">
                     <span class="purple">delivery page</span>
                   </router-link>-->
@@ -801,7 +791,8 @@ export default {
       reviewData: null,
       sendProductCustomOptions: [],
       colorPickerCheck: false,
-      colorName: "Select Colour",
+      colorName: "",
+      breadcrumbs: [],
     };
   },
   computed: {
@@ -813,6 +804,8 @@ export default {
       getOriginalProduct: "product/getOriginalProduct",
       getCurrentCustomOptions: "product/getCurrentCustomOptions",
       attributesByCode: "attribute/attributeListByCode",
+      getBreadcrumbsCurrent: "breadcrumbs/getBreadcrumbsCurrent",
+      getBreadcrumbsRoutes: "breadcrumbs/getBreadcrumbsRoutes",
     }),
     getOptionLabel() {
       return (option) => {
@@ -940,6 +933,7 @@ export default {
     } catch (err) {
       console.error("error message", err);
     }
+    this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -979,7 +973,19 @@ export default {
       this.colorName = name;
     },
     getColorName() {
-      return this.colorName;
+      if (this.colorName == "") {
+        this.getCurrentProduct.custom_options.forEach((option) => {
+          if (
+            option.iscolor == 1 ||
+            option.iscolor == "1" ||
+            option.iscolor == true
+          ) {
+            this.colorName = "Please Select " + option.title;
+          }
+        });
+      } else {
+        return this.colorName;
+      }
     },
     addCustomOption(option) {
       let prodFlag = true;
@@ -1022,6 +1028,22 @@ export default {
           }
         });
       }
+    },
+    getAllBreadcrumbs() {
+      // console.log("1122 Breadcrumbs are : ");
+      this.getBreadcrumbsRoutes.forEach((route, index) => {
+        // console.log("route is ", route.name);
+        this.breadcrumbs.push(route);
+        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
+        if (index == this.getBreadcrumbsRoutes.length - 1) {
+          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
+          let current = {};
+          this.breadcrumbs.push({
+            name: this.getBreadcrumbsCurrent,
+            route_link: this.$route.path,
+          });
+        }
+      });
     },
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;

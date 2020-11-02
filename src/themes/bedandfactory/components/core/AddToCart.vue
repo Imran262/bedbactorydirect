@@ -59,6 +59,8 @@ export default {
   methods: {
     showPopUp(product) {
       this.cartpopupshow = true;
+      // var x = document.getElementsByTagName("BODY")[0];
+      // x.style.overflow ="hidden";
       this.$bus.$emit("modal-show", "modal-switcher");
     },
     onAfterRemovedVariant() {
@@ -86,6 +88,8 @@ export default {
     handlePopupAfteBack(event) {
       console.log("EventEventEvent ", event);
       this.cartpopupshow = event;
+      var x = document.getElementsByTagName("BODY")[0];
+      x.style.overflow ="scroll";
     },
   },
   computed: {

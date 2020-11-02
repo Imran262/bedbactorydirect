@@ -301,9 +301,12 @@
             :key="index"
             class="col-md-12 payment-method-inner"
           >
-            <label class="radioStyled" v-if="method.code !== 'braintree'">
+            <label class="radioStyled payment-method-icons" v-if="method.code !== 'braintree'">
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card</p></template
+              >
+              <template v-else-if="method.code === 'paypal_express'">
+                <p class="paymentTitle">Paypal</p></template
               >
               <template v-else
                 ><p class="paymentTitle">
@@ -325,6 +328,29 @@
                 class="checkmark"
                 :class="!radioCheckedFlag ? 'allunchecked' : ''"
               />
+              <div class="bank-card" v-if="method.code === 'checkoutcom_card_payment'">
+                <ul>
+                  <li>
+                    <img src="/assets/footer/footer-master-card-icon.png" />
+                  </li>
+                  <li>
+                    <img src="/assets/footer/footer-master-pro-icon.png" />
+                  </li>
+                  <li>
+                    <img src="/assets/footer/footer-visa-icon.png" />
+                  </li>
+            
+                </ul>
+              </div>
+
+            
+              <div class="bank-card" v-if="method.code === 'paypal_express'">
+                <ul>
+                  <li>
+                    <img src="/assets/footer/footer-paypal-icon.png" />
+                  </li>
+                </ul>
+              </div>              
               <template v-if="method.code === 'braintree'">
                 <span v-if="showPaymentCard">
                   <div class="order-review right-padding pt20 mb35">
@@ -860,6 +886,18 @@ input:checked + label {
   display: flex !important;
   justify-content: end;
 }
+.payment-method-icons{
+  width: 100%;
+}
+.bank-card{
+  display: flex;
+  left: 217px;
+  float: left;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: auto;
+}
 .bank-card ul {
   padding-left: 15px;
   margin: 0;
@@ -867,6 +905,7 @@ input:checked + label {
 .bank-card ul li {
   list-style-type: none;
   float: left;
+  display: inline-block;
 }
 .bank-card ul li img {
   margin-left: 5px;
@@ -901,11 +940,6 @@ span.postcodelookup-required {
 }
 .billing-payment .payment-phone-number {
   margin-top: 20px;
-}
-.bank-card {
-  display: flex;
-  position: absolute;
-  left: 145px;
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .bank-card ul {
