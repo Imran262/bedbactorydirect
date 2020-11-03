@@ -102,16 +102,7 @@
             name="apartment-number"
             :placeholder="$t(' ')"
             v-model.trim="payment.apartmentNumber"
-            @blur="$v.payment.apartmentNumber.$touch()"
             autocomplete="address-line2"
-            :validations="[
-              {
-                condition:
-                  $v.payment.apartmentNumber.$error &&
-                  !$v.payment.apartmentNumber.required,
-                text: $t('Field is required'),
-              },
-            ]"
           />
 
           <base-input
