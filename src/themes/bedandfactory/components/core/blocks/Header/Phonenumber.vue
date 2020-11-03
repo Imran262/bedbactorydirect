@@ -8,7 +8,7 @@
           </span>
         </div>
         <div class="wishlist-text">
-          <span>01782 405047</span>
+          <span>0151 548 1554</span>
         </div>
       </div>
     </button>

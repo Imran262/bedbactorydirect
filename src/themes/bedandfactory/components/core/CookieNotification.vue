@@ -39,7 +39,7 @@ export default {
     },
     detailsLink: {
       type: String,
-      default: '/privacy'
+      default: '/privacy-policy'
     },
     message: {
       type: String,
