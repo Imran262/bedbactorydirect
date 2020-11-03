@@ -24,7 +24,7 @@
           </div>-->
 
           <div class="col-xs-2 visible-xs">
-            <wishlist-icon class="pointer" />
+            <!-- <wishlist-icon class="pointer" /> -->
           </div>
           <div class="col-xs-2 visible-xs">
             <Phonenumber class="pointer" />
@@ -36,7 +36,7 @@
           <div class="col-md-4 col-xs-2 pr-8">
             <div class="inline-flex sb-header-right">
               <!-- <search-icon class="p15 icon hidden-xs pointer" /> -->
-              <wishlist-icon class="p15 icon hidden-xs pointer" />
+              <!-- <wishlist-icon class="p15 icon hidden-xs pointer" /> -->
               <Phonenumber class="p10 icon hidden-xs pointer" />
               <!-- <Telephone class="p10 icon hidden-xs pointer" /> -->
               <!-- <compare-icon class="p15 hidden-xs pointer" /> -->
