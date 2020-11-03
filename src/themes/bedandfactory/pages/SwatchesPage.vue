@@ -4,8 +4,11 @@
       <div class="breadcrumbs mt10 h5 cl-gray">
         <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
           <router-link :to="localizedRoute('/')" class="cl-tertiary links">
-            <img class="home-breadcrumb-icon-img" src="/assets/home-breadcrumb-icon.svg" />
-          </router-link>|
+            <img
+              class="home-breadcrumb-icon-img"
+              src="/assets/home-breadcrumb-icon.svg"
+            /> </router-link
+          >|
         </span>
         <span class="cl-mine-shaft">Swatches Page</span>
       </div>
@@ -15,7 +18,11 @@
             <div class="boxes" v-for="item of swatches" :key="item.name">
               <h2>{{ item.name }}</h2>
               <ul>
-                <li v-for="product of item.products" :key="product.sku" @click="addToCart(product)">
+                <li
+                  v-for="product of item.products"
+                  :key="product.sku"
+                  @click="addToCart(product)"
+                >
                   <div class="not-selected" v-bind:id="product.sku">
                     <div class="fabric-tile__tile">
                       <swatch-product :product="product" />
@@ -164,12 +171,12 @@
                         condition:
                           !$v.user.firstName.required &&
                           $v.user.firstName.$error,
-                        text: $t('Field is required.')
+                        text: $t('Field is required.'),
                       },
                       {
                         condition: !$v.user.firstName.minLength,
-                        text: $t('Name must have at least 2 letters.')
-                      }
+                        text: $t('Name must have at least 2 letters.'),
+                      },
                     ]"
                   />
                 </div>
@@ -190,8 +197,8 @@
                       {
                         condition:
                           !$v.user.lastName.required && $v.user.lastName.$error,
-                        text: $t('Field is required.')
-                      }
+                        text: $t('Field is required.'),
+                      },
                     ]"
                   />
                 </div>
@@ -214,8 +221,8 @@
                       {
                         condition:
                           !$v.user.phone.required && $v.user.phone.$error,
-                        text: $t('Field is required.')
-                      }
+                        text: $t('Field is required.'),
+                      },
                     ]"
                   />
                 </div>
@@ -237,12 +244,12 @@
                       {
                         condition:
                           !$v.user.email.required && $v.user.email.$error,
-                        text: $t('Field is required.')
+                        text: $t('Field is required.'),
                       },
                       {
                         condition: !$v.user.email.email && $v.user.email.$error,
-                        text: $t('Please provide valid e-mail address.')
-                      }
+                        text: $t('Please provide valid e-mail address.'),
+                      },
                     ]"
                   />
                 </div>
@@ -266,8 +273,8 @@
                         condition:
                           !$v.user.addressLine1.required &&
                           $v.user.addressLine1.$error,
-                        text: $t('Field is required.')
-                      }
+                        text: $t('Field is required.'),
+                      },
                     ]"
                   />
                 </div>
@@ -300,8 +307,8 @@
                         condition:
                           !$v.user.orderTown.required &&
                           $v.user.orderTown.$error,
-                        text: $t('Field is required.')
-                      }
+                        text: $t('Field is required.'),
+                      },
                     ]"
                   />
                 </div>
@@ -323,8 +330,8 @@
                       {
                         condition:
                           !$v.user.postCode.required && $v.user.postCode.$error,
-                        text: $t('Field is required.')
-                      }
+                        text: $t('Field is required.'),
+                      },
                     ]"
                   />
                 </div>
@@ -332,11 +339,18 @@
             </div>
             <p>
               Read our full
-              <a href="#" class="ui-link" data-ajax="false">terms and conditions</a>
+              <a href="#" class="ui-link" data-ajax="false"
+                >terms and conditions</a
+              >
               and
               <a href="#" class="ui-link" data-ajax="false">privacy policy</a>
             </p>
-            <button type="submit" class="btn-order ui-btn ui-shadow ui-corner-all">Order Now</button>
+            <button
+              type="submit"
+              class="btn-order ui-btn ui-shadow ui-corner-all"
+            >
+              Order Now
+            </button>
           </form>
         </div>
       </div>
@@ -400,6 +414,12 @@ export default {
     },
   },
   methods: {
+    retrunFullName() {
+ //     console.log("2211 in return full name function", this);
+      const fullName = this.user.firstName + this.user.lastName;
+   //   console.log("Full name is ", fullName);
+      return fullName;
+    },
     submitForm(event) {
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -469,6 +489,10 @@ export default {
                 },
                 { root: true }
               );
+              // console.log(
+              //   "2211 success for swatch place order",
+              //   this.retrunFullName()
+              // );
               this.$bus.$emit(
                 "get-swatch-customer-fullname",
                 this.retrunFullName()
@@ -477,6 +501,7 @@ export default {
             }
           })
           .catch((err) => {
+          //  console.log("2211 in catch", err);
             this.$bus.$emit("notification-progress-stop", {});
             this.$store.dispatch(
               "notification/spawnNotification",
@@ -547,10 +572,12 @@ export default {
       });
   },
   computed: {
-    retrunFullName: () => {
-      const fullName = this.user.firstName + this.user.lastName;
-      return fullName;
-    },
+    // retrunFullName () {
+    //   console.log("2211 in return full name function",this);
+    //   const fullName = this.user.firstName + this.user.lastName;
+    //   console.log("Full name is ",fullName);
+    //   return fullName;
+    // },
   },
 };
 </script>
