@@ -323,6 +323,7 @@
                   $v.payment.paymentMethod.$touch();
                   changePaymentMethod();
                 "
+                :disabled="$v.payment.$invalid"
               />
               <span
                 class="checkmark"
