@@ -102,16 +102,7 @@
             name="apartment-number"
             :placeholder="$t(' ')"
             v-model.trim="payment.apartmentNumber"
-            @blur="$v.payment.apartmentNumber.$touch()"
             autocomplete="address-line2"
-            :validations="[
-              {
-                condition:
-                  $v.payment.apartmentNumber.$error &&
-                  !$v.payment.apartmentNumber.required,
-                text: $t('Field is required'),
-              },
-            ]"
           />
 
           <base-input
@@ -188,11 +179,27 @@
 
           <base-input
             class="col-xs-12 mb10"
-            type="text"
+            type="tel"
+            pattern="\d*"
             name="phone-number"
-            :placeholder="$t('Phone Number')"
+            :placeholder="$t('Phone Number *')"
             v-model.trim="payment.phoneNumber"
             autocomplete="tel"
+            @blur="$v.payment.phoneNumber.$touch()"
+            :validations="[
+              {
+                condition:
+                  $v.payment.phoneNumber.$error &&
+                  !$v.payment.phoneNumber.required,
+                text: $t('Field is required'),
+              },
+              {
+                condition:
+                  $v.payment.phoneNumber.$error &&
+                  !$v.payment.phoneNumber.maxLength,
+                text: $t('Phone number maximum length is 11 digits'),
+              },
+            ]"
           />
 
           <base-checkbox
@@ -295,17 +302,22 @@
           <div class="col-xs-12">
             <h4>{{ $t("Payment method") }}</h4>
           </div>
-           <div
+          <div
             class="mb8 cl-error required-field-error"
             v-if="$v.payment.$invalid"
-          >Please Enter All required fields*</div>
+          >
+            Please Enter All required fields*
+          </div>
           <!-- {{ paymentMethods }} -->
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12 payment-method-inner"
           >
-            <label class="radioStyled payment-method-icons" v-if="method.code !== 'braintree'">
+            <label
+              class="radioStyled payment-method-icons"
+              v-if="method.code !== 'braintree'"
+            >
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card</p></template
               >
@@ -333,7 +345,10 @@
                 class="checkmark"
                 :class="!radioCheckedFlag ? 'allunchecked' : ''"
               />
-              <div class="bank-card" v-if="method.code === 'checkoutcom_card_payment'">
+              <div
+                class="bank-card"
+                v-if="method.code === 'checkoutcom_card_payment'"
+              >
                 <ul>
                   <li>
                     <img src="/assets/footer/footer-master-card-icon.png" />
@@ -344,18 +359,16 @@
                   <li>
                     <img src="/assets/footer/footer-visa-icon.png" />
                   </li>
-            
                 </ul>
               </div>
 
-            
               <div class="bank-card" v-if="method.code === 'paypal_express'">
                 <ul>
                   <li>
                     <img src="/assets/footer/footer-paypal-icon.png" />
                   </li>
                 </ul>
-              </div>              
+              </div>
               <template v-if="method.code === 'braintree'">
                 <span v-if="showPaymentCard">
                   <div class="order-review right-padding pt20 mb35">
@@ -395,18 +408,17 @@
               </template>
               <template v-if="method.code === 'checkoutcom_card_payment'">
                 <span v-if="showCheckoutCom">
-                  <CheckoutPaymentDropin v-if="!$v.payment.$invalid"/>
+                  <CheckoutPaymentDropin v-if="!$v.payment.$invalid" />
                 </span>
               </template>
               <!-- {{method.code}}
               {{showPaypal}} -->
               <template v-if="method.code === 'paypal_express'">
                 <span v-if="showPaypal">
-                  <paypal-button v-if="!$v.payment.$invalid"/>
+                  <paypal-button v-if="!$v.payment.$invalid" />
                 </span>
               </template>
 
-             
               <!-- <span @click="handleOrderSubmit">
                 <paypal-button
                   v-if="
@@ -442,7 +454,7 @@
 </template>
 
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
+import { required, minLength ,maxLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
   unicodeAlphaNum,
@@ -531,10 +543,7 @@ export default {
             required,
             unicodeAlphaNum,
           },
-          apartmentNumber: {
-            required,
-            unicodeAlphaNum,
-          },
+
           zipCode: {
             required,
             minLength: minLength(3),
@@ -547,6 +556,10 @@ export default {
           paymentMethod: {
             required,
           },
+          phoneNumber: {
+            required,
+            maxLength: maxLength(11)
+          }
         },
       };
     } else {
@@ -576,10 +589,6 @@ export default {
             required,
             unicodeAlphaNum,
           },
-          apartmentNumber: {
-            required,
-            unicodeAlphaNum,
-          },
           zipCode: {
             required,
             minLength: minLength(3),
@@ -592,6 +601,10 @@ export default {
           paymentMethod: {
             required,
           },
+          phoneNumber: {
+            required,
+            maxLength: maxLength(11)
+          }
         },
       };
     }
@@ -631,12 +644,12 @@ export default {
         this.showCheckoutCom = true;
         this.showPaypal = false;
       } else if (method === "paypal_express") {
-     //   console.log("1122 pay pal ");
+        //   console.log("1122 pay pal ");
         this.showPaymentCard = false;
         this.showCheckoutCom = false;
         this.showPaypal = true;
       } else {
-       // console.log("1122 else  ");
+        // console.log("1122 else  ");
         this.showPaymentCard = false;
         this.showCheckoutCom = false;
         this.showPaypal = false;
@@ -891,10 +904,10 @@ input:checked + label {
   display: flex !important;
   justify-content: end;
 }
-.payment-method-icons{
+.payment-method-icons {
   width: 100%;
 }
-.bank-card{
+.bank-card {
   display: flex;
   left: 217px;
   float: left;
