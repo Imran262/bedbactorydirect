@@ -295,6 +295,10 @@
           <div class="col-xs-12">
             <h4>{{ $t("Payment method") }}</h4>
           </div>
+           <div
+            class="mb8 cl-error required-field-error"
+            v-if="$v.payment.$invalid"
+          >Please Enter All required fields*</div>
           <!-- {{ paymentMethods }} -->
           <div
             v-for="(method, index) in paymentMethods"
@@ -391,14 +395,14 @@
               </template>
               <template v-if="method.code === 'checkoutcom_card_payment'">
                 <span v-if="showCheckoutCom">
-                  <CheckoutPaymentDropin />
+                  <CheckoutPaymentDropin v-if="!$v.payment.$invalid"/>
                 </span>
               </template>
               <!-- {{method.code}}
               {{showPaypal}} -->
               <template v-if="method.code === 'paypal_express'">
                 <span v-if="showPaypal">
-                  <paypal-button />
+                  <paypal-button v-if="!$v.payment.$invalid"/>
                 </span>
               </template>
 
