@@ -27,8 +27,8 @@ export default {
     },
   },
   mounted() {
-    this.$bus.on("get-swatch-customer-fullname", async (data) => {
-      console.log("data ==============>", data);
+    this.$bus.$on("get-swatch-customer-fullname", async (data) => {
+     // console.log("data ==============>", data);
       if (data) {
         customerName = data;
       }
