@@ -1,5 +1,5 @@
 <template>
-  <a href="tel:01782 405047">
+  <a href="tel:0151 548 1554">
     <button class="bg-cl-transparent brdr-none p0">
       <div class="wishlist">
         <div class="wishlist-img phone-icon">
