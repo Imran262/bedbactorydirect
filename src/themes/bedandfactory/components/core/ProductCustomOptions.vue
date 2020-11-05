@@ -71,7 +71,7 @@
                     "
                     class="selctedImage"
                     :src="
-                      'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                      'https://admin.bedfactorydirect.co.uk/pub/media/catalog/layer' +
                       value.layer
                     "
                     alt="Image"
@@ -86,7 +86,7 @@
                   <img
                     class="allImages"
                     :src="
-                      'http://m2.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                      'https://admin.bedfactorydirect.co.uk/pub/media/catalog/layer' +
                       value.layer
                     "
                     alt="Image"
