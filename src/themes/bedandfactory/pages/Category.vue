@@ -104,7 +104,7 @@
                 @change="changeFilter"
                 :value="getCurrentSearchQuery.sort"
               />
-               {{ getCategoryProductsTotal }} Items
+              {{ getCategoryProductsTotal }} Items
               <!-- {{ $t("{count} items", { count: getCategoryProductsTotal }) }} -->
             </div>
           </div>
@@ -171,6 +171,7 @@ import UspBar from "theme/components/theme/blocks/UspBar/UspBar";
 import CmsBlock from "theme/components/core/blocks/Cms/Block";
 import CategoryDescription from "theme/components/core/blocks/CategoryDescription/CategoryDescription";
 import CategoryDescriptionTop from "theme/components/core/blocks/CategoryDescription/CategoryDescriptionTop";
+import { GTAGCategory } from "src/modules/google-gtag/mixins/GTAGCategory";
 const THEME_PAGE_SIZE = 50;
 const composeInitialPageState = async (store, route, forceLoad = false) => {
   try {
@@ -225,7 +226,7 @@ export default {
     CategoryDescription,
     CategoryDescriptionTop,
   },
-  mixins: [onBottomScroll],
+  mixins: [onBottomScroll, GTAGCategory],
   data() {
     return {
       mobileFilters: false,

@@ -24,6 +24,7 @@ import { Braintree } from "./vsf-p-braintree";
 import { CheckoutPaymentModule } from "./vsf-checkout-integration";
 import { PaymentPaypalModule } from './vsf-payment-paypal';
 import { register } from "register-service-worker";
+import { GoogleGtagModule } from './google-gtag';
 // TODO:distributed across proper pages BEFORE 1.11
 export function registerClientModules() {
   registerModule(UrlModule);
@@ -47,6 +48,8 @@ export function registerClientModules() {
   registerModule(Braintree);
   registerModule(CheckoutPaymentModule);
   registerModule(PaymentPaypalModule);
+  registerModule(GoogleGtagModule);
+  
  
   // registerModule(DeviceModule)
 }
