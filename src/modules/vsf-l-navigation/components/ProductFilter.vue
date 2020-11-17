@@ -122,7 +122,9 @@ export default {
       'getAvailableCategoryFilters'
     ]),
     changeFilterName() {
-      if (this.filterIndex == 'btu_at_delta_t65') {
+      if (this.filterIndex == 'filter_size') {
+        return (this.filterIndexName = 'Size');
+      }else if (this.filterIndex == 'btu_at_delta_t65') {
         return (this.filterIndexName = 'BTU');
       } else if (this.filterIndex == 'custom_width') {
         return (this.filterIndexName = 'Width');
