@@ -1,5 +1,7 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
+    <!-- {{ productUrl }}
+    {{ structuredData.availability }} -->
     <section class="product-top-section">
       <template v-if="reviewData">
         <div v-for="(review, count) in reviewData.reviews" :key="count">
@@ -56,9 +58,7 @@
               itemscope
               itemtype="https://schema.org/ListItem"
             >
-              <a
-                itemprop="item"
-                :href="breadcrumb.route_link">
+              <a itemprop="item" :href="breadcrumb.route_link">
                 <meta itemprop="name" :content="breadcrumb.name" />
                 <meta itemprop="position" :content="index + 1" />
               </a>
@@ -187,7 +187,7 @@
                 itemprop="availability"
                 :content="structuredData.availability"
               />
-              <meta itemprop="url" :content="structuredData.contentUrl" />
+              <meta itemprop="url" :content="productUrl" />
               <meta itemprop="priceValidUntil" content />
               <div
                 class="price serif bt-price-main"
@@ -374,6 +374,7 @@
                 </div>
               </div>
             </div>
+
             <meta itemprop="url" :content="structuredData.contentUrl" />
 
             <meta itemprop="aggregateRating" content />
@@ -771,6 +772,7 @@ export default {
       ProDimensionShow: true,
       reviewData: null,
       breadcrumbs: [],
+      productUrl:""
     };
   },
   computed: {
@@ -912,6 +914,7 @@ export default {
       console.error("error message", err);
     }
     this.getAllBreadcrumbs();
+    this.getCompleteUrl();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -966,6 +969,9 @@ export default {
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;
       return pattern.test(str);
+    },
+    getCompleteUrl(){
+      this.productUrl=config.baseUrl.url + this.getCurrentProduct.url_path;
     },
     attachBaseUrl(str) {
       if (config.server.baseUrl) {
