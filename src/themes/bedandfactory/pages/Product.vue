@@ -359,6 +359,7 @@
             />
             <!-- {{getCurrentProduct}} -->
             <!-- Value OF is FABRIC {{getCurrentProduct.isFabric}} -->
+            In parent product is {{$store.state.product.current.name}}
             <product-bundle-options
               v-if="
                 getCurrentProduct.bundle_options &&
@@ -366,15 +367,28 @@
               "
               :product="getCurrentProduct"
             />
-            <product-custom-options
+            <!-- <product-custom-options
               v-else-if="
                 getCurrentProduct.custom_options &&
                 getCurrentProduct.custom_options.length > 0
               "
+              :currProduct="getCurrentProduct"
+              :product="getCurrentProduct"
+              @option-added="addCustomOption($event)"
+              :color="false"
+            /> -->
+            Here {{getCurrentProduct.custom_options && getCurrentProduct.custom_options.length > 0}}
+            <product-custom-options
+              v-if="
+                getCurrentProduct.custom_options &&
+                getCurrentProduct.custom_options.length > 0
+              "
+              :currProduct="getCurrentProduct"
               :product="getCurrentProduct"
               @option-added="addCustomOption($event)"
               :color="false"
             />
+            NameIs: {{ getCurrentProduct.name }}
             <div
               v-if="
                 getCurrentProduct.custom_options &&
@@ -966,9 +980,21 @@ export default {
           this.getQuantity();
         }
       },
+      "$route.name": function () {
+        this.checkRoute();
+      },
     },
   },
   methods: {
+    checkRoute() {
+      console.log(
+        "1122 Route changes",
+        this.$route,
+        "\nSTATE is \n\n",
+        this.$store.state.product
+      );
+      //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
+    },
     setColorName(name) {
       this.colorName = name;
     },
