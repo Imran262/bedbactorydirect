@@ -913,7 +913,6 @@ export default {
       console.error("error message", err);
     }
     this.getAllBreadcrumbs();
-    this.getCompleteUrl();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
