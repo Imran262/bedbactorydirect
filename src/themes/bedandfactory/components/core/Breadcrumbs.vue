@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumbs mt10 h5 cl-gray">
+  <div class="breadcrumbs mt10 h5 cl-gray" itemscope itemtype="https://schema.org/BreadcrumbList">
     <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
       <router-link :to="localizedRoute('/')" class="cl-tertiary links">
         <img
@@ -8,10 +8,13 @@
         /> </router-link
       >|
     </span>
-    <span v-for="link in paths" :key="link.route_link">
+    <span v-for="(link, index) in paths" :key="link.route_link" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <template v-if="link.name !== 'Default category'">
-        <router-link :to="link.route_link">
-          {{ link.name | htmlDecode }} </router-link
+        <router-link :to="link.route_link" itemprop="item">
+          {{ link.name | htmlDecode }}
+          <meta itemprop="name" :content="link.name" />
+          <meta itemprop="position" :content="index + 1" />
+        </router-link
         >|
       </template>
     </span>
