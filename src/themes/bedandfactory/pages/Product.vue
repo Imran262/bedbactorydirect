@@ -1,8 +1,6 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
-    <!-- {{ productUrl }}
-    {{ structuredData.availability }} -->
-    <section class="product-top-section">
+  <section class="product-top-section">
       <template v-if="reviewData">
         <div v-for="(review, count) in reviewData.reviews" :key="count">
           <div
@@ -187,7 +185,8 @@
                 itemprop="availability"
                 :content="structuredData.availability"
               />
-              <meta itemprop="url" :content="productUrl" />
+
+              <meta itemprop="url" :content="urlProduct + getCurrentProduct.url_path"/>
               <meta itemprop="priceValidUntil" content />
               <div
                 class="price serif bt-price-main"
@@ -772,7 +771,7 @@ export default {
       ProDimensionShow: true,
       reviewData: null,
       breadcrumbs: [],
-      productUrl:""
+      urlProduct:config.baseUrl.url
     };
   },
   computed: {
@@ -969,9 +968,6 @@ export default {
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;
       return pattern.test(str);
-    },
-    getCompleteUrl(){
-      this.productUrl=config.baseUrl.url + this.getCurrentProduct.url_path;
     },
     attachBaseUrl(str) {
       if (config.server.baseUrl) {
