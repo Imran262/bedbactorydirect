@@ -5,6 +5,7 @@
     </div>
     <div class="right-side popup_item-detail col-md-8" :class="popItem.sku">
       <p class="popup_item_name" @click="prodClick">
+        
         <router-link
           class="block no-underline product-link slider-custom-link"
           :to="popItem.url_path"
@@ -18,11 +19,19 @@
       </p>
       <p class="product-save-amount" v-if="popItem.specialPrice">
         <span>Was: {{ popItem.original_price_incl_tax | price }}</span>
-        Save:
-        {{
+        Save: 
+        <!-- {{
           (popItem.original_price_incl_tax - popItem.special_price_incl_tax)
             | price
+        }} -->
+        {{
+          (popItem.original_price_incl_tax - popItem.final_price_incl_tax)
+            | price
         }}
+        <!-- <br />popItem.original_price_incl_tax {{ popItem.original_price_incl_tax }} 
+        <br />popItem.special_price_incl_tax{{
+          popItem.special_price_incl_tax}}
+       <br /> price{{ price }} -->
       </p>
       <div class="stock-main">
         <img src="/assets/checkout-non-selected-tick.png" />

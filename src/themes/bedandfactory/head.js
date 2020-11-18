@@ -1,12 +1,12 @@
 export default {
-  title: 'Default Theme',
+  title: 'Bed Factory Direct',
   titleTemplate: '%s',
   htmlAttrs: {
     lang: 'en'
   },
   meta: [
     { charset: 'utf-8' },
-    { vmid: 'description', name: 'description', content: 'Vue Storefront is a standalone PWA storefront for your eCommerce, possible to connect with any eCommerce backend (eg. Magento, Prestashop or Shopware) through the API.' },
+    { vmid: 'description', name: 'description', content: 'A huge range of cheap beds for sale from £69, including bed frames, divans beds, mattresses and more. With fast, free UK delivery available.' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1, minimal-ui' },
     { name: 'robots', content: 'index, follow' },
     { name: 'mobile-web-app-capable', content: 'yes' },

@@ -45,9 +45,15 @@
                     }}</span
                   >
                   Save:
-                  {{
+                  <!-- {{
                     (product.original_price_incl_tax -
                       product.special_price_incl_tax +
+                      priceValue)
+                      | price
+                  }} -->
+                  {{
+                    (product.original_price_incl_tax -
+                      product.finalPriceInclTax +
                       priceValue)
                       | price
                   }}
