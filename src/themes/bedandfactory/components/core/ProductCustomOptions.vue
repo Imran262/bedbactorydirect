@@ -38,7 +38,9 @@
                   setImage();
                 "
               >
-                
+              <option disabled value="" :key="2378695843" selected="selected">
+                  Please select
+                </option>
                 <template v-for="(opval, key) in option.values">
                   <option
                     v-if="key == 0"
@@ -163,7 +165,7 @@
                 @change="optionChanged(option), setCrossOptions(option)"
               >
                 <option disabled value="" :key="2378695843" selected="selected">
-                  Please select one
+                  Please select
                 </option>
                 <template v-for="(opval, key) in option.values">
                   <option
