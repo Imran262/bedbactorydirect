@@ -9,7 +9,7 @@
       >|
     </span>
     <span v-for="(link, index) in paths" :key="link.route_link" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <template v-if="link.name !== 'Default category'">
+      <template v-if="(link.name !== 'Default category') && (link.name !== 'Default Category')">
         <router-link :to="link.route_link" itemprop="item">
           {{ link.name | htmlDecode }}
           <meta itemprop="name" :content="link.name" />
