@@ -38,9 +38,7 @@
                   setImage();
                 "
               >
-                <option disabled value="" :key="2378695843" selected="selected">
-                  Please select
-                </option>
+                
                 <template v-for="(opval, key) in option.values">
                   <option
                     v-if="key == 0"
@@ -164,8 +162,8 @@
                 @blur="$emit('blur')"
                 @change="optionChanged(option), setCrossOptions(option)"
               >
-                <option :value="null" :key="2378695843" selected>
-                  Please select
+                <option disabled value="" :key="2378695843" selected="selected">
+                  Please select one
                 </option>
                 <template v-for="(opval, key) in option.values">
                   <option
