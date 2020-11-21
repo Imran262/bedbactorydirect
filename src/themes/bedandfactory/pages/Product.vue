@@ -48,21 +48,7 @@
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
-        <div itemscope itemtype="https://schema.org/BreadcrumbList">
-          <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
-            <!-- current breadcrumb iss {{ breadcrumb }} -->
-            <div
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-            >
-              <a itemprop="item" :href="breadcrumb.route_link">
-                <meta itemprop="name" :content="breadcrumb.name" />
-                <meta itemprop="position" :content="index + 1" />
-              </a>
-            </div>
-          </div>
-        </div>
+
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
@@ -185,7 +171,11 @@
                 itemprop="availability"
                 :content="structuredData.availability"
               />
-              <meta itemprop="url" :content="structuredData.contentUrl" />
+
+              <meta
+                itemprop="url"
+                :content="urlProduct + getCurrentProduct.url_path"
+              />
               <meta itemprop="priceValidUntil" content />
               <div
                 class="price serif bt-price-main"
@@ -333,6 +323,7 @@
                 </div>
               </div>
             </div>
+
             <meta itemprop="url" :content="structuredData.contentUrl" />
 
             <meta itemprop="aggregateRating" content />
@@ -793,6 +784,7 @@ export default {
       colorPickerCheck: false,
       colorName: "",
       breadcrumbs: [],
+      urlProduct: config.baseUrl.url
     }
   },
   computed: {
@@ -933,7 +925,7 @@ export default {
     } catch (err) {
       console.error("error message", err)
     }
-    this.getAllBreadcrumbs()
+    // this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
