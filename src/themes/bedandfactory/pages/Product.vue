@@ -922,7 +922,7 @@ export default {
     } catch (err) {
       console.error("error message", err);
     }
-    this.getAllBreadcrumbs();
+    // this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
