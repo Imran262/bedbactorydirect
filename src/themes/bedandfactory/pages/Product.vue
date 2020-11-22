@@ -188,6 +188,7 @@
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
                     :custom-options="getCurrentCustomOptions"
+                    v-on:calculatedPrice="setPrice($event)"                    
                   />
                 </div>
               </div>
@@ -424,6 +425,7 @@
                   :custom-options="getCurrentCustomOptions"
                   :disabled="!isAddToCartDisabled"
                   class="col-xs-12 col-sm-4 col-md-6"
+                  :productCalculatedPrice="calculatedProductPrice"
                 />
               </div>
             </div>
@@ -781,7 +783,8 @@ export default {
       colorPickerCheck: false,
       colorName: "",
       breadcrumbs: [],
-      urlProduct:config.baseUrl.url
+      urlProduct:config.baseUrl.url,
+      calculatedProductPrice: {}
     };
   },
   computed: {
@@ -958,6 +961,10 @@ export default {
     },
   },
   methods: {
+    setPrice(data){
+    //  console.log(data);
+      this.calculatedProductPrice=data;
+    },
     setColorName(name) {
       this.colorName = name;
     },
