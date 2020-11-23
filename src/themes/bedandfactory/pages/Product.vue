@@ -925,7 +925,7 @@ export default {
     } catch (err) {
       console.error("error message", err);
     }
-    this.getAllBreadcrumbs();
+    // this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -1024,22 +1024,6 @@ export default {
           }
         });
       }
-    },
-    getAllBreadcrumbs() {
-      // console.log("1122 Breadcrumbs are : ");
-      this.getBreadcrumbsRoutes.forEach((route, index) => {
-        // console.log("route is ", route.name);
-        this.breadcrumbs.push(route);
-        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
-        if (index == this.getBreadcrumbsRoutes.length - 1) {
-          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          let current = {};
-          this.breadcrumbs.push({
-            name: this.getBreadcrumbsCurrent,
-            route_link: this.$route.path,
-          });
-        }
-      });
     },
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;
