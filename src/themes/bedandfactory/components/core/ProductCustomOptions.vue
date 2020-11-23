@@ -1,24 +1,10 @@
 <template>
   <div>
-    <form class="custom-options">
-      <!-- {{product.custom_options}} -->
-      In child product is {{ $store.state.product.current.name }}
-      {{ update() }}
-      <br />
-      <br />
-      <br />
-      currentProduct: {{ "....." }}{{ currProduct.name }} <br />
-      {{ "................." }}Product: {{ "....." }}{{ product.name }} <br />
-      {{ "" }} getCurrentProduct: {{ "....." }}{{ getCurrentProduct.name
-      }}<br />
-      {{ "................." }}updatedProduct: {{ "....."
-      }}{{ updatedProduct.name }} <br />
+    <form class="custom-options" v-if="product.custom_options">
       <div
         v-for="(option, count) in product.custom_options"
         :key="'customOption_' + option.option_id + count"
       >
-        <!-- {{ option.title }}Value of iscolor {{ option.iscolor }} -->
-        <!-- For color only -->
         <h4 v-if="!color" class="basin-head">{{ option.title }}</h4>
         <div
           v-if="
@@ -117,7 +103,6 @@
             </div>
           </div>
         </div>
-        <!-- For all other options -->
         <div
           v-else-if="
             (option.iscolor == 0 ||
@@ -128,7 +113,6 @@
           "
         >
           <div class="custom-option mb15 basin">
-            <!-- <h4 class="basin-head">{{ option.title }}</h4> -->
             <input
               class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
               v-if="option.type === 'field'"
@@ -217,7 +201,7 @@
             </div>
             <span
               class="error"
-              v-if="
+              v-if="validation.results['customOption_' + option.option_id] &&
                 validation.results['customOption_' + option.option_id].error
               "
               >{{
@@ -261,8 +245,8 @@ export default {
       required: true,
     },
     currProduct: {
-      type: Object,
-      required: true,
+      type: String,
+      default: ''
     },
     product: {
       type: Object,

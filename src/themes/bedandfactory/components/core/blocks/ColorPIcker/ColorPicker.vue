@@ -6,7 +6,6 @@
     <product-custom-options
       v-if="colors.custom_options && colors.custom_options.length > 0"
       :product="colors"
-      :currProduct="{}"
       :color="true"
       @closeColorPickerModal="$emit('closeColorPickerModal')"
       @changeColor="$emit('selectedColor', $event)"

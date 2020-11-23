@@ -359,7 +359,7 @@
             />
             <!-- {{getCurrentProduct}} -->
             <!-- Value OF is FABRIC {{getCurrentProduct.isFabric}} -->
-            In parent product is {{$store.state.product.current.name}}
+            <!-- In parent product is {{$store.state.product.current.name}} -->
             <product-bundle-options
               v-if="
                 getCurrentProduct.bundle_options &&
@@ -377,13 +377,13 @@
               @option-added="addCustomOption($event)"
               :color="false"
             /> -->
-            Here {{getCurrentProduct.custom_options && getCurrentProduct.custom_options.length > 0}}
+            <!-- Here {{getCurrentProduct.custom_options && getCurrentProduct.custom_options.length > 0}} -->
             <product-custom-options
               v-if="
                 getCurrentProduct.custom_options &&
                 getCurrentProduct.custom_options.length > 0
               "
-              :currProduct="getCurrentProduct"
+              :currProduct="getCurrentProduct.sku"
               :product="getCurrentProduct"
               @option-added="addCustomOption($event)"
               :color="false"
