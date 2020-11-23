@@ -187,11 +187,12 @@
                     getCurrentProduct.original_price_incl_tax
                   "
                 >
+                  deltaproduct {{ deltaproduct }}
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
                     :custom-options="getCurrentCustomOptions"
-                    v-on:calculatedPrice="setPrice($event)"                    
+                    v-on:calculatedPrice="setPrice($event)"
                   />
                 </div>
               </div>
@@ -486,7 +487,7 @@
             class="h3 m0 mb10 serif lh20 details-dimension"
             @click="ProDimensionShowFn"
           >
-            {{ $t('Description') }}
+            {{ $t("Description") }}
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon icon-rotate"
@@ -535,7 +536,7 @@
             class="h3 m0 mb10 serif lh20 details-Delivery"
             @click="ProSpecificationsShowFn"
           >
-            {{ $t('Specifications') }}
+            {{ $t("Specifications") }}
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
@@ -565,7 +566,7 @@
             class="h3 m0 mb10 serif lh20 details-Delivery"
             @click="ProDeliveryShowFn"
           >
-            {{ $t('Delivery Information') }}
+            {{ $t("Delivery Information") }}
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
@@ -608,7 +609,7 @@
             class="h3 m0 mb10 serif lh20 details-need"
             @click="ProReviewShowFn"
           >
-            {{ $t('Reviews') }}
+            {{ $t("Reviews") }}
             <ReviewStars :reviews="getReviews()" :product="getCurrentProduct" />
             <i
               data-v-d65c5c7c
@@ -787,7 +788,9 @@ export default {
       colorName: "",
       breadcrumbs: [],
       urlProduct:config.baseUrl.url,
-      calculatedProductPrice: {}
+      calculatedProductPrice: {},
+      productCurrentCustomOptions : {},
+      deltaproduct: this.$store.state.product.current_custom_options
     };
   },
   computed: {
@@ -904,6 +907,9 @@ export default {
       return formatShortDescUlInc
     },
   },
+  serverPrefetch() {
+    // return this.getCurrentProductCustomOptions();
+  },
   async mounted() {
     await this.$store.dispatch(
       "recently-viewed/addItem",
@@ -928,7 +934,7 @@ export default {
     } catch (err) {
       console.error("error message", err)
     }
-    // this.getAllBreadcrumbs();
+   this.getCurrentProductCustomOptions();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -962,8 +968,84 @@ export default {
         }
       },
     },
+    getCurrentCustomOptions : {
+      handler(){
+        console.log("112255 state changed");
+        this.getCurrentProductCustomOptions()
+      }
+    }
   },
   methods: {
+   getCurrentProductCustomOptions() {
+      let cOptions = this.$store.state.product;
+      let currentOptions = {};
+      let listOptions = [];
+      console.log(
+        "Current custom Options are ",
+        this.getCurrentCustomOptions,
+        "\n1122 State is ",
+        this.$store.state.product,
+        "\n COptions:",
+        cOptions,
+        typeof this.getCurrentProduct,
+        typeof this.getCurrentProduct.custom_options
+      );
+      console.log(
+        "1122 custom options ",
+        this.getCurrentProduct.custom_options
+      );
+      if (this.getCurrentProduct.custom_options) {
+        if (this.getCurrentProduct.custom_options.length > 0) {
+          this.getCurrentProduct.custom_options.forEach((option, index) => {
+            // console.log("1122 title", option.option_id);
+            // console.log(
+            //   "1122 title",
+            //   cOptions.current_custom_options[option.option_id]
+            // );
+            let obj2 = {
+              [option.option_id]: {
+                option_id: option.option_id,
+                // option_value:
+                //   cOptions.current_custom_options[option.option_id].option_value,
+              },
+            };
+            //  currentOptions.push(obj2);
+            // currentOptions[index] = obj2;
+            let value = null;
+            if (this.$store.state.product.current_custom_options) {
+              // console.log("yes this.$store.state.product.current_custom_options");
+              if (
+                this.$store.state.product.current_custom_options[
+                  option.option_id
+                ]
+              ) {
+                // console.log(
+                //   "yes current_custom_options",
+                //   this.$store.state.product.current_custom_options[
+                //     option.option_id
+                //   ].option_value
+                // );
+                value = this.$store.state.product.current_custom_options[
+                  option.option_id
+                ].option_value;
+              }
+            }
+            // this.$store.state.product.current_custom_options[option.option_id].option_value,
+            currentOptions[option.option_id] = {
+              option_id: option.option_id,
+              option_value: value,
+            };
+            //   console.log("1122 option is ", obj2, listOptions, currentOptions);
+          });
+          this.productCurrentCustomOptions = currentOptions;
+          return currentOptions;
+        } else {
+          return {};
+        }
+      } else {
+        return {};
+      }
+    },
     setPrice(data){
     //  console.log(data);
       this.calculatedProductPrice=data;
@@ -1217,8 +1299,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
 $color-primary: color(primary);
 $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
@@ -1380,7 +1462,7 @@ $bg-secondary: color(secondary, $colors-background);
 /*Custom Css*/
 h1.product-name {
   font-size: 28px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #54575b;
   margin: 10px 0px 10px 0px;
   text-transform: capitalize;
@@ -1520,7 +1602,7 @@ span.purple {
 }
 
 .description-main ul li:before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 10px;
@@ -1536,7 +1618,7 @@ span.purple {
   padding-bottom: 10px;
 }
 span.readmore-product-description {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-style: italic;
   color: #8678a9;
@@ -1554,7 +1636,7 @@ section.product-description-main {
 
 h2.h3 {
   font-size: 18px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #54575b;
   padding: 0px 0px 0px 0px;
   position: relative;
@@ -1570,7 +1652,7 @@ h2.h3 {
 }
 h2.h3:after {
   border-bottom: 1px solid #f0f1f2;
-  content: '';
+  content: "";
   width: 100%;
   position: absolute;
   left: 0;
@@ -1604,7 +1686,7 @@ i.icon-rotate {
 }
 .h5 {
   color: #54575b;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .bt-need-wrapper-show-close {
   display: none;
@@ -1666,7 +1748,7 @@ div.mainProduct {
 }
 
 h4.recent-heading {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #fff;
   padding: 15px 0px;
   margin-bottom: 25px;
@@ -1782,7 +1864,7 @@ p.c_pro_price span {
 }
 p.c_pro_title {
   color: #000;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 16px;
   margin: 5px 0px;
@@ -1790,7 +1872,7 @@ p.c_pro_title {
 .basin_size select {
   width: 350px;
   background: #ffffff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #000;
   font-size: 16px;
   border: 3px solid #f0f1f2;
@@ -1873,7 +1955,7 @@ span.come-due-in {
 }
 
 .bt-new-description-main ul li:before {
-  content: '-';
+  content: "-";
   margin-right: 15px;
   position: absolute;
   left: -15px;
@@ -1935,7 +2017,7 @@ span.come-due-in {
   font-size: 14px !important;
   margin: 0px 0 0px !important;
   color: #333;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 span.field-value {
@@ -1944,7 +2026,7 @@ span.field-value {
   margin: 0px 0 0px !important;
   color: #333;
   float: right;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-transform: capitalize;
 }
 .rating-top .vue-star-rating span svg {
@@ -1960,7 +2042,7 @@ span.field-value {
 .select-color-button {
   width: 350px;
   background: #ffffff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #000;
   font-size: 16px;
   border: 3px solid #f0f1f2;
