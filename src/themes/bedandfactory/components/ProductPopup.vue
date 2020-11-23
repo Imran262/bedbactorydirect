@@ -1,5 +1,18 @@
 <template>
   <div class="popup-product-main row">
+    <!-- <div v-if="popItem.custom_options">
+      it has custom options
+      <br />specialPrice is {{ popItem.specialPrice }} <br />original price is
+      {{ popItem.original_price_incl_tax }} <br />Final price is
+      {{ popItem.final_price_incl_tax }} <br />price -final price is
+      {{ calPrice - popItem.final_price_incl_tax }} <br />Calculated Price is
+      {{ calPrice }}
+
+      {{ productOptions }}
+      <br /><br /><br />
+      {{ popItem.custom_options }}
+      {{ customOptionsCheck }} 
+    </div> -->
     <div class="left-side popup_item-image col-md-4" :class="popItem.sku">
       <popup-image :image="image" />
     </div>
@@ -14,15 +27,29 @@
         </router-link>
       </p>
       <p class="product-amount">
-        {{ popItem.finalPriceInclTax | price }}
+        <!-- {{ popItem.finalPriceInclTax | price }} -->
+        {{ calPrice | price }}
       </p>
       <p class="product-save-amount" v-if="popItem.specialPrice">
-        <span>Was: {{ popItem.original_price_incl_tax | price }}</span>
+        <span
+          >Was:
+          <!-- {{ popItem.original_price_incl_tax | price }} -->
+          {{ originalPrice | price }}
+        </span>
         Save:
-        {{
+        <!-- {{
           (popItem.original_price_incl_tax - popItem.special_price_incl_tax)
             | price
-        }}
+        }} -->
+        <!-- {{
+          (popItem.original_price_incl_tax - popItem.final_price_incl_tax)
+            | price
+        }} -->
+        {{ parseFloat(originalPrice - calPrice).toFixed(2)| price }}
+        <!-- <br />popItem.original_price_incl_tax {{ popItem.original_price_incl_tax }} 
+        <br />popItem.special_price_incl_tax{{
+          popItem.special_price_incl_tax}}
+       <br /> price{{ price }} -->
       </p>
       <div class="stock-main">
         <img src="/assets/checkout-non-selected-tick.png" />
@@ -58,6 +85,7 @@ import {
   getThumbnailForProduct,
   getProductConfiguration,
 } from "@vue-storefront/core/modules/cart/helpers";
+import { product } from '@vue-storefront/core/modules/url/test/unit/helpers/data';
 export default {
   name: "ProductPopup",
   data() {
@@ -65,6 +93,9 @@ export default {
       maxQuantity: 0,
       quantityError: false,
       isStockInfoLoading: false,
+      calPrice:0,
+      customOptionsCheck:false,
+      originalPrice :this.popItem.original_price_incl_tax,
     };
   },
   components: {
@@ -81,6 +112,13 @@ export default {
       required: true,
     },
   },
+  mounted(){
+    this.setPrice();
+    if (this.popItem.custom_options && this.popItem.custom_options.length >0){
+      this.customOptionsCheck = true
+      this.calculatePrice(this.productOptions,this.popItem.custom_options)
+    }
+  },
   computed: {
     isOnline(value) {
       return onlineHelper.isOnline;
@@ -96,6 +134,45 @@ export default {
     },
   },
   methods: {
+    setPrice(){
+      console.log("1122 here to set price",this.calPrice ,"\n special price is",this.popItem.specialPrice);
+      if (this.popItem.specialPrice)
+      {
+        console.log("1122 setting price to FINAL price",this.popItem.final_price_incl_tax);
+        this.calPrice = this.popItem.final_price_incl_tax
+      }
+      else{
+        console.log("1122 setting price to ORIGINAL price",this.popItem.final_price_incl_tax);
+        this.calPrice = this.popItem.original_price_incl_tax
+      }
+    },
+    calculatePrice(productOptions,customOptions){
+      console.log("1122 Here to calculate price")
+      //console.log("1122 Here to calculate price",productOptions.length>0,productOptions.length,"\n",customOptions.length>0,customOptions.length);
+      console.log("1122 Original Price is ",this.popItem.original_price_incl_tax);
+      console.log("1122 Starting calPrice is ",this.price);
+      
+      if(productOptions.length>0){
+        console.log("1122 length of Product option is grater than zero");
+        productOptions.forEach((productOption,productOptionIndex)=>{
+          customOptions.forEach((customOption,customOptionIndex)=>{
+            if(productOption.title === customOption.title){
+              customOption.values.forEach((value,valueIndex)=>{
+                if(productOption.option_value === value.title){
+                  console.log("1122 Before Price is ",this.calPrice);
+                  console.log("1122 Price of option is  ",value.calPrice);
+                  this.calPrice += value.price;
+                  this.originalPrice += value.price;
+                  parseFloat(this.calPrice).toFixed(2);
+                                    parseFloat(this.originalPrice).toFixed(2);
+                  console.log("1122 After Price is ",this.calPrice,"\n",this.originalPrice);
+                }
+              })
+            }
+          })
+        })
+      }
+    },
     prodClick() {
       this.$bus.$emit("modal-hide", "modal-switcher");
       document

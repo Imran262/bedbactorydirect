@@ -48,21 +48,7 @@
       <UspBar />
       <div class="container">
         <breadcrumbs class="pt40 pb20 hidden-xs" />
-        <div itemscope itemtype="https://schema.org/BreadcrumbList">
-          <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
-            <!-- current breadcrumb iss {{ breadcrumb }} -->
-            <div
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-            >
-              <a itemprop="item" :href="breadcrumb.route_link">
-                <meta itemprop="name" :content="breadcrumb.name" />
-                <meta itemprop="position" :content="index + 1" />
-              </a>
-            </div>
-          </div>
-        </div>
+
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
@@ -185,7 +171,11 @@
                 itemprop="availability"
                 :content="structuredData.availability"
               />
-              <meta itemprop="url" :content="structuredData.contentUrl" />
+
+              <meta
+                itemprop="url"
+                :content="urlProduct + getCurrentProduct.url_path"
+              />
               <meta itemprop="priceValidUntil" content />
               <div
                 class="price serif bt-price-main"
@@ -197,10 +187,17 @@
                     getCurrentProduct.original_price_incl_tax
                   "
                 >
+                  <!-- deltaproduct {{ productCurrentCustomOptions }} -->
+                  {{productCurrentCustomOptions}}
+                  <br /><br /><br />{{getCurrentCustomOptions}}
+                  <br />
+                  <br />
+                  <br />
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
-                    :custom-options="getCurrentCustomOptions"
+                    :custom-options="productCurrentCustomOptions"
+                    v-on:calculatedPrice="setPrice($event)"
                   />
                 </div>
               </div>
@@ -333,6 +330,7 @@
                 </div>
               </div>
             </div>
+
             <meta itemprop="url" :content="structuredData.contentUrl" />
 
             <meta itemprop="aggregateRating" content />
@@ -388,7 +386,6 @@
               @option-added="addCustomOption($event)"
               :color="false"
             />
-            NameIs: {{ getCurrentProduct.name }}
             <div
               v-if="
                 getCurrentProduct.custom_options &&
@@ -450,6 +447,7 @@
                   :custom-options="getCurrentCustomOptions"
                   :disabled="!isAddToCartDisabled"
                   class="col-xs-12 col-sm-4 col-md-6"
+                  :productCalculatedPrice="calculatedProductPrice"
                 />
               </div>
             </div>
@@ -694,63 +692,63 @@
 </template>
 
 <script>
-import i18n from "@vue-storefront/i18n";
-import Product from "@vue-storefront/core/pages/Product";
-import VueOfflineMixin from "vue-offline/mixin";
-import config from "config";
-import RelatedProducts from "theme/components/core/blocks/Product/Related.vue";
-import Reviews from "theme/components/core/blocks/Reviews/Reviews.vue";
-import AddToCart from "theme/components/core/AddToCart.vue";
-import GenericSelector from "theme/components/core/GenericSelector";
-import ColorSelector from "theme/components/core/ColorSelector.vue";
-import SizeSelector from "theme/components/core/SizeSelector.vue";
-import Breadcrumbs from "theme/components/core/Breadcrumbs.vue";
-import ProductAttribute from "theme/components/core/ProductAttribute.vue";
-import ProductQuantity from "theme/components/core/ProductQuantity.vue";
-import ProductLinks from "theme/components/core/ProductLinks.vue";
-import ProductCustomOptions from "theme/components/core/ProductCustomOptions.vue";
-import ProductBundleOptions from "theme/components/core/ProductBundleOptions.vue";
-import ProductGallery from "theme/components/core/ProductGallery";
-import Spinner from "theme/components/core/Spinner";
-import PromotedOffers from "theme/components/theme/blocks/PromotedOffers/PromotedOffers";
-import focusClean from "theme/components/theme/directives/focusClean";
-import WebShare from "theme/components/theme/WebShare";
-import BaseInputNumber from "theme/components/core/blocks/Form/BaseInputNumber";
-import SizeGuide from "theme/components/core/blocks/Product/SizeGuide";
-import AddToWishlist from "theme/components/core/blocks/Wishlist/AddToWishlist";
-import AddToCompare from "theme/components/core/blocks/Compare/AddToCompare";
-import { mapGetters } from "vuex";
-import LazyHydrate from "vue-lazy-hydration";
-import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption.ts";
+import i18n from "@vue-storefront/i18n"
+import Product from "@vue-storefront/core/pages/Product"
+import VueOfflineMixin from "vue-offline/mixin"
+import config from "config"
+import RelatedProducts from "theme/components/core/blocks/Product/Related.vue"
+import Reviews from "theme/components/core/blocks/Reviews/Reviews.vue"
+import AddToCart from "theme/components/core/AddToCart.vue"
+import GenericSelector from "theme/components/core/GenericSelector"
+import ColorSelector from "theme/components/core/ColorSelector.vue"
+import SizeSelector from "theme/components/core/SizeSelector.vue"
+import Breadcrumbs from "theme/components/core/Breadcrumbs.vue"
+import ProductAttribute from "theme/components/core/ProductAttribute.vue"
+import ProductQuantity from "theme/components/core/ProductQuantity.vue"
+import ProductLinks from "theme/components/core/ProductLinks.vue"
+import ProductCustomOptions from "theme/components/core/ProductCustomOptions.vue"
+import ProductBundleOptions from "theme/components/core/ProductBundleOptions.vue"
+import ProductGallery from "theme/components/core/ProductGallery"
+import Spinner from "theme/components/core/Spinner"
+import PromotedOffers from "theme/components/theme/blocks/PromotedOffers/PromotedOffers"
+import focusClean from "theme/components/theme/directives/focusClean"
+import WebShare from "theme/components/theme/WebShare"
+import BaseInputNumber from "theme/components/core/blocks/Form/BaseInputNumber"
+import SizeGuide from "theme/components/core/blocks/Product/SizeGuide"
+import AddToWishlist from "theme/components/core/blocks/Wishlist/AddToWishlist"
+import AddToCompare from "theme/components/core/blocks/Compare/AddToCompare"
+import { mapGetters } from "vuex"
+import LazyHydrate from "vue-lazy-hydration"
+import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption.ts"
 import {
   getAvailableFiltersByProduct,
   getSelectedFiltersByProduct,
-} from "@vue-storefront/core/modules/catalog/helpers/filters";
-import { isOptionAvailableAsync } from "@vue-storefront/core/modules/catalog/helpers/index";
+} from "@vue-storefront/core/modules/catalog/helpers/filters"
+import { isOptionAvailableAsync } from "@vue-storefront/core/modules/catalog/helpers/index"
 import {
   localizedRoute,
   currentStoreView,
-} from "@vue-storefront/core/lib/multistore";
-import { htmlDecode } from "@vue-storefront/core/filters";
-import { ReviewModule } from "@vue-storefront/core/modules/review";
-import { RecentlyViewedModule } from "@vue-storefront/core/modules/recently-viewed";
+} from "@vue-storefront/core/lib/multistore"
+import { htmlDecode } from "@vue-storefront/core/filters"
+import { ReviewModule } from "@vue-storefront/core/modules/review"
+import { RecentlyViewedModule } from "@vue-storefront/core/modules/recently-viewed"
 import {
   registerModule,
   isModuleRegistered,
-} from "@vue-storefront/core/lib/modules";
-import { onlineHelper, isServer } from "@vue-storefront/core/helpers";
-import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks";
-import UspBar from "theme/components/theme/blocks/UspBar/UspBar";
-import NoSSR from "vue-no-ssr";
-import ProductSimilarListingCarousel from "theme/components/ProductSimilarListingCarousel";
-import RecentlyViewedItems from "theme/components/RecentlyViewedItems";
+} from "@vue-storefront/core/lib/modules"
+import { onlineHelper, isServer } from "@vue-storefront/core/helpers"
+import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks"
+import UspBar from "theme/components/theme/blocks/UspBar/UspBar"
+import NoSSR from "vue-no-ssr"
+import ProductSimilarListingCarousel from "theme/components/ProductSimilarListingCarousel"
+import RecentlyViewedItems from "theme/components/RecentlyViewedItems"
 //import DimensionGallery from "theme/components/core/DimensionGallery";
-import CmsBlock from "theme/components/core/blocks/Cms/Block";
-import ReviewStars from "../../../modules/reviews-module/components/ReviewStars";
-import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidget";
-import ProductPrice from "theme/components/core/ProductPrice.vue";
-import axios from "axios";
-import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker";
+import CmsBlock from "theme/components/core/blocks/Cms/Block"
+import ReviewStars from "../../../modules/reviews-module/components/ReviewStars"
+import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidget"
+import ProductPrice from "theme/components/core/ProductPrice.vue"
+import axios from "axios"
+import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker"
 export default {
   components: {
     ColorPicker,
@@ -788,8 +786,8 @@ export default {
   mixins: [ProductOption],
   directives: { focusClean },
   beforeCreate() {
-    registerModule(ReviewModule);
-    registerModule(RecentlyViewedModule);
+    registerModule(ReviewModule)
+    registerModule(RecentlyViewedModule)
   },
   data() {
     return {
@@ -807,6 +805,10 @@ export default {
       colorPickerCheck: false,
       colorName: "",
       breadcrumbs: [],
+      urlProduct:config.baseUrl.url,
+      calculatedProductPrice: {},
+      productCurrentCustomOptions : {},
+      deltaproduct: this.$store.state.product.current_custom_options
     };
   },
   computed: {
@@ -825,27 +827,27 @@ export default {
       return (option) => {
         const configName = option.attribute_code
           ? option.attribute_code
-          : option.label.toLowerCase();
+          : option.label.toLowerCase()
         return this.getCurrentProductConfiguration[configName]
           ? this.getCurrentProductConfiguration[configName].label
-          : configName;
-      };
+          : configName
+      }
     },
     isOnline(value) {
-      return onlineHelper.isOnline;
+      return onlineHelper.isOnline
     },
     structuredData() {
       return {
         availability:
           this.getCurrentProduct.stock &&
-          this.getCurrentProduct.stock.is_in_stock
+            this.getCurrentProduct.stock.is_in_stock
             ? "InStock"
             : "OutOfStock",
         contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
           ? this.getCurrentProduct.url_path
           : this.attachBaseUrl(this.getCurrentProduct.url_path),
         imageUrl: this.getImageUrl(this.getCurrentProduct.image),
-      };
+      }
     },
     getProductOptions() {
       if (
@@ -853,9 +855,9 @@ export default {
         Object.keys(this.getCurrentProduct.errors).length &&
         Object.keys(this.getCurrentProductConfiguration).length
       ) {
-        return [];
+        return []
       }
-      return this.getCurrentProduct.configurable_options;
+      return this.getCurrentProduct.configurable_options
     },
     getOfflineImage() {
       return {
@@ -874,7 +876,7 @@ export default {
           config.products.thumbnails.width,
           config.products.thumbnails.height
         ),
-      };
+      }
     },
     getCustomAttributes() {
       return Object.values(this.attributesByCode)
@@ -885,69 +887,72 @@ export default {
             (parseInt(a.is_visible_on_front) ||
               a.is_visible_on_front === true) &&
             this.getCurrentProduct[a.attribute_code]
-          );
+          )
         })
         .sort((a, b) => {
-          return a.attribute_id > b.attribute_id;
-        });
+          return a.attribute_id > b.attribute_id
+        })
     },
     getAvailableFilters() {
-      return getAvailableFiltersByProduct(this.getCurrentProduct);
+      return getAvailableFiltersByProduct(this.getCurrentProduct)
     },
     getSelectedFilters() {
       return getSelectedFiltersByProduct(
         this.getCurrentProduct,
         this.getCurrentProductConfiguration
-      );
+      )
     },
     isSimpleOrConfigurable() {
       return ["simple", "configurable"].includes(
         this.getCurrentProduct.type_id
-      );
+      )
     },
     isAddToCartDisabled() {
       return (
         this.quantityError ||
         this.isStockInfoLoading ||
         (this.isOnline && this.isSimpleOrConfigurable)
-      );
+      )
     },
     getShortDescription() {
-      const formatShortDesc = this.getCurrentProduct.short_description;
-      let formatShortDescUlInc = "";
+      const formatShortDesc = this.getCurrentProduct.short_description
+      let formatShortDescUlInc = ""
       if (formatShortDesc.includes("<ul") === true) {
-        formatShortDescUlInc = formatShortDesc;
+        formatShortDescUlInc = formatShortDesc
       } else {
-        formatShortDescUlInc = "<ul>" + formatShortDesc + "</ul>";
+        formatShortDescUlInc = "<ul>" + formatShortDesc + "</ul>"
       }
-      return formatShortDescUlInc;
+      return formatShortDescUlInc
     },
+  },
+  serverPrefetch() {
+    // return this.getCurrentProductCustomOptions();
   },
   async mounted() {
     await this.$store.dispatch(
       "recently-viewed/addItem",
       this.getCurrentProduct
-    );
+    )
     try {
       const URL =
-        config.reviews.getReviews_endpoint + this.getCurrentProduct.id;
+        config.reviews.getReviews_endpoint + this.getCurrentProduct.id
       axios
         .get(URL)
         .then((res) => {
-          const response = res;
+          const response = res
           if (response.status !== 200 && !review.data.length) {
-            throw ("Error:", response.data[0].message);
+            throw ("Error:", response.data[0].message)
           } else {
-            this.reviewData = response.data[1];
+            this.reviewData = response.data[1]
           }
         })
         .catch((err) => {
-          throw ("Error:", err);
-        });
+          throw ("Error:", err)
+        })
     } catch (err) {
-      console.error("error message", err);
+      console.error("error message", err)
     }
-    this.getAllBreadcrumbs();
+   this.getCurrentProductCustomOptions();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -956,34 +961,40 @@ export default {
         route && route.params && route.params.childSku
           ? route.params.childSku
           : null,
-    });
+    })
     const loadBreadcrumbsPromise = store.dispatch(
       "product/loadProductBreadcrumbs",
       { product }
-    );
-    if (isServer) await loadBreadcrumbsPromise;
-    catalogHooksExecutors.productPageVisited(product);
+    )
+    if (isServer) await loadBreadcrumbsPromise
+    catalogHooksExecutors.productPageVisited(product)
   },
   beforeRouteEnter(to, from, next) {
     if (isServer) {
-      next();
+      next()
     } else {
       next((vm) => {
-        vm.getQuantity();
-      });
+        vm.getQuantity()
+      })
     }
   },
   watch: {
     isOnline: {
       handler(isOnline) {
         if (isOnline) {
-          this.getQuantity();
+          this.getQuantity()
         }
       },
       "$route.name": function () {
         this.checkRoute();
       },
     },
+    getCurrentCustomOptions : {
+      handler(){
+        console.log("112255 state changed");
+        this.getCurrentProductCustomOptions()
+      }
+    }
   },
   methods: {
     checkRoute() {
@@ -993,10 +1004,86 @@ export default {
         "\nSTATE is \n\n",
         this.$store.state.product
       );
+      this.getCurrentProductCustomOptions();
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
     },
+   getCurrentProductCustomOptions() {
+      let cOptions = this.$store.state.product;
+      let currentOptions = {};
+      let listOptions = [];
+      console.log(
+        "Current custom Options are ",
+        this.getCurrentCustomOptions,
+        "\n1122 State is ",
+        this.$store.state.product,
+        "\n COptions:",
+        cOptions,
+        typeof this.getCurrentProduct,
+        typeof this.getCurrentProduct.custom_options
+      );
+      console.log(
+        "1122 custom options ",
+        this.getCurrentProduct.custom_options
+      );
+      if (this.getCurrentProduct.custom_options) {
+        if (this.getCurrentProduct.custom_options.length > 0) {
+          this.getCurrentProduct.custom_options.forEach((option, index) => {
+            // console.log("1122 title", option.option_id);
+            // console.log(
+            //   "1122 title",
+            //   cOptions.current_custom_options[option.option_id]
+            // );
+            let obj2 = {
+              [option.option_id]: {
+                option_id: option.option_id,
+                // option_value:
+                //   cOptions.current_custom_options[option.option_id].option_value,
+              },
+            };
+            //  currentOptions.push(obj2);
+            // currentOptions[index] = obj2;
+            let value = null;
+            if (this.$store.state.product.current_custom_options) {
+              // console.log("yes this.$store.state.product.current_custom_options");
+              if (
+                this.$store.state.product.current_custom_options[
+                  option.option_id
+                ]
+              ) {
+                // console.log(
+                //   "yes current_custom_options",
+                //   this.$store.state.product.current_custom_options[
+                //     option.option_id
+                //   ].option_value
+                // );
+                value = this.$store.state.product.current_custom_options[
+                  option.option_id
+                ].option_value;
+              }
+            }
+            // this.$store.state.product.current_custom_options[option.option_id].option_value,
+            currentOptions[option.option_id] = {
+              option_id: option.option_id,
+              option_value: value,
+            };
+            //   console.log("1122 option is ", obj2, listOptions, currentOptions);
+          });
+          this.productCurrentCustomOptions = currentOptions;
+          console.log("112233 productCurrentCustomOptions", currentOptions);
+          return currentOptions;
+        } else {
+          return {};
+        }
+      } else {
+        return {};
+      }
+    },
+    setPrice(data){
+    //  console.log(data);
+      this.calculatedProductPrice=data;
+    },
     setColorName(name) {
-      this.colorName = name;
+      this.colorName = name
     },
     getColorName() {
       if (this.colorName == "") {
@@ -1006,17 +1093,17 @@ export default {
             option.iscolor == "1" ||
             option.iscolor == true
           ) {
-            this.colorName = "Please Select " + option.title;
+            this.colorName = "Please Select " + option.title
           }
-        });
+        })
       } else {
-        return this.colorName;
+        return this.colorName
       }
     },
     addCustomOption(option) {
-      let prodFlag = true;
+      let prodFlag = true
       if (this.sendProductCustomOptions.length == 0) {
-        this.sendProductCustomOptions.push(option);
+        this.sendProductCustomOptions.push(option)
         // console.log("11226610 ", this.sendProductCustomOptions);
       } else {
         this.sendProductCustomOptions.forEach((prodOption, index) => {
@@ -1033,10 +1120,10 @@ export default {
           //   this.sendProductCustomOptions.length
           // );
           if (prodOption.title === option.title) {
-            prodOption = option;
-            this.sendProductCustomOptions[index] = option;
-            this.sendProductCustomOptions[index];
-            prodFlag = false;
+            prodOption = option
+            this.sendProductCustomOptions[index] = option
+            this.sendProductCustomOptions[index]
+            prodFlag = false
             // console.log(
             //   "1122669 indexer",
             //   index,
@@ -1045,66 +1132,50 @@ export default {
           } else {
             if (index == this.sendProductCustomOptions.length - 1) {
               if (!prodFlag) {
-                this.sendProductCustomOptions.push(option);
+                this.sendProductCustomOptions.push(option)
                 //   console.log("1122667 ", this.sendProductCustomOptions);
               } else {
                 //   console.log("1122668 ", this.sendProductCustomOptions);
               }
             }
           }
-        });
+        })
       }
     },
-    getAllBreadcrumbs() {
-      // console.log("1122 Breadcrumbs are : ");
-      this.getBreadcrumbsRoutes.forEach((route, index) => {
-        // console.log("route is ", route.name);
-        this.breadcrumbs.push(route);
-        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
-        if (index == this.getBreadcrumbsRoutes.length - 1) {
-          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          let current = {};
-          this.breadcrumbs.push({
-            name: this.getBreadcrumbsCurrent,
-            route_link: this.$route.path,
-          });
-        }
-      });
-    },
     validateUrl(str) {
-      let pattern = /^((http|https):\/\/)/;
-      return pattern.test(str);
+      let pattern = /^((http|https):\/\/)/
+      return pattern.test(str)
     },
     attachBaseUrl(str) {
       if (config.server.baseUrl) {
-        return config.server.baseUrl + "/" + str;
+        return config.server.baseUrl + "/" + str
       }
-      return str;
+      return str
     },
     getImageUrl(img) {
       if (!img) {
-        return "";
+        return ""
       }
-      let subPathImg = "img/250/250/resize/catalog/product";
+      let subPathImg = "img/250/250/resize/catalog/product"
       if (!this.validateUrl(img)) {
-        return subPathImg + img;
+        return subPathImg + img
       }
     },
     showColorPicker() {
-      this.colorPickerCheck = true;
+      this.colorPickerCheck = true
       //  document.body.style.overflow("hidden");
       //  let scrollDisable = document.getElementsByTagName("body");
       //  scrollDisable.style.overflow("hidden");
       //    console.log( "  document.body",scrollDisable);
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"
     },
     hideColorPicker() {
-      this.colorPickerCheck = false;
-      document.body.style.overflow = "scroll";
+      this.colorPickerCheck = false
+      document.body.style.overflow = "scroll"
     },
     showDetails(event) {
-      this.detailsOpen = true;
-      event.target.classList.add("hidden");
+      this.detailsOpen = true
+      event.target.classList.add("hidden")
     },
     notifyOutStock() {
       this.$store.dispatch("notification/spawnNotification", {
@@ -1113,7 +1184,7 @@ export default {
           "The product is out of stock and cannot be added to the cart!"
         ),
         action1: { label: this.$t("OK") },
-      });
+      })
     },
     notifyWrongAttributes() {
       this.$store.dispatch("notification/spawnNotification", {
@@ -1122,105 +1193,105 @@ export default {
           "No such configuration for the product. Please do choose another combination of attributes."
         ),
         action1: { label: this.$t("OK") },
-      });
+      })
     },
     changeFilter(variant) {
       this.$bus.$emit(
         "filter-changed-product",
         Object.assign({ attribute_code: variant.type }, variant)
-      );
-      this.getQuantity();
+      )
+      this.getQuantity()
     },
     changeFilterCustom(event) {
-      let variant = JSON.parse(event.target.value);
+      let variant = JSON.parse(event.target.value)
       this.$bus.$emit(
         "filter-changed-product",
         Object.assign({ attribute_code: variant.type }, variant)
-      );
-      this.getQuantity();
+      )
+      this.getQuantity()
     },
     openSizeGuide() {
-      this.$bus.$emit("modal-show", "modal-sizeguide");
+      this.$bus.$emit("modal-show", "modal-sizeguide")
     },
     isOptionAvailable(option) {
       // check if the option is available
       const currentConfig = Object.assign(
         {},
         this.getCurrentProductConfiguration
-      );
-      currentConfig[option.type] = option;
+      )
+      currentConfig[option.type] = option
       return isOptionAvailableAsync(this.$store, {
         product: this.getCurrentProduct,
         configuration: currentConfig,
-      });
+      })
     },
     async getQuantity() {
-      if (this.isStockInfoLoading) return; // stock info is already loading
-      this.isStockInfoLoading = true;
+      if (this.isStockInfoLoading) return // stock info is already loading
+      this.isStockInfoLoading = true
       try {
         const res = await this.$store.dispatch("stock/check", {
           product: this.getCurrentProduct,
           qty: this.getCurrentProduct.qty,
-        });
-        console.log("res ", res);
-        this.maxQuantity = res.qty;
+        })
+        console.log("res ", res)
+        this.maxQuantity = res.qty
       } finally {
-        this.isStockInfoLoading = false;
+        this.isStockInfoLoading = false
       }
     },
     handleQuantityError(error) {
-      this.quantityError = error;
+      this.quantityError = error
     },
     ProDeliveryShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-Delivery-wrapper-show-close"
-      )[0];
-      details_element.classList.toggle("Delivery-wrapper-show");
+      )[0]
+      details_element.classList.toggle("Delivery-wrapper-show")
       document
         .getElementById("product-Delivery-icon-id")
-        .classList.toggle("icon-rotate");
+        .classList.toggle("icon-rotate")
     },
     ProSpecificationsShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-Specifications-wrapper-show-close"
-      )[0];
-      details_element.classList.toggle("Specifications-wrapper-show");
+      )[0]
+      details_element.classList.toggle("Specifications-wrapper-show")
       document
         .getElementById("product-Specifications-icon-id")
-        .classList.toggle("icon-rotate");
+        .classList.toggle("icon-rotate")
     },
     ProReviewShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-review-wrapper-show-close"
-      )[0];
-      details_element.classList.toggle("review-wrapper-show");
+      )[0]
+      details_element.classList.toggle("review-wrapper-show")
       document
         .getElementById("product-review-icon-id")
-        .classList.toggle("icon-rotate");
+        .classList.toggle("icon-rotate")
     },
     ProDimensionShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-dimension-wrapper-show-close"
-      )[0];
-      details_element.classList.toggle("dimension-wrapper-show");
+      )[0]
+      details_element.classList.toggle("dimension-wrapper-show")
       document
         .getElementById("product-dimension-icon-id")
-        .classList.toggle("icon-rotate");
+        .classList.toggle("icon-rotate")
       if (document.getElementById("comes-with-main") !== null) {
         // console.log('sasa');
         const slider2 = document
           .getElementById("comes-with-main")
-          .querySelector(".VueCarousel-inner");
+          .querySelector(".VueCarousel-inner")
         slider2.style.transform =
-          "translate3d(" + "-" + slider2.style.flexBasis + ", 0px, 0px)";
+          "translate3d(" + "-" + slider2.style.flexBasis + ", 0px, 0px)"
       }
     },
     getReviews() {
-      return this.reviewData;
+      return this.reviewData
     },
   },
   metaInfo() {
-    const storeView = currentStoreView();
+    const storeView = currentStoreView()
     return {
       link: [
         {
@@ -1247,14 +1318,14 @@ export default {
       ),
       meta: this.getCurrentProduct.meta_description
         ? [
-            {
-              vmid: "description",
-              name: "description",
-              content: htmlDecode(this.getCurrentProduct.meta_description),
-            },
-          ]
+          {
+            vmid: "description",
+            name: "description",
+            content: htmlDecode(this.getCurrentProduct.meta_description),
+          },
+        ]
         : [],
-    };
+    }
   },
 };
 </script>
@@ -1306,6 +1377,9 @@ $bg-secondary: color(secondary, $colors-background);
 .image {
   @media (max-width: 1023px) {
     margin-bottom: 20px;
+  }
+  @media (max-width: 767px) {
+    margin-bottom: 0;
   }
 }
 .product-name {

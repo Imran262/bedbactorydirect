@@ -149,7 +149,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: this.$route.meta.title || this.$i18n.t("Home Page"),
+      title: this.$route.meta.title || this.$i18n.t("Cheap Beds For Sale | Up To 60% Off | Choose Delivery Day"),
       meta: this.$route.meta.description
         ? [
             {

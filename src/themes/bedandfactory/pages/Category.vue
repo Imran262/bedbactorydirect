@@ -14,21 +14,7 @@
           <meta itemprop="name" :content="title" />
           <meta itemprop="logo" :content="webUrl + logo" />
         </div>
-        <div itemscope itemtype="https://schema.org/BreadcrumbList">
-          <div v-for="(breadcrumb, index) in breadcrumbs" :key="index">
-            <!-- current breadcrumb iss {{ breadcrumb }} -->
-            <div
-              itemprop="itemListElement"
-              itemscope
-              itemtype="https://schema.org/ListItem"
-            >
-              <a itemprop="item" :href="breadcrumb.route_link">
-                <meta itemprop="name" :content="breadcrumb.name" />
-                <meta itemprop="position" :content="index + 1" />
-              </a>
-            </div>
-          </div>
-        </div>
+        
 
         <!-- <div class="row middle-sm">
           <h1 class="col-sm-8 category-title mb10">{{ getCurrentCategory.name }}</h1>
@@ -104,7 +90,7 @@
                 @change="changeFilter"
                 :value="getCurrentSearchQuery.sort"
               />
-               {{ getCategoryProductsTotal }} Items
+              {{ getCategoryProductsTotal }} Items
               <!-- {{ $t("{count} items", { count: getCategoryProductsTotal }) }} -->
             </div>
           </div>
@@ -171,6 +157,7 @@ import UspBar from "theme/components/theme/blocks/UspBar/UspBar";
 import CmsBlock from "theme/components/core/blocks/Cms/Block";
 import CategoryDescription from "theme/components/core/blocks/CategoryDescription/CategoryDescription";
 import CategoryDescriptionTop from "theme/components/core/blocks/CategoryDescription/CategoryDescriptionTop";
+import { GTAGCategory } from "src/modules/google-gtag/mixins/GTAGCategory";
 const THEME_PAGE_SIZE = 50;
 const composeInitialPageState = async (store, route, forceLoad = false) => {
   try {
@@ -225,7 +212,7 @@ export default {
     CategoryDescription,
     CategoryDescriptionTop,
   },
-  mixins: [onBottomScroll],
+  mixins: [onBottomScroll, GTAGCategory],
   data() {
     return {
       mobileFilters: false,
@@ -287,22 +274,7 @@ export default {
     }
   },
   methods: {
-    getAllBreadcrumbs() {
-      // console.log("1122 Breadcrumbs are : ");
-      this.getBreadcrumbsRoutes.forEach((route, index) => {
-        // console.log("route is ", route.name);
-        this.breadcrumbs.push(route);
-        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
-        if (index == this.getBreadcrumbsRoutes.length - 1) {
-          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          let current = {};
-          this.breadcrumbs.push({
-            name: this.getBreadcrumbsCurrent,
-            route_link: this.$route.path,
-          });
-        }
-      });
-    },
+   
     openFilters() {
       this.mobileFilters = true;
     },
@@ -361,7 +333,6 @@ export default {
   mounted() {
     this.webUrl = config.api.url;
     this.title = config.seo.defaultTitle;
-    this.getAllBreadcrumbs();
   },
 };
 </script>

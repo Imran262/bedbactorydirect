@@ -90,9 +90,10 @@ import AddToWishlist from "theme/components/core/blocks/Wishlist/AddToWishlist";
 import AddToCompare from "theme/components/core/blocks/Compare/AddToCompare";
 import { IsOnWishlist } from "@vue-storefront/core/modules/wishlist/components/IsOnWishlist";
 import { IsOnCompare } from "@vue-storefront/core/modules/compare/components/IsOnCompare";
+import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
 
 export default {
-  mixins: [ProductTile, IsOnWishlist, IsOnCompare],
+  mixins: [ProductTile, IsOnWishlist, IsOnCompare,MeasureProductClick],
   components: {
     ProductImage,
     AddToWishlist,

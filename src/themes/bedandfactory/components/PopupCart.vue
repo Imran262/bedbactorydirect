@@ -34,24 +34,47 @@
                 <p class="product-amount">{{ priceValue | price }}</p>
               </template>
               <template v-else>
-                <p class="product-amount">
-                  {{ (product.finalPriceInclTax + priceValue) | price }}
-                </p>
-                <p class="product-save-amount" v-if="product.specialPrice">
-                  <span
-                    >Was:
-                    {{
-                      (product.original_price_incl_tax + priceValue) | price
-                    }}</span
+                <template
+                  v-if="
+                    productCalculatedPrice.special &&
+                    productCalculatedPrice.special >= 0
+                  "
+                >
+                  <template
+                    v-if="
+                      productCalculatedPrice.original -
+                        productCalculatedPrice.special >
+                      0
+                    "
                   >
-                  Save:
-                  {{
-                    (product.original_price_incl_tax -
-                      product.special_price_incl_tax +
-                      priceValue)
-                      | price
-                  }}
-                </p>
+                    <p class="product-amount">
+                      {{ productCalculatedPrice.special | price }}
+                    </p>
+                    <p class="product-save-amount">
+                      <span
+                        >Was:
+                        {{ productCalculatedPrice.original | price }}</span
+                      >
+                      Save:
+
+                      {{
+                        (productCalculatedPrice.original -
+                          productCalculatedPrice.special)
+                          | price
+                      }}
+                    </p>
+                  </template>
+                  <template v-else>
+                    <p class="product-amount">
+                      {{ productCalculatedPrice.original | price }}
+                    </p>
+                  </template>
+                </template>
+                <template v-else>
+                  <p class="product-amount">
+                    {{ productCalculatedPrice.original | price }}
+                  </p>
+                </template>
               </template>
               <div class="stock-main">
                 <img src="/assets/checkout-non-selected-tick.png" />
@@ -336,6 +359,10 @@ export default {
     },
   },
   props: {
+    productCalculatedPrice: {
+      required: true,
+      type: Object,
+    },
     productOptions: {
       required: true,
       type: Array,
