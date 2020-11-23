@@ -1,16 +1,19 @@
 <template>
   <div class="price serif">
     <div class="h3 cl-secondary">
-      <span class="h2 cl-mine-shaft weight-700">{{ price.special | price(storeView) }}</span>&nbsp;
+      <span class="h2 cl-mine-shaft weight-700">{{
+        price.special | price(storeView)
+      }}</span
+      >&nbsp;
       <span class="h3 saving-price-detail-div">
         <span
           class="price-original was-price"
           v-if="price.special !== price.original"
-        >was {{ price.original | price(storeView) }}</span>
-        <span
-          class="save-amount"
-          v-if="discoutedPrice!== 0"
-        >Save:{{discoutedPrice.toFixed(2) | price(storeView)}}</span>
+          >was {{ price.original | price(storeView) }}</span
+        >
+        <span class="save-amount" v-if="discoutedPrice !== 0"
+          >Save:{{ discoutedPrice.toFixed(2) | price(storeView) }}</span
+        >
       </span>
     </div>
     <!-- {{price.special}}
@@ -27,11 +30,11 @@
 <script>
 import {
   getCustomOptionValues,
-  getCustomOptionPriceDelta
+  getCustomOptionPriceDelta,
 } from "@vue-storefront/core/modules/catalog/helpers/customOption";
 import {
   getBundleOptionsValues,
-  getBundleOptionPrice
+  getBundleOptionPrice,
 } from "@vue-storefront/core/modules/catalog/helpers/bundleOptions";
 import get from "lodash-es/get";
 import { currentStoreView } from "@vue-storefront/core/lib/multistore";
@@ -41,12 +44,12 @@ export default {
   props: {
     product: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     customOptions: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     bundleOptionsPrice() {
@@ -84,19 +87,34 @@ export default {
         this.product.qty > 0
           ? (this.initialPrice.default + customOptionPrice) * this.product.qty
           : this.initialPrice.default;
-
+      // console.log("1122 About to emit ");
+      let obj = {};
+      // this.$emit("calculatedPrice", obj);
+      // console.log("1122 emitted is ",obj);
       if (this.bundleOptionsPrice.priceInclTax > 0) {
+        obj = {
+          special,
+          original,
+          default: this.bundleOptionsPrice.priceInclTax,
+        };
+        this.$emit("calculatedPrice", obj);
         return {
           special,
           original,
-          default: this.bundleOptionsPrice.priceInclTax
+          default: this.bundleOptionsPrice.priceInclTax,
         };
       }
       // console.log("This is price =========>", special, original, defaultPrice);
+      obj = {
+        special,
+        original,
+        default: defaultPrice,
+      };
+      this.$emit("calculatedPrice", obj);
       return {
         special,
         original,
-        default: defaultPrice
+        default: defaultPrice,
       };
     },
     initialPrice() {
@@ -106,7 +124,7 @@ export default {
           this.product.original_price_incl_tax ||
           this.product.originalPriceInclTax ||
           0,
-        special: this.product.special_price || this.product.specialPrice || 0
+        special: this.product.special_price || this.product.specialPrice || 0,
       };
     },
     discoutedPrice() {
@@ -114,8 +132,8 @@ export default {
     },
     storeView() {
       return currentStoreView();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
