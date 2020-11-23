@@ -1,5 +1,9 @@
 <template>
-  <div class="breadcrumbs mt10 h5 cl-gray" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <div
+    class="breadcrumbs mt10 h5 cl-gray"
+    itemscope
+    itemtype="https://schema.org/BreadcrumbList"
+  >
     <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
       <router-link :to="localizedRoute('/')" class="cl-tertiary links">
         <img
@@ -8,13 +12,24 @@
         /> </router-link
       >|
     </span>
-    <span v-for="(link, index) in paths" :key="link.route_link" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <template v-if="link.name !== 'Default category'">
+    <!-- Helloo 
+    {{updatedPath}} -->
+    <span
+      v-for="(link, index) in updatedPath"
+      :key="link.route_link"
+      itemprop="itemListElement"
+      itemscope
+      itemtype="https://schema.org/ListItem"
+    >
+      <template
+        v-if="
+          link.name !== 'Default category' && link.name !== 'Default Category'
+        "
+      >
         <router-link :to="link.route_link" itemprop="item">
           {{ link.name | htmlDecode }}
           <meta itemprop="name" :content="link.name" />
-          <meta itemprop="position" :content="index + 1" />
-        </router-link
+          <meta itemprop="position" :content="index + 1" /> </router-link
         >|
       </template>
     </span>
@@ -26,7 +41,29 @@
 import { Breadcrumbs } from "@vue-storefront/core/modules/breadcrumbs/components/Breadcrumbs.ts";
 export default {
   mixins: [Breadcrumbs],
-  components: {}
+  components: {},
+  data(){return{
+    updatedPath :[]
+  }},
+  mounted(){
+    this.setPaths()
+  },
+  methods:{
+    setPaths(){
+
+ console.log("1122",this.paths);
+      this.paths.forEach((link,index) => {
+        if((link.name !== 'Default category') && (link.name !== 'Default Category')){
+          this.updatedPath.push(link)
+        }
+        // console.log("1122",this.paths.length , index+1,this.paths.length == index + 1);
+        // if(this.paths.length == index + 1){
+        //   console.log("112233");
+        //   return updatedPath
+        // }
+      });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
