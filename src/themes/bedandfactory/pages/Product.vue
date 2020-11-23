@@ -187,11 +187,11 @@
                     getCurrentProduct.original_price_incl_tax
                   "
                 >
-                  deltaproduct {{ deltaproduct }}
+                  <!-- deltaproduct {{ productCurrentCustomOptions }} -->
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
-                    :custom-options="getCurrentCustomOptions"
+                    :custom-options="productCurrentCustomOptions"
                     v-on:calculatedPrice="setPrice($event)"
                   />
                 </div>
@@ -1038,6 +1038,7 @@ export default {
             //   console.log("1122 option is ", obj2, listOptions, currentOptions);
           });
           this.productCurrentCustomOptions = currentOptions;
+          console.log("112233 productCurrentCustomOptions", currentOptions);
           return currentOptions;
         } else {
           return {};
