@@ -18,6 +18,7 @@
       :custom-options="customOptions"
       v-if="cartpopupshow"
       @popInterface="handlePopupAfteBack"
+      :productCalculatedPrice="productCalculatedPrice"
     />
   </div>
 </template>
@@ -39,6 +40,10 @@ export default {
   directives: { focusClean },
   components: { ButtonFull, PopupCart },
   props: {
+    productCalculatedPrice: {
+      required: true,
+      type: Object,
+    },
     productOptions: {
       required: true,
       type: Array,
