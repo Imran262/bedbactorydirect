@@ -188,6 +188,7 @@
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
                     :custom-options="getCurrentCustomOptions"
+                    v-on:calculatedPrice="setPrice($event)"                    
                   />
                 </div>
               </div>
@@ -424,6 +425,7 @@
                   :custom-options="getCurrentCustomOptions"
                   :disabled="!isAddToCartDisabled"
                   class="col-xs-12 col-sm-4 col-md-6"
+                  :productCalculatedPrice="calculatedProductPrice"
                 />
               </div>
             </div>
@@ -781,7 +783,8 @@ export default {
       colorPickerCheck: false,
       colorName: "",
       breadcrumbs: [],
-      urlProduct:config.baseUrl.url
+      urlProduct:config.baseUrl.url,
+      calculatedProductPrice: {}
     };
   },
   computed: {
@@ -922,7 +925,7 @@ export default {
     } catch (err) {
       console.error("error message", err);
     }
-    this.getAllBreadcrumbs();
+    // this.getAllBreadcrumbs();
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -958,6 +961,10 @@ export default {
     },
   },
   methods: {
+    setPrice(data){
+    //  console.log(data);
+      this.calculatedProductPrice=data;
+    },
     setColorName(name) {
       this.colorName = name;
     },
@@ -1017,22 +1024,6 @@ export default {
           }
         });
       }
-    },
-    getAllBreadcrumbs() {
-      // console.log("1122 Breadcrumbs are : ");
-      this.getBreadcrumbsRoutes.forEach((route, index) => {
-        // console.log("route is ", route.name);
-        this.breadcrumbs.push(route);
-        // console.log(index, "     ", this.getBreadcrumbsRoutes.length);
-        if (index == this.getBreadcrumbsRoutes.length - 1) {
-          // console.log("Current breadcrumb is ", this.getBreadcrumbsCurrent);
-          let current = {};
-          this.breadcrumbs.push({
-            name: this.getBreadcrumbsCurrent,
-            route_link: this.$route.path,
-          });
-        }
-      });
     },
     validateUrl(str) {
       let pattern = /^((http|https):\/\/)/;
