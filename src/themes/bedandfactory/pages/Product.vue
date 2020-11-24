@@ -188,11 +188,11 @@
                   "
                 >
                   <!-- deltaproduct {{ productCurrentCustomOptions }} -->
-                  {{productCurrentCustomOptions}}
+                  <!-- {{productCurrentCustomOptions}}
                   <br /><br /><br />{{getCurrentCustomOptions}}
                   <br />
                   <br />
-                  <br />
+                  <br /> -->
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
