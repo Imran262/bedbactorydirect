@@ -1,6 +1,6 @@
 <template>
   <div class="price serif">
-    Custom Options{{customOptions}}
+    <!-- Custom Options{{customOptions}} -->
     <div class="h3 cl-secondary">
       <span class="h2 cl-mine-shaft weight-700">{{
         price.special | price(storeView)
