@@ -1,6 +1,6 @@
 <template>
   <div class="price serif">
-    <!-- Custom Options{{customOptions}} -->
+    <br />Custom Options<br />{{customOptions}}
     <div class="h3 cl-secondary">
       <span class="h2 cl-mine-shaft weight-700">{{
         price.special | price(storeView)
@@ -68,6 +68,8 @@ export default {
       return price;
     },
     customOptionsPriceDelta() {
+      console.log("1122== Price Value are",this.customOptions,Object.values(this.customOptions),
+          this.product.custom_options);
       const priceDelta = getCustomOptionPriceDelta(
         getCustomOptionValues(
           Object.values(this.customOptions),

@@ -96,21 +96,34 @@ export default {
       var x = document.getElementsByTagName("BODY")[0];
       x.style.overflow ="scroll";
     },
+    customOptionsCheck(){
+      return false;
+    }
   },
   computed: {
     ...mapGetters({
       isAddingToCart: "cart/getIsAdding",
     }),
     isProductDisabled() {
-   //   console.log("11223 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart);
+      console.log("112233445577 product options ",this.productOptions,"\n\nCustomOptions\n",this.customOptions,"\n\n\n",this.disabled,"\n\n\n",this.customOptionsCheck(),"\n\n\n");
+    console.log("1122334455 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart,"\n\n",this.disabled,"\n\n",(
+        this.disabled ||
+        formatProductMessages(this.product.errors) !== "" ||
+        this.isAddingToCart
+      ));
+      console.log("1122334455 product is ",this.product);
       return (
         this.disabled ||
         formatProductMessages(this.product.errors) !== "" ||
         this.isAddingToCart
       );
     },
+    customOptionsCheck(){
+      return false;
+    }
   },
   beforeMount() {
+    console.log('SomethingToTest', this.productOptions, this.customOptions, this.productCalculatedPrice)
     this.$bus.$on("product-after-removevariant", this.onAfterRemovedVariant);
   },
   beforeDestroy() {
