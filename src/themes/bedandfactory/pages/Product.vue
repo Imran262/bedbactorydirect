@@ -193,6 +193,7 @@
                   <br />
                   <br />
                   <br /> -->
+                  {{productCurrentCustomOptions}}
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
@@ -442,12 +443,11 @@
               />
               <div class="row m0 bt-product-addtocartbtn">
                 <add-to-cart
-                  :productOptions="sendProductCustomOptions"
+                  :product-options="sendProductCustomOptions"
                   :product="getCurrentProduct"
                   :custom-options="getCurrentCustomOptions"
-                  :disabled="!isAddToCartDisabled"
                   class="col-xs-12 col-sm-4 col-md-6"
-                  :productCalculatedPrice="calculatedProductPrice"
+                  :product-calculated-price="calculatedProductPrice"
                 />
               </div>
             </div>
@@ -908,6 +908,7 @@ export default {
       )
     },
     isAddToCartDisabled() {
+      console.log('testingIt', this.quantityError, this.isStockInfoLoading, this.isSimpleOrConfigurable, this.isOnline)
       return (
         this.quantityError ||
         this.isStockInfoLoading ||
@@ -952,6 +953,12 @@ export default {
     } catch (err) {
       console.error("error message", err)
     }
+    console.log(
+        "112266 Route changes",
+        this.$route,
+        "\nSTATE is \n\n",
+        this.$store.state.product
+      );
    this.getCurrentProductCustomOptions();
   },
   async asyncData({ store, route }) {
@@ -985,10 +992,21 @@ export default {
           this.getQuantity()
         }
       },
-      "$route.name": function () {
+      
+    },
+    "$route.name": function () {
+      console.log(
+        "112277 Route changes",
+        this.$route,
+        "\nSTATE is \n\n",
+        this.$store.state.product
+      );
+
+      console.log('routeGotUpdated', this.sendProductCustomOptions,this.productCurrentCustomOptions, this.getCurrentProduct, this.getCurrentCustomOptions)
+      console.log('calculatedProductPrice', this.calculatedProductPrice)
+
         this.checkRoute();
       },
-    },
     getCurrentCustomOptions : {
       handler(){
         console.log("112255 state changed");
@@ -999,12 +1017,17 @@ export default {
   methods: {
     checkRoute() {
       console.log(
-        "1122 Route changes",
+        "11226677 Route changes",
         this.$route,
         "\nSTATE is \n\n",
         this.$store.state.product
       );
       this.getCurrentProductCustomOptions();
+      this.$store.state.product.current_custom_options=this.productCurrentCustomOptions;
+      console.log(
+        "\n112266 After STATE is \n\n",
+        this.$store.state.product
+      );
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
     },
    getCurrentProductCustomOptions() {
@@ -1019,7 +1042,7 @@ export default {
         "\n COptions:",
         cOptions,
         typeof this.getCurrentProduct,
-        typeof this.getCurrentProduct.custom_options
+        typeof this.getCurrentProduct.custom_options 
       );
       console.log(
         "1122 custom options ",
