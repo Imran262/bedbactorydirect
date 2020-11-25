@@ -1022,8 +1022,8 @@ export default {
         "\nSTATE is \n\n",
         this.$store.state.product
       );
-      this.getCurrentProductCustomOptions();
-      this.$store.state.product.current_custom_options=this.productCurrentCustomOptions;
+   //   this.getCurrentProductCustomOptions();
+     // this.$store.state.product.current_custom_options=this.productCurrentCustomOptions;
       console.log(
         "\n112266 After STATE is \n\n",
         this.$store.state.product
