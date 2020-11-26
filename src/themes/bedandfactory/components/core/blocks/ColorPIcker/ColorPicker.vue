@@ -1,8 +1,8 @@
 <template>
   <div class="color-picker">
     <!-- {{      (colors.custom_options && colors.custom_options.length > 0 ) }} -->
-    In color picker product is {{ $store.state.product.current.name }}
-    {{ "................." }}Product: {{ "....." }}{{ colors.name }} <br />
+    <!-- In color picker product is {{ $store.state.product.current.name }}
+    {{ "................." }}Product: {{ "....." }}{{ colors.name }} <br /> -->
     <product-custom-options
       v-if="colors.custom_options && colors.custom_options.length > 0"
       :product="colors"

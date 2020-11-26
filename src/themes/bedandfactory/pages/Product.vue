@@ -193,11 +193,11 @@
                   <br />
                   <br />
                   <br /> -->
-                  {{productCurrentCustomOptions}}
+                  <!-- {{productCurrentCustomOptions}} -->
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
-                    :custom-options="productCurrentCustomOptions"
+                    :custom-options="getCurrentProductCustomOptionsRedo"
                     v-on:calculatedPrice="setPrice($event)"
                   />
                 </div>
@@ -445,7 +445,7 @@
                 <add-to-cart
                   :product-options="sendProductCustomOptions"
                   :product="getCurrentProduct"
-                  :custom-options="productCurrentCustomOptions"
+                  :custom-options="getCurrentProductCustomOptionsRedo"
                   class="col-xs-12 col-sm-4 col-md-6"
                   :product-calculated-price="calculatedProductPrice"
                 />
@@ -823,6 +823,45 @@ export default {
       getBreadcrumbsCurrent: "breadcrumbs/getBreadcrumbsCurrent",
       getBreadcrumbsRoutes: "breadcrumbs/getBreadcrumbsRoutes",
     }),
+    getCurrentProductCustomOptionsRedo() {
+      // let cOptions = this.$store.state.product;
+      let currentOptions = {};
+      let listOptions = [];
+
+      if (this.getCurrentProduct.custom_options) {
+        if (this.getCurrentProduct.custom_options.length > 0) {
+          this.getCurrentProduct.custom_options.forEach((option, index) => {
+            let obj2 = {
+              [option.option_id]: {
+                option_id: option.option_id,
+              },
+            };
+            let value = null;
+            if (this.$store.state.product.current_custom_options) {
+              if (
+                this.$store.state.product.current_custom_options[
+                  option.option_id
+                ]
+              ) {
+                value = this.$store.state.product.current_custom_options[
+                  option.option_id
+                ].option_value;
+              }
+            }
+            currentOptions[option.option_id] = {
+              option_id: option.option_id,
+              option_value: value,
+            };
+          });
+          // this.productCurrentCustomOptions = currentOptions;
+          return currentOptions;
+        } else {
+          return {};
+        }
+      } else {
+        return {};
+      }
+    },
     getOptionLabel() {
       return (option) => {
         const configName = option.attribute_code
@@ -1002,7 +1041,7 @@ export default {
         this.$store.state.product
       );
 
-      console.log('routeGotUpdated', this.sendProductCustomOptions,this.productCurrentCustomOptions, this.getCurrentProduct, this.getCurrentCustomOptions)
+      console.log('routeGotUpdated', this.sendProductCustomOptions,this.getCurrentProductCustomOptionsRedo, this.getCurrentProduct, this.getCurrentCustomOptions)
       console.log('calculatedProductPrice', this.calculatedProductPrice)
 
         this.checkRoute();
@@ -1023,7 +1062,7 @@ export default {
         this.$store.state.product
       );
      this.getCurrentProductCustomOptions();
-      this.$store.state.product.current_custom_options=this.productCurrentCustomOptions;
+      this.$store.state.product.current_custom_options=this.getCurrentProductCustomOptionsRedo;
       console.log(
         "\n112266 After STATE is \n\n",
         this.$store.state.product
@@ -1031,16 +1070,12 @@ export default {
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
     },
    getCurrentProductCustomOptions() {
-      let cOptions = this.$store.state.product;
+      // let cOptions = this.$store.state.product;
       let currentOptions = {};
       let listOptions = [];
       console.log(
         "Current custom Options are ",
         this.getCurrentCustomOptions,
-        "\n1122 State is ",
-        this.$store.state.product,
-        "\n COptions:",
-        cOptions,
         typeof this.getCurrentProduct,
         typeof this.getCurrentProduct.custom_options 
       );
@@ -1051,16 +1086,9 @@ export default {
       if (this.getCurrentProduct.custom_options) {
         if (this.getCurrentProduct.custom_options.length > 0) {
           this.getCurrentProduct.custom_options.forEach((option, index) => {
-            // console.log("1122 title", option.option_id);
-            // console.log(
-            //   "1122 title",
-            //   cOptions.current_custom_options[option.option_id]
-            // );
             let obj2 = {
               [option.option_id]: {
                 option_id: option.option_id,
-                // option_value:
-                //   cOptions.current_custom_options[option.option_id].option_value,
               },
             };
             //  currentOptions.push(obj2);
@@ -1093,6 +1121,7 @@ export default {
           });
           this.productCurrentCustomOptions = currentOptions;
           console.log("112233 productCurrentCustomOptions", currentOptions);
+          console.log("112233 productCurrentCustomOptionsTest", this.productCurrentCustomOptions);
           return currentOptions;
         } else {
           return {};

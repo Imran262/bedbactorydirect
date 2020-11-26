@@ -1,6 +1,6 @@
 <template>
   <div class="price serif">
-    <br />Custom Options<br />{{customOptions}}
+    <!-- <br />Custom Options<br />{{customOptions}} -->
     <div class="h3 cl-secondary">
       <span class="h2 cl-mine-shaft weight-700">{{
         price.special | price(storeView)
@@ -49,7 +49,7 @@ export default {
     },
     customOptions: {
       type: Object,
-      default: () => ({}),
+      default: () => {},
     },
   },
   computed: {
