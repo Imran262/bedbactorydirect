@@ -27,12 +27,18 @@
             </div>
             <div v-else class="homepage-slider col-lg-12 col-md-12">
               <div class="homepage-slider-detail-img-only">
-                <router-link
+                <!-- <router-link
                   class="shop-now"
                   :to="localizedRoute(slide.buttonLink)"
-                >
-                  <img :src="slide.image" />
-                </router-link>
+                > -->
+                <img
+                  @click="navigate(slide.buttonLink)"
+                  @pointerdown="handleDown"
+                  @pointerup="handleUp"
+                  @pointercancel="handleUp"
+                  :src="slide.image"
+                />
+                <!-- </router-link> -->
               </div>
             </div>
           </div>
@@ -53,6 +59,11 @@ export default {
     Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
   },
   mixins: [cmsBlock],
+  data(){
+    return{
+      drag : false
+    }
+  },
   computed: {
     desktopSlides() {
       if (!this.data) return false;
@@ -92,7 +103,30 @@ export default {
       return slides;
     },
   },
-  methods: {},
+  methods: {
+    navigate (buttonLink) {
+console.log('clickWasTriggered');
+if (!this.drag) {
+console.log('justATest for Click')
+this.click = !this.click
+this.$router.push(this.localizedRoute(buttonLink))
+}
+},
+handleMove () {
+this.drag = true
+},
+handleDown () {
+document.addEventListener('pointermove', this.handleMove);
+console.log('justfetchingDrag', this.drag);
+},
+handleUp () {
+document.removeEventListener('pointermove', this.handleMove)
+setTimeout(() => {
+this.drag = false;
+console.log('draggingIsFalseNow');
+}, 50)
+}
+  },
 };
 </script>
 <style>
