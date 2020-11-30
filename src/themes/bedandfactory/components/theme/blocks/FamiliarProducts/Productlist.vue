@@ -1,5 +1,6 @@
 <template>
   <div class="row center-xs">
+    <!-- Hello {{singleblockdata}} -->
     <router-link
       v-for="singleblock in singleblockdata"
       :to="localizedRoute(singleblock.atag)"
@@ -29,14 +30,23 @@ export default {
         var mbclasses = this.parsedContent.querySelectorAll(
           ".mb_home_small_img"
         );
-        // console.log('Sb -class ', mbclasses);
+       // console.log('Sb -class ', mbclasses);
         var i = 0;
         [].forEach.call(mbclasses, mbclass => {
           var singleBlock = new Array(3);
-          singleBlock["img"] = mbclass.querySelector("img").attributes["src"];
-          singleBlock["atag"] = mbclass.querySelector("a").attributes["href"];
-          singleBlock["hthree"] = mbclass.querySelector("h3").rawText;
-          homeSmallBlocks[i] = singleBlock;
+         // console.log("single block ",singleBlock," \n ",mbclass);
+          singleBlock["img"] = mbclass.querySelector("img") ?mbclass.querySelector("img").attributes["src"] : ' ';
+           singleBlock["atag"] = mbclass.querySelector("a") ? mbclass.querySelector("a").attributes["href"] : '/';
+           singleBlock["hthree"] = mbclass.querySelector("h3")?mbclass.querySelector("h3").rawText : 'bed';
+          // singleBlock["atag"] = mbclass.querySelector("a").attributes["href"];
+          // singleBlock["hthree"] = mbclass.querySelector("h3").rawText;
+          console.log("\n\n\n\n\n\n1122single block ",singleBlock," \n ",);
+          console.log(" \n mbclass ",mbclass);
+          console.log(" \n mbclass.querySelector('img')  ",mbclass.querySelector("img"));
+          console.log(" \n mbclass.querySelector('a') ",mbclass.querySelector("a"));
+          console.log(" \n mbclass.querySelector('h3') ",mbclass.querySelector("h3"));
+          console.log(" \n mbclass.querySelector('img').attributes['src']",mbclass.querySelector("img").attributes["src"]);
+         homeSmallBlocks[i] = singleBlock;
           i++;
         });
       }
