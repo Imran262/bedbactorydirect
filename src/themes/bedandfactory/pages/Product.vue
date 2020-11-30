@@ -198,6 +198,7 @@
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
                     :custom-options="getCurrentProductCustomOptionsRedo"
+                    :key="reRender"
                     v-on:calculatedPrice="setPrice($event)"
                   />
                 </div>
@@ -382,6 +383,7 @@
                 getCurrentProduct.custom_options &&
                 getCurrentProduct.custom_options.length > 0
               "
+              :key="reRender"
               :currProduct="getCurrentProduct.sku"
               :product="getCurrentProduct"
               @option-added="addCustomOption($event)"
@@ -808,7 +810,8 @@ export default {
       urlProduct:config.baseUrl.url,
       calculatedProductPrice: {},
       productCurrentCustomOptions : {},
-      deltaproduct: this.$store.state.product.current_custom_options
+      deltaproduct: this.$store.state.product.current_custom_options,
+       reRender :0
     };
   },
   computed: {
@@ -1034,6 +1037,7 @@ export default {
       
     },
     "$route.name": function () {
+      this.reRender++
       console.log(
         "112277 Route changes",
         this.$route,
