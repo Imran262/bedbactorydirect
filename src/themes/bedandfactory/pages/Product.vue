@@ -1,5 +1,6 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
+ <!-- YEs {{this.getColorName()}} {{this.colorName}} -->
     <section class="product-top-section">
       <template v-if="reviewData">
         <div v-for="(review, count) in reviewData.reviews" :key="count">
@@ -421,6 +422,7 @@
                 />
                 <!-- {{getCurrentProduct.custom_options[2]}} -->
                 <color-picker
+                :key="reRender"
                   :colors="getCurrentProduct"
                   v-show="colorPickerCheck"
                   @closeColorPickerModal="hideColorPicker"
@@ -1037,7 +1039,19 @@ export default {
       
     },
     "$route.name": function () {
-      this.reRender++
+      this.reRender++;
+      console.log("114455",this.getColorName(), this.colorName);
+    //  this.colorName = "Please Select"
+    this.getCurrentProduct.custom_options.forEach((option) => {
+          if (
+            option.iscolor == 1 ||
+            option.iscolor == "1" ||
+            option.iscolor == true
+          ) {
+            this.colorName = "Please Select " + option.title
+          }
+        })
+              console.log("114455",this.getColorName(), this.colorName);
       console.log(
         "112277 Route changes",
         this.$route,
