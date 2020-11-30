@@ -12,8 +12,10 @@
         /> </router-link
       >|
     </span>
-    <!-- Helloo 
-    {{updatedPath}} -->
+    <!-- Helloo -->
+    <!-- {{updatedPath}}  -->
+    <!-- Hello{{ updatedPath }}
+    {{ setPaths() }} -->
     <span
       v-for="(link, index) in updatedPath"
       :key="link.route_link"
@@ -42,16 +44,21 @@ import { Breadcrumbs } from "@vue-storefront/core/modules/breadcrumbs/components
 export default {
   mixins: [Breadcrumbs],
   components: {},
-  data(){return{
+  data(){
+    return{
     updatedPath :[]
+
   }},
+  serverPrefetch() {
+    return this.setPaths();
+  },
   mounted(){
     this.setPaths()
   },
   methods:{
     setPaths(){
 
- console.log("1122",this.paths);
+//  console.log("1122",this.paths);
       this.paths.forEach((link,index) => {
         if((link.name !== 'Default category') && (link.name !== 'Default Category')){
           this.updatedPath.push(link)

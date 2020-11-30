@@ -1,13 +1,10 @@
 <template>
   <div>
-    <form class="custom-options">
-      <!-- {{product.custom_options}} -->
+    <form class="custom-options" v-if="product.custom_options">
       <div
         v-for="(option, count) in product.custom_options"
         :key="'customOption_' + option.option_id + count"
       >
-        <!-- Value of iscolor {{option.iscolor}} -->
-        <!-- For color only -->
         <h4 v-if="!color" class="basin-head">{{ option.title }}</h4>
         <div
           v-if="
@@ -16,7 +13,7 @@
               option.iscolor == true) &&
             color
           "
-        > 
+        >
           <div class="custom-option mb15 basin">
             <h4 class="basin-head">{{ option.title }}</h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
@@ -106,7 +103,6 @@
             </div>
           </div>
         </div>
-        <!-- For all other options -->
         <div
           v-else-if="
             (option.iscolor == 0 ||
@@ -117,7 +113,6 @@
           "
         >
           <div class="custom-option mb15 basin">
-            <!-- <h4 class="basin-head">{{ option.title }}</h4> -->
             <input
               class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
               v-if="option.type === 'field'"
@@ -206,7 +201,7 @@
             </div>
             <span
               class="error"
-              v-if="
+              v-if="validation.results['customOption_' + option.option_id] &&
                 validation.results['customOption_' + option.option_id].error
               "
               >{{
@@ -223,6 +218,7 @@
 <script>
 import { ProductCustomOptions } from "@vue-storefront/core/modules/catalog/components/ProductCustomOptions.ts";
 import { changeFilterQuery } from "@vue-storefront/core/modules/catalog-next/helpers/filterHelpers";
+import { mapGetters } from "vuex";
 export default {
   mixins: [ProductCustomOptions],
   components: {},
@@ -232,15 +228,41 @@ export default {
       imageSrc: "",
       currentOption: null,
       colorName: "",
+      productName: "",
     };
+  },
+  computed: {
+    ...mapGetters({
+      getCurrentProduct: "product/getCurrentProduct",
+    }),
+    updatedProduct:function(){
+      return this.getCurrentProduct
+    }
   },
   props: {
     color: {
       type: Boolean,
       required: true,
     },
+    currProduct: {
+      type: String,
+      default: ''
+    },
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+  beforeMount() {
+    this.$forceUpdate();
+    // this.productName = this.currProduct.name;
+    // this.product = this.currProduct;
+    // this.product = this.getCurrentProduct;
   },
   methods: {
+    update(){
+       this.$forceUpdate();
+    },
     setCrossOptions(option) {
       //   console.log("option",option);
       let obj = {
@@ -268,7 +290,8 @@ export default {
     showOption(value, option) {
       let data1 = this.$refs.colorImage;
       // console.log("1122 value", value);
-      this.inputValues["customOption_" + option.option_id] = value.option_type_id;
+      this.inputValues["customOption_" + option.option_id] =
+        value.option_type_id;
       this.colorName = value.title;
       data1 = this.$refs.colorImage;
       this.imageSrc = value.option_type_id;

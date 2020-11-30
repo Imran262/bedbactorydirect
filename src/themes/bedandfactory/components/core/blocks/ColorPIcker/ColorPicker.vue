@@ -1,6 +1,8 @@
 <template>
   <div class="color-picker">
     <!-- {{      (colors.custom_options && colors.custom_options.length > 0 ) }} -->
+    <!-- In color picker product is {{ $store.state.product.current.name }}
+    {{ "................." }}Product: {{ "....." }}{{ colors.name }} <br /> -->
     <product-custom-options
       v-if="colors.custom_options && colors.custom_options.length > 0"
       :product="colors"
@@ -55,10 +57,10 @@ $color-matterhorn: color(matterhorn);
 $color-mine-shaft: color(mine-shaft);
 .color-picker {
   border-top: none !important;
-  -webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,0.55);
-  -moz-box-shadow: 0 0 15px 0 rgba(0,0,0,0.55);
-  box-shadow: 0 0 15px 0 rgba(0,0,0,0.55);
-  position: fixed!important;
+  -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.55);
+  -moz-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.55);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.55);
+  position: fixed !important;
   top: 0;
   right: 0;
   height: 100%;
@@ -156,7 +158,7 @@ $color-mine-shaft: color(mine-shaft);
   }
 }
 @media (min-width: 768px) and (max-width: 1024px) {
-  .color-picker{
+  .color-picker {
     width: 50%;
   }
 }
