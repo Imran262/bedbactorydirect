@@ -1,6 +1,6 @@
 <template>
   <div id="product" itemscope itemtype="http://schema.org/Product">
- <!-- YEs {{this.getColorName()}} {{this.colorName}} -->
+  <!-- reviews are {{reviewData}} -->
     <section class="product-top-section">
       <template v-if="reviewData">
         <div v-for="(review, count) in reviewData.reviews" :key="count">
@@ -123,8 +123,9 @@
               />
             </h1>
             <div class="rating-top" @click="ProReviewShowFn">
-              <a href="#uniqueReviews">
+               <a href="#uniqueReviews">
                 <ReviewStars
+                :key="reRender"
                   :reviews="getReviews()"
                   :product="getCurrentProduct"
                 />
@@ -632,7 +633,7 @@
             @click="ProReviewShowFn"
           >
             {{ $t("Reviews") }}
-            <ReviewStars :reviews="getReviews()" :product="getCurrentProduct" />
+            <ReviewStars :key="reRender" :reviews="getReviews()" :product="getCurrentProduct" />
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
@@ -647,6 +648,7 @@
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
                 <ReviewWidget
+                :key="reRender"
                   :reviewsList="getReviews()"
                   :product="getCurrentProduct"
                 />
@@ -813,7 +815,7 @@ export default {
       calculatedProductPrice: {},
       productCurrentCustomOptions : {},
       deltaproduct: this.$store.state.product.current_custom_options,
-       reRender :0
+      reRender :0
     };
   },
   computed: {
@@ -978,25 +980,7 @@ export default {
       "recently-viewed/addItem",
       this.getCurrentProduct
     )
-    try {
-      const URL =
-        config.reviews.getReviews_endpoint + this.getCurrentProduct.id
-      axios
-        .get(URL)
-        .then((res) => {
-          const response = res
-          if (response.status !== 200 && !review.data.length) {
-            throw ("Error:", response.data[0].message)
-          } else {
-            this.reviewData = response.data[1]
-          }
-        })
-        .catch((err) => {
-          throw ("Error:", err)
-        })
-    } catch (err) {
-      console.error("error message", err)
-    }
+    this.setReviews()
     console.log(
         "112266 Route changes",
         this.$route,
@@ -1040,6 +1024,7 @@ export default {
     },
     "$route.name": function () {
       this.reRender++;
+      this.setReviews();
       console.log("114455",this.getColorName(), this.colorName);
     //  this.colorName = "Please Select"
     this.getCurrentProduct.custom_options.forEach((option) => {
@@ -1072,6 +1057,27 @@ export default {
     }
   },
   methods: {
+    setReviews(){
+      try {
+      const URL =
+        config.reviews.getReviews_endpoint + this.getCurrentProduct.id
+      axios
+        .get(URL)
+        .then((res) => {
+          const response = res
+          if (response.status !== 200 && !review.data.length) {
+            throw ("Error:", response.data[0].message)
+          } else {
+            this.reviewData = response.data[1]
+          }
+        })
+        .catch((err) => {
+          throw ("Error:", err)
+        })
+    } catch (err) {
+      console.error("error message", err)
+    }
+    },
     checkRoute() {
       console.log(
         "11226677 Route changes",
