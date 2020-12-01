@@ -16,7 +16,7 @@ const Success = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/Success.vue');
 const CheckoutSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/CheckoutSuccess.vue');
-  const Fail = () =>
+const Fail = () =>
   import(
     /* webpackChunkName: "vsf-static" */ 'theme/pages/Fail.vue'
   );
