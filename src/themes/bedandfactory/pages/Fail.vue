@@ -25,9 +25,10 @@
         </div>
       </div>
       <div v-if="OnlineOnly" class="col-md-7 col-sm-12 seccess-body">
+        For More Information, 
         <router-link :to="localizedRoute('/contact')">
           <a >
-            For More Information, Please contact us
+            Please contact us
           </a>
         </router-link>
         <!-- <span <span v-if="purchaserName" class="purchaser-text">
@@ -51,7 +52,7 @@ import VueOfflineMixin from 'vue-offline/mixin';
 import Composite from '@vue-storefront/core/mixins/composite';
 
 export default {
-  name: 'SuccessPage',
+  name: 'Fail',
   mixins: [Composite, VueOfflineMixin],
   data() {
     return {
@@ -93,7 +94,7 @@ export default {
   position: relative;
   margin-top: 25px;
   padding: 25px 25px;
-  background: #ff096f;
+  background:#ca3625;
 }
 .success-header .non-selected-tick {
   left: 20px;
