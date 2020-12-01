@@ -16,6 +16,10 @@ const Success = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/Success.vue');
 const CheckoutSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'theme/pages/CheckoutSuccess.vue');
+  const Fail = () =>
+  import(
+    /* webpackChunkName: "vsf-static" */ 'theme/pages/Fail.vue'
+  );
 
 let routes = [
   { name: 'home', path: '/', component: Home, alias: '/pwa.html' },
@@ -61,6 +65,11 @@ let routes = [
     path: '/swatches',
     component: SwatchesPage,
     props: { page: 'swatches', title: 'Swatches' }
+  },
+  {
+    name: 'fail',
+    path: '/fail',
+    component: Fail
   }
 ]
 
