@@ -25,9 +25,9 @@
         </div>
       </div>
       <div v-if="OnlineOnly" class="col-md-7 col-sm-12 seccess-body">
-        <router-link :to="localizedRoute('/contact-us')">
-          <a>
-            Please contact us
+        <router-link :to="localizedRoute('/contact')">
+          <a >
+            For More Information, Please contact us
           </a>
         </router-link>
         <!-- <span <span v-if="purchaserName" class="purchaser-text">
