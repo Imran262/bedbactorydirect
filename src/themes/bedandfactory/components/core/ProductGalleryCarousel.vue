@@ -200,7 +200,7 @@ export default {
 .media-zoom-carousel {
   .VueCarousel-pagination {
     position: absolute;
-    bottom: -35px;
+    bottom: 0px;
     @media (max-width: 767px) {
       display: none;
     }
@@ -497,7 +497,7 @@ button#slideRight .pointer {
     position: absolute;
     left: 0;
     width: 100%;
-    bottom: -65px;
+    bottom: 0px;
     transform: translateY(-50%);
   }
   .bt-product-gallery
