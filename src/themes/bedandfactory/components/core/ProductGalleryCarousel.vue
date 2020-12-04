@@ -497,7 +497,7 @@ button#slideRight .pointer {
     position: absolute;
     left: 0;
     width: 100%;
-    bottom: -65px;
+    bottom: 0px;
     transform: translateY(-50%);
   }
   .bt-product-gallery
