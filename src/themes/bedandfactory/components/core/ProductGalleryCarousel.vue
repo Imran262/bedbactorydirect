@@ -200,7 +200,7 @@ export default {
 .media-zoom-carousel {
   .VueCarousel-pagination {
     position: absolute;
-    bottom: -35px;
+    bottom: 0px;
     @media (max-width: 767px) {
       display: none;
     }
