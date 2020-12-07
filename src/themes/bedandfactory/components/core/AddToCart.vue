@@ -16,7 +16,7 @@
       "
       :disabled="!isProductDisabled"
       data-testid="addToCart"
-      >{{ $t("Add to cart") }}</button-full
+      >{{ $t("Add to Basket") }}</button-full
     >
     <popup-cart
       :productOptions="productOptions"
