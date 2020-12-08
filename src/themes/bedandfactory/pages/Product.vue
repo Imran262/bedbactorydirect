@@ -1059,8 +1059,16 @@ export default {
   methods: {
     setReviews(){
       try {
+           let product_Id="";
+
+        if (this.getCurrentProduct.type_id= "configurable"){
+          product_Id =this.getCurrentProduct.parentId;
+        }
+        else{
+          product_Id =this.getCurrentProduct.id;
+        }
       const URL =
-        config.reviews.getReviews_endpoint + this.getCurrentProduct.id
+        config.reviews.getReviews_endpoint + product_Id
       axios
         .get(URL)
         .then((res) => {
