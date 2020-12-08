@@ -153,18 +153,20 @@
           </div>
           <form id="orderForm" @submit.prevent="submitForm" method="post">
             <div class="hidden" id="hidden_div"></div>
+
             <div class="row">
               <div class="field required">
-                <label for="order_firstname">
+                <label for="first-name">
                   First Name
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="order_firstname"
-                    autocomplete="order_firstname"
-                    v-model="user.firstName"
+                    :autofocus="true"
+                    name="first-name"
+                    autocomplete="given-name"
+                    v-model.trim="user.firstName"
                     @blur="$v.user.firstName.$touch()"
                     :validations="[
                       {
@@ -182,15 +184,15 @@
                 </div>
               </div>
               <div class="field required">
-                <label for="order_lastname">
+                <label for="last-name">
                   Last Name
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="order_lastname"
-                    autocomplete="order_lastname"
+                    name="last-name"
+                    autocomplete="family-name"
                     v-model="user.lastName"
                     @blur="$v.user.lastName.$touch()"
                     :validations="[
@@ -206,15 +208,15 @@
             </div>
             <div class="row">
               <div class="field required">
-                <label for="order_phone">
+                <label for="phone-number">
                   Phone
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
                   <base-input
                     type="number"
-                    name="order_phone"
-                    autocomplete="order_phone"
+                    name="phone-number"
+                    autocomplete="tel"
                     v-model="user.phone"
                     @blur="$v.user.phone.$touch()"
                     :validations="[
@@ -227,17 +229,16 @@
                   />
                 </div>
               </div>
-
               <div class="field required">
-                <label for="order_email">
+                <label for="email-address">
                   Email
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
                   <base-input
                     type="email"
-                    name="order_email"
-                    autocomplete="order_email"
+                    name="email-address"
+                    autocomplete="email"
                     v-model="user.email"
                     @blur="$v.user.email.$touch()"
                     :validations="[
@@ -264,8 +265,8 @@
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="address_line1"
-                    autocomplete="address_line1"
+                    name="'address_line1' +'address_line2'"
+                    autocomplete="'address_line1' +'address_line2'"
                     v-model="user.addressLine1"
                     @blur="$v.user.addressLine1.$touch()"
                     :validations="[
@@ -285,21 +286,21 @@
                   <base-input
                     type="text"
                     name="address_line2"
-                    autocomplete="address_line2"
+                    
                     v-model="user.addressLine2"
                   />
                 </div>
               </div>
               <div class="field-full required">
-                <label for="order_town">
+                <label for="city">
                   Town
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="order_town"
-                    autocomplete="order_town"
+                    name="city"
+                    autocomplete="address-level2"
                     v-model="user.orderTown"
                     @blur="$v.user.orderTown.$touch()"
                     :validations="[
@@ -322,8 +323,8 @@
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="order_postcode"
-                    autocomplete="order_postcode"
+                    name="postcode"
+                    autocomplete="postal-code"
                     v-model="user.postCode"
                     @blur="$v.user.postCode.$touch()"
                     :validations="[
