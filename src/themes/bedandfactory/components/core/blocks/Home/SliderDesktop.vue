@@ -9,7 +9,7 @@
         ]"
       >
         <slide v-for="slide in desktopSlides" :key="slide.id">
-          <div class="row">
+          <div class="row hover">
             <div
               v-if="slide.title && slide.button"
               class="homepage-slider col-lg-12 col-md-12"
@@ -133,4 +133,7 @@ console.log('draggingIsFalseNow');
 .hidden {
   display: none !important;
 }
+.hover {
+  cursor:pointer
+    }
 </style>
