@@ -160,7 +160,7 @@ export default {
   background-color: #ffd055;
 }
 .new-menu-bar ul .first:nth-child(10n+9) a {
-  color: #54575b;
+  /* color: #54575b; */
   border: none;
 }
 .new-menu-bar ul .first:nth-child(10n+8) a {
