@@ -636,6 +636,7 @@ export default {
   background: rgba(115, 192, 193, 0.95);
   border-radius: 2px;
   padding: 13px;
+  z-index:1;
 }
 .fabric-tile__trigger::before {
   content: " ";
@@ -647,7 +648,6 @@ export default {
   left: 62%;
   top: 7px;
   bottom: 7px;
-  z-index: 9;
 }
 .fabric-tile__trigger::after {
   content: " ";
@@ -659,7 +659,6 @@ export default {
   top: 65.4%;
   left: 6px;
   right: 8px;
-  z-index: 9;
 }
 .fabrics-detail .boxes ul li .heading {
   display: none;
