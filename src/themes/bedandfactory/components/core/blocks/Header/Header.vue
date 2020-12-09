@@ -1,6 +1,20 @@
 <template>
   <div class="header">
     <header class="fixed w-100" :class="{ 'is-visible': navVisible }">
+      <!-- Google Tag Manager -->
+      <script>
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-TCDSZMQ");
+      </script>
+      <!-- End Google Tag Manager -->
       <div class="col-md-12 top-bar-main">
         <Topbar class="pointer" />
       </div>
@@ -93,21 +107,21 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import CurrentPage from "theme/mixins/currentPage";
-import AccountIcon from "theme/components/core/blocks/Header/AccountIcon";
-import CompareIcon from "theme/components/core/blocks/Header/CompareIcon";
-import HamburgerIcon from "theme/components/core/blocks/Header/HamburgerIcon";
-import Logo from "theme/components/core/Logo";
-import MicrocartIcon from "theme/components/core/blocks/Header/MicrocartIcon";
-import SearchIcon from "theme/components/core/blocks/Header/SearchIcon";
-import WishlistIcon from "theme/components/core/blocks/Header/WishlistIcon";
-import SearchPanelDesktop from "theme/components/core/blocks/Header/SearchPanelDesktop";
-import Phonenumber from "theme/components/core/blocks/Header/Phonenumber";
-import HeaderMenu from "theme/components/core/blocks/HeaderMenu/HeaderMegaMenu";
-import Topbar from "theme/components/core/blocks/Header/Topbar";
+import { mapState } from 'vuex';
+import CurrentPage from 'theme/mixins/currentPage';
+import AccountIcon from 'theme/components/core/blocks/Header/AccountIcon';
+import CompareIcon from 'theme/components/core/blocks/Header/CompareIcon';
+import HamburgerIcon from 'theme/components/core/blocks/Header/HamburgerIcon';
+import Logo from 'theme/components/core/Logo';
+import MicrocartIcon from 'theme/components/core/blocks/Header/MicrocartIcon';
+import SearchIcon from 'theme/components/core/blocks/Header/SearchIcon';
+import WishlistIcon from 'theme/components/core/blocks/Header/WishlistIcon';
+import SearchPanelDesktop from 'theme/components/core/blocks/Header/SearchPanelDesktop';
+import Phonenumber from 'theme/components/core/blocks/Header/Phonenumber';
+import HeaderMenu from 'theme/components/core/blocks/HeaderMenu/HeaderMegaMenu';
+import Topbar from 'theme/components/core/blocks/Header/Topbar';
 export default {
-  name: "Header",
+  name: 'Header',
   components: {
     AccountIcon,
     CompareIcon,
@@ -119,7 +133,7 @@ export default {
     WishlistIcon,
     Phonenumber,
     HeaderMenu,
-    Topbar,
+    Topbar
   },
   mixins: [CurrentPage],
   data() {
@@ -128,23 +142,23 @@ export default {
       isScrolling: false,
       scrollTop: 0,
       lastScrollTop: 0,
-      navbarHeight: 54,
+      navbarHeight: 54
     };
   },
   computed: {
     ...mapState({
-      isOpenLogin: (state) => state.ui.signUp,
-      currentUser: (state) => state.user.current,
+      isOpenLogin: state => state.ui.signUp,
+      currentUser: state => state.user.current
     }),
     isThankYouPage() {
       return this.$store.state.checkout.isThankYouPage
         ? this.$store.state.checkout.isThankYouPage
         : false;
-    },
+    }
   },
   beforeMount() {
     window.addEventListener(
-      "scroll",
+      'scroll',
       () => {
         this.isScrolling = true;
       },
@@ -160,7 +174,7 @@ export default {
   },
   methods: {
     gotoAccount() {
-      this.$bus.$emit("modal-toggle", "modal-signup");
+      this.$bus.$emit('modal-toggle', 'modal-signup');
     },
     hasScrolled() {
       this.scrollTop = window.scrollY;
@@ -173,8 +187,8 @@ export default {
         this.navVisible = true;
       }
       this.lastScrollTop = this.scrollTop;
-    },
-  },
+    }
+  }
 };
 </script>
 
