@@ -29,7 +29,7 @@ const isBottomVisible = () => {
   const visible = window.innerHeight;
   const pageHeight = document.documentElement.scrollHeight;
   const bottomOfPage = (scrollY + SAFETY_MARGIN + 300) >= pageHeight - visible;
-  //console.log('SAFETY_MARGIN', SAFETY_MARGIN, '\n\n FOOTER_HEIGHT', '\nele', document.getElementsByClassName('product-listing')[0].firstChild.offsetHeight, FOOTER_HEIGHT, '\n\n scrollY', scrollY, '\n\n visible', visible, '\n\n pageHeight', pageHeight, '\n\n bottomOfPage', bottomOfPage, '\n\nscrollY + SAFETY_MARGIN', scrollY + SAFETY_MARGIN, '        pageHeight - visible', (pageHeight - visible), (bottomOfPage || pageHeight < visible));
+  // console.log('SAFETY_MARGIN', SAFETY_MARGIN, '\n\n FOOTER_HEIGHT', '\nele', document.getElementsByClassName('product-listing')[0].firstChild.offsetHeight, FOOTER_HEIGHT, '\n\n scrollY', scrollY, '\n\n visible', visible, '\n\n pageHeight', pageHeight, '\n\n bottomOfPage', bottomOfPage, '\n\nscrollY + SAFETY_MARGIN', scrollY + SAFETY_MARGIN, '        pageHeight - visible', (pageHeight - visible), (bottomOfPage || pageHeight < visible));
   return bottomOfPage || pageHeight < visible;
 };
 
