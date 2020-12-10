@@ -156,6 +156,16 @@ export default {
 .new-menu-bar ul.menu li.sb-menu:nth-child(11n) a {
   border: none;
 }
+.new-menu-bar ul .first:nth-child(10n+9) {
+  background-color: #ffd055;
+}
+.new-menu-bar ul .first:nth-child(10n+9) a {
+  /* color: #54575b; */
+  border: none;
+}
+.new-menu-bar ul .first:nth-child(10n+8) a {
+  border: none;
+}
 @media (min-width: 768px) and (max-width: 992px) {
   .new-menu-bar {
     display: none !important;

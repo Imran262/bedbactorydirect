@@ -40,7 +40,7 @@ export function registerClientModules() {
   registerModule(CompareModule);
   registerModule(BreadcrumbsModule);
   registerModule(GoogleTagManagerModule);
-  // registerModule(AmpRendererModule)
+  // registerModule(AmpRendererModule) 
   registerModule(CmsModule);
   registerModule(NewsletterModule);
   registerModule(InitialResourcesModule);
@@ -49,8 +49,8 @@ export function registerClientModules() {
   registerModule(CheckoutPaymentModule);
   registerModule(PaymentPaypalModule);
   registerModule(GoogleGtagModule);
-  
- 
+
+
   // registerModule(DeviceModule)
 }
 

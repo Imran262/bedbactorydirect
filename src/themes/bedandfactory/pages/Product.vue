@@ -1377,7 +1377,7 @@ export default {
   metaInfo() {
     const storeView = currentStoreView()
     return {
-      link: [
+      /* link: [
         {
           rel: "amphtml",
           href: this.$router.resolve(
@@ -1396,7 +1396,7 @@ export default {
             )
           ).href,
         },
-      ],
+      ], */
       title: htmlDecode(
         this.getCurrentProduct.meta_title || this.getCurrentProduct.name
       ),
