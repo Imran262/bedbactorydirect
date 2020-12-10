@@ -84,6 +84,8 @@ export default {
         : setTimeout(() => this.setOverlay(state), this.delay);
     },
     close() {
+      document.getElementsByClassName("vue-back-to-top")[0].classList.remove("removeButton");
+      console.log("1122 class removed from modal",document.getElementsByClassName("vue-back-to-top")[0].classList);
       this.toggle(false);
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
