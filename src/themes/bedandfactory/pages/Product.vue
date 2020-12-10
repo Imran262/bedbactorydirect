@@ -216,7 +216,7 @@
                     Object.keys(getCurrentProduct.errors).length > 0
                   "
                 >
-                  {{ getCurrentProduct.errors | formatProductMessages }}
+                  <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
                 </div>
                 <div
                   class="h5"
