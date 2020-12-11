@@ -48,7 +48,7 @@
       </template>
       <UspBar />
       <div class="container">
-        <breadcrumbs :key="reRender" class="pt40 pb20 hidden-xs" />
+        <breadcrumbs class="pt40 pb20 hidden-xs" />
 
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
@@ -1397,6 +1397,30 @@ export default {
           ).href,
         },
       ], */
+      link: [
+        // {
+        //   rel: 'amphtml',
+        //   href: this.$router.resolve(
+        //     localizedRoute(
+        //       {
+        //         name: this.getCurrentProduct.type_id + '-product-amp',
+        //         params: {
+        //           parentSku: this.getCurrentProduct.parentSku
+        //             ? this.getCurrentProduct.parentSku
+        //             : this.getCurrentProduct.sku,
+        //           slug: this.getCurrentProduct.slug,
+        //           childSku: this.getCurrentProduct.sku
+        //         }
+        //       },
+        //       storeView.storeCode
+        //     )
+        //   ).href
+        // },
+        {
+          rel: 'canonical',
+          href: this.getCurrentProduct.canonical_url ? this.getCurrentProduct.canonical_url : config.api.url + this.getCurrentProduct.url_path
+        }
+      ],
       title: htmlDecode(
         this.getCurrentProduct.meta_title || this.getCurrentProduct.name
       ),

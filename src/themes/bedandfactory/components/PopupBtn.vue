@@ -92,8 +92,8 @@ export default {
       let optionType = "Size";
       let selectedOption = "Single";
     //  console.log("112233  selected options are", this.productOptions);
-
-      product.custom_options.forEach((option, index) => {
+if (product.custom_options && product.custom_options.length > 0) {
+  product.custom_options.forEach((option, index) => {
         this.productOptions.forEach((prodOption, prodIndex) => {
           if (option.title == prodOption.title) {
           }
@@ -128,7 +128,8 @@ export default {
           }
         });
       });
-      try {
+     } 
+     try {
         const diffLog = await this.$store.dispatch("cart/addItem", {
           productToAdd: product,
         });
