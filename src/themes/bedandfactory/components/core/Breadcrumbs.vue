@@ -16,24 +16,23 @@
     <!-- {{updatedPath}}  -->
     <!-- Hello{{ updatedPath }}
     {{ setPaths() }} -->
+    <!-- Hello{{ updatedPath }} -->
     <span
-      v-for="(link, index) in updatedPath"
+      v-for="(link, index) in paths"
       :key="link.route_link"
+      v-if="
+          link.name !== 'Default category' && link.name !== 'Default Category'
+        "
       itemprop="itemListElement"
       itemscope
       itemtype="https://schema.org/ListItem"
     >
-      <template
-        v-if="
-          link.name !== 'Default category' && link.name !== 'Default Category'
-        "
-      >
         <router-link :to="link.route_link" itemprop="item">
           {{ link.name | htmlDecode }}
           <meta itemprop="name" :content="link.name" />
           <meta itemprop="position" :content="index + 1" /> </router-link
-        >|
-      </template>
+        >
+        |
     </span>
     <span class="cl-mine-shaft">{{ current | htmlDecode }}</span>
   </div>
@@ -44,16 +43,18 @@ import { Breadcrumbs } from "@vue-storefront/core/modules/breadcrumbs/components
 export default {
   mixins: [Breadcrumbs],
   components: {},
+  props:{
+  },
   data(){
     return{
     updatedPath :[]
-
   }},
   serverPrefetch() {
-    return this.setPaths();
+   // return this.setPaths();
   },
   mounted(){
-    this.setPaths()
+   // console.log("-----> Mount",this.renderPage);
+   // this.setPaths()
   },
   methods:{
     setPaths(){
