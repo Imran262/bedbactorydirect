@@ -308,7 +308,6 @@
           >
             Please Enter All required fields*
           </div>
-          <!-- {{ paymentMethods }} -->
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
@@ -316,10 +315,10 @@
           >
             <label
               class="radioStyled payment-method-icons"
-              v-if="method.code !== 'braintree'"
+              v-if="method.code !== 'braintree_paypal'"
             >
               <template v-if="method.code === 'braintree'">
-                <p class="paymentTitle">Pay By Card</p></template
+                <p class="paymentTitle">Pay By Card (Braintree)</p></template
               >
               <template v-else-if="method.code === 'paypal_express'">
                 <p class="paymentTitle">Paypal</p></template
@@ -640,9 +639,12 @@ export default {
           );
         }
         this.showPaymentCard = true;
+        this.showCheckoutCom = false;
+        this.showPaypal = false;
       } else if (method === "checkoutcom_card_payment") {
         this.showCheckoutCom = true;
         this.showPaypal = false;
+        this.showPaymentCard = false;
       } else if (method === "paypal_express") {
         //   console.log("1122 pay pal ");
         this.showPaymentCard = false;
