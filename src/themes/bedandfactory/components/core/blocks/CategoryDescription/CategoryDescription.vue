@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-12 col-md-12 block-content">
-    <div class="container">
-      <div class="block-content-inner" v-for="singleblock in singleblockdata">
+    <div class="container" v-html="parsedContent">
+      <!-- <div class="block-content-inner" v-for="singleblock in singleblockdata">
         <h2>{{ singleblock.httwo }}</h2>
         <p>
           {{ singleblock.ptext }}
@@ -18,7 +18,7 @@
             :to="localizedRoute(singleblock.atag)"
           >{{ singleblock.atag }}</router-link>
         </p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

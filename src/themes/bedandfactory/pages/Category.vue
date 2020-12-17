@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="category-description category-description-top">
-          <CategoryDescriptionTop :id="getCmsBlockTopId" />
+          <CategoryDescriptionTop v-if="getCmsBlockTopId" :id="getCmsBlockTopId" />
         </div>
       </div>
       <div class="container">
@@ -125,7 +125,7 @@
       </div>
     </div>
     <div class="category-description">
-      <CategoryDescription :id="getCmsBlockId" />
+      <CategoryDescription v-if="getCmsBlockId" :id="getCmsBlockId" />
     </div>
   </div>
 </template>
