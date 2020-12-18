@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-12 col-md-12 block-content">
-    <div class="container" v-html="parsedContent">
+    <div class="container block-bottom" v-html="parsedContent">
       <!-- <div class="block-content-inner" v-for="singleblock in singleblockdata">
         <h2>{{ singleblock.httwo }}</h2>
         <p>
@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
+import cmsBlock from 'vsf-cms-block-mixin/components/cmsBlock';
 export default {
   mixins: [cmsBlock],
   computed: {
@@ -31,18 +31,18 @@ export default {
       var homeSmallBlocks = [];
       if (this.data) {
         var mbclasses = this.parsedContent.querySelectorAll(
-          ".mb_category_description"
+          '.mb_category_description'
         );
         // console.log('Sb -class ', mbclasses);
         var i = 0;
         [].forEach.call(mbclasses, mbclass => {
           var singleBlock = new Array(3);
-          singleBlock["atag"] = mbclass.querySelector("a")
-            ? mbclass.querySelector("a").rawText
-            : "";
-          singleBlock["httwo"] = mbclass.querySelector("h2").rawText;
-          singleBlock["ptext"] = mbclass.querySelector("p").rawText;
-          singleBlock["strongtext"] = mbclass.querySelector("strong").rawText;
+          singleBlock['atag'] = mbclass.querySelector('a')
+            ? mbclass.querySelector('a').rawText
+            : '';
+          singleBlock['httwo'] = mbclass.querySelector('h2').rawText;
+          singleBlock['ptext'] = mbclass.querySelector('p').rawText;
+          singleBlock['strongtext'] = mbclass.querySelector('strong').rawText;
           homeSmallBlocks[i] = singleBlock;
           i++;
         });
@@ -52,3 +52,13 @@ export default {
   }
 };
 </script>
+<style >
+.block-bottom h2 {
+  text-align: center !important ;
+  font-size: 36px;
+  color: #54575b;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+</style>

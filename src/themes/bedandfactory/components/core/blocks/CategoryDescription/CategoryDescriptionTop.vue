@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-12 col-md-12 block-content">
-    <div class="container" v-html="parsedContent">
+    <div class="container block-top" v-html="parsedContent">
       <!-- <div class="block-content-inner" v-for="singleblock in singleblockdata">
         <h2>{{ singleblock.httwo }}</h2>
         <p>
@@ -54,3 +54,8 @@ export default {
   },
 };
 </script>
+<style >
+.block-top{
+  text-align: center !important ;
+}
+</style>
