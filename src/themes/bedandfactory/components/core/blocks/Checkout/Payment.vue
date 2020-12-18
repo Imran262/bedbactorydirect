@@ -315,7 +315,7 @@
           >
             <label
               class="radioStyled payment-method-icons"
-              v-if="method.code !== 'braintree_paypal'"
+              v-if="method.code !== 'braintree_paypal' && method.code !==  'braintree_cc_vault'"
             >
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card (Braintree)</p></template
