@@ -418,7 +418,7 @@ html {
 }
 
 .category-page-banner-text {
-  border: 2px solid #f4f8fb;
+  /* border: 2px solid #f4f8fb; */
   display: flex;
   justify-content: center;
   align-items: center;

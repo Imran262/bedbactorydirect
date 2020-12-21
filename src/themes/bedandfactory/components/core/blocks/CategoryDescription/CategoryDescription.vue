@@ -53,6 +53,11 @@ export default {
 };
 </script>
 <style >
+.block-bottom{
+  border-style: groove !important;
+   color: #54575b;
+   padding: 15px;
+}
 .block-bottom h2 {
   text-align: center !important ;
   font-size: 36px;
