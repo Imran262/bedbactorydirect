@@ -140,7 +140,7 @@
               <!-- {{ $t("SKU: {sku}", { sku: getCurrentProduct.sku }) }}  -->
               {{ getCurrentProduct.sku }}
             </div>
-            <div
+            <!-- <div
               class="mb20 uppercase cl-secondary outofstock"
               v-if="!getCurrentProduct.stock.qty"
             >
@@ -157,7 +157,7 @@
                 If you are happy to wait, continue with the order and our team
                 will contact you when the item is in stock.
               </small>
-            </div>
+            </div> -->
             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
               <meta
                 itemprop="priceCurrency"
