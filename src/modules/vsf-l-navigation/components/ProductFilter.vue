@@ -41,7 +41,7 @@
     </div>
     <div
       v-else
-      class="filter-option filter-main-container"
+      class="filter-option filter-main-container pading-filter"
       :data-attr-contaent="filterIndex"
       :class="[{
                  'filter-options': showFilterExpander(),
@@ -194,7 +194,9 @@ $white-smoke-color: color(white-smoke);
 h4 {
   margin-bottom: 10px;
 }
-
+.pading-filter{
+  padding: 10px;
+}
 .filter-options {
   max-height: 300px;
   transition: max-height 0.3s ease-in;
