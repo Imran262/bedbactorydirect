@@ -1397,6 +1397,30 @@ export default {
           ).href,
         },
       ], */
+      link: [
+        // {
+        //   rel: 'amphtml',
+        //   href: this.$router.resolve(
+        //     localizedRoute(
+        //       {
+        //         name: this.getCurrentProduct.type_id + '-product-amp',
+        //         params: {
+        //           parentSku: this.getCurrentProduct.parentSku
+        //             ? this.getCurrentProduct.parentSku
+        //             : this.getCurrentProduct.sku,
+        //           slug: this.getCurrentProduct.slug,
+        //           childSku: this.getCurrentProduct.sku
+        //         }
+        //       },
+        //       storeView.storeCode
+        //     )
+        //   ).href
+        // },
+        {
+          rel: 'canonical',
+          href: this.getCurrentProduct.canonical_url ? this.getCurrentProduct.canonical_url : config.api.url + this.getCurrentProduct.url_path
+        }
+      ],
       title: htmlDecode(
         this.getCurrentProduct.meta_title || this.getCurrentProduct.name
       ),

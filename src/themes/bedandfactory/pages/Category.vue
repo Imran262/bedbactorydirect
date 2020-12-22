@@ -323,12 +323,27 @@ export default {
       params: { slug }
     }, storeView.storeCode)
     const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href */
+    const categoryLocaliedLink = localizedRoute(
+      {
+        name: 'category-amp',
+        params: { slug }
+      },
+      storeView.storeCode
+    )
+  // const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href
+    const canonicalCategoryLink = this.getCurrentCategory.canonical_url ? this.getCurrentCategory.canonical_url : config.api.url + this.getCurrentCategory.url_path
 
     return {
-      // link: [ { rel: 'amphtml', href: ampCategoryLink } ],
+      link: [{ rel: 'canonical', href: canonicalCategoryLink }],
       title: htmlDecode(meta_title || name),
-      meta,
-    };
+      titleTemplate: '%s',
+      meta
+    }
+    // return {
+    //   // link: [ { rel: 'amphtml', href: ampCategoryLink } ],
+    //   title: htmlDecode(meta_title || name),
+    //   meta,
+    // };
   },
   mounted() {
     this.webUrl = config.api.url;
