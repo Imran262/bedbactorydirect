@@ -76,13 +76,13 @@
                   </p>
                 </template>
               </template>
-              <div class="stock-main">
+              <!-- <div class="stock-main">
                 <img src="/assets/checkout-non-selected-tick.png" />
                 <span v-if="product.stock.is_in_stock == true">In Stock</span>
                 <span v-else-if="product.stock.is_in_stock == false"
                   >Out of Stock</span
                 >
-              </div>
+              </div> -->
             </div>
           </div>
           <div
@@ -91,14 +91,14 @@
           >
             <h4 class="essentials-prod-heading">
               Essential Items
-              <span class="essentials-sub-heading"
+              <!-- <span class="essentials-sub-heading"
                 >You may require these for installation.</span
-              >
+              > -->
             </h4>
             <h4 class="essentials-prod-heading mobile-essentials-prod-heading">
-              <span class="essentials-sub-heading"
+              <!-- <span class="essentials-sub-heading"
                 >You may require these for installation.</span
-              >
+              > -->
               Essential Items
             </h4>
           </div>
