@@ -45,9 +45,9 @@
             <div class="h6 pt5 cl-error" v-if="hasProductErrors">
               {{ product.errors | formatProductMessages }}
             </div>
-            <div class="h6 pt5 cl-success" v-if="hasProductInfo && !hasProductErrors">
+            <!-- <div class="h6 pt5 cl-success" v-if="hasProductInfo && !hasProductErrors">
               {{ product.info | formatProductMessages }}
-            </div>
+            </div> -->
           </div>
           <product-quantity
             class="h5 cl-accent lh25 qty"
