@@ -96,9 +96,9 @@
               > -->
             </h4>
             <h4 class="essentials-prod-heading mobile-essentials-prod-heading">
-              <span class="essentials-sub-heading"
+              <!-- <span class="essentials-sub-heading"
                 >You may require these for installation.</span
-              >
+              > -->
               Essential Items
             </h4>
           </div>
