@@ -621,6 +621,9 @@ export default {
               this.$t("loading braintree...")
             );
             this.showSubmitButton = true;
+    //        console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
+            document.querySelectorAll(".braintree-large-button")[0].classList.add("hide-button");
+            console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
           }
         });
       });
@@ -705,6 +708,12 @@ export default {
   },
 };
 </script>
+<style lang="scss" >
+.hide-button{
+  display: none;
+}
+
+</style>
 <style lang="scss" scoped>
 .allunchecked:after {
   display: none !important;
