@@ -48,7 +48,7 @@
       </template>
       <UspBar />
       <div class="container">
-        <breadcrumbs class="pt40 pb20 hidden-xs" />
+        <breadcrumbs :key="reRender" class="pt40 pb20 hidden-xs" />
 
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
