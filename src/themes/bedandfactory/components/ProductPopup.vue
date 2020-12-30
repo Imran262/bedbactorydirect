@@ -51,11 +51,11 @@
           popItem.special_price_incl_tax}}
        <br /> price{{ price }} -->
       </p>
-      <div class="stock-main">
+      <!-- <div class="stock-main">
         <img src="/assets/checkout-non-selected-tick.png" />
         <span v-if="popItem.stock.is_in_stock == true">In Stock</span>
         <span v-else-if="popItem.stock.is_in_stock == false">Out of Stock</span>
-      </div>
+      </div> -->
       <div class="poup-btn-cart-main">
         <popup-btn
           :productOptions="productOptions"
