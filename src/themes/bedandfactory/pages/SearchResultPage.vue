@@ -89,7 +89,11 @@
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
-                <span
+                <!-- <span
+                  class="filter-label"
+                  @click="toggleCategory(single.category_id)"
+                > -->
+                 <span
                   class="filter-label"
                   @click="toggleCategory(single.category_id)"
                 >
