@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="category-description category-description-top">
-          <CategoryDescriptionTop :id="getCmsBlockTopId" />
+          <CategoryDescriptionTop v-if="getCmsBlockTopId" :id="getCmsBlockTopId" />
         </div>
       </div>
       <div class="container">
@@ -125,7 +125,7 @@
       </div>
     </div>
     <div class="category-description">
-      <CategoryDescription :id="getCmsBlockId" />
+      <CategoryDescription v-if="getCmsBlockId" :id="getCmsBlockId" />
     </div>
   </div>
 </template>
@@ -433,7 +433,7 @@ html {
 }
 
 .category-page-banner-text {
-  border: 2px solid #f4f8fb;
+  /* border: 2px solid #f4f8fb; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -443,12 +443,12 @@ html {
 }
 
 .category-page-banner-text h1 {
-  font-size: 20px;
+  font-size: 40px;
   color: #54575b;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   margin: 0;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 @media (max-width: 64em) {
