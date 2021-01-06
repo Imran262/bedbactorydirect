@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss" scoped>
 .top-bar {
-  background-color: #00bfb3;
+  background-color: #4DBA87;
 }
 .top-bar p {
   display: none;

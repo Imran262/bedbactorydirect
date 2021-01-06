@@ -373,7 +373,7 @@ export default {
   }
   .button-container {
     button {
-      background-color: #00bfb3;
+      background-color: #4DBA87;
       border-radius: 5px;
       padding: 12px 0px;
       :hover {

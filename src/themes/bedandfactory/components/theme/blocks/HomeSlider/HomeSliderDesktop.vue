@@ -71,7 +71,7 @@ export default {
       }
 
       .shop-now {
-        background: #00bfb3;
+        background: #4DBA87;
         padding: 10px 15px 10px 15px;
         float: right;
         color: #fff;

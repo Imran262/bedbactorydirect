@@ -305,7 +305,7 @@ export default {
 
 <style scoped>
 button#pay-button {
-  background-color: #00bfb3;
+  background-color: #4DBA87;
   border-radius: 0;
   padding: 15px 50px;
   font-size: 18px;
@@ -314,7 +314,7 @@ button#pay-button {
   width: auto;
 }
 button#pay-button:disabled {
-  background-color: #00bfb3;
+  background-color: #4DBA87;
   opacity: 0.6;
   border-radius: 0;
 }
