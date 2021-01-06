@@ -524,7 +524,7 @@ span.cross-popup {
   left: auto;
   width: 20px;
   height: 20px;
-  background-color: #0f988b;
+  background-color: #4DBA87;
   color: #fff;
   border-radius: 3px;
   font-size: 0.8rem;

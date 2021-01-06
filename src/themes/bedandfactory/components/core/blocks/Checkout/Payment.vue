@@ -778,7 +778,7 @@ export default {
   }
   .button-container {
     button {
-      background-color: #00bfb3;
+      background-color: #4DBA87;
       border-radius: 5px;
       padding: 12px 0px;
       :hover {
@@ -887,7 +887,7 @@ button.find-address {
     }
   }
   button {
-    background-color: #00bfb3;
+    background-color: #4DBA87;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 12px;

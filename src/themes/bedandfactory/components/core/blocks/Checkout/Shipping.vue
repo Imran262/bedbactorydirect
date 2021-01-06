@@ -1072,7 +1072,7 @@ button.find-address {
     }
   }
   button {
-    background-color: #00bfb3;
+    background-color: #4DBA87;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 12px;
@@ -1152,7 +1152,7 @@ p.phone-text {
   background: url(/assets/checkout-top-detail-img.png) no-repeat !important;
 }
 .top-detail-active span {
-  color: #01998c !important;
+  color: #4DBA87 !important;
 }
 .calendar-right {
   display: flex;

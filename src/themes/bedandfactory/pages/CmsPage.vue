@@ -285,17 +285,17 @@ export default {
   font-style: italic;
 }
 .delivery-page p em a {
-  color: #00bfb3;
+  color: #4DBA87;
   text-decoration: none;
   transition: color 0.2s linear;
 }
 .delivery-page p a {
-  color: #00bfb3;
+  color: #4DBA87;
   text-decoration: none;
   transition: color 0.2s linear;
 }
 .delivery-page .row {
-  border-bottom: 2px solid #00bfb3;
+  border-bottom: 2px solid #4DBA87;
   padding: 20px 0;
 }
 
@@ -525,7 +525,7 @@ export default {
   transition: all 0.15s linear;
   font-size: 1.5rem;
   font-weight: 500;
-  background-color: #00bfb3;
+  background-color: #4DBA87;
   color: #fff;
 }
 .shipping-strategy__row.m-has-form {
@@ -601,7 +601,7 @@ export default {
   width: 100%;
 }
 .js-accordion .accordion__heading {
-  color: #00bfb3;
+  color: #4DBA87;
   font-family: Poppins, Helvetica, Arial, sans-serif;
   font-weight: 500;
   margin: 2rem 0 1rem;
