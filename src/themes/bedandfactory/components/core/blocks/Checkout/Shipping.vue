@@ -1152,7 +1152,7 @@ p.phone-text {
   background: url(/assets/checkout-top-detail-img.png) no-repeat !important;
 }
 .top-detail-active span {
-  color: #01998c !important;
+  color: #4DBA87 !important;
 }
 .calendar-right {
   display: flex;
