@@ -3,6 +3,7 @@
     class="product align-center w-100 pb20"
     v-observe-visibility="visibilityChanged"
   >
+    <!-- {{ product }} -->
     <!-- <div class="product__icons">
       <AddToWishlist :product="product">
         <div
@@ -50,13 +51,12 @@
       </p>
       <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
         <div
-          
           v-for="(comfort, comfortIndex) in filters.comfort_grade"
           :key="comfortIndex"
         >
-        <!-- class="rounded-button" -->
+          <!-- class="rounded-button" -->
           <button
-          id="comfortBtn"
+            id="comfortBtn"
             class="rounded-button"
             :class="setComfortColor()"
             v-if="comfort.id == product.comfort_grade[0]"
@@ -65,7 +65,14 @@
           </button>
         </div>
       </div>
-      <div>Rating</div>
+      <div>
+       
+        <!-- {{ getReviews() }} -->
+        <ReviewStars
+          :reviews="getReviews()"
+          :product="product"
+        />
+      </div>
       <span
         class="price-original mr5 lh30 cl-secondary"
         v-if="
@@ -108,13 +115,22 @@ import AddToCompare from 'theme/components/core/blocks/Compare/AddToCompare';
 import { IsOnWishlist } from '@vue-storefront/core/modules/wishlist/components/IsOnWishlist';
 import { IsOnCompare } from '@vue-storefront/core/modules/compare/components/IsOnCompare';
 import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick';
+import ReviewStars from 'src/modules/reviews-module/components/ReviewStars.vue';
+import ReviewWidget from 'src/modules/reviews-module/components/ReviewWidget';
+import axios from 'axios';
+// import { log } from 'console';
 
 export default {
   mixins: [ProductTile, IsOnWishlist, IsOnCompare, MeasureProductClick],
   components: {
     ProductImage,
     AddToWishlist,
-    AddToCompare
+    AddToCompare,
+    ReviewStars,
+    ReviewWidget
+  },
+  data() {
+    return { reviewData: null };
   },
   props: {
     labelsActive: {
@@ -141,37 +157,77 @@ export default {
       return this.isOnWishlist ? 'favorite' : 'favorite_border';
     }
   },
-  mounted() {
-
+  async mounted() {
+    this.setReviews();
   },
   methods: {
+    setReviews() {
+      try {
+        let product_Id = '';
+
+        // if ((this.product.type_id = 'configurable')) {
+        //   product_Id = this.product.parentId;
+        // }
+        product_Id = this.product.id;
+
+        const URL = config.reviews.getReviews_endpoint + product_Id;
+        console.log('URL is ', this.product);
+        axios
+          .get(URL)
+          .then(res => {
+            const response = res;
+            if (response.status !== 200 && !review.data.length) {
+              throw ('Error:', response.data[0].message);
+            } else {
+              this.reviewData = response.data[1];
+            }
+          })
+          .catch(err => {
+            throw ('Error:', err);
+          });
+      } catch (err) {
+        console.error('error message', err);
+      }
+    },
+    getReviews() {
+      return this.reviewData;
+    },
     setComfortColor() {
       // let classList=document.getElementById('comfortBtn').classList;
-     
+
       // console.log("hello Before ",classList);
       //   classList=document.getElementById('comfortBtn').classList.add("color-red");
       // console.log("hello Afer",classList);
       // document.getElementById('comfortBtn').style.backgroundColor = 'red';
-      
-      if (this.product.comfort_grade[0]===203 || this.product.comfort_grade[0]==='203'){
-        return "color-soft"
-      }
-      else if (this.product.comfort_grade[0]===204 || this.product.comfort_grade[0]==='204'){
-        return "color-medium-soft"
-      }
-      else if (this.product.comfort_grade[0]===205 || this.product.comfort_grade[0]==='205'){
-        return "color-medium"
-      }
-      else if (this.product.comfort_grade[0]===206 || this.product.comfort_grade[0]==='206'){
-        return "color-medium-firm"
-      }
-      else if (this.product.comfort_grade[0]===207 || this.product.comfort_grade[0]==='207'){
-        return "color-orthopaedic"
-      }
-      else{
-        return "color-soft"
-      }
 
+      if (
+        this.product.comfort_grade[0] === 203 ||
+        this.product.comfort_grade[0] === '203'
+      ) {
+        return 'color-soft';
+      } else if (
+        this.product.comfort_grade[0] === 204 ||
+        this.product.comfort_grade[0] === '204'
+      ) {
+        return 'color-medium-soft';
+      } else if (
+        this.product.comfort_grade[0] === 205 ||
+        this.product.comfort_grade[0] === '205'
+      ) {
+        return 'color-medium';
+      } else if (
+        this.product.comfort_grade[0] === 206 ||
+        this.product.comfort_grade[0] === '206'
+      ) {
+        return 'color-medium-firm';
+      } else if (
+        this.product.comfort_grade[0] === 207 ||
+        this.product.comfort_grade[0] === '207'
+      ) {
+        return 'color-orthopaedic';
+      } else {
+        return 'color-soft';
+      }
     },
     onProductPriceUpdate(product) {
       if (product.sku === this.product.sku) {
@@ -217,23 +273,23 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
-.color-soft{
-  background-color: #F6a076 !important; 
+.color-soft {
+  background-color: #f6a076 !important;
 }
-.color-medium-soft{
-  background-color: #FA8A63 !important; 
+.color-medium-soft {
+  background-color: #fa8a63 !important;
 }
-.color-medium{
-  background-color: #CB6885 !important; 
+.color-medium {
+  background-color: #cb6885 !important;
 }
-.color-medium-firm{
-  background-color: #965177 !important; 
+.color-medium-firm {
+  background-color: #965177 !important;
 }
-.color-orthopaedic{
-  background-color: #5B364C !important; 
+.color-orthopaedic {
+  background-color: #5b364c !important;
 }
 .rounded-button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 5px;
