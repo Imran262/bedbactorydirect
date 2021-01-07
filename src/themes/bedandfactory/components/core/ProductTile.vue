@@ -3,7 +3,7 @@
     class="product align-center w-100 pb20"
     v-observe-visibility="visibilityChanged"
   >
-    <!-- {{ product }} -->
+    <!-- {{ filters.brand }} -->
     <!-- <div class="product__icons">
       <AddToWishlist :product="product">
         <div
@@ -44,8 +44,12 @@
           data-testid="productImage"
         />
       </div>
-      <div>Brand logo</div>
-
+      <div>
+        <!-- {{ getBrandImage() }}
+        {{ product.brand }} -->
+        <!-- {{ product.brand }} -->
+        <img :src="getBrandImage()" alt="' '" />
+      </div>
       <p class="sb-prodcut-name mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
@@ -66,12 +70,8 @@
         </div>
       </div>
       <div>
-       
         <!-- {{ getReviews() }} -->
-        <ReviewStars
-          :reviews="getReviews()"
-          :product="product"
-        />
+        <ReviewStars :reviews="getReviews()" :product="product" />
       </div>
       <span
         class="price-original mr5 lh30 cl-secondary"
@@ -161,6 +161,68 @@ export default {
     this.setReviews();
   },
   methods: {
+    getBrandImage() {
+      let imagelocation = '/assets/brandLogo/';
+      console.log('filters.brand', this.filters.brand);
+      //  return imagelocation;
+      this.filters.brand.forEach((brand, brandIndex) => {
+        console.log(
+          'Brand is ',
+          brand.id,
+          this.product.brand,
+          parseInt(brand.id) === this.product.brand
+        );
+        if (parseInt(brand.id) === this.product.brand) {
+          if (brand.id === 34 || brand.id === '34') {
+            imagelocation = imagelocation + 'BedFactoryDirect.png';
+            return;
+          } else if (brand.id === 35 || brand.id === '35') {
+            imagelocation = imagelocation + 'Sealy.png';
+            return;
+          } else if (brand.id === 36 || brand.id === '36') {
+            imagelocation = imagelocation + 'Birlea.png';
+            return;
+          } else if (brand.id === 38 || brand.id === '38') {
+            imagelocation = imagelocation + 'Limelight.png';
+            return;
+          } else if (brand.id === 39 || brand.id === '39') {
+            imagelocation = imagelocation + 'GFW.png';
+            return;
+          } else if (brand.id === 64 || brand.id === '64') {
+            imagelocation = imagelocation + 'Kaydian.png';
+            return;
+          } else if (brand.id === 109 || brand.id === '109') {
+            imagelocation = imagelocation + 'Silentnight.png';
+            return;
+          } else if (brand.id === 128 || brand.id === '128') {
+            imagelocation = imagelocation + 'Millbrook.png';
+            return;
+          } else if (brand.id === 139 || brand.id === '139') {
+            imagelocation = imagelocation + 'Relyon.png';
+            return;
+          } else if (brand.id === 182 || brand.id === '182') {
+            imagelocation = imagelocation + 'Sleepeezee.png';
+            return;
+          } else if (brand.id === 183 || brand.id === '183') {
+            imagelocation = imagelocation + 'Dormeo.png';
+            return;
+          } else if (brand.id === 184 || brand.id === '184') {
+            imagelocation = imagelocation + 'Dunlopillo.png';
+            return;
+          } else if (brand.id === 210 || brand.id === '210') {
+            imagelocation = imagelocation + 'Breasley.png';
+            return;
+          } else if (brand.id === 211 || brand.id === '211') {
+            imagelocation = imagelocation + 'Bentley.png';
+            return;
+          } else if (brand.id === 212 || brand.id === '212') {
+            imagelocation = imagelocation + 'Serene.png';
+            return;
+          }
+        }
+      });
+      return imagelocation;
+    },
     setReviews() {
       try {
         let product_Id = '';
