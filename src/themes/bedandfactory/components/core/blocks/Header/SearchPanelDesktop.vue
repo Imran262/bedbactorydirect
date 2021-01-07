@@ -16,7 +16,6 @@ data-testid="closeSearchPanel"
         <div class="col-md-12 col-xs-12 end-xs">
           <label for="search" class="visually-hidden">{{ $t("Search") }}</label>
           <div class="search-input-group">
-            hello
             <router-link
               :disabled="!search.length > 2"
               :event="search.length > 2 ? 'click' : ''"
