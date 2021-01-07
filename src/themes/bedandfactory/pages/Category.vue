@@ -14,9 +14,7 @@
           <meta itemprop="name" :content="title" />
           <meta itemprop="logo" :content="webUrl + logo" />
         </div>
-        
-
-        <!-- <div class="row middle-sm">
+          <!-- <div class="row middle-sm">
           <h1 class="col-sm-8 category-title mb10">{{ getCurrentCategory.name }}</h1>
           <div class="sorting col-sm-2 align-right mt50">
             <label class="mr10">{{ $t('Columns') }}:</label>
@@ -114,12 +112,14 @@
             <product-listing
               :columns="defaultColumn"
               :products="getCategoryProducts"
-            />
+              :filters="getAvailableFilters"
+            /> 
           </lazy-hydrate>
           <product-listing
             v-else
             :columns="defaultColumn"
             :products="getCategoryProducts"
+            :filters="getAvailableFilters"
           />
         </div>
       </div>

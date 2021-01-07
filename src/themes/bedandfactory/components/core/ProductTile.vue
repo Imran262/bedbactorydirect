@@ -43,11 +43,29 @@
           data-testid="productImage"
         />
       </div>
+      <div>Brand logo</div>
 
       <p class="sb-prodcut-name mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-
+      <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
+        <div
+          
+          v-for="(comfort, comfortIndex) in filters.comfort_grade"
+          :key="comfortIndex"
+        >
+        <!-- class="rounded-button" -->
+          <button
+          id="comfortBtn"
+            class="rounded-button"
+            :class="setComfortColor()"
+            v-if="comfort.id == product.comfort_grade[0]"
+          >
+            {{ comfort.label }}
+          </button>
+        </div>
+      </div>
+      <div>Rating</div>
       <span
         class="price-original mr5 lh30 cl-secondary"
         v-if="
@@ -55,9 +73,8 @@
           parseFloat(product.original_price_incl_tax) > 0 &&
           !onlyImage
         "
-        >{{ product.original_price_incl_tax | price }}</span
-      >
-
+        >WAS{{ product.original_price_incl_tax | price }}<br />
+      </span>
       <span
         class="price-special lh30 cl-accent weight-700"
         v-if="
@@ -65,7 +82,7 @@
           parseFloat(product.special_price) > 0 &&
           !onlyImage
         "
-        >{{ product.price_incl_tax | price }}</span
+        >NOW{{ product.price_incl_tax | price }}</span
       >
 
       <span
@@ -82,45 +99,80 @@
 </template>
 
 <script>
-import rootStore from "@vue-storefront/core/store";
-import { ProductTile } from "@vue-storefront/core/modules/catalog/components/ProductTile.ts";
-import config from "config";
-import ProductImage from "./ProductImage";
-import AddToWishlist from "theme/components/core/blocks/Wishlist/AddToWishlist";
-import AddToCompare from "theme/components/core/blocks/Compare/AddToCompare";
-import { IsOnWishlist } from "@vue-storefront/core/modules/wishlist/components/IsOnWishlist";
-import { IsOnCompare } from "@vue-storefront/core/modules/compare/components/IsOnCompare";
-import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
+import rootStore from '@vue-storefront/core/store';
+import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts';
+import config from 'config';
+import ProductImage from './ProductImage';
+import AddToWishlist from 'theme/components/core/blocks/Wishlist/AddToWishlist';
+import AddToCompare from 'theme/components/core/blocks/Compare/AddToCompare';
+import { IsOnWishlist } from '@vue-storefront/core/modules/wishlist/components/IsOnWishlist';
+import { IsOnCompare } from '@vue-storefront/core/modules/compare/components/IsOnCompare';
+import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick';
 
 export default {
-  mixins: [ProductTile, IsOnWishlist, IsOnCompare,MeasureProductClick],
+  mixins: [ProductTile, IsOnWishlist, IsOnCompare, MeasureProductClick],
   components: {
     ProductImage,
     AddToWishlist,
-    AddToCompare,
+    AddToCompare
   },
   props: {
     labelsActive: {
       type: Boolean,
-      default: true,
+      default: true
     },
     onlyImage: {
       type: Boolean,
-      default: false,
+      default: false
     },
+    filters: {
+      type: Object,
+      required: true
+    }
   },
   computed: {
     thumbnailObj() {
       return {
         src: this.thumbnail,
-        loading: this.thumbnail,
+        loading: this.thumbnail
       };
     },
     favoriteIcon() {
-      return this.isOnWishlist ? "favorite" : "favorite_border";
-    },
+      return this.isOnWishlist ? 'favorite' : 'favorite_border';
+    }
+  },
+  mounted() {
+
   },
   methods: {
+    setComfortColor() {
+      // let classList=document.getElementById('comfortBtn').classList;
+     
+      // console.log("hello Before ",classList);
+      //   classList=document.getElementById('comfortBtn').classList.add("color-red");
+      // console.log("hello Afer",classList);
+      // document.getElementById('comfortBtn').style.backgroundColor = 'red';
+      
+      if (this.product.comfort_grade[0]===203 || this.product.comfort_grade[0]==='203'){
+        return "color-soft"
+      }
+      else if (this.product.comfort_grade[0]===204 || this.product.comfort_grade[0]==='204'){
+        return "color-medium-soft"
+      }
+      else if (this.product.comfort_grade[0]===205 || this.product.comfort_grade[0]==='205'){
+        return "color-medium"
+      }
+      else if (this.product.comfort_grade[0]===206 || this.product.comfort_grade[0]==='206'){
+        return "color-medium-firm"
+      }
+      else if (this.product.comfort_grade[0]===207 || this.product.comfort_grade[0]==='207'){
+        return "color-orthopaedic"
+      }
+      else{
+        return "color-soft"
+      }
+
+    },
     onProductPriceUpdate(product) {
       if (product.sku === this.product.sku) {
         Object.assign(this.product, product);
@@ -131,29 +183,29 @@ export default {
         isVisible &&
         config.products.configurableChildrenStockPrefetchDynamic &&
         config.products.filterUnavailableVariants &&
-        this.product.type_id === "configurable" &&
+        this.product.type_id === 'configurable' &&
         this.product.configurable_children &&
         this.product.configurable_children.length > 0
       ) {
         const skus = [this.product.sku];
         for (const confChild of this.product.configurable_children) {
           const cachedItem = rootStore.state.stock.cache[confChild.id];
-          if (typeof cachedItem === "undefined" || cachedItem === null) {
+          if (typeof cachedItem === 'undefined' || cachedItem === null) {
             skus.push(confChild.sku);
           }
         }
         if (skus.length > 0) {
-          rootStore.dispatch("stock/list", { skus: skus }); // store it in the cache
+          rootStore.dispatch('stock/list', { skus: skus }); // store it in the cache
         }
       }
-    },
+    }
   },
   beforeMount() {
-    this.$bus.$on("product-after-priceupdate", this.onProductPriceUpdate);
+    this.$bus.$on('product-after-priceupdate', this.onProductPriceUpdate);
   },
   beforeDestroy() {
-    this.$bus.$off("product-after-priceupdate", this.onProductPriceUpdate);
-  },
+    this.$bus.$off('product-after-priceupdate', this.onProductPriceUpdate);
+  }
 };
 </script>
 
@@ -165,7 +217,34 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
-
+.color-soft{
+  background-color: #F6a076 !important; 
+}
+.color-medium-soft{
+  background-color: #FA8A63 !important; 
+}
+.color-medium{
+  background-color: #CB6885 !important; 
+}
+.color-medium-firm{
+  background-color: #965177 !important; 
+}
+.color-orthopaedic{
+  background-color: #5B364C !important; 
+}
+.rounded-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 39%;
+}
 .product {
   position: relative;
   margin-bottom: 10px;
