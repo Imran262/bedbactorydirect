@@ -48,59 +48,66 @@
         <!-- {{ getBrandImage() }}
         {{ product.brand }} -->
         <!-- {{ product.brand }} -->
-        <img :src="getBrandImage()" alt="' '" />
+        <img class="brand-size" :src="getBrandImage()" alt="' '" />
       </div>
-      <p class="sb-prodcut-name mb0 cl-accent mt10" v-if="!onlyImage">
+      <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-      <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
-        <div
-          v-for="(comfort, comfortIndex) in filters.comfort_grade"
-          :key="comfortIndex"
-        >
-          <!-- class="rounded-button" -->
-          <button
-            id="comfortBtn"
-            class="rounded-button"
-            :class="setComfortColor()"
-            v-if="comfort.id == product.comfort_grade[0]"
+      <div class="comfort-size">
+        <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
+          <div
+            v-for="(comfort, comfortIndex) in filters.comfort_grade"
+            :key="comfortIndex"
           >
-            {{ comfort.label }}
-          </button>
+            <!-- class="rounded-button" -->
+            <button
+              id="comfortBtn"
+              class="rounded-button comfort-size"
+              :class="setComfortColor()"
+              v-if="comfort.id == product.comfort_grade[0]"
+            >
+              {{ comfort.label }}
+            </button>
+          </div>
         </div>
       </div>
-      <div>
+      <div class="catstar review-size">
         <!-- {{ getReviews() }} -->
-        <ReviewStars :reviews="getReviews()" :product="product" />
+        <ReviewStars
+          :catPage="true"
+          :reviews="getReviews()"
+          :product="product"
+        />
       </div>
-      <span
-        class="price-original mr5 lh30 cl-secondary"
-        v-if="
-          product.special_price &&
-          parseFloat(product.original_price_incl_tax) > 0 &&
-          !onlyImage
-        "
-        >WAS{{ product.original_price_incl_tax | price }}<br />
-      </span>
-      <span
-        class="price-special lh30 cl-accent weight-700"
-        v-if="
-          product.special_price &&
-          parseFloat(product.special_price) > 0 &&
-          !onlyImage
-        "
-        >NOW{{ product.price_incl_tax | price }}</span
-      >
-
-      <span
-        class="sb-category-price"
-        v-if="
-          !product.special_price &&
-          parseFloat(product.price_incl_tax) > 0 &&
-          !onlyImage
-        "
-        >{{ product.price_incl_tax | price }}</span
-      >
+      <div class="">
+        <span
+          class="price-original mr5 lh30 cl-secondary old-price"
+          v-if="
+            product.special_price &&
+            parseFloat(product.original_price_incl_tax) > 0 &&
+            !onlyImage
+          "
+          >WAS{{ product.original_price_incl_tax | price }}<br />
+        </span>
+        <span
+          class="price-special lh30 cl-accent weight-700"
+          v-if="
+            product.special_price &&
+            parseFloat(product.special_price) > 0 &&
+            !onlyImage
+          "
+          >NOW{{ product.price_incl_tax | price }}</span
+        >
+        <span
+          class="sb-category-price original-price"
+          v-if="
+            !product.special_price &&
+            parseFloat(product.price_incl_tax) > 0 &&
+            !onlyImage
+          "
+          >{{ product.price_incl_tax | price }}</span
+        >
+      </div>
     </router-link>
   </div>
 </template>
@@ -335,6 +342,29 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
+.original-price {
+  margin: 16px;
+}
+.old-price {
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+.brand-size {
+  height: 30px;
+}
+.name-size {
+  height: 40px;
+}
+.comfort-size {
+  height: 30px;
+}
+.review-size {
+  height: 40px;
+}
+.price-size {
+  height: 40px;
+}
 .color-soft {
   background-color: #f6a076 !important;
 }
@@ -350,22 +380,36 @@ $color-white: color(white);
 .color-orthopaedic {
   background-color: #5b364c !important;
 }
-.rounded-button {
-  background-color: #4caf50;
+/* .rounded-button {
   border: none;
   color: white;
-  padding: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 0px 0px;
   cursor: pointer;
-  border-radius: 39%;
+  border-radius: 25px;
+  padding: 6px 31px 6px 30px;
+} */
+.rounded-button {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 25px;
+  padding: 6px 23px 6px 23px;
+  font-weight: bold;
 }
 .product {
   position: relative;
   margin-bottom: 10px;
+  /* border-style: groove; */
+  border: 1px solid #dfe1e5;
   @media (max-width: 767px) {
     padding-bottom: 10px;
   }
@@ -396,10 +440,22 @@ $color-white: color(white);
     }
   }
   .sb-prodcut-name {
-    font-size: 0.875rem;
+    /* font-size: 0.875rem;
     color: #54575b;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: capitalize; */
+        /* font-size: 1rem;
+    color: #54575b;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: capitalize; */
+    font-size: 1.2rem;
+    color: #54575b;
+    font-family: "Poppins", sans-serif;
+    /* font-weight: bold; */
     margin-bottom: 20px;
     text-transform: capitalize;
   }
@@ -515,17 +571,17 @@ img.product-cover-thumb {
   margin-bottom: 0;
 }
 .product .sb-prodcut-name {
-  height: auto;
+  /* height: auto; */
   line-height: 1.4em;
   display: -ms-flexbox;
   display: flex;
   -webkit-line-clamp: 2;
   display: -webkit-box;
   overflow: hidden;
-  margin-bottom: 0px;
+  /* margin-bottom: 0px; */
   display: block;
   text-align: center;
-}
+  }
 
 .searchpanel .product__icons {
   display: none;
@@ -548,5 +604,16 @@ img.product-cover-thumb {
   .product .sb-prodcut-name {
     height: auto;
   }
+}
+</style>
+<style>
+.catstar .vue-star-rating-star {
+  width: 22px;
+  height: 22px;
+  /* display:inline-flex !important; */
+}
+
+.catstar .vue-star-rating {
+  display: inline-flex !important;
 }
 </style>

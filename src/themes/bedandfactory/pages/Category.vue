@@ -216,7 +216,7 @@ export default {
   data() {
     return {
       mobileFilters: false,
-      defaultColumn: 4,
+      defaultColumn: 3,
       loadingProducts: false,
       loading: true,
       webUrl: "bedfactorydirect.co.uk",

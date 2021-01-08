@@ -1,39 +1,48 @@
 <template>
   <no-ssr>
     <div>
-      <star-rating :rating="average" read-only :show-rating="true" />
-      <span>({{ totalReviews }} Reviews)</span>
+      <div v-if="catPage">
+         <star-rating :rating="average" read-only :show-rating="true" />
+        <span class="TotalReviewStar">({{ totalReviews }})</span>
+      </div>
+      <div v-else>
+        <star-rating :rating="average" read-only :show-rating="true" />
+        <span>({{ totalReviews }} Reviews)</span>
+      </div>
     </div>
   </no-ssr>
 </template>
 
 <script>
-import NoSSR from "vue-no-ssr";
-import { log } from "util";
+import NoSSR from 'vue-no-ssr';
+import { log } from 'util';
 
 export default {
   data() {
     return {
       average: 0,
-      totalReviews: 0,
+      totalReviews: 0
     };
   },
   components: {
-    StarRating: () => import("vue-star-rating"),
-    "no-ssr": NoSSR,
+    StarRating: () => import('vue-stars'),
+    'no-ssr': NoSSR
   },
   props: {
     product: {
       type: Object,
-      required: true,
+      required: true
     },
     shouldshowtotal: {
-      type: Boolean,
+      type: Boolean
     },
     reviews: {
       type: Object,
-      required: false,
+      required: false
     },
+    catPage: {
+      type: Boolean
+    }
   },
   mounted() {
     // if (this.productSku) {
@@ -65,14 +74,14 @@ export default {
           ? parseInt(this.reviews.bottomline.total_review)
           : 0;
         console.log(
-          "This is the complete data object==========>",
+          'This is the complete data object==========>',
           this.average,
           this.totalReviews
         );
       } else {
-        console.log("no reviews");
+        console.log('no reviews');
       }
-    },
+    }
   },
   computed: {
     // productSku() {
@@ -80,8 +89,8 @@ export default {
     // },
     reviewsStats() {
       return this.reviews;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -113,5 +122,9 @@ export default {
 .details-need span {
   font-style: italic;
   font-weight: 500;
+}
+.TotalReviewStar{
+  font-size: 13px;
+  margin-top: -10px;
 }
 </style>
