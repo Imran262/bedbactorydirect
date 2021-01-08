@@ -615,5 +615,6 @@ img.product-cover-thumb {
 
 .catstar .vue-star-rating {
   display: inline-flex !important;
+  float: inline !important;
 }
 </style>
