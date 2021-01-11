@@ -25,7 +25,7 @@ export default {
     };
   },
   components: {
-    StarRating: () => import('vue-stars'),
+    StarRating: () => import('vue-star-rating'),
     'no-ssr': NoSSR
   },
   props: {
