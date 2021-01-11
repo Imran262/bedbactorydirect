@@ -404,6 +404,7 @@ $color-white: color(white);
   border-radius: 25px;
   padding: 6px 23px 6px 23px;
   font-weight: bold;
+  width: 169px;
 }
 .product {
   position: relative;
@@ -446,7 +447,7 @@ $color-white: color(white);
     font-weight: bold;
     margin-bottom: 20px;
     text-transform: capitalize; */
-        /* font-size: 1rem;
+    /* font-size: 1rem;
     color: #54575b;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
@@ -581,7 +582,7 @@ img.product-cover-thumb {
   /* margin-bottom: 0px; */
   display: block;
   text-align: center;
-  }
+}
 
 .searchpanel .product__icons {
   display: none;
