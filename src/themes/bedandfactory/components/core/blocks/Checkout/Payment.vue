@@ -610,11 +610,20 @@ export default {
   },
   methods: {
     setOption() {
+      console.log("987766 Emit recieved");
+      this.$bus.$emit(
+              "notification-progress-stop",
+              this.$t("loading braintree...")
+            );
       let braintreeOptions = document.querySelectorAll(".braintree-option");
-      braintreeOptions.forEach((option) => {
-        option.classList.forEach((classs) => {
+      console.log("Braintree options",braintreeOptions,typeof braintreeOptions);
+      braintreeOptions.forEach((option,index) => {
+        console.log("option no ",index," is ", option, typeof option,"\n", option.classList);
+        option.classList.forEach((classs,classIndex) => {
+          console.log("class at index ",classIndex," is ",classs,"\n","classs.search('card') != -1",classs.search("card") != -1);
           if (classs.search("card") != -1) {
             // console.log("option is ",option);
+            console.log("classs.search('card') != -1 condition matched");
             option.click();
             this.$bus.$emit(
               "notification-progress-stop",
@@ -778,7 +787,7 @@ export default {
   }
   .button-container {
     button {
-      background-color: #4DBA87;
+      background-color: #00bfb3;
       border-radius: 5px;
       padding: 12px 0px;
       :hover {
@@ -887,7 +896,7 @@ button.find-address {
     }
   }
   button {
-    background-color: #4DBA87;
+    background-color: #00bfb3;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 12px;
