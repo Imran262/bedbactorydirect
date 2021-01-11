@@ -354,7 +354,7 @@ $color-white: color(white);
   height: 30px;
 }
 .name-size {
-  height: 40px;
+  height: 55px;
 }
 .comfort-size {
   height: 30px;
@@ -457,7 +457,7 @@ $color-white: color(white);
     color: #54575b;
     font-family: "Poppins", sans-serif;
     /* font-weight: bold; */
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     text-transform: capitalize;
   }
   span.sb-category-price {

@@ -52,7 +52,7 @@
     >
       <selector
         context="category"
-
+        :comfort="true"
         :code="filterIndex"
         v-for="(option, index) in filter"
         :key="index"
@@ -84,6 +84,7 @@
     >
       <selector
         context="category"
+        :comfort="false"
         :code="filterIndex"
         v-for="(option, index) in filter"
         :key="index"

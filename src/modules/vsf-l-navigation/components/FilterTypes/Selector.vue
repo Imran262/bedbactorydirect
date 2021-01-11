@@ -5,9 +5,11 @@
       @click="$emit('change', variant)"
       :aria-label="$t('Select ' + variant.label)"
     >
-      <button class="rounded-button" :class="getBackGroundColor(variant)">
+      <button v-if="comfort" class="rounded-button" :class="getBackGroundColor(variant)">
         <span>{{ variant.label }}</span>
       </button>
+      <span v-else>{{ variant.label }}</span>
+      
     </span>
   </div>
 </template>
@@ -42,6 +44,11 @@ export default {
       } else {
         return 'color-soft';
       }
+    }
+  },
+  props:{
+    comfort:{
+      type:Boolean
     }
   }
 };
@@ -81,8 +88,8 @@ $border-secondary: color(secondary, $colors-border);
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  /* font-size: 16px; */
-  margin: 0px 0px;
+  font-size: 16px;
+  margin: 3px 0px;
   cursor: pointer;
   border-radius: 25px;
   padding: 6px 23px 6px 23px;
@@ -129,7 +136,7 @@ $border-secondary: color(secondary, $colors-border);
       width: 14px;
       height: 14px;
       background: $color-white;
-      border: 1px solid $border-secondary;
+      border: 1px solid black;
     }
     &:hover {
       &:before {
