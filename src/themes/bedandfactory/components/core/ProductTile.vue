@@ -354,7 +354,7 @@ $color-white: color(white);
   height: 30px;
 }
 .name-size {
-  height: 55px;
+  /* height: 55px; */
 }
 .comfort-size {
   height: 30px;
@@ -459,6 +459,12 @@ $color-white: color(white);
     /* font-weight: bold; */
     /* margin-bottom: 20px; */
     text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* autoprefixer: ignore next  */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
   span.sb-category-price {
     font-size: 1.131875rem;
