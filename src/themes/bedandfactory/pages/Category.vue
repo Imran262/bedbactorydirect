@@ -121,6 +121,23 @@
             :products="getCategoryProducts"
             :filters="getAvailableFilters"
           />
+          <!-- v-if"getCategoryProducts.length < getCategoryProductsTotal"
+          {{getCategoryProducts.length}}
+          {{getCategoryProductsTotal}}
+          {{getCategoryProducts.length < getCategoryProductsTotal}}
+          {{getCategoryProducts.length === getCategoryProductsTotal}}
+          {{!(getCategoryProducts.length === getCategoryProductsTotal)}} -->
+         <!-- <product-listing
+         :columns="defaultColumn"
+         :products="getCategoryProducts"
+         :filters="getAvailableFilters"
+         :seeMore="!(getCategoryProducts.length === getCategoryProductsTotal)"
+         @loadMore="onLoadMore()"
+          /> -->
+          <div v-if="!(getCategoryProducts.length === getCategoryProductsTotal)
+          ">
+          <button @click="onLoadMore()">Load More</button>
+    </div>
         </div>
       </div>
     </div>
@@ -212,7 +229,7 @@ export default {
     CategoryDescription,
     CategoryDescriptionTop,
   },
-  mixins: [onBottomScroll, GTAGCategory],
+  mixins: [ GTAGCategory],
   data() {
     return {
       mobileFilters: false,
@@ -293,7 +310,19 @@ export default {
       if (this.loadingProducts) return;
       this.loadingProducts = true;
       try {
-        await this.$store.dispatch("category-next/loadMoreCategoryProducts");
+        await this.$store.dispatch("category-next/loadMoreCategoryProducts"); 
+      } catch (e) {
+        Logger.error("Problem with fetching more products", "category", e)();
+      } finally {
+        this.loadingProducts = false;
+      }
+    },
+    async onLoadMore() {
+      console.log("Event Triggered");
+      if (this.loadingProducts) return;
+      this.loadingProducts = true;
+      try {
+        await this.$store.dispatch("category-next/loadMoreCategoryProducts"); 
       } catch (e) {
         Logger.error("Problem with fetching more products", "category", e)();
       } finally {
