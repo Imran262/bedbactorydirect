@@ -134,9 +134,9 @@
          :seeMore="!(getCategoryProducts.length === getCategoryProductsTotal)"
          @loadMore="onLoadMore()"
           /> -->
-          <div v-if="!(getCategoryProducts.length === getCategoryProductsTotal)
+          <div class="align-center" v-if="!(getCategoryProducts.length === getCategoryProductsTotal)
           ">
-          <button @click="onLoadMore()">Load More</button>
+          <button class="load-btn" @click="onLoadMore()">Load More</button>
     </div>
         </div>
       </div>
@@ -369,7 +369,24 @@ export default {
 html {
   -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
-
+.load-btn{
+  background-color: #4dba87;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 0px;
+  cursor: pointer;
+  padding: 16px 23px 16px 23px;
+  font-weight: bold;
+  width: 180px;
+}
+.align-center{
+  height: 50px;
+    text-align: center;
+}
 .category-listing {
   padding: 50px 0px 0px 0px;
 }
