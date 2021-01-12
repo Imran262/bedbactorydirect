@@ -86,7 +86,8 @@
           :product="product"
         />
       </div>
-      <div class="">
+      
+      <div class="price-top">
         <span
           class="price-original mr5 lh30 cl-secondary old-price"
           v-if="
@@ -352,6 +353,10 @@ this.setReviews();
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
+.price-top{
+  border-top: 1px solid #dfe1e5;
+    padding-top: 17px;
+}
 .original-price {
   margin: 16px;
 }
@@ -364,7 +369,7 @@ $color-white: color(white);
   height: 30px;
 }
 .name-size {
-  /* height: 55px; */
+  height: 55px;
 }
 .comfort-size {
   height: 30px;
