@@ -136,7 +136,7 @@ $border-secondary: color(secondary, $colors-border);
       width: 14px;
       height: 14px;
       background: $color-white;
-      border: 1px solid black;
+      border: 1px solid #e0e0e0;
     }
     &:hover {
       &:before {

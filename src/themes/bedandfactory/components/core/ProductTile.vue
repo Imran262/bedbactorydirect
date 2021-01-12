@@ -71,8 +71,15 @@
           </div>
         </div>
       </div>
-      <div class="catstar review-size">
+      <div class="catstar review-size" v-if="reviewData && reviewData.bottomline.total_review <= 0">
         <!-- {{ getReviews() }} -->
+        <!-- {{reviewData.bottomline.total_review > 0}}
+        {{reviewData.bottomline.total_review}} -->
+      </div>
+      <div class="catstar review-size" v-else>
+        <!-- {{ getReviews() }} -->
+        <!-- {{reviewData.bottomline.total_review > 0}}
+        {{reviewData.bottomline.total_review}} -->
         <ReviewStars
           :catPage="true"
           :reviews="getReviews()"
@@ -163,6 +170,9 @@ export default {
     favoriteIcon() {
       return this.isOnWishlist ? 'favorite' : 'favorite_border';
     }
+  },
+  async serverPrefetch() {
+this.setReviews();
   },
   async mounted() {
     this.setReviews();
