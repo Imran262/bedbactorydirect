@@ -4,7 +4,8 @@
       :class="['filter-heading ', (filterIndex !== 'price' && filterIndex !== 'colour' && filterIndex !== 'orientation' && filterIndex !== 'custom_width' && filterIndex !== 'custom_height' && filterIndex !== 'style' && filterIndex !== 'range' && filterIndex !== 'btu_at_delta_t65') ? 'toggle-icon' : '']"
       :data-attr-index="$t(filterIndex)"
       @click="FiltershowList"
-    >{{ $t(changeFilterName) }}</h4>
+    >
+    {{ $t(changeFilterName) }}</h4>
     <div
       class="filter-main-container is-close"
       :data-attr-contaent="filterIndex"
@@ -365,11 +366,11 @@ h4 {
 .product-filter {
   user-select: none;
   h4 {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #54575b;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    text-transform: uppercase;
+    text-transform: capitalize;
     background: url('/assets/category-images/filter-down-arrow.png') no-repeat
       100% 100%;
     height: 25px;

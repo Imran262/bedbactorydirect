@@ -71,15 +71,23 @@
           </div>
         </div>
       </div>
-      <div class="catstar review-size">
+      <div class="catstar review-size" v-if="reviewData && reviewData.bottomline.total_review <= 0">
         <!-- {{ getReviews() }} -->
+        <!-- {{reviewData.bottomline.total_review > 0}}
+        {{reviewData.bottomline.total_review}} -->
+      </div>
+      <div class="catstar review-size" v-else>
+        <!-- {{ getReviews() }} -->
+        <!-- {{reviewData.bottomline.total_review > 0}}
+        {{reviewData.bottomline.total_review}} -->
         <ReviewStars
           :catPage="true"
           :reviews="getReviews()"
           :product="product"
         />
       </div>
-      <div class="">
+      
+      <div class="price-top">
         <span
           class="price-original mr5 lh30 cl-secondary old-price"
           v-if="
@@ -163,6 +171,9 @@ export default {
     favoriteIcon() {
       return this.isOnWishlist ? 'favorite' : 'favorite_border';
     }
+  },
+  async serverPrefetch() {
+this.setReviews();
   },
   async mounted() {
     this.setReviews();
@@ -342,6 +353,10 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
+.price-top{
+  border-top: 1px solid #dfe1e5;
+    padding-top: 17px;
+}
 .original-price {
   margin: 16px;
 }
@@ -354,7 +369,7 @@ $color-white: color(white);
   height: 30px;
 }
 .name-size {
-  /* height: 55px; */
+  height: 55px;
 }
 .comfort-size {
   height: 30px;
