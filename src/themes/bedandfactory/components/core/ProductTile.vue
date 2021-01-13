@@ -71,22 +71,33 @@
           </div>
         </div>
       </div>
-      <div class="catstar review-size" v-if="reviewData && reviewData.bottomline.total_review <= 0">
+      <!--  -->
+
+      <div
+        class="catstar review-size"
+        v-if="reviewData && reviewData.bottomline.total_review <= 0"
+      >
         <!-- {{ getReviews() }} -->
         <!-- {{reviewData.bottomline.total_review > 0}}
         {{reviewData.bottomline.total_review}} -->
       </div>
       <div class="catstar review-size" v-else>
-        <!-- {{ getReviews() }} -->
+        <!-- {{ getReviews().bottomline.average_score }}
+        {{getReviews().bottomline.average_score
+            ? parseFloat(getReviews().bottomline.average_score) : 0}} -->
         <!-- {{reviewData.bottomline.total_review > 0}}
         {{reviewData.bottomline.total_review}} -->
-        <ReviewStars
-          :catPage="true"
-          :reviews="getReviews()"
-          :product="product"
-        />
+        
+
+        <div class="rating"  v-if="reviewData && reviewData.bottomline.total_review > 0">
+          <rating
+            :score="reviewData.bottomline.average_score
+            ? parseFloat(reviewData.bottomline.average_score) : 0"
+          />
+          <span class="TotalReviewStar">({{reviewData.bottomline.total_review}})</span>
+        </div>
       </div>
-      
+
       <div class="price-top">
         <span
           class="price-original mr5 lh30 cl-secondary old-price"
@@ -132,6 +143,7 @@ import { IsOnCompare } from '@vue-storefront/core/modules/compare/components/IsO
 import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick';
 import ReviewStars from 'src/modules/reviews-module/components/ReviewStars.vue';
 import ReviewWidget from 'src/modules/reviews-module/components/ReviewWidget';
+import Rating from 'theme/components/core/blocks/Reviews/Rating';
 import axios from 'axios';
 // import { log } from 'console';
 
@@ -142,7 +154,8 @@ export default {
     AddToWishlist,
     AddToCompare,
     ReviewStars,
-    ReviewWidget
+    ReviewWidget,
+    Rating
   },
   data() {
     return { reviewData: null };
@@ -173,7 +186,7 @@ export default {
     }
   },
   async serverPrefetch() {
-this.setReviews();
+    this.setReviews();
   },
   async mounted() {
     this.setReviews();
@@ -353,9 +366,44 @@ this.setReviews();
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
-.price-top{
+.TotalReviewStar{
+  font-size: 13px;
+  margin-top: 4px;
+}
+.rating ul {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+}
+
+.rating ul li .fa {
+  color: #fdd055;
+  font-size: 17px;
+}
+
+.rating {
+  /* width: 100%; */
+  display: inline-flex;
+  /* text-align: right; */
+  // margin-top: 14px;
+  ul {
+    margin-top: 15px !important;
+    @media (min-width: 768px) and (max-width: 1199px) {
+      margin-top: 0px !important;
+    }
+    @media screen and (max-width: 460px) {
+      margin-top: 7px !important;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    text-align: left;
+    width: 100%;
+  }
+}
+.price-top {
   border-top: 1px solid #dfe1e5;
-    padding-top: 17px;
+  padding-top: 17px;
 }
 .original-price {
   margin: 16px;
@@ -375,6 +423,7 @@ $color-white: color(white);
   height: 30px;
 }
 .review-size {
+  padding-top: 10px;
   height: 40px;
 }
 .price-size {
