@@ -14,9 +14,7 @@
           <meta itemprop="name" :content="title" />
           <meta itemprop="logo" :content="webUrl + logo" />
         </div>
-        
-
-        <!-- <div class="row middle-sm">
+          <!-- <div class="row middle-sm">
           <h1 class="col-sm-8 category-title mb10">{{ getCurrentCategory.name }}</h1>
           <div class="sorting col-sm-2 align-right mt50">
             <label class="mr10">{{ $t('Columns') }}:</label>
@@ -114,13 +112,32 @@
             <product-listing
               :columns="defaultColumn"
               :products="getCategoryProducts"
-            />
+              :filters="getAvailableFilters"
+            /> 
           </lazy-hydrate>
           <product-listing
             v-else
             :columns="defaultColumn"
             :products="getCategoryProducts"
+            :filters="getAvailableFilters"
           />
+          <!-- v-if"getCategoryProducts.length < getCategoryProductsTotal"
+          {{getCategoryProducts.length}}
+          {{getCategoryProductsTotal}}
+          {{getCategoryProducts.length < getCategoryProductsTotal}}
+          {{getCategoryProducts.length === getCategoryProductsTotal}}
+          {{!(getCategoryProducts.length === getCategoryProductsTotal)}} -->
+         <!-- <product-listing
+         :columns="defaultColumn"
+         :products="getCategoryProducts"
+         :filters="getAvailableFilters"
+         :seeMore="!(getCategoryProducts.length === getCategoryProductsTotal)"
+         @loadMore="onLoadMore()"
+          /> -->
+          <div class="align-center" v-if="!(getCategoryProducts.length === getCategoryProductsTotal)
+          ">
+          <button class="load-btn" @click="onLoadMore()">Load More</button>
+    </div>
         </div>
       </div>
     </div>
@@ -212,11 +229,11 @@ export default {
     CategoryDescription,
     CategoryDescriptionTop,
   },
-  mixins: [onBottomScroll, GTAGCategory],
+  mixins: [ GTAGCategory],
   data() {
     return {
       mobileFilters: false,
-      defaultColumn: 4,
+      defaultColumn: 3,
       loadingProducts: false,
       loading: true,
       webUrl: "bedfactorydirect.co.uk",
@@ -293,7 +310,19 @@ export default {
       if (this.loadingProducts) return;
       this.loadingProducts = true;
       try {
-        await this.$store.dispatch("category-next/loadMoreCategoryProducts");
+        await this.$store.dispatch("category-next/loadMoreCategoryProducts"); 
+      } catch (e) {
+        Logger.error("Problem with fetching more products", "category", e)();
+      } finally {
+        this.loadingProducts = false;
+      }
+    },
+    async onLoadMore() {
+      console.log("Event Triggered");
+      if (this.loadingProducts) return;
+      this.loadingProducts = true;
+      try {
+        await this.$store.dispatch("category-next/loadMoreCategoryProducts"); 
       } catch (e) {
         Logger.error("Problem with fetching more products", "category", e)();
       } finally {
@@ -355,7 +384,24 @@ export default {
 html {
   -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
-
+.load-btn{
+  background-color: #4dba87;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 0px;
+  cursor: pointer;
+  padding: 16px 23px 16px 23px;
+  font-weight: bold;
+  width: 180px;
+}
+.align-center{
+  height: 50px;
+    text-align: center;
+}
 .category-listing {
   padding: 50px 0px 0px 0px;
 }
