@@ -85,15 +85,11 @@
             >
               <div
                 context="category"
-                class="filter-label"
+                
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
-                <!-- <span
-                  class="filter-label"
-                  @click="toggleCategory(single.category_id)"
-                > -->
-                 <span
+                <span
                   class="filter-label"
                   @click="toggleCategory(single.category_id)"
                 >
@@ -192,7 +188,6 @@
             >
               <div
                 context="category"
-                class="filter-label"
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
