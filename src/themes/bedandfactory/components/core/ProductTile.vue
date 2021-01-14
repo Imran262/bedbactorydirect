@@ -48,7 +48,7 @@
         <!-- {{ getBrandImage() }}
         {{ product.brand }} -->
         <!-- {{ product.brand }} -->
-        <img class="brand-size" :src="getBrandImage()" alt="' '" />
+        <img class="brand-size" :src="getBrandImage()" alt="" />
       </div>
       <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
@@ -87,14 +87,21 @@
             ? parseFloat(getReviews().bottomline.average_score) : 0}} -->
         <!-- {{reviewData.bottomline.total_review > 0}}
         {{reviewData.bottomline.total_review}} -->
-        
 
-        <div class="rating"  v-if="reviewData && reviewData.bottomline.total_review > 0">
+        <div
+          class="rating"
+          v-if="reviewData && reviewData.bottomline.total_review > 0"
+        >
           <rating
-            :score="reviewData.bottomline.average_score
-            ? parseFloat(reviewData.bottomline.average_score) : 0"
+            :score="
+              reviewData.bottomline.average_score
+                ? parseFloat(reviewData.bottomline.average_score)
+                : 0
+            "
           />
-          <span class="TotalReviewStar">({{reviewData.bottomline.total_review}})</span>
+          <span class="TotalReviewStar"
+            >({{ reviewData.bottomline.total_review }})</span
+          >
         </div>
       </div>
 
@@ -158,7 +165,7 @@ export default {
     Rating
   },
   data() {
-    return { reviewData: null };
+    return { reviewData: null, brandLogo: null };
   },
   props: {
     labelsActive: {
@@ -187,6 +194,7 @@ export default {
   },
   async serverPrefetch() {
     this.setReviews();
+    this.getBrandImage();
   },
   async mounted() {
     this.setReviews();
@@ -194,65 +202,87 @@ export default {
   methods: {
     getBrandImage() {
       let imagelocation = '/assets/brandLogo/';
-      console.log('filters.brand', this.filters.brand);
+      let brandFlag = false;
       //  return imagelocation;
       this.filters.brand.forEach((brand, brandIndex) => {
-        console.log(
-          'Brand is ',
-          brand.id,
-          this.product.brand,
-          parseInt(brand.id) === this.product.brand
-        );
+        // console.log(
+        //   brandIndex,
+        //   this.filters.brand.length,
+        //   'Brand is ',
+        //   brand.id,
+        //   brand.label,
+        //   this.product.brand,
+        //   parseInt(brand.id) === this.product.brand
+        // );
         if (parseInt(brand.id) === this.product.brand) {
           if (brand.id === 34 || brand.id === '34') {
             imagelocation = imagelocation + 'BedFactoryDirect.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 35 || brand.id === '35') {
             imagelocation = imagelocation + 'Sealy.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 36 || brand.id === '36') {
             imagelocation = imagelocation + 'Birlea.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 38 || brand.id === '38') {
             imagelocation = imagelocation + 'Limelight.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 39 || brand.id === '39') {
             imagelocation = imagelocation + 'GFW.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 64 || brand.id === '64') {
             imagelocation = imagelocation + 'Kaydian.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 109 || brand.id === '109') {
             imagelocation = imagelocation + 'Silentnight.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 128 || brand.id === '128') {
             imagelocation = imagelocation + 'Millbrook.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 139 || brand.id === '139') {
             imagelocation = imagelocation + 'Relyon.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 182 || brand.id === '182') {
             imagelocation = imagelocation + 'Sleepeezee.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 183 || brand.id === '183') {
             imagelocation = imagelocation + 'Dormeo.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 184 || brand.id === '184') {
             imagelocation = imagelocation + 'Dunlopillo.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 210 || brand.id === '210') {
             imagelocation = imagelocation + 'Breasley.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 211 || brand.id === '211') {
             imagelocation = imagelocation + 'Bentley.png';
+            brandFlag = true;
             return;
           } else if (brand.id === 212 || brand.id === '212') {
             imagelocation = imagelocation + 'Serene.png';
+            brandFlag = true;
             return;
           }
+        } else if (this.filters.brand.length == brandIndex + 1 && !brandFlag) {
+          console.log('No brand found', this.product.brand);
         }
       });
-      return imagelocation;
+      this.brandLogo = imagelocation;
+      if (brandFlag) return imagelocation;
+      else return '';
     },
     setReviews() {
       try {
@@ -264,7 +294,7 @@ export default {
         product_Id = this.product.id;
 
         const URL = config.reviews.getReviews_endpoint + product_Id;
-        console.log('URL is ', this.product);
+      //  console.log('URL is ', this.product);
         axios
           .get(URL)
           .then(res => {
@@ -366,7 +396,7 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
-.TotalReviewStar{
+.TotalReviewStar {
   font-size: 13px;
   margin-top: 4px;
 }
