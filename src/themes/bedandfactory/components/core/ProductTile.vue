@@ -294,7 +294,7 @@ export default {
         product_Id = this.product.id;
 
         const URL = config.reviews.getReviews_endpoint + product_Id;
-      //  console.log('URL is ', this.product);
+        //  console.log('URL is ', this.product);
         axios
           .get(URL)
           .then(res => {
@@ -428,7 +428,7 @@ $color-white: color(white);
 
   @media screen and (max-width: 1199px) {
     text-align: left;
-    width: 100%;
+    /* width: 100%; */
   }
 }
 .price-top {
@@ -698,13 +698,20 @@ img.product-cover-thumb {
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {
-    height: auto;
+    font-size: 1rem;
+  }
+  .rounded-button {
+    width: 133px;
+    font-size: 11px;
+  }
+  .name-size{
+    height: 64px;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  .product .sb-prodcut-name {
-    height: auto;
-  }
+  /* .product .sb-prodcut-name {
+    height: auto; 
+  } */
 }
 </style>
 <style>
