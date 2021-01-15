@@ -87,7 +87,7 @@ export default {
   outline: none;
   font-size: 15px;
   transition: 0.4s;
-  border-top: solid 1px #00bfb2;
+  border-top: solid 0.1px #00bfb2;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
 }

@@ -455,6 +455,9 @@ a:active {
   width: auto;
   height: 100%;
 }
+.search-action-btn:hover:after{
+content: unset;
+}
 .new-searchformTag {
   width: 100%;
 }
