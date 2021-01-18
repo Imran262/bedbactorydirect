@@ -32,10 +32,19 @@ export const actions: ActionTree<ExtendedCatalogState, any> = {
       size: pageSize
     })
 
+    const allItemsFOrPrice = await quickSearchByQuery({
+      query: filterQr,
+      sort:
+        searchQuery.sort ||
+        `${products.defaultSortBy.attribute}:${products.defaultSortBy.order}`,
+      includeFields: entities.productList.includeFields,
+      excludeFields: entities.productList.excludeFields,
+      size: 5000
+    });
     const categoryPriceRange = getters.getPriceRange
     const priceSliderAttribute = config.layeredNavigation.priceSliderAttribute
-    const minPrice = Math.floor(Math.min.apply(Math, items.map((attribute) => { return attribute[priceSliderAttribute] })))
-    const maxPrice = Math.ceil(Math.max.apply(Math, items.map((attribute) => { return attribute[priceSliderAttribute] })))
+    const minPrice = Math.floor(Math.min.apply(Math, allItemsFOrPrice.items.map((attribute) => { return attribute[priceSliderAttribute] })))
+    const maxPrice = Math.ceil(Math.max.apply(Math, allItemsFOrPrice.items.map((attribute) => { return attribute[priceSliderAttribute] })))
     let price_range = [minPrice, maxPrice]
     if(!has(categoryPriceRange, searchCategory.id)) {
       commit(types.SET_PRICE_RANGE_CURRENT_CATEGORY, { category: searchCategory, price_range: price_range })
