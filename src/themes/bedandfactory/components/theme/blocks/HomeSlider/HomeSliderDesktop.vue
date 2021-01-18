@@ -127,7 +127,7 @@ export default {
     }
 
     .VueCarousel-dot--active {
-      background: #00998c !important;
+      background: #DE4747 !important;
       border: 2px solid #ffffff !important;
     }
 
