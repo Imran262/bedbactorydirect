@@ -781,6 +781,12 @@ export default {
         const scrollToPayment = document.getElementById('scrollToPayment')
         const elementPosition = scrollToPayment.offsetTop;
         const offsetPosition = elementPosition - headerHeight;
+
+        let billingCheckbox = document.querySelector('body #sendToShippingAddressCheckbox');
+        if(!billingCheckbox.checked){
+          billingCheckbox.click();
+        }
+        
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
