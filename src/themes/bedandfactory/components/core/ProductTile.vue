@@ -453,8 +453,8 @@ $color-white: color(white);
   height: 30px;
 }
 .review-size {
-  padding-top: 10px;
-  height: 40px;
+ padding-top: 10px;
+ height: 40px;
 }
 .price-size {
   height: 40px;
@@ -499,6 +499,12 @@ $color-white: color(white);
   padding: 6px 23px 6px 23px;
   font-weight: bold;
   width: 169px;
+}
+@media (max-width: 1000px) and (min-width:768px ){
+  .rounded-button{
+    padding: 6px 6px 6px 6px;
+    width: 150px;
+  }
 }
 .product {
   position: relative;
@@ -591,11 +597,13 @@ $color-white: color(white);
 
 .product-cover {
   overflow: hidden;
+  margin: 3px 5px 0px 3px;
 
   &__thumb {
     padding-bottom: calc(165.88% / (164.5 / 100));
     @media screen and (min-width: 768px) {
       padding-bottom: calc(300% / (276.5 / 100));
+      margin-bottom: -82px;
     }
     opacity: 1;
     will-change: opacity, transform;
