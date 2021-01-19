@@ -41,7 +41,7 @@
             @click="setIsBillingSame()"
             >{{ $t("Use my billing data") }}</base-checkbox
           >
-          <div v-if="!isBillingSame">
+          <template v-if="!isBillingSame">
             <base-input
               class="col-xs-12 col-sm-6 mb10"
               type="text"
@@ -203,7 +203,7 @@
                 },
               ]"
             />
-          </div>
+          </template>
           <!-- <base-checkbox
             class="col-xs-12 mb15"
             id="generateInvoiceCheckbox"
