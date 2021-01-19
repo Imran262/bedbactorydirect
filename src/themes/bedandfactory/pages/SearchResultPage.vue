@@ -85,7 +85,7 @@
             >
               <div
                 context="category"
-                class="filter-label"
+                
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
@@ -188,7 +188,6 @@
             >
               <div
                 context="category"
-                class="filter-label"
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
