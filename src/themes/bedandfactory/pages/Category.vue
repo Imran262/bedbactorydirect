@@ -114,6 +114,7 @@
               :columns="defaultColumn"
               :products="getCategoryProducts"
               :filters="getAvailableFilters"
+              :searchPage="false"
             /> 
           </lazy-hydrate>
           <product-listing
@@ -121,6 +122,7 @@
             :columns="defaultColumn"
             :products="getCategoryProducts"
             :filters="getAvailableFilters"
+            :searchPage="false"
           />
           <!-- v-if"getCategoryProducts.length < getCategoryProductsTotal"
           {{getCategoryProducts.length}}

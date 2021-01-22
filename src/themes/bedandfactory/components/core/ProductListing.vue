@@ -9,18 +9,22 @@
         wide(product.sale, product.new, key),
       ]"
     >
-      <product-tile :product="product" :filters="filters"/>
+      <product-tile-search v-if="searchPage" :product="product" :filters="filters" />
+      <product-tile v-else :product="product" :filters="filters" />
+      
     </div>
   </div>
 </template>
 
 <script>
 import ProductTile from 'theme/components/core/ProductTile';
+import ProductTileSearch from 'theme/components/core/ProductTileSearchPage';
 let lastHero = 0;
 export default {
   name: 'ProductListing',
   components: {
-    ProductTile
+    ProductTile,
+    ProductTileSearch
   },
   props: {
     products: {
@@ -34,6 +38,11 @@ export default {
     filters: {
       type: Object,
       required:true
+    },
+    searchPage: {
+      type: Boolean,
+      required:true,
+      default:false
     }
   },
   methods: {
