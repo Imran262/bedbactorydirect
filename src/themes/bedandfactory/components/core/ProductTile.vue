@@ -506,6 +506,12 @@ $color-white: color(white);
     width: 150px;
   }
 }
+@media only screen and (max-device-width: 345px) and (min-device-width: 320px){
+.rounded-button[data-v-10bab35f] {
+    width: 121px !important;
+    font-size: 10px !important;
+}
+}
 .product {
   position: relative;
   margin-bottom: 10px;
