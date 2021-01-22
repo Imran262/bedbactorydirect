@@ -36,6 +36,7 @@
         </div>
       </div>
       <div class="container">
+         <div class="sort-by-mobile"> {{ getCategoryProductsTotal }} Items</div>
         <div class="row m0">
           <div class="mobile-filter col-xs-6 mt25">
             <button class="mobile-filters-button" @click="openFilters">
@@ -369,6 +370,9 @@ export default {
 html {
   -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
+.sort-by-mobile{
+  display: none;
+}
 .load-btn{
   background-color: #4dba87;
   border: none;
@@ -488,7 +492,18 @@ html {
   // }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 767px) {
+  .sort-by-mobile {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    line-height: 0em;
+    color: rgb(128, 136, 152);
+  font-size: 0.9325rem;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  max-height: 56px;
+} 
   .category-title {
     margin: 0;
     font-size: 36px;
