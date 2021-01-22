@@ -194,95 +194,76 @@ export default {
   },
   async serverPrefetch() {
     this.setReviews();
-    this.getBrandImage();
   },
   async mounted() {
     this.setReviews();
   },
   methods: {
-    getBrandImage() {
+        getBrandImage() {
       let imagelocation = '/assets/brandLogo/';
-      let brandFlag = false;
+      console.log('filters.brand', this.filters.brand);
       //  return imagelocation;
+      if (this.filters && this.filters.brand){
+
+      
       this.filters.brand.forEach((brand, brandIndex) => {
-        // console.log(
-        //   brandIndex,
-        //   this.filters.brand.length,
-        //   'Brand is ',
-        //   brand.id,
-        //   brand.label,
-        //   this.product.brand,
-        //   parseInt(brand.id) === this.product.brand
-        // );
+        console.log(
+          'Brand is ',
+          brand.id,
+          this.product.brand,
+          parseInt(brand.id) === this.product.brand
+        );
         if (parseInt(brand.id) === this.product.brand) {
           if (brand.id === 34 || brand.id === '34') {
             imagelocation = imagelocation + 'BedFactoryDirect.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 35 || brand.id === '35') {
             imagelocation = imagelocation + 'Sealy.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 36 || brand.id === '36') {
             imagelocation = imagelocation + 'Birlea.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 38 || brand.id === '38') {
             imagelocation = imagelocation + 'Limelight.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 39 || brand.id === '39') {
             imagelocation = imagelocation + 'GFW.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 64 || brand.id === '64') {
             imagelocation = imagelocation + 'Kaydian.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 109 || brand.id === '109') {
             imagelocation = imagelocation + 'Silentnight.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 128 || brand.id === '128') {
             imagelocation = imagelocation + 'Millbrook.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 139 || brand.id === '139') {
             imagelocation = imagelocation + 'Relyon.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 182 || brand.id === '182') {
             imagelocation = imagelocation + 'Sleepeezee.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 183 || brand.id === '183') {
             imagelocation = imagelocation + 'Dormeo.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 184 || brand.id === '184') {
             imagelocation = imagelocation + 'Dunlopillo.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 210 || brand.id === '210') {
             imagelocation = imagelocation + 'Breasley.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 211 || brand.id === '211') {
             imagelocation = imagelocation + 'Bentley.png';
-            brandFlag = true;
             return;
           } else if (brand.id === 212 || brand.id === '212') {
             imagelocation = imagelocation + 'Serene.png';
-            brandFlag = true;
             return;
           }
-        } else if (this.filters.brand.length == brandIndex + 1 && !brandFlag) {
-          console.log('No brand found', this.product.brand);
         }
       });
-      this.brandLogo = imagelocation;
-      if (brandFlag) return imagelocation;
-      else return '';
+      }
+      return imagelocation;
     },
     setReviews() {
       try {
