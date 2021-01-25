@@ -71,7 +71,7 @@ export default {
       }
 
       .shop-now {
-        background: #00bfb3;
+        background: #4DBA87;
         padding: 10px 15px 10px 15px;
         float: right;
         color: #fff;
@@ -127,7 +127,7 @@ export default {
     }
 
     .VueCarousel-dot--active {
-      background: #00998c !important;
+      background: #DE4747 !important;
       border: 2px solid #ffffff !important;
     }
 

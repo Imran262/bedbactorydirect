@@ -102,7 +102,7 @@ export default {
 }
 
 .enter-email-address button {
-  background: #00998c;
+  background: #4dba87;
   height: 42px;
   border: 0;
   padding: 0 20px;
@@ -117,7 +117,7 @@ export default {
   display: flex;
 }
 button.subscribeBtnDisabled {
-  background: #00998c75 !important;
+  background: #4dba8775 !important;
 }
 
 input.invalidEmail {

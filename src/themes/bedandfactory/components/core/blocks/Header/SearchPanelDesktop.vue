@@ -21,7 +21,7 @@ data-testid="closeSearchPanel"
               :event="search.length > 2 ? 'click' : ''"
               :style="!search.length > 2 ? 'cursor: default' : ''"
               :to="localizedRoute('/search-result-page/?s=' + search)"
-              class="search-action-btn"
+              class="search-action-btn search-button"
             >
               <i
                 class="material-icons search-icon"
@@ -257,11 +257,49 @@ export default {
 @import "~theme/css/animations/transitions";
 @import "~theme/css/variables/grid";
 @import "~theme/css/variables/typography";
+
+a:link {
+
+
+  text-decoration: none;
+
+
+}
+
+
+a:visited {
+
+
+  text-decoration: none;
+
+
+}
+
+
+a:hover {
+
+
+  text-decoration: none;
+
+
+}
+
+
+a:active {
+
+
+  text-decoration: none;
+
+
+}
 .sb-filters.dontshow {
   display: none;
 }
 .categories {
   display: none;
+}
+.search-button:hover {
+  text-decoration: none;
 }
 .searchpanel {
   position: relative;
@@ -379,7 +417,7 @@ export default {
     border: none;
     outline: 0;
     font-size: 18px;
-    font-family: map-get($font-families, secondary);
+    font-family: 'Poppins', sans-serif;
 
     @media #{$media-xs} {
       font-size: 16px;
@@ -416,6 +454,9 @@ export default {
   top: 10px;
   width: auto;
   height: 100%;
+}
+.search-action-btn:hover:after{
+content: unset;
 }
 .new-searchformTag {
   width: 100%;
@@ -454,7 +495,7 @@ export default {
       }
     }
   }
-  .new-searchformTag {
+  .new-searchformTag { 
     display: flex;
   }
   .search-action-btn {

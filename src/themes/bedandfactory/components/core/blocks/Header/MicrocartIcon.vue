@@ -58,7 +58,7 @@ export default {
   width: auto;
   height: 20px;
   border-radius: 10px;
-  background-color: #0f988b;
+  background-color: #4DBA87;
   color: #fff;
   border-radius: 3px;
   font-size: 0.8rem;

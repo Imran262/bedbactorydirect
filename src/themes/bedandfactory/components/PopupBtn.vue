@@ -185,7 +185,7 @@ if (product.custom_options && product.custom_options.length > 0) {
 </script>
 <style scoped>
 button.carousel-addtocart-btn {
-  border: 2px solid #00998c;
+  border: 2px solid #4dba87;
   border-radius: 5px;
   min-width: auto;
   color: #fff;
@@ -196,7 +196,7 @@ button.carousel-addtocart-btn {
   font-size: 12px;
   margin-top: 5px;
   text-transform: uppercase;
-  background: #00998c;
+  background: #4dba87;
   font-family: "Poppins", sans-serif;
 }
 button.carousel-addtocart-btn:hover {

@@ -127,6 +127,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-bottom: 2px;
         img,
         p {
           float: left;
