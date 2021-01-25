@@ -78,7 +78,7 @@ export default {
 <style type="text/css">
 .accordion {
   background-color: #fff;
-  color: #00bfb2;
+  color: #54575B;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -87,7 +87,7 @@ export default {
   outline: none;
   font-size: 15px;
   transition: 0.4s;
-  border-top: solid 0.1px #00bfb2;
+  border-top: solid 0.1px #e7e7e7;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
 }
