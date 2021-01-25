@@ -290,7 +290,6 @@
                 </div>
                 <button-outline
                   color="light"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   class="cl-white"
                   :class="[!couponCode ? 'bgcolor' : '']"
                   :disabled="!couponCode"
@@ -616,17 +615,29 @@ export default {
       return this.isBillingSame = !this.isBillingSame;
     },
     setOption() {
+      console.log("987766 Emit recieved");
+      this.$bus.$emit(
+              "notification-progress-stop",
+              this.$t("loading braintree...")
+            );
       let braintreeOptions = document.querySelectorAll(".braintree-option");
-      braintreeOptions.forEach((option) => {
-        option.classList.forEach((classs) => {
+      console.log("Braintree options",braintreeOptions,typeof braintreeOptions);
+      braintreeOptions.forEach((option,index) => {
+        console.log("option no ",index," is ", option, typeof option,"\n", option.classList);
+        option.classList.forEach((classs,classIndex) => {
+          console.log("class at index ",classIndex," is ",classs,"\n","classs.search('card') != -1",classs.search("card") != -1);
           if (classs.search("card") != -1) {
             // console.log("option is ",option);
+            console.log("classs.search('card') != -1 condition matched");
             option.click();
             this.$bus.$emit(
               "notification-progress-stop",
               this.$t("loading braintree...")
             );
             this.showSubmitButton = true;
+    //        console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
+            document.querySelectorAll(".braintree-large-button")[0].classList.add("hide-button");
+            console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
           }
         });
       });
@@ -711,6 +722,12 @@ export default {
   },
 };
 </script>
+<style lang="scss" >
+.hide-button{
+  display: none;
+}
+
+</style>
 <style lang="scss" scoped>
 .allunchecked:after {
   display: none !important;
@@ -791,7 +808,7 @@ export default {
   }
 }
 .bgcolor {
-  background-color: #b6ebe8 !important;
+  background-color: #C8EADC !important;
 }
 .payment-first-name {
   display: none;

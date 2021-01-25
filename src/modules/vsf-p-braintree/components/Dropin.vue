@@ -70,21 +70,17 @@ export default {
         .dispatch('braintree/generateToken')
         .then(resp => {
           var dropin = require('braintree-web-drop-in');
-          console.debug('Code for braintree:' + resp);
+          console.debug('dropin',dropin,'\nCode for braintree:' + resp);
           var button = document.querySelector('.place-order-btn');
           dropin
             .create({
-              authorization: resp,
-              container: '#braintree',
-              threeDSecure: true,
-              paypal: {
-                flow: 'checkout',
-                amount: this.getTransactions().amount.total,
-                currency: this.getTransactions().amount.currency
-              }
-            })
-            .then(dropinInstance => {
-              // console.log("1122 About to emit");
+              authorization: resp, container: '#braintree', threeDSecure: true,paypal: {flow: 'checkout',amount: this.getTransactions().amount.total,
+              currency: this.getTransactions().amount.currency
+              }}).then((dropinInstance,error) => {
+                  if (error){
+                      console.log("Error Occured while configuring Braintree",error);
+                  }
+            console.log("ThreeDSecure Configured Successfully",dropinInstance);
               this.$emit('configured', true);
               button.addEventListener('click', () => {
                 if (dropinInstance.isPaymentMethodRequestable()) {
@@ -123,10 +119,12 @@ export default {
             })
             .catch(error => {
               console.error(error);
+              this.$emit('configured', true);
             });
         })
         .catch(error => {
           console.error(error);
+          this.$emit('configured', true);
         });
     },
     getTransactions() {

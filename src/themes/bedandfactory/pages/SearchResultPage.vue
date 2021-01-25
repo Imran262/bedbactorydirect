@@ -242,7 +242,7 @@
           </div>
         </div>
         <div class="col-md-9 search-listing">
-          <product-listing :columns="defaultColumn" :products="products" />
+          <product-listing :columns="defaultColumn" :products="products" :filters="{}" :searchPage="true"/>
         </div>
       </div>
     </div>
