@@ -266,7 +266,6 @@
               <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
                 <button
                   class="p10 brdr-none serif fs-medium cl-white bg-cl-puerto-rico voucher-code-btn"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   type="button"
                   @click="addDiscountCoupon"
                 >
@@ -755,7 +754,7 @@ export default {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     // color: #676767;
@@ -766,22 +765,22 @@ export default {
   }
   input:checked + label {
     &:before {
-      background-color: #00998c;
-      border-color: #00998c;
+      background-color: #4dba87;
+      border-color: #4dba87;
       cursor: pointer;
     }
     &:after {
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
   .button-container {
     button {
-      background-color: #00bfb3;
+      background-color: #4DBA87;
       border-radius: 5px;
       padding: 12px 0px;
       :hover {
         border-radius: 5px;
-        background-color: #00998c;
+        background-color: #4dba87;
       }
     }
   }
@@ -869,7 +868,7 @@ button.find-address {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     color: #676767;
@@ -881,29 +880,29 @@ button.find-address {
   }
   .checkmark {
     &:after {
-      background: #00998c !important;
+      background: #4dba87 !important;
     }
   }
   button {
-    background-color: #00bfb3;
+    background-color: #4DBA87;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
     :hover {
       border-radius: 5px;
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
 }
 input:checked + label {
   &::before {
-    background-color: #00998c;
-    border-color: #00998c;
+    background-color: #4dba87;
+    border-color: #4dba87;
     cursor: pointer;
   }
   &::after {
-    background-color: #00998c;
+    background-color: #4dba87;
   }
 }
 .border-box {

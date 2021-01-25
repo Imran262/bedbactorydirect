@@ -206,7 +206,7 @@ p.popup_item_name {
   min-height: 45px;
 }
 p.popup_item_name:hover a {
-  color: #00998c;
+  color: #4dba87;
 }
 .left-side.popup_item-image {
   width: 30%;
@@ -228,7 +228,7 @@ p.product-amount {
 
 .stock-main img {
   width: 12px;
-  background: #00998c;
+  background: #4dba87;
   padding: 4px 2px;
   float: left;
 }
@@ -259,7 +259,7 @@ p.product-amount {
 
 .success-content-main .success-tick img {
   display: inline-block;
-  background: #00998c;
+  background: #4dba87;
   border-radius: 50%;
   padding: 12px 7px;
 }
