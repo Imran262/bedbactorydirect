@@ -37,7 +37,7 @@
         ]"
       >
         <product-image
-          class="product-cover__thumb"
+          class=" image-category product-cover__thumb"
           :image="thumbnailObj"
           :alt="product.name | htmlDecode"
           :calc-ratio="false"
@@ -377,6 +377,12 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
+.image-category{
+  width: 300px;
+  height: 200px;
+   top: 32% !important;
+    
+}
 .TotalReviewStar {
   font-size: 13px;
   margin-top: 4px;
