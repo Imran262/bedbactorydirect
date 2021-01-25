@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product align-center w-100 pb20"
+    class="product align-center w-100 pb20 product-img-category" 
     v-observe-visibility="visibilityChanged"
   >
     <!-- {{ filters.brand }} -->
@@ -378,8 +378,8 @@ $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
 .image-category{
-  width: 300px;
-  height: 200px;
+  // width: 300px;
+  // height: 200px;
    top: 32% !important;
     
 }
@@ -595,8 +595,8 @@ $color-white: color(white);
   &__thumb {
     padding-bottom: calc(165.88% / (164.5 / 100));
     @media screen and (min-width: 768px) {
-      padding-bottom: calc(300% / (276.5 / 100));
-      margin-bottom: -82px;
+      padding-bottom: calc(198% / (276.5 / 100));
+      margin-bottom: 0px;
     }
     opacity: 1;
     will-change: opacity, transform;
@@ -726,4 +726,20 @@ img.product-cover-thumb {
   display: inline-flex !important;
   float: inline !important;
 }
+</style>
+<style lang="scss">
+.product-img-category{
+  .product-image{
+     &__placeholder,
+    &__thumb {
+      top: 50%;
+      
+    }
+  }
+  @media screen and (max-width: 425px)
+  {
+    top:0%;
+  
+  }
+  }
 </style>
