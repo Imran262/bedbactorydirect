@@ -96,6 +96,9 @@ $border-secondary: color(secondary, $colors-border);
   font-weight: bold;
   width: 169px;
 }
+
+
+
 .color-soft {
   background-color: #f6a076 !important;
 }

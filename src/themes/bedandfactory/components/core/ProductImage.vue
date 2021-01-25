@@ -110,7 +110,7 @@ export default {
     &__placeholder,
     &__thumb {
       position: absolute;
-      top: 50%;
+      top: 32%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
@@ -124,7 +124,8 @@ export default {
     }
     &--width {
       .product-image__thumb {
-        width: 100%;
+        width: 300px;
+        height: 200px;
       }
     }
   }
