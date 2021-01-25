@@ -290,7 +290,6 @@
                 </div>
                 <button-outline
                   color="light"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   class="cl-white"
                   :class="[!couponCode ? 'bgcolor' : '']"
                   :disabled="!couponCode"
@@ -809,7 +808,7 @@ export default {
   }
 }
 .bgcolor {
-  background-color: #b6ebe8 !important;
+  background-color: #C8EADC !important;
 }
 .payment-first-name {
   display: none;
