@@ -255,7 +255,7 @@ export default {
 }
 
 .border-green {
-  border: 2px solid #00998c;
+  border: 2px solid #4dba87;
 }
 
 .border-grey-light {

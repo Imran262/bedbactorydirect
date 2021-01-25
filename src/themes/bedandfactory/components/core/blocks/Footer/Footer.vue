@@ -387,7 +387,7 @@ footer.footer-main .col-lg-4.col-md-4.col-sm-12.col-xs-12.footer-right {
 }
 
 .enter-email-address button {
-  background: #00998c;
+  background: #4dba87;
   height: 42px;
   border: 0;
   padding: 0 20px;
@@ -417,7 +417,7 @@ text {
 }
 
 .footer-right-inner text a {
-  color: #00998c;
+  color: #4dba87;
   text-decoration: none;
   font-weight: bold;
 }

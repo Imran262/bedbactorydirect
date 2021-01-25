@@ -229,7 +229,7 @@ export default {
   line-height: 22px;
 }
 .contact-page-main.container label {
-  color: #00998c;
+  color: #4dba87;
 }
 
 .contact-page-main.container fieldset.fieldset {
@@ -239,7 +239,7 @@ export default {
 
 .send-para button {
   border: 0;
-  background: #00998c !important;
+  background: #4dba87 !important;
   color: #fff;
   padding: 10px 35px;
   font-size: 17px;

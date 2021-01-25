@@ -804,7 +804,7 @@ img.home-breadcrumb-icon-img {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: #00998c;
+  background: #4dba87;
   text-transform: uppercase;
   font-weight: bold;
 }

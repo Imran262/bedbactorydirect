@@ -1044,7 +1044,7 @@ button.find-address {
   input:not(.empty) ~ label {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   p {
     color: #676767;
@@ -1058,17 +1058,17 @@ button.find-address {
   }
   input:checked + label {
     &:before {
-      background-color: #00998c;
-      border-color: #00998c;
+      background-color: #4dba87;
+      border-color: #4dba87;
       cursor: pointer;
     }
     &:after {
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
   .checkmark {
     &:after {
-      background: #00998c !important;
+      background: #4dba87 !important;
     }
   }
   button {
@@ -1079,7 +1079,7 @@ button.find-address {
     padding-bottom: 12px;
     :hover {
       border-radius: 5px;
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
   .postcode-select {
