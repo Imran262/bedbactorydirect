@@ -99,10 +99,10 @@ export default {
 <style scoped>
 button.carousel-addtocart-btn {
   background: none;
-  border: 2px solid #00998c;
+  border: 2px solid #4dba87;
   border-radius: 5px;
   min-width: auto;
-  color: #00998c;
+  color: #4dba87;
   font-weight: 600;
   width: auto;
   padding: 0 20px;
@@ -111,8 +111,8 @@ button.carousel-addtocart-btn {
   margin-top: 5px;
 }
 .popup-sliders button.carousel-addtocart-btn {
-  background: #00998c;
-  border: 2px solid #00998c;
+  background: #4dba87;
+  border: 2px solid #4dba87;
   color: #fff;
   float: left;
   border-radius: 5px;

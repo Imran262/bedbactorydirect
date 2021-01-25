@@ -689,7 +689,7 @@ img.product-cover-thumb {
   display: block !important;
 }
 .price-special {
-  color: #d90046;
+  color: #de4747;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {

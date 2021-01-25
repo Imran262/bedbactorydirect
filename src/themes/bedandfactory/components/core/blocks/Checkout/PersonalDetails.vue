@@ -352,7 +352,7 @@ export default {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     // color: #676767;
@@ -363,12 +363,12 @@ export default {
   }
   input:checked + label {
     &:before {
-      background-color: #00998c;
-      border-color: #00998c;
+      background-color: #4dba87;
+      border-color: #4dba87;
       cursor: pointer;
     }
     &:after {
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
   .button-container {
@@ -378,7 +378,7 @@ export default {
       padding: 12px 0px;
       :hover {
         border-radius: 5px;
-        background-color: #00998c;
+        background-color: #4dba87;
       }
     }
   }

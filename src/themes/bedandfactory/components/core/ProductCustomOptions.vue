@@ -511,7 +511,7 @@ input[type="checkbox"] {
   font-family: Arial;
   font-weight: 600;
   display: inline-block;
-  background: #3fa39a url("../../assets/arrow-forward-white.png") no-repeat 100%
+  background: #4dba87 url("../../assets/arrow-forward-white.png") no-repeat 100%
     55%;
   left: 0;
   cursor: pointer;
