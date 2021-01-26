@@ -1031,7 +1031,7 @@ export default {
 this.getCurrentProductCustomOptions();
    }
    else{
-
+     console.log("998877 It is a a configurable product");
 this.setConfigurableOption();
    }
    
@@ -1124,7 +1124,7 @@ this.setConfigurableOption();
       let sampleObject2 = _.clone(sampleObject);
       console.log("Current Configuration",sampleObject);
       products.forEach((product,productIndex)=>{
-        //console.log("product is ",product);
+        console.log("product is ",product);
         var currentVariant =  Object.create(sampleObject);
         var newVariant = Object.assign({}, sampleObject);
         const newCurrent = {...sampleObject};
@@ -1140,9 +1140,9 @@ this.setConfigurableOption();
           // sampleObject[i].id= 100
           //  currentVariant[i].id= 50
           //   newVariant[i].id= 30 +val
-          console.log(i,sampleObject[i].id,currentVariant[i].id,newVariant[i].id,newCurrent[i].id,"this ",newCur[i].id,product[i],"id ",newObj[i].id,"new 2", sampleObject2[i].id);
+          console.log("78889",i,sampleObject[i].id,currentVariant[i].id,newVariant[i].id,newCurrent[i].id,"this ",newCur[i].id,product[i],"id ",newObj[i].id,"new 2", sampleObject2[i].id);
         }
-        console.log("newObj",newObj['size'].id);
+       // console.log("newObj",newObj['size'].id);
         newObjList.push(newObj);
       });
      console.log("After All", newObjList );
@@ -1404,10 +1404,12 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
       delete changedConfig.label;
        this.configurableChildren.forEach((child,childIndex)=>{
        // console.log("7788");
-        console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
-        // if()
+       // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       // if()
         if (JSON.stringify(child)==JSON.stringify(changedConfig)){
         //  let variant = JSON.parse(event.target.value)
+        console.log("774455", "child matched will emit " ,  );
           this.$bus.$emit("filter-changed-product",Object.assign({ attribute_code: variant.type }, variant));
           this.getQuantity();
           flag =true;
