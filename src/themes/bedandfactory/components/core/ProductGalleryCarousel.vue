@@ -172,7 +172,11 @@ export default {
   right: 0px;
   background: #eaeaea;
   bottom: 100px;
+  @media (min-width: 1200px) {
+      bottom: 230px;
+    }
 }
+
 .media-gallery-carousel .bg-cl-secondary {
   background: #ffffff;
 }
@@ -239,7 +243,10 @@ export default {
 /*Custom Css */
 .bt-product-gallery .media-gallery {
   margin-bottom: -60px;
-}
+  @media screen and (min-width: 1200px){
+    margin-bottom: -190px;
+  }
+  }
 .media-gallery-carousel .product-image__thumb {
   top: 43%;
 }
