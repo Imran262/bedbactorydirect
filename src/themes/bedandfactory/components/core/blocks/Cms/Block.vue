@@ -69,6 +69,19 @@ export default {
 };
 </script>
 <style lang="scss">
+.details-Delivery{
+  font-size:24px;
+}
+.details-Delivery{
+  font-size:24px;
+}
+ .cms-content h3 {
+font-size:16px !important;
+ }
+.cms-content p{
+font-size:14px !important;
+margin: 0;
+}
 #category,
 #cms-page,
 .contact-page-main {
@@ -127,7 +140,6 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 2px;
         img,
         p {
           float: left;
