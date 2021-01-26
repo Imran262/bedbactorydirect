@@ -749,7 +749,7 @@ import NoSSR from "vue-no-ssr"
 import ProductSimilarListingCarousel from "theme/components/ProductSimilarListingCarousel"
 import RecentlyViewedItems from "theme/components/RecentlyViewedItems"
 //import DimensionGallery from "theme/components/core/DimensionGallery";
-import CmsBlock from "theme/components/core/blocks/Cms/Block"
+import CmsBlock from "theme/components/core/blocks/Cms/DeliveryBlock"
 import ReviewStars from "../../../modules/reviews-module/components/ReviewStars"
 import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidget"
 import ProductPrice from "theme/components/core/ProductPrice.vue"
