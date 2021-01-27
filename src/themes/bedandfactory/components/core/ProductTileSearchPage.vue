@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product align-center w-100 pb20"
+    class="product align-center w-100 pb20 product-img-category" 
     v-observe-visibility="visibilityChanged"
   >
     <!-- {{ filters.brand }} -->
@@ -37,18 +37,16 @@
         ]"
       >
         <product-image
-          class="product-cover__thumb"
+          class=" image-category product-cover__thumb"
           :image="thumbnailObj"
           :alt="product.name | htmlDecode"
           :calc-ratio="false"
           data-testid="productImage"
         />
       </div>
-      
       <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-     
       <!--  -->
 
       <div
@@ -248,6 +246,12 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
+.image-category{
+  // width: 300px;
+  // height: 200px;
+   top: 32% !important;
+    
+}
 .TotalReviewStar {
   font-size: 13px;
   margin-top: 4px;
@@ -305,7 +309,7 @@ $color-white: color(white);
   height: 30px;
 }
 .review-size {
- /* padding-top: 10px; */
+ padding-top: 10px;
  height: 40px;
 }
 .price-size {
@@ -460,8 +464,8 @@ $color-white: color(white);
   &__thumb {
     padding-bottom: calc(165.88% / (164.5 / 100));
     @media screen and (min-width: 768px) {
-      padding-bottom: calc(300% / (276.5 / 100));
-      margin-bottom: -82px;
+      padding-bottom: calc(198% / (276.5 / 100));
+      margin-bottom: 0px;
     }
     opacity: 1;
     will-change: opacity, transform;
@@ -591,4 +595,20 @@ img.product-cover-thumb {
   display: inline-flex !important;
   float: inline !important;
 }
+</style>
+<style lang="scss">
+.product-img-category{
+  .product-image{
+     &__placeholder,
+    &__thumb {
+      top: 50%;
+      
+    }
+  }
+  @media screen and (max-width: 425px)
+  {
+    top:0%;
+  
+  }
+  }
 </style>

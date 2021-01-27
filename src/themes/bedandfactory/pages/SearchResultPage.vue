@@ -280,7 +280,7 @@ export default {
   name: 'SearchResultPage',
   data() {
     return {
-      defaultColumn: 4,
+      defaultColumn: 3,
       mobileFilters: false,
       selectedCategoryIds: [],
       allProducts: [],
