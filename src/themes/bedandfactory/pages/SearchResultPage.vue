@@ -242,7 +242,7 @@
           </div>
         </div>
         <div class="col-md-9 search-listing">
-          <product-listing :columns="defaultColumn" :products="products" />
+          <product-listing :columns="defaultColumn" :products="products" :filters="{}" :searchPage="true"/>
         </div>
       </div>
     </div>
@@ -875,7 +875,7 @@ span.filter-label span:before {
   display: block;
 }
 span.active-filter {
-  vertical-align: text-top;
+  // vertical-align: text-top;
 }
 span.filter-label span.active-filter:before {
   background: #4f4f4f;
@@ -886,7 +886,7 @@ span.filter-label span.active-filter:after {
   content: '';
   position: absolute;
   left: 3px;
-  top: 16px;
+  top: 13px;
   background: white;
   width: 2px;
   height: 2px;
