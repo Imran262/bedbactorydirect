@@ -242,7 +242,7 @@
           </div>
         </div>
         <div class="col-md-9 search-listing">
-          <product-listing :columns="defaultColumn" :products="products" />
+          <product-listing :columns="defaultColumn" :products="products" :filters="{}" :searchPage="true"/>
         </div>
       </div>
     </div>
@@ -803,7 +803,7 @@ img.home-breadcrumb-icon-img {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: #00998c;
+  background: #4dba87;
   text-transform: uppercase;
   font-weight: bold;
 }

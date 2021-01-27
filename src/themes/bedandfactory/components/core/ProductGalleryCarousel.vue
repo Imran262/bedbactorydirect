@@ -255,7 +255,7 @@ export default {
 }
 
 .border-green {
-  border: 2px solid #00998c;
+  border: 2px solid #4dba87;
 }
 
 .border-grey-light {
@@ -576,16 +576,16 @@ button#slideRight .pointer {
 }
 
 .comes-with-main .border_green .product-image {
-  // border-bottom: 5px solid #0f988b;
+  // border-bottom: 5px solid #4DBA87;
 }
 .comes-with-main .border_green {
-  border-bottom: 5px solid #0f988b;
+  border-bottom: 5px solid #4DBA87;
 }
 .comes-with-main .border_green .product-image:hover {
-  // border-bottom: 5px solid #0f988b;
+  // border-bottom: 5px solid #4DBA87;
 }
 .comes-with-main .border_green:hover {
-  border-bottom: 5px solid #0f988b;
+  border-bottom: 5px solid #4DBA87;
 }
 .comes-with-main .prod-gallery-thumbnails-carousel {
   padding-top: 15px;

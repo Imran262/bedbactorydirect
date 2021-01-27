@@ -306,7 +306,7 @@ return this.disableProduct;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: #00bfb3;
+  background: #4DBA87;
   text-transform: uppercase;
   font-weight: bold;
 }

@@ -238,7 +238,7 @@ export default {
 }
 
 .product-similar-listing-carousel .VueCarousel-navigation button i {
-  color: #00998c;
+  color: #4dba87;
   font-size: 40px;
 }
 
@@ -381,7 +381,7 @@ export default {
 
 .success-similar-content-main .similar-success-tick img {
   display: inline-block;
-  background: #00998c;
+  background: #4dba87;
   border-radius: 50%;
   padding: 12px 7px;
 }

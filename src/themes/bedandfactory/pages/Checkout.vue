@@ -306,7 +306,7 @@ $color-black: color(black);
 }
 
 .checkout-top-icons ul li.checkout-top-basket span {
-  color: #01998c;
+  color: #4DBA87;
 }
 .checkout-top-icons ul li span {
   font-size: 28px;

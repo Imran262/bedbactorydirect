@@ -1809,7 +1809,7 @@ span.save-amount {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: #00998c;
+  background: #4dba87;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -2244,7 +2244,7 @@ span.come-due-in {
   margin-bottom: 10px;
 }
 .delivery-main .cms-content p a {
-  color: #0f988b;
+  color: #4DBA87;
 }
 .majority-uk {
   margin-bottom: 20px !important;

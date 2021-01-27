@@ -266,7 +266,6 @@
               <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
                 <button
                   class="p10 brdr-none serif fs-medium cl-white bg-cl-puerto-rico voucher-code-btn"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   type="button"
                   @click="addDiscountCoupon"
                 >
@@ -291,8 +290,8 @@
                 </div>
                 <button-outline
                   color="light"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   class="cl-white"
+                  :style="{ backgroundColor: '#4dba87' }"
                   :class="[!couponCode ? 'bgcolor' : '']"
                   :disabled="!couponCode"
                   @click.native="setCoupon"
@@ -617,17 +616,29 @@ export default {
       return this.isBillingSame = !this.isBillingSame;
     },
     setOption() {
+      console.log("987766 Emit recieved");
+      this.$bus.$emit(
+              "notification-progress-stop",
+              this.$t("loading braintree...")
+            );
       let braintreeOptions = document.querySelectorAll(".braintree-option");
-      braintreeOptions.forEach((option) => {
-        option.classList.forEach((classs) => {
+      console.log("Braintree options",braintreeOptions,typeof braintreeOptions);
+      braintreeOptions.forEach((option,index) => {
+        console.log("option no ",index," is ", option, typeof option,"\n", option.classList);
+        option.classList.forEach((classs,classIndex) => {
+          console.log("class at index ",classIndex," is ",classs,"\n","classs.search('card') != -1",classs.search("card") != -1);
           if (classs.search("card") != -1) {
             // console.log("option is ",option);
+            console.log("classs.search('card') != -1 condition matched");
             option.click();
             this.$bus.$emit(
               "notification-progress-stop",
               this.$t("loading braintree...")
             );
             this.showSubmitButton = true;
+    //        console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
+            document.querySelectorAll(".braintree-large-button")[0].classList.add("hide-button");
+            console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
           }
         });
       });
@@ -712,6 +723,12 @@ export default {
   },
 };
 </script>
+<style lang="scss" >
+.hide-button{
+  display: none;
+}
+
+</style>
 <style lang="scss" scoped>
 .allunchecked:after {
   display: none !important;
@@ -755,7 +772,7 @@ export default {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     // color: #676767;
@@ -766,22 +783,22 @@ export default {
   }
   input:checked + label {
     &:before {
-      background-color: #00998c;
-      border-color: #00998c;
+      background-color: #4dba87;
+      border-color: #4dba87;
       cursor: pointer;
     }
     &:after {
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
   .button-container {
     button {
-      background-color: #00bfb3;
+      background-color: #4dba87;
       border-radius: 5px;
       padding: 12px 0px;
       :hover {
         border-radius: 5px;
-        background-color: #00998c;
+        background-color: #4dba87;
       }
     }
   }
@@ -792,7 +809,7 @@ export default {
   }
 }
 .bgcolor {
-  background-color: #b6ebe8 !important;
+  background-color: #C8EADC !important;
 }
 .payment-first-name {
   display: none;
@@ -869,7 +886,7 @@ button.find-address {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     color: #676767;
@@ -881,29 +898,29 @@ button.find-address {
   }
   .checkmark {
     &:after {
-      background: #00998c !important;
+      background: #4dba87 !important;
     }
   }
   button {
-    background-color: #00bfb3;
+    background-color: #4dba87;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
     :hover {
       border-radius: 5px;
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
 }
 input:checked + label {
   &::before {
-    background-color: #00998c;
-    border-color: #00998c;
+    background-color: #4dba87;
+    border-color: #4dba87;
     cursor: pointer;
   }
   &::after {
-    background-color: #00998c;
+    background-color: #4dba87;
   }
 }
 .border-box {

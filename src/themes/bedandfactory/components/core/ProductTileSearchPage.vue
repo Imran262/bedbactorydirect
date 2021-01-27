@@ -44,33 +44,11 @@
           data-testid="productImage"
         />
       </div>
-      <div>
-        <!-- {{ getBrandImage() }}
-        {{ product.brand }} -->
-        <!-- {{ product.brand }} -->
-        <img class="brand-size" :src="getBrandImage()" alt="" />
-      </div>
+      
       <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-      <div class="comfort-size">
-        <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
-          <div
-            v-for="(comfort, comfortIndex) in filters.comfort_grade"
-            :key="comfortIndex"
-          >
-            <!-- class="rounded-button" -->
-            <button
-              id="comfortBtn"
-              class="rounded-button comfort-size"
-              :class="setComfortColor()"
-              v-if="comfort.id == product.comfort_grade[0]"
-            >
-              {{ comfort.label }}
-            </button>
-          </div>
-        </div>
-      </div>
+     
       <!--  -->
 
       <div
@@ -175,10 +153,6 @@ export default {
     onlyImage: {
       type: Boolean,
       default: false
-    },
-    filters: {
-      type: Object,
-      required: true
     }
   },
   computed: {
@@ -199,72 +173,6 @@ export default {
     this.setReviews();
   },
   methods: {
-        getBrandImage() {
-      let imagelocation = '/assets/brandLogo/';
-      console.log('filters.brand', this.filters.brand);
-      //  return imagelocation;
-      if (this.filters && this.filters.brand){
-
-      
-      this.filters.brand.forEach((brand, brandIndex) => {
-        console.log(
-          'Brand is ',
-          brand.id,
-          this.product.brand,
-          parseInt(brand.id) === this.product.brand
-        );
-        if (parseInt(brand.id) === this.product.brand) {
-          if (brand.id === 34 || brand.id === '34') {
-            imagelocation = imagelocation + 'BedFactoryDirect.png';
-            return;
-          } else if (brand.id === 35 || brand.id === '35') {
-            imagelocation = imagelocation + 'Sealy.png';
-            return;
-          } else if (brand.id === 36 || brand.id === '36') {
-            imagelocation = imagelocation + 'Birlea.png';
-            return;
-          } else if (brand.id === 38 || brand.id === '38') {
-            imagelocation = imagelocation + 'Limelight.png';
-            return;
-          } else if (brand.id === 39 || brand.id === '39') {
-            imagelocation = imagelocation + 'GFW.png';
-            return;
-          } else if (brand.id === 64 || brand.id === '64') {
-            imagelocation = imagelocation + 'Kaydian.png';
-            return;
-          } else if (brand.id === 109 || brand.id === '109') {
-            imagelocation = imagelocation + 'Silentnight.png';
-            return;
-          } else if (brand.id === 128 || brand.id === '128') {
-            imagelocation = imagelocation + 'Millbrook.png';
-            return;
-          } else if (brand.id === 139 || brand.id === '139') {
-            imagelocation = imagelocation + 'Relyon.png';
-            return;
-          } else if (brand.id === 182 || brand.id === '182') {
-            imagelocation = imagelocation + 'Sleepeezee.png';
-            return;
-          } else if (brand.id === 183 || brand.id === '183') {
-            imagelocation = imagelocation + 'Dormeo.png';
-            return;
-          } else if (brand.id === 184 || brand.id === '184') {
-            imagelocation = imagelocation + 'Dunlopillo.png';
-            return;
-          } else if (brand.id === 210 || brand.id === '210') {
-            imagelocation = imagelocation + 'Breasley.png';
-            return;
-          } else if (brand.id === 211 || brand.id === '211') {
-            imagelocation = imagelocation + 'Bentley.png';
-            return;
-          } else if (brand.id === 212 || brand.id === '212') {
-            imagelocation = imagelocation + 'Serene.png';
-            return;
-          }
-        }
-      });
-      }
-      return imagelocation;
-    },
     setReviews() {
       try {
         let product_Id = '';
@@ -295,43 +203,6 @@ export default {
     },
     getReviews() {
       return this.reviewData;
-    },
-    setComfortColor() {
-      // let classList=document.getElementById('comfortBtn').classList;
-
-      // console.log("hello Before ",classList);
-      //   classList=document.getElementById('comfortBtn').classList.add("color-red");
-      // console.log("hello Afer",classList);
-      // document.getElementById('comfortBtn').style.backgroundColor = 'red';
-
-      if (
-        this.product.comfort_grade[0] === 203 ||
-        this.product.comfort_grade[0] === '203'
-      ) {
-        return 'color-soft';
-      } else if (
-        this.product.comfort_grade[0] === 204 ||
-        this.product.comfort_grade[0] === '204'
-      ) {
-        return 'color-medium-soft';
-      } else if (
-        this.product.comfort_grade[0] === 205 ||
-        this.product.comfort_grade[0] === '205'
-      ) {
-        return 'color-medium';
-      } else if (
-        this.product.comfort_grade[0] === 206 ||
-        this.product.comfort_grade[0] === '206'
-      ) {
-        return 'color-medium-firm';
-      } else if (
-        this.product.comfort_grade[0] === 207 ||
-        this.product.comfort_grade[0] === '207'
-      ) {
-        return 'color-orthopaedic';
-      } else {
-        return 'color-soft';
-      }
     },
     onProductPriceUpdate(product) {
       if (product.sku === this.product.sku) {
@@ -434,7 +305,7 @@ $color-white: color(white);
   height: 30px;
 }
 .review-size {
- padding-top: 10px;
+ /* padding-top: 10px; */
  height: 40px;
 }
 .price-size {
@@ -689,7 +560,7 @@ img.product-cover-thumb {
   display: block !important;
 }
 .price-special {
-  color: #de4747;
+  color: #d90046;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {

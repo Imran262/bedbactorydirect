@@ -54,7 +54,7 @@ export default {};
         font-weight: 500;
       }
       .btn-explore {
-        background: #00998c;
+        background: #4dba87;
         color: #ffffff;
         border: 2px solid #ffffff;
         border-radius: 5px;
