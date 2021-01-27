@@ -3,7 +3,6 @@
     class="product align-center w-100 pb20"
     v-observe-visibility="visibilityChanged"
   >
-    <!-- {{ filters.brand }} -->
     <!-- <div class="product__icons">
       <AddToWishlist :product="product">
         <div
@@ -44,295 +43,84 @@
           data-testid="productImage"
         />
       </div>
-      <div>
-        <!-- {{ getBrandImage() }}
-        {{ product.brand }} -->
-        <!-- {{ product.brand }} -->
-        <img class="brand-size" :src="getBrandImage()" alt="" />
-      </div>
-      <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
+
+      <p class="sb-prodcut-name mb0 cl-accent mt10" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-      <div class="comfort-size">
-        <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
-          <div
-            v-for="(comfort, comfortIndex) in filters.comfort_grade"
-            :key="comfortIndex"
-          >
-            <!-- class="rounded-button" -->
-            <button
-              id="comfortBtn"
-              class="rounded-button comfort-size"
-              :class="setComfortColor()"
-              v-if="comfort.id == product.comfort_grade[0]"
-            >
-              {{ comfort.label }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <!--  -->
 
-      <div
-        class="catstar review-size"
-        v-if="reviewData && reviewData.bottomline.total_review <= 0"
+      <span
+        class="price-original mr5 lh30 cl-secondary"
+        v-if="
+          product.special_price &&
+          parseFloat(product.original_price_incl_tax) > 0 &&
+          !onlyImage
+        "
+        >{{ product.original_price_incl_tax | price }}</span
       >
-        <!-- {{ getReviews() }} -->
-        <!-- {{reviewData.bottomline.total_review > 0}}
-        {{reviewData.bottomline.total_review}} -->
-      </div>
-      <div class="catstar review-size" v-else>
-        <!-- {{ getReviews().bottomline.average_score }}
-        {{getReviews().bottomline.average_score
-            ? parseFloat(getReviews().bottomline.average_score) : 0}} -->
-        <!-- {{reviewData.bottomline.total_review > 0}}
-        {{reviewData.bottomline.total_review}} -->
 
-        <div
-          class="rating"
-          v-if="reviewData && reviewData.bottomline.total_review > 0"
-        >
-          <rating
-            :score="
-              reviewData.bottomline.average_score
-                ? parseFloat(reviewData.bottomline.average_score)
-                : 0
-            "
-          />
-          <span class="TotalReviewStar"
-            >({{ reviewData.bottomline.total_review }})</span
-          >
-        </div>
-      </div>
+      <span
+        class="price-special lh30 cl-accent weight-700"
+        v-if="
+          product.special_price &&
+          parseFloat(product.special_price) > 0 &&
+          !onlyImage
+        "
+        >{{ product.price_incl_tax | price }}</span
+      >
 
-      <div class="price-top">
-        <span
-          class="price-original mr5 lh30 cl-secondary old-price"
-          v-if="
-            product.special_price &&
-            parseFloat(product.original_price_incl_tax) > 0 &&
-            !onlyImage
-          "
-          >WAS{{ product.original_price_incl_tax | price }}<br />
-        </span>
-        <span
-          class="price-special lh30 cl-accent weight-700"
-          v-if="
-            product.special_price &&
-            parseFloat(product.special_price) > 0 &&
-            !onlyImage
-          "
-          >NOW{{ product.price_incl_tax | price }}</span
-        >
-        <span
-          class="sb-category-price original-price"
-          v-if="
-            !product.special_price &&
-            parseFloat(product.price_incl_tax) > 0 &&
-            !onlyImage
-          "
-          >{{ product.price_incl_tax | price }}</span
-        >
-      </div>
+      <span
+        class="sb-category-price"
+        v-if="
+          !product.special_price &&
+          parseFloat(product.price_incl_tax) > 0 &&
+          !onlyImage
+        "
+        >{{ product.price_incl_tax | price }}</span
+      >
     </router-link>
   </div>
 </template>
 
 <script>
-import rootStore from '@vue-storefront/core/store';
-import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts';
-import config from 'config';
-import ProductImage from './ProductImage';
-import AddToWishlist from 'theme/components/core/blocks/Wishlist/AddToWishlist';
-import AddToCompare from 'theme/components/core/blocks/Compare/AddToCompare';
-import { IsOnWishlist } from '@vue-storefront/core/modules/wishlist/components/IsOnWishlist';
-import { IsOnCompare } from '@vue-storefront/core/modules/compare/components/IsOnCompare';
-import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick';
-import ReviewStars from 'src/modules/reviews-module/components/ReviewStars.vue';
-import ReviewWidget from 'src/modules/reviews-module/components/ReviewWidget';
-import Rating from 'theme/components/core/blocks/Reviews/Rating';
-import axios from 'axios';
-// import { log } from 'console';
+import rootStore from "@vue-storefront/core/store";
+import { ProductTile } from "@vue-storefront/core/modules/catalog/components/ProductTile.ts";
+import config from "config";
+import ProductImage from "./ProductImage";
+import AddToWishlist from "theme/components/core/blocks/Wishlist/AddToWishlist";
+import AddToCompare from "theme/components/core/blocks/Compare/AddToCompare";
+import { IsOnWishlist } from "@vue-storefront/core/modules/wishlist/components/IsOnWishlist";
+import { IsOnCompare } from "@vue-storefront/core/modules/compare/components/IsOnCompare";
+import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
 
 export default {
-  mixins: [ProductTile, IsOnWishlist, IsOnCompare, MeasureProductClick],
+  mixins: [ProductTile, IsOnWishlist, IsOnCompare,MeasureProductClick],
   components: {
     ProductImage,
     AddToWishlist,
     AddToCompare,
-    ReviewStars,
-    ReviewWidget,
-    Rating
-  },
-  data() {
-    return { reviewData: null, brandLogo: null };
   },
   props: {
     labelsActive: {
       type: Boolean,
-      default: true
+      default: true,
     },
     onlyImage: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    filters: {
-      type: Object,
-      required: true
-    }
   },
   computed: {
     thumbnailObj() {
       return {
         src: this.thumbnail,
-        loading: this.thumbnail
+        loading: this.thumbnail,
       };
     },
     favoriteIcon() {
-      return this.isOnWishlist ? 'favorite' : 'favorite_border';
-    }
-  },
-  async serverPrefetch() {
-    this.setReviews();
-  },
-  async mounted() {
-    this.setReviews();
+      return this.isOnWishlist ? "favorite" : "favorite_border";
+    },
   },
   methods: {
-        getBrandImage() {
-      let imagelocation = '/assets/brandLogo/';
-      console.log('filters.brand', this.filters.brand);
-      //  return imagelocation;
-      if (this.filters && this.filters.brand){
-
-      
-      this.filters.brand.forEach((brand, brandIndex) => {
-        console.log(
-          'Brand is ',
-          brand.id,
-          this.product.brand,
-          parseInt(brand.id) === this.product.brand
-        );
-        if (parseInt(brand.id) === this.product.brand) {
-          if (brand.id === 34 || brand.id === '34') {
-            imagelocation = imagelocation + 'BedFactoryDirect.png';
-            return;
-          } else if (brand.id === 35 || brand.id === '35') {
-            imagelocation = imagelocation + 'Sealy.png';
-            return;
-          } else if (brand.id === 36 || brand.id === '36') {
-            imagelocation = imagelocation + 'Birlea.png';
-            return;
-          } else if (brand.id === 38 || brand.id === '38') {
-            imagelocation = imagelocation + 'Limelight.png';
-            return;
-          } else if (brand.id === 39 || brand.id === '39') {
-            imagelocation = imagelocation + 'GFW.png';
-            return;
-          } else if (brand.id === 64 || brand.id === '64') {
-            imagelocation = imagelocation + 'Kaydian.png';
-            return;
-          } else if (brand.id === 109 || brand.id === '109') {
-            imagelocation = imagelocation + 'Silentnight.png';
-            return;
-          } else if (brand.id === 128 || brand.id === '128') {
-            imagelocation = imagelocation + 'Millbrook.png';
-            return;
-          } else if (brand.id === 139 || brand.id === '139') {
-            imagelocation = imagelocation + 'Relyon.png';
-            return;
-          } else if (brand.id === 182 || brand.id === '182') {
-            imagelocation = imagelocation + 'Sleepeezee.png';
-            return;
-          } else if (brand.id === 183 || brand.id === '183') {
-            imagelocation = imagelocation + 'Dormeo.png';
-            return;
-          } else if (brand.id === 184 || brand.id === '184') {
-            imagelocation = imagelocation + 'Dunlopillo.png';
-            return;
-          } else if (brand.id === 210 || brand.id === '210') {
-            imagelocation = imagelocation + 'Breasley.png';
-            return;
-          } else if (brand.id === 211 || brand.id === '211') {
-            imagelocation = imagelocation + 'Bentley.png';
-            return;
-          } else if (brand.id === 212 || brand.id === '212') {
-            imagelocation = imagelocation + 'Serene.png';
-            return;
-          }
-        }
-      });
-      }
-      return imagelocation;
-    },
-    setReviews() {
-      try {
-        let product_Id = '';
-
-        // if ((this.product.type_id = 'configurable')) {
-        //   product_Id = this.product.parentId;
-        // }
-        product_Id = this.product.id;
-
-        const URL = config.reviews.getReviews_endpoint + product_Id;
-        //  console.log('URL is ', this.product);
-        axios
-          .get(URL)
-          .then(res => {
-            const response = res;
-            if (response.status !== 200 && !review.data.length) {
-              throw ('Error:', response.data[0].message);
-            } else {
-              this.reviewData = response.data[1];
-            }
-          })
-          .catch(err => {
-            throw ('Error:', err);
-          });
-      } catch (err) {
-        console.error('error message', err);
-      }
-    },
-    getReviews() {
-      return this.reviewData;
-    },
-    setComfortColor() {
-      // let classList=document.getElementById('comfortBtn').classList;
-
-      // console.log("hello Before ",classList);
-      //   classList=document.getElementById('comfortBtn').classList.add("color-red");
-      // console.log("hello Afer",classList);
-      // document.getElementById('comfortBtn').style.backgroundColor = 'red';
-
-      if (
-        this.product.comfort_grade[0] === 203 ||
-        this.product.comfort_grade[0] === '203'
-      ) {
-        return 'color-soft';
-      } else if (
-        this.product.comfort_grade[0] === 204 ||
-        this.product.comfort_grade[0] === '204'
-      ) {
-        return 'color-medium-soft';
-      } else if (
-        this.product.comfort_grade[0] === 205 ||
-        this.product.comfort_grade[0] === '205'
-      ) {
-        return 'color-medium';
-      } else if (
-        this.product.comfort_grade[0] === 206 ||
-        this.product.comfort_grade[0] === '206'
-      ) {
-        return 'color-medium-firm';
-      } else if (
-        this.product.comfort_grade[0] === 207 ||
-        this.product.comfort_grade[0] === '207'
-      ) {
-        return 'color-orthopaedic';
-      } else {
-        return 'color-soft';
-      }
-    },
     onProductPriceUpdate(product) {
       if (product.sku === this.product.sku) {
         Object.assign(this.product, product);
@@ -343,29 +131,29 @@ export default {
         isVisible &&
         config.products.configurableChildrenStockPrefetchDynamic &&
         config.products.filterUnavailableVariants &&
-        this.product.type_id === 'configurable' &&
+        this.product.type_id === "configurable" &&
         this.product.configurable_children &&
         this.product.configurable_children.length > 0
       ) {
         const skus = [this.product.sku];
         for (const confChild of this.product.configurable_children) {
           const cachedItem = rootStore.state.stock.cache[confChild.id];
-          if (typeof cachedItem === 'undefined' || cachedItem === null) {
+          if (typeof cachedItem === "undefined" || cachedItem === null) {
             skus.push(confChild.sku);
           }
         }
         if (skus.length > 0) {
-          rootStore.dispatch('stock/list', { skus: skus }); // store it in the cache
+          rootStore.dispatch("stock/list", { skus: skus }); // store it in the cache
         }
       }
-    }
+    },
   },
   beforeMount() {
-    this.$bus.$on('product-after-priceupdate', this.onProductPriceUpdate);
+    this.$bus.$on("product-after-priceupdate", this.onProductPriceUpdate);
   },
   beforeDestroy() {
-    this.$bus.$off('product-after-priceupdate', this.onProductPriceUpdate);
-  }
+    this.$bus.$off("product-after-priceupdate", this.onProductPriceUpdate);
+  },
 };
 </script>
 
@@ -377,127 +165,10 @@ export default {
 $bg-secondary: color(secondary, $colors-background);
 $border-secondary: color(secondary, $colors-border);
 $color-white: color(white);
-.TotalReviewStar {
-  font-size: 13px;
-  margin-top: 4px;
-}
-.rating ul {
-  display: inline-flex;
-  list-style: none;
-  padding: 0;
-}
 
-.rating ul li .fa {
-  color: #fdd055;
-  font-size: 17px;
-}
-
-.rating {
-  /* width: 100%; */
-  display: inline-flex;
-  /* text-align: right; */
-  // margin-top: 14px;
-  ul {
-    margin-top: 15px !important;
-    @media (min-width: 768px) and (max-width: 1199px) {
-      margin-top: 0px !important;
-    }
-    @media screen and (max-width: 460px) {
-      margin-top: 7px !important;
-    }
-  }
-
-  @media screen and (max-width: 1199px) {
-    text-align: left;
-    /* width: 100%; */
-  }
-}
-.price-top {
-  border-top: 1px solid #dfe1e5;
-  padding-top: 17px;
-}
-.original-price {
-  margin: 16px;
-}
-.old-price {
-  font-size: 12px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-}
-.brand-size {
-  height: 30px;
-}
-.name-size {
-  height: 55px;
-}
-.comfort-size {
-  height: 30px;
-}
-.review-size {
- padding-top: 10px;
- height: 40px;
-}
-.price-size {
-  height: 40px;
-}
-.color-soft {
-  background-color: #f6a076 !important;
-}
-.color-medium-soft {
-  background-color: #fa8a63 !important;
-}
-.color-medium {
-  background-color: #cb6885 !important;
-}
-.color-medium-firm {
-  background-color: #965177 !important;
-}
-.color-orthopaedic {
-  background-color: #5b364c !important;
-}
-/* .rounded-button {
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 0px 0px;
-  cursor: pointer;
-  border-radius: 25px;
-  padding: 6px 31px 6px 30px;
-} */
-.rounded-button {
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 0px 0px;
-  cursor: pointer;
-  border-radius: 25px;
-  padding: 6px 23px 6px 23px;
-  font-weight: bold;
-  width: 169px;
-}
-@media (max-width: 1000px) and (min-width:768px ){
-  .rounded-button{
-    padding: 6px 6px 6px 6px;
-    width: 150px;
-  }
-}
-@media only screen and (max-device-width: 345px) and (min-device-width: 320px){
-.rounded-button[data-v-10bab35f] {
-    width: 121px !important;
-    font-size: 10px !important;
-}
-}
 .product {
   position: relative;
   margin-bottom: 10px;
-  /* border-style: groove; */
-  border: 1px solid #dfe1e5;
   @media (max-width: 767px) {
     padding-bottom: 10px;
   }
@@ -528,30 +199,12 @@ $color-white: color(white);
     }
   }
   .sb-prodcut-name {
-    /* font-size: 0.875rem;
+    font-size: 0.875rem;
     color: #54575b;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     margin-bottom: 20px;
-    text-transform: capitalize; */
-    /* font-size: 1rem;
-    color: #54575b;
-    font-family: "Poppins", sans-serif;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-transform: capitalize; */
-    font-size: 1.2rem;
-    color: #54575b;
-    font-family: "Poppins", sans-serif;
-    /* font-weight: bold; */
-    /* margin-bottom: 20px; */
     text-transform: capitalize;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    /* autoprefixer: ignore next  */
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
   }
   span.sb-category-price {
     font-size: 1.131875rem;
@@ -584,13 +237,11 @@ $color-white: color(white);
 
 .product-cover {
   overflow: hidden;
-  margin: 3px 5px 0px 3px;
 
   &__thumb {
     padding-bottom: calc(165.88% / (164.5 / 100));
     @media screen and (min-width: 768px) {
       padding-bottom: calc(300% / (276.5 / 100));
-      margin-bottom: -82px;
     }
     opacity: 1;
     will-change: opacity, transform;
@@ -667,14 +318,14 @@ img.product-cover-thumb {
   margin-bottom: 0;
 }
 .product .sb-prodcut-name {
-  /* height: auto; */
+  height: auto;
   line-height: 1.4em;
   display: -ms-flexbox;
   display: flex;
   -webkit-line-clamp: 2;
   display: -webkit-box;
   overflow: hidden;
-  /* margin-bottom: 0px; */
+  margin-bottom: 0px;
   display: block;
   text-align: center;
 }
@@ -693,31 +344,12 @@ img.product-cover-thumb {
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {
-    font-size: 1rem;
-  }
-  .rounded-button {
-    width: 133px;
-    font-size: 11px;
-  }
-  .name-size{
-    height: 64px;
+    height: auto;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  /* .product .sb-prodcut-name {
-    height: auto; 
-  } */
-}
-</style>
-<style>
-.catstar .vue-star-rating-star {
-  width: 22px;
-  height: 22px;
-  /* display:inline-flex !important; */
-}
-
-.catstar .vue-star-rating {
-  display: inline-flex !important;
-  float: inline !important;
+  .product .sb-prodcut-name {
+    height: auto;
+  }
 }
 </style>
