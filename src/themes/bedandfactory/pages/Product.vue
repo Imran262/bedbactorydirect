@@ -196,6 +196,17 @@
                   <br />
                   <br /> -->
                   <!-- {{productCurrentCustomOptions}} -->
+                  <!-- <br/>{{getCurrentProductConfiguration }}
+                 <br/>
+                 <br/>
+                  {{ $store.state.product.current_options }}
+                  <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/> -->
+                <!-- getCurrentProduct.type_id {{getCurrentProduct.type_id}} -->
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
@@ -447,13 +458,37 @@
                 @error="handleQuantityError"
               />
               <div class="row m0 bt-product-addtocartbtn">
-                <add-to-cart
+                
+               <!-- {{getCurrentProduct.custom_options }} -->
+               <!-- {{ getCurrentProduct.custom_options.length>0}} -->
+              
+                <template v-if="getCurrentProduct.custom_options && getCurrentProduct.custom_options.length>0">
+                
+                  <add-to-cart
+                   
                   :product-options="sendProductCustomOptions"
                   :product="getCurrentProduct"
                   :custom-options="getCurrentProductCustomOptionsRedo"
                   class="col-xs-12 col-sm-4 col-md-6"
                   :product-calculated-price="calculatedProductPrice"
+                  :disableProduct="false"
+                  :disableProductFlag="false"
                 />
+                  </template>
+                  <template v-else>
+                    
+                    <add-to-cart
+                
+                  :product-options="sendProductCustomOptions"
+                  :product="getCurrentProduct"
+                  :custom-options="getCurrentProductCustomOptionsRedo"
+                  class="col-xs-12 col-sm-4 col-md-6"
+                  :product-calculated-price="calculatedProductPrice"
+                  :disableProduct="cartFlag"
+                  :disableProductFlag="true"
+                />
+                  </template>
+                
               </div>
             </div>
 
@@ -755,6 +790,7 @@ import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidge
 import ProductPrice from "theme/components/core/ProductPrice.vue"
 import axios from "axios"
 import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker"
+import { product } from '@vue-storefront/core/modules/url/test/unit/helpers/data'
 export default {
   components: {
     ColorPicker,
@@ -815,7 +851,9 @@ export default {
       calculatedProductPrice: {},
       productCurrentCustomOptions : {},
       deltaproduct: this.$store.state.product.current_custom_options,
-      reRender :0
+      reRender :0,
+      configurableChildren:[],
+      cartFlag:true
     };
   },
   computed: {
@@ -987,7 +1025,16 @@ export default {
         "\nSTATE is \n\n",
         this.$store.state.product
       );
-   this.getCurrentProductCustomOptions();
+   
+   if(this.getCurrentProduct.custom_options && this.getCurrentProduct.custom_options.length>0)
+   {
+this.getCurrentProductCustomOptions();
+   }
+   else{
+     console.log("998877 It is a a configurable product");
+this.setConfigurableOption();
+   }
+   
   },
   async asyncData({ store, route }) {
     const product = await store.dispatch("product/loadProduct", {
@@ -1027,7 +1074,9 @@ export default {
       this.setReviews();
       console.log("114455",this.getColorName(), this.colorName);
     //  this.colorName = "Please Select"
-    this.getCurrentProduct.custom_options.forEach((option) => {
+    if(this.getCurrentProduct.custom_options && this.getCurrentProduct.custom_options.length>0)
+   {
+  this.getCurrentProduct.custom_options.forEach((option) => {
           if (
             option.iscolor == 1 ||
             option.iscolor == "1" ||
@@ -1036,6 +1085,7 @@ export default {
             this.colorName = "Please Select " + option.title
           }
         })
+    }
               console.log("114455",this.getColorName(), this.colorName);
       console.log(
         "112277 Route changes",
@@ -1052,11 +1102,53 @@ export default {
     getCurrentCustomOptions : {
       handler(){
         console.log("112255 state changed");
-        this.getCurrentProductCustomOptions()
+        if(this.getCurrentProduct.custom_options && this.getCurrentProduct.custom_options.length>0)
+   {
+this.getCurrentProductCustomOptions();
+   }
+   else{
+
+this.setConfigurableOption();
+   }
       }
     }
   },
   methods: {
+    setConfigurableOption(){
+      const _ = require('lodash');
+      let newObjList=[];
+      let products = this.getCurrentProduct.configurable_children;
+      console.log("885522 Products",products);
+      let val=10;
+      let sampleObject =  this.getCurrentProductConfiguration;
+      let sampleObject2 = _.clone(sampleObject);
+      console.log("Current Configuration",sampleObject);
+      products.forEach((product,productIndex)=>{
+        console.log("product is ",product);
+        var currentVariant =  Object.create(sampleObject);
+        var newVariant = Object.assign({}, sampleObject);
+        const newCurrent = {...sampleObject};
+        var newCur = JSON.parse(JSON.stringify(sampleObject))
+        console.log(currentVariant);
+        var newObj = {};
+        for (let i in sampleObject){
+          val++;
+          newObj[i]={...sampleObject[i]}
+        //  sampleObject[i].id=product[i];
+        newObj[i].id = product[i];
+        newObj[i].label = product[i];
+          // sampleObject[i].id= 100
+          //  currentVariant[i].id= 50
+          //   newVariant[i].id= 30 +val
+          console.log("78889",i,sampleObject[i].id,currentVariant[i].id,newVariant[i].id,newCurrent[i].id,"this ",newCur[i].id,product[i],"id ",newObj[i].id,"new 2", sampleObject2[i].id);
+        }
+       // console.log("newObj",newObj['size'].id);
+        newObjList.push(newObj);
+      });
+     console.log("After All", newObjList );
+     this.configurableChildren = newObjList;
+     
+    },
     setReviews(){
       try {
            let product_Id="";
@@ -1287,12 +1379,55 @@ export default {
       this.getQuantity()
     },
     changeFilterCustom(event) {
+      this.cartFlag=true;
       let variant = JSON.parse(event.target.value)
-      this.$bus.$emit(
-        "filter-changed-product",
-        Object.assign({ attribute_code: variant.type }, variant)
-      )
-      this.getQuantity()
+      let filterOption = Object.assign({ attribute_code: variant.type }, variant);
+      delete filterOption.type;
+console.log("VariantIS",variant , "filter option is ",filterOption, "variant.type" ,variant.type);
+      let configuration = this.getCurrentProductConfiguration;
+      console.log('currentProductConfiguration', configuration);
+  // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
+    let changedConfig = Object.assign({}, configuration);
+    changedConfig[variant.type].id = variant.id; 
+    changedConfig[variant.type].label = variant.id; 
+  console.log('changedConfig',changedConfig[variant.type].id, changedConfig);
+      for (let i in configuration )
+      {
+        configuration[i].id=parseInt(configuration[i].id)
+        configuration[i].label=parseInt(configuration[i].label)
+      }
+      // for (let childIndex=0 ;childIndex<=this.configurableChildren.length;childIndex++){
+      //   let child = this.configurableChildren[0];
+       // console.log("child is ",child);
+      // }
+      let flag = false;
+      delete changedConfig.label;
+       this.configurableChildren.forEach((child,childIndex)=>{
+       // console.log("7788");
+       // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       // if()
+        if (JSON.stringify(child)==JSON.stringify(changedConfig)){
+        //  let variant = JSON.parse(event.target.value)
+        console.log("774455", "child matched will emit " ,  );
+          this.$bus.$emit("filter-changed-product",Object.assign({ attribute_code: variant.type }, variant));
+          this.getQuantity();
+          flag =true;
+        }
+        else{
+          if(childIndex+1 == this.configurableChildren.length){
+            console.log("At the end of children");
+            if(flag){
+
+            }else{
+           // disable cart
+           this.cartFlag =false;
+            }
+
+          }
+        }
+       });
+      
     },
     openSizeGuide() {
       this.$bus.$emit("modal-show", "modal-sizeguide")

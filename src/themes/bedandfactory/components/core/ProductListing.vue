@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import ProductTile from 'theme/components/core/ProductTile';
+import ProductTile from 'theme/components/core/ProductTileCategory';
 import ProductTileSearch from 'theme/components/core/ProductTileSearchPage';
 let lastHero = 0;
 export default {
