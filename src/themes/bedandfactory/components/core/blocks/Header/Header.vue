@@ -194,7 +194,7 @@ $color-icon-hover: color(secondary, $colors-background);
 }
 @media (min-width: 768px) and (max-width: 992px){
   .header {
-  height: 4rem;
+  height: 5rem;
 }
 }
 @media (max-width: 767px) {
