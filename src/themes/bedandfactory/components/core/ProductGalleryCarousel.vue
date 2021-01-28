@@ -172,7 +172,14 @@ export default {
   right: 0px;
   background: #eaeaea;
   bottom: 100px;
+  @media (min-width: 1200px) {
+      bottom: 220px;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1199px){
+      bottom: 150px;
+    }
 }
+
 .media-gallery-carousel .bg-cl-secondary {
   background: #ffffff;
 }
@@ -239,7 +246,13 @@ export default {
 /*Custom Css */
 .bt-product-gallery .media-gallery {
   margin-bottom: -60px;
-}
+  @media screen and (min-width: 1200px){
+    margin-bottom: -190px;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1199px){
+    margin-bottom: -110px;
+  }
+  }
 .media-gallery-carousel .product-image__thumb {
   top: 43%;
 }
