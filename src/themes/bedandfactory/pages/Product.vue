@@ -2105,8 +2105,12 @@ table {
   border-collapse: collapse;
   margin: 0;
   padding: 0;
-  width: 100%;
   table-layout: fixed;
+}
+@media only screen and (max-width: 700px) and (min-width: 320px) {
+  table {
+    width: 100%;
+  }
 }
 table tr {
   border: 1px solid red;
@@ -2114,9 +2118,24 @@ table tr {
 }
 
 table td {
-  border: 1px solid red;
+  border: 1px solid black;
   padding: .625em;
   text-align: left;
+}
+@media only screen and (max-width: 600px) and (min-width: 320px){
+  table td {
+font-size: 1.5vw;
+  }
+}
+@media only screen and (max-width: 700px) and (min-width: 601px){
+  table td {
+font-size: 1.3vw;
+  }
+}
+@media only screen and (max-width: 899px) and (min-width: 701px){
+  table td {
+font-size: 1.5vw;
+  }
 }
 /* extra-info-main  */
 .bt-new-description-main ul {
