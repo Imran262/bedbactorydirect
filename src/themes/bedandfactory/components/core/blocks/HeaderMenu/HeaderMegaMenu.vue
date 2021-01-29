@@ -72,7 +72,7 @@ export default {
             margin: 10px 0 10px 10px;
             display: flex;
             .sb-height-dropdown-menu {
-              border-right: 3px solid #eeeeee;
+              border-right: 1px solid #eeeeee;
               height: 200px;
               padding-left: 15px;
               padding-right: 15px;
@@ -113,12 +113,11 @@ export default {
             }
           }
           .sb-price-match {
-            background-color: rgb(147, 149, 152);
+     
             display: flex;
             justify-content: flex-end;
             width: 84.2%;
             .menu-dropdown-logo-img {
-              background: url("/assets/menu-logo.png");
               height: 59px;
               width: 121px;
               background-size: 100%;
@@ -143,6 +142,7 @@ export default {
       }
       &:hover .nav-panel-dropdown {
         display: block;
+        border: 1px solid #D3D3D3;
       }
     }
   }
