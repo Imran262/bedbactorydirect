@@ -606,6 +606,7 @@
             v-if="ProDeliveryShow"
             class="h4 Delivery-wrapper bt-Specifications-wrapper-show-close"
           >
+         
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
                 <div class="Specifications-main">
@@ -1581,6 +1582,24 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+table tr {
+  border: 1px solid red;
+  padding: .35em;
+}
+
+table td {
+  border: 1px solid red;
+  padding: .625em;
+  text-align: left;
+}
 #overlay {
   position: fixed;
   width: 100%;
@@ -2216,6 +2235,43 @@ span.come-due-in {
 /* FLOR-206  */
 </style>
 <style>
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+}
+@media only screen and (max-width: 700px) and (min-width: 320px) {
+  table {
+    width: 100%;
+  }
+}
+table tr {
+  border: 1px solid red;
+  padding: .35em;
+}
+
+table td {
+  border: 1px solid black;
+  padding: .625em;
+  text-align: left;
+}
+@media only screen and (max-width: 600px) and (min-width: 320px){
+  table td {
+font-size: 1.5vw;
+  }
+}
+@media only screen and (max-width: 700px) and (min-width: 601px){
+  table td {
+font-size: 1.3vw;
+  }
+}
+@media only screen and (max-width: 899px) and (min-width: 701px){
+  table td {
+font-size: 1.5vw;
+  }
+}
 /* extra-info-main  */
 .bt-new-description-main ul {
   padding: 18px 0px 18px 18px;
