@@ -361,9 +361,6 @@
                   </li>
                 </ul> -->
                 <ul>
-                  <li>
-                    <img src="/assets/footer/footer1-visa-icon.png" />
-                  </li>
                    <li>
                     <img src="/assets/payment-icons/master-card.svg" />
                   </li>
