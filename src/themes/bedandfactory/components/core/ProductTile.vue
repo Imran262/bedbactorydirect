@@ -85,7 +85,7 @@
 import rootStore from "@vue-storefront/core/store";
 import { ProductTile } from "@vue-storefront/core/modules/catalog/components/ProductTile.ts";
 import config from "config";
-import ProductImage from "./ProductImage";
+import ProductImage from "./ProductImageCategory";
 import AddToWishlist from "theme/components/core/blocks/Wishlist/AddToWishlist";
 import AddToCompare from "theme/components/core/blocks/Compare/AddToCompare";
 import { IsOnWishlist } from "@vue-storefront/core/modules/wishlist/components/IsOnWishlist";

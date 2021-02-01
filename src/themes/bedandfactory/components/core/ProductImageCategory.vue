@@ -125,17 +125,8 @@ export default {
     &--width {
       .product-image__thumb {
         width: 100%;
-        @media screen and (min-width: 1200px){
-          position: absolute;
-          top: 215px;
-        }
-        @media screen and (min-width: 1024px) and (max-width: 1199px){
-            position: absolute;
-          top: 165px;
-        }
-         
+        /* height: 200px; */
       }
-      
     }
   }
 </style>

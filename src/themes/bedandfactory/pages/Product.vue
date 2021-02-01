@@ -49,7 +49,6 @@
       <UspBar />
       <div class="container">
         <breadcrumbs :key="reRender" class="pt40 pb20 hidden-xs" />
-
         <section class="row m0 between-xs product-detail-inner">
           <div class="col-xs-12 col-md-6 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
@@ -1581,6 +1580,9 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+.pb20{
+  padding-bottom: 0px;
+}
 #overlay {
   position: fixed;
   width: 100%;
@@ -1902,7 +1904,7 @@ span.readmore-product-description {
 section.product-description-main {
   margin-top: 0;
   border-bottom: 0px !important;
-  padding-top: 5px;
+    padding-top: 5px;
 }
 
 .brdr-cl-secondary {
