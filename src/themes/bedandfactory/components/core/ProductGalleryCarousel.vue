@@ -45,7 +45,7 @@
 <script>
 import config from "config"
 import { Carousel, Slide } from "vue-carousel"
-import ProductImage from "./ProductImage"
+import ProductImage from "./ProductImageProduct"
 import ProductVideo from "./ProductVideo"
 import reduce from "lodash-es/reduce"
 import map from "lodash-es/map"
