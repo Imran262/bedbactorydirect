@@ -349,7 +349,7 @@
                 class="bank-card"
                 v-if="method.code === 'checkoutcom_card_payment'"
               >
-                <ul>
+                <!-- <ul>
                   <li>
                     <img src="/assets/footer/footer-master-card-icon.png" />
                   </li>
@@ -359,13 +359,30 @@
                   <li>
                     <img src="/assets/footer/footer-visa-icon.png" />
                   </li>
+                </ul> -->
+                <ul>
+                  <li>
+                    <img src="/assets/footer/footer1-visa-icon.png" />
+                  </li>
+                   <li>
+                    <img src="/assets/payment-icons/master-card.svg" />
+                  </li>
+                  <li>
+                    <img src="/assets/payment-icons/maestro.svg" />
+                  </li>
+                   <li>
+                    <img src="/assets/payment-icons/visa.svg" />
+                  </li>
+                  <li>
+                    <img src="/assets/payment-icons/american-express.svg" />
+                  </li>     
                 </ul>
               </div>
 
               <div class="bank-card" v-if="method.code === 'paypal_express'">
                 <ul>
                   <li>
-                    <img src="/assets/footer/footer-paypal-icon.png" />
+                      <img src="/assets/payment-icons/paypal.svg" />
                   </li>
                 </ul>
               </div>
