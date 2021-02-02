@@ -69,7 +69,7 @@ export default {
         top: 46px;
         .nav-panel-inner {
           .nav-block {
-            margin: 10px 0 10px 10px;
+            margin: 10px 0 25px 10px;
             display: flex;
             .sb-height-dropdown-menu {
               border-right: 1px solid #eeeeee;
