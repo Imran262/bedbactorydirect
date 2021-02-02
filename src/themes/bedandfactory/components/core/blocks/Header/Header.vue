@@ -15,7 +15,7 @@
           class="sb-mobile-menu pointer hidden-md"
         />
           </div>
-          <div class="col-md-2 col-xs-4 pt5 col-sm-4">
+          <div class="col-md-2 col-xs-4 pt5 col-sm-4 mobile_logo">
             <div>
               <logo width="120px" height="76px" />
             </div>
@@ -195,6 +195,24 @@ $color-icon-hover: color(secondary, $colors-background);
 @media (min-width: 768px) and (max-width: 992px){
   .header {
   height: 4rem;
+}
+}
+@media (min-width: 600px) and (max-width: 767px){
+.col-md-2.col-xs-4.pt5.col-sm-4.mobile_logo {
+    position: relative;
+    right: 70px;
+}
+}
+@media (min-width: 425px) and (max-width: 599px){
+.col-md-2.col-xs-4.pt5.col-sm-4.mobile_logo {
+    position: relative;
+    right: 50px;
+}
+}
+@media (min-width: 320px) and (max-width: 424px){
+.col-md-2.col-xs-4.pt5.col-sm-4.mobile_logo {
+    position: relative;
+    right: 40px;
 }
 }
 @media (max-width: 767px) {
