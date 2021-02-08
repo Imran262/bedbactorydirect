@@ -1,4 +1,5 @@
 <template>
+<template v-if="loaded">
   <div id="category">
     <UspBar />
     <header>
@@ -149,7 +150,7 @@
     </div>
   </div>
 </template>
-
+</template>
 <script>
 import LazyHydrate from "vue-lazy-hydration";
 //import Sidebar from '../components/core/blocks/Category/Sidebar.vue'
@@ -243,7 +244,14 @@ export default {
       logo: "assets/logo.svg",
       title: "heyy",
       breadcrumbs: [],
+      loaded: false,
     };
+  },
+  created(){
+  var self = this;
+  self.$nextTick(function() {
+  self.loaded = true;
+  })
   },
   computed: {
     ...mapGetters({
