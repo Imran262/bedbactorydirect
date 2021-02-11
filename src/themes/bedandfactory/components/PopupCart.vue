@@ -305,7 +305,93 @@ export default {
           selectDefaultVariant: false,
         });
         // console.log('popupProductsP_p', popup_product);
-        popup_arr.push(popup_product);
+        console.log("78945 got pop up product ", popup_product);
+        if(popup_product.configurable_children && popup_product.configurable_children.length>0)
+        {
+          console.log("78945 This is a configurable product \n and selected options are ",typeof this.productOptions,this.productOptions);
+          let pOptions= this.productOptions
+          let childProduct = Object.assign({}, popup_product);
+          // console.log("78945 parent product is ",childProduct);
+          popup_product.configurable_children.forEach(function(child,index){
+            console.log("78945 child product at index",index+1," is :",child.sku );
+            
+            for (let i in pOptions )
+            {
+              let option=pOptions[i].option_value;
+              let option2 =option.replace(/\s+/g, '');
+              let prod=child.sku.search('-'+option2);
+              let optionTitle = pOptions[i].title;
+              let optionTitle2 = optionTitle.toLowerCase();
+              let attributeId;
+              childProduct.configurable_options.forEach((cOption,cindex)=>{
+                if (cOption.attribute_code == optionTitle2){
+                  attributeId = cOption.attribute_id;
+                }
+              })
+              console.log("78945 Current option value is ",option ,option2,prod , prod != -1);
+              if(prod != -1 ){
+                console.log("78945 child product found");
+                childProduct.regular_price = child.regular_price;
+                childProduct.price = child.price;
+                childProduct.id = child.id;
+                childProduct.sku = child.sku;
+                childProduct.original_price_incl_tax = child.original_price_incl_tax;
+                childProduct.special_price = child.special_price;
+                childProduct.original_price = child.original_price;
+                childProduct.originalPrice = child.originalPrice;
+                childProduct.originalPriceInclTax = child.originalPriceInclTax;
+                childProduct.original_special_price = child.original_special_price;
+                childProduct.price_incl_tax = child.price_incl_tax;
+                childProduct.priceInclTax = child.priceInclTax;
+                childProduct.specialPrice = child.specialPrice;
+                childProduct[optionTitle2]=child[optionTitle2];
+                childProduct.configuration[optionTitle2].id = child[optionTitle2].toString(10);
+                childProduct.configuration[optionTitle2].label = child[optionTitle2];
+                childProduct.options.forEach((option,index)=>{
+                  if (option.label == optionTitle){
+                    option.value = child[optionTitle2];
+                  }
+                });
+                childProduct.product_option.extension_attributes.configurable_item_options.forEach((confOption,confIndex)=>{
+                  console.log("78945 child is ",typeof confOption.option_id , typeof attributeId ,confOption.option_id === attributeId);
+                  if(parseInt (confOption.option_id) === attributeId)
+                  {
+                    confOption.option_value =  child[optionTitle2];
+                  }
+                })
+                console.log("78945 Child Product is ",childProduct.product_option.extension_attributes);
+                // childProduct.product_option.extension_attributes = {
+                //   "custom_options": [],
+                //   "configurable_item_options": [
+                //     {
+                //       "option_id": "152",
+                //       "option_value": "48"
+                //       }
+                //       ],
+                //       "bundle_options": []
+                //       }
+                      // childProduct.options =  [
+                      //   {
+                      //     "label": "Size",
+                      //   "value": 48
+                      //   }
+                      //   ];
+
+
+
+
+
+
+                console.log("78945 Child Product is ",childProduct);
+                popup_arr.push(childProduct);
+              }    
+            }
+          });
+
+        }
+        else{
+          popup_arr.push(popup_product);
+        }
         const thumbnail = productThumbnailPath(popup_product);
         Vue.set(
           this.itemThumbnail,
