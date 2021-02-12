@@ -317,11 +317,26 @@ export default {
             
             for (let i in pOptions )
             {
-              let option=pOptions[i].option_value;
-              let option2 =option.replace(/\s+/g, '');
-              let prod=child.sku.search('-'+option2);
+              
               let optionTitle = pOptions[i].title;
               let optionTitle2 = optionTitle.toLowerCase();
+              console.log("7456321 ",child,optionTitle2,pOptions[i],child[optionTitle2] ,optionTitle2["optionTitle2"]);
+              // if(child[optionTitle2]){
+              //   console.log("7456321 Yes 1 ");
+              // }
+              // else{
+              //   console.log("7456321 No 1");
+              // }
+              // if(child["optionTitle2"]){
+              //   console.log("7456321 Yes 2 ");
+              // }
+              // else{
+              //   console.log("7456321 No 2");
+              // }
+             if(child[optionTitle2]){ 
+               let option=pOptions[i].option_value;
+              let option2 =option.replace(/\s+/g, '');
+              let prod=child.sku.search('-'+option2);
               let attributeId;
               childProduct.configurable_options.forEach((cOption,cindex)=>{
                 if (cOption.attribute_code == optionTitle2){
@@ -336,6 +351,7 @@ export default {
                 childProduct.id = child.id;
                 childProduct.sku = child.sku;
                 childProduct.original_price_incl_tax = child.original_price_incl_tax;
+                childProduct.final_price_incl_tax = child.specialPrice? child.specialPrice :child.original_price_incl_tax;
                 childProduct.special_price = child.special_price;
                 childProduct.original_price = child.original_price;
                 childProduct.originalPrice = child.originalPrice;
@@ -382,9 +398,10 @@ export default {
 
 
 
-                console.log("78945 Child Product is ",childProduct);
+                console.log("78945 Child Product is this one now",child.specialPrice ? child.specialPrice :child.original_price_incl_tax , child.specialPrice, child.original_price_incl_tax,childProduct.final_price_incl_tax,"\n two ",childProduct);
                 popup_arr.push(childProduct);
               }    
+              }
             }
           });
 
