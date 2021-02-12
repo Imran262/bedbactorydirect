@@ -305,13 +305,16 @@ export default {
           selectDefaultVariant: false,
         });
         // console.log('popupProductsP_p', popup_product);
+        let pOptions= this.productOptions
         console.log("78945 got pop up product ", popup_product);
         if(popup_product.configurable_children && popup_product.configurable_children.length>0)
         {
           console.log("78945 This is a configurable product \n and selected options are ",typeof this.productOptions,this.productOptions);
-          let pOptions= this.productOptions
+          
           let childProduct = Object.assign({}, popup_product);
           // console.log("78945 parent product is ",childProduct);
+          if (popup_product.configurable_options.length===100){
+            console.log("78944 It has one configurable option ");
           popup_product.configurable_children.forEach(function(child,index){
             console.log("78945 child product at index",index+1," is :",child.sku );
             
@@ -404,8 +407,139 @@ export default {
               }
             }
           });
+          }
+          else if(popup_product.configurable_options.length >=1) {
+            let configurableOptions =[];
+             console.log("78944 It has multiple configurable options ");
+             popup_product.configurable_options.forEach((cOption,index)=>{
+              console.log("78944 current configurable option at ",index," is ",cOption );
+               for (let i in pOptions ){
+                  console.log("78944 current pOption is ",pOptions[i], "\n matching",pOptions[i].title ," against ", cOption.label , pOptions[i].title === cOption.label );
+                  if (pOptions[i].title === cOption.label){
+                     console.log("78944 options matched  ", );
+                     cOption.values.forEach((value,vIndex)=>{
+                        console.log("78944 matching  ",pOptions[i].option_value," against ",value.label );
+                       if(pOptions[i].option_value === value.label){
+                          console.log("78944 65487 options matched  " ,pOptions[i],cOption,value);
+                          let obj = {
+                            title:cOption.label,
+                            label:cOption.label,
+                            attribute_code:cOption.attribute_code,
+                            attributeId:cOption.attribute_id,
+                            option_value: value.label,
+                            option_id :value.value_index
+                          }
+                          configurableOptions.push(obj);
+                       }
+                     });
+                  }
+               }
+             });
+             console.log("78944 78944 Configurable options are ",configurableOptions);
+             let configurableProduct
+             popup_product.configurable_children.forEach(function(child,index){
+              let flag =true;
+               configurableOptions.forEach((option,optionIndex)=>{
+                  console.log(" 78944 78944 About to match  " ,child[option.attribute_code] ," Against ",parseInt (option.option_id));
+                 if(child[option.attribute_code] !== parseInt (option.option_id)){
+                   flag =false
+                 }
+                 if (configurableOptions.length === optionIndex+1 ){
+                   if (flag){
+                     console.log(" 78944 78944 This is the child product we are looking for " ,child.sku);
+                     {
+                console.log("78945 child product found");
+                let option
+                childProduct.regular_price = child.regular_price;
+                childProduct.price = child.price;
+                childProduct.id = child.id;
+                childProduct.sku = child.sku;
+                childProduct.original_price_incl_tax = child.original_price_incl_tax;
+                childProduct.final_price_incl_tax = child.specialPrice? child.specialPrice :child.original_price_incl_tax;
+                childProduct.special_price = child.special_price;
+                childProduct.original_price = child.original_price;
+                childProduct.originalPrice = child.originalPrice;
+                childProduct.originalPriceInclTax = child.originalPriceInclTax;
+                childProduct.original_special_price = child.original_special_price;
+                childProduct.price_incl_tax = child.price_incl_tax;
+                childProduct.priceInclTax = child.priceInclTax;
+                childProduct.specialPrice = child.specialPrice;
+                configurableOptions.forEach((ccOption,ccOptionIndex)=>{
 
-        }
+
+
+
+                  console.log("65487",ccOption);
+                  let optionTitle2 = ccOption.attribute_code
+                  let optionTitle = ccOption.label
+                  let attributeId = ccOption.attributeId;
+                  childProduct[optionTitle2]=child[optionTitle2];
+                  childProduct.configuration[optionTitle2].id = child[optionTitle2].toString(10);
+                  childProduct.configuration[optionTitle2].label = child[optionTitle2];
+                  childProduct.options.forEach((nOption,nindex)=>{
+                  if (nOption.label == optionTitle){
+                    nOption.value = child[optionTitle2];
+                  }
+                });
+                childProduct.product_option.extension_attributes.configurable_item_options.forEach((confOption,confIndex)=>{
+                  console.log("78945 child is ",typeof confOption.option_id , typeof attributeId ,parseInt (confOption.option_id) , attributeId, parseInt (confOption.option_id) === attributeId);
+                  if(parseInt (confOption.option_id) === attributeId)
+                  {
+                    confOption.option_value =  child[optionTitle2];
+                  }
+                })
+
+                });
+                // childProduct[optionTitle2]=child[optionTitle2];
+                // childProduct.configuration[optionTitle2].id = child[optionTitle2].toString(10);
+                // childProduct.configuration[optionTitle2].label = child[optionTitle2];
+                // childProduct.options.forEach((option,index)=>{
+                //   if (option.label == optionTitle){
+                //     option.value = child[optionTitle2];
+                //   }
+                // });
+                // childProduct.product_option.extension_attributes.configurable_item_options.forEach((confOption,confIndex)=>{
+                //   console.log("78945 child is ",typeof confOption.option_id , typeof attributeId ,confOption.option_id === attributeId);
+                //   if(parseInt (confOption.option_id) === attributeId)
+                //   {
+                //     confOption.option_value =  child[optionTitle2];
+                //   }
+                // })
+                console.log("78945 Child Product is ",childProduct.product_option.extension_attributes);
+                // childProduct.product_option.extension_attributes = {
+                //   "custom_options": [],
+                //   "configurable_item_options": [
+                //     {
+                //       "option_id": "152",
+                //       "option_value": "48"
+                //       }
+                //       ],
+                //       "bundle_options": []
+                //       }
+                      // childProduct.options =  [
+                      //   {
+                      //     "label": "Size",
+                      //   "value": 48
+                      //   }
+                      //   ];
+
+
+
+
+
+
+                console.log("78945 Child Product is this one now",child.specialPrice ? child.specialPrice :child.original_price_incl_tax , child.specialPrice, child.original_price_incl_tax,childProduct.final_price_incl_tax,"\n two ",childProduct);
+                popup_arr.push(childProduct);
+              }
+                   }
+                   else{
+                     console.log("78944 78944 This is not the child product we are looking for " ,child.sku);
+                   }
+                 }
+               })
+             });
+          } 
+       }
         else{
           popup_arr.push(popup_product);
         }
