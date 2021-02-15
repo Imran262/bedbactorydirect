@@ -1,7 +1,8 @@
 <template>
-<template v-if="loaded">
-  <div id="category">
+<div id="category" >
+  <template v-if="loaded">
     <UspBar />
+    <!-- {{getSortedFilters}} -->
     <header>
       <div class="container">
         <breadcrumbs />
@@ -148,9 +149,10 @@
     <div class="category-description">
       <CategoryDescription v-if="getCmsBlockId" :id="getCmsBlockId" />
     </div>
+  </template>
   </div>
 </template>
-</template>
+
 <script>
 import LazyHydrate from "vue-lazy-hydration";
 //import Sidebar from '../components/core/blocks/Category/Sidebar.vue'
@@ -251,7 +253,13 @@ export default {
   var self = this;
   self.$nextTick(function() {
   self.loaded = true;
+  console.log("1122336655 Helloo its created" ,this.getSortedFilters);
   })
+  },
+  watch: {
+    "$route.name": function () {
+      // console.log("1122336655 route changes ",this.getSortedFilters);
+      },
   },
   computed: {
     ...mapGetters({
@@ -274,6 +282,68 @@ export default {
     },
     getCmsBlockTopId() {
       return this.getCurrentCategory.cms_block;
+    },
+    getSortedFilters() {
+     // let catFilters = Object.assign({}, this.getAvailableFilters);
+       let catFilters = this.getAvailableFilters;
+      let size = catFilters["filter_size"];
+      console.log(
+        "1122336655 in sort filter function ", this.getAvailableFilters,catFilters,
+        typeof catFilters,
+        catFilters["filter_size"],"\n\n\n 23456789 ",size
+      );
+      
+      // catFilters.filter_size.forEach(() => {});
+      // for (let a in catFilters.filter_size) {
+      //   for (let b in catFilters.filter_size) {
+      //     console.log("a is ", catFilters.filter_size[a].id, "\n b is ", catFilters.filter_size[b].id);
+      //      let keyA = catFilters.filter_size[a].id,
+      //      keyB = catFilters.filter_size[b].id;
+      //   }
+      // }
+      let newcat={};
+      catFilters.filter_size.sort(function (a, b) {
+        console.log("\n\n\n\n");
+        for (let c in catFilters.filter_size) {
+          console.log("id at ",c," is ", catFilters.filter_size[c].id );
+        }
+        for (let c in newcat) {
+          if(newcat[c])
+          if(newcat[c].id)
+          console.log("\n\n\n\nNEW id at ",c," is ", newcat[c].id);
+        }
+        console.log("\n\n\n\n");
+        
+      
+        console.log("a is ", a, "\n b is ", b);
+        var keyA = parseInt (a.id),
+          keyB = parseInt(b.id);
+        console.log(
+          "keys are \n key A : ",
+          keyA, typeof keyA,
+          "\tkey B:  ",
+          keyB,
+          "keyA < keyB : ",
+          keyA < keyB,
+          "keyA > keyB : ",
+          keyA > keyB
+        );
+        if (keyA < keyB) {
+          console.log("A is less than b ");
+          newcat[a] = catFilters.filter_size[a]
+          return -1;
+        }
+        if (keyA > keyB) {
+          console.log("A is greater than b ");
+          newcat[a] = catFilters.filter_size[b]
+          return 1;
+          
+        }
+         
+       
+      });
+      console.log(catFilters);
+      return catFilters;
     },
   },
   async asyncData({ store, route, context }) {
@@ -386,6 +456,7 @@ export default {
     // };
   },
   mounted() {
+    // console.log("1122336655 in mounted ",this.getSortedFilters);
     this.webUrl = config.api.url;
     this.title = config.seo.defaultTitle;
   },
