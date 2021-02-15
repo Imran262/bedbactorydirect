@@ -122,15 +122,28 @@
                 class="web-share"
               />
             </h1>
-            <div class="rating-top" @click="ProReviewShowFn">
+            <template v-if="reviewData && reviewData.bottomline.total_review > 0 ">
+
+           
+            <div class="rating-top" @click="ProReviewShowFn" >
+               
                <a href="#uniqueReviews">
-                <ReviewStars
+                 <rating
+                 :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0"
+          />
+                <!-- <ReviewStars
                 :key="reRender"
                   :reviews="getReviews()"
                   :product="getCurrentProduct"
-                />
+                /> -->
               </a>
             </div>
+             </template>
+             <template v-else>
+               no reviews
+
+             </template>
+
             <div
               class="mb20 uppercase cl-secondary b-t-prod-sku"
               itemprop="sku"
@@ -791,6 +804,7 @@ import ProductPrice from "theme/components/core/ProductPrice.vue"
 import axios from "axios"
 import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker"
 import { product } from '@vue-storefront/core/modules/url/test/unit/helpers/data'
+import Rating from 'theme/components/core/blocks/Reviews/Rating';
 export default {
   components: {
     ColorPicker,
@@ -824,6 +838,7 @@ export default {
     Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
     Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
     "no-ssr": NoSSR,
+    Rating
   },
   mixins: [ProductOption],
   directives: { focusClean },
