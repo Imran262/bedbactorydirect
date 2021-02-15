@@ -2,7 +2,6 @@
 <div id="category" >
   <template v-if="loaded">
     <UspBar />
-    <!-- {{getSortedFilters}} -->
     <header>
       <div class="container">
         <breadcrumbs />
@@ -58,7 +57,7 @@
       <div class="row m0 pt15">
         <div class="col-md-3 start-xs category-filters">
           <sidebar
-            :filters="getAvailableFilters"
+            :filters="getSortedFilters"
             @changeFilter="changeFilter"
           />
         </div>
@@ -70,7 +69,7 @@
           </div>
           <sidebar
             class="mobile-filters-body"
-            :filters="getAvailableFilters"
+            :filters="getSortedFilters"
             @changeFilter="changeFilter"
           />
           <div class="relative pb20 pt15">
@@ -253,7 +252,7 @@ export default {
   var self = this;
   self.$nextTick(function() {
   self.loaded = true;
-  console.log("1122336655 Helloo its created" ,this.getSortedFilters);
+  // console.log("1122336655 Helloo its created" ,this.getSortedFilters);
   })
   },
   watch: {
