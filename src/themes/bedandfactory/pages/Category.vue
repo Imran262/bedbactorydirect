@@ -285,12 +285,13 @@ export default {
     getSortedFilters() {
      // let catFilters = Object.assign({}, this.getAvailableFilters);
        let catFilters = this.getAvailableFilters;
+       if (catFilters && catFilters.filter_size){
       let size = catFilters["filter_size"];
-      console.log(
-        "1122336655 in sort filter function ", this.getAvailableFilters,catFilters,
-        typeof catFilters,
-        catFilters["filter_size"],"\n\n\n 23456789 ",size
-      );
+      // console.log(
+      //   "1122336655 in sort filter function ", this.getAvailableFilters,catFilters,
+      //   typeof catFilters,
+      //   catFilters["filter_size"],"\n\n\n 23456789 ",size
+      // );
       
       // catFilters.filter_size.forEach(() => {});
       // for (let a in catFilters.filter_size) {
@@ -301,7 +302,8 @@ export default {
       //   }
       // }
       let newcat={};
-      catFilters.filter_size.sort(function (a, b) {
+      
+        catFilters.filter_size.sort(function (a, b) {
         console.log("\n\n\n\n");
         for (let c in catFilters.filter_size) {
           console.log("id at ",c," is ", catFilters.filter_size[c].id );
@@ -341,7 +343,12 @@ export default {
          
        
       });
-      console.log(catFilters);
+      // console.log("1122336655 ",catFilters);
+      // console.log("112233665577 mattress filters ",catFilters.mattress_type && catFilters.mattress_type.length>0);
+      }
+      // if (catFilters && catFilters.mattress_type && catFilters.mattress_type.length>0){
+      //   console.log("112233665577 It has mattress filters ");
+      //   }
       return catFilters;
     },
   },
