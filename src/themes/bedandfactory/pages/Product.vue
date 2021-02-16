@@ -125,17 +125,18 @@
             <template v-if="reviewData && reviewData.bottomline.total_review > 0 ">
 
            
-            <div class="rating-top" @click="ProReviewShowFn" >
-               
-               <a href="#uniqueReviews">
-                 <rating
+            <div class="rating-top " @click="ProReviewShowFn" >
+          
+               <a href="#uniqueReviews" class="reviews-span">
+                 <rating 
                  :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0"
-          />
+
+          /><span>({{reviewData.bottomline.average_score}} Reviews)</span>
                 <!-- <ReviewStars
                 :key="reRender"
                   :reviews="getReviews()"
                   :product="getCurrentProduct"
-                /> -->
+                /> -->     
               </a>
             </div>
              </template>
@@ -681,7 +682,9 @@
             @click="ProReviewShowFn"
           >
             {{ $t("Reviews") }}
-            <ReviewStars :key="reRender" :reviews="getReviews()" :product="getCurrentProduct" />
+             <rating 
+                 :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0" />
+                 <span>({{reviewData.bottomline.average_score}} Reviews)</span>
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
@@ -2381,5 +2384,37 @@ span.field-value {
     text-align: right !important;
     font-size: 13px !important;
   }
+}
+.rating-top ul li {
+    display: inline-block;
+    margin: 1px;
+}
+.rating-top ul li i {
+    color: #f5da00;
+    font-size: 18px;
+}
+.rating-top ul {
+    margin-left: -40px;
+    margin-top: 0;
+}
+.reviews-span{
+  display: inline-flex;
+}
+.details-need div {
+    margin-left: 30px;
+    margin-top: 0px;
+    display: inline-block;
+}
+.details-need ul {
+    margin-left: 18px; 
+    margin-top: 0px;
+}
+.details-need ul li {
+    display: inline-block;
+    margin: 1px;
+}
+ .details-need ul li i{
+    color: #f5da00;
+    font-size: 18px;
 }
 </style>
