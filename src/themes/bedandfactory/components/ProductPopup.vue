@@ -51,11 +51,11 @@
           popItem.special_price_incl_tax}}
        <br /> price{{ price }} -->
       </p>
-      <div class="stock-main">
+      <!-- <div class="stock-main">
         <img src="/assets/checkout-non-selected-tick.png" />
         <span v-if="popItem.stock.is_in_stock == true">In Stock</span>
         <span v-else-if="popItem.stock.is_in_stock == false">Out of Stock</span>
-      </div>
+      </div> -->
       <div class="poup-btn-cart-main">
         <popup-btn
           :productOptions="productOptions"
@@ -206,7 +206,7 @@ p.popup_item_name {
   min-height: 45px;
 }
 p.popup_item_name:hover a {
-  color: #00998c;
+  color: #4dba87;
 }
 .left-side.popup_item-image {
   width: 30%;
@@ -228,7 +228,7 @@ p.product-amount {
 
 .stock-main img {
   width: 12px;
-  background: #00998c;
+  background: #4dba87;
   padding: 4px 2px;
   float: left;
 }
@@ -259,7 +259,7 @@ p.product-amount {
 
 .success-content-main .success-tick img {
   display: inline-block;
-  background: #00998c;
+  background: #4dba87;
   border-radius: 50%;
   padding: 12px 7px;
 }

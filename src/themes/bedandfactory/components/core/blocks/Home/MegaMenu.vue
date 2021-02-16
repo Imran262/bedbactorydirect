@@ -169,16 +169,16 @@ export default {
   },
   methods: {
     mouseover() {
-      const sort_by = document.getElementsByClassName("sort-by-desktop")[0];
-      if (sort_by) {
-        sort_by.classList.add("hidden");
-      }
+      // const sort_by = document.getElementsByClassName("sort-by-desktop")[0];
+      // if (sort_by) {
+      //   sort_by.classList.add("hidden");
+      // }
     },
     mouseleave() {
-      const sort_by = document.getElementsByClassName("sort-by-desktop")[0];
-      if (sort_by) {
-        sort_by.classList.remove("hidden");
-      }
+      // const sort_by = document.getElementsByClassName("sort-by-desktop")[0];
+      // if (sort_by) {
+      //   sort_by.classList.remove("hidden");
+      // }
     }
   }
 };

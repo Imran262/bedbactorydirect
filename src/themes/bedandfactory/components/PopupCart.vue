@@ -76,13 +76,13 @@
                   </p>
                 </template>
               </template>
-              <div class="stock-main">
+              <!-- <div class="stock-main">
                 <img src="/assets/checkout-non-selected-tick.png" />
                 <span v-if="product.stock.is_in_stock == true">In Stock</span>
                 <span v-else-if="product.stock.is_in_stock == false"
                   >Out of Stock</span
                 >
-              </div>
+              </div> -->
             </div>
           </div>
           <div
@@ -91,14 +91,14 @@
           >
             <h4 class="essentials-prod-heading">
               Essential Items
-              <span class="essentials-sub-heading"
+              <!-- <span class="essentials-sub-heading"
                 >You may require these for installation.</span
-              >
+              > -->
             </h4>
             <h4 class="essentials-prod-heading mobile-essentials-prod-heading">
-              <span class="essentials-sub-heading"
+              <!-- <span class="essentials-sub-heading"
                 >You may require these for installation.</span
-              >
+              > -->
               Essential Items
             </h4>
           </div>
@@ -509,10 +509,10 @@ span.cross-popup {
 }
 .basket-detail .btn-checkout {
   width: 100%;
-  background: #00998c;
+  background: #4dba87;
   box-shadow: none;
   margin-bottom: 10px;
-  border: 3px solid #00998c;
+  border: 3px solid #4dba87;
   border-radius: 5px;
   padding: 7px;
   font-weight: 700;
@@ -524,7 +524,7 @@ span.cross-popup {
   left: auto;
   width: 20px;
   height: 20px;
-  background-color: #0f988b;
+  background-color: #4DBA87;
   color: #fff;
   border-radius: 3px;
   font-size: 0.8rem;
@@ -569,7 +569,7 @@ span.cross-popup {
 /* Popup Content Area New*/
 label.added-tick img {
   width: 12px;
-  background: #00998c;
+  background: #4dba87;
   padding: 4px 2px;
   float: left;
 }
@@ -596,7 +596,7 @@ p.product-amount {
 
 .addtocart-popups .stock-main img {
   width: 12px;
-  background: #00998c;
+  background: #4dba87;
   padding: 4px 2px;
   float: left;
 }
@@ -664,10 +664,10 @@ button.btn-shopping {
 }
 
 a.btn-checkout button {
-  border: 1px solid #00998c;
+  border: 1px solid #4dba87;
   margin: 15px 0px;
   color: #fff;
-  background: #00998c;
+  background: #4dba87;
   font-family: "Poppins", sans-serif;
   padding: 5px 15px;
   text-transform: uppercase;

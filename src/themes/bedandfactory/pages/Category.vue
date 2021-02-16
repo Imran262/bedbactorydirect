@@ -1,4 +1,5 @@
 <template>
+<template v-if="loaded">
   <div id="category">
     <UspBar />
     <header>
@@ -14,9 +15,7 @@
           <meta itemprop="name" :content="title" />
           <meta itemprop="logo" :content="webUrl + logo" />
         </div>
-        
-
-        <!-- <div class="row middle-sm">
+          <!-- <div class="row middle-sm">
           <h1 class="col-sm-8 category-title mb10">{{ getCurrentCategory.name }}</h1>
           <div class="sorting col-sm-2 align-right mt50">
             <label class="mr10">{{ $t('Columns') }}:</label>
@@ -38,6 +37,7 @@
         </div>
       </div>
       <div class="container">
+         <div class="sort-by-mobile"> {{ getCategoryProductsTotal }} Items</div>
         <div class="row m0">
           <div class="mobile-filter col-xs-6 mt25">
             <button class="mobile-filters-button" @click="openFilters">
@@ -114,13 +114,34 @@
             <product-listing
               :columns="defaultColumn"
               :products="getCategoryProducts"
-            />
+              :filters="getAvailableFilters"
+              :searchPage="false"
+            /> 
           </lazy-hydrate>
           <product-listing
             v-else
             :columns="defaultColumn"
             :products="getCategoryProducts"
+            :filters="getAvailableFilters"
+            :searchPage="false"
           />
+          <!-- v-if"getCategoryProducts.length < getCategoryProductsTotal"
+          {{getCategoryProducts.length}}
+          {{getCategoryProductsTotal}}
+          {{getCategoryProducts.length < getCategoryProductsTotal}}
+          {{getCategoryProducts.length === getCategoryProductsTotal}}
+          {{!(getCategoryProducts.length === getCategoryProductsTotal)}} -->
+         <!-- <product-listing
+         :columns="defaultColumn"
+         :products="getCategoryProducts"
+         :filters="getAvailableFilters"
+         :seeMore="!(getCategoryProducts.length === getCategoryProductsTotal)"
+         @loadMore="onLoadMore()"
+          /> -->
+          <div class="align-center" v-if="!(getCategoryProducts.length === getCategoryProductsTotal)
+          ">
+          <button class="load-btn" @click="onLoadMore()">Load More</button>
+    </div>
         </div>
       </div>
     </div>
@@ -129,7 +150,7 @@
     </div>
   </div>
 </template>
-
+</template>
 <script>
 import LazyHydrate from "vue-lazy-hydration";
 //import Sidebar from '../components/core/blocks/Category/Sidebar.vue'
@@ -212,18 +233,25 @@ export default {
     CategoryDescription,
     CategoryDescriptionTop,
   },
-  mixins: [onBottomScroll, GTAGCategory],
+  mixins: [ GTAGCategory],
   data() {
     return {
       mobileFilters: false,
-      defaultColumn: 4,
+      defaultColumn: 3,
       loadingProducts: false,
       loading: true,
       webUrl: "bedfactorydirect.co.uk",
       logo: "assets/logo.svg",
       title: "heyy",
       breadcrumbs: [],
+      loaded: false,
     };
+  },
+  created(){
+  var self = this;
+  self.$nextTick(function() {
+  self.loaded = true;
+  })
   },
   computed: {
     ...mapGetters({
@@ -293,7 +321,19 @@ export default {
       if (this.loadingProducts) return;
       this.loadingProducts = true;
       try {
-        await this.$store.dispatch("category-next/loadMoreCategoryProducts");
+        await this.$store.dispatch("category-next/loadMoreCategoryProducts"); 
+      } catch (e) {
+        Logger.error("Problem with fetching more products", "category", e)();
+      } finally {
+        this.loadingProducts = false;
+      }
+    },
+    async onLoadMore() {
+      console.log("Event Triggered");
+      if (this.loadingProducts) return;
+      this.loadingProducts = true;
+      try {
+        await this.$store.dispatch("category-next/loadMoreCategoryProducts"); 
       } catch (e) {
         Logger.error("Problem with fetching more products", "category", e)();
       } finally {
@@ -323,12 +363,27 @@ export default {
       params: { slug }
     }, storeView.storeCode)
     const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href */
+    const categoryLocaliedLink = localizedRoute(
+      {
+        name: 'category-amp',
+        params: { slug }
+      },
+      storeView.storeCode
+    )
+  // const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href
+    const canonicalCategoryLink = this.getCurrentCategory.canonical_url ? this.getCurrentCategory.canonical_url : config.api.url + this.getCurrentCategory.url_path
 
     return {
-      // link: [ { rel: 'amphtml', href: ampCategoryLink } ],
+      link: [{ rel: 'canonical', href: canonicalCategoryLink }],
       title: htmlDecode(meta_title || name),
-      meta,
-    };
+      titleTemplate: '%s',
+      meta
+    }
+    // return {
+    //   // link: [ { rel: 'amphtml', href: ampCategoryLink } ],
+    //   title: htmlDecode(meta_title || name),
+    //   meta,
+    // };
   },
   mounted() {
     this.webUrl = config.api.url;
@@ -340,7 +395,27 @@ export default {
 html {
   -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
-
+.sort-by-mobile{
+  display: none;
+}
+.load-btn{
+  background-color: #4dba87;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 0px;
+  cursor: pointer;
+  padding: 16px 23px 16px 23px;
+  font-weight: bold;
+  width: 180px;
+}
+.align-center{
+  height: 50px;
+    text-align: center;
+}
 .category-listing {
   padding: 50px 0px 0px 0px;
 }
@@ -442,7 +517,18 @@ html {
   // }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 767px) {
+  .sort-by-mobile {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    line-height: 0em;
+    color: rgb(128, 136, 152);
+  font-size: 0.9325rem;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  max-height: 56px;
+} 
   .category-title {
     margin: 0;
     font-size: 36px;

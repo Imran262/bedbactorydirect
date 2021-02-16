@@ -4,8 +4,8 @@
       :class="['filter-heading ', (filterIndex !== 'price' && filterIndex !== 'colour' && filterIndex !== 'orientation' && filterIndex !== 'custom_width' && filterIndex !== 'custom_height' && filterIndex !== 'style' && filterIndex !== 'range' && filterIndex !== 'btu_at_delta_t65') ? 'toggle-icon' : '']"
       :data-attr-index="$t(filterIndex)"
       @click="FiltershowList"
-    >{{ $t(changeFilterName) }}</h4>
-
+    >
+    {{ $t(changeFilterName) }}</h4>
     <div
       class="filter-main-container is-close"
       :data-attr-contaent="filterIndex"
@@ -40,6 +40,38 @@
       />
     </div>
     <div
+      v-else-if="filterIndex === 'comfort_grade'"
+      class="filter-option filter-main-container"
+      :data-attr-contaent="filterIndex"
+      :class="[{
+                 'filter-options': showFilterExpander(),
+                 'filter-expanded': filterExpand
+               },
+               (filterIndex !== 'colour' && filterIndex !== 'orientation' && filterIndex !== 'custom_width' && filterIndex !== 'custom_height' && filterIndex !== 'style' && filterIndex !== 'range' && filterIndex !== 'btu_at_delta_t65' ) ? 'is-close' : ''
+      ]"
+      :style="{ 'max-height': setMaxHeight }"
+    >
+      <selector
+        context="category"
+        :comfort="true"
+        :code="filterIndex"
+        v-for="(option, index) in filter"
+        :key="index"
+        :variant="option"
+        :selected-filters="selectedFilters"
+        @change="$emit('changeFilter', $event)"
+      />
+      <div class="filter-expander" v-show="showFilterExpander()">
+        <span class="filter-expand" @click="filterExpander()">
+          <div class="plus-minus">
+            <div class="horizontal" />
+            <div class="vertical" />
+          </div>
+          <span class="label">{{ filterExpanderMessage }}</span>
+        </span>
+      </div>
+    </div>
+    <div
       v-else
       class="filter-option filter-main-container pading-filter"
       :data-attr-contaent="filterIndex"
@@ -53,6 +85,7 @@
     >
       <selector
         context="category"
+        :comfort="false"
         :code="filterIndex"
         v-for="(option, index) in filter"
         :key="index"
@@ -157,6 +190,44 @@ export default {
     }
   },
   methods: {
+    getBackGroundColor(option) {
+      // let classList=document.getElementById('comfortBtn').classList;
+
+      // console.log("hello Before ",classList);
+      //   classList=document.getElementById('comfortBtn').classList.add("color-red");
+      // console.log("hello Afer",classList);
+      // document.getElementById('comfortBtn').style.backgroundColor = 'red';
+
+      console.log("Current option is ",option);
+      if (
+        option.id === 203 ||
+        option.id === '203'
+      ) {
+        return 'color-soft';
+      } else if (
+        option.id === 204 ||
+        option.id === '204'
+      ) {
+        return 'color-medium-soft';
+      } else if (
+        option.id === 205 ||
+        option.id === '205'
+      ) {
+        return 'color-medium';
+      } else if (
+        option.id === 206 ||
+        option.id === '206'
+      ) {
+        return 'color-medium-firm';
+      } else if (
+        option.id === 207 ||
+        option.id === '207'
+      ) {
+        return 'color-orthopaedic';
+      } else {
+        return 'color-soft';
+      }
+    },
     showFilterExpander() {
       return this.availableFilterOptions > this.limit;
     },
@@ -183,6 +254,23 @@ export default {
 };
 </script>
 
+<style >
+.color-soft {
+  background-color: #f6a076 !important;
+}
+.color-medium-soft {
+  background-color: #fa8a63 !important;
+}
+.color-medium {
+  background-color: #cb6885 !important;
+}
+.color-medium-firm {
+  background-color: #965177 !important;
+}
+.color-orthopaedic {
+  background-color: #5b364c !important;
+}
+</style>
 <style lang="scss" scoped>
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
@@ -278,11 +366,11 @@ h4 {
 .product-filter {
   user-select: none;
   h4 {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #54575b;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    text-transform: uppercase;
+    text-transform: capitalize;
     background: url('/assets/category-images/filter-down-arrow.png') no-repeat
       100% 100%;
     height: 25px;

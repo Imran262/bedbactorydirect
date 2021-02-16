@@ -28,8 +28,9 @@
             class="col-xs-12 mb15"
             id="sendToShippingAddressCheckbox"
             v-model="sendToShippingAddress"
+            @click="setIsBillingSame()"
             v-if="!isVirtualCart"
-            >{{ $t("Copy address data from shipping") }}</base-checkbox
+            >{{ $t("Billing address is same as delivery address") }}</base-checkbox
           >
 
           <base-checkbox
@@ -37,179 +38,180 @@
             class="col-xs-12 mb15"
             id="sendToBillingAddressCheckbox"
             v-model="sendToBillingAddress"
+            @click="setIsBillingSame()"
             >{{ $t("Use my billing data") }}</base-checkbox
           >
+          <template v-if="!isBillingSame">
+            <base-input
+              class="col-xs-12 col-sm-6 mb10"
+              type="text"
+              name="first-name"
+              :placeholder="$t('First name *')"
+              v-model.trim="payment.firstName"
+              @blur="$v.payment.firstName.$touch()"
+              autocomplete="given-name"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.firstName.$error && !$v.payment.firstName.required,
+                  text: $t('Field is required'),
+                },
+                {
+                  condition: !$v.payment.firstName.minLength,
+                  text: $t('Name must have at least 2 letters.'),
+                },
+              ]"
+            />
 
-          <base-input
-            class="col-xs-12 col-sm-6 mb10"
-            type="text"
-            name="first-name"
-            :placeholder="$t('First name *')"
-            v-model.trim="payment.firstName"
-            @blur="$v.payment.firstName.$touch()"
-            autocomplete="given-name"
-            :validations="[
-              {
-                condition:
-                  $v.payment.firstName.$error && !$v.payment.firstName.required,
-                text: $t('Field is required'),
-              },
-              {
-                condition: !$v.payment.firstName.minLength,
-                text: $t('Name must have at least 2 letters.'),
-              },
-            ]"
-          />
+            <base-input
+              class="col-xs-12 col-sm-6 mb10"
+              type="text"
+              name="last-name"
+              :placeholder="$t('Last name *')"
+              v-model.trim="payment.lastName"
+              @blur="$v.payment.lastName.$touch()"
+              autocomplete="family-name"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.lastName.$error && !$v.payment.lastName.required,
+                  text: $t('Field is required'),
+                },
+              ]"
+            />
 
-          <base-input
-            class="col-xs-12 col-sm-6 mb10"
-            type="text"
-            name="last-name"
-            :placeholder="$t('Last name *')"
-            v-model.trim="payment.lastName"
-            @blur="$v.payment.lastName.$touch()"
-            autocomplete="family-name"
-            :validations="[
-              {
-                condition:
-                  $v.payment.lastName.$error && !$v.payment.lastName.required,
-                text: $t('Field is required'),
-              },
-            ]"
-          />
+            <base-input
+              class="col-xs-12 mb10"
+              type="text"
+              name="street-address"
+              :placeholder="$t('Street name and House/Apartment number *')"
+              v-model.trim="payment.streetAddress"
+              @blur="$v.payment.streetAddress.$touch()"
+              autocomplete="address-line1"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.streetAddress.$error &&
+                    !$v.payment.streetAddress.required,
+                  text: $t('Field is required'),
+                },
+              ]"
+            />
 
-          <base-input
-            class="col-xs-12 mb10"
-            type="text"
-            name="street-address"
-            :placeholder="$t('Street name and House/Apartment number *')"
-            v-model.trim="payment.streetAddress"
-            @blur="$v.payment.streetAddress.$touch()"
-            autocomplete="address-line1"
-            :validations="[
-              {
-                condition:
-                  $v.payment.streetAddress.$error &&
-                  !$v.payment.streetAddress.required,
-                text: $t('Field is required'),
-              },
-            ]"
-          />
+            <base-input
+              class="col-xs-12 mb10"
+              type="text"
+              name="apartment-number"
+              :placeholder="$t(' ')"
+              v-model.trim="payment.apartmentNumber"
+              autocomplete="address-line2"
+            />
 
-          <base-input
-            class="col-xs-12 mb10"
-            type="text"
-            name="apartment-number"
-            :placeholder="$t(' ')"
-            v-model.trim="payment.apartmentNumber"
-            autocomplete="address-line2"
-          />
+            <base-input
+              class="col-xs-12 col-sm-6 mb10"
+              type="text"
+              name="city"
+              :placeholder="$t('City *')"
+              v-model.trim="payment.city"
+              @blur="$v.payment.city.$touch()"
+              autocomplete="address-level2"
+              :validations="[
+                {
+                  condition: $v.payment.city.$error && !$v.payment.city.required,
+                  text: $t('Field is required'),
+                },
+                {
+                  condition: $v.payment.city.$error && $v.payment.city.required,
+                  text: $t('Please provide valid city name'),
+                },
+              ]"
+            />
 
-          <base-input
-            class="col-xs-12 col-sm-6 mb10"
-            type="text"
-            name="city"
-            :placeholder="$t('City *')"
-            v-model.trim="payment.city"
-            @blur="$v.payment.city.$touch()"
-            autocomplete="address-level2"
-            :validations="[
-              {
-                condition: $v.payment.city.$error && !$v.payment.city.required,
-                text: $t('Field is required'),
-              },
-              {
-                condition: $v.payment.city.$error && $v.payment.city.required,
-                text: $t('Please provide valid city name'),
-              },
-            ]"
-          />
+            <base-input
+              class="col-xs-12 col-sm-6 mb10"
+              type="text"
+              name="state"
+              :placeholder="$t('State / Province')"
+              v-model.trim="payment.state"
+              autocomplete="address-level1"
+            />
 
-          <base-input
-            class="col-xs-12 col-sm-6 mb10"
-            type="text"
-            name="state"
-            :placeholder="$t('State / Province')"
-            v-model.trim="payment.state"
-            autocomplete="address-level1"
-          />
+            <base-input
+              class="col-xs-12 col-sm-6 mb10"
+              type="text"
+              name="zip-code"
+              :placeholder="$t('Zip-code *')"
+              v-model.trim="payment.zipCode"
+              @blur="$v.payment.zipCode.$touch()"
+              autocomplete="postal-code"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.zipCode.$error && !$v.payment.zipCode.required,
+                  text: $t('Field is required'),
+                },
+                {
+                  condition: !$v.payment.zipCode.minLength,
+                  text: $t('Zip-code must have at least 3 letters.'),
+                },
+              ]"
+            />
 
-          <base-input
-            class="col-xs-12 col-sm-6 mb10"
-            type="text"
-            name="zip-code"
-            :placeholder="$t('Zip-code *')"
-            v-model.trim="payment.zipCode"
-            @blur="$v.payment.zipCode.$touch()"
-            autocomplete="postal-code"
-            :validations="[
-              {
-                condition:
-                  $v.payment.zipCode.$error && !$v.payment.zipCode.required,
-                text: $t('Field is required'),
-              },
-              {
-                condition: !$v.payment.zipCode.minLength,
-                text: $t('Zip-code must have at least 3 letters.'),
-              },
-            ]"
-          />
+            <base-select
+              class="col-xs-12 col-sm-6 mb10"
+              name="countries"
+              :options="countryOptions"
+              :selected="payment.country"
+              :placeholder="$t('Country *')"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.country.$error && !$v.payment.country.required,
+                  text: $t('Field is required'),
+                },
+              ]"
+              v-model="payment.country"
+              autocomplete="country-name"
+              @blur="$v.payment.country.$touch()"
+              @change="
+                $v.payment.country.$touch();
+                changeCountry();
+              "
+            />
 
-          <base-select
-            class="col-xs-12 col-sm-6 mb10"
-            name="countries"
-            :options="countryOptions"
-            :selected="payment.country"
-            :placeholder="$t('Country *')"
-            :validations="[
-              {
-                condition:
-                  $v.payment.country.$error && !$v.payment.country.required,
-                text: $t('Field is required'),
-              },
-            ]"
-            v-model="payment.country"
-            autocomplete="country-name"
-            @blur="$v.payment.country.$touch()"
-            @change="
-              $v.payment.country.$touch();
-              changeCountry();
-            "
-          />
-
-          <base-input
-            class="col-xs-12 mb10"
-            type="tel"
-            pattern="\d*"
-            name="phone-number"
-            :placeholder="$t('Phone Number *')"
-            v-model.trim="payment.phoneNumber"
-            autocomplete="tel"
-            @blur="$v.payment.phoneNumber.$touch()"
-            :validations="[
-              {
-                condition:
-                  $v.payment.phoneNumber.$error &&
-                  !$v.payment.phoneNumber.required,
-                text: $t('Field is required'),
-              },
-              {
-                condition:
-                  $v.payment.phoneNumber.$error &&
-                  !$v.payment.phoneNumber.maxLength,
-                text: $t('Phone number maximum length is 11 digits'),
-              },
-            ]"
-          />
-
-          <base-checkbox
+            <base-input
+              class="col-xs-12 mb10"
+              type="tel"
+              pattern="\d*"
+              name="phone-number"
+              :placeholder="$t('Phone Number *')"
+              v-model.trim="payment.phoneNumber"
+              autocomplete="tel"
+              @blur="$v.payment.phoneNumber.$touch()"
+              :validations="[
+                {
+                  condition:
+                    $v.payment.phoneNumber.$error &&
+                    !$v.payment.phoneNumber.required,
+                  text: $t('Field is required'),
+                },
+                {
+                  condition:
+                    $v.payment.phoneNumber.$error &&
+                    !$v.payment.phoneNumber.maxLength,
+                  text: $t('Phone number maximum length is 11 digits'),
+                },
+              ]"
+            />
+          </template>
+          <!-- <base-checkbox
             class="col-xs-12 mb15"
             id="generateInvoiceCheckbox"
             v-model="generateInvoice"
             >{{
               $t("I want to generate an invoice for the company")
             }}</base-checkbox
-          >
+          > -->
 
           <template v-if="generateInvoice">
             <base-input
@@ -259,12 +261,11 @@
             </div>
           </template>
           <div class="col-xs-12">
-            <h4>{{ $t("Apply Coupon") }}</h4>
+            <h4>{{ $t("Promotional Code") }}</h4>
             <div class="row py20">
               <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
                 <button
                   class="p10 brdr-none serif fs-medium cl-white bg-cl-puerto-rico voucher-code-btn"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   type="button"
                   @click="addDiscountCoupon"
                 >
@@ -289,8 +290,8 @@
                 </div>
                 <button-outline
                   color="light"
-                  :style="{ backgroundColor: '#32BFB3' }"
                   class="cl-white"
+                  :style="{ backgroundColor: '#4dba87' }"
                   :class="[!couponCode ? 'bgcolor' : '']"
                   :disabled="!couponCode"
                   @click.native="setCoupon"
@@ -315,7 +316,7 @@
           >
             <label
               class="radioStyled payment-method-icons"
-              v-if="method.code !== 'braintree_paypal'"
+              v-if="method.code !== 'braintree' && method.code !== 'braintree_paypal' && method.code !==  'braintree_cc_vault'"
             >
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card (Braintree)</p></template
@@ -485,6 +486,7 @@ export default {
       showPaypal: false,
       showSubmitButton: false,
       loaderCount: 0,
+      isBillingSame: false,
     };
   },
   components: {
@@ -609,18 +611,34 @@ export default {
     }
   },
   methods: {
+    setIsBillingSame() {
+      // console.log('running checkbox....',this.isBillingSame);
+      return this.isBillingSame = !this.isBillingSame;
+    },
     setOption() {
+      console.log("987766 Emit recieved");
+      this.$bus.$emit(
+              "notification-progress-stop",
+              this.$t("loading braintree...")
+            );
       let braintreeOptions = document.querySelectorAll(".braintree-option");
-      braintreeOptions.forEach((option) => {
-        option.classList.forEach((classs) => {
+      console.log("Braintree options",braintreeOptions,typeof braintreeOptions);
+      braintreeOptions.forEach((option,index) => {
+        console.log("option no ",index," is ", option, typeof option,"\n", option.classList);
+        option.classList.forEach((classs,classIndex) => {
+          console.log("class at index ",classIndex," is ",classs,"\n","classs.search('card') != -1",classs.search("card") != -1);
           if (classs.search("card") != -1) {
             // console.log("option is ",option);
+            console.log("classs.search('card') != -1 condition matched");
             option.click();
             this.$bus.$emit(
               "notification-progress-stop",
               this.$t("loading braintree...")
             );
             this.showSubmitButton = true;
+    //        console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
+            document.querySelectorAll(".braintree-large-button")[0].classList.add("hide-button");
+            console.log ("112233 ",document.querySelectorAll(".braintree-large-button")[0].classList);
           }
         });
       });
@@ -705,6 +723,12 @@ export default {
   },
 };
 </script>
+<style lang="scss" >
+.hide-button{
+  display: none;
+}
+
+</style>
 <style lang="scss" scoped>
 .allunchecked:after {
   display: none !important;
@@ -748,7 +772,7 @@ export default {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     // color: #676767;
@@ -759,22 +783,22 @@ export default {
   }
   input:checked + label {
     &:before {
-      background-color: #00998c;
-      border-color: #00998c;
+      background-color: #4dba87;
+      border-color: #4dba87;
       cursor: pointer;
     }
     &:after {
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
   .button-container {
     button {
-      background-color: #00bfb3;
+      background-color: #4dba87;
       border-radius: 5px;
       padding: 12px 0px;
       :hover {
         border-radius: 5px;
-        background-color: #00998c;
+        background-color: #4dba87;
       }
     }
   }
@@ -785,7 +809,7 @@ export default {
   }
 }
 .bgcolor {
-  background-color: #b6ebe8 !important;
+  background-color: #C8EADC !important;
 }
 .payment-first-name {
   display: none;
@@ -862,7 +886,7 @@ button.find-address {
   input:not(.empty) ~ label[data-v-63eab3fe] {
     top: -15px;
     font-size: 14px;
-    color: #00998c;
+    color: #4dba87;
   }
   span {
     color: #676767;
@@ -874,29 +898,29 @@ button.find-address {
   }
   .checkmark {
     &:after {
-      background: #00998c !important;
+      background: #4dba87 !important;
     }
   }
   button {
-    background-color: #00bfb3;
+    background-color: #4dba87;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
     :hover {
       border-radius: 5px;
-      background-color: #00998c;
+      background-color: #4dba87;
     }
   }
 }
 input:checked + label {
   &::before {
-    background-color: #00998c;
-    border-color: #00998c;
+    background-color: #4dba87;
+    border-color: #4dba87;
     cursor: pointer;
   }
   &::after {
-    background-color: #00998c;
+    background-color: #4dba87;
   }
 }
 .border-box {

@@ -73,6 +73,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    disableProduct: {
+      type: Boolean,
+      default: true
+    },
+    disableProductFlag: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     showPopUp(product) {
@@ -116,8 +124,13 @@ export default {
       isAddingToCart: "cart/getIsAdding",
     }),
     isProductDisabled() {
-      console.log("112233445577 Answer is ",this.cOptionCheck , this.ccOptionCheck);
-//      console.log("112233445577 Answer is ",this.customOptionsCheck,this.customOptionsChecking);
+      console.log("112233445577 Answer is ",this.disableProduct,this.disableProductFlag,this.customOptions && this.customOptions.length > 0,this.customOptions , this.customOptions.length > 0,this.cOptionCheck , this.ccOptionCheck);
+       if (this.disableProductFlag) {
+return this.disableProduct;
+       }
+       else{
+         
+         //      console.log("112233445577 Answer is ",this.customOptionsCheck,this.customOptionsChecking);
     //  console.log("112233445577 product options ",this.productOptions,"\n\nCustomOptions\n",this.customOptions,"\n\n\n",this.disabled,"\n\n\n",this.customOptionsCheck,"\n\n\n");
     console.log("1122334455 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart,"\n\n",this.disabled,"\n\n",(
         this.disabled ||
@@ -130,6 +143,7 @@ export default {
         this.cFlag ||
         this.isAddingToCart
       );
+       }
     },
     cOptionCheck(){
       let cOPtions= this.customOptions;
@@ -292,7 +306,7 @@ export default {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: #00bfb3;
+  background: #4DBA87;
   text-transform: uppercase;
   font-weight: bold;
 }

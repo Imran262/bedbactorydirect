@@ -85,7 +85,7 @@
             >
               <div
                 context="category"
-                class="filter-label"
+                
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
@@ -188,7 +188,6 @@
             >
               <div
                 context="category"
-                class="filter-label"
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
@@ -243,7 +242,7 @@
           </div>
         </div>
         <div class="col-md-9 search-listing">
-          <product-listing :columns="defaultColumn" :products="products" />
+          <product-listing :columns="defaultColumn" :products="products" :filters="{}" :searchPage="true"/>
         </div>
       </div>
     </div>
@@ -281,7 +280,7 @@ export default {
   name: 'SearchResultPage',
   data() {
     return {
-      defaultColumn: 4,
+      defaultColumn: 3,
       mobileFilters: false,
       selectedCategoryIds: [],
       allProducts: [],
@@ -804,7 +803,7 @@ img.home-breadcrumb-icon-img {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: #00998c;
+  background: #4dba87;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -876,7 +875,7 @@ span.filter-label span:before {
   display: block;
 }
 span.active-filter {
-  vertical-align: text-top;
+  // vertical-align: text-top;
 }
 span.filter-label span.active-filter:before {
   background: #4f4f4f;
@@ -887,7 +886,7 @@ span.filter-label span.active-filter:after {
   content: '';
   position: absolute;
   left: 3px;
-  top: 16px;
+  top: 13px;
   background: white;
   width: 2px;
   height: 2px;

@@ -36,7 +36,7 @@
         padding: 0px !important;
       }
       .VueCarousel-dot--active {
-        background: #00998c !important;
+        background: #DE4747 !important;
         border: 2px solid #ffffff !important;
       }
       .VueCarousel-dot-button {
