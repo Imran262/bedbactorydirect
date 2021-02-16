@@ -15,7 +15,8 @@
           <meta itemprop="name" :content="title" />
           <meta itemprop="logo" :content="webUrl + logo" />
         </div>
-          <!-- <div class="row middle-sm">
+
+        <!-- <div class="row middle-sm">
           <h1 class="col-sm-8 category-title mb10">{{ getCurrentCategory.name }}</h1>
           <div class="sorting col-sm-2 align-right mt50">
             <label class="mr10">{{ $t('Columns') }}:</label>
@@ -148,7 +149,6 @@
     <div class="category-description">
       <CategoryDescription v-if="getCmsBlockId" :id="getCmsBlockId" />
     </div>
-  </template>
   </div>
 </div>
 </template>
@@ -270,6 +270,66 @@ export default {
       getBreadcrumbsCurrent: "breadcrumbs/getBreadcrumbsCurrent",
       getBreadcrumbsRoutes: "breadcrumbs/getBreadcrumbsRoutes",
     }),
+    getSortedFilters() {
+      let catFilters = this.getAvailableFilters;
+      console.log(
+        "1122 in sort filter function ",
+        typeof catFilters.size,
+        catFilters.size
+      );
+      // catFilters.size.forEach(() => {});
+      // for (let a in catFilters.size) {
+      //   for (let b in catFilters.size) {
+      //     console.log("a is ", catFilters.size[a].id, "\n b is ", catFilters.size[b].id);
+      //      let keyA = catFilters.size[a].id,
+      //      keyB = catFilters.size[b].id;
+      //   }
+      // }
+      let newcat={};
+      catFilters.size.sort(function (a, b) {
+        console.log("\n\n\n\n");
+        for (let c in catFilters.size) {
+          console.log("id at ",c," is ", catFilters.size[c].id );
+        }
+        for (let c in newcat) {
+          if(newcat[c])
+          if(newcat[c].id)
+          console.log("\n\n\n\nNEW id at ",c," is ", newcat[c].id);
+        }
+        console.log("\n\n\n\n");
+        
+      
+        console.log("a is ", a, "\n b is ", b);
+        var keyA = parseInt (a.id),
+          keyB = parseInt(b.id);
+        console.log(
+          "keys are \n key A : ",
+          keyA, typeof keyA,
+          "\tkey B:  ",
+          keyB,
+          "keyA < keyB : ",
+          keyA < keyB,
+          "keyA > keyB : ",
+          keyA > keyB
+        );
+
+        if (keyA < keyB) {
+          console.log("A is less than b ");
+          newcat[a] = catFilters.size[a]
+          return -1;
+        }
+        if (keyA > keyB) {
+          console.log("A is greater than b ");
+          newcat[a] = catFilters.size[b]
+          return 1;
+          
+        }
+         
+       
+      });
+      console.log(catFilters);
+      return {};
+    },
     isLazyHydrateEnabled() {
       return config.ssr.lazyHydrateFor.includes("category-next.products");
     },
@@ -378,7 +438,6 @@ export default {
     }
   },
   methods: {
-   
     openFilters() {
       this.mobileFilters = true;
     },
