@@ -73,7 +73,8 @@ export default {
 .block-bottom{
   border-style: groove !important;
    color: #54575b;
-   padding: 15px;
+   padding: 50px;
+   border: 1px #AAA9A3 solid;
 }
 .block-bottom h2 {
   text-align: center !important ;
