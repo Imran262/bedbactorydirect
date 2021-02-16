@@ -1,5 +1,5 @@
 <template>
-<template v-if="loaded">
+<div v-if="loaded">
   <div id="category">
     <UspBar />
     <header>
@@ -146,10 +146,10 @@
       </div>
     </div>
     <div class="category-description">
-      <CategoryDescription v-if="getCmsBlockId" :id="getCmsBlockId" />
+      <CategoryDescription v-if="getCmsBlockId" :id="getCmsBlockId" :ids="getCmsBlockId" />
     </div>
   </div>
-</template>
+</div>
 </template>
 <script>
 import LazyHydrate from "vue-lazy-hydration";
