@@ -140,11 +140,6 @@
               </a>
             </div>
              </template>
-             <template v-else>
-               no reviews
-
-             </template>
-
             <div
               class="mb20 uppercase cl-secondary b-t-prod-sku"
               itemprop="sku"
@@ -681,6 +676,9 @@
             class="h3 m0 mb10 serif lh20 details-need"
             @click="ProReviewShowFn"
           >
+          <template v-if="reviewData && reviewData.bottomline.total_review > 0" >
+
+          
             {{ $t("Reviews") }}
              <rating 
                  :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0" />
@@ -691,6 +689,7 @@
               id="product-review-icon-id"
               >keyboard_arrow_right</i
             >
+            </template>
           </h2>
           <div
             v-if="ProReviewShow"
@@ -1187,6 +1186,10 @@ this.setConfigurableOption();
             throw ("Error:", response.data[0].message)
           } else {
             this.reviewData = response.data[1]
+            // console.log(this.reviewData,"this.reviewData",this.reviewData.average_score, (parseFloat (this.reviewData.bottomline.average_score)).toFixed(2));
+            let average = (parseFloat (this.reviewData.bottomline.average_score)).toFixed(1);
+           this.reviewData.bottomline.average_score = average;
+            // console.log("this.reviewData",this.reviewData);
           }
         })
         .catch((err) => {
