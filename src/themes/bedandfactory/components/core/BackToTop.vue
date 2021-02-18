@@ -108,8 +108,8 @@ cursor: pointer;
     position: fixed;
     /* z-index: 1000; */
     /* position: relative; */
-    bottom: 62px !important;
-    right: 10px !important;
+    bottom: 103px !important;
+    right: 32px !important;
     
   }
 
