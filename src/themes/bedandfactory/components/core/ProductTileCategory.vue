@@ -44,7 +44,7 @@
           data-testid="productImage"
         />
       </div>
-      <div>
+      <div class="brand-size1">
         <!-- {{ getBrandImage() }}
         {{ product.brand }} -->
         <!-- {{ product.brand }} -->
@@ -434,6 +434,10 @@ $color-white: color(white);
   height: 30px;
    margin-top: 10px;
 }
+.brand-size1 {
+  height: 30px;
+   margin-top: 2px;
+}
 .name-size {
   height: 55px;
 }
@@ -675,12 +679,12 @@ img.product-cover-thumb {
 }
 .product .sb-prodcut-name {
   /* height: auto; */
-  line-height: 1.4em;
+  line-height: 1.3em;
   display: -ms-flexbox;
   display: flex;
-  -webkit-line-clamp: 2;
+  /* -webkit-line-clamp: 2;
   display: -webkit-box;
-  overflow: hidden;
+  overflow: hidden; */
   /* margin-bottom: 0px; */
   display: block;
   text-align: center;
