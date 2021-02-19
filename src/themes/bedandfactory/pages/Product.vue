@@ -131,7 +131,7 @@
                  <rating 
                  :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0"
 
-          /><span>({{reviewData.bottomline.average_score}} Reviews)</span>
+          /><span>({{reviewData.bottomline.total_review}} Reviews)</span>
                 <!-- <ReviewStars
                 :key="reRender"
                   :reviews="getReviews()"
