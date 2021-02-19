@@ -53,7 +53,7 @@ export default {
             // console.log("123456 adding half",starsArr);
             starsArr.push('fa-star-half-o');
           } else {
-            console.log("123456 adding full");
+            // console.log("123456 adding full");
             starsArr.push('fa-star-o');
           }
         } else {
