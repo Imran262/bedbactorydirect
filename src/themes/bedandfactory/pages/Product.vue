@@ -2423,4 +2423,16 @@ span.field-value {
     font-size: 13px !important;
   }
 }
+.Specifications-main p {
+    font-size: 16px;
+}
+.Specifications-main ul {
+    font-size: 14px;
+}
+.cms-content h3 {
+    font-size: 16px;
+}
+.cms-content p {
+    font-size: 14px;
+}
 </style>
