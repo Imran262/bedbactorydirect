@@ -162,6 +162,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '~theme/css/animations/transitions';
+@media screen and (min-width: 320px) and (max-width: 767px){
+.product-image-container {
+    padding-bottom: 36% !important;
+    padding-top: 36% !important;
+}
+}
 .media-gallery-carousel {
   position: relative;
   text-align: center;
