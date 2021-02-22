@@ -129,7 +129,7 @@ export default {
           position: absolute;
           top: 215px;
         }
-        @media screen and (min-width: 1024px) and (max-width: 1199px){
+        @media screen and (min-width: 1025px) and (max-width: 1199px){
             position: absolute;
           top: 165px;
         }
