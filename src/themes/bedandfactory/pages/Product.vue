@@ -2256,21 +2256,19 @@ table td {
   border: 1px solid black;
   padding: .625em;
   text-align: left;
+  font-size: 14px !important;
 }
-@media only screen and (max-width: 600px) and (min-width: 320px){
+
+@media only screen and (max-width: 767px) and (min-width: 320px){
   table td {
-font-size: 1.5vw;
+font-size: 1.5vw !important;
   }
+  .Specifications-main td strong {
+    font-size: 1.4vw !important;
 }
-@media only screen and (max-width: 700px) and (min-width: 601px){
-  table td {
-font-size: 1.3vw;
-  }
+.Specifications-main p {
+    font-size: 1.5vw !important;
 }
-@media only screen and (max-width: 899px) and (min-width: 701px){
-  table td {
-font-size: 1.5vw;
-  }
 }
 /* extra-info-main  */
 .bt-new-description-main ul {
@@ -2424,15 +2422,18 @@ span.field-value {
   }
 }
 .Specifications-main p {
-    font-size: 16px;
+    font-size: 14px;
 }
 .Specifications-main ul {
     font-size: 14px;
 }
 .cms-content h3 {
-    font-size: 16px;
+    font-size: 14px  !important;
 }
 .cms-content p {
     font-size: 14px;
+}
+.Specifications-main td strong {
+    font-size: 14px ;
 }
 </style>
