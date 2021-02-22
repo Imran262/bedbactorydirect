@@ -236,7 +236,7 @@ export default {
                   li {
                     a {
                       height: 100%;
-                      font-size: 12px;
+                      font-size: 11px;
                     }
                   }
                 }
@@ -278,7 +278,7 @@ export default {
                   li {
                     a {
                       height: 100%;
-                      font-size: 11.93px;
+                      font-size: 10.05px;
                     }
                   }
                 }
