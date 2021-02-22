@@ -2393,7 +2393,7 @@ span.field-value {
     margin: 1px;
 }
 .rating-top ul li i {
-    color: #f5da00;
+    color: #FFD055;
     font-size: 18px;
 }
 .rating-top ul {
@@ -2417,7 +2417,7 @@ span.field-value {
     margin: 1px;
 }
  .details-need ul li i{
-    color: #f5da00;
+    color: #FFD055;
     font-size: 18px;
 }
 </style>

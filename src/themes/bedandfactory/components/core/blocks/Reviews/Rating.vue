@@ -85,7 +85,7 @@ export default {
 }
 
 .rating ul li .fa {
-  color: #f5da00;
+  color: #FFD055;
   font-size: 18px;
 }
   @media (min-width: 320px) and (max-width: 440px){
@@ -105,7 +105,7 @@ export default {
 }
 
 .rating1 ul li .fa {
-  color: #f5da00;
+  color: #FFD055;
   font-size: 18px;
 }
 .slider-rating {
@@ -159,7 +159,7 @@ export default {
      font-size: 2.5vw !important;
   }
   .rating ul li .fa{
-      color: #f5da00;
+      color: #FFD055;
       font-size: 13px !important;
   }
   .cutsample-box .rating .stars ul li .fa {
