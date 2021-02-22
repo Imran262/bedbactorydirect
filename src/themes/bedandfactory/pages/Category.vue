@@ -62,7 +62,7 @@
           />
         </div>
         <div class="col-md-3 start-xs mobile-filters" v-if="mobileFilters">
-          <div class="close-container absolute w-100">
+          <div class="close-container absolute">
             <i class="material-icons p15 close cl-accent" @click="closeFilters"
               >close</i
             >
