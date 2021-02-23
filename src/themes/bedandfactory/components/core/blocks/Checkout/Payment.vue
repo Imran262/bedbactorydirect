@@ -314,9 +314,13 @@
             :key="index"
             class="col-md-12 payment-method-inner"
           >
-            <label
+            <!-- <label
               class="radioStyled payment-method-icons"
               v-if="method.code !== 'braintree' && method.code !== 'braintree_paypal' && method.code !==  'braintree_cc_vault'"
+            > -->
+            <label
+              class="radioStyled payment-method-icons"
+              v-if="method.code === 'paypal_express' || method.code === 'checkoutcom_card_payment'"
             >
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card (Braintree)</p></template
