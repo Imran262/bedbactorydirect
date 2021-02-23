@@ -28,9 +28,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="sb-price-match">
-                <div class="menu-dropdown-logo-img">&nbsp;</div>
-              </div>
+              
               <div v-if="links.submenuimg" class="dropdown-menu-right-img">
                 <a>
                   <img :src="links.submenuimg" />

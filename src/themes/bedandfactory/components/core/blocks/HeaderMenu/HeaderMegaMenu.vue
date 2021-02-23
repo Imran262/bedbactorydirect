@@ -73,7 +73,7 @@ export default {
             display: flex;
             .sb-height-dropdown-menu {
               border-right: 1px solid #eeeeee;
-              height: 200px;
+              height: auto;
               padding-left: 15px;
               padding-right: 15px;
               .subcag-title {
