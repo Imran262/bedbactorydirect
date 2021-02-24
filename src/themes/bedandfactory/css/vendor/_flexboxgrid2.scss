@@ -271,14 +271,6 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-@media all and (min-width: 993px){
-  .between-xs {
-    position: relative;
-    right: 90px;
-  }
-}
-
-
 .first-xs {
   -webkit-box-ordinal-group: 0;
   -ms-flex-order: -1;
