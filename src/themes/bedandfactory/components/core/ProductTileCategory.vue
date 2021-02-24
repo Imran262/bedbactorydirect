@@ -30,7 +30,7 @@
       data-testid="productLink"
     >
       <div
-        class="product-cover bg-cl-secondary"
+        class="product-cover"
         :class="[
           { sale: labelsActive && isOnSale },
           { new: labelsActive && isNew },
@@ -207,12 +207,6 @@ export default {
 
       
       this.filters.brand.forEach((brand, brandIndex) => {
-        console.log(
-          'Brand is ',
-          brand.id,
-          this.product.brand,
-          parseInt(brand.id) === this.product.brand
-        );
         if (parseInt(brand.id) === this.product.brand) {
           if (brand.id === 34 || brand.id === '34') {
             imagelocation = imagelocation + 'BedFactoryDirect.png';
