@@ -102,7 +102,7 @@ export default {
 
 <style lang="scss" scoped>
   .product-image{
-    padding-bottom: 0% !important;
+  
     position: relative;
     width: 100%;
     max-width: 100%;
