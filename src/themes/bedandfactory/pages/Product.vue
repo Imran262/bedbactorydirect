@@ -605,6 +605,7 @@
             v-if="ProDeliveryShow"
             class="h4 Delivery-wrapper bt-Specifications-wrapper-show-close"
           >
+         
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
                 <div class="Specifications-main">
@@ -783,7 +784,7 @@ import NoSSR from "vue-no-ssr"
 import ProductSimilarListingCarousel from "theme/components/ProductSimilarListingCarousel"
 import RecentlyViewedItems from "theme/components/RecentlyViewedItems"
 //import DimensionGallery from "theme/components/core/DimensionGallery";
-import CmsBlock from "theme/components/core/blocks/Cms/Block"
+import CmsBlock from "theme/components/core/blocks/Cms/DeliveryBlock"
 import ReviewStars from "../../../modules/reviews-module/components/ReviewStars"
 import ReviewWidget from "../../../modules/reviews-module/components/ReviewWidget"
 import ProductPrice from "theme/components/core/ProductPrice.vue"
@@ -1583,6 +1584,24 @@ $bg-secondary: color(secondary, $colors-background);
 .pb20{
   padding-bottom: 0px;
 }
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+table tr {
+  border: 1px solid red;
+  padding: .35em;
+}
+
+table td {
+  border: 1px solid red;
+  padding: .625em;
+  text-align: left;
+}
 #overlay {
   position: fixed;
   width: 100%;
@@ -2219,6 +2238,41 @@ span.come-due-in {
 /* FLOR-206  */
 </style>
 <style>
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+}
+@media only screen and (max-width: 700px) and (min-width: 320px) {
+  table {
+    width: 100%;
+  }
+}
+table tr {
+  border: 1px solid red;
+  padding: .35em;
+}
+
+table td {
+  border: 1px solid black;
+  padding: .625em;
+  text-align: left;
+  font-size: 14px !important;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px){
+  table td {
+font-size: 1.5vw !important;
+  }
+  .Specifications-main td strong {
+    font-size: 1.4vw !important;
+}
+.Specifications-main p {
+    font-size: 1.5vw !important;
+}
+}
 /* extra-info-main  */
 .bt-new-description-main ul {
   padding: 18px 0px 18px 18px;
@@ -2369,5 +2423,20 @@ span.field-value {
     text-align: right !important;
     font-size: 13px !important;
   }
+}
+.Specifications-main p {
+    font-size: 14px;
+}
+.Specifications-main ul {
+    font-size: 14px;
+}
+.cms-content h3 {
+    font-size: 14px  !important;
+}
+.cms-content p {
+    font-size: 14px;
+}
+.Specifications-main td strong {
+    font-size: 14px ;
 }
 </style>
