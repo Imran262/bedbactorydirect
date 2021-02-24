@@ -45,7 +45,7 @@
 <script>
 import config from "config"
 import { Carousel, Slide } from "vue-carousel"
-import ProductImage from "./ProductImage"
+import ProductImage from "./ProductImageProduct"
 import ProductVideo from "./ProductVideo"
 import reduce from "lodash-es/reduce"
 import map from "lodash-es/map"
@@ -162,6 +162,21 @@ export default {
 
 <style lang="scss" scoped>
 @import '~theme/css/animations/transitions';
+@media screen and (min-width: 320px) and (max-width: 767px){
+.product-image-container {
+    padding-bottom: 36% !important;
+    padding-top: 36% !important;
+}
+}
+@media screen and (min-width: 768px) and (max-width: 1024px){
+  .product-image-container {
+    padding-bottom: 60% !important;
+    padding-top: 36% !important;
+}
+.product-image.pointer.image.product-image--width {
+    padding-bottom: 0% !important;
+}
+}
 .media-gallery-carousel {
   position: relative;
   text-align: center;
@@ -172,7 +187,14 @@ export default {
   right: 0px;
   background: #eaeaea;
   bottom: 100px;
+  @media (min-width: 1200px) {
+      bottom: 300px;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1199px){
+      bottom: 137px;
+    }
 }
+
 .media-gallery-carousel .bg-cl-secondary {
   background: #ffffff;
 }
@@ -239,7 +261,13 @@ export default {
 /*Custom Css */
 .bt-product-gallery .media-gallery {
   margin-bottom: -60px;
-}
+  @media screen and (min-width: 1200px){
+    margin-bottom: -190px;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1199px){
+    margin-bottom: -110px;
+  }
+  }
 .media-gallery-carousel .product-image__thumb {
   top: 43%;
 }

@@ -1,6 +1,7 @@
 <template>
   <div class="col-lg-12 col-md-12 block-content">
-    <div class="container block-bottom" v-html="parsedContent">
+    <!-- <div class="container block-bottom" v-html="parsedContent"> -->
+       <cms-block class="container block-bottom" :id="ids"/>
       <!-- <div class="block-content-inner" v-for="singleblock in singleblockdata">
         <h2>{{ singleblock.httwo }}</h2>
         <p>
@@ -24,7 +25,23 @@
 </template>
 <script>
 import cmsBlock from 'vsf-cms-block-mixin/components/cmsBlock';
+import CmsBlock from "theme/components/core/blocks/Cms/Block"
 export default {
+  components:{
+    CmsBlock
+  },
+  props: {
+    ids: {
+      type: Number,
+      default: null,
+      required: false
+    },
+    identifiers: {
+      type: String,
+      default: null,
+      required: false
+    }
+  },
   mixins: [cmsBlock],
   computed: {
     singleblockdata() {
@@ -56,7 +73,8 @@ export default {
 .block-bottom{
   border-style: groove !important;
    color: #54575b;
-   padding: 15px;
+   padding: 50px;
+   border: 1px #AAA9A3 solid;
 }
 .block-bottom h2 {
   text-align: center !important ;
