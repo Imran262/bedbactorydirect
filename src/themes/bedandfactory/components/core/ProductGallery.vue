@@ -31,7 +31,7 @@ import { ProductGallery } from "@vue-storefront/core/modules/catalog/components/
 import ProductGalleryOverlay from "./ProductGalleryOverlay";
 import onEscapePress from "@vue-storefront/core/mixins/onEscapePress";
 import NoSSR from "vue-no-ssr";
-import ProductImage from "./ProductImage";
+import ProductImage from "./ProductImageProduct";
 import { onlineHelper } from "@vue-storefront/core/helpers";
 const ProductGalleryCarousel = () =>
   import(
