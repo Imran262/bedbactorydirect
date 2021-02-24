@@ -130,15 +130,15 @@ export default {
       }
     }
   }
-  @media screen and (min-width: 320px) and (max-width: 767px){
+  /* @media screen and (min-width: 320px) and (max-width: 767px){
      .product-image{
        padding-bottom: 0% !important;
      }
-  }
+  } */
 </style>
 <style >
  @media screen and (min-width: 320px) and (max-width: 767px){
-     .product-image{
+     .product-image-container .product-image{
        padding-bottom: 0% !important;
      }
   }
