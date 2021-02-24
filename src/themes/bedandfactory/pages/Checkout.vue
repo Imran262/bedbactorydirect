@@ -198,6 +198,7 @@ $color-black: color(black);
     display: block;
     position: relative;
     padding-left: 35px;
+    margin-bottom: 12px;
     cursor: pointer;
     font-size: 16px;
     line-height: 30px;
@@ -207,10 +208,10 @@ $color-black: color(black);
     user-select: none;
 
     input {
+      position: absolute;
       opacity: 0;
       cursor: pointer;
     }
-
     .checkmark {
       position: absolute;
       top: 0;
