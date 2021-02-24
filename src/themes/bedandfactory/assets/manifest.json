@@ -7,9 +7,9 @@
     "start_url": "/pwa.html",
     "icons": [
       {
-      "src": "/assets/BFD.png",
+      "src": "/assets/BFDFav.png",
       "type": "image/png",
-      "sizes": "32x32"
+      "sizes": "168x168"
     }
   ]
   }
