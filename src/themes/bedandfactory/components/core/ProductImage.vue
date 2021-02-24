@@ -102,6 +102,7 @@ export default {
 
 <style lang="scss" scoped>
   .product-image{
+  
     position: relative;
     width: 100%;
     max-width: 100%;
@@ -128,5 +129,17 @@ export default {
         /* height: 200px; */
       }
     }
+  }
+  @media screen and (min-width: 320px) and (max-width: 767px){
+     .product-image{
+       padding-bottom: 0% !important;
+     }
+  }
+</style>
+<style >
+ @media screen and (min-width: 320px) and (max-width: 767px){
+     .product-image{
+       padding-bottom: 0% !important;
+     }
   }
 </style>

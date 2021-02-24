@@ -162,6 +162,21 @@ export default {
 
 <style lang="scss" scoped>
 @import '~theme/css/animations/transitions';
+@media screen and (min-width: 320px) and (max-width: 767px){
+.product-image-container {
+    padding-bottom: 36% !important;
+    padding-top: 36% !important;
+}
+}
+@media screen and (min-width: 768px) and (max-width: 1024px){
+  .product-image-container {
+    padding-bottom: 60% !important;
+    padding-top: 36% !important;
+}
+.product-image.pointer.image.product-image--width {
+    padding-bottom: 0% !important;
+}
+}
 .media-gallery-carousel {
   position: relative;
   text-align: center;
@@ -173,10 +188,10 @@ export default {
   background: #eaeaea;
   bottom: 100px;
   @media (min-width: 1200px) {
-      bottom: 220px;
+      bottom: 300px;
     }
     @media screen and (min-width: 1024px) and (max-width: 1199px){
-      bottom: 150px;
+      bottom: 137px;
     }
 }
 

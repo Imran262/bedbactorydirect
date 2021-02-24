@@ -50,7 +50,7 @@
       <div class="container">
         <breadcrumbs :key="reRender" class="pt40 pb20 hidden-xs" />
         <section class="row m0 between-xs product-detail-inner">
-          <div class="col-xs-12 col-md-6 center-xs middle-xs image">
+          <div class="col-xs-12 col-md-7 center-xs middle-xs image">
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
               <div class="product-cover bg-cl-secondary">
                 <img src="/assets/placeholder.svg" />
@@ -108,7 +108,7 @@
               </no-ssr>
             </div>
           </div>
-          <div class="col-xs-12 col-md-6 data bt-product-details">
+          <div class="col-xs-12 col-md-5 data bt-product-details">
             <h1
               class="mb20 mt0 cl-mine-shaft product-name"
               data-testid="productName"
@@ -1786,6 +1786,7 @@ h1.product-name {
 .product-detail-inner {
   padding-bottom: 30px;
   border-bottom: 1px solid #f0f1f2;
+  padding-top: 20px;
 }
 span.save-amount {
   padding-left: 15px;
