@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product align-center w-100 pb20 product-img-category" 
+    class="product align-center w-100 pb15 product-img-category" 
     v-observe-visibility="visibilityChanged"
   >
     <!-- {{ filters.brand }} -->
@@ -44,13 +44,13 @@
           data-testid="productImage"
         />
       </div>
-      <div>
+      <div class="brand-size1">
         <!-- {{ getBrandImage() }}
         {{ product.brand }} -->
         <!-- {{ product.brand }} -->
         <img class="brand-size" :src="getBrandImage()" alt="" />
       </div>
-      <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
+      <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
       <div class="comfort-size">
@@ -107,22 +107,22 @@
 
       <div class="price-top">
         <span
-          class="price-original mr5 lh30 cl-secondary old-price"
+          class="mr5 lh30 cl-secondary old-price"
           v-if="
             product.special_price &&
             parseFloat(product.original_price_incl_tax) > 0 &&
             !onlyImage
           "
-          >WAS{{ product.original_price_incl_tax | price }}<br />
+          >WAS <span class="price-original">{{ product.original_price_incl_tax | price }} </span><br />
         </span>
         <span
-          class="price-special lh30 cl-accent weight-700"
+          class="price-special cl-accent weight-700"
           v-if="
             product.special_price &&
             parseFloat(product.special_price) > 0 &&
             !onlyImage
           "
-          >NOW{{ product.price_incl_tax | price }}</span
+          >NOW {{ product.price_incl_tax | price }}</span
         >
         <span
           class="sb-category-price original-price"
@@ -420,7 +420,7 @@ $color-white: color(white);
 }
 .price-top {
   border-top: 1px solid #dfe1e5;
-  padding-top: 17px;
+  padding-top: 10px;
 }
 .original-price {
   margin: 16px;
@@ -432,6 +432,11 @@ $color-white: color(white);
 }
 .brand-size {
   height: 30px;
+   margin-top: 10px;
+}
+.brand-size1 {
+  height: 30px;
+   margin-top: 2px;
 }
 .name-size {
   height: 55px;
@@ -674,15 +679,16 @@ img.product-cover-thumb {
 }
 .product .sb-prodcut-name {
   /* height: auto; */
-  line-height: 1.4em;
+  line-height: 1.3em;
   display: -ms-flexbox;
   display: flex;
-  -webkit-line-clamp: 2;
+  /* -webkit-line-clamp: 2;
   display: -webkit-box;
-  overflow: hidden;
+  overflow: hidden; */
   /* margin-bottom: 0px; */
   display: block;
   text-align: center;
+  font-size: 1rem;
 }
 
 .searchpanel .product__icons {
@@ -695,7 +701,8 @@ img.product-cover-thumb {
   display: block !important;
 }
 .price-special {
-  color: #d90046;
+  color: #CA3625;
+  font-size: 18px;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {
