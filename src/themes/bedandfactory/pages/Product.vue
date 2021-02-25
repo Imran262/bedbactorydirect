@@ -2270,6 +2270,21 @@ font-size: 1.5vw !important;
     font-size: 1.5vw !important;
 }
 }
+@media only screen and (max-width: 400px) and (min-width: 320px){
+.Specifications-main p strong{
+    font-size: 3.3vw !important;
+}
+}
+@media only screen and (max-width: 460px) and (min-width: 401px){
+.Specifications-main p strong{
+    font-size: 3.0vw !important;
+}
+}
+@media only screen and (max-width: 767px) and (min-width: 461px){
+.Specifications-main p strong{
+    font-size: 2.7vw !important;
+}
+}
 /* extra-info-main  */
 .bt-new-description-main ul {
   padding: 18px 0px 18px 18px;
