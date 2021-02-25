@@ -2269,25 +2269,8 @@ font-size: 1.5vw !important;
 .Specifications-main p {
     font-size: 1.5vw !important;
 }
-}
-@media only screen and (max-width: 400px) and (min-width: 320px){
 .Specifications-main p strong{
-    font-size: 3.3vw !important;
-}
-}
-@media only screen and (max-width: 460px) and (min-width: 401px){
-.Specifications-main p strong{
-    font-size: 2.9vw !important;
-}
-}
-@media only screen and (max-width: 550px) and (min-width: 461px){
-.Specifications-main p strong{
-    font-size: 2.7vw !important;
-}
-}
-@media only screen and (max-width: 767px) and (min-width: 551px){
-.Specifications-main p strong{
-    font-size: 2.1vw !important;
+    font-size: 14px !important;
 }
 }
 /* extra-info-main  */
