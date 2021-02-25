@@ -419,7 +419,10 @@ export default {
                      console.log("78944 options matched  ", );
                      cOption.values.forEach((value,vIndex)=>{
                         console.log("78944 matching  ",pOptions[i].option_value," against ",value.label );
-                       if(pOptions[i].option_value === value.label){
+ console.log("56321 matching  ",pOptions[i].option_value," against ",value.label );
+ let selectedtitle =  pOptions[i].option_value.toLowerCase(); // selected option i.e Double of parent product
+ let titleToCheck = value.label.toLowerCase(); // option  to check i.e Double of child product
+                       if(pOptions[i].option_value === value.label ){
                           console.log("78944 65487 options matched  " ,pOptions[i],cOption,value);
                           let obj = {
                             title:cOption.label,
@@ -429,8 +432,30 @@ export default {
                             option_value: value.label,
                             option_id :value.value_index
                           }
+                          console.log("789654123 configurable option is ",obj );
                           configurableOptions.push(obj);
                        }
+                       else if( selectedtitle.includes("king")? (selectedtitle.includes("super")? false : true): false ){
+                         if( titleToCheck.includes("king")? (titleToCheck.includes("super")? false : true): false  ){
+                           console.log("789654123 yes this is the one we are looking for ",selectedtitle ,titleToCheck);
+                           let obj = {
+                            title:cOption.label,
+                            label:cOption.label,
+                            attribute_code:cOption.attribute_code,
+                            attributeId:cOption.attribute_id,
+                            option_value: value.label,
+                            option_id :value.value_index
+                          }
+                          console.log("789654123 configurable option is ",obj );
+                          configurableOptions.push(obj);
+                         }
+                         else{
+                           console.log("789654123 No this is not the one we are looking for ",selectedtitle , titleToCheck);
+                         }
+                       }
+                       else{
+                           console.log("789654123 No this is not the one we are looking for ",selectedtitle , titleToCheck);
+                         }
                      });
                   }
                }
