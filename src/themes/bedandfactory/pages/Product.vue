@@ -682,7 +682,7 @@
             {{ $t("Reviews") }}
              <rating 
                  :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0" />
-                 <span>({{reviewData.bottomline.average_score}} Reviews)</span>
+                 <span>({{reviewData.bottomline.total_review}} Reviews)</span>
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
