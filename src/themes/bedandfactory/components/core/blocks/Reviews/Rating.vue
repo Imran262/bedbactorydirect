@@ -43,14 +43,21 @@ export default {
   computed: {
     stars () {
       let starsArr = [];
+      let  newScore = Math.ceil(this.score)
       for (let i = 1; i <= this.maxScore; i++) {
-        if (this.score < i) {
-          if (this.isFloat(this.score) && (Math.round(this.score) === i)) {
+        // console.log("123456 ",this.score,i ,Math.round(this.score) ,this.isFloat(this.score) , (Math.round(this.score) === i),this.isFloat(this.score) && (Math.round(this.score) === i));
+        // console.log("123456 ",this.score,newScore ,i ,Math.round(newScore) ,this.isFloat(newScore) , (Math.round(newScore) === i),this.isFloat(newScore) && (Math.round(newScore) === i));
+
+        if (newScore < i) {
+                    if (this.isFloat(newScore) && (Math.round(newScore) === i)) {
+            // console.log("123456 adding half",starsArr);
             starsArr.push('fa-star-half-o');
           } else {
+            // console.log("123456 adding full");
             starsArr.push('fa-star-o');
           }
         } else {
+          // console.log("123456 adding full full",starsArr);
           starsArr.push('fa-star');
         }
       }
@@ -78,7 +85,7 @@ export default {
 }
 
 .rating ul li .fa {
-  color: #f5da00;
+  color: #FFD055;
   font-size: 18px;
 }
   @media (min-width: 320px) and (max-width: 440px){
@@ -98,7 +105,7 @@ export default {
 }
 
 .rating1 ul li .fa {
-  color: #f5da00;
+  color: #FFD055;
   font-size: 18px;
 }
 .slider-rating {
@@ -152,7 +159,7 @@ export default {
      font-size: 2.5vw !important;
   }
   .rating ul li .fa{
-      color: #f5da00;
+      color: #FFD055;
       font-size: 13px !important;
   }
   .cutsample-box .rating .stars ul li .fa {

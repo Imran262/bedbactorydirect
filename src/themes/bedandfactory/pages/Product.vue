@@ -121,15 +121,24 @@
                 class="web-share"
               />
             </h1>
-            <div class="rating-top" @click="ProReviewShowFn">
-               <a href="#uniqueReviews">
-                <ReviewStars
+            <template v-if="reviewData && reviewData.bottomline.total_review > 0 ">
+
+           
+            <div class="rating-top " @click="ProReviewShowFn" >
+          
+               <a href="#uniqueReviews" class="reviews-span">
+                 <rating 
+                 :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0"
+
+          /><span>({{reviewData.bottomline.total_review}} Reviews)</span>
+                <!-- <ReviewStars
                 :key="reRender"
                   :reviews="getReviews()"
                   :product="getCurrentProduct"
-                />
+                /> -->     
               </a>
             </div>
+             </template>
             <div
               class="mb20 uppercase cl-secondary b-t-prod-sku"
               itemprop="sku"
@@ -667,14 +676,20 @@
             class="h3 m0 mb10 serif lh20 details-need"
             @click="ProReviewShowFn"
           >
+          <template v-if="reviewData && reviewData.bottomline.total_review > 0" >
+
+          
             {{ $t("Reviews") }}
-            <ReviewStars :key="reRender" :reviews="getReviews()" :product="getCurrentProduct" />
+             <rating 
+                 :score="reviewData.bottomline.average_score ? parseFloat(reviewData.bottomline.average_score): 0" />
+                 <span>({{reviewData.bottomline.total_review}} Reviews)</span>
             <i
               data-v-d65c5c7c
               class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
               id="product-review-icon-id"
               >keyboard_arrow_right</i
             >
+            </template>
           </h2>
           <div
             v-if="ProReviewShow"
@@ -791,6 +806,7 @@ import ProductPrice from "theme/components/core/ProductPrice.vue"
 import axios from "axios"
 import ColorPicker from "theme/components/core/blocks/ColorPIcker/ColorPicker"
 import { product } from '@vue-storefront/core/modules/url/test/unit/helpers/data'
+import Rating from 'theme/components/core/blocks/Reviews/Rating';
 export default {
   components: {
     ColorPicker,
@@ -824,6 +840,7 @@ export default {
     Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
     Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
     "no-ssr": NoSSR,
+    Rating
   },
   mixins: [ProductOption],
   directives: { focusClean },
@@ -1169,6 +1186,10 @@ this.setConfigurableOption();
             throw ("Error:", response.data[0].message)
           } else {
             this.reviewData = response.data[1]
+            // console.log(this.reviewData,"this.reviewData",this.reviewData.average_score, (parseFloat (this.reviewData.bottomline.average_score)).toFixed(2));
+            let average = (parseFloat (this.reviewData.bottomline.average_score)).toFixed(1);
+           this.reviewData.bottomline.average_score = average;
+            // console.log("this.reviewData",this.reviewData);
           }
         })
         .catch((err) => {
@@ -2438,5 +2459,37 @@ span.field-value {
 }
 .Specifications-main td strong {
     font-size: 14px ;
+}
+.rating-top ul li {
+    display: inline-block;
+    margin: 1px;
+}
+.rating-top ul li i {
+    color: #FFD055;
+    font-size: 18px;
+}
+.rating-top ul {
+    margin-left: -40px;
+    margin-top: 0;
+}
+.reviews-span{
+  display: inline-flex;
+}
+.details-need div {
+    margin-left: 30px;
+    margin-top: 0px;
+    display: inline-block;
+}
+.details-need ul {
+    margin-left: 18px; 
+    margin-top: 0px;
+}
+.details-need ul li {
+    display: inline-block;
+    margin: 1px;
+}
+ .details-need ul li i{
+    color: #FFD055;
+    font-size: 18px;
 }
 </style>
