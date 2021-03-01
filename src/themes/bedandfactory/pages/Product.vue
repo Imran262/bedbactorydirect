@@ -2293,6 +2293,9 @@ font-size: 1.5vw !important;
 .Specifications-main p {
     font-size: 1.5vw !important;
 }
+.Specifications-main p strong{
+    font-size: 14px !important;
+}
 }
 /* extra-info-main  */
 .bt-new-description-main ul {
