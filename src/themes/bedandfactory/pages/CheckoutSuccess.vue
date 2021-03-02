@@ -148,12 +148,13 @@ export default {
         return [];
       }
     },
-    getFinalItems() {
+   getFinalItems() {
       const merged = _.merge(
         _.keyBy(this.getCartItems, "name"),
         _.keyBy(this.getOrderItems, "name")
       );
       const values = _.values(merged);
+      console.log('1235689 Values ',values);
       const extensionAttributes = values.filter(
         (value) =>
           value.extension_attributes &&
@@ -166,8 +167,11 @@ export default {
             value.extension_attributes.original_item_sku
           )
       );
+      // console.log("1235689");
+      console.log("1235689 extensionAttributes",extensionAttributes,"\n simpleProducts",simpleProducts);
       let finalItems = [];
       if (extensionAttributes.length > 0) {
+        console.log('1235689 in extensionAttributes condition');
         const reducedProducts = extensionAttributes.reduce((acc, current) => {
           const skuKey = current["extension_attributes"]["original_item_sku"];
           if (!(skuKey in acc) && !acc[skuKey]) {
@@ -175,6 +179,7 @@ export default {
           }
           return { ...acc, [skuKey]: [...acc[skuKey], current] };
         }, {});
+        console.log("1235689 reducedProducts",reducedProducts);
 
         for (const item of _.values(reducedProducts)) {
           const reducedItem = item.reduce(
@@ -190,15 +195,26 @@ export default {
             },
             { price_incl_tax: 0 }
           );
-
+          console.log("1235689 reducedItem",reducedItem);
           finalItems.push(reducedItem);
         }
       }
       if (simpleProducts.length > 0) {
-        finalItems = [...finalItems, ...simpleProducts];
+        console.log("1235689 in condition for simpleProducts",simpleProducts,"\n final products are ",finalItems);
+        
+        finalItems = [];
+        simpleProducts.forEach((item,index)=>{
+      if(item.price>0){
+finalItems.push(item);
       }
+    })
+       // finalItems = [...finalItems, ...simpleProducts];
+        console.log("1235689 finalItems",finalItems);
+      }
+      let newFinalItems=[];
+      console.log("1235689 Finally About to return final Items ",finalItems );
       return finalItems;
-    },
+    }
   },
   methods: {
     removeLastOrderItem() {
