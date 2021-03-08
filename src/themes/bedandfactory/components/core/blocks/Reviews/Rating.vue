@@ -45,8 +45,8 @@ export default {
       let starsArr = [];
       let  newScore = Math.ceil(this.score)
       for (let i = 1; i <= this.maxScore; i++) {
-        console.log("123456 ",this.score,i ,Math.round(this.score) ,this.isFloat(this.score) , (Math.round(this.score) === i),this.isFloat(this.score) && (Math.round(this.score) === i));
-        console.log("123456 ",this.score,newScore ,i ,Math.round(newScore) ,this.isFloat(newScore) , (Math.round(newScore) === i),this.isFloat(newScore) && (Math.round(newScore) === i));
+        // console.log("123456 ",this.score,i ,Math.round(this.score) ,this.isFloat(this.score) , (Math.round(this.score) === i),this.isFloat(this.score) && (Math.round(this.score) === i));
+        // console.log("123456 ",this.score,newScore ,i ,Math.round(newScore) ,this.isFloat(newScore) , (Math.round(newScore) === i),this.isFloat(newScore) && (Math.round(newScore) === i));
 
         if (newScore < i) {
                     if (this.isFloat(newScore) && (Math.round(newScore) === i)) {

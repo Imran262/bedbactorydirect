@@ -119,6 +119,7 @@ $border-secondary: color(secondary, $colors-border);
   font-size: 16px;
   opacity: 1;
   transition: opacity 0.2s;
+  padding-top: 5px;
   &.no-products-left {
     opacity: 0.3;
     cursor: not-allowed;
@@ -132,7 +133,7 @@ $border-secondary: color(secondary, $colors-border);
     &:before {
       content: "";
       position: relative;
-      top: 1px;
+      top: 6px;
       margin-right: 10px;
       display: inline-block;
       vertical-align: text-top;
@@ -155,7 +156,7 @@ $border-secondary: color(secondary, $colors-border);
         content: "";
         position: absolute;
         left: 3px;
-        top: 8px;
+        top: 18px;
         background: white;
         width: 2px;
         height: 2px;

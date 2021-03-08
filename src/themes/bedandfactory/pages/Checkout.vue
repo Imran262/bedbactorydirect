@@ -212,7 +212,6 @@ $color-black: color(black);
       opacity: 0;
       cursor: pointer;
     }
-
     .checkmark {
       position: absolute;
       top: 0;

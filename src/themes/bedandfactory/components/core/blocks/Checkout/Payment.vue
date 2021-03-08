@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="row pl20 pr20" v-if="isActive">
+    <div class="row p15" v-if="isActive">
       <div class="col-xs-11 col-sm-12 col-md-10">
         <div class="row" v-if="isActive">
           <base-checkbox
@@ -314,9 +314,13 @@
             :key="index"
             class="col-md-12 payment-method-inner"
           >
-            <label
+            <!-- <label
               class="radioStyled payment-method-icons"
               v-if="method.code !== 'braintree' && method.code !== 'braintree_paypal' && method.code !==  'braintree_cc_vault'"
+            > -->
+            <label
+              class="radioStyled payment-method-icons"
+              v-if="method.code === 'paypal_express' || method.code === 'checkoutcom_card_payment'"
             >
               <template v-if="method.code === 'braintree'">
                 <p class="paymentTitle">Pay By Card (Braintree)</p></template
@@ -349,7 +353,7 @@
                 class="bank-card"
                 v-if="method.code === 'checkoutcom_card_payment'"
               >
-                <ul>
+                <!-- <ul>
                   <li>
                     <img src="/assets/footer/footer-master-card-icon.png" />
                   </li>
@@ -359,13 +363,27 @@
                   <li>
                     <img src="/assets/footer/footer-visa-icon.png" />
                   </li>
+                </ul> -->
+                <ul>
+                   <li>
+                    <img src="/assets/payment-icons/master-card.svg" />
+                  </li>
+                  <li>
+                    <img src="/assets/payment-icons/maestro.svg" />
+                  </li>
+                   <li>
+                    <img src="/assets/payment-icons/visa.svg" />
+                  </li>
+                  <li>
+                    <img src="/assets/payment-icons/american-express.svg" />
+                  </li>     
                 </ul>
               </div>
 
               <div class="bank-card" v-if="method.code === 'paypal_express'">
                 <ul>
                   <li>
-                    <img src="/assets/footer/footer-paypal-icon.png" />
+                      <img src="/assets/payment-icons/paypal.svg" />
                   </li>
                 </ul>
               </div>
@@ -935,13 +953,19 @@ input:checked + label {
 }
 .bank-card {
   display: flex;
-  left: 217px;
+  left: 170px;
   float: left;
   display: block;
   position: absolute;
   top: 0;
   right: auto;
 }
+@media (min-width: 320px) and (max-width: 767px) {
+  .bank-card  {
+    left: 140px;
+  }
+  }
+
 .bank-card ul {
   padding-left: 15px;
   margin: 0;
@@ -985,12 +1009,12 @@ span.postcodelookup-required {
 .billing-payment .payment-phone-number {
   margin-top: 20px;
 }
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 374px) {
   .bank-card ul {
     padding-left: 5px;
   }
   .bank-card ul li img {
-    width: 22px;
+    width: 27px;
   }
 }
 /*Payment all unchecked */
@@ -1021,6 +1045,7 @@ span.postcodelookup-required {
   .paymentTitle {
     /* padding-left: 26px; */
     margin: 0;
+   /* margin-bottom: -30px; */
   }
   .find-address {
     margin-left: -10px !important;
@@ -1041,9 +1066,9 @@ span.postcodelookup-required {
     margin-top: 10px;
   }
 }
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: 375px) and (max-width: 992px) {
   .bank-card ul li img {
-    width: 35px;
+    width: 40px;
   }
 }
 </style>

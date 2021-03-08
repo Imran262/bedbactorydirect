@@ -44,7 +44,7 @@
           data-testid="productImage"
         />
       </div>
-      <p class="sb-prodcut-name name-size mb0 cl-accent mt10" v-if="!onlyImage">
+      <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
       <!--  -->

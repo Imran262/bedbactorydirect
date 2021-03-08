@@ -9,12 +9,18 @@
           class="row between-xs middle-xs"
           v-if="!isCheckoutPage || isThankYouPage"
         >
-          <div class="col-md-2 col-xs-4 pt5">
+        <div class="col-xs-1 col-sm-1 ">
+              <hamburger-icon
+          v-if="!isCheckoutPage || isThankYouPage"
+          class="sb-mobile-menu pointer hidden-md"
+        />
+          </div>
+          <div class="col-md-2 col-xs-4 pt5 col-sm-4 mobile_logo">
             <div>
               <logo width="120px" height="76px" />
             </div>
           </div>
-          <div class="search-bar col-md-6 col-xs-12 middle-xs">
+          <div class="search-bar col-md-6 col-xs-12 middle-xs col-sm-12">
             <div>
               <SearchPanelDesktop />
             </div>
@@ -33,7 +39,7 @@
             <Telephone class="pointer" />
           </div>-->
 
-          <div class="col-md-4 col-xs-2 pr-8">
+          <div class="col-md-3 col-xs-2 pr-8">
             <div class="inline-flex sb-header-right">
               <!-- <search-icon class="p15 icon hidden-xs pointer" /> -->
               <!-- <wishlist-icon class="p15 icon hidden-xs pointer" /> -->
@@ -59,9 +65,10 @@
               </router-link>
             </div>
           </div>-->
-          <div class="col-xs-2 col-md-12 center-xs">
+          <div class="col-xs-1 col-md-12 center-xs">
             <logo width="auto" height="75px" />
           </div>
+
           <!-- <div class="col-xs-5 col-md-3 end-xs">
             <div>
               <a
@@ -81,10 +88,10 @@
       </div>
       <nav>
         <header-menu />
-        <hamburger-icon
+         <hamburger-icon
           v-if="!isCheckoutPage || isThankYouPage"
           class="sb-mobile-menu pointer hidden-md"
-        />
+        /> 
       </nav>
     </header>
 
@@ -185,10 +192,49 @@ $color-icon-hover: color(secondary, $colors-background);
 .header {
   height: 8.5rem;
 }
+@media (min-width: 768px) and (max-width: 992px){
+  .header {
+  height: 5rem;
+}
+}
+@media (min-width: 600px) and (max-width: 767px){
+.col-md-2.col-xs-4.pt5.col-sm-4.mobile_logo {
+    position: relative;
+    right: 70px;
+}
+}
+@media (min-width: 425px) and (max-width: 599px){
+.col-md-2.col-xs-4.pt5.col-sm-4.mobile_logo {
+    position: relative;
+    right: 50px;
+}
+}
+@media (min-width: 320px) and (max-width: 424px){
+.col-md-2.col-xs-4.pt5.col-sm-4.mobile_logo {
+    position: relative;
+    right: 40px;
+}
+}
 @media (max-width: 767px) {
   .header {
     height: 8.2rem;
   }
+}
+@media (max-width: 767px){
+.sb-mobile-menu[data-v-7bde392a] {
+    position: absolute!important;
+    bottom: 0;
+    background-color: #e5e7ea;
+    padding: 10px 15px 10px 15px;
+}
+}
+@media (min-width: 768px)and (max-width: 992px){
+.sb-mobile-menu[data-v-7bde392a] {
+  display:none;
+}
+nav {
+    display: none;
+}
 }
 header {
   // height: 95px;
@@ -280,11 +326,6 @@ header {
   .container {
     width: 100% !important;
     max-width: 100%;
-  }
-}
-@media (min-width: 768px) and (max-width: 992px) {
-  .header {
-    height: 11.9rem;
   }
 }
 @media (min-width: 991px) and (max-width: 1023px) {

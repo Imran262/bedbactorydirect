@@ -98,9 +98,19 @@ export default {
   }
 
   .vue-back-to-top {
-    cursor:pointer;
+    /* cursor:pointer;
     position: fixed;
     z-index: 1000;
+    position: relative;
+bottom: 62px;
+right: 10px; */
+cursor: pointer;
+    position: fixed;
+    /* z-index: 1000; */
+    /* position: relative; */
+    bottom: 103px !important;
+    right: 32px !important;
+    
   }
 
   .vue-back-to-top .default {
