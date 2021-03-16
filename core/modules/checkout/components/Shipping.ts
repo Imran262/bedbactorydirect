@@ -36,8 +36,7 @@ export const Shipping = {
         street: ['', ''],
         postcode: '',
         telephone: ''
-      },
-      currentShippingMethod: null
+      }
     }
   },
   computed: {
@@ -82,8 +81,10 @@ export const Shipping = {
         if (!shipping && this.shippingMethods && this.shippingMethods.length > 0) {
           shipping = this.shippingMethods[0]
         }
-        this.shipping.shippingMethod = shipping.method_code
-        this.shipping.shippingCarrier = shipping.carrier_code
+        if ( shipping ) {
+          this.shipping.shippingMethod = shipping.method_code
+          this.shipping.shippingCarrier = shipping.carrier_code
+        }
       }
     },
     onAfterShippingSet (receivedData) {
@@ -181,9 +182,6 @@ export const Shipping = {
           payment_method: this.paymentMethod[0].code
         })
       }
-    },
-    resetCurrentShippingMethod(){
-      this.currentShippingMethod = null
     },
     notInMethods (method) {
       let availableMethods = this.shippingMethods

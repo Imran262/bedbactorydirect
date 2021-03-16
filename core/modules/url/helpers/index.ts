@@ -1,11 +1,12 @@
 import { router } from '@vue-storefront/core/app'
 import config from 'config'
 import { LocalizedRoute } from '@vue-storefront/core/lib/types'
-import { localizedDispatcherRoute, localizedRoute, currentStoreView } from '@vue-storefront/core/lib/multistore'
+import { currentStoreView, localizedDispatcherRoute, localizedRoute } from '@vue-storefront/core/lib/multistore'
 import { RouteConfig } from 'vue-router/types/router';
 import { RouterManager } from '@vue-storefront/core/lib/router-manager'
 import { Category } from 'core/modules/catalog-next/types/Category'
 import { Logger } from '@vue-storefront/core/lib/logger'
+import { Store } from 'vuex'
 
 export function parametrizeRouteData (routeData: LocalizedRoute, query: { [id: string]: any } | string, storeCodeInPath: string): LocalizedRoute {
   const parametrizedRoute = Object.assign({}, routeData)
@@ -20,8 +21,7 @@ function prepareDynamicRoute (routeData: LocalizedRoute, path: string): RouteCon
   const userRoute = RouterManager.findByName(routeData.name)
   if (userRoute) {
     const normalizedPath = `${path.startsWith('/') ? '' : '/'}${path}`
-    const dynamicRoute = Object.assign({}, userRoute, routeData, { path: normalizedPath, name: `urldispatcher-${normalizedPath}` })
-    return dynamicRoute
+    return Object.assign({}, userRoute, routeData, { path: normalizedPath, name: `urldispatcher-${normalizedPath}` })
   } else {
     Logger.error('Route not found ' + routeData['name'], 'dispatcher')()
     return null

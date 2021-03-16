@@ -1,4 +1,5 @@
 import config from 'config'
+import { getThumbnailPath } from '@vue-storefront/core/helpers'
 
 export const ProductBundleOption = {
   name: 'ProductBundleOption',
@@ -31,12 +32,27 @@ export const ProductBundleOption = {
     value () {
       const { product_links } = this.option
       if (Array.isArray(product_links)) {
-        return product_links.find(product => product.id === this.productOptionId)
+        return product_links.find(product => {
+          return product.id === ((typeof this.productOptionId === 'object') ? this.productOptionId.id : this.productOptionId)
+        })
       }
       return product_links
     },
     errorMessage () {
       return this.errorMessages ? this.errorMessages[this.quantityName] : ''
+    },
+    vSelectBundleOptions () {
+      return this.option.product_links.filter(link => typeof link.product !== 'undefined').map(({ product, id, is_default, price, sku, qty }, index) => {
+        return {
+          id,
+          sku,
+          is_default,
+          qty,
+          title: product?.name,
+          cardImage: getThumbnailPath(product?.thumbnail, 62, 62),
+          price: product?.price_incl_tax
+        }
+      })
     }
   },
   mounted () {
@@ -62,12 +78,20 @@ export const ProductBundleOption = {
     setDefaultValues () {
       const { product_links } = this.option
 
-      if (product_links) {
-        const defaultOption = Array.isArray(product_links)
-          ? product_links.find(pl => pl.is_default)
-          : product_links
+      let defaultOption = null;
 
-        this.productOptionId = defaultOption ? defaultOption.id : product_links[0].id
+      if (product_links) {
+        if (this.option && this.option.type === 'select') {
+          defaultOption = Array.isArray(product_links)
+            ? this.vSelectBundleOptions.find(item => item.is_default)
+            : product_links
+          this.productOptionId = defaultOption || this.vSelectBundleOptions[0]
+        } else {
+          defaultOption = Array.isArray(product_links)
+            ? product_links.find(pl => pl.is_default)
+            : product_links
+          this.productOptionId = defaultOption ? defaultOption.id : product_links[0].id
+        }
         this.quantity = defaultOption ? defaultOption.qty : 1
       }
     },

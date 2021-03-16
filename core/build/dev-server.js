@@ -12,6 +12,9 @@ let clientConfig = extendedConfig(baseClientConfig, { isClient: true, isDev: tru
 let serverConfig = extendedConfig(baseServerConfig, { isClient: false, isDev: true })
 
 module.exports = function setupDevServer (app, cb) {
+    
+    //app.use(require('prerender-node').set('prerenderToken', 'QMTRztV75oN122Bimg72'));
+    app.use(require('prerender-node').set('prerenderToken', 'QMTRztV75oN122Bimg72').set('protocol', 'https').set('host', 'ww2.tilemountain.co.uk'));
   let bundle
   let template
 
@@ -45,7 +48,8 @@ module.exports = function setupDevServer (app, cb) {
   })
 
   // Hot middleware
-  app.use(require('webpack-hot-middleware')(clientCompiler))
+  // app.use(require('webpack-hot-middleware')(clientCompiler))
+  //app.use(require('prerender-node').set('prerenderToken', 'QMTRztV75oN122Bimg72'));
 
   // watch and update server renderer
   const serverCompiler = webpack(serverConfig)

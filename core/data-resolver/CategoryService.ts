@@ -6,6 +6,7 @@ import { Category } from 'core/modules/catalog-next/types/Category';
 
 const getCategories = async ({
   parentId = null,
+  catId = null,
   filters = {},
   level = null,
   onlyActive = true,
@@ -19,6 +20,8 @@ const getCategories = async ({
   let searchQuery = new SearchQuery()
   if (parentId) {
     searchQuery = searchQuery.applyFilter({ key: 'parent_id', value: { 'eq': parentId } })
+  } else if (catId) {
+    searchQuery = searchQuery.applyFilter({ key: 'id', value: { 'eq': catId } })
   }
   if (level) {
     searchQuery = searchQuery.applyFilter({ key: 'level', value: { 'eq': level } })

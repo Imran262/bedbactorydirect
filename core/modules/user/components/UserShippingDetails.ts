@@ -38,7 +38,7 @@ export const UserShippingDetails = {
     this.$bus.$off('myAccount-before-remainInEditMode')
   },
   mounted () {
-    this.shippingDetails = this.getShippingDetails()
+    this.assignDetails()
   },
   watch: {
     useCompanyAddress: {
@@ -48,6 +48,9 @@ export const UserShippingDetails = {
     }
   },
   methods: {
+    assignDetails() {
+        this.shippingDetails = this.getShippingDetails()
+    },
     onLoggedIn () {
       this.currentUser = Object.assign({}, this.$store.state.user.current)
       this.shippingDetails = this.getShippingDetails()

@@ -25,11 +25,11 @@ export const getSelectedBundleOptions = (product: Product): SelectedBundleOption
   return allBundeOptions.map((bundleOption) => {
     const productLinks = bundleOption.product_links || []
     const defaultLink = productLinks.find((productLink) => productLink.is_default) || productLinks[0]
-    const qty = (typeof defaultLink.qty === 'string' ? parseInt(defaultLink.qty) : defaultLink.qty) || 1
+    const qty = defaultLink ? (typeof defaultLink.qty === 'string' ? parseInt(defaultLink.qty) : defaultLink.qty) || 1 : 1
     return {
       option_id: bundleOption.option_id,
       option_qty: qty,
-      option_selections: [Number(defaultLink.id)]
+      option_selections: defaultLink ? [Number(defaultLink.id)] : []
     }
   })
 }

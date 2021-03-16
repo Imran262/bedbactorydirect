@@ -48,7 +48,7 @@ const actions: ActionTree<ProductState, RootState> = {
    * @return {Promise}
    */
   async list (context, {
-    query,
+    query = {},
     start = 0,
     size = 50,
     sort = '',
@@ -82,11 +82,10 @@ const actions: ActionTree<ProductState, RootState> = {
     }
 
     EventBus.$emit('product-after-list', { query, start, size, sort, entityType: 'product', result: { items } })
-
     return { items }
   },
   async findProducts (context, {
-    query,
+    query = {},
     start = 0,
     size = 50,
     sort = '',
@@ -282,6 +281,10 @@ const actions: ActionTree<ProductState, RootState> = {
       let breadcrumbCategory
       const categoryFilters = Object.assign({ 'id': [...product.category_ids] }, cloneDeep(config.entities.category.breadcrumbFilterFields))
       const categories = await dispatch('category-next/loadCategories', { filters: categoryFilters, reloadAll: Object.keys(config.entities.category.breadcrumbFilterFields).length > 0 }, { root: true })
+      let primaryIdCategory
+      if (product.primary_category) {
+        primaryIdCategory = await dispatch('category/list', { key: 'id', value: product.primary_category }, { root: true });
+      }
       if (
         (currentCategory && currentCategory.id) && // current category exist
         (config.entities.category.categoriesRootCategorylId !== currentCategory.id) && // is not highest category (All) - if we open product from different page then category page
@@ -289,7 +292,12 @@ const actions: ActionTree<ProductState, RootState> = {
       ) {
         breadcrumbCategory = currentCategory // use current category if set and included in the filtered list
       } else {
-        breadcrumbCategory = categories.sort((a, b) => (a.level > b.level) ? -1 : 1)[0] // sort starting by deepest level
+        if (primaryIdCategory && primaryIdCategory.items && primaryIdCategory.items[0]) {
+          breadcrumbCategory = primaryIdCategory.items[0]
+        } else {
+          breadcrumbCategory = categories.sort((a, b) => (a.level > b.level) ? -1 : 1)[0] // sort starting by deepest level
+        }
+        // breadcrumbCategory = categories.sort((a, b) => (a.level > b.level) ? -1 : 1)[0] // sort starting by deepest level
       }
       await dispatch('category-next/loadCategoryBreadcrumbs', { category: breadcrumbCategory, currentRouteName: product.name }, { root: true })
     }

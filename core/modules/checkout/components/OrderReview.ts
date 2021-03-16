@@ -7,7 +7,7 @@ export const OrderReview = {
   props: {
     isActive: {
       type: Boolean,
-      required: true
+      required: false
     }
   },
   data () {

@@ -27,7 +27,9 @@ export default {
     await this.$store.dispatch('user/startSession')
     if (!this.$store.getters['user/isLoggedIn']) {
       localStorage.setItem('redirect', this.$route.path)
-      this.$router.push(localizedRoute('/', currentStoreView().storeCode))
+      this.$router.push(localizedRoute('/customer/account/login', currentStoreView().storeCode))
+      localStorage.removeItem('redirect');
+      this.$bus.$emit('modal-hide', 'modal-signup')
     }
   },
   destroyed () {

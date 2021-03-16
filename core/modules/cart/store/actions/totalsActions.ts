@@ -24,7 +24,6 @@ const totalsActions = {
       const totals = result.totals || result
       Logger.info('Overriding server totals. ', 'cart', totals)()
       const itemsAfterTotal = prepareShippingInfoForUpdateTotals(totals.items)
-
       for (let key of Object.keys(itemsAfterTotal)) {
         const item = itemsAfterTotal[key]
         const product = { server_item_id: item.item_id, totals: item, qty: item.qty }

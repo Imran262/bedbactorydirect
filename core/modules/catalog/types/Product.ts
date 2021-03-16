@@ -43,6 +43,7 @@ export default interface Product {
   priceTax?: number,
   product_links?: ProductLink[],
   product_option?: ProductOptions,
+  extension_attributes?: ExtensionAttributes;
   regular_price: number,
   required_options?: string,
   sale?: string,
@@ -93,4 +94,8 @@ export interface ProductOptions {
     configurable_item_options: ConfigurableItemOption[],
     bundle_options: SelectedBundleOption[]
   }
+}
+
+export interface ExtensionAttributes {
+  options: any[]
 }

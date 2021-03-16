@@ -13,19 +13,48 @@ import getApiEndpointUrl from '@vue-storefront/core/helpers/getApiEndpointUrl';
 export class SearchAdapter {
   public entities: any
 
-  public constructor () {
+  public constructor() {
     this.entities = []
     this.initBaseTypes()
   }
 
-  public async search (Request) {
+  public async search(Request) {
     if (!this.entities[Request.type]) {
       throw new Error('No entity type registered for ' + Request.type)
     }
     let ElasticsearchQueryBody = {}
     if (Request.searchQuery instanceof SearchQuery) {
       const bodybuilder = await import(/* webpackChunkName: "bodybuilder" */ 'bodybuilder')
-      ElasticsearchQueryBody = await elasticsearch.buildQueryBodyFromSearchQuery({ config, queryChain: bodybuilder.default(), searchQuery: Request.searchQuery })
+      let searchQuery = Request.searchQuery
+      let query = bodybuilder.default()
+      if (Request.type === 'product') {
+        const sortType = Request.sort.split(':', 2)
+        if (sortType[0] === 'position') {
+          const categories = searchQuery.getAppliedFilters().find(element => element.attribute === 'category_ids')
+          let mainCategoryId = null
+          if (categories && categories.value) {
+            mainCategoryId = categories.value.in[0]
+            if (mainCategoryId) {
+              query.sort('category.position', {
+                'order': sortType[1] || 'asc',
+                'nested_path': 'category',
+                'nested_filter': {
+                  'terms': {
+                    'category.category_id': [mainCategoryId]
+                  }
+                }
+              })
+            }
+          }
+        }
+      }
+      //if (Request.searchQuery.getSearchText() !== '') {
+//        query.sort('total_revenue',
+//        {'order' : 'desc' ,
+//          'unmapped_type' : 'long'})
+//      }
+
+      ElasticsearchQueryBody = await elasticsearch.buildQueryBodyFromSearchQuery({ config, queryChain: query, searchQuery: Request.searchQuery })
       if (Request.searchQuery.getSearchText() !== '') {
         ElasticsearchQueryBody['min_score'] = config.elasticsearch.min_score
       }
@@ -90,7 +119,7 @@ export class SearchAdapter {
       })
   }
 
-  public handleResult (resp, type, start = 0, size = 50): SearchResponse {
+  public handleResult(resp, type, start = 0, size = 50): SearchResponse {
     if (resp === null) {
       throw new Error('Invalid ES result - null not exepcted')
     }
@@ -116,7 +145,7 @@ export class SearchAdapter {
     }
   }
 
-  public registerEntityType (entityType, { url = '', url_ssr = '', queryProcessor, resultProcessor }) {
+  public registerEntityType(entityType, { url = '', url_ssr = '', queryProcessor, resultProcessor }) {
     this.entities[entityType] = {
       queryProcessor: queryProcessor,
       resultProcessor: resultProcessor
@@ -130,7 +159,7 @@ export class SearchAdapter {
     return this
   }
 
-  public initBaseTypes () {
+  public initBaseTypes() {
     this.registerEntityType('product', {
       queryProcessor: (query) => {
         // function that can modify the query each time before it's being executed

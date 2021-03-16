@@ -11,7 +11,7 @@ import { Logger } from '@vue-storefront/core/lib/logger'
 
 export default {
   name: 'Checkout',
-  mixins: [Composite, VueOfflineMixin],
+  mixins: [ Composite, VueOfflineMixin ],
   data () {
     return {
       stockCheckCompleted: false,
@@ -24,6 +24,7 @@ export default {
         orderReview: false
       },
       order: {},
+      cartOrder: {},
       personalDetails: {},
       shipping: {},
       shippingMethod: {},
@@ -55,6 +56,7 @@ export default {
     this.$bus.$on('checkout-after-shippingDetails', this.onAfterShippingDetails)
     this.$bus.$on('checkout-after-paymentDetails', this.onAfterPaymentDetails)
     this.$bus.$on('checkout-after-cartSummary', this.onAfterCartSummary)
+    this.$bus.$on('placeorder_from_Cart', this.prepareCartOrder)
     this.$bus.$on('checkout-before-placeOrder', this.onBeforePlaceOrder)
     this.$bus.$on('checkout-do-placeOrder', this.onDoPlaceOrder)
     this.$bus.$on('checkout-before-edit', this.onBeforeEdit)
@@ -138,15 +140,21 @@ export default {
       this.shippingMethod = payload
     },
     onBeforeShippingMethods (country) {
-      this.$store.dispatch('checkout/updatePropValue', ['country', country])
+      this.$store.dispatch('checkout/updatePropValue', [ 'country', country ])
       this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
       this.$forceUpdate()
     },
     async onAfterPlaceOrder (payload) {
       this.confirmation = payload.confirmation
-      this.$store.dispatch('checkout/setThankYouPage', true)
+      // alert('on palce order')
+      // this.$store.dispatch('checkout/setThankYouPage', true)
+      let orderId = await this.confirmation.orderNumber
+      this.gotoSuccess(orderId)
       this.$store.dispatch('user/getOrdersHistory', { refresh: true, useCache: true })
       Logger.debug(payload.order)()
+    },
+    gotoSuccess (id) {
+      this.$router.push({ name: 'Success', params: { orderId: id } })
     },
     onBeforeEdit (section) {
       this.activateSection(section)
@@ -174,7 +182,6 @@ export default {
     onAfterShippingDetails (receivedData, validationResult) {
       this.shipping = receivedData
       this.validationResults.shipping = validationResult
-      this.activateSection('payment')
       this.saveShippingDetails()
 
       const storeView = currentStoreView()
@@ -185,9 +192,8 @@ export default {
       this.validationResults.personalDetails = validationResult
 
       if (this.isVirtualCart === true) {
-        this.activateSection('payment')
       } else {
-        this.activateSection('shipping')
+        // this.activateSection('shipping')
       }
       this.savePersonalDetails()
       this.focusedField = null
@@ -199,7 +205,7 @@ export default {
       let isValid = true
       for (let child of this.$children) {
         if (child.hasOwnProperty('$v')) {
-          if (child.$v.$invalid) {
+          if (child.$v.$invalid && !child.$v.hasOwnProperty('phoneValidate')) {
             // Check if child component is Personal Details.
             // If so, then ignore validation of account creation fields.
             if (child.$v.hasOwnProperty('personalDetails')) {
@@ -228,10 +234,25 @@ export default {
       }
       return isValid
     },
+    checkStocksCart () {
+      let isValid = true
+      if (typeof navigator !== 'undefined' && navigator.onLine) {
+        if (this.stockCheckCompleted) {
+          if (!this.stockCheckOK) {
+            isValid = false
+            this.notifyNotAvailable()
+          }
+        } else {
+          this.notifyStockCheck()
+          isValid = false
+        }
+      }
+      return isValid
+    },
     activateHashSection () {
       if (!isServer) {
         var urlStep = window.location.hash.replace('#', '')
-        if (this.activeSection.hasOwnProperty(urlStep) && this.activeSection[urlStep] === false) {
+        if (this.activeSection.hasOwnProperty(urlStep) && this.activeSection[ urlStep ] === false) {
           this.activateSection(urlStep)
         } else if (urlStep === '') {
           this.activateSection('personalDetails')
@@ -245,16 +266,16 @@ export default {
     },
     activateSection (sectionToActivate) {
       for (let section in this.activeSection) {
-        this.activeSection[section] = false
+        this.activeSection[ section ] = false
       }
-      this.activeSection[sectionToActivate] = true
+      this.activeSection[ sectionToActivate ] = true
       if (!isServer) window.location.href = window.location.origin + window.location.pathname + '#' + sectionToActivate
     },
     // This method checks if there exists a mapping of chosen payment method to one of Magento's payment methods.
     getPaymentMethod () {
       let paymentMethod = this.payment.paymentMethod
       if (config.orders.payment_methods_mapping.hasOwnProperty(paymentMethod)) {
-        paymentMethod = config.orders.payment_methods_mapping[paymentMethod]
+        paymentMethod = config.orders.payment_methods_mapping[ paymentMethod ]
       }
       return paymentMethod
     },
@@ -263,12 +284,13 @@ export default {
         user_id: this.$store.state.user.current ? this.$store.state.user.current.id.toString() : '',
         cart_id: this.$store.state.cart.cartServerToken ? this.$store.state.cart.cartServerToken.toString() : '',
         products: this.$store.state.cart.cartItems,
+        extension_attributes: {},
         addressInformation: {
           billingAddress: {
             region: this.payment.state,
             region_id: this.payment.region_id ? this.payment.region_id : 0,
             country_id: this.payment.country,
-            street: [this.payment.streetAddress, this.payment.apartmentNumber],
+            street: [ this.payment.streetAddress, this.payment.apartmentNumber ],
             company: this.payment.company,
             telephone: this.payment.phoneNumber,
             postcode: this.payment.zipCode,
@@ -283,7 +305,8 @@ export default {
           shipping_carrier_code: this.shippingMethod.carrier_code ? this.shippingMethod.carrier_code : this.shipping.shippingCarrier,
           payment_method_code: this.getPaymentMethod(),
           payment_method_additional: this.payment.paymentMethodAdditional,
-          shippingExtraFields: this.shipping.extraFields
+          shippingExtraFields: this.shipping.extraFields,
+          extension_attributes: {}
         }
       }
       if (!this.isVirtualCart) {
@@ -291,8 +314,8 @@ export default {
           region: this.shipping.state,
           region_id: this.shipping.region_id ? this.shipping.region_id : 0,
           country_id: this.shipping.country,
-          street: [this.shipping.streetAddress, this.shipping.apartmentNumber],
-          company: '',
+          street: [ this.shipping.streetAddress, this.shipping.apartmentNumber ],
+          company: this.shipping.company,
           telephone: this.shipping.phoneNumber,
           postcode: this.shipping.zipCode,
           city: this.shipping.city,
@@ -301,8 +324,23 @@ export default {
           email: this.personalDetails.emailAddress,
           region_code: this.shipping.region_code ? this.shipping.region_code : ''
         }
+        this.order.addressInformation.extension_attributes = {
+          delivery_note: (this.shipping.narrowRoad) ? this.shipping.deliveryNoteHidden + '<br/>' + this.shipping.deliveryNote : this.shipping.deliveryNote + '<br/>' + this.shipping.noOneField
+        }
+        this.order.extension_attributes = {
+          delivery_note: (this.shipping.narrowRoad) ? this.shipping.deliveryNoteHidden + '<br/>' + this.shipping.deliveryNote : this.shipping.deliveryNote + '<br/>' + this.shipping.noOneField
+        }
       }
       return this.order
+    },
+
+    placeCartOrder () {
+      this.checkConnection({ online: typeof navigator !== 'undefined' ? navigator.onLine : true })
+      if (this.checkStocksCart()) {
+        this.$store.dispatch('checkout/placeOrder', { order: this.cartOrder })
+      } else {
+        this.notifyNotAvailable()
+      }
     },
     placeOrder () {
       this.checkConnection({ online: typeof navigator !== 'undefined' ? navigator.onLine : true })
@@ -337,13 +375,13 @@ export default {
   metaInfo () {
     return {
       title: this.$route.meta.title || i18n.t('Checkout'),
-      meta: this.$route.meta.description ? [{ vmid: 'description', name: 'description', content: this.$route.meta.description }] : []
+      meta: this.$route.meta.description ? [ { vmid: 'description', name: 'description', content: this.$route.meta.description } ] : []
     }
   },
   asyncData ({ store, route, context }) { // this is for SSR purposes to prefetch data
     return new Promise((resolve, reject) => {
       if (context) context.output.cacheTags.add(`checkout`)
-      if (context) context.server.response.redirect(localizedRoute('/'))
+      if (context && route.path !== '/confirmorder') context.server.response.redirect(localizedRoute('/'))
       resolve()
     })
   }

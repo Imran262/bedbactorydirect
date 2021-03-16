@@ -1,0 +1,2 @@
+export const SET_HOME_PAGE = 'SET_HOME_PAGE'
+export const SET_REMOVE_PRODUCT = 'SET_REMOVE_PRODUCT'

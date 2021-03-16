@@ -9,10 +9,20 @@ import { adjustMultistoreApiUrl } from '@vue-storefront/core/lib/multistore'
 import { coreHooksExecutors } from '@vue-storefront/core/hooks';
 import getApiEndpointUrl from '@vue-storefront/core/helpers/getApiEndpointUrl';
 import omit from 'lodash-es/omit'
+import { CategoryService } from '../data-resolver';
 
 export const processURLAddress = (url: string = '') => {
   if (url.startsWith('/')) return `${getApiEndpointUrl(config.api, 'url')}${url}`
   return url
+}
+
+export const getProductPrimaryCategory = (product) => {
+  if (product && product.category) {
+    return Object.keys(product.category).filter(c => {
+      return parseInt(product.category[c].category_id) === parseInt(product.primary_category)
+    }).map(c => ({ ...product.category[c] }));
+  }
+  return false;
 }
 
 export const processLocalizedURLAddress = (url: string = '') => {
@@ -95,18 +105,18 @@ export function formatBreadCrumbRoutes (categoryPath) {
  * @param {bool} ignoreConfig
  */
 export function productThumbnailPath (product, ignoreConfig = false) {
-  let thumbnail = product.image
+  let thumbnail = (product.thumbnail || product.small_image || product.image)
   if ((!thumbnail && product.type_id && product.type_id === 'configurable') && product.hasOwnProperty('configurable_children') &&
     product.configurable_children.length && (ignoreConfig || !product.is_configured) &&
     ('image' in product.configurable_children[0])
   ) {
-    thumbnail = product.configurable_children[0].image
+    thumbnail = product.configurable_children[0].thumbnail
     if (!thumbnail || thumbnail === 'no_selection') {
-      const childWithImg = product.configurable_children.find(f => f.image && f.image !== 'no_selection')
+      const childWithImg = product.configurable_children.find(f => f.thumbnail && f.thumbnail !== 'no_selection')
       if (childWithImg) {
-        thumbnail = childWithImg.image
+        thumbnail = childWithImg.thumbnail
       } else {
-        thumbnail = product.image
+        thumbnail = product.thumbnail
       }
     }
   }
@@ -319,6 +329,15 @@ function getMaterials (material, customAttributes) {
     }
   }
   return materialsArr
+}
+
+export const getCategoryById = async catId => {
+  console.log('catIdToFetchIs', catId)
+  return await CategoryService.getCategories({
+    catId,
+    includeFields: config.entities?.category?.includeFields,
+    excludeFields: config.entities?.category?.excludeFields
+  });
 }
 
 export function productJsonLd ({ category, image, name, id, sku, mpn, description, price, url_path, stock, is_in_stock, material }, color, priceCurrency, customAttributes) {

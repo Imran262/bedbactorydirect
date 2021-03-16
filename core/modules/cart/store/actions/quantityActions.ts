@@ -21,9 +21,24 @@ const quantityActions = {
       }
     }
   },
-  async updateQuantity ({ commit, dispatch, getters }, { product, qty, forceServerSilence = false }) {
-    commit(types.CART_UPD_ITEM, { product, qty })
-    if (getters.isCartSyncEnabled && product.server_item_id && !forceServerSilence) {
+  async updateQuantity ({ commit, dispatch, getters }, { product, qty, itemId = null, forceServerSilence = false }) {
+
+    commit(types.CART_UPD_ITEM, { product, qty, itemId })
+
+    if (!product.server_item_id && itemId != null) {
+      product.server_item_id = itemId
+    }
+    console.log('getters.isCartSyncEnabled', getters.isCartSyncEnabled, product.server_item_id, !forceServerSilence)
+    if (getters.isCartSyncEnabled && (product.server_item_id || parseInt(itemId)) && !forceServerSilence) {
+      console.log('whyNotInIfCondition', product, {
+        id: product.id,
+        totals: product.totals,
+        item_id: product.totals ? product.totals.item_id : false,
+        sku: product.sku,
+        customItemId: itemId,
+        server_item_id: product.server_item_id,
+        product
+      });
       return dispatch('sync', { forceClientState: true })
     }
 

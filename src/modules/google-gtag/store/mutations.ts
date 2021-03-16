@@ -37,5 +37,23 @@ export const mutations: MutationTree<any> = {
   },
   [types.SET_PROMO_VIEW] (state, payload) {
     state.promo_view = payload
+  },
+  [types.SET_SUCCESS_PURCHASE] (state, payload) {
+    state.success_purchase = payload
+  },
+  [types.SET_HOME_CLICK] (state, payload) {
+    state.home_click = payload
+  },
+  [types.SET_ADD_PRODUCT] (state, payload) {
+    state.home_add_product = payload
+  },
+  [types.SET_REMOVE_PRODUCT] (state, payload) {
+    state.home_remove_product = payload
+  },
+  [types.SET_OTHER] (state, payload) {
+    state.other = payload
+  },
+  [types.SET_CHECKOUT_PAGE] (state, payload) {
+    state.checkout_page = payload
   }
 }

@@ -34,6 +34,9 @@ const mutations: MutationTree<ProductState> = {
     )
   },
   [types.PRODUCT_SET_CURRENT] (state, product) {
+    if (state.current && state.current.id && state.current.id !== product.id) {
+      state.current_bundle_options = {}
+    }
     state.current = product
   },
   [types.PRODUCT_RESET_CURRENT] (state, originalProduct) {

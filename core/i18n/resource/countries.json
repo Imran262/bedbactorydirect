@@ -1,6 +1,14 @@
 [
   {
-  "name": "United Kingdom",
-  "code": "GB"
+    "name": "Guernsey",
+    "code": "GG"
+  },
+  {
+    "name": "Jersey",
+    "code": "JE"
+  },
+  {
+    "name": "United Kingdom",
+    "code": "GB"
   }
 ]

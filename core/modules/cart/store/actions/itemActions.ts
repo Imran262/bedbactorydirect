@@ -46,6 +46,12 @@ const itemActions = {
     cartHooksExecutors.afterAddToCart(result)
     return result
   },
+  async createCartId(
+    { dispatch, commit, getters },
+    { productToAdd = null, guestCart = false }
+  ) {
+    await dispatch('connect', { guestCart })
+  },
   async checkProductStatus ({ dispatch, getters }, { product }) {
     const record = getters.getCartItems.find(p => productsEquals(p, product))
     const qty = record ? record.qty + 1 : (product.qty ? product.qty : 1)
@@ -97,14 +103,20 @@ const itemActions = {
     return diffLog
   },
   async removeItem ({ commit, dispatch, getters }, payload) {
+    console.log('thisMethodWillRemoveItemFromCart', payload);
+    const cartItemId = (payload && payload.itemId) ? payload.itemId : false;
     const removeByParentSku = payload.product ? !!payload.removeByParentSku && payload.product.type_id !== 'bundle' : true
     const product = payload.product || payload
     const { cartItem } = cartHooksExecutors.beforeRemoveFromCart({ cartItem: product })
 
-    commit(types.CART_DEL_ITEM, { product: cartItem, removeByParentSku })
+    console.log('cartItemIs', cartItem, removeByParentSku);
 
+    commit(types.CART_DEL_ITEM, { product: cartItem, removeByParentSku, cartItemId })
+
+    console.log('isCartSyncEnabled', getters.isCartSyncEnabled, cartItem.server_item_id);
     if (getters.isCartSyncEnabled && cartItem.server_item_id) {
       const diffLog = await dispatch('sync', { forceClientState: true })
+      console.log('diffLogAfterRemovalShouldBe', diffLog);
       cartHooksExecutors.afterRemoveFromCart(diffLog)
       return diffLog
     }

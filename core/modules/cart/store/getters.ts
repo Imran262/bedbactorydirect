@@ -14,11 +14,22 @@ const getters: GetterTree<CartState, RootState> = {
   getShippingMethod: state => state.shipping,
   getPaymentMethod: state => state.payment,
   getLastCartHash: state => state.cartItemsHash,
-  getCurrentCartHash: state => calcItemsHmac(state.cartItems, state.cartServerToken),
-  isCartHashChanged: (state, getters) => getters.getCurrentCartHash !== state.cartItemsHash,
-  isSyncRequired: (state, getters) => getters.isCartHashEmptyOrChanged || !state.cartServerLastSyncDate,
-  isTotalsSyncRequired: (state, getters) => getters.isCartHashEmptyOrChanged || !state.cartServerLastTotalsSyncDate,
-  isCartHashEmptyOrChanged: (state, getters) => !state.cartItemsHash || getters.isCartHashChanged,
+  getCurrentCartHash: state => {
+    let calcItemsHmacVar = calcItemsHmac(state.cartItems, state.cartServerToken)
+    return calcItemsHmacVar
+  },
+  isCartHashChanged: (state, getters) => {
+    return getters.getCurrentCartHash !== state.cartItemsHash
+  },
+  isSyncRequired: (state, getters) => {
+    return getters.isCartHashEmptyOrChanged || !state.cartServerLastSyncDate
+  },
+  isTotalsSyncRequired: (state, getters) => {
+    return getters.isCartHashEmptyOrChanged || !state.cartServerLastTotalsSyncDate
+  },
+  isCartHashEmptyOrChanged: (state, getters) => {
+    return !state.cartItemsHash || getters.isCartHashChanged
+  },
   getCartItems: state => state.cartItems,
   isTotalsSyncEnabled: () => config.cart.synchronize_totals && onlineHelper.isOnline && !isServer,
   isCartConnected: state => !!state.cartServerToken,

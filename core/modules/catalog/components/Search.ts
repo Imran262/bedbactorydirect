@@ -7,45 +7,47 @@ import { Logger } from '@vue-storefront/core/lib/logger'
 
 export const Search = {
   name: 'SearchPanel',
-  data () {
+  data() {
     return {
       products: [],
       search: '',
       size: 18,
       start: 0,
+      query: '',
       placeholder: i18n.t('Type what you are looking for...'),
       emptyResults: false,
       readMore: true,
       componentLoaded: false
     }
   },
-  mounted () {
+  mounted() {
     this.search = localStorage.getItem(`shop/user/searchQuery`) || ''
 
     if (this.search) {
-      this.makeSearch();
+      this.makeSearch()
     }
   },
-  beforeDestroy () {
-    localStorage.setItem(`shop/user/searchQuery`, this.search ? this.search : '');
+  beforeDestroy() {
+    localStorage.setItem(`shop/user/searchQuery`, this.search ? this.search : '')
   },
   methods: {
-    onEscapePress () {
+    onEscapePress() {
       this.closeSearchpanel()
     },
-    closeSearchpanel () {
+    closeSearchpanel() {
       this.$store.commit('ui/setSidebar', false)
       this.$store.commit('ui/setMicrocart', false)
       this.$store.commit('ui/setSearchpanel', false)
     },
-    buildSearchQuery (queryText) {
+    buildSearchQuery(queryText) {
       let searchQuery = prepareQuickSearchQuery(queryText)
       return searchQuery
     },
-    async makeSearch () {
+    async makeSearch(e) {
+      this.query = e.target.value
       if (this.search !== '' && this.search !== undefined) {
         let query = this.buildSearchQuery(this.search)
-        let startValue = 0;
+        let startValue = 0
         this.start = startValue
         this.readMore = true
         try {
@@ -69,10 +71,10 @@ export const Search = {
         this.emptyResults = 0
       }
     },
-    async seeMore () {
+    async seeMore() {
       if (this.search !== '' && this.search !== undefined) {
         let query = this.buildSearchQuery(this.search)
-        let startValue = this.start;
+        let startValue = this.start
         try {
           const { items, total, start } = await this.$store.dispatch('product/findProducts', {
             query,
@@ -101,7 +103,7 @@ export const Search = {
     }
   },
   computed: {
-    items () {
+    items() {
       return this.$store.state.search
     },
     ...mapState({

@@ -3,6 +3,7 @@ import Product from '@vue-storefront/core/modules/catalog/types/Product'
 import CartItemOption from './CartItemOption'
 import CartItemTotals from './CartItemTotals'
 
+// Simple Test
 export default interface CartItem extends Product {
   qty: number,
   options: CartItemOption[],

@@ -13,9 +13,9 @@ import { catalogHooksExecutors } from './../../hooks'
  */
 export default async function setBundleProducts (product: Product, { includeFields = null, excludeFields = null } = {}) {
   if (isBundleProduct(product) && product.bundle_options) {
-    const skus = product.bundle_options
-      .map((bundleOption) => bundleOption.product_links.map((productLink) => productLink.sku))
-      .reduce((acc, next) => acc.concat(next), [])
+    const skus = product.bundle_options ? product.bundle_options
+      .map((bundleOption) => (bundleOption.product_links?bundleOption.product_links.map((productLink) => productLink.sku):[]))
+      .reduce((acc, next) => acc.concat(next), []) : []
 
     const query = buildQuery(skus)
     const { items } = await ProductService.getProducts({
@@ -35,9 +35,11 @@ export default async function setBundleProducts (product: Product, { includeFiel
     catalogHooksExecutors.afterSetBundleProducts(items)
 
     for (const bundleOption of product.bundle_options) {
-      for (const productLink of bundleOption.product_links) {
-        const associatedProduct = items.find((associatedProduct) => associatedProduct.sku === productLink.sku)
-        setProductLink(productLink, associatedProduct)
+      if (bundleOption.product_links) {
+        for (const productLink of bundleOption.product_links) {
+          const associatedProduct = items.find((associatedProduct) => associatedProduct.sku === productLink.sku)
+          setProductLink(productLink, associatedProduct)
+        }
       }
     }
 

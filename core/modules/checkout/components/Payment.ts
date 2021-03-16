@@ -2,6 +2,7 @@ import { mapState, mapGetters } from 'vuex'
 import RootState from '@vue-storefront/core/types/RootState'
 import toString from 'lodash-es/toString'
 import debounce from 'lodash-es/debounce'
+
 const Countries = require('@vue-storefront/i18n/resource/countries.json')
 
 export const Payment = {
@@ -42,6 +43,9 @@ export const Payment = {
     this.$bus.$on('checkout-after-load', this.onCheckoutLoad)
   },
   mounted () {
+    if (this.currentUser && this.currentUser.hasOwnProperty('default_billing')) {
+      this.generateInvoice = true
+    }
     if (this.payment.firstName) {
       this.initializeBillingAddress()
     } else {
@@ -166,6 +170,7 @@ export const Payment = {
         country: this.shippingDetails.country,
         state: this.shippingDetails.state,
         city: this.shippingDetails.city,
+        company: this.shippingDetails.company,
         streetAddress: this.shippingDetails.streetAddress,
         apartmentNumber: this.shippingDetails.apartmentNumber,
         zipCode: this.shippingDetails.zipCode,
@@ -201,7 +206,7 @@ export const Payment = {
 
       if (!this.sendToBillingAddress && !this.sendToShippingAddress) {
         this.payment = this.paymentDetails
-        this.generateInvoice = false
+        // this.generateInvoice = false
       }
     },
     useGenerateInvoice () {

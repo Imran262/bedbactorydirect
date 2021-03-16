@@ -9,6 +9,9 @@ export default {
   methods: {
     openSidebarMenu () {
       this.$store.commit('ui/setSidebar', !this.isOpen)
+    },
+    closeSidebarMenu () {
+      this.$store.commit('ui/closeSidebar', this.isOpen)
     }
   }
 }

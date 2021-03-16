@@ -24,7 +24,7 @@ import createCategoryListQuery from '@vue-storefront/core/modules/catalog/helper
 import { transformCategoryUrl } from '@vue-storefront/core/modules/url/helpers/transformUrl';
 
 const actions: ActionTree<CategoryState, RootState> = {
-  async loadCategoryProducts ({ commit, getters, dispatch, rootState }, { route, category, pageSize = 50 } = {}) {
+  async loadCategoryProducts ({ commit, getters, dispatch, rootState }, { route, category, pageSize = 50, startIndex = 20 } = {}) {
     const searchCategory = category || getters.getCategoryFrom(route.path) || {}
     const categoryMappedFilters = getters.getFiltersMap[searchCategory.id]
     const areFiltersInQuery = !!Object.keys(route[products.routerFiltersSource]).length
@@ -60,7 +60,7 @@ const actions: ActionTree<CategoryState, RootState> = {
 
     return items
   },
-  async loadMoreCategoryProducts ({ commit, getters, rootState, dispatch }) {
+  async loadMoreCategoryProducts({commit, getters, rootState, dispatch}, {itemsPerPage, startIndex, totalItems}) {
     const { perPage, start, total } = getters.getCategorySearchProductsStats
     const totalValue = typeof total === 'object' ? total.value : total
     if (start >= totalValue || totalValue < perPage) return

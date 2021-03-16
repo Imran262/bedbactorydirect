@@ -18,8 +18,10 @@ export const Login = {
 
         if (result.code !== 200) {
           this.onFailure(result)
+          this.$router.push(this.localizedRoute('/forgetpassword'));
         } else {
           this.onSuccess()
+          this.$router.push(this.localizedRoute('/'));
           this.close()
         }
       }).catch(err => {
@@ -35,7 +37,7 @@ export const Login = {
     },
     callForgotPassword () {
       // TODO Move to theme
-      this.$store.commit('ui/setAuthElem', 'forgot-pass')
+      // this.$store.commit('ui/setAuthElem', 'forgot-pass');
     }
   }
 }

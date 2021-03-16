@@ -12,6 +12,7 @@ declare namespace DataResolver {
 
   interface CategorySearchOptions {
     parentId?: number | string,
+    catId?: number | string,
     filters?: { [key: string]: string[] | string },
     level?: number,
     onlyActive?: boolean,

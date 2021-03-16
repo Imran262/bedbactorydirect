@@ -40,6 +40,7 @@ export const Register = {
         } else {
           this.$store.dispatch('user/login', { username: this.email, password: this.password })
           this.onSuccess()
+          this.$router.push(this.localizedRoute('/'));
           this.close()
         }
       }).catch(err => {
