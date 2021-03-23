@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const PARENT_THEME = "tilemountain";
 module.exports = function(config) {
-  console.log("Config Here is Fawad", config);
+  // console.log("Config Here is Fawad", config);
   if (!config.plugins) config.plugins = [];
   config.plugins.push(
     new webpack.NormalModuleReplacementPlugin(/(\.*)/, resource => {
