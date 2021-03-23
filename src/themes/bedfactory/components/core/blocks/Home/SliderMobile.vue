@@ -170,7 +170,7 @@ export default {
 
 <style lang='scss'>
 .homepage-slider-detail-img-only{
-  padding-bottom: 20%;
+  /* padding-bottom: 20%; */
   position: relative;
   a{
     position: unset !important;
