@@ -39,12 +39,12 @@ export default {
            singleBlock["hthree"] = mbclass.querySelector("h3")?mbclass.querySelector("h3").rawText : 'bed';
           // singleBlock["atag"] = mbclass.querySelector("a").attributes["href"];
           // singleBlock["hthree"] = mbclass.querySelector("h3").rawText;
-          console.log("\n\n\n\n\n\n1122single block ",singleBlock," \n ",);
-          console.log(" \n mbclass ",mbclass);
-          console.log(" \n mbclass.querySelector('img')  ",mbclass.querySelector("img"));
-          console.log(" \n mbclass.querySelector('a') ",mbclass.querySelector("a"));
-          console.log(" \n mbclass.querySelector('h3') ",mbclass.querySelector("h3"));
-          console.log(" \n mbclass.querySelector('img').attributes['src']",mbclass.querySelector("img").attributes["src"]);
+          // console.log("\n\n\n\n\n\n1122single block ",singleBlock," \n ",);
+          // console.log(" \n mbclass ",mbclass);
+          // console.log(" \n mbclass.querySelector('img')  ",mbclass.querySelector("img"));
+          // console.log(" \n mbclass.querySelector('a') ",mbclass.querySelector("a"));
+          // console.log(" \n mbclass.querySelector('h3') ",mbclass.querySelector("h3"));
+          // console.log(" \n mbclass.querySelector('img').attributes['src']",mbclass.querySelector("img").attributes["src"]);
          homeSmallBlocks[i] = singleBlock;
           i++;
         });

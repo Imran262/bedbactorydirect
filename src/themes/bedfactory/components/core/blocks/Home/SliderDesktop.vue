@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     desktopSlides() {
-       console.log('desktopSlides Desktop', this.data,this.parsedContent)
+      //  console.log('desktopSlides Desktop', this.data,this.parsedContent)
       if (!this.data) return false;
 
       let slides = [];
