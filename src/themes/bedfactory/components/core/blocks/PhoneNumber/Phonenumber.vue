@@ -32,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 .wishlist {
-  padding: 10px;
+  display: flex;
   .wishlist-img {
     span {
       display: block;
@@ -60,20 +60,26 @@ export default {
       }
     }
   }
+  .wishlist .phone-icon img{
+    width: 6vw;
 }
+}
+ @media (min-width: 768px) and (max-width: 992px){
+   .wishlist-text {
+    width: 80px !important;
+}
+ }
 @media (min-width: 768px) and (max-width: 990px) {
   .wishlist {
     padding: 0;
-    .wishlist-text {
-      span {
-        display: none;
-      }
-    }
   }
 }
 @media (min-width: 991px) and (max-width: 1024px) {
   .wishlist {
     padding: 0;
   }
+}
+.bg-cl-transparent {
+    padding-top: 31px;
 }
 </style>

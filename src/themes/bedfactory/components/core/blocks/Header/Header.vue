@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
-            <div class="inline-flex sb-icons">
+            <div class="inline-flex sb-icons header-icon">
               <!-- <Telephone
                 class="p15 icon pointer t-mobile"
                 :callText="'123456 456789'"
@@ -133,11 +133,11 @@
 import { mapState } from 'vuex'
 import { mapGetters, mapActions } from 'vuex'
 import CurrentPage from 'theme/mixins/currentPage'
-import AccountIcon from 'theme/components/core/blocks/Header/AccountIcon'
+import AccountIcon from 'src/themes/bedfactory/components/core/blocks/Header/AccountIcon'
 import CompareIcon from 'theme/components/core/blocks/Header/CompareIcon'
 import HamburgerIcon from 'theme/components/core/blocks/Header/HamburgerIcon'
 import Logo from 'theme/components/core/Logo'
-import MicrocartIcon from 'theme/components/core/blocks/Header/MicrocartIcon'
+import MicrocartIcon from 'src/themes/bedfactory/components/core/blocks/Header/MicrocartIcon'
 import SearchIcon from 'theme/components/core/blocks/Header/SearchIcon'
 import WishlistIcon from 'theme/components/core/blocks/Header/WishlistIcon'
 import DesktopSearch from 'theme/components/core/blocks/Header/DesktopSearch'
@@ -301,6 +301,9 @@ export default {
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 // $color-icon-hover: color(secondary, $colors-background);
+.header-icon {
+    margin-left: 50px;
+}
 .header {
   height: 10.4rem;
 }
@@ -322,18 +325,11 @@ export default {
 }
 
 .inner-icons {
-  padding-left: 55px;
-  @media (max-width: 1200px) {
-    padding-left: 92px;
-  }
+  padding-left: 60px;
   @media (max-width: 1199px) and(min-width: 992px) {
     padding-left: 27px;
   }
-  @media (max-width: 991px) {
-    padding-left: 0px;
-  }
 }
-
 header {
   z-index: 3;
   transition: top 0.2s ease-in-out;
@@ -378,23 +374,21 @@ header {
     }
   }
 }
-
+@media (min-width: 1200px){
 .r-icons {
-  padding: 12px 34px 12px 12px;
+  padding: 20px 34px 12px 12px;
   // padding: 0px;
 }
-
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+.r-icons {
+  padding: 20px 34px 7px 12px;
+  // padding: 0px;
+}
+}
 .r-icons1 {
-  padding: 12px 36px 12px 12px;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    padding: 12px 7px 12px 4px;
-  }
-  @media screen and (min-width: 1025px) and (max-width: 1269px) {
-    padding: 12px 19px 12px 12px;
-  }
-  // padding: 0px;
+  padding: 0px 45px 12px 12px;
 }
-
 .t-mobile {
   padding-left: 8px;
 }
@@ -465,7 +459,6 @@ header {
     margin-right: 10px;
   }
 }
-
 @media (min-width: 480px) and (max-width: 767px) {
   .ischeckoutheader .phone-no {
     margin-right: 20px;
@@ -591,9 +584,12 @@ header {
   .header {
     height: 9.1rem;
   }
-  .r-icons {
-    padding: 10px;
-  }
+  .inner-icons{
+    padding-left: 10px;
+}
+.r-icons1{
+    padding: 0px 10px 12px 12px;
+}
 }
 
 @media (max-width: 992px) {
@@ -645,6 +641,11 @@ span.scrollimg:after {
   .scroll {
     display: none !important;
   }
+}
+@media (max-width: 1199px) and (min-width:993px){
+.header-icon{
+    margin-left: 30px;
+}
 }
 </style>
 <style>
