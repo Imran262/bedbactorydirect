@@ -27,4 +27,12 @@ export default {
     display: inline;
   }
 }
+.mobile-view {
+    text-align: center;
+}
+@media screen and (max-width: 767px){
+  .usp-bar {
+    display: none;
+}
+}
 </style>
