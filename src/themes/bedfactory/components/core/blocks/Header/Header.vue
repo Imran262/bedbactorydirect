@@ -324,6 +324,9 @@ export default {
   @media (max-width: 1199px) and(min-width: 992px) {
     padding-left: 27px;
   }
+  @media (max-width: 767px){
+    padding-left: 0px;
+  }
 }
 header {
   z-index: 3;
@@ -371,18 +374,24 @@ header {
 }
 @media (min-width: 1200px){
 .r-icons {
-  padding: 20px 34px 12px 12px;
+  padding: 12px 34px 12px 12px;
   // padding: 0px;
 }
 }
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1199px) {
 .r-icons {
-  padding: 20px 34px 7px 12px;
+  padding: 12px 19px 12px 12px;
+  // padding: 0px;
+}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+.r-icons {
+  padding: 12px 7px 12px 4px;
   // padding: 0px;
 }
 }
 .r-icons1 {
-  padding: 0px 45px 12px 12px;
+  padding: 12px 36px 12px 12px;
 }
 .t-mobile {
   padding-left: 8px;
@@ -575,7 +584,7 @@ header {
     padding-left: 10px;
 }
 .r-icons1{
-    padding: 0px 10px 12px 12px;
+    padding:10px;
 }
 }
 
