@@ -1,21 +1,21 @@
 <template>
-  <div class="usp-bar">
+  <div class="usp-bar container">
     <!-- <div class="container">
       <div class="usp-bar-inner">
         <CmsBlock identifier="usp-bar-TM" />
       </div>
     </div> -->
     <div
-      :class="['tilemountain', 'container']"
+      :class="['tilemountain', 'row']"
       v-if="data"
     >
 
       <div
-        class="bus-img-main row"
+        class="bus-img-main col-md-4"
         v-for="(singleblock, index) in uspData"
         :key="index"
       >
-        <router-link :to="localizedRoute(singleblock.actuallink)">
+        <router-link :to="localizedRoute(singleblock.actuallink)" class="usp-a">
           <div class="bus-img">
             <img
               :src="singleblock.icon"
@@ -87,5 +87,18 @@ export default {
   .usp-bar {
     display: none;
   }
+}
+a.usp-a {
+    display: flex;
+}
+.home_delivery_text {
+    margin-left: 10px;
+        margin-top: 4px;
+
+}
+@media screen and (max-width:991px){
+  .home_delivery_text {
+    font-size: 12px;
+}
 }
 </style>
