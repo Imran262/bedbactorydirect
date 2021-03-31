@@ -7,14 +7,14 @@
           Shop by category
         </h1>
       </div>-->
-
-      <Productlist :identifier="'familiar-brands'" />
+      HEllo
+      <Productlist :identifier="'familiar-brands-TM'" />
     </div>
   </div>
 </template>
 
 <script>
-import Productlist from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/Productlist";
+import Productlist from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/ProductlistTM";
 export default {
   components: {
     Productlist,
