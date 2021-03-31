@@ -41,7 +41,7 @@
                 :callText="phone"
               />
               <div class="flex inner-icons">
-                <!-- <wishlist-icon class="icon pointer r-icons location-icon"/> -->
+                <wishlist-icon class="icon pointer r-icons location-icon"/>
                 <account-icon class="icon pointer r-icons1 account-icon"/>
                 <microcart-icon class="icon pointer r-icons"/>
               </div>
