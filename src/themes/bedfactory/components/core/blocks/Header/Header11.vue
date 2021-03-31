@@ -35,11 +35,12 @@
             </div>
           </div>
           <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
-            <div class="inline-flex sb-icons">
-              <Telephone
+            <div class="inline-flex sb-icons header-icon">
+              <!-- <Telephone
                 class="p15 icon pointer t-mobile"
-                :callText="phone"
-              />
+                :callText="'123456 456789'"
+              /> -->
+              <Phonenumber class="pointer" :callText="phone"/>
               <div class="flex inner-icons">
                 <!-- <wishlist-icon class="icon pointer r-icons location-icon"/> -->
                 <account-icon class="icon pointer r-icons1 account-icon"/>
@@ -87,7 +88,7 @@
           </div>
           <div class="col-xs-7 col-md-6 end-xs">
             <div>
-              <Telephone :from-checkout-page="true" :callText="phone"/>
+              <Telephone :from-checkout-page="true" :identifier="'phone-number'" />
               <a
                 v-if="!currentUser"
                 href="#"
@@ -105,9 +106,10 @@
       <!-- <nav>
         <MainMenu class="hidden-xs" />
         <hamburger-icon class="sb-mobile-menu pointer hidden-md" />
-      </nav> -->
+      </nav> -->  
+      
       <nav>
-        <header-menu class="navigation"/>
+      <header-menu class="navigation ali"/>
         <hamburger-icon
           v-if="
             (!isCheckoutPage && $route.name !== 'confirmorder') ||
@@ -126,6 +128,7 @@
   <!-- <CutSampleModelHome /> -->
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex'
 import { mapGetters, mapActions } from 'vuex'

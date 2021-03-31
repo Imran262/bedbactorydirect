@@ -1,11 +1,11 @@
 <template>
-  <div :class="`phone` + (callText ? `` : ` phone-icon`)" v-if="!fromCheckoutPage">
-    <a :title="callText || subtitle" :href="link" class="contact">
+  <div class="phone phone-icon" v-if="!fromCheckoutPage">
+    <a :title="callText || subtitle" :href="link" class="contact NEw">
       <!-- <img :src="image" alt="icon"> -->
       <p class="call-us">{{ callText || subtitle }}</p>
     </a>
   </div>
-  <div v-else style="display: inline-block">
+  <div v-else class="ALI" style="display: inline-block">
     <a href="tel:01782 223822" class="phone-no">
       <img src="/assets/checkout-phone.png" alt="checkout phone"/>
       <span>{{ callText || subtitle }}</span>
