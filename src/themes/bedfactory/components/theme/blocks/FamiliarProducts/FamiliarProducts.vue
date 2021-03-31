@@ -7,7 +7,6 @@
           Shop by category
         </h1>
       </div>-->
-      HEllo
       <Productlist :identifier="'familiar-brands-TM'" />
     </div>
   </div>
