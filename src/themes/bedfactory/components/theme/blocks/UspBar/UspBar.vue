@@ -1,38 +1,91 @@
 <template>
   <div class="usp-bar">
-    <div class="container">
+    <!-- <div class="container">
       <div class="usp-bar-inner">
-        <CmsBlock identifier="usp-bar" />
+        <CmsBlock identifier="usp-bar-TM" />
+      </div>
+    </div> -->
+    <div
+      :class="['tilemountain', 'container']"
+      v-if="data"
+    >
+
+      <div
+        class="bus-img-main row"
+        v-for="(singleblock, index) in uspData"
+        :key="index"
+      >
+        <router-link :to="localizedRoute(singleblock.actuallink)">
+          <div class="bus-img">
+            <img
+              :src="singleblock.icon"
+              alt="icons"
+              style="height: 24px"
+              class="icons_home"
+            />
+          </div>
+          <div class="home_delivery_text">{{ singleblock.linktext }}</div>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CmsBlock from "theme/components/core/blocks/Cms/Block";
+import CmsBlock from 'theme/components/core/blocks/Cms/Block';
+import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
 export default {
   components: {
-    CmsBlock,
+    CmsBlock
   },
+  name: "homeDelivery",
+  mixins: [cmsBlock],
+  computed: {
+    uspData(){
+      let storeAllData = [];
+      if (this.data) {
+      let saveAllData = this.parsedContent.querySelectorAll('.item');
+        saveAllData.forEach((data, index) => {
+          let anchortext = data.querySelector('a') ? data.querySelector('a').innerHTML : '';
+          let anchorlink = data.querySelector('a') ? data.querySelector('a').getAttribute('href') : '';
+          let imgicon = data.querySelector('img') ? data.querySelector('img').getAttribute('src') : ' ';
+          console.log('this is img' , imgicon)
+          let dataObject = {
+            linktext: anchortext.toString(),
+            actuallink: anchorlink.toString(),
+            icon: imgicon.toString()
+          }
+          storeAllData.push(dataObject);
+        });
+        return storeAllData;
+      }
+    },
+     title () {
+      return config?.themeConfigurations?.title;
+    }
+  },
+  methods: {
+ 
+  }
 };
 </script>
 <style lang='scss'>
-.usp-bar-box{
-  img{
+.usp-bar-box {
+  img {
     width: 18px;
     height: 15px;
     padding-right: 5px;
   }
-  p{
+  p {
     display: inline;
   }
 }
 .mobile-view {
-    text-align: center;
+  text-align: center;
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 767px) {
   .usp-bar {
     display: none;
-}
+  }
 }
 </style>
