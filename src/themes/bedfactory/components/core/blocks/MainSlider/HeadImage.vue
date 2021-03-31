@@ -2,7 +2,7 @@
   <section class="head-image w-100 cl-white">
     <div class="slider-desktop" v-if="windowWidth > 767">
       <slider-desktop
-        :identifier="'home_slider_desktop'"
+        :identifier="'home_slider_desktopTM'"
       />
     </div>
     <div class="slider-mobile">
@@ -16,7 +16,7 @@
 <script>
 // import ButtonOutline from 'theme/components/theme/ButtonOutline'
 import { mapGetters } from 'vuex'
-import SliderDesktop from 'src/themes/bedfactory/components/core/blocks/Home/SliderDesktop'
+import SliderDesktop from 'src/themes/bedfactory/components/core/blocks/Home/SliderDesktopTM'
 import SliderMobile from 'src/themes/bedfactory/components/core/blocks/Home/SliderMobile'
 
 export default {

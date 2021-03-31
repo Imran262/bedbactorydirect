@@ -1,7 +1,7 @@
 <template>
   <div>
   <div
-    class="header fawadaslam"
+    class="header"
     :class="
       !isCheckoutPage && $route.name !== 'confirmorder'
         ? 'notcheckoutheader'
