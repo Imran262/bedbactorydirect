@@ -35,13 +35,14 @@
             </div>
           </div>
           <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
-            <div class="inline-flex sb-icons">
-              <Telephone
+            <div class="inline-flex sb-icons header-icon">
+              <!-- <Telephone
                 class="p15 icon pointer t-mobile"
-                :callText="phone"
-              />
+                :callText="'123456 456789'"
+              /> -->
+              <Phonenumber class="pointer" :callText="phone"/>
               <div class="flex inner-icons">
-                <wishlist-icon class="icon pointer r-icons location-icon"/>
+                <!-- <wishlist-icon class="icon pointer r-icons location-icon"/> -->
                 <account-icon class="icon pointer r-icons1 account-icon"/>
                 <microcart-icon class="icon pointer r-icons"/>
               </div>
@@ -87,7 +88,7 @@
           </div>
           <div class="col-xs-7 col-md-6 end-xs">
             <div>
-              <Telephone :from-checkout-page="true" :callText="phone"/>
+              <Telephone :from-checkout-page="true" :identifier="'phone-number'" />
               <a
                 v-if="!currentUser"
                 href="#"
@@ -105,9 +106,10 @@
       <!-- <nav>
         <MainMenu class="hidden-xs" />
         <hamburger-icon class="sb-mobile-menu pointer hidden-md" />
-      </nav> -->
+      </nav> -->  
+      
       <nav>
-        <header-menu class="navigation"/>
+      <header-menu class="navigation ali"/>
         <hamburger-icon
           v-if="
             (!isCheckoutPage && $route.name !== 'confirmorder') ||
@@ -126,6 +128,7 @@
   <!-- <CutSampleModelHome /> -->
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex'
 import { mapGetters, mapActions } from 'vuex'
@@ -301,7 +304,9 @@ export default {
 .header-icon {
     margin-left: 50px;
 }
-
+.header {
+  height: 10.4rem;
+}
 
 .relativeHeader .navigation {
   position: relative;
@@ -568,9 +573,17 @@ header {
   }
 }
 
+@media (max-width: 1199px) and (min-width: 992px) {
+  .header {
+    height: 10.4rem;
+  }
+}
 
 //
 @media (max-width: 992px) and (min-width: 768px) {
+  .header {
+    height: 9.1rem;
+  }
   .inner-icons{
     padding-left: 10px;
 }
