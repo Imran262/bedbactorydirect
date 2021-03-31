@@ -304,9 +304,7 @@ export default {
 .header-icon {
     margin-left: 50px;
 }
-.header {
-  height: 10.4rem;
-}
+
 
 .relativeHeader .navigation {
   position: relative;
@@ -573,17 +571,9 @@ header {
   }
 }
 
-@media (max-width: 1199px) and (min-width: 992px) {
-  .header {
-    height: 10.4rem;
-  }
-}
 
 //
 @media (max-width: 992px) and (min-width: 768px) {
-  .header {
-    height: 9.1rem;
-  }
   .inner-icons{
     padding-left: 10px;
 }

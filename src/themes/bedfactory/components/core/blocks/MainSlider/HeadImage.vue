@@ -123,11 +123,7 @@ export default {
   }
 }
 
-@media (min-width: 767px) and (max-width: 991px) {
-  .head-image {
-    margin-top: 5px;
-  }
-}
+
 
 @media (max-width: 480px) {
   .slider-mobile {
