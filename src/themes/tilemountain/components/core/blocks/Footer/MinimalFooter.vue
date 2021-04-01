@@ -8,7 +8,7 @@
 </template>
 <script>
 import CurrentPage from 'theme/mixins/currentPage'
-import Footer from "theme/components/core/blocks/Footer/Footer";
+import Footer from "theme/components/core/blocks/Footer/FooterTM";
 import config from 'config'
 
 export default {

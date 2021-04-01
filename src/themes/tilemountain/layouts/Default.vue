@@ -41,7 +41,7 @@ import { mapState } from 'vuex';
 import AsyncSidebar from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebar.vue';
 import AsyncSidebarMobile from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebarMobile.vue';
 import MainHeader from 'theme/components/core/blocks/Header/Header.vue';
-import MainFooter from 'theme/components/core/blocks/Footer/Footer.vue';
+import MainFooter from 'theme/components/core/blocks/Footer/FooterTM.vue';
 import Overlay from 'theme/components/core/Overlay.vue';
 import Loader from 'theme/components/core/Loader.vue';
 import Notification from 'theme/components/core/Notification.vue';

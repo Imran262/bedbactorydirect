@@ -1,647 +1,740 @@
 <template>
-  <footer class="footer-main">
-    <div class="footer-links flex pt30 pb60 px40 bg-cl-secondary">
-      <div class="footer-container-main container">
+  <footer :class="{ 'brdr-top-1 brdr-cl-secondary': isCheckoutPage }">
+    <div class="footer-main" id="footer-main-desktop" v-if="windowWidth >= 768">
+      <div class="container">
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer-left">
-            <div class="footer-left-content">
-              <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div class="footer-left-block">
-                    <h3 @click="FootershowList">
-                      <BlockTitle :identifier="'vue-footer-block-1'" />
-                      <img
-                        id="footer-ul-open-icon-1"
-                        class="hidden-lg hidden-md"
-                        src="/assets/footer/footer-mobile-link-icon.png"
-                      />
-                    </h3>
-                    <ul v-if="FooterlistShow1" id="ul-list-1">
-                      <FooterLink :identifier="'vue-footer-block-1'" />
-                    </ul>
-                  </div>
+          <footerlink :identifier="'tm_footer_links'" />
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <h2>Follow Us</h2>
+                <div class="social">
+                  <a
+                    title="Facebook Page link"
+                    class="fb"
+                    href="https://www.facebook.com/TileMountainUK"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <div class="circle facebook">
+                      <i class="fa fa-facebook" />
+                    </div>
+                  </a>
+                  <a
+                    title="Twitter Page link"
+                    class="twt"
+                    href="https://twitter.com/TileMountainUK"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <div class="circle twitter">
+                      <i class="fa fa-twitter" />
+                    </div>
+                  </a>
+                  <a
+                    title="Instagram link"
+                    class="insta"
+                    href="https://www.instagram.com/tilemountainuk"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <div class="circle instagram">
+                      <i class="fa fa-instagram" />
+                    </div>
+                  </a>
+                  <a
+                    title="Pinterest link"
+                    href="https://www.pinterest.co.uk/tilemountainuk/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <div class="circle pinterest">
+                      <i class="fa fa-pinterest-p" />
+                    </div>
+                  </a>
+                  <a
+                    title="Youtube Channel link"
+                    class="yt"
+                    href="https://www.youtube.com/channel/UCCkGBpvAdflgqVvfV8zZYMw/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <div class="circle youtube">
+                      <i class="fa fa-play" aria-hidden="true" />
+                    </div>
+                  </a>
+                  <a
+                    title="Linkedin Profile link"
+                    class="link"
+                    href="https://www.linkedin.com/company/tile-mountain-limited/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <div class="circle linkedin">
+                      <i class="fa fa-linkedin" />
+                    </div>
+                  </a>
                 </div>
-                <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div class="footer-left-block">
-                    <h3 @click="FootershowList2">
-                      <BlockTitle :identifier="'vue-footer-block-2'" />
-                      <img
-                        class="hidden-lg hidden-md"
-                        id="footer-ul-open-icon-2"
-                        src="/assets/footer/footer-mobile-link-icon.png"
-                      />
-                    </h3>
-                    <ul v-if="FooterlistShow2" id="ul-list-2">
-                      <FooterLink :identifier="'vue-footer-block-2'" />
-                    </ul>
-                  </div>
-                </div> -->
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div class="footer-left-block">
-                    <h3 @click="FootershowList3">
-                      <BlockTitle :identifier="'vue-footer-block-3'" />
-                      <img
-                        id="footer-ul-open-icon-3"
-                        class="hidden-lg hidden-md"
-                        src="/assets/footer/footer-mobile-link-icon.png"
-                      />
-                    </h3>
-                    <ul v-if="FooterlistShow3" id="ul-list-3">
-                      <FooterLink :identifier="'vue-footer-block-3'" />
-                    </ul>
-                   
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                  <div class="footer-left-block">
-                    <h3 @click="FootershowList2">
-                      <BlockTitle :identifier="'vue-footer-block-5'" />
-                      <img
-                        class="hidden-lg hidden-md"
-                        id="footer-ul-open-icon-2"
-                        src="/assets/footer/footer-mobile-link-icon.png"
-                      />
-                    </h3>
-                    <ul v-if="FooterlistShow2" id="ul-list-2">
-                      <FooterLink :identifier="'vue-footer-block-5'" />
-                    </ul>
-                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <h2 class="acceptedcards">Accepted Cards</h2>
+                <div class="acccards">
+                  <img v-lazy="this.cardsAccept" alt="payments" />
                 </div>
               </div>
             </div>
-
-
-
-             <div class="follow-us col-lg-12 col-md-12 col-sm-12 col-xs-12">
-               <div class="follow-us-inner">
-                      <h2>
-                        <BlockTitle :identifier="'vue-footer-block-4'" />
-                      </h2>
-                      <ul id="ul-list-4">
-                        <FollowUsLik :identifier="'vue-footer-block-4'" />
-                      </ul>
-                    </div>
-                    </div>
-                    </div>
           </div>
-
-          <div class="clearfix" />
         </div>
       </div>
     </div>
-    <FooterBottom />
-    <back-to-top bottom="20px" right="20px" visibleoffset="200">
-      <button
-        type="button"
-        class="btn-top button no-outline brdr-none cl-white bg-cl-mine-shaft :bg-cl-th-secondary py10 px10"
-      >
-        <svg
-          width="24"
-          height="24"
-          xmlns="http://www.w3.org/2000/svg"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-        >
-          <path
-            d="M23.245 20l-11.245-14.374-11.219 14.374-.781-.619 12-15.381 12 15.391-.755.609z"
-            fill="white"
-          />
-        </svg>
-      </button>
-    </back-to-top>
+    <div class="mobile-footer" v-else>
+      <div class="container-fluid1">
+        <div class="row">
+          <div class="col">
+            <footerlinkmobile :identifier="'tm_footer_links'" />
+            
+            <div class="tabset">
+              <div class="tab-panels">
+                <section id="huge-variety" class="tab-panel">
+                  <input type="checkbox" id="chck4" />
+                  <label class="tab-label" for="chck4">Follow Us</label>
+                  <div class="content socialicons">
+                    <div class="social">
+                      <div class="circle facebook">
+                        <a
+                          class="fb"
+                          href="https://www.facebook.com/bedfactorydirect"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i class="fa fa-facebook" />
+                        </a>
+                      </div>
+                      <div class="circle twitter">
+                        <a
+                          class="twitter"
+                          href="https://twitter.com/bedfactoryuk"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i class="fa fa-twitter" />
+                        </a>
+                      </div>
+                      <div class="circle instagram">
+                        <a
+                          class="instagram"
+                          href="https://www.instagram.com/bedfactorydirect/"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i class="fa fa-instagram" />
+                        </a>
+                      </div>
+                      <div class="circle pinterest">
+                        <a
+                          href="https://www.pinterest.co.uk/bfdbeds/"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i class="fa fa-pinterest-p" />
+                        </a>
+                      </div>
+                      <div class="circle youtube">
+                        <a
+                          class="youtube"
+                          href="https://www.youtube.com/channel/UCCkGBpvAdflgqVvfV8zZYMw/"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i class="fa fa-play" aria-hidden="true" />
+                        </a>
+                      </div>
+                      <div class="circle linkedin">
+                        <a
+                          class="linkedin"
+                          href="https://www.linkedin.com/company/tile-mountain-limited/"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i class="fa fa-linkedin" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section id="huge-variety" class="tab-panel tab-panel-two">
+                  <input type="checkbox" id="chck5" />
+                  <label class="tab-label" for="chck5">Accepted Cards</label>
+                  <div class="content socialicons">
+                    <img
+                      v-lazy="cardsAccept"
+                      class="mobilepaymentcards"
+                      alt="payments"
+                    />
+                  </div>
+                </section>
+                Here we are 
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid copyright">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <small>
+            <p class="copyright1">
+              &#169; {{ getCurrentYear }} Bed Factory Direct Ltd
+            </p>
+          </small>
+        </div>
+      </div>
+    </div>
   </footer>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 import {
   currentStoreView,
-  localizedRoute,
-} from "@vue-storefront/core/lib/multistore";
-import CurrentPage from "theme/mixins/currentPage";
-import LanguageSwitcher from "../../LanguageSwitcher.vue";
-import BackToTop from "theme/components/core/BackToTop";
-import { getPathForStaticPage } from "theme/helpers";
-import config from "config";
-import CmsBlock from "theme/components/core/blocks/Cms/Block";
-import BlockTitle from "theme/components/core/blocks/Cms/BlockTitle";
-import FooterBottom from "src/themes/bedfactory/components/core/blocks/Footer/FooterBottom";
-import FooterLink from "src/themes/bedfactory/components/core/blocks/Footer/FooterLink";
-import FollowUsLik from "src/themes/bedfactory/components/core/blocks/Footer/FollowUsLink";
+  localizedRoute
+} from '@vue-storefront/core/lib/multistore';
+import CurrentPage from 'theme/mixins/currentPage';
+import LanguageSwitcher from '../../LanguageSwitcher.vue';
+import BackToTop from 'theme/components/core/BackToTop';
+
+import config from 'config';
+import CmsBlock from 'theme/components/core/blocks/Cms/Block';
+
+import FooterBottom from 'src/themes/bedfactory/components/core/blocks/Footer/FooterBottom';
+import FooterLink from 'src/themes/bedfactory/components/core/blocks/Footer/FooterLink';
+import FollowUsLik from 'src/themes/bedfactory/components/core/blocks/Footer/FollowUsLink';
+
+
+import footerlink from 'theme/components/core/blocks/Cms/FooterLinks'
+import footerlinkmobile from 'theme/components/core/blocks/Cms/FooterLinkMobile'
+import BlockTitle from 'theme/components/core/blocks/Cms/BlockTitle';
+import { getPathForStaticPage } from 'theme/helpers';
 
 // import NewsLetter from "theme/components/core/blocks/Footer/NewsLetter";
 export default {
-  data() {
+  mixins: [CurrentPage, footerlink, footerlinkmobile],
+  name: 'MainFooter',
+  data () {
     return {
-      FooterlistShow1: true,
-      FooterlistShow2: true,
-      FooterlistShow3: true,
-      FooterlistShow4: true,
-    };
+      cardsAccept: '/assets/images/payments.svg',
+      windowWidth: 0
+    }
   },
-  mixins: [CurrentPage],
-  name: "MainFooter",
+  beforeMount () {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
   methods: {
-    FootershowList() {
-      if (screen.width <= 767) {
-        document.getElementById("ul-list-1").classList.toggle("is-open");
-        document
-          .getElementById("footer-ul-open-icon-1")
-          .classList.toggle("icon-rotate");
-        // this.FooterlistShow1 = !this.FooterlistShow1;
-      } else {
-        // this.FooterlistShow1 = this.FooterlistShow1;
-      }
+    handleResize () {
+      this.windowWidth = window.innerWidth
     },
-    FootershowList2() {
-      if (screen.width <= 767) {
-        document.getElementById("ul-list-2").classList.toggle("is-open");
-        document
-          .getElementById("footer-ul-open-icon-2")
-          .classList.toggle("icon-rotate");
-        // this.FooterlistShow2 = !this.FooterlistShow2;
-      } else {
-        // this.FooterlistShow2 = this.FooterlistShow2;
-      }
+    goToAccount () {
+      this.$bus.$emit('modal-toggle', 'modal-signup')
     },
-    FootershowList3() {
-      if (screen.width <= 767) {
-        document.getElementById("ul-list-3").classList.toggle("is-open");
-        document
-          .getElementById("footer-ul-open-icon-3")
-          .classList.toggle("icon-rotate");
-        // this.FooterlistShow3 = !this.FooterlistShow3;
-      } else {
-        // this.FooterlistShow3 = this.FooterlistShow3;
-      }
-    },
-    FootershowList4(event) {
-      if (screen.width <= 767) {
-        document.getElementById("ul-list-4").classList.toggle("is-open");
-        document
-          .getElementById("footer-ul-open-icon-4")
-          .classList.toggle("icon-rotate");
-        // this.FooterlistShow4 = !this.FooterlistShow4;
-      } else {
-        // this.FooterlistShow4 = this.FooterlistShow4;
-      }
-    },
-    goToAccount() {
-      this.$bus.$emit("modal-toggle", "modal-signup");
-    },
-    getLinkFor(path) {
-      return localizedRoute(getPathForStaticPage(path));
-    },
+    getLinkFor (path) {
+      return localizedRoute(getPathForStaticPage(path))
+    }
   },
   computed: {
     ...mapGetters({
-      isLogged: "user/isLoggedIn",
+      productsInCart: 'cart/getCartItems',
+      isLogged: 'user/isLoggedIn',
+      totals: 'cart/getTotals'
     }),
-    multistoreEnabled() {
-      return config.storeViews.multistore;
+    multistoreEnabled () {
+      return config.storeViews.multistore
     },
-    getVersionInfo() {
-      return `v${process.env.__APPVERSION__} ${process.env.__BUILDTIME__}`;
+    getVersionInfo () {
+      return `v${process.env.__APPVERSION__} ${process.env.__BUILDTIME__}`
     },
+    getCurrentYear () {
+      return new Date().getFullYear()
+    }
   },
   components: {
     LanguageSwitcher,
     BackToTop,
-    
-    CmsBlock,
+    footerlink,
+    footerlinkmobile,
+    // CmsBlock,
+    // CustomerServiceBlock,
     BlockTitle,
-    FooterBottom,
-    FooterLink,
     FollowUsLik
-      
-    },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "~theme/css/variables/colors";
-@import "~theme/css/helpers/functions/color";
-
-/*Footer Custom Css*/
-.container.footer-container-main {
-  width: 1280px;
-  max-width: 100%;
-  position: relative;
+@font-face {
+  font-family: 'Oblik';
+  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-display: block;
 }
 
-.footer-left-content .col-lg-4.col-md-4.col-sm-12.col-xs-12 {
-  padding: 0;
-      display: flex;
-    justify-content: center;
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
+$color-secondary: color(secondary);
+// my customization for footr starts here
+.footer-main {
+  padding: 20px 0 36px;
+  background-color: #606060;
 }
-.footer-left-color {
-  background-color: #54575b;
-  width: calc(27% - 185px);
-  position: absolute;
-  left: 0;
-  height: calc(100% - 0px);
-  top: 0;
-  z-index: 0;
-}
-
-.footer-right-color {
-  position: absolute;
-  right: 0;
-  background-color: #f1f1f1;
-  height: calc(100% - 0px);
-  width: calc(27% - 185px);
-  z-index: 0;
-}
-
-footer.footer-main {
-  position: relative;
-}
-
-.footer-left-content {
-  background: #54575b;
-  width: 100%;
-}
-
-.col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left {
-  padding: 0;
-  background: #fff;
-}
-
-.col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left:after {
-  background-color: #54575b;
-  left: -999em;
-  content: "";
-  display: block;
-  position: absolute;
-  width: 999em;
-  top: 0;
-  bottom: 0;
-}
-
-.col-lg-4.col-md-4.col-sm-12.col-xs-12.footer-right:after {
-  background-color: #f1f1f1;
-  right: -1000em;
-  content: "";
-  display: block;
-  position: absolute;
-  width: 999em;
-  top: 0;
-  bottom: 0;
-}
-
-.footer-left-block h3 {
-  font-size: 1rem;
-  color: #fff;
+.footer-main h2 {
+  font-family: 'Oblik';
+  color: #ffff;
+  font-size: 22px;
   font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  margin-bottom: 1.5rem;
-  user-select: none;
-}
-
-.footer-left-block ul {
-  padding: 0;
-  list-style: none;
-}
-
-.col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left .row {
-  padding: 50px 30px;
+  padding-top: 62px;
+  padding-bottom: 19px;
   margin: 0;
 }
-
-.follow-us ul li:before {
-  content: "";
-  display: none;
-  margin: 0;
+.footer-main .acceptedcards {
+  font-size: 20px;
+  padding-bottom: 27px;
 }
-
-.footer-left-block .follow-us ul li {
-  display: inline-block;
-  padding-left: 5px;
-}
-
-.follow-us h2 {
-  font-size: 1.11rem;
-  color: #fff;
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  margin-bottom: 10px;
-  text-align:center;
-}
-.follow-us ul {
-  margin: 0;
-}
-
-footer.footer-main {
-  margin: 40px 0px 0px 0px;
-}
-footer.footer-main .footer-links {
-  padding: 0;
-  background-color: #54575b;
-}
-
-footer.footer-main .footer-links {
-  // background: #fff;
-}
-footer.footer-main .footer-links:before {
-  content: "";
-  border-top: 10px solid #54575b;
+input {
   position: absolute;
-  top: -15px;
-  width: 100%;
+  opacity: 0;
+  z-index: -1;
 }
-
-footer.footer-main .col-lg-4.col-md-4.col-sm-12.col-xs-12.footer-right {
-  background: #f1f1f1;
-  padding: 18px 47px;
-}
-
-.footer-right-inner h3 {
-  font-size: 1.11rem;
-  color: #54575b;
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  margin: 21px 0px;
-  line-height: 1.77;
-}
-
-.footer-right-inner p {
-  color: #54575b;
-  margin-top: 30px;
-  font-size: 1rem;
-}
-
-.enter-email-address input {
-  width: 100%;
-  margin: 0;
-  padding: 0px 10px;
-  float: left;
-  border-radius: 5px 0px 0px 5px;
-  height: 40px;
-  border: 1px solid #cccccc;
-  font-size: 16px;
-  box-shadow: none;
-}
-
-.enter-email-address input:focus,
-.enter-email-address input:visited {
-  box-shadow: none;
-  outline: none;
-}
-
-.enter-email-address button {
-  background: #4dba87;
-  height: 42px;
-  border: 0;
-  padding: 0 20px;
-  border-radius: 5px;
-  // position: absolute;
-  // right: 0px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  display: inline;
-}
-
-.enter-email-address {
-  position: relative;
+.row {
   display: flex;
+  .col {
+    flex: 1;
+    &:last-child {
+      margin-left: 1em;
+    }
+  }
 }
-
-text {
-  color: #000;
+.tabs {
+  overflow: hidden;
+  margin-left: -22px;
+  margin-right: -6px;
 }
-
-.footer-right-inner text {
-  padding-top: 50px;
-  float: left;
+input:checked {
+  + .tab-label {
+    background: #606060;
+    color: #ffffff;
+    &::after {
+      font-family: FontAwesome;
+      content: '\f068';
+    }
+  }
+  ~ .tab-content {
+    max-height: 100vh;
+    padding-top: 1px;
+    background-color: #f2f2f2;
+    font-family: 'Arial';
+  }
+}
+.tabset > input[type='radio'] {
+  position: absolute;
+  left: -200vw;
+}
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  display: block;
+}
+.tabset > label {
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px 25px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  cursor: pointer;
+  color: white;
+}
+.tabset > label::after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  bottom: 18px;
   width: 100%;
-  text-align: left;
+  height: 2px;
+}
+.tabset > label:hover,
+.tabset > input:focus + label {
+  color: white;
+}
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+  border-bottom: 2px solid #00998c;
+}
+.tabset > input:checked + label {
+  border-color: #fff;
+  border-bottom: 2px solid #fff;
+  margin-bottom: -1px;
+}
+.tab-panel {
+  padding: 15px 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.tabset {
+  max-width: 65em;
+  text-align: center;
+}
+p {
+  text-align: center;
   color: #54575b;
 }
-
-.footer-right-inner text a {
-  color: #4dba87;
-  text-decoration: none;
-  font-weight: bold;
+@media (min-width: 768px) {
+  .tab-panels input,
+  .tab-panels .tab-label {
+    display: none;
+  }
 }
-
-.follow-us-inner {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-.follow-us ul {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 0;
-}
-
-
 @media (max-width: 767px) {
-  ul#ul-list-1.is-open {
-    display: block !important;
+  #tab1,
+  #tab2,
+  #tab3,
+  .desktop {
+    display: none !important;
   }
-
-  ul#ul-list-2.is-open {
-    display: block !important;
+  section {
+    background-color: #606060;
   }
-
-  ul#ul-list-3.is-open {
-    display: block !important;
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
   }
-
-  ul#ul-list-1 {
-    display: none;
+  .tab-label {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 2.933vw;
   }
-
-  ul#ul-list-2 {
-    display: none;
+  .tab-label::after {
+    font-family: FontAwesome;
+    content: '\f067';
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+    font-size: 9px;
+    margin-top: 5px;
   }
-
-  ul#ul-list-3 {
-    display: none;
-  }
-  .col-lg-4.col-md-4.col-sm-12.col-xs-12.footer-right:after {
-    right: -999em;
-  }
-  .footer-right-inner p {
-    font-size: 0.8rem;
-  }
-  .footer-right-inner text {
-    font-size: 0.8rem;
-  }
-  .footer-left-content .col-lg-4.col-md-4.col-sm-12.col-xs-12 {
-  
-      display: inline-block;
-    
-}
-}
-/*Footer Tablet */
-@media (max-width: 1100px) and (min-width: 768px) {
-  .col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left .row {
-    padding: 0px 10px;
-  }
-
-  .footer-left-block h3 {
+  .content {
+    text-align: left;
+    line-height: 20px;
     font-size: 14px;
-    margin-bottom: 10px;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+    display: none;
+    padding-left: 20px;
     margin-top: 10px;
   }
-
-  .footer-left-block ul {
-    margin: 0;
+  input:checked + .tab-label::after {
+    font-family: FontAwesome;
+    content: '\f068';
+    color: #ffffff;
   }
-
-  .follow-us h2 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+  input:checked ~ .content {
+    display: block;
   }
-
-  footer.footer-main .col-lg-4.col-md-4.col-sm-12.col-xs-12.footer-right {
-    padding: 10px 10px;
+  input:checked ~ .socialicons {
+    text-align: center;
   }
-
-  .footer-right-inner h3 {
-    font-size: 16px;
-    margin-bottom: 0px;
-    margin-top: 0px;
-  }
-
-  .footer-right-inner p {
-    margin-top: 5px;
-    font-size: 14px;
-  }
-
-  .footer-right-inner text {
-    padding-top: 10px;
-    font-size: 14px;
-  }
-}
-/*Footer Tablet */
-/*Footer Mobile */
-@media (max-width: 767px) {
-  .col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left {
-    order: 1;
-  }
-  .col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left .row {
-    padding-left: 0 !important;
-    padding-right: 0px !important;
-  }
-  .footer-left-content .col-lg-4.col-md-4.col-sm-12.col-xs-12:not(:last-child) {
-    border-bottom: 3px solid #fff;
-  }
-  .footer-left-content .col-lg-4.col-md-4.col-sm-12.col-xs-12 {
-    padding: 0 15px;
-  }
-  footer.footer-main .col-lg-4.col-md-4.col-sm-12.col-xs-12.footer-right {
-    padding: 15px 15px;
-  }
-  .col-lg-8.col-md-8.col-sm-12.col-xs-12.footer-left .row {
-    padding: 5px 15px;
-  }
-  .footer-left-block h3 {
-    margin: 0;
-  }
-  .footer-left-content {
+  .tabset .tab-panel {
+    display: block !important;
     width: 100%;
+    float: left;
+    margin-left: -8px;
+    padding: 1px 0px;
+    border-bottom: 2px solid white;
   }
-  .follow-us h2 {
-    margin-top: 0;
-    padding: 15px 0px 0px 0px;
-    font-size: 21px;
-    position: relative;
-  }
-  .footer-left-block h3 {
-    padding: 10px 0px 14px 0px;
-    font-size: 1.2rem;
-    position: relative;
-  }
-  // .enter-email-address input {
-  //   width: 92%;
-  // }
-  .footer-right-inner h3 {
-    margin: 0;
-  }
-  .follow-us ul {
-    margin-top: 5px;
-    margin-bottom: 15px;
-  }
-  .footer-left-block h3 img,
-  .footer-left-block h2 img {
-    position: absolute;
-    right: 0;
-    top: 13px;
-    width: 12px;
-    transform: rotate(-360deg);
-  }
-  .follow-us:before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    left: 0;
-    border-top: 3px solid #fff;
-  }
-
-  img.icon-rotate {
-    transform: rotate(90deg) !important;
-    width: 12px;
+  .tab-panel-two {
+    border: none !important;
   }
 }
-/*Footer Mobile */
-/*Footer Custom Css*/
-</style>
-<style>
-/*BLOCK FOOTERS */
-.footer-left-block li {
-  padding: 2px 0px;
-  color: #fff;
-  line-height: 1.5;
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  position: relative;
-  font-size: 0.914375rem;
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .tab-label {
+    font-size: 3vw;
+  }
 }
-
-.footer-left-block li a {
-  color: #fff;
+#footer-main-desktop i.fa.fa-play {
+  margin-left: 9px;
+  margin-top: 2px;
 }
-
-.footer-left-block li:before {
-  content: url("/assets/footer/footer-links-arrow-icon.png");
-  font-weight: bolder;
-  margin-right: 10px;
+#footer-main-desktop a:hover {
+  text-decoration: none !important;
 }
-.follow-us ul li:before {
-  content: "";
-  display: none;
-  margin: 0;
-}
-
-.footer-left-block .follow-us ul li {
-  display: inline-block;
-  padding-left: 5px;
-}
-.follow-us ul li a:hover:after {
-  text-decoration: none;
+#footer-main-desktop a.underline:after,
+#footer-main-desktop a:not(.no-underline):hover:after {
   background-color: transparent;
 }
-.follow-us-inner ul ul li {
-    padding-right: 5px;
-    list-style-type: none;
+.social {
+  margin-top: 6px !important;
 }
-@media (max-width: 1200px) and (min-width: 991px) {
-  .footer-left-content {
-    padding: 0px 0px 100px 0px !important;
+.circle {
+  height: 64px;
+  width: 64px;
+  background: #9d9d9d;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 17px;
+  margin-bottom: 25px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.circle:nth-child(3n + 3) {
+  margin-right: 0;
+}
+.pinterest,
+.youtube,
+.linkedin {
+  margin-bottom: 8px !important;
+}
+@media screen and (min-width: 992px) and (max-width: 1046px) {
+  .circle {
+    margin-right: 0px !important;
+  }
+  .fa-facebook[data-v-9d635ab6] {
+    margin-left: 6px;
+  }
+  .fa-instagram,
+  .fa-linkedin,
+  .fa-twitter {
+    margin-left: 3px;
+    margin-top: 0px;
   }
 }
-@media (max-width: 991px) and (min-width: 768px) {
-  .footer-left-block li {
-    font-size: 12px;
-  }
-  .footer-left-content {
-    padding: 0px 0px 96px 0px !important;
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .footer-main .acceptedcards {
+    font-size: 19px;
   }
 }
-/*BLOCK FOOTERS */
+.fa {
+  color: #434243;
+  font-size: 30px;
+}
+.footer-main .social .instagram:hover {
+  background: #e1306c;
+}
+.footer-main .social .linkedin:hover {
+  background: #0077b5;
+}
+.footer-main .social .pinterest:hover {
+  background: #bd081c;
+}
+.footer-main .social .facebook:hover {
+  background: #3b5999;
+}
+.footer-main .social .play:hover {
+  background: #cd201f;
+}
+.footer-main .social .youtube:hover {
+  background: #cd201f;
+}
+.footer-main .social .twitter:hover {
+  background: #55acee;
+}
+.footer-main .social .instagram:hover .fa,
+.footer-main .social .linkedin:hover .fa,
+.footer-main .social .pinterest:hover .fa,
+.footer-main .social .facebook:hover .fa,
+.footer-main .social .youtube:hover .fa,
+.footer-main .social .twitter:hover .fa {
+  color: #fff;
+}
+.copyright {
+  background-color: #444444;
+  height: 86px;
+}
+.copyright1 {
+  color: #fff;
+  text-align: center;
+  padding-top: 14px;
+  font-size: 19px;
+  font-family: 'Arial';
+}
+@media screen and (max-width: 767px) {
+  .copyright {
+    height: auto;
+  }
+  .copyright1 {
+    font-size: 2.4vw;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+$midnight: #2c3e50;
+$clouds: #ecf0f1;
+body {
+  color: $midnight;
+  background: $clouds;
+  padding: 0 1em 1em;
+}
+h2 {
+  margin: 0 0 0.5em;
+  font-weight: normal;
+}
+.acccards img {
+  width: 100%;
+}
+.container-fluid1 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+@media screen and (max-width: 767px) {
+  .footer-main {
+    display: none;
+  }
+  .mobile-footer {
+    display: block;
+  }
+  ul {
+    padding: 0;
+    margin-top: 15px !important;
+    list-style: none;
+  }
+  ul li {
+    margin: 10px 0 !important;
+    color: #414043;
+    font-size: 18px;
+    font-family: 'oblik';
+  }
+}
+@media screen and (min-width: 768px) {
+  .footer-main {
+    display: block;
+  }
+  .mobile-footer {
+    display: none;
+  }
+  .sociallinks {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  .mobilepaymentcards {
+    width: 86%;
+    padding-left: 0px;
+  }
+  .social {
+    display: inline;
+  }
+  .sociallinks {
+    display: block;
+  }
+  .fa-linkedin {
+    padding-top: 0px;
+  }
+  .fa-pinterest-p {
+    margin-top: 3px;
+  }
+  i.fa.fa-play {
+    margin-left: 7px;
+  }
+  .pinterest,
+  .youtube,
+  .linkedin {
+    margin-bottom: 0 !important;
+  }
+}
+.sociallinks {
+  text-align: center;
+  margin-top: 11px;
+}
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: 1280px !important;
+    max-width: 100% !important;
+  }
+}
+@media only screen and (min-width: 320px) and (max-width: 328px) {
+  .circle {
+    height: 37px;
+    width: 37px;
+    padding: 0px;
+    margin-left: 2px;
+    margin-right: 7px !important;
+  }
+}
+@media only screen and (min-width: 329px) and (max-width: 500px) {
+  .circle {
+    height: 41px;
+    width: 41px;
+    padding: 3px;
+    margin-left: 2px;
+    margin-right: 5px !important;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .copyright1 {
+    font-size: 3.1vw;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+.tab {
+  margin-bottom: -13px;
+  width: 100%;
+  color: white;
+  overflow: hidden;
+
+  &-label {
+    font-family: 'oblik';
+    display: flex;
+    content: '\f068';
+    justify-content: space-between;
+    padding: 1em;
+    background: #606060;
+    font-size: 3vw;
+
+    cursor: pointer;
+    &::after {
+      font-family: FontAwesome;
+      content: '\f067';
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all 0.35s;
+      font-size: 9px;
+      margin-top: 10px;
+      border: none;
+    }
+  }
+
+  &-content {
+    max-height: 0;
+    padding: 0 1em;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.35s;
+  }
+
+  &-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    cursor: pointer;
+
+    &:hover {
+      background: darken(#2c3e50, 10%);
+    }
+  }
+}
 </style>
