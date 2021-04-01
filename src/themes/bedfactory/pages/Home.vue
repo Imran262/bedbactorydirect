@@ -3,8 +3,9 @@
     <head-image />
      <UspBar :identifier="'usp-bar-TM'" />
      <FamiliarProducts />
-     <Brands />
      <swatches :identifier="'swatches-TM'"/>
+     <Brands />
+   
     <!-- <HomeBottomContent /> -->
     <!-- <homeDelivery :identifier="'home-Delivery'" />
     <FamiliarProducts />
