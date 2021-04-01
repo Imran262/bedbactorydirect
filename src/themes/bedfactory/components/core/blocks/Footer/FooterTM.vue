@@ -8,73 +8,7 @@
             <div class="row">
               <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
                 <h2>Follow Us</h2>
-                <div class="social">
-                  <a
-                    title="Facebook Page link"
-                    class="fb"
-                    href="https://www.facebook.com/TileMountainUK"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <div class="circle facebook">
-                      <i class="fa fa-facebook" />
-                    </div>
-                  </a>
-                  <a
-                    title="Twitter Page link"
-                    class="twt"
-                    href="https://twitter.com/TileMountainUK"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <div class="circle twitter">
-                      <i class="fa fa-twitter" />
-                    </div>
-                  </a>
-                  <a
-                    title="Instagram link"
-                    class="insta"
-                    href="https://www.instagram.com/tilemountainuk"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <div class="circle instagram">
-                      <i class="fa fa-instagram" />
-                    </div>
-                  </a>
-                  <a
-                    title="Pinterest link"
-                    href="https://www.pinterest.co.uk/tilemountainuk/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <div class="circle pinterest">
-                      <i class="fa fa-pinterest-p" />
-                    </div>
-                  </a>
-                  <a
-                    title="Youtube Channel link"
-                    class="yt"
-                    href="https://www.youtube.com/channel/UCCkGBpvAdflgqVvfV8zZYMw/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <div class="circle youtube">
-                      <i class="fa fa-play" aria-hidden="true" />
-                    </div>
-                  </a>
-                  <a
-                    title="Linkedin Profile link"
-                    class="link"
-                    href="https://www.linkedin.com/company/tile-mountain-limited/"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <div class="circle linkedin">
-                      <i class="fa fa-linkedin" />
-                    </div>
-                  </a>
-                </div>
+                 <sociallinks :identifier="'follow-us-social-links-TM'"/>
               </div>
               <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
                 <h2 class="acceptedcards">Accepted Cards</h2>
@@ -95,71 +29,11 @@
             
             <div class="tabset">
               <div class="tab-panels">
-                <section id="huge-variety" class="tab-panel">
+                 <section id="huge-variety" class="tab-panel">
                   <input type="checkbox" id="chck4" />
                   <label class="tab-label" for="chck4">Follow Us</label>
                   <div class="content socialicons">
-                    <div class="social">
-                      <div class="circle facebook">
-                        <a
-                          class="fb"
-                          href="https://www.facebook.com/bedfactorydirect"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i class="fa fa-facebook" />
-                        </a>
-                      </div>
-                      <div class="circle twitter">
-                        <a
-                          class="twitter"
-                          href="https://twitter.com/bedfactoryuk"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i class="fa fa-twitter" />
-                        </a>
-                      </div>
-                      <div class="circle instagram">
-                        <a
-                          class="instagram"
-                          href="https://www.instagram.com/bedfactorydirect/"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i class="fa fa-instagram" />
-                        </a>
-                      </div>
-                      <div class="circle pinterest">
-                        <a
-                          href="https://www.pinterest.co.uk/bfdbeds/"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i class="fa fa-pinterest-p" />
-                        </a>
-                      </div>
-                      <div class="circle youtube">
-                        <a
-                          class="youtube"
-                          href="https://www.youtube.com/channel/UCCkGBpvAdflgqVvfV8zZYMw/"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i class="fa fa-play" aria-hidden="true" />
-                        </a>
-                      </div>
-                      <div class="circle linkedin">
-                        <a
-                          class="linkedin"
-                          href="https://www.linkedin.com/company/tile-mountain-limited/"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i class="fa fa-linkedin" />
-                        </a>
-                      </div>
-                    </div>
+                    <sociallinks :identifier="'sb-social-links'"/>
                   </div>
                 </section>
                 <section id="huge-variety" class="tab-panel tab-panel-two">
@@ -173,8 +47,6 @@
                     />
                   </div>
                 </section>
-                Here we are 
-               
               </div>
             </div>
           </div>
@@ -217,6 +89,7 @@ import footerlink from 'theme/components/core/blocks/Cms/FooterLinks'
 import footerlinkmobile from 'theme/components/core/blocks/Cms/FooterLinkMobile'
 import BlockTitle from 'theme/components/core/blocks/Cms/BlockTitle';
 import { getPathForStaticPage } from 'theme/helpers';
+import sociallinks from 'src/themes/bedfactory/components/core/blocks/Cms/SocialLinks'
 
 // import NewsLetter from "theme/components/core/blocks/Footer/NewsLetter";
 export default {
@@ -267,7 +140,8 @@ export default {
     // CmsBlock,
     // CustomerServiceBlock,
     BlockTitle,
-    FollowUsLik
+    FollowUsLik,
+    sociallinks
   }
 };
 </script>

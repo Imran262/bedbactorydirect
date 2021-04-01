@@ -4,7 +4,7 @@
       <div class="tab-panels">
         <section id="luxurious-experiences" class="tab-panel">
           <input type="checkbox" id="chck1" />
-          <label class="tab-label" for="chck1">Customer Info 111</label>
+          <label class="tab-label" for="chck1">Customer Info</label>
           <div class="content">
             <ul>
               <li v-for="(singleblock, index) in singleblockdata1" :key="index">
