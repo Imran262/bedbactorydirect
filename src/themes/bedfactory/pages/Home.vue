@@ -36,7 +36,7 @@ import homeDelivery from 'theme/components/core/blocks/homeDelivery/homeDelivery
 import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"; // BFD Component
 import FamiliarProductsORiginal from 'theme/components/core/blocks/FamiliarProducts/FamiliarProducts'
 import FamiliarProducts from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/FamiliarProducts"; // BFD Component
-import Swatches from '/home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactory/components/core/blocks/Swatches/Swatches';
+import Swatches from 'src/themes/bedfactory/components/core/blocks/Swatches/Swatches';
 // Theme local components
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import slider from 'theme/components/core/blocks/slider/slider'
