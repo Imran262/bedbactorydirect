@@ -94,7 +94,7 @@ export default {
       if (!this.data) { return false }
       let slides = []
       let liParsedSlides = this.parsedContent.querySelectorAll('li')
-      console.log(" parsed slides" , liParsedSlides);
+      // console.log(" parsed slides" , liParsedSlides);
       if (liParsedSlides && liParsedSlides.length === 0) return false
       liParsedSlides.forEach((slide, index) => {
         let mobileImage = ''
@@ -127,7 +127,7 @@ export default {
           button,
           buttonLink: routeLink
         }
-        console.log('slideObj',slideObj);
+        // console.log('slideObj',slideObj);
         slides.push(slideObj)
       })
       return slides
