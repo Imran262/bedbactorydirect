@@ -20,7 +20,7 @@
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 home_video1 mt20"
       >
         <router-link :to="localizedRoute(link)" v-if="link" class="hm-watch-vid">
-          <img v-lazy="image" v-if="image" width="100%" alt="home video" />
+          <img v-lazy="image" v-if="image" width="88%" alt="home video" />
         </router-link>
 
         <router-link :to="localizedRoute(link)" v-if="link">
@@ -84,7 +84,7 @@ export default {
 </script>
 <style  scoped>
 .hm-style-advice {
-  margin-top: 42px !important;
+  margin-top: 80px !important;
   font-size: 25px;
   color: #29275b;
   font-family: Arial;
@@ -99,7 +99,7 @@ export default {
 .hm-tiling-para {
     font-size: 18px;
     line-height: 1.6;
-    padding-bottom: 32px;
+    padding-bottom: 20px;
     color: #59595b;
     padding-right: 119px;
 }
