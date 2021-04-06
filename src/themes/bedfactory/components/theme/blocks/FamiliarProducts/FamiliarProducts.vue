@@ -71,7 +71,7 @@ export default {
           background: rgba(0, 0, 0, 0.3);
         }
         &:hover h3 {
-          color: #ffffff;
+          color:#29275b;
           z-index: 999;
         }
       }
