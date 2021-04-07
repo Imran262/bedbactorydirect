@@ -380,7 +380,7 @@ header {
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 .r-icons {
-  padding: 12px 19px 12px 12px;
+  padding: 12px 12px 12px 12px;
   // padding: 0px;
 }
 }
@@ -391,7 +391,7 @@ header {
 }
 }
 .r-icons1 {
-  padding: 12px 36px 12px 12px;
+  padding: 12px 12px 12px 12px;
 }
 .t-mobile {
   padding-left: 8px;
@@ -581,7 +581,7 @@ header {
 //
 @media (max-width: 992px) and (min-width: 768px) {
   .inner-icons{
-    padding-left: 10px;
+    padding-left: 2px;
 }
 .r-icons1{
     padding:10px;
