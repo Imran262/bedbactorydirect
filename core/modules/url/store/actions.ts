@@ -66,7 +66,7 @@ export const actions: ActionTree<UrlState, any> = {
           return resolve(parametrizeRouteData(routeData, query, storeCodeInPath))
         } else {
           const mappingActionName = config.urlModule.enableMapFallbackUrl ? 'mapFallbackUrl' : 'mappingFallback'
-          dispatch('mappingFallback', { url, params: parsedQuery }).then(mappedFallback => {
+          dispatch(mappingActionName, { url, params: parsedQuery }).then(mappedFallback => {
             const routeData = getFallbackRouteData({ mappedFallback, url })
             dispatch('registerMapping', { url, routeData }) // register mapping for further usage
             resolve(parametrizeRouteData(routeData, query, storeCodeInPath))
@@ -80,44 +80,22 @@ export const actions: ActionTree<UrlState, any> = {
    * Router mapping fallback - get the proper URL from API
    * This method could be overriden in custom module to provide custom URL mapping logic
    */
-  async mappingFallback({ dispatch },{ url, params }: { url: string; params: any }) {
-    // Logger.warn(`
-    //   Deprecated action mappingFallback - use mapFallbackUrl instead.
-    //   You can enable mapFallbackUrl by changing 'config.urlModule.enableMapFallbackUrl' to true
-    // `)();
-
+  async mappingFallback ({ dispatch }, { url, params }: { url: string, params: any}) {
+    Logger.warn(`
+      Deprecated action mappingFallback - use mapFallbackUrl instead.
+      You can enable mapFallbackUrl by changing 'config.urlModule.enableMapFallbackUrl' to true
+    `)()
+    const productQuery = new SearchQuery()
     url = (removeStoreCodeFromRoute(url.startsWith('/') ? url.slice(1) : url) as string)
-    const cms = await dispatch('cmsPage/list', { filterValues: url }, { root: true })
-//console.log("1122 cms page is ",cms.length);
-    if (cms.length > 0) {
-      return {
-        name: 'cms-page',
-        params: {
-          slug: cms[0].identifier
-        }
-      }
-    }
-    const productQuery = new SearchQuery();
-    url = removeStoreCodeFromRoute(
-      url.startsWith("/") ? url.slice(1) : url
-    ) as string;
-    productQuery.applyFilter({ key: "url_path", value: { eq: url } }); // Tees category
-    const products = await dispatch(
-      "product/list",
-      { query: productQuery },
-      { root: true }
-    );
+    productQuery.applyFilter({ key: 'url_path', value: { 'eq': url } }) // Tees category
+    const products = await dispatch('product/list', { query: productQuery }, { root: true })
     if (products && products.items && products.items.length) {
-      const product = products.items[0];
-      return transformProductUrl(product, params);
+      const product = products.items[0]
+      return transformProductUrl(product, params)
     } else {
-      const category = await dispatch(
-        "category/single",
-        { key: "url_path", value: url },
-        { root: true }
-      );
+      const category = await dispatch('category/single', { key: 'url_path', value: url }, { root: true })
       if (category !== null) {
-        return transformCategoryUrl(category);
+        return transformCategoryUrl(category)
       }
     }
   },
@@ -248,13 +226,17 @@ export const actions: ActionTree<UrlState, any> = {
       scrollPosition: { ...state.prevRoute.scrollPosition },
       categoryPageSize: state.prevRoute.categoryPageSize
     })
-
+    console.log('sameAsPrevRoute omit', omit(state.prevRoute, ['scrollPosition', 'categoryPageSize']), omit(state.currentRoute, ['scrollPosition', 'categoryPageSize']))
     const sameAsPrevRoute = isEqual(
       omit(state.prevRoute, ['scrollPosition', 'categoryPageSize']),
       omit(state.currentRoute, ['scrollPosition', 'categoryPageSize'])
     )
+    const sameAsPrevRouteCustom = state.prevRoute.path === state.currentRoute.path
+    console.log('sameAsPrevRoute', sameAsPrevRoute)
+    console.log('sameAsPrevRouteCustom', sameAsPrevRouteCustom)
     const hasDifferentPath = (state.currentRoute && state.currentRoute.path) !== (from && from.path)
-    commit(types.IS_BACK_ROUTE, sameAsPrevRoute && hasDifferentPath)
+    console.log('hasDifferentPath', hasDifferentPath, state.currentRoute, from)
+    commit(types.IS_BACK_ROUTE, sameAsPrevRouteCustom && hasDifferentPath)
 
     const scrollPosition = {
       x: !isServer ? window.pageXOffset : 0,

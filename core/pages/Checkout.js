@@ -131,7 +131,7 @@ export default {
   methods: {
     onCartAfterUpdate (payload) {
       if (this.$store.state.cart.cartItems.length === 0) {
-        this.notifyEmptyCart()
+        // this.notifyEmptyCart()
         this.$router.push(this.localizedRoute('/'))
       }
     },

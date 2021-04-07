@@ -5,9 +5,9 @@ import flow from 'lodash-es/flow'
 import cloneDeep from 'lodash-es/cloneDeep';
 
 const replaceNumberToString = obj => {
-  if(obj.length && obj.length > 0){
-    console.log('TheSelectedObjectShouldBe', obj);
-  }
+  // if(obj.length && obj.length > 0){
+  //   console.log('TheSelectedObjectShouldBe', obj);
+  // }
   Object.keys(obj).forEach(key => {
     if (obj[key] !== null && typeof obj[key] === 'object') {
       return replaceNumberToString(obj[key]);

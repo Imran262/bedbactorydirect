@@ -103,7 +103,6 @@ export class SearchAdapter {
     }
     url = url + '/' + encodeURIComponent(Request.index) + '/' + encodeURIComponent(Request.type) + '/_search'
     url = url + '?' + queryString.stringify(httpQuery)
-
     return fetch(url, {
       method: config.elasticsearch.queryMethod,
       mode: 'cors',

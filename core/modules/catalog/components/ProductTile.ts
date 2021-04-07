@@ -13,11 +13,13 @@ export const ProductTile = {
   },
   data () {
     return {
-      clicks: 0,
-      placeholder: '/assets/placeholder.jpg'
+      clicks: 0
     }
   },
   computed: {
+    placeholder () {
+      return config.images.productPlaceholder ? config.images.productPlaceholder : '/assets/placeholder.jpg'
+    },
     productLink () {
       return formatProductLink(this.product, currentStoreView().storeCode)
     },

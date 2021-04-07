@@ -52,7 +52,7 @@ export const ProductBundleOption = {
           cardImage: getThumbnailPath(product?.thumbnail, 62, 62),
           price: product?.price_incl_tax
         }
-      })
+      }).sort((a, b) => { return a.price - b.price })
     }
   },
   mounted () {

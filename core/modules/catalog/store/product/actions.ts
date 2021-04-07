@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex'
 import * as types from './mutation-types'
-import { isServer } from '@vue-storefront/core/helpers'
+import { isServer, getCategoryById } from '@vue-storefront/core/helpers'
 import { SearchQuery } from 'storefront-query-builder'
 import cloneDeep from 'lodash-es/cloneDeep'
 import rootStore from '@vue-storefront/core/store'
@@ -276,6 +276,7 @@ const actions: ActionTree<ProductState, RootState> = {
     context.commit(types.PRODUCT_SET_GALLERY, productGallery)
   },
   async loadProductBreadcrumbs ({ dispatch, rootGetters }, { product } = {}) {
+    console.log('loadProductBreadcrumbs', product)
     if (product && product.category_ids) {
       const currentCategory = rootGetters['category-next/getCurrentCategory']
       let breadcrumbCategory
@@ -300,6 +301,18 @@ const actions: ActionTree<ProductState, RootState> = {
         // breadcrumbCategory = categories.sort((a, b) => (a.level > b.level) ? -1 : 1)[0] // sort starting by deepest level
       }
       await dispatch('category-next/loadCategoryBreadcrumbs', { category: breadcrumbCategory, currentRouteName: product.name }, { root: true })
+    } else if (product && !product.category_ids) {
+      let primaryIdCategory
+      let breadcrumbCategory
+      console.log('product.primary_category', product.primary_category)
+      if (product.primary_category) {
+        primaryIdCategory = await dispatch('category/list', { key: 'id', value: product.primary_category }, { root: true });
+        if (primaryIdCategory && primaryIdCategory.items && primaryIdCategory.items[0]) {
+          breadcrumbCategory = primaryIdCategory.items[0]
+        }
+        console.log('breadcrumbCategory', breadcrumbCategory)
+        await dispatch('category-next/loadCategoryBreadcrumbs', { category: breadcrumbCategory, currentRouteName: product.name }, { root: true })
+      }
     }
   },
   async getProductVariant (context, { product, configuration } = {}) {

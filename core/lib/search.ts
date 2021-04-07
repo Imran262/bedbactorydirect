@@ -32,7 +32,6 @@ export const quickSearchByQuery = async ({ query = {}, start = 0, size = 50, ent
   const searchAdapter = await getSearchAdapter()
   if (size <= 0) size = 50
   if (start < 0) start = 0
-
   return new Promise(async (resolve, reject) => {
     const storeView = currentStoreView()
     const Request: SearchRequest = {
@@ -86,10 +85,8 @@ export const quickSearchByQuery = async ({ query = {}, start = 0, size = 50, ent
     if (!searchAdapter.entities[Request.type]) {
       throw new Error('No entity type registered for ' + Request.type)
     }
-
     searchAdapter.search(Request).then((resp) => { // we're always trying to populate cache - when online
       const res = searchAdapter.entities[Request.type].resultProcessor(resp, start, size)
-
       if (res) { // otherwise it can be just a offline mode
         cache.setItem(cacheKey, res, null, config.elasticsearch.disablePersistentQueriesCache).catch((err) => { Logger.error('Cannot store cache for ' + cacheKey + ', ' + err)() })
         if (!servedFromCache) { // if navigator onLine == false means ES is unreachable and probably this will return false; sometimes returned false faster than indexedDb cache returns result ...
