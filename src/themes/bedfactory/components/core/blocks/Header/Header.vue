@@ -322,7 +322,7 @@ export default {
 .inner-icons {
   padding-left: 60px;
   @media (max-width: 1199px) and(min-width: 992px) {
-    padding-left: 27px;
+    padding-left: 8px;
   }
   @media (max-width: 767px){
     padding-left: 0px;
@@ -380,8 +380,11 @@ header {
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 .r-icons {
-  padding: 12px 12px 12px 12px;
+  padding: 12px 22px 12px 12px;
   // padding: 0px;
+}
+.r-icons1{
+    padding: 12px 22px 12px 12px !important;
 }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -391,7 +394,7 @@ header {
 }
 }
 .r-icons1 {
-  padding: 12px 12px 12px 12px;
+  padding: 12px 36px 12px 12px;
 }
 .t-mobile {
   padding-left: 8px;
