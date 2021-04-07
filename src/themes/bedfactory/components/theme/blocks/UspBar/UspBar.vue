@@ -89,16 +89,20 @@ export default {
   }
 }
 a.usp-a {
-    display: flex;
+    display: inline-flex;
+    padding: 12px 0 12px 0;
 }
 .home_delivery_text {
     margin-left: 10px;
-        margin-top: 4px;
-
+    margin-top: 4px;
+    color: #24224d;
 }
 @media screen and (max-width:991px){
   .home_delivery_text {
     font-size: 12px;
 }
+}
+.tilemountain {
+    text-align: center;
 }
 </style>
