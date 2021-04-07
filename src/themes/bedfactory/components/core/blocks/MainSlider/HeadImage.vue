@@ -7,7 +7,7 @@
     </div>
     <div class="slider-mobile">
       <slider-mobile
-        :identifier="'slider-mobile'"
+        :identifier="'Home_Slider_Mobile_TM'"
       />
     </div>
   </section>
