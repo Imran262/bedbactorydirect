@@ -47,7 +47,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getCartToken: 'cart/getCartToken'
+      getCartToken: 'cart/getCartToken',
+      cartItems: 'cart/getCartItems'
     })
   },
   methods: {
@@ -80,7 +81,7 @@ export default {
             this.notifyUser(
               notifications.createNotification({
                 type: 'error',
-                message: 'Failed to Add Cut Size Sample'
+                message: 'Failed to Add Full Size Sample'
               })
             );
             return false;
@@ -108,7 +109,7 @@ export default {
       let type = this.product.type_id;
       let sampleType = null;
 
-      if (addedProduct.totals && addedProduct.totals.options && addedProduct.totals.options.length > 0 && addedProduct.totals.options[0]) {
+      if (addedProduct && addedProduct.totals && addedProduct.totals.options && addedProduct.totals.options.length > 0 && addedProduct.totals.options[0]) {
         type = addedProduct.totals.options[0].label
         sampleType = addedProduct.totals.options[0].value
       }

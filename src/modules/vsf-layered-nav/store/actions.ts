@@ -32,30 +32,70 @@ const fl = config.bloomreach.brAutosuggest.parameters.fl ? config.bloomreach.brA
 const search_type = config.bloomreach.brAutosuggest.parameters.search_type ? config.bloomreach.brAutosuggest.parameters.search_type : '';
 const search_type_category = config.bloomreach.brAutosuggest.categoryParams.search_type ? config.bloomreach.brAutosuggest.categoryParams.search_type : '';
 const domain_prefix = config.bloomreach.prefix ? config.bloomreach.prefix : 0
+const facetsFieldsArray = config.bloomreach.brAutosuggest.facetsFields ? config.bloomreach.brAutosuggest.facetsFields : ['price','Colour', 'Finish', 'Material', 'Size', 'Special Features', 'Stock Status', 'Type', 'height', 'thickness', 'width']
 export const actions: ActionTree<ExtendedCatalogState, any> = {
-  async loadCategoryProducts ({ commit, getters, dispatch }, { route, category, pageSize = 50, startIndex = 0 } = {}) {
+  async loadCategoryProducts ({ commit, getters, rootGetters, dispatch }, { route, category, pageSize = 50, startIndex = 0 } = {}) {
     const searchCategory = category || getters.getCategoryFrom(route.path) || {}
     const categoryMappedFilters = getters.getFiltersMap[searchCategory.id]
     const areFiltersInQuery = !!Object.keys(route[products.routerFiltersSource]).length
     if (!categoryMappedFilters && areFiltersInQuery) { // loading all filters only when some filters are currently chosen and category has no available filters yet
       await dispatch('loadCategoryFilters', searchCategory)
     }
-    var replaceQuesMark = '';
-    if (route && route.fullPath && route.fullPath.includes('.html')) {
-      let firstSplit = route.fullPath.split('.html');
-      let filterQueryStringDyn = '';
-      filterQueryStringDyn = firstSplit[1];
-      let replaceEqual = filterQueryStringDyn.split('=').join(':"');
-      let replaceComma = replaceEqual.split(',').join('"OR"');
-      let replaceAnd = replaceComma.split('&').join('"&fq=');
-      replaceQuesMark = replaceAnd.split('?').join('&fq=');
+    let filterQueryStringDyn = '';
+    let keyOffiltersArrayManage = [];
+    let filtersArrayManage = route.query;
+    if (filtersArrayManage) {
+      keyOffiltersArrayManage = Object.keys(filtersArrayManage);
     }
-    if (replaceQuesMark) {
-      replaceQuesMark = replaceQuesMark + '"';
+    let getScrollPosition = rootGetters && rootGetters['url/getCurrentRoute'] && rootGetters['url/getCurrentRoute'].scrollPosition && rootGetters['url/getCurrentRoute'].scrollPosition.y ? rootGetters['url/getCurrentRoute'].scrollPosition.y : 0
+
+    let newRows = rows;
+    if (getScrollPosition === undefined || getScrollPosition === 'undefined' || getScrollPosition !== 0) {
+      newRows = rows * parseInt(localStorage.getItem('scrolledUptoPage'))
+    } else {
+      newRows = rows
+    }
+    console.log('newRowsnewRows', newRows)
+    if (keyOffiltersArrayManage.length > 0) {
+      for (var key in filtersArrayManage) {
+        if (facetsFieldsArray.includes(key)) {
+          filterQueryStringDyn = filterQueryStringDyn + '&fq=' + key + ':';
+          if (!filtersArrayManage.hasOwnProperty(key)) continue;
+          let obj = filtersArrayManage[key];
+          console.log('keyOffiltersArrayManage obj obj', obj)
+          let objaRRAY=[]
+          if(key==='width' || key==='height'){
+            objaRRAY = obj.split(',')
+            console.log('key===width || key===height', objaRRAY)
+          }else{
+            objaRRAY = obj.split(',')
+          }
+          console.log('keyOffiltersArrayManage obj', objaRRAY)
+          objaRRAY.forEach((element, index) => {
+            if (index > 0) {
+              filterQueryStringDyn = filterQueryStringDyn + 'OR"' + element + '"'
+            } else {
+                if(key==='price' || key==='width' || key==='height')
+                  {
+                    element=element.split('-').join(' TO ')
+                    filterQueryStringDyn = filterQueryStringDyn + '[' + element + ']'
+                  }
+                  else{
+                    filterQueryStringDyn = filterQueryStringDyn + '"' + element + '"'
+                  }
+            }
+          });
+        }
+      }
+    } else {
+      filterQueryStringDyn = '';
     }
     let searchCategory_id = domain_prefix + searchCategory.id;
-    if (route && route.fullPath && !route.fullPath.includes('?')) {
+    let filteredFacetINtersectionArray = []
+    filteredFacetINtersectionArray = Object.keys(route.query).filter(value => facetsFieldsArray.includes(value));
+    if (route && route.fullPath && filteredFacetINtersectionArray.length === 0) {
       let BR_AUTO_SUGGEST_API_Dynamic = BR_AUTO_SUGGEST_API_URL + 'account_id=' + account_id + '&auth_key=' + auth_key + '&view_id=' + view_id + '&domain_key=' + domain_key_category + '&request_id=' + request_id + '&_br_uid_2=' + _br_uid_2 + '&url=' + url + '&ref_url=' + ref_url + '&request_type=' + request_type + '&rows=' + rows_category + '&start=' + startv + '&fl=' + fl + '&q=' + searchCategory.id + '&search_type=' + search_type_category
+      
       const response = await fetch(
         `${BR_AUTO_SUGGEST_API_Dynamic}`,
         {
@@ -73,7 +113,8 @@ export const actions: ActionTree<ExtendedCatalogState, any> = {
       }
     }
 
-    let BR_CATEGORY_PRODUCTS_API_Dynamic = BR_AUTO_SUGGEST_API_URL + 'account_id=' + account_id + '&auth_key=' + auth_key + '&domain_key=' + domain_key + '&request_id=' + request_id + '&_br_uid_2=' + _br_uid_2 + '&url=' + url + '&ref_url=' + ref_url + '&view_id=' + view_id + '&request_type=' + request_type + '&rows=' + rows + '&start=' + startv + '&fl=' + fl + '&q=' + searchCategory.id + '&search_type=category' + replaceQuesMark
+    let BR_CATEGORY_PRODUCTS_API_Dynamic = BR_AUTO_SUGGEST_API_URL + 'account_id=' + account_id + '&auth_key=' + auth_key + '&domain_key=' + domain_key + '&request_id=' + request_id + '&_br_uid_2=' + _br_uid_2 + '&url=' + url + '&ref_url=' + ref_url + '&view_id=' + view_id + '&request_type=' + request_type + '&rows=' + rows + '&start=' + startv + '&fl=' + fl + '&q=' + searchCategory.id + '&search_type=category' + filterQueryStringDyn + '&stats.field=price,width,height'
+    
     const catProductsResponse = await fetch(
       `${BR_CATEGORY_PRODUCTS_API_Dynamic}`,
       {
@@ -99,7 +140,24 @@ export const actions: ActionTree<ExtendedCatalogState, any> = {
       size: pageSize,
       start: startIndex
     })
-
+    if(!getters.getStatsFields || (getters.getStatsFields && !getters.getStatsFields[searchCategory.id])){
+      let BR_CATEGORY_STATS_API_Dynamic = BR_AUTO_SUGGEST_API_URL + 'account_id=' + account_id + '&auth_key=' + auth_key + '&domain_key=' + domain_key + '&request_id=' + request_id + '&_br_uid_2=' + _br_uid_2 + '&url=' + url + '&ref_url=' + ref_url + '&view_id=' + view_id + '&request_type=' + request_type + '&rows=' + rows + '&start=' + startv + '&fl=' + fl + '&q=' + searchCategory.id + '&search_type=category' + '&stats.field=price,width,height'
+      const catStatsResponse = await fetch(
+        `${BR_CATEGORY_STATS_API_Dynamic}`,
+        {
+          method: 'get',
+          mode: 'cors',
+          headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const jsoncatStatsResponse = await catStatsResponse.json();
+      if (jsoncatStatsResponse && jsoncatStatsResponse !== '') {
+        commit(types.SET_STATS_RANGE_CURRENT_CATEGORY, { category: searchCategory, stats_fields: jsoncatStatsResponse.stats.stats_fields})
+      }
+    }
     const allItemsFOrPrice = await quickSearchByQuery({
       query: filterQr,
       sort:

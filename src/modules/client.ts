@@ -30,8 +30,15 @@ import { GroutAdhesive } from './vsf-groutadhesive-integration';
 // @ts-ignore
 import { Vinyl } from './vsf-vinyl-integration';
 import { CheckoutcomPayments } from './vsf-payment-checkout-com';
+import { UrlRewrites } from './url-rewrites';
+import { extendMappingFallback } from './vsf-mapping-fallback';
+import { forCategory, forProduct } from './vsf-mapping-fallback/builtin';
+import rewritesMappingFallback from './url-rewrites/helpers/mappingFallback';
 import { SearchRedirect } from './vsf-searchredirect-integration';
 import { BrAutosuggest } from './vsf-brautosuggest-integration';
+const ExtendMappingFallbacks = extendMappingFallback(
+  forProduct, forCategory, rewritesMappingFallback
+);
 // TODO:distributed across proper pages BEFORE 1.11
 export function registerClientModules () {
   registerModule(UrlModule)
@@ -62,6 +69,8 @@ export function registerClientModules () {
   registerModule(GroutAdhesive)
   registerModule(Vinyl)
   registerModule(CheckoutcomPayments)
+  registerModule(UrlRewrites)
+  registerModule(ExtendMappingFallbacks)
   registerModule(SearchRedirect)
   registerModule(BrAutosuggest)
 }

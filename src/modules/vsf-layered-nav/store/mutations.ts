@@ -10,5 +10,8 @@ export const mutations: MutationTree<any> = {
   },
   [types.SET_LISTING_RANGE_CURRENT_CATEGORY] (state, {category, listing_range}) {
     state.listingRange = listing_range
+  },
+  [types.SET_STATS_RANGE_CURRENT_CATEGORY] (state, {category, stats_fields}) {
+    state.stats_fields[category.id] = stats_fields
   }
 }

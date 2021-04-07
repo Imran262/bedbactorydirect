@@ -13,6 +13,7 @@ const extendedCatalogModule = {
     priceRange: {},
     categoryRange: {},
     listingRange: {},
+    stats_fields:{},
     initial_products: []
   },
   mutations,

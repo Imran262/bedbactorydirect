@@ -44,7 +44,7 @@ export const changeFilterQuery = ({currentQuery = {}, filterVariant}: { currentQ
   } else {
     let queryFilter = newQuery[filterVariant.type] || []
     if (!Array.isArray(queryFilter)) queryFilter = [queryFilter]
-    if(filterVariant.type === 'price'){
+    if(filterVariant.type === 'price' || filterVariant.type === 'width' || filterVariant.type === 'height'){
       if(filterVariant.remove) {
         delete newQuery[filterVariant.type]
       } else {
