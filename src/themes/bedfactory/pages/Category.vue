@@ -266,22 +266,8 @@
          
 
 
-
-
-
-
 <!-- {{getCategoryProductsTotal}}
-
 getCategoryProducts {{getCategoryProducts}} -->
-
-
-
-
-
-
-
-
-
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h4 data-testid="noProductsInfo">
               {{ $t('No products found!') }}
@@ -294,11 +280,13 @@ getCategoryProducts {{getCategoryProducts}} -->
               }}
             </p>
           </div>
+          <!-- For categories -->
           <div
             class="container pt0"
             id="subcategory-list"
             v-show="!hasActiveFiltersOnPage && !sorted"
           >
+          <!-- It wont come here -->
             <div
               class="category-listing row m0 start-md"
               v-if="getCurrentCategory.display_mode === 'PAGE'"
@@ -324,6 +312,11 @@ getCategoryProducts {{getCategoryProducts}} -->
               </template>
             </div>
           </div>
+          <!-- For Categories -->
+          Hello
+          {{isListingProducts ||
+              getCurrentCategory.display_mode === 'PRODUCTS' ||
+              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'}}
           <div
             class="product-lisitng-inner"
             id="products-list-new"
@@ -333,6 +326,15 @@ getCategoryProducts {{getCategoryProducts}} -->
               getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
+          So here we are 
+          {{isLazyHydrateEnabled &&
+                getCategoryProductsTotal > lengthOfProductArray}}
+
+                <product-listing
+              @showPagination="showbottompage"
+              :columns="defaultColumn"
+              :products="pagination.currentPageItems || getCategoryProducts"
+            />
             <lazy-hydrate
               :trigger-hydration="!loading"
               v-if="
@@ -340,6 +342,7 @@ getCategoryProducts {{getCategoryProducts}} -->
                 getCategoryProductsTotal > lengthOfProductArray
               "
             >
+            So we in here <br /> Total products {{getCategoryProductsTotal}}
               <product-listing
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
@@ -359,6 +362,7 @@ getCategoryProducts {{getCategoryProducts}} -->
                 getCategoryProductsTotal <= lengthOfProductArray
               "
             >
+             So we not in there <br /> Total products {{getCategoryProductsTotal}}
               <product-listing
                 :columns="defaultColumn"
                 class="pagination-false"
@@ -372,6 +376,7 @@ getCategoryProducts {{getCategoryProducts}} -->
               :columns="defaultColumn"
               :products="pagination.currentPageItems || getCategoryProducts"
             />
+            <!-- pagination.currentPageItems || getCategoryProducts <br /><br /><br />{{ getCategoryProducts}} -->
           </div>
           <div
             class="bottom-pagination"
@@ -937,7 +942,7 @@ export default {
       name,
       slug
     } = this.getCurrentCategory
-    console.log('getCurrentCategory Meta', this.getCurrentCategory)
+   // console.log('getCurrentCategory Meta', this.getCurrentCategory)
     let metaDescriptionCat = this.getCurrentCategory.cat_banner_desp ? this.getCurrentCategory.cat_banner_desp.replace(/<\/?[^>]+(>|$)/g, '') : ''
     let metaLengthCat = 233
     if (metaDescriptionCat) {

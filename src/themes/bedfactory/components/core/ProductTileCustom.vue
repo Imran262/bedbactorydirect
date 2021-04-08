@@ -3,6 +3,7 @@
     class="product align-center w-100 pb20"
     v-observe-visibility="visibilityChanged"
   >
+  In Product Tile Custom
     <router-link
       class="block no-underline product-link"
       :to="productLinkNew"

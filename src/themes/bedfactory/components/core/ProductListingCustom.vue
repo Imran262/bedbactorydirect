@@ -1,17 +1,20 @@
 <template>
   <div class="product-listing row m0 center-xs start-md">
+    <!-- In product Listing
+  Products are <br /> -->
     <div
       v-for="(product, key) in products"
       :key="key"
       class="col-sm-12 col-md-4 flex col-xs-12 pading"
     >
+   <!-- Current Product {{product.name}} -->
       <product-tile-custom :product="product" />
     </div>
   </div>
 </template>
 
 <script>
-import ProductTileCustom from './ProductTileCustom.vue'
+import ProductTileCustom from './ProductTileBFD.vue'
 
 export default {
   name: 'ProductListing',
