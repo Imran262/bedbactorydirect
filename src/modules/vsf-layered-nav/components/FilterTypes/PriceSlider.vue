@@ -44,7 +44,7 @@ export default {
       required: true,
     },
     priceRange: {
-      type: Array,
+      type: [Array, Object],
       required: true,
     },
     context: {

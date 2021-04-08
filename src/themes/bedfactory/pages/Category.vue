@@ -301,12 +301,18 @@
                     class="container1 Price-container1"
                   >
                     <template>
+                           getPriceRange {{getPriceRange}}
+                      THis one
+                    {{priceRange}} -- 
+                    {{testVar}}
+                    
+               
                       <price-slider
                         context="category"
                         code="price"
                         id="price"
-                        :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].price['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].price['max']))]"
-                        content="Price "
+                        :price-range="getPriceRange"
+content="Price "
                         label="Price Label"
                         @change="changeFilter"
                       />
@@ -481,11 +487,14 @@
                     class="container1 Price-container1"
                   >
                     <template>
+                      getStatsFields[getCurrentCategory.id] {{getStatsFields[getCurrentCategory.id]}}
+                      priceRange Hello{{priceRange}}
+                      <!-- :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].price['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].price['max']))]" -->
                       <price-slider
                         context="category"
                         code="price"
                         id="price"
-                        :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].price['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].price['max']))]"
+                        :price-range="priceRange"
                         content="Price "
                         label="Price Label"
                         @change="changeFilter"
@@ -651,6 +660,7 @@ import onBottomScroll from '@vue-storefront/core/mixins/onBottomScroll';
 import PriceSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/PriceSlider.vue';
 import CustomWidthSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/CustomWidthSlider.vue';
 import CustomHeightSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/CustomHeightSlider.vue';
+// import { log } from 'console';
 
 const THEME_PAGE_SIZE =
   config && config.filterShowItems && config.filterShowItems.selectedOption
@@ -763,7 +773,9 @@ export default {
       selectedFiltersValues: {},
       renderSlider: 0,
       siteName: 'Bed Factory Direct',
-      siteUrl: config.baseUrl.url
+      siteUrl: config.baseUrl.url,
+      priceRange : [0, 1],
+      testVar: []
     };
   },
   async serverPrefetch() {
@@ -984,6 +996,19 @@ export default {
     }
   },
   beforeMount() {
+       this.priceRange['width'] = {
+    "max": 1200,
+    "min": 75
+  }
+    this.priceRange['price'] = {
+    "max": 53.49,
+    "min": 3.95
+  }
+    this.priceRange['height'] = {
+    "max": 1200,
+    "min": 60
+  }
+  console.log("11223344 ",this.priceRange);
     this.BRCategoryRanges();
     // this.apiFacets = this.getCurrentCategoryBrProductsFiltersResponseGetters
     // this.apiTotalsNums = this.getCurrentCategoryBrProductsTotalResponseGetters
@@ -998,6 +1023,35 @@ export default {
     this.handleResize();
   },
   async mounted() {
+    this.testVar = [0,11,22]
+    let width = {"width": {
+    "max": 1200,
+    "min": 75
+  }}
+  let height = {"height": {
+    "max": 1200,
+    "min": 60
+  }}
+  let price ={ "price": {
+    "max": 53.49,
+    "min": 3.95
+  }}
+    // this.priceRange.push(width);
+    // this.priceRange.push(height);
+    // this.priceRange.push(price);
+    this.priceRange['width'] = {
+    "max": 1200,
+    "min": 75
+  }
+    this.priceRange['price'] = {
+    "max": 53.49,
+    "min": 3.95
+  }
+    this.priceRange['height'] = {
+    "max": 1200,
+    "min": 60
+  }
+  console.log("112233 Mounted  ",this.priceRange);
     if (this.listingPageCompute) {
       document
         .getElementById('breadcrumb-rangePage')
@@ -1062,6 +1116,14 @@ export default {
     this.resetFilterTextShowFn();
   },
   computed: {
+    getPriceRange (){
+      let range = []
+      range['width'] = {
+        max:10,
+        min:100
+        };
+      return this.priceRange
+    },
     ...mapGetters({
       getCurrentSearchQuery: 'category-next/getCurrentSearchQuery',
       getCategoryProducts: 'category-next/getCategoryProducts',
@@ -2051,7 +2113,7 @@ export default {
       name,
       slug
     } = this.getCurrentCategory;
-    console.log('category', this.getCurrentCategory);
+    // console.log('category', this.getCurrentCategory);
     let metaDescriptionCat = this.getCurrentCategory.cat_banner_desp
       ? this.getCurrentCategory.cat_banner_desp.replace(/<\/?[^>]+(>|$)/g, '')
       : '';
