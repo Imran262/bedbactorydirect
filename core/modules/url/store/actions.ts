@@ -226,16 +226,16 @@ export const actions: ActionTree<UrlState, any> = {
       scrollPosition: { ...state.prevRoute.scrollPosition },
       categoryPageSize: state.prevRoute.categoryPageSize
     })
-    console.log('sameAsPrevRoute omit', omit(state.prevRoute, ['scrollPosition', 'categoryPageSize']), omit(state.currentRoute, ['scrollPosition', 'categoryPageSize']))
+   // console.log('sameAsPrevRoute omit', omit(state.prevRoute, ['scrollPosition', 'categoryPageSize']), omit(state.currentRoute, ['scrollPosition', 'categoryPageSize']))
     const sameAsPrevRoute = isEqual(
       omit(state.prevRoute, ['scrollPosition', 'categoryPageSize']),
       omit(state.currentRoute, ['scrollPosition', 'categoryPageSize'])
     )
     const sameAsPrevRouteCustom = state.prevRoute.path === state.currentRoute.path
-    console.log('sameAsPrevRoute', sameAsPrevRoute)
-    console.log('sameAsPrevRouteCustom', sameAsPrevRouteCustom)
+    // console.log('sameAsPrevRoute', sameAsPrevRoute)
+    // console.log('sameAsPrevRouteCustom', sameAsPrevRouteCustom)
     const hasDifferentPath = (state.currentRoute && state.currentRoute.path) !== (from && from.path)
-    console.log('hasDifferentPath', hasDifferentPath, state.currentRoute, from)
+    // console.log('hasDifferentPath', hasDifferentPath, state.currentRoute, from)
     commit(types.IS_BACK_ROUTE, sameAsPrevRouteCustom && hasDifferentPath)
 
     const scrollPosition = {

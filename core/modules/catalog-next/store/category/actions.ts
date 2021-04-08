@@ -234,14 +234,14 @@ const actions: ActionTree<CategoryState, RootState> = {
     excludeFields = (config.entities.optimize ? config.entities.category.excludeFields : null),
     skipCache = false
   }) {
-    console.log('fetchMenuCategories', { parent, key, value, level, onlyActive, onlyNotEmpty, size, start, sort , includeFields, excludeFields, skipCache })
+   // console.log('fetchMenuCategories', { parent, key, value, level, onlyActive, onlyNotEmpty, size, start, sort , includeFields, excludeFields, skipCache })
     const { searchQuery, isCustomizedQuery } = createCategoryListQuery({ parent, level, key, value, onlyActive, onlyNotEmpty })
-    console.log('{ searchQuery, isCustomizedQuery }', { searchQuery, isCustomizedQuery } )
+    // console.log('{ searchQuery, isCustomizedQuery }', { searchQuery, isCustomizedQuery } )
     const shouldLoadCategories = skipCache || isCustomizedQuery
-    console.log('shouldLoadCategories', shouldLoadCategories )
+   // console.log('shouldLoadCategories', shouldLoadCategories )
     if (shouldLoadCategories) {
       const resp = await quickSearchByQuery({ entityType: 'category', query: searchQuery, sort, size, start, includeFields, excludeFields })
-      console.log('quickSearchByQuery', resp )
+      // console.log('quickSearchByQuery', resp )
       await dispatch('registerCategoryMapping', { categories: resp.items })
 
       commit(types.CATEGORY_UPD_MENU_CATEGORIES, { items: resp.items })
