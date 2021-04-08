@@ -2,18 +2,21 @@ import { nonReactiveState } from './index';
 import { GetterTree } from 'vuex'
 import RootState from '@vue-storefront/core/types/RootState'
 import CategoryState from './CategoryState'
-import { _prepareCategoryPathIds, compareByLabel } from '../../helpers/categoryHelpers'
+import { compareByLabel } from '../../helpers/categoryHelpers'
 import { products } from 'config'
 import FilterVariant from '../../types/FilterVariant'
 import { optionLabel } from '@vue-storefront/core/modules/catalog/helpers'
 import trim from 'lodash-es/trim'
 import toString from 'lodash-es/toString'
+import forEach from 'lodash-es/forEach'
 import get from 'lodash-es/get'
 import { getFiltersFromQuery } from '../../helpers/filterHelpers'
 import { Category } from '../../types/Category'
 import { parseCategoryPath } from '@vue-storefront/core/modules/breadcrumbs/helpers'
+import { _prepareCategoryPathIds, getSearchOptionsFromRouteParams } from '../../helpers/categoryHelpers';
 import { currentStoreView, removeStoreCodeFromRoute } from '@vue-storefront/core/lib/multistore'
 import cloneDeep from 'lodash-es/cloneDeep'
+import config from 'config';
 
 function mapCategoryProducts (productsFromState, productsData) {
   return productsFromState.map(prodState => {
@@ -36,72 +39,31 @@ const getters: GetterTree<CategoryState, RootState> = {
   getCategoryByParams: (state, getters, rootState) => (
     params: { [key: string]: string } = {}
   ) => {
-    return getters.getCategories.find(category => {
-      let newCatUrl = rootState.route.path.replace('/', '');
-      if (category.url_path === newCatUrl) {
-        return category
-      }
-    }) || {}
+    const mathchedUrlCat = 
+      getters.getCategories.find(category => {
+        // let valueCheck = [];
+        // const searchOptions = getSearchOptionsFromRouteParams(params);
+        let newCatUrl = rootState.route.path.replace("/", "");
+        // console.log('newCatUrl', newCatUrl)
+        if(category.url_path === newCatUrl){
+          return category
+        }
+        // forEach(searchOptions, (value, key) =>
+        //   valueCheck.push(
+        //     category[key] && category[key] === category[key].constructor(value)
+        //   )
+        // );
+        // return (
+        //   valueCheck.filter(check => check === true).length ===
+        //   Object.keys(searchOptions).length
+        // );
+      }) || {};
+    // console.log('hellowwwMain', hellowww)
+    return mathchedUrlCat
   },
   getCurrentCategory: (state, getters, rootState, rootGetters) => {
     // console.log('Hellowww Fawad', rootState.route.fullPath)
     return getters.getCategoryByParams(rootState.route.params)
-  },
-  getCurrentCategoryBrResponseGetters: (state, getters, rootState, rootGetters) => {
-    // console.log('getCurrentCategoryBrResponseGetters', state)
-    let categoryRangeDocsArray = {};
-    if (state && state.categoryRange && state.categoryRange.response && state.categoryRange.response.docs.length > 1) {
-      categoryRangeDocsArray = state.categoryRange.response && state.categoryRange.response.docs ? state.categoryRange.response.docs : []
-    } else {
-      categoryRangeDocsArray = []
-    }
-    return categoryRangeDocsArray
-  },
-  getCurrentCategoryBrProductsResponseGetters: (state, getters, rootState, rootGetters) => {
-    let categoryProductsDocsArray = [];
-    if (state && state.listingRange && state.listingRange.response && state.listingRange.response.docs.length > 0) {
-      categoryProductsDocsArray = state.listingRange.response && state.listingRange.response.docs ? state.listingRange.response.docs : []
-    } else {
-      categoryProductsDocsArray = []
-    }
-    return categoryProductsDocsArray
-  },
-  getCurrentCategoryBrProductsTotalResponseGetters: (state, getters, rootState, rootGetters) => {
-    let categoryListingTotalNum = 0;
-    if (state && state.listingRange && state.listingRange.response && state.listingRange.response.numFound) {
-      categoryListingTotalNum = state.listingRange.response.numFound
-    } else {
-      categoryListingTotalNum = 0
-    }
-    return categoryListingTotalNum
-  },
-  getCurrentCategoryBrProductsFiltersResponseGetters: (state, getters, rootState, rootGetters) => {
-    let categoryRangeFacetsArray = {};
-    if (state && state.listingRange && state.listingRange.facet_counts && state.listingRange.facet_counts.facet_fields) {
-      categoryRangeFacetsArray = state.listingRange.facet_counts.facet_fields
-      for (let keyFacets in categoryRangeFacetsArray) {
-        if (!categoryRangeFacetsArray.hasOwnProperty(keyFacets)) continue;
-        if (keyFacets !== 'Size' && keyFacets !== 'Thickness' && keyFacets !== 'category' && keyFacets !== 'crumbs_id') {
-          let keyFacetsArray = categoryRangeFacetsArray[keyFacets];
-          if(keyFacetsArray && keyFacetsArray.length > 0) {
-            keyFacetsArray = keyFacetsArray.sort((a, b) => a.name.localeCompare(b.name));
-          }
-        } else if (keyFacets === 'Size') {
-          let reference_sizes_array = ['S', 'M', 'L', 'XL', 'XXL'];
-          categoryRangeFacetsArray['Size'].sort(function(a, b) {
-            return reference_sizes_array.indexOf(a.name) - reference_sizes_array.indexOf(b.name);
-          });
-        } else if (keyFacets === 'Thickness') {
-          let reference_thickness_array = ['2-4', '4-6', '6-8', '8-10', '10-12', 'other'];
-          categoryRangeFacetsArray['Thickness'].sort(function(a, b) {
-            return reference_thickness_array.indexOf(a.name) - reference_thickness_array.indexOf(b.name);
-          });
-        }
-      }
-    } else {
-      categoryRangeFacetsArray = {}
-    }
-    return categoryRangeFacetsArray
   },
   getAvailableFiltersFrom: (state, getters, rootState) => (aggregations) => {
     const filters = {}

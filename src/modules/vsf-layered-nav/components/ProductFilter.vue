@@ -238,15 +238,15 @@ export default {
         this.filterNewExpand = false;
         this.filterNewExpand = true;
         setTimeout(() => {
-          thisEvent.target.parentNode.parentNode.parentNode.classList.add(
+          thisEvent.toElement.parentNode.parentNode.parentNode.classList.add(
             "is-open"
           );
           if (
-            !thisEvent.target.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.contains(
+            !thisEvent.toElement.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.contains(
               "toggle-icon"
             )
           ) {
-            thisEvent.target.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.add(
+            thisEvent.toElement.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.add(
               "toggle-icon"
             );
           }

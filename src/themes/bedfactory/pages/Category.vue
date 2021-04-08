@@ -14,7 +14,7 @@
       </div>
       <div class="under-catergory-filter">
         <div class="container">
-          <div class="row m0images catrow" v-if="!listingPageCompute">
+          <div class="row m0images catrow" v-if="!isListingProducts">
             <button
               v-if="pageLayout !== '1column'"
               class="col-xs-5 mr15filters1 mobile-filters-button1 brdr-none cl-white"
@@ -25,11 +25,18 @@
               "
             >
               <img src="/assets/images/filter.svg" alt="filter" />
-              <p>{{ $t("Filter") }}</p>
+              <p>{{ $t('Filter') }}</p>
             </button>
           </div>
 
-          <div class="row m0 prodrow" v-show="listingPageCompute">
+          <div
+            class="row m0 prodrow"
+            v-show="
+              isListingProducts ||
+              getCurrentCategory.display_mode === 'PRODUCTS' ||
+              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+            "
+          >
             <button
               class="col-xs-2 col-sm-2 mr15filters mobile-filters-button brdr-none cl-white"
               @click="
@@ -39,13 +46,17 @@
               "
             >
               <img src="/assets/images/filter.svg" alt="filter" />
-              <p>{{ $t("Filter") }}</p>
+              <p>{{ $t('Filter') }}</p>
             </button>
             <span
               class="weight-400 sidebar__header__clear pointer sans-serif flex lh37 sortbycleartxt col-sm-4 col-xs-2"
             >
-              <p class="clearallp clearAllClass" @click="resetAllFilters">
-                {{ $t("Clear All") }}
+              <p
+                class="clearallp"
+                @click="resetAllFilters"
+                v-show="hasActiveFilters1"
+              >
+                {{ $t('Clear All') }}
               </p>
             </span>
             <div class="sorting1 sot col-sm-6 col-md-2 col-xs-8 p0">
@@ -54,14 +65,13 @@
               </div>
               <div class="dropd1">
                 <sort-by
-                  ref="sortRef"
                   :has-label="true"
                   @change="changeFilterSort"
                   :value="getCurrentSearchQuery.sort"
                 />
               </div>
               <div class="mobile-sorting p0">
-                <p>{{ apiTotalsNums }} Results</p>
+                <p>{{ getCategoryProductsTotal }} Results</p>
               </div>
             </div>
           </div>
@@ -73,20 +83,10 @@
         <router-link
           :to="localizedRoute(product_link ? '/' + product_link : '')"
         >
-          <div
-            class="firstcol title-box sb-category-tile-text"
-            v-if="
-              getCurrentCategory.overlay_on_banner === 1 ||
-              getCurrentCategory.overlay_on_banner === '1'
-            "
-          >
+          <div class="firstcol title-box sb-category-tile-text">
             <div class="sb-left-text">
               <h1>{{ getCurrentCategory.name }}</h1>
-              <p
-                class="pHtml-description"
-                v-if="getCurrentCategory.cat_banner_desp"
-                v-html="getCurrentCategory.cat_banner_desp"
-              />
+              <p v-html="getCurrentCategory.cat_banner_desp" />
             </div>
           </div>
           <div class="secondcol img-box">
@@ -108,7 +108,7 @@
             class="col-xs-4 mt25 mr15 p15 mobile-filters-button bg-cl-th-accent brdr-none cl-white h5 sans-serif fs-medium-small"
             @click="openFilters"
           >
-            {{ $t("Filters") }}
+            {{ $t('Filters') }}
           </button>
           <div class="mobile-sorting col-xs-4 mt25">
             <sort-by
@@ -121,8 +121,8 @@
     </header>
     <!-- <header v-else> </header> -->
     <div itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" :content="siteName" />
-      <meta itemprop="url" :content="siteUrl" />
+      <meta itemprop="name" content="Tile Mountain" />
+      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
       <meta
         v-for="socialLink in socialLinksSchema"
         :key="socialLink"
@@ -131,18 +131,19 @@
       />
     </div>
     <div itemscope itemtype="http://schema.org/WebSite">
-      <meta itemprop="name" :content="siteName" />
-      <meta itemprop="url" :content="siteUrl" />
+      <meta itemprop="name" content="Tile Mountain" />
+      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
     </div>
     <div class="container pb60">
-      <breadcrumbs
-        class="pb30 hidden-xs breadcrumb"
-        id="breadcrumb-rangePage"
-      />
+      <breadcrumbs class="pt40 pb20 hidden-xs breadcrumb" />
       <div
         class="row middle-sm secondhead"
         ref="secondHead"
-        v-if="listingPageCompute"
+        v-if="
+          isListingProducts ||
+          getCurrentCategory.display_mode === 'PRODUCTS' ||
+          getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+        "
       >
         <span class="col-sm-2 side-filter sorting pl0">
           <img
@@ -150,7 +151,7 @@
             alt="filter"
             class="filtericon"
           />
-          <p class="filterp">{{ $t("Refine by") }}</p>
+          <p class="filterp">{{ $t('Refine by') }}</p>
         </span>
         <div class="col-md-10 sotby">
           <div class="sorting sot p0">
@@ -166,161 +167,42 @@
             </div>
           </div>
           <div class="sorting droppy col-sm-4">
-            <div class="textForTab">
-              <p class="totalprods">{{ apiTotalsNums }} Results</p>
+            <label class="mr10 collabel">{{ $t('Show') }}:</label>
+            <columns @change-column="columnChange" />
+            <p class="totalprods">{{ getCategoryProductsTotal }} Results</p>
+          </div>
+          <div class="pagination sorting main-pagination col-sm-8 col-md-8">
+            <div class="paging">
+              <ProductListingPagination
+                :items="pagination.currentPageItems"
+                :total-items="getCategoryProductsTotal"
+                :page-size="pagination.pageSize"
+                :category-id="getCurrentCategory.id"
+                :initial-page="pagination.selectedPage"
+                @changePage="pageChanged"
+              />
             </div>
           </div>
         </div>
+      </div>
 
-
-
-<div class="row pt10">
+      <div class="row pt10">
         <div
           v-if="pageLayout !== '1column'"
           class="col-md-2 start-xs category-filters p0 pr0"
         >
-          <span
-            class="weight-400 sidebar__header__clearAll pointer sans-serif flex lh25 clearAllClass hideClearAllClass"
-            @click="resetAllFilters"
-          >
-            {{ $t('Clear All') }}
-          </span>
-          <template v-for="(filter, index) in apiFacetCompute">
-            <div
-              class="index-div"
-              :data-filter="index"
-              :data-filter-key="index"
-              :data-filter-type="
-                index === 'filter_type' && index === 'Type' ? 'checkbox' : ''
-              "
-              :key="index"
-              v-if="
-                filter.length > 0 &&
-                index !== 'colors' &&
-                index !== 'sizes' &&
-                index !== 'qty_per_sqm' &&
-                index !== 'category' &&
-                index !== 'crumbs_id'
-              "
-            >
-              <h4
-                @click="filterRef"
-                class="filter-heading"
-                :class="
-                  index !== 'filter_type' && index !== 'Type'
-                    ? ''
-                    : 'toggleIcon bgnone'
-                "
-                :style="
-                  index === 'filter_type' && index !== 'Type'
-                    ? `background:none;`
-                    : ``
-                "
-              >
-                {{ index }}
-                <span
-                  class="weight-400 sidebar__header__clearAll pointer sans-serif flex lh25 clearAllClass hideClearAllClass"
-                  @click="resetAllFilters"
-                >
-                  {{ $t('Clear All') }}
-                </span>
-              </h4>
-              <div
-                class="filter-div"
-                :class="
-                  index !== 'filter_type' && index !== 'Type'
-                    ? ''
-                    : 'filter-open1'
-                "
-              >
-                <label
-                    class="container1 Price-container1"
-                    id="container1"
-                  >
-                  <template v-if="index === 'width' || index === 'height'">
-                    <custom-width-slider
-                      v-if="index === 'width' && renderSlider"
-                      context="category"
-                      :code="index"
-                      :id="index"
-                      :key="renderSlider"
-                      :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].width['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].width['max']))]"
-                      :content="index"
-                      label="Width Label"
-                      @change="changeFilter"
-                    />
-                    <custom-height-slider
-                      v-if="index === 'height' && renderSlider"
-                      context="category"
-                      :code="index"
-                      :id="index"
-                      :key="renderSlider"
-                      :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].height['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].height['max']))]"
-                      :content="index"
-                      label="Height Label"
-                      @change="changeFilter"
-                    />
-                  </template>
-                </label>
-                <label
-                  class="container1"
-                  id="container1"
-                  v-for="(filterSingle, indexSingle) in filter"
-                  :key="indexSingle"
-                >
-                  <template v-if="index !== 'width' && index !== 'height'">
-                    <input type="checkbox" :code="index" :value="filterSingle.name" :codeSingle="filterSingle.name" @click="updateAppliedFilters($event)" :checked="isFilterActive({ index, filterSingle })" :class="isFilterActive({ index, filterSingle }) ? `active-filter` : `not-active`"/>
-                    <span>{{ filterSingle.name }}</span>
-                    <span class="checkmark1" />
-                    <span v-if="filterSingle.count" class="product-counter"
-                      >({{ filterSingle.count }})</span
-                    >
-                  </template>
-                </label>
-              </div>
-            </div>
-          </template>
-          <template>
-            <div
-              class="index-div"
-              :data-filter="'price'"
-              :data-filter-key="'price'"
-              :data-filter-type="''"
-              :key="'price'"
-            >
-              <h4
-                @click="filterRef"
-                class="filter-heading"
-              >
-                Price
-              </h4>
-              <div
-                class="filter-div"
-                >
-                  <label
-                    class="container1 Price-container1"
-                  >
-                    <template>
-                           getPriceRange {{getPriceRange}}
-                      THis one
-                    {{priceRange}} -- 
-                    {{testVar}}
-                    
-               
-                      <price-slider
-                        context="category"
-                        code="price"
-                        id="price"
-                        :price-range="getPriceRange"
-content="Price "
-                        label="Price Label"
-                        @change="changeFilter"
-                      />
-                    </template>
-                  </label>
-                </div>
-            </div>
-          </template>
+          <sidebar
+            :value="
+              getCurrentSearchQuery.sort ? getCurrentSearchQuery.sort : ''
+            "
+            :filters="getAvailableFilters"
+            @changeFilter="changeFilter"
+            :prodlisting="
+              isListingProducts ||
+              getCurrentCategory.display_mode === 'PRODUCTS' ||
+              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+            "
+          />
         </div>
         <div
           class="full-overlay"
@@ -348,172 +230,30 @@ content="Price "
             </i>
           </div>
         </div>
-        <div class="col-md-3 start-xs mobile-filters" v-show="mobileFilters">
-          <h4 data-v-2b3298de="" class="sidebar__header mb20 flex">
-            <span class="side-filter">
-              <img
-                src="/assets/images/filter.svg"
-                alt="filter"
-                class="filtericon1"
-              />
-              <p class="filterp">Refine by</p>
-              <p class="filterp1">Filter</p>
-            </span>
-            <span
-              class="weight-400 sidebar__header__clear1 pointer sans-serif flex lh25 clearAllClass"
-              @click="resetAllFilters"
-            >
-              {{ $t('Clear All') }}
-            </span>
-            <span
-              class="weight-400 sidebar__header__clear1 pointer sans-serif flex lh25 clearAllClass"
-              @click="resetAllFilters"
-            >
-              {{ $t('Clear All') }}
-            </span>
-            <span
-              class="side-filter-reset-btn weight-400 sidebar__header__clear1 pointer sans-serif flex lh25"
-              @click="resetAllFilters"
-            >
-              {{ $t('Clear All') }}
-            </span>
-          </h4>
-          <template v-for="(filter, index) in apiFacetCompute">
-            <div
-              class="index-div"
-              :data-filter="index"
-              :data-filter-key="index"
-              :data-filter-type="
-                index === 'filter_type' && index === 'Type' ? 'checkbox' : ''
-              "
-              :key="index"
-              v-if="
-                filter.length > 0 &&
-                index !== 'colors' &&
-                index !== 'sizes' &&
-                index !== 'qty_per_sqm' &&
-                index !== 'category' &&
-                index !== 'crumbs_id'
-              "
-            >
-              <h4
-                @click="filterRef"
-                class="filter-heading"
-                :class="
-                  index !== 'filter_type' && index !== 'Type'
-                    ? ''
-                    : 'toggleIcon bgnone'
-                "
-                :style="
-                  index === 'filter_type' && index !== 'Type'
-                    ? `background:none;`
-                    : ``
-                "
-              >
-                {{ index }}
-              </h4>
-              <div
-                :class="
-                  index !== 'filter_type' && index !== 'Type'
-                    ? 'filter-div'
-                    : 'filter-open1'
-                "
-              >
-                <label
-                  class="container1 Price-container1"
-                  id="container2"
-                >
-                  <template v-if="index === 'width' || index === 'height'">
-                    <custom-width-slider
-                      v-if="index === 'width' && renderSlider"
-                      :key="renderSlider"
-                      context="category"
-                      :code="index"
-                      :id="index"
-                      :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].width['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].width['max']))]"
-                      :content="index"
-                      label="Width Label"
-                      @change="changeFilter"
-                    />
-                    <custom-height-slider
-                      v-if="index === 'height' && renderSlider"
-                      :key="renderSlider"
-                      context="category"
-                      :code="index"
-                      :id="index"
-                      :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].height['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].height['max']))]"
-                      :content="index"
-                      label="Height Label"
-                      @change="changeFilter"
-                    />
-                  </template>
-                </label>
-                <label
-                  class="container1"
-                  id="container2"
-                  v-for="(filterSingle, indexSingle) in filter"
-                  :key="indexSingle"
-                >
-                  <template v-if="index !== 'width' && index !== 'height'">
-                    <input type="checkbox" :code="index" :value="filterSingle.name" :codeSingle="filterSingle.name" @click="updateAppliedFilters($event)" :checked="isFilterActive({ index, filterSingle })" :class="isFilterActive({ index, filterSingle }) ? `active-filter` : `not-active`"/>
-                    <span>{{ filterSingle.name }}</span>
-                    <span class="checkmark1" />
-                    <span v-if="filterSingle.count" class="product-counter"
-                      >({{ filterSingle.count }})</span
-                    >
-                  </template>
-                </label>
-              </div>
-            </div>
-          </template>
-          <template v-if="mobileFilters">
-            <div
-              class="index-div"
-              :data-filter="'price'"
-              :data-filter-key="'price'"
-              :data-filter-type="''"
-              :key="'price'"
-            >
-              <h4
-                @click="filterRef"
-                class="filter-heading"
-              >
-                Price
-              </h4>
-              <div
-                class="filter-div"
-                >
-                  <label
-                    class="container1 Price-container1"
-                  >
-                    <template>
-                      getStatsFields[getCurrentCategory.id] {{getStatsFields[getCurrentCategory.id]}}
-                      priceRange Hello{{priceRange}}
-                      <!-- :price-range="[Math.trunc(Math.floor(getStatsFields[getCurrentCategory.id].price['min'])),Math.trunc(Math.ceil(getStatsFields[getCurrentCategory.id].price['max']))]" -->
-                      <price-slider
-                        context="category"
-                        code="price"
-                        id="price"
-                        :price-range="priceRange"
-                        content="Price "
-                        label="Price Label"
-                        @change="changeFilter"
-                      />
-                    </template>
-                  </label>
-                </div>
-            </div>
-          </template>
+        <div class="col-md-3 start-xs mobile-filters" v-if="mobileFilters">
+          <sidebar
+            class="mobile-filters-body"
+            :filters="getAvailableFilters"
+            @changeFilter="changeFilter"
+          />
           <div class="sticky pb10">
+            <div class="relative pb20 pt15 sticky-inner">
+              <div class="brdr-top-1 brdr-cl-primary absolute divider w-100" />
+            </div>
             <button-full
-              class="mb20 btn__filter applyFilterBtnBR"
+              class="mb20 btn__filter"
               @click.native="
                 closeFilters();
                 buttonclose();
               "
             >
               View
-              {{ apiTotalsNums }}
+              {{
+                !hasActiveFilters1 &&
+                getCategoryProductsTotal !== totalCategoryItemsCustom
+                  ? totalCategoryItemsCustom
+                  : getCategoryProductsTotal
+              }}
               Products
             </button-full>
           </div>
@@ -522,6 +262,26 @@ content="Price "
           class="border-box products-list"
           :class="[pageLayout !== '1column' ? 'col-md-10' : 'col-md-12']"
         >
+         <!-- getCurrentCategory  {{getCurrentCategory}} -->
+         
+
+
+
+
+
+
+<!-- {{getCategoryProductsTotal}}
+
+getCategoryProducts {{getCategoryProducts}} -->
+
+
+
+
+
+
+
+
+
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h4 data-testid="noProductsInfo">
               {{ $t('No products found!') }}
@@ -537,65 +297,86 @@ content="Price "
           <div
             class="container pt0"
             id="subcategory-list"
-            v-if="!listingPageCompute"
+            v-show="!hasActiveFiltersOnPage && !sorted"
           >
             <div
               class="category-listing row m0 start-md"
+              v-if="getCurrentCategory.display_mode === 'PAGE'"
               :class="getCurrentCategory.display_mode"
             >
               <!-- CategoryList -->
-              <template
-                v-for="(
-                  childrenCategory, index
-                ) in getCurrentCategoryBrResponseGetters"
-              >
-                <div
-                  class="col-sm-6 flex col-lg-3 col-md-3 col-xs-6 sb-item"
-                  :class="isChildCategorySlug(childrenCategory.title)"
-                  :key="childrenCategory.pid"
-                  v-if="childrenCategory.pid != brCategoryChildId"
-                >
-                  <CategoryTile
-                    :category="childrenCategory"
-                    :category-index="index"
-                    :category-type="categoryTileTypeUnitCheck(childrenCategory)"
-                  />
-                </div>
+              <template v-for="(childrenCategory, index) in childrenData">
+                <template v-if="!childrenCategory.show_on_content">
+                  <div
+                    class="col-sm-6 flex col-lg-3 col-md-3 col-xs-6 sb-item"
+                    :class="childrenCategory.slug"
+                    :key="childrenCategory.id"
+                  >
+                    <CategoryTile
+                      :category="childrenCategory"
+                      :category-index="index"
+                      :category-type="
+                        categoryTileTypeUnitCheck(childrenCategory)
+                      "
+                    />
+                  </div>
+                </template>
               </template>
             </div>
           </div>
-          <template v-if="loaded">
-            <div
-              class="product-lisitng-inner"
-              id="products-list-new"
+          <div
+            class="product-lisitng-inner"
+            id="products-list-new"
+            v-if="
+              isListingProducts ||
+              getCurrentCategory.display_mode === 'PRODUCTS' ||
+              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+            "
+          >
+            <lazy-hydrate
+              :trigger-hydration="!loading"
               v-if="
-                listingPage ||
-                getCurrentCategory.display_mode === 'PRODUCTS' ||
-                getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+                isLazyHydrateEnabled &&
+                getCategoryProductsTotal > lengthOfProductArray
               "
             >
-              <lazy-hydrate
-                :trigger-hydration="!loading"
-                v-if="isLazyHydrateEnabled"
-              >
-                <product-listing
-                  :columns="defaultColumn"
-                  :products="apiProductsApi"
-                  @showPagination="showbottompage"
-                />
-              </lazy-hydrate>
               <product-listing
-                v-else
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
-                :products="apiProductsApi"
+                class="pagination-true"
+                :products="
+                  pagination.currentPageItems &&
+                  pagination.currentPageItems.length > 0
+                    ? pagination.currentPageItems
+                    : []
+                "
               />
-            </div>
-          </template>
+            </lazy-hydrate>
+            <lazy-hydrate
+              :trigger-hydration="!loading"
+              v-else-if="
+                isLazyHydrateEnabled &&
+                getCategoryProductsTotal <= lengthOfProductArray
+              "
+            >
+              <product-listing
+                :columns="defaultColumn"
+                class="pagination-false"
+                :products="getCategoryProducts"
+                @showPagination="showbottompage"
+              />
+            </lazy-hydrate>
+            <product-listing
+              v-else
+              @showPagination="showbottompage"
+              :columns="defaultColumn"
+              :products="pagination.currentPageItems || getCategoryProducts"
+            />
+          </div>
           <div
             class="bottom-pagination"
             :class="bottompagination ? 'bordertop' : ''"
-            v-if="listingPageCompute"
+            v-if="isListingProducts"
           >
             <ProductListingPagination
               v-if="bottompagination"
@@ -610,97 +391,57 @@ content="Price "
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import LazyHydrate from 'vue-lazy-hydration';
-import ActiveFilters from 'src/modules/vsf-layered-nav/components/ActiveFilters.vue';
-import Sidebar from 'src/modules/vsf-layered-nav/components/Sidebar';
-import ProductListing from '../components/core/ProductListingCustom.vue';
-import Breadcrumbs from '../components/core/Breadcrumbs.vue';
-import SortBy from '../components/core/SortByCustom.vue';
-import { getThumbnailPath, isServer } from '@vue-storefront/core/helpers';
-import { getSearchOptionsFromRouteParams } from '@vue-storefront/core/modules/catalog-next/helpers/categoryHelpers';
-import config from 'config';
-import Columns from '../components/core/Columns.vue';
-import ButtonFull from 'theme/components/theme/ButtonFull.vue';
-import { mapGetters } from 'vuex';
-import { GTAGCategory } from 'src/modules/google-gtag/mixins/GTAGCategory';
-import sortBy from 'lodash.sortby';
-import CategoryTile from 'theme/components/core/blocks/CategoryTile/CategoryTile';
-import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks';
-import { findAncestor } from '../helpers';
+import LazyHydrate from 'vue-lazy-hydration'
+import ActiveFilters from 'src/modules/vsf-layered-nav/components/ActiveFilters.vue'
+import Sidebar from 'src/modules/vsf-layered-nav/components/Sidebar'
+import ProductListing from '../components/core/ProductListingCustom.vue'
+import Breadcrumbs from '../components/core/Breadcrumbs.vue'
+import SortBy from '../components/core/SortByCustom.vue'
+import { getThumbnailPath, isServer } from '@vue-storefront/core/helpers'
+import { getSearchOptionsFromRouteParams } from '@vue-storefront/core/modules/catalog-next/helpers/categoryHelpers'
+import config from 'config'
+import Columns from '../components/core/Columns.vue'
+import ButtonFull from 'theme/components/theme/ButtonFull.vue'
+import { mapGetters } from 'vuex'
+import { GTAGCategory } from 'src/modules/google-gtag/mixins/GTAGCategory'
+import sortBy from 'lodash.sortby'
+import CategoryTile from 'theme/components/core/blocks/CategoryTile/CategoryTile'
+import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks'
 import {
   localizedRoute,
   currentStoreView
-} from '@vue-storefront/core/lib/multistore';
-import { htmlDecode } from '@vue-storefront/core/filters';
-import { CategoryService } from '@vue-storefront/core/data-resolver';
-import ProductListingPagination from '../components/core/blocks/ProductListingPagination';
-import _ from 'lodash';
-import omit from 'lodash-es/omit';
-import { products, entities } from 'config';
-import onBottomScroll from '@vue-storefront/core/mixins/onBottomScroll';
-import PriceSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/PriceSlider.vue';
-import CustomWidthSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/CustomWidthSlider.vue';
-import CustomHeightSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/CustomHeightSlider.vue';
-// import { log } from 'console';
-
-const THEME_PAGE_SIZE =
-  config && config.filterShowItems && config.filterShowItems.selectedOption
-    ? config.filterShowItems.selectedOption
-    : 12;
-const facetsFieldsArray = config.bloomreach.brAutosuggest.facetsFields
-  ? config.bloomreach.brAutosuggest.facetsFields
-  : [
-      'Colour',
-      'Finish',
-      'Material',
-      'Size',
-      'Special Features',
-      'Stock Status',
-      'Type',
-      'height',
-      'thickness',
-      'width'
-    ];
+} from '@vue-storefront/core/lib/multistore'
+import { htmlDecode } from '@vue-storefront/core/filters'
+import { CategoryService } from '@vue-storefront/core/data-resolver'
+import ProductListingPagination from '../components/core/blocks/ProductListingPagination'
+import _ from 'lodash'
+const THEME_PAGE_SIZE = (config && config.filterShowItems && config.filterShowItems.selectedOption) ? config.filterShowItems.selectedOption : 12
 
 const composeInitialPageState = async (store, route, forceLoad = false) => {
   try {
-    let filters = getSearchOptionsFromRouteParams(route.params);
+    let filters = getSearchOptionsFromRouteParams(route.params)
     let customFilter = {
       url_path: route.fullPath.substring(1).replace(/\?.*/, '')
-    };
-    filters = { ...filters, ...customFilter };
+    }
+    filters = { ...filters, ...customFilter }
     const cachedCategory = store.getters['category-next/getCategoryFrom'](
       route.path
-    );
+    )
     const currentCategory =
       cachedCategory && !forceLoad
         ? cachedCategory
-        : await store.dispatch('category-next/loadCategory', { filters });
+        : await store.dispatch('category-next/loadCategory', { filters })
     await store.dispatch('category-next/loadCategoryProducts', {
       route,
       category: currentCategory,
       pageSize: THEME_PAGE_SIZE,
       startIndex: route.query.page || 0
-    });
+    })
     const breadCrumbsLoader = store.dispatch(
       'category-next/loadCategoryBreadcrumbs',
       {
@@ -708,17 +449,16 @@ const composeInitialPageState = async (store, route, forceLoad = false) => {
         currentRouteName: currentCategory.name,
         omitCurrent: true
       }
-    );
+    )
 
-    if (isServer) await breadCrumbsLoader;
-    catalogHooksExecutors.categoryPageVisited(currentCategory);
+    if (isServer) await breadCrumbsLoader
+    catalogHooksExecutors.categoryPageVisited(currentCategory)
   } catch (e) {
-    console.error('Problem with setting Category initial data!', e);
+    console.error('Problem with setting Category initial data!', e)
   }
-};
+}
 
 export default {
-  name: 'CategoryPage',
   components: {
     LazyHydrate,
     ButtonFull,
@@ -729,13 +469,10 @@ export default {
     SortBy,
     CategoryTile,
     Columns,
-    ProductListingPagination,
-    PriceSlider,
-    CustomWidthSlider,
-    CustomHeightSlider
+    ProductListingPagination
   },
-  mixins: [GTAGCategory, onBottomScroll],
-  data() {
+  mixins: [GTAGCategory],
+  data () {
     return {
       bottompagination: false,
       product_link: '',
@@ -762,1349 +499,436 @@ export default {
       },
       cateRoute: [],
       lengthOfProductArray: config.filterShowItems.selectedOption,
-      baseUrlImage: '',
-      apiFacets: [],
-      apiTotalsNums: 0,
-      apiProductsApi: 0,
-      apiRangesApi: [],
-      appliedFilters: [],
-      listingPage: null,
-      loaded: false,
-      selectedFiltersValues: {},
-      renderSlider: 0,
-      siteName: 'Bed Factory Direct',
-      siteUrl: config.baseUrl.url,
-      priceRange : [0, 1],
-      testVar: []
-    };
+      baseUrlImage: ""
+    }
   },
-  async serverPrefetch() {
+  async serverPrefetch () {
     if (!this.children || this.children.length === 0) {
       // this.children = await this.fetchCategoriesAndSubCategories();
     }
   },
   watch: {
-    async getCurrentCategoryId(to, from) {
+    async getCurrentCategoryId (to, from) {
       if (to !== from) {
-        this.appliedFilters = [];
-        this.children = await this.fetchCategoriesAndSubCategories();
-        this.listingPage = null;
-        this.loadingProducts = false;
-        this.pagination.selectedPage = 1;
-        this.apiFacets = [];
-        this.apiTotalsNums = 0;
-        this.apiProductsApi = 0;
-        this.apiRangesApi = [];
-        this.selectedFiltersValues = {};
-        this.BRCategoryRanges();
-        this.setGtagProductsList(
-          { isListingProducts: false },
-          'watch of getCurrentCategoryId Category.vue'
-        );
-        this.resetFilterTextShowFn();
-        if (this.$route && this.$route.params) {
-          // delete this.$route.params.slug
-          let attributeCodesKey = Object.keys(
-            omit(this.$route.params, ['slug'])
-          );
-          let newObjSelectedFiltersValues = {};
-          let newObjSelectedFiltersAppliedValues = [];
-          for (let index = 0; index < attributeCodesKey.length; index++) {
-            const attributeCodesKeyElement = attributeCodesKey[index];
-            let paramsKeyValueSplit = this.$route.params[
-              attributeCodesKeyElement
-            ].split(',');
-            newObjSelectedFiltersValues = {
-              [attributeCodesKeyElement]: paramsKeyValueSplit
-            };
-            newObjSelectedFiltersAppliedValues[attributeCodesKeyElement] = {
-              filters: paramsKeyValueSplit,
-              key: attributeCodesKeyElement
-            };
-          }
-          this.selectedFiltersValues = newObjSelectedFiltersValues;
-          this.appliedFilters = newObjSelectedFiltersAppliedValues;
-        }
+        this.children = await this.fetchCategoriesAndSubCategories()
+        this.setGtagProductsList()
       }
     },
-    getCurrentCategoryBrProductsResponseGetters(newData, oldData) {
-      if (newData !== oldData) {
-        if (this.listingPageCompute) {
-          this.setGtagProductsList(
-            { isListingProducts: this.listingPageCompute },
-            'fromWatchCategory'
-          );
-        }
-      }
-    },
-    apiFacetCompute(to, fromFacet) {
-      if (to !== fromFacet) {
-        // console.log('apiFacetTo', to)
-        // console.log('apiFacetFrom', fromFacet)
-      }
-    },
-    apiProductsApiCompute(to, fromFacet) {
-      if (to !== fromFacet) {
-        if (to.length && fromFacet.length && to.length > fromFacet.length) {
-          let mappedIds = fromFacet?.map(p => p.pid);
-          let filteredData = to.filter(p => !mappedIds.includes(p.pid));
-          this.setGtagProductsList(
-            {
-              isListingProducts: this.listingPageCompute,
-              products: filteredData
-            },
-            'fromWatchCategory'
-          );
-        }
-      }
-    },
-    listingPageCompute(to, fromFacet) {
-      // console.log('to>FacetIs', to);
-      if (to !== fromFacet) {
-        if (to === true) {
-          this.setGtagProductsList(
-            {
-              isListingProducts: this.listingPageCompute,
-              products: this.apiProductsApiCompute
-            },
-            'fromWatchCategory'
-          );
-        }
-        // console.log('listingPageCompute', to)
-        // console.log('listingPageComputeFrom', fromFacet)
-      }
-    },
-    getBreadcrumbsRoutes(newval, old) {
+    getBreadcrumbsRoutes (newval, old) {
       if (newval.length > 0 && !this.hasFired) {
-        this.hasFired = true;
-        this.addBloom();
+        this.hasFired = true
+        this.addBloom()
       }
+
     },
-    async $route(to, from) {
+
+    $route (to, from) {
       if (!this.asFired) {
-        this.hasFired = true;
-        this.addBloom();
+        this.hasFired = true
+        this.addBloom()
       }
-      this.getCatproduct(this.getCurrentCategory.cat_banner_sku);
-      if (from.fullPath !== to.fullPath && from.name === to.name) {
-        await this.searchResultCall({
-          count: this.pagination.pageSize,
-          selectedPage: this.pagination.selectedPage,
-          filtersArray: this.appliedFilters,
-          sort: this.sortingStoreObj
-        }).then(r => {
-          this.listingPage = true;
-        });
-      }
+      this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
       if (from.path !== to.path) {
-        let filterOpen_container = document.querySelectorAll('.filter-open');
-        let filterSign_container = document.querySelectorAll('.toggleIcon');
-        let i_container;
-        let i_S_container;
-        for (
-          i_container = 0;
-          i_container < filterOpen_container.length;
-          i_container++
-        ) {
-          filterOpen_container[i_container].classList.remove('filter-open');
-        }
-        for (
-          i_S_container = 0;
-          i_S_container < filterSign_container.length;
-          i_S_container++
-        ) {
-          filterSign_container[i_S_container].classList.remove('toggleIcon');
-        }
         if (localStorage.getItem('topLevelCategoryPosition')) {
           setTimeout(() => {
-            var localCatName = localStorage.getItem('topLevelCategoryPosition');
-            console.log('localCatName', localCatName);
-            var customScrollPos = document.getElementsByClassName(localCatName);
+            var localCatName = localStorage.getItem('topLevelCategoryPosition')
+            var customScrollPos = document.getElementsByClassName(localCatName)
             if (customScrollPos) {
               if (customScrollPos.length > 0) {
-                var customScrollPosValue = document.getElementsByClassName(
-                  localCatName
-                )[0].offsetTop;
+                var customScrollPosValue = document.getElementsByClassName(localCatName)[0].offsetTop
                 if (customScrollPosValue) {
-                  var customScrollPosValueFinal = customScrollPosValue - 200;
-                  let getScrollPosition =
-                    this.$store.getters['url/getCurrentRoute'] &&
-                    this.$store.getters['url/getCurrentRoute'].scrollPosition
-                      ? this.$store.getters['url/getCurrentRoute']
-                          .scrollPosition.y
-                      : 0;
-                  console.log(
-                    'getScrollPosition',
-                    getScrollPosition,
-                    this.$store.getters['url/getCurrentRoute']
-                  );
-                  // if (getScrollPosition === 0) {
-                  localStorage.setItem('topLevelCategoryPosition', '');
-                  window.scrollTo(0, customScrollPosValueFinal);
-                  // }
+                  var customScrollPosValueFinal = customScrollPosValue - 500
+                  window.scrollTo(0, customScrollPosValueFinal)
                 }
               }
             }
-          }, 1500);
+          }, 1500)
         }
-        this.clearSorting();
+        this.clearSorting()
         // this.bannerUrlLink()
-        console.log(
-          'getCurrentRoutegetCurrentRoute',
-          this.$store.getters['url/getCurrentRoute'],
-          this.$store.getters['url/isBackRoute']
-        );
         setTimeout(() => {
           if (this.$store.getters['url/isBackRoute']) {
-            let getScrollPosition =
-              this.$store.getters['url/getCurrentRoute'] &&
-              this.$store.getters['url/getCurrentRoute'].scrollPosition
-                ? this.$store.getters['url/getCurrentRoute'].scrollPosition.y
-                : 0;
-            console.log('getScrollPosition', getScrollPosition);
-            window.scrollTo(0, getScrollPosition);
+            let getScrollPosition = this.$store.getters['url/getCurrentRoute'] && this.$store.getters['url/getCurrentRoute'].scrollPosition ? this.$store.getters['url/getCurrentRoute'].scrollPosition.y : 0
+            window.scrollTo(0, getScrollPosition)
           }
-        }, 1000);
-        // As Route Changes, send category event again.
-        this.sendCategoryView();
+        }, 1000)
       }
     },
-    hasActiveFiltersOnPage(newVal, oldVal) {
+    hasActiveFiltersOnPage (newVal, oldVal) {
       if (newVal !== oldVal) {
         if (newVal === true) {
-          this.sorted = true;
-          this.hasActiveFilters = true;
+          this.sorted = true
+          this.hasActiveFilters = true
         } else {
-          this.sorted = false;
-          this.hasActiveFilters = false;
+          this.sorted = false
+          this.hasActiveFilters = false
         }
       }
     }
   },
-  created() {
-    var self = this;
-    self.$nextTick(function() {
-      self.loaded = true;
-    });
-    this.baseUrlImage = config.server.baseUrl;
-    if (
-      this.$route.query &&
-      this.$route.query.page &&
-      !isNaN(this.$route.query.page)
-    ) {
-      this.pagination.selectedPage = parseInt(this.$route.query.page);
+  created () {
+    this.baseUrlImage = config.server.baseUrl
+    if (this.$route.query && this.$route.query.page && !isNaN(this.$route.query.page)) {
+      this.pagination.selectedPage = parseInt(this.$route.query.page)
     }
+
   },
-  beforeMount() {
-       this.priceRange['width'] = {
-    "max": 1200,
-    "min": 75
-  }
-    this.priceRange['price'] = {
-    "max": 53.49,
-    "min": 3.95
-  }
-    this.priceRange['height'] = {
-    "max": 1200,
-    "min": 60
-  }
-  console.log("11223344 ",this.priceRange);
-    this.BRCategoryRanges();
-    // this.apiFacets = this.getCurrentCategoryBrProductsFiltersResponseGetters
-    // this.apiTotalsNums = this.getCurrentCategoryBrProductsTotalResponseGetters
-    // this.apiProductsApi = this.getCurrentCategoryBrProductsResponseGetters
-    // this.emptyResults = this.getCurrentCategoryBrProductsResponseGetters.length <= 0 ? true : !true
-    // this.apiRangesApi = this.getCurrentCategoryBrResponseGetters
-    // window.addEventListener('load', (event) => {
-    //   history.scrollRestoration = 'auto'
-    // })
-    this.$bus.$on('gotop', this.gototop);
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
+  beforeMount () {
+    window.addEventListener('scroll', (event) => {
+      let scroll = window.scrollY
+      localStorage.setItem("scrollloc", scroll)
+    })
+    window.addEventListener('load', (event) => {
+      let loca = localStorage.getItem('scrollloc')
+      window.scrollTo(0, loca)
+    })
+    this.$bus.$on('gotop', this.gototop)
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
   },
-  async mounted() {
-    this.testVar = [0,11,22]
-    let width = {"width": {
-    "max": 1200,
-    "min": 75
-  }}
-  let height = {"height": {
-    "max": 1200,
-    "min": 60
-  }}
-  let price ={ "price": {
-    "max": 53.49,
-    "min": 3.95
-  }}
-    // this.priceRange.push(width);
-    // this.priceRange.push(height);
-    // this.priceRange.push(price);
-    this.priceRange['width'] = {
-    "max": 1200,
-    "min": 75
-  }
-    this.priceRange['price'] = {
-    "max": 53.49,
-    "min": 3.95
-  }
-    this.priceRange['height'] = {
-    "max": 1200,
-    "min": 60
-  }
-  console.log("112233 Mounted  ",this.priceRange);
-    if (this.listingPageCompute) {
-      document
-        .getElementById('breadcrumb-rangePage')
-        .classList.add('rangePageBreadcrumb');
-    }
-    this.pageposition();
-    let getScrollPositionY =
-      this.$store.getters['url/getCurrentRoute'] &&
-      this.$store.getters['url/getCurrentRoute'].scrollPosition &&
-      this.$store.getters['url/getCurrentRoute'].scrollPosition.y
-        ? this.$store.getters['url/getCurrentRoute'].scrollPosition.y
-        : 0;
-    // console.log('Mounted scrolledUptoPage', localStorage.getItem('scrolledUptoPage'), getScrollPositionY)
-    if (
-      localStorage.getItem('scrolledUptoPage') !== null ||
-      localStorage.getItem('scrolledUptoPage') !== 'null' ||
-      localStorage.getItem('scrolledUptoPage') !== 1
-    ) {
-      this.pagination.selectedPage = localStorage.getItem('scrolledUptoPage');
-    }
-    localStorage.setItem('scrolledUptoPage', 1);
-    // console.log('MOun  call')
-    if (this.$route && this.$route.params) {
-      // delete this.$route.params.slug
-      let attributeCodesKey = Object.keys(omit(this.$route.params, ['slug']));
-      let newObjSelectedFiltersValues = {};
-      let newObjSelectedFiltersAppliedValues = [];
-      for (let index = 0; index < attributeCodesKey.length; index++) {
-        const attributeCodesKeyElement = attributeCodesKey[index];
-        let paramsKeyValueSplit = this.$route.params[
-          attributeCodesKeyElement
-        ].split(',');
-        newObjSelectedFiltersValues = {
-          [attributeCodesKeyElement]: paramsKeyValueSplit
-        };
-        newObjSelectedFiltersAppliedValues[attributeCodesKeyElement] = {
-          filters: paramsKeyValueSplit,
-          key: attributeCodesKeyElement
-        };
-      }
-      this.selectedFiltersValues = newObjSelectedFiltersValues;
-      this.appliedFilters = newObjSelectedFiltersAppliedValues;
-    }
-    this.getCatproduct(this.getCurrentCategory.cat_banner_sku);
-    window.addEventListener('resize', this.myEventHandler);
-    this.children = await this.fetchCategoriesAndSubCategories();
+  async mounted () {
+    this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
+    window.addEventListener('resize', this.myEventHandler)
+    this.children = await this.fetchCategoriesAndSubCategories()
     // For Pagination
-    this.pagination.currentPageItems = this.getCategoryProducts;
-    this.totalCategoryItemsCustom = this.getCategoryProductsTotal;
+    this.pagination.currentPageItems = this.getCategoryProducts
+    this.totalCategoryItemsCustom = this.getCategoryProductsTotal
     if (this.getBreadcrumbsRoutes.length > 0 && typeof BrTrk !== 'undefined') {
-      this.addBloom();
+      this.addBloom()
     }
 
     // ForGtag
-    if (!isServer) {
-      // this.sendCategoryView();
-      this.setGtagProductsList(
-        { isListingProducts: this.listingPageCompute },
-        'fromMounted'
-      );
-    }
-    this.resetFilterTextShowFn();
+    this.setGtagProductsList()
   },
   computed: {
-    getPriceRange (){
-      let range = []
-      range['width'] = {
-        max:10,
-        min:100
-        };
-      return this.priceRange
-    },
     ...mapGetters({
       getCurrentSearchQuery: 'category-next/getCurrentSearchQuery',
       getCategoryProducts: 'category-next/getCategoryProducts',
       getCurrentCategory: 'category-next/getCurrentCategory',
-      getCurrentCategoryBrResponseGetters:
-        'category-next/getCurrentCategoryBrResponseGetters',
-      getCurrentCategoryBrProductsResponseGetters:
-        'category-next/getCurrentCategoryBrProductsResponseGetters',
-      getPriceRange: 'category-next/getPriceRange',
-      getStatsFields: 'category-next/getStatsFields',
-      getCurrentCategoryBrProductsTotalResponseGetters:
-        'category-next/getCurrentCategoryBrProductsTotalResponseGetters',
-      getCurrentCategoryBrProductsFiltersResponseGetters:
-        'category-next/getCurrentCategoryBrProductsFiltersResponseGetters',
       getCategoryProductsTotal: 'category-next/getCategoryProductsTotal',
       getAvailableFilters: 'category-next/getAvailableFilters',
       getBreadcrumbsRoutes: 'breadcrumbs/getBreadcrumbsRoutes',
       getBreadcrumbsCurrent: 'breadcrumbs/getBreadcrumbsCurrent'
     }),
-    apiFacetCompute() {
-      if (!this.apiFacets || !this.apiFacets.length) {
-        return this.getCurrentCategoryBrProductsFiltersResponseGetters;
-      }
-      return this.apiFacets;
+    socialLinksSchema () {
+      return config.socialUrlsForSchema ? config.socialUrlsForSchema : ''
     },
-    listingPageCompute() {
-      if (this.listingPage === null) {
-        return !(
-          this.getCurrentCategoryBrResponseGetters &&
-          this.getCurrentCategoryBrResponseGetters.length > 0
-        );
-      }
-      return this.listingPage;
+    pageLayout () {
+      return this.getCurrentCategory.page_layout ? this.getCurrentCategory.page_layout : ''
     },
-    apiProductsApiCompute() {
-      if (this.apiProductsApi === 0) {
-        return this.getCurrentCategoryBrProductsResponseGetters;
-      }
-      return this.apiProductsApi;
+    categoryTileType () {
+      return config.tileTypes
     },
-    socialLinksSchema() {
-      return config.socialUrlsForSchema ? config.socialUrlsForSchema : '';
-    },
-    brCategoryChildId() {
-      return config.bloomreach.prefix &&
-        this.getCurrentCategory &&
-        this.getCurrentCategory.id
-        ? config.bloomreach.prefix + this.getCurrentCategory.id
-        : 0;
-    },
-    pageLayout() {
-      return this.getCurrentCategory.page_layout
-        ? this.getCurrentCategory.page_layout
-        : '';
-    },
-    categoryTileType() {
-      return config.tileTypes;
-    },
-    currRoute() {
+    currRoute () {
       // this.routeUrl
-      return this.$route.name;
+      return this.$route.name
     },
-    isListingProducts() {
+    isListingProducts () {
       if (isServer && !this.children) {
-        return false;
+        return false
       }
 
-      if (
-        this.getCurrentCategory &&
-        this.getCurrentCategory.display_mode &&
-        this.getCurrentCategory.display_mode !== 'PAGE'
-      ) {
-        return true;
+      if (this.getCurrentCategory && this.getCurrentCategory.display_mode && this.getCurrentCategory.display_mode !== 'PAGE') {
+        return true
       }
 
-      if (
-        this.getCurrentCategory &&
-        !this.getCurrentCategory.display_mode &&
-        this.children.length === 0
-      ) {
-        return true;
+      if (this.getCurrentCategory && !this.getCurrentCategory.display_mode && this.children.length === 0) {
+        return true
       }
       return (
         // this.children.length === 0 ||
-        this.hasActiveFiltersOnPage === true || this.sorted
-      );
+        this.hasActiveFiltersOnPage === true ||
+        this.sorted
+      )
     },
-    hasActiveFilters1() {
-      return this.$store.getters['category-next/hasActiveFilters'];
+    hasActiveFilters1 () {
+      return this.$store.getters['category-next/hasActiveFilters']
     },
-    isLazyHydrateEnabled() {
-      return config.ssr.lazyHydrateFor.includes('category-next.products');
+    isLazyHydrateEnabled () {
+      return config.ssr.lazyHydrateFor.includes('category-next.products')
     },
-    bannerImage() {
+    bannerImage () {
       if (
         this.getCurrentCategory.image === '' ||
         this.getCurrentCategory.image === 'null' ||
         this.getCurrentCategory.image === null
       ) {
-        return '/assets/category-images/header.png';
+        return '/assets/category-images/header.png'
       }
       return getThumbnailPath(
         `/${(this.getCurrentCategory, this.getCurrentCategory.image)}`,
         955,
         277,
         'category'
-      );
+      )
     },
-    getIncludeFieldsForRequest() {
-      return config.entities.category.includeFields;
+    getIncludeFieldsForRequest () {
+      return config.entities.category.includeFields
     },
-    isFilterActive() {
-      return ({ index, filterSingle }) => {
-        if (this.$route && this.$route.params && this.$route.params[index]) {
-          // console.log('Hereeeee', this.$route.params[index], typeof this.$route.params[index]);
-          // console.log('Hereeeee', filterSingle.name, ' is include ', this.$route.params[index].includes(filterSingle.name), this.appliedFilters);
-          let paramsArrayonKey = this.$route.params[index].split(',');
-          // console.log('Hereeeee paramsArrayonKey', index, paramsArrayonKey, filterSingle, paramsArrayonKey.includes(filterSingle.name));
-          if (index === 'width' || index === 'height') {
-            let floatingValue = filterSingle.name.split('.')[0];
-            if (
-              paramsArrayonKey.includes(floatingValue) &&
-              !!this.appliedFilters[index] &&
-              this.appliedFilters[index].filters.includes(floatingValue)
-            ) {
-              return true;
-            }
-          }
-          if (
-            paramsArrayonKey.includes(filterSingle.name) &&
-            !!this.appliedFilters[index] &&
-            this.appliedFilters[index].filters.includes(filterSingle.name)
-          ) {
-            return true;
-          }
-        }
-        // if (typeof filterSingle.name === 'number') {
-        //   return !!this.appliedFilters[index] && this.appliedFilters[index].filters.map(n => Number(n)).includes(filterSingle.name)
-        // }
-        // return !!this.appliedFilters[index] && this.appliedFilters[index].filters.includes(filterSingle.name)
-      };
+    getExcludeFieldsForRequest () {
+      return ['sgn']
     },
-    getExcludeFieldsForRequest() {
-      return ['sgn'];
+    isCategoryEmpty () {
+      return this.getCategoryProductsTotal === 0
     },
-    isCategoryEmpty() {
-      return this.getCurrentCategoryBrProductsTotalResponseGetters === 0;
+    isCategoryChildrenEmpty () {
+      return parseInt(this.getCurrentCategory.children_count) === 0
     },
-    isCategoryChildrenEmpty() {
-      return parseInt(this.getCurrentCategory.children_count) === 0;
+    childrenData () {
+      return sortBy(this.getCurrentCategory.children_data, 'position')
     },
-    childrenData() {
-      return sortBy(this.getCurrentCategory.children_data, 'position');
+    getCurrentCategoryId () {
+      return this.getCurrentCategory.id
     },
-    getCurrentCategoryId() {
-      return this.getCurrentCategory.id;
-    },
-    hasActiveFiltersOnPage() {
+    hasActiveFiltersOnPage () {
       if (!this.$route || !this.$route.query || _.isEmpty(this.$route.query)) {
-        return false;
+        return false
       }
       if (!config || !config.products.defaultFilters) {
-        return false;
+        return false
       }
-      let defaultFilters = config.products.defaultFilters;
+      let defaultFilters = config.products.defaultFilters
       for (let key in this.$route.query) {
-        if (
-          this.$route.query.hasOwnProperty(key) &&
-          defaultFilters.includes(key)
-        ) {
-          return true;
+        if (this.$route.query.hasOwnProperty(key) && defaultFilters.includes(key)) {
+          return true
         }
       }
     }
   },
-  async asyncData({ store, route }) {
+  async asyncData ({ store, route }) {
     // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
-    await composeInitialPageState(store, route);
+    await composeInitialPageState(store, route)
   },
-  async beforeRouteEnter(to, from, next) {
+  async beforeRouteEnter (to, from, next) {
     if (isServer) {
-      next();
+      next()
       // eslint-disable-next-line brace-style
     } // SSR no need to invoke SW caching here
     else if (!from.name) {
       // SSR but client side invocation, we need to cache products and invoke requests from asyncData for offline support
-      next(async vm => {
-        vm.loading = true;
-        await composeInitialPageState(vm.$store, to, true);
-        await vm.$store.dispatch('category-next/cacheProducts', { route: to }); // await here is because we must wait for the hydration
-        vm.loading = false;
-      });
+      next(async (vm) => {
+        vm.loading = true
+        await composeInitialPageState(vm.$store, to, true)
+        await vm.$store.dispatch('category-next/cacheProducts', { route: to }) // await here is because we must wait for the hydration
+        vm.loading = false
+      })
     } else {
       // Pure CSR, with no initial category state
-      next(async vm => {
-        vm.loading = true;
-        vm.$store.dispatch('category-next/cacheProducts', { route: to });
-        vm.loading = false;
-      });
+      next(async (vm) => {
+        vm.loading = true
+        vm.$store.dispatch('category-next/cacheProducts', { route: to })
+        vm.loading = false
+      })
     }
   },
   methods: {
-    isChildCategorySlug(slug) {
-      let slugModify = '';
-      if (slug) {
-        slugModify = slug.toLowerCase();
-        slugModify = slugModify.replace(/\s+/g, '-');
-        return slugModify;
-      }
-      return slugModify;
-    },
-    async onBottomScroll() {
-      if (this.loadingProducts) return;
-      this.loadingProducts = true;
-      if (
-        this.apiTotalsNums >=
-        this.pagination.pageSize * this.pagination.selectedPage
-      ) {
-        try {
-          await this.searchResultonBottomCall({
-            count: this.pagination.pageSize,
-            selectedPage: this.pagination.selectedPage,
-            filtersArray: this.appliedFilters,
-            sort: this.sortingStoreObj
-          });
-        } catch (e) {
-          console.log('Error is caught : ', e);
-        } finally {
-          this.loadingProducts = false;
-          this.pagination.selectedPage++;
-          localStorage.setItem(
-            'scrolledUptoPage',
-            this.pagination.selectedPage
-          );
-        }
-      }
-    },
-    pageposition() {
-      let Pageloc = localStorage.getItem('catscroll');
-      // console.log("hamza is in catpage", Pageloc)
-      let getScrollPosition =
-        this.$store.getters['url/getCurrentRoute'] &&
-        this.$store.getters['url/getCurrentRoute'].scrollPosition
-          ? this.$store.getters['url/getCurrentRoute'].scrollPosition.y
-          : 0;
-      // console.log("hamza is in catpage", getScrollPosition, localStorage.getItem('scrolledUptoPage'))
+    gototop () {
       setTimeout(() => {
-        window.scrollTo(0, getScrollPosition);
-      }, 1000);
+        localStorage.setItem("topLevelCategoryPosition", '')
+        window.scrollTo(0, 0)
+      }, 500)
     },
-    async searchResultonSort(obj) {
-      console.log('Chaneg Sort Fn');
-      let domain_prefix =
-        config && config.bloomreach && config.bloomreach.prefix
-          ? config.bloomreach.prefix
-          : 0;
-      let searchCategory_id = domain_prefix + this.getCurrentCategory.id;
-      const searchRes = await this.$store.dispatch(
-        'brautosuggest/brAutosuggestFunction',
-        {
-          searchWord: this.getCurrentCategory.id,
-          count: obj && obj.count ? obj.count : 12,
-          pageNumber: obj && obj.selectedPage ? obj.selectedPage : 0,
-          filtersArr: obj && obj.filtersArray ? obj.filtersArray : [],
-          sortObj: obj && obj.sort ? obj.sort : {},
-          searchQuery: 'category'
-        }
-      );
-      let brAutoSUggests = this.$store.state.brautosuggest;
-      let notActiveFiltersChecked = document.querySelectorAll('.not-active');
-      [].forEach.call(notActiveFiltersChecked, el => {
-        if (el && el.classList.contains('active-filter')) {
-          el.classList.remove('active-filter');
-        }
-      });
-      if (brAutoSUggests && brAutoSUggests.brAutosuggestState) {
-        let categoryRangeFacetsArray =
-          brAutoSUggests.brAutosuggestState.facet_counts &&
-          brAutoSUggests.brAutosuggestState.facet_counts.facet_fields
-            ? brAutoSUggests.brAutosuggestState.facet_counts.facet_fields
-            : [];
-        if (categoryRangeFacetsArray) {
-          for (let keyFacets in categoryRangeFacetsArray) {
-            if (!categoryRangeFacetsArray.hasOwnProperty(keyFacets)) continue;
-            if (
-              keyFacets !== 'Size' &&
-              keyFacets !== 'Thickness' &&
-              keyFacets !== 'category' &&
-              keyFacets !== 'crumbs_id'
-            ) {
-              let keyFacetsArray = categoryRangeFacetsArray[keyFacets];
-              keyFacetsArray = keyFacetsArray.sort((a, b) =>
-                a.name.localeCompare(b.name)
-              );
-            } else if (keyFacets === 'Size') {
-              let reference_sizes_array = ['S', 'M', 'L', 'XL', 'XXL'];
-              categoryRangeFacetsArray['Size'].sort((a, b) => {
-                return (
-                  reference_sizes_array.indexOf(a.name) -
-                  reference_sizes_array.indexOf(b.name)
-                );
-              });
-            } else if (keyFacets === 'Thickness') {
-              let reference_thickness_array = [
-                '2-4',
-                '4-6',
-                '6-8',
-                '8-10',
-                '10-12',
-                'other'
-              ];
-              categoryRangeFacetsArray['Thickness'].sort((a, b) => {
-                return (
-                  reference_thickness_array.indexOf(a.name) -
-                  reference_thickness_array.indexOf(b.name)
-                );
-              });
-            }
-          }
-        }
-        this.apiFacets = categoryRangeFacetsArray;
-        const apiTotalsNumsVar =
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.numFound
-            ? brAutoSUggests.brAutosuggestState.response.numFound
-            : 0;
-        this.apiTotalsNums = apiTotalsNumsVar;
-        if (
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.docs
-        ) {
-          this.apiProductsApi = brAutoSUggests.brAutosuggestState.response.docs;
-        } else {
-          this.apiProductsApi = [];
-        }
-        this.emptyResults =
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.docs &&
-          brAutoSUggests.brAutosuggestState.response.docs.length <= 0
-            ? true
-            : !true;
-        this.pagination.currentPageItems =
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.docs &&
-          brAutoSUggests.brAutosuggestState.response.docs.length > 0
-            ? brAutoSUggests.brAutosuggestState.response.docs
-            : [];
-      }
+    handleResize () {
+      this.windowWidth = window.innerWidth
     },
-    async searchResultonBottomCall(obj) {
-      let domain_prefix =
-        config && config.bloomreach && config.bloomreach.prefix
-          ? config.bloomreach.prefix
-          : 0;
-      let searchCategory_id = domain_prefix + this.getCurrentCategory.id;
-      const searchRes = await this.$store.dispatch(
-        'brautosuggest/brAutosuggestFunction',
-        {
-          searchWord: this.getCurrentCategory.id,
-          count: obj && obj.count ? obj.count : 12,
-          pageNumber: obj && obj.selectedPage ? obj.selectedPage : 0,
-          filtersArr: obj && obj.filtersArray ? obj.filtersArray : [],
-          sortObj: obj && obj.sort ? obj.sort : {},
-          searchQuery: 'category'
-        }
-      );
-      let brAutoSUggests = this.$store.state.brautosuggest;
-      let notActiveFiltersChecked = document.querySelectorAll('.not-active');
-      [].forEach.call(notActiveFiltersChecked, el => {
-        if (el && el.classList.contains('active-filter')) {
-          el.classList.remove('active-filter');
-        }
-      });
-      if (brAutoSUggests && brAutoSUggests.brAutosuggestState) {
-        let categoryRangeFacetsArray =
-          brAutoSUggests.brAutosuggestState.facet_counts &&
-          brAutoSUggests.brAutosuggestState.facet_counts.facet_fields
-            ? brAutoSUggests.brAutosuggestState.facet_counts.facet_fields
-            : [];
-        if (categoryRangeFacetsArray) {
-          for (let keyFacets in categoryRangeFacetsArray) {
-            if (!categoryRangeFacetsArray.hasOwnProperty(keyFacets)) continue;
-            if (
-              keyFacets !== 'Size' &&
-              keyFacets !== 'Thickness' &&
-              keyFacets !== 'category' &&
-              keyFacets !== 'crumbs_id'
-            ) {
-              let keyFacetsArray = categoryRangeFacetsArray[keyFacets];
-              keyFacetsArray = keyFacetsArray.sort((a, b) =>
-                a.name.localeCompare(b.name)
-              );
-            } else if (keyFacets === 'Size') {
-              let reference_sizes_array = ['S', 'M', 'L', 'XL', 'XXL'];
-              categoryRangeFacetsArray['Size'].sort((a, b) => {
-                return (
-                  reference_sizes_array.indexOf(a.name) -
-                  reference_sizes_array.indexOf(b.name)
-                );
-              });
-            } else if (keyFacets === 'Thickness') {
-              let reference_thickness_array = [
-                '2-4',
-                '4-6',
-                '6-8',
-                '8-10',
-                '10-12',
-                'other'
-              ];
-              categoryRangeFacetsArray['Thickness'].sort((a, b) => {
-                return (
-                  reference_thickness_array.indexOf(a.name) -
-                  reference_thickness_array.indexOf(b.name)
-                );
-              });
-            }
-          }
-        }
-        this.apiFacets = categoryRangeFacetsArray;
-        const apiTotalsNumsVar =
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.numFound
-            ? brAutoSUggests.brAutosuggestState.response.numFound
-            : 0;
-        this.apiTotalsNums = apiTotalsNumsVar;
-        if (
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.docs
-        ) {
-          this.apiProductsApi = this.apiProductsApi.concat(
-            brAutoSUggests.brAutosuggestState.response.docs
-          );
-        } else {
-          this.apiProductsApi = [];
-        }
-        this.emptyResults =
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.docs &&
-          brAutoSUggests.brAutosuggestState.response.docs.length <= 0
-            ? true
-            : !true;
-        this.pagination.currentPageItems =
-          brAutoSUggests.brAutosuggestState.response &&
-          brAutoSUggests.brAutosuggestState.response.docs &&
-          brAutoSUggests.brAutosuggestState.response.docs.length > 0
-            ? brAutoSUggests.brAutosuggestState.response.docs
-            : [];
-      }
-    },
-    async searchResultCall(obj) {
-      let domain_prefix =
-        config && config.bloomreach && config.bloomreach.prefix
-          ? config.bloomreach.prefix
-          : 0;
-      let searchCategory_id = domain_prefix + this.getCurrentCategory.id;
-      let brAutoSUggests =
-        this.$store.state && this.$store.state['category-next']
-          ? this.$store.state['category-next']
-          : {};
-      let notActiveFiltersChecked = document.querySelectorAll('.not-active');
-      [].forEach.call(notActiveFiltersChecked, el => {
-        if (el && el.classList.contains('active-filter')) {
-          el.classList.remove('active-filter');
-        }
-      });
-      if (brAutoSUggests && brAutoSUggests.listingRange) {
-        let categoryRangeFacetsArray =
-          brAutoSUggests.listingRange.facet_counts &&
-          brAutoSUggests.listingRange.facet_counts.facet_fields
-            ? brAutoSUggests.listingRange.facet_counts.facet_fields
-            : [];
-        if (categoryRangeFacetsArray) {
-          for (let keyFacets in categoryRangeFacetsArray) {
-            if (!categoryRangeFacetsArray.hasOwnProperty(keyFacets)) continue;
-            if (
-              keyFacets !== 'Size' &&
-              keyFacets !== 'Thickness' &&
-              keyFacets !== 'category' &&
-              keyFacets !== 'crumbs_id'
-            ) {
-              let keyFacetsArray = categoryRangeFacetsArray[keyFacets];
-              keyFacetsArray = keyFacetsArray.sort((a, b) =>
-                a.name.localeCompare(b.name)
-              );
-            } else if (keyFacets === 'Size') {
-              let reference_sizes_array = ['S', 'M', 'L', 'XL', 'XXL'];
-              categoryRangeFacetsArray['Size'].sort((a, b) => {
-                return (
-                  reference_sizes_array.indexOf(a.name) -
-                  reference_sizes_array.indexOf(b.name)
-                );
-              });
-            } else if (keyFacets === 'Thickness') {
-              let reference_thickness_array = [
-                '2-4',
-                '4-6',
-                '6-8',
-                '8-10',
-                '10-12',
-                'other'
-              ];
-              categoryRangeFacetsArray['Thickness'].sort((a, b) => {
-                return (
-                  reference_thickness_array.indexOf(a.name) -
-                  reference_thickness_array.indexOf(b.name)
-                );
-              });
-            }
-          }
-        }
-        this.apiFacets = categoryRangeFacetsArray;
-        const apiTotalsNumsVar =
-          brAutoSUggests.listingRange.response &&
-          brAutoSUggests.listingRange.response.numFound
-            ? brAutoSUggests.listingRange.response.numFound
-            : 0;
-        this.apiTotalsNums = apiTotalsNumsVar;
-        this.apiProductsApi =
-          brAutoSUggests.listingRange.response &&
-          brAutoSUggests.listingRange.response.docs
-            ? brAutoSUggests.listingRange.response.docs
-            : [];
-        this.emptyResults =
-          brAutoSUggests.listingRange.response &&
-          brAutoSUggests.listingRange.response.docs &&
-          brAutoSUggests.listingRange.response.docs.length <= 0
-            ? true
-            : !true;
-        this.pagination.currentPageItems =
-          brAutoSUggests.listingRange.response &&
-          brAutoSUggests.listingRange.response.docs &&
-          brAutoSUggests.listingRange.response.docs.length > 0
-            ? brAutoSUggests.listingRange.response.docs
-            : [];
-      }
-    },
-    async updateAppliedFilters(e) {
-      let selectedFilterElement = e.target;
-      let selectedFilterCode = findAncestor(
-        selectedFilterElement,
-        'div[data-filter]'
-      ).getAttribute('data-filter');
-      let selectedFilter = selectedFilterElement.getAttribute('codeSingle');
-      let selectedFilterStatus = selectedFilterElement.classList.toggle(
-        'active-filter'
-      );
-      // let selectedFilterCodeIndex = this.selectedFiltersValues[selectedFilterCode].indexOf(selectedFilter)
-      // Selected Filter if unchecked, Remove it from the Applied Filters
-      this.pagination.selectedPage = 1;
-      this.loadingProducts = false;
-      if (!selectedFilterStatus) {
-        let selectedFilterCode = findAncestor(
-          selectedFilterElement,
-          'div[data-filter]'
-        ).getAttribute('data-filter');
-        let selectedFilter = selectedFilterElement.getAttribute('codeSingle');
-
-        let selectedFilterIndex = this.appliedFilters[
-          selectedFilterCode
-        ].filters.indexOf(selectedFilter);
-        let selectedFilterIndexMy = this.selectedFiltersValues[
-          selectedFilterCode
-        ]?.indexOf(selectedFilter);
-        if (
-          this.selectedFiltersValues[selectedFilterCode] &&
-          selectedFilterIndexMy > -1
-        ) {
-          let splicedResponse = this.appliedFilters[
-            selectedFilterCode
-          ].filters.splice(selectedFilterIndex, 1);
-          let splicedResponseParams = this.selectedFiltersValues[
-            selectedFilterCode
-          ]?.splice(selectedFilterIndexMy, 1);
-          let filteredSelectedFiltersValues = Object.keys(
-            this.selectedFiltersValues
-          );
-          await this.updatePathParams(
-            this.$router,
-            {
-              [selectedFilterCode]: this.selectedFiltersValues[
-                selectedFilterCode
-              ].join(',')
-            },
-            selectedFilterCode
-          );
-          this.resetFilterTextShowFn();
-          return splicedResponseParams.length > 0;
-        }
-        return false;
-      }
-      if (!this.selectedFiltersValues[selectedFilterCode]) {
-        this.selectedFiltersValues[selectedFilterCode] = [selectedFilter];
-      }
-      if (
-        !this.selectedFiltersValues[selectedFilterCode].includes(selectedFilter)
-      ) {
-        this.selectedFiltersValues[selectedFilterCode].push(selectedFilter);
-      }
-
-      console.log(
-        'The updatepathparams is sending the following information',
-        this.$router,
-        {
-          [selectedFilterCode]: this.selectedFiltersValues[
-            selectedFilterCode
-          ].join(',')
-        },
-        selectedFilterCode,
-        this.$refs.sortRef.value
-      );
-      await this.updatePathParams(
-        this.$router,
-        {
-          [selectedFilterCode]: this.selectedFiltersValues[
-            selectedFilterCode
-          ].join(',')
-        },
-        selectedFilterCode
-      );
-      let activeFilters = document.querySelectorAll('.active-filter');
-      activeFilters.forEach(activeFilter => {
-        let filterAncestor = findAncestor(activeFilter, 'div[data-filter]');
-        let filterCode = filterAncestor.getAttribute('data-filter');
-        let filterKey = filterAncestor.getAttribute('data-filter-key');
-        let filter = activeFilter.getAttribute('codeSingle');
-        if (!this.appliedFilters[filterCode]) {
-          this.appliedFilters[filterCode] = {
-            filters: [],
-            key: filterKey
-          };
-        }
-        if (!this.appliedFilters[filterCode].filters.includes(filter)) {
-          this.appliedFilters[filterCode].filters.push(filter);
-        }
-      });
-      let search = this.$route.query.q;
-      this.resetFilterTextShowFn();
-    },
-    resetFilterTextShowFn() {
-      let activeFiltersTotal = [];
-      let keyOffappliedFilters = Object.keys(this.appliedFilters);
-      if (window.innerWidth <= 767) {
-        activeFiltersTotal =
-          document.getElementsByClassName('mobile-filters') &&
-          document.getElementsByClassName('mobile-filters').length > 0
-            ? document
-                .getElementsByClassName('mobile-filters')[0]
-                .querySelectorAll('.active-filter')
-            : [];
-        if (activeFiltersTotal.length > 0) {
-          if (
-            document.getElementsByClassName('clearAllClass') &&
-            document.getElementsByClassName('clearAllClass').length > 0
-          ) {
-            document.getElementsByClassName('clearAllClass')[0].style.display =
-              'block';
-            document.getElementsByClassName('clearAllClass')[1].style.display =
-              'block';
-            document.getElementsByClassName(
-              'side-filter-reset-btn'
-            )[0].style.display = 'block';
-          }
-        } else {
-          if (
-            document.getElementsByClassName('clearAllClass') &&
-            document.getElementsByClassName('clearAllClass').length > 0
-          ) {
-            document.getElementsByClassName('clearAllClass')[0].style.display =
-              'none';
-            document.getElementsByClassName('clearAllClass')[1].style.display =
-              'none';
-            document.getElementsByClassName(
-              'side-filter-reset-btn'
-            )[0].style.display = 'none';
-          }
-        }
-      } else {
-        activeFiltersTotal =
-          document.getElementsByClassName('category-filters') &&
-          document.getElementsByClassName('category-filters').length > 0
-            ? document
-                .getElementsByClassName('category-filters')[0]
-                .querySelectorAll('.active-filter')
-            : [];
-        // console.log('clearAllClass', activeFiltersTotal)
-        if (activeFiltersTotal.length > 0) {
-          if (
-            document.getElementsByClassName('clearAllClass') &&
-            document.getElementsByClassName('clearAllClass').length > 0
-          ) {
-            document.getElementsByClassName('clearAllClass')[0].style.display =
-              'block';
-            document.getElementsByClassName('clearAllClass')[1].style.display =
-              'block';
-            document.getElementsByClassName(
-              'side-filter-reset-btn'
-            )[0].style.display = 'block';
-          }
-        } else {
-          // console.log('clearAllClassclearAllClass')
-          if (
-            document.getElementsByClassName('clearAllClass') &&
-            document.getElementsByClassName('clearAllClass').length > 0
-          ) {
-            document.getElementsByClassName('clearAllClass')[0].style.display =
-              'none';
-            document.getElementsByClassName('clearAllClass')[1].style.display =
-              'none';
-            document.getElementsByClassName(
-              'side-filter-reset-btn'
-            )[0].style.display = 'none';
-          }
-        }
-      }
-    },
-    filterRef(event) {
-      event.target.classList.toggle('toggleIcon');
-      this.renderSlider++;
-      if (event.target.nextElementSibling) {
-        event.target.nextElementSibling.classList.toggle('filter-open');
-      }
-    },
-    async BRCategoryRanges() {
-      // console.log('BRCategoryRanges Call Inits', this.getCurrentCategory.id, this.getCurrentCategoryBrResponseGetters)
-      if (this.getCurrentCategory && this.getCurrentCategory.id) {
-        this.apiFacets = this.getCurrentCategoryBrProductsFiltersResponseGetters;
-        this.apiTotalsNums = this.getCurrentCategoryBrProductsTotalResponseGetters;
-        this.apiProductsApi = this.getCurrentCategoryBrProductsResponseGetters;
-        this.emptyResults =
-          this.getCurrentCategoryBrProductsResponseGetters.length <= 0
-            ? true
-            : !true;
-        let filteredFacetINtersectionArray = [];
-        filteredFacetINtersectionArray = Object.keys(
-          this.$route.query
-        ).filter(value => facetsFieldsArray.includes(value));
-        if (
-          this.getCurrentCategoryBrResponseGetters &&
-          this.getCurrentCategoryBrResponseGetters.length > 0 &&
-          filteredFacetINtersectionArray.length === 0
-        ) {
-          this.apiRangesApi = this.getCurrentCategoryBrResponseGetters;
-          this.listingPage = false;
-        } else {
-          this.listingPage = true;
-        }
-        // console.log('BRCategoryRanges Call Inist', this.getCurrentCategory.id)
-        // const categoryResponse = await this.$store.dispatch(
-        //   'brautosuggest/brAutosuggestCategoryFunction',
-        //   {
-        //     categoryId: this.getCurrentCategory.id
-        //   }
-        // );
-        // let brRangesSUggests = this.$store.state.brautosuggest
-        // console.log('brRangesSUggests', brRangesSUggests)
-        // if (brRangesSUggests && brRangesSUggests.brRangesState && brRangesSUggests.brRangesState.response && brRangesSUggests.brRangesState.response.docs.length > 1) {
-        //   // this.apiRangesApi = brRangesSUggests.brRangesState.response && brRangesSUggests.brRangesState.response.docs ? brRangesSUggests.brRangesState.response.docs : []
-        //   this.listingPage = false
-        // } else {
-        //   this.listingPage = true
-        // }
-        // this.searchResultCall({ count: this.pagination.pageSize, selectedPage: this.pagination.selectedPage, filtersArray: this.appliedFilters, sort: this.sortingStoreObj });
-      }
-    },
-    gototop() {
-      setTimeout(() => {
-        localStorage.setItem('topLevelCategoryPosition', '');
-        // window.scrollTo(0, 0)
-      }, 500);
-    },
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-    },
-    async addBloom() {
-      let cat_name = '';
-      let crubms = this.getBreadcrumbsRoutes.map(crumb => {
-        return crumb.name;
-      });
+    async addBloom () {
+      let cat_name = ''
+      let crubms = this.getBreadcrumbsRoutes.map((crumb) => {
+        return crumb.name
+      })
       for (let x of crubms) {
-        cat_name += x + '|';
+        cat_name += x + '|'
       }
-      cat_name = cat_name + this.getBreadcrumbsCurrent;
+      cat_name = cat_name + this.getBreadcrumbsCurrent
 
       if (config && config.bloomreach) {
-        let categoryName = this.getCurrentCategory.path;
-        categoryName = categoryName ? categoryName.replace(/[/]/g, '|') : '';
-        let res = categoryName.split('|');
-        var br_data = br_data || {};
-        br_data.acct_id = config.bloomreach.accountID;
-        br_data.ptype = 'category';
-        br_data.view_id = config.bloomreach.viewId;
-        br_data.test_data = config.bloomreach.testData;
-        br_data.title =
-          this.getCurrentCategory.meta_title || this.getCurrentCategory.name;
-        br_data.domain_key = config.bloomreach.domainKey;
-        br_data.cat_id = this.getCurrentCategory.id;
-        br_data.cat = cat_name;
+        let categoryName = this.getCurrentCategory.path
+        categoryName = categoryName.replace(/[/]/g, '|')
+        let res = categoryName.split('|')
+        var br_data = br_data || {}
+        br_data.acct_id = config.bloomreach.accountID
+        br_data.ptype = 'category'
+        br_data.view_id = config.bloomreach.viewId
+        br_data.test_data = config.bloomreach.testData
+        br_data.title = this.getCurrentCategory.meta_title || this.getCurrentCategory.name
+        br_data.domain_key = config.bloomreach.domainKey
+        br_data.cat_id = this.getCurrentCategory.id
+        br_data.cat = cat_name
         if (typeof BrTrk === 'undefined') {
-          var brtrk = document.createElement('script');
-          brtrk.type = 'text/javascript';
-          brtrk.async = true;
-          brtrk.src = `//cdn.brcdn.com/v1/br-trk-${config.bloomreach.accountID}.js`;
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(brtrk, s);
+          var brtrk = document.createElement('script')
+          brtrk.type = 'text/javascript'
+          brtrk.async = true
+          brtrk.src = `//cdn.brcdn.com/v1/br-trk-${config.bloomreach.accountID}.js`
+          var s = document.getElementsByTagName('script')[0]
+          s.parentNode.insertBefore(brtrk, s)
         } else {
-          BrTrk.getTracker().updateBrData(br_data);
-          BrTrk.getTracker().logPageView();
+          BrTrk.getTracker().updateBrData(br_data)
+          BrTrk.getTracker().logPageView()
         }
       }
     },
-    async getCatproduct(sku) {
-      this.product_link = '';
+    async getCatproduct (sku) {
+      this.product_link = ''
       if (sku) {
-        let prodlink = await this.getProduct(sku);
+        let prodlink = await this.getProduct(sku)
         if (prodlink) {
-          this.product_link = prodlink.url_path;
+          this.product_link = prodlink.url_path
         }
       }
     },
-    showbottompage() {
-      this.bottompagination = true;
+    showbottompage () {
+      this.bottompagination = true
     },
-    async getCrumbs() {
-      return this.getBreadcrumbsRoutes;
+    async getCrumbs () {
+      return await this.getBreadcrumbsRoutes
     },
-    async getProduct(psku) {
+    async getProduct (psku) {
       return this.$store.dispatch('product/single', {
         options: { sku: psku },
         setCurrentProduct: false,
         setCurrentCategoryPath: false,
         selectDefaultVariant: false
-      });
+      })
     },
-    async fetchCategoriesAndSubCategories() {
+    async fetchCategoriesAndSubCategories () {
       try {
         return await CategoryService.getCategories({
           parentId: this.getCurrentCategoryId,
           includeFields: this.getIncludeFieldsForRequest,
           excludeFields: this.getExcludeFieldsForRequest
-        });
+        })
       } catch (error) {
-        console.log('GotIntoAnError', error);
+        console.log('GotIntoAnError', error)
       }
     },
-    categoryTileTypeUnitCheck(category) {
-      let categoryUnit = '';
+    // async bannerUrlLink () {
+    //   this.bannerUrl = await this.getCurrentCategory.cat_banner
+    //   if (!this.bannerUrl || this.bannerUrl === 'null') {
+    //     this.bannerUrl = config.server.baseUrl + 'assets/category-images/header.png'
+    //     return this.bannerUrl
+    //   }
+    //   this.bannerUrl = getThumbnailPath(`/${this.bannerUrl}`, 1280, 298, 'category')
+    //   return this.bannerUrl
+    // },
+    categoryTileTypeUnitCheck (category) {
+      let categoryUnit = ''
       if (category.category_price_type) {
-        categoryUnit =
-          category.category_price_type.length > 0 &&
-          Array.isArray(category.category_price_type)
-            ? category.category_price_type[0]
-            : category.category_price_type;
-        // if (this.categoryTileType[category.category_price_type] === 'sqm') {
-        //   categoryUnit = 'm<sup>2</sup>'
-        // } else if (this.categoryTileType[category.category_price_type]) {
-        //   categoryUnit = this.categoryTileType[category.category_price_type]
-        // } else {
-        //   categoryUnit = 'm<sup>2</sup>'
-        // }
+        if (this.categoryTileType[category.category_price_type] === 'sqm') {
+          categoryUnit = 'm<sup>2</sup>'
+        } else if (this.categoryTileType[category.category_price_type]) {
+          categoryUnit = this.categoryTileType[category.category_price_type]
+        } else {
+          categoryUnit = 'm<sup>2</sup>'
+        }
       } else {
-        categoryUnit = 'm<sup>2</sup>';
+        categoryUnit = 'm<sup>2</sup>'
       }
-      return categoryUnit;
+      return categoryUnit
     },
-    overlayshow() {
-      this.isOverlayShowing = true;
-      let scrollOff = document.getElementsByTagName('body')[0];
+    overlayshow () {
+      this.isOverlayShowing = true
+      let scrollOff = document.getElementsByTagName('body')[0]
       if (this.isOverlayShowing === true) {
-        scrollOff.style.overflow = 'hidden';
-        scrollOff.style.position = 'fixed';
+        scrollOff.style.overflow = 'hidden'
+        scrollOff.style.position = 'fixed'
       } else {
-        scrollOff.style.overflow = 'scroll';
+        scrollOff.style.overflow = 'scroll'
       }
     },
-    resetAllFilters() {
-      this.appliedFilters = [];
-      this.selectedFiltersValues = {};
-      event.toElement.style.display = 'none';
-      document.getElementsByClassName('clearAllClass')[0].style.display =
-        'none';
-      document.getElementsByClassName('clearAllClass')[1].style.display =
-        'none';
-      document.getElementsByClassName(
-        'side-filter-reset-btn'
-      )[0].style.display = 'none';
-      this.$router.push('/' + this.getCurrentCategory.url_path);
+    resetAllFilters () {
+      this.$store.dispatch('category-next/resetSearchFilters')
     },
-    clearSorting() {
-      this.sorted = false;
+    clearSorting () {
+      this.sorted = false
     },
-    myEventHandler(e) {
-      let scrollOff = document.getElementsByTagName('body')[0];
-      scrollOff.style.overflow = 'scroll';
-      scrollOff.style.position = 'unset';
-      this.closeButtonShowing = false;
-      this.mobileFilters = false;
-      this.isOverlayShowing = false;
+    myEventHandler (e) {
+      let scrollOff = document.getElementsByTagName('body')[0]
+      scrollOff.style.overflow = 'scroll'
+      scrollOff.style.position = 'unset'
+      this.closeButtonShowing = false
+      this.mobileFilters = false
+      this.isOverlayShowing = false
     },
-    overlayclose() {
-      this.isOverlayShowing = false;
-      let scrollOff = document.getElementsByTagName('body')[0];
-      scrollOff.style.overflow = 'scroll';
-      scrollOff.style.position = 'unset';
+    overlayclose () {
+      this.isOverlayShowing = false
+      let scrollOff = document.getElementsByTagName('body')[0]
+      scrollOff.style.overflow = 'scroll'
+      scrollOff.style.position = 'unset'
     },
-    buttonshow() {
-      this.closeButtonShowing = true;
+    buttonshow () {
+      this.closeButtonShowing = true
     },
-    buttonclose() {
-      this.closeButtonShowing = false;
-      let scrollOff = document.getElementsByTagName('body')[0];
-      scrollOff.style.overflow = 'scroll';
-      scrollOff.style.position = 'unset';
+    buttonclose () {
+      this.closeButtonShowing = false
+      let scrollOff = document.getElementsByTagName('body')[0]
+      scrollOff.style.overflow = 'scroll'
+      scrollOff.style.position = 'unset'
     },
-    openFilters() {
-      this.mobileFilters = true;
-      this.closeButtonShowing = true;
+    openFilters () {
+      this.mobileFilters = true
+      this.closeButtonShowing = true
     },
-    closeFilters() {
-      this.mobileFilters = false;
-      this.isOverlayShowing = false;
-      let scrollOff = document.getElementsByTagName('body')[0];
-      scrollOff.style.overflow = 'scroll';
+    closeFilters () {
+      this.mobileFilters = false
+      this.isOverlayShowing = false
+      let scrollOff = document.getElementsByTagName('body')[0]
+      scrollOff.style.overflow = 'scroll'
     },
-    async changeFilter(filterVariant) {
+    async changeFilter (filterVariant) {
       if (filterVariant && filterVariant.type && this.sorted === false) {
-        this.sorted = true;
+        this.sorted = true
       }
 
       this.$store.dispatch('category-next/switchSearchFilters', [
         filterVariant
-      ]);
+      ])
     },
-    async changeFilterSort(filterVariant) {
-      console.log('The following filterVariant', filterVariant);
-      this.pagination.selectedPage = 1;
-      this.loadingProducts = false;
-      this.sortingStoreObj = filterVariant;
-      this.searchResultonSort({
-        count: this.pagination.pageSize,
-        selectedPage: 0,
-        filtersArray: this.appliedFilters,
-        sort: filterVariant
-      });
+    async changeFilterSort (filterVariant) {
+      if (filterVariant && filterVariant.type && this.sorted === false) {
+        this.sorted = true
+      }
+      this.$store.dispatch('category-next/switchSearchFilters', [
+        filterVariant
+      ])
+      setTimeout(() => {
+        this.getProducts()
+      }, 500)
     },
-    async pageChanged({ pageOfItems, startIndex, endIndex, selectedPage }) {
-      this.pagination.startIndex = startIndex;
-      this.pagination.selectedPage = selectedPage;
-      await this.getProducts();
+    async columnChange (column) {
+      this.pagination.pageSize = column
+      await this.getProducts()
+    },
+    async pageChanged ({ pageOfItems, startIndex, endIndex, selectedPage }) {
+      this.pagination.startIndex = startIndex
+      this.pagination.selectedPage = selectedPage
+      await this.getProducts()
       if (this.pagination.selectedPage !== 1) {
-        // this.updatePathParams(this.$router, { page: this.pagination.selectedPage
+        this.updatePathParams(this.$router, { page: this.pagination.selectedPage })
       }
     },
-    async getProducts() {
+    async getProducts () {
       await this.$store.dispatch('category-next/loadCategoryProducts', {
         route: this.$route,
         category: this.getCurrentCategory,
         pageSize: this.pagination.pageSize,
         startIndex: this.pagination.startIndex
-      });
-      this.pagination.currentPageItems = this.getCategoryProducts;
+      })
+      this.pagination.currentPageItems = this.getCategoryProducts
     },
-    updatePathParams($router, newParams, selectedFilterCode) {
+    updatePathParams ($router, newParams) {
       if (newParams.page && newParams.page === 1) {
-        return false;
+        return false
       }
-      const currentQueryParams = $router.currentRoute.query;
-      let mergeQueryParams = { ...currentQueryParams, ...newParams };
-      if (newParams[selectedFilterCode] === '') {
-        delete mergeQueryParams[selectedFilterCode];
-      }
-      this.$router.push({
-        path: $router.currentRoute.path,
-        query: mergeQueryParams
-      });
-      // let queryD = { Type: ['Modular', 'Flor'], Colour: ['black', 'red'] }
-      // let query = 'query'
-      // this.$router.push({ [query]: queryD })
+      // Retrieve current params
+      const currentQueryParams = $router.currentRoute.query
+      // When router is not supplied path or name,
+      // it simply tries to update current route with new params or query
+      // Almost everything is optional.
+      this.$router.push({ path: $router.currentRoute.path, query: { ...currentQueryParams, ...newParams } })
     }
   },
-  metaInfo() {
-    const storeView = currentStoreView();
+  metaInfo () {
+    const storeView = currentStoreView()
     const {
       meta_title,
       meta_description,
@@ -2112,39 +936,29 @@ export default {
       cat_banner_desp,
       name,
       slug
-    } = this.getCurrentCategory;
-    // console.log('category', this.getCurrentCategory);
-    let metaDescriptionCat = this.getCurrentCategory.cat_banner_desp
-      ? this.getCurrentCategory.cat_banner_desp.replace(/<\/?[^>]+(>|$)/g, '')
-      : '';
-    let metaLengthCat = 233;
+    } = this.getCurrentCategory
+    console.log('getCurrentCategory Meta', this.getCurrentCategory)
+    let metaDescriptionCat = this.getCurrentCategory.cat_banner_desp ? this.getCurrentCategory.cat_banner_desp.replace(/<\/?[^>]+(>|$)/g, '') : ''
+    let metaLengthCat = 233
     if (metaDescriptionCat) {
-      metaDescriptionCat =
-        metaDescriptionCat.length > metaLengthCat
-          ? metaDescriptionCat.substring(0, metaLengthCat - 3) + '...'
-          : metaDescriptionCat;
+      metaDescriptionCat = metaDescriptionCat.length > metaLengthCat ? metaDescriptionCat.substring(0, metaLengthCat - 3) + '...' : metaDescriptionCat
     }
 
-    const meta_descriptionHtml = htmlDecode(meta_description);
-    const meta_descriptionHtmlAfter = meta_descriptionHtml.replace(
-      /<\/?[^>]+(>|$)/g,
-      ''
-    );
+    const meta_descriptionHtml = htmlDecode(meta_description)
+    const meta_descriptionHtmlAfter = meta_descriptionHtml.replace(/<\/?[^>]+(>|$)/g, '')
     const categoryLocaliedLink = localizedRoute(
       {
         name: 'category-amp',
         params: { slug }
       },
       storeView.storeCode
-    );
-    const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href;
-    const canonicalCategoryLink = this.getCurrentCategory.canonical_url
-      ? this.getCurrentCategory.canonical_url
-      : '/' + this.getCurrentCategory.url_path;
+    )
+    const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href
+    const canonicalCategoryLink = this.getCurrentCategory.canonical_url ? this.getCurrentCategory.canonical_url : '/' + this.getCurrentCategory.url_path
     let metaData = [
       {
         property: 'og:url',
-        content: canonicalCategoryLink
+        content: (config.ogtagsBaseUrl ? config.ogtagsBaseUrl : '') + canonicalCategoryLink
       },
       {
         property: 'og:title',
@@ -2156,29 +970,25 @@ export default {
       },
       {
         property: 'og:description',
-        content: meta_description
-          ? meta_descriptionHtmlAfter
-          : metaDescriptionCat
+        content: meta_description ? meta_descriptionHtmlAfter : ''
       },
       {
         property: 'og:image',
-        content: this.getCurrentCategory.cat_banner
-          ? `${this.baseUrlImage}img/1280/298/resize/catalog/category/${this.getCurrentCategory.cat_banner}`
-          : `/assets/category-images/header.png`
+        content: config.images.baseUrl + '1200/630/resize/catalog/category/' + (this.getCurrentCategory.google_feed_img ? this.getCurrentCategory.google_feed_img : this.getCurrentCategory.image)
       }
-    ];
+    ]
     if (meta_description) {
       metaData.push({
         vmid: 'description',
         name: 'description',
         content: meta_descriptionHtmlAfter
-      });
+      })
     } else {
       metaData.push({
         vmid: 'description',
         name: 'description',
         content: metaDescriptionCat
-      });
+      })
     }
     // const meta = meta_description
     //   ? [
@@ -2190,20 +1000,21 @@ export default {
     //   ]
     //   : []
 
+
     return {
       link: [{ rel: 'canonical', href: canonicalCategoryLink }],
       title: htmlDecode(meta_title || name),
       titleTemplate: '%s',
       meta: metaData
-    };
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @font-face {
-  font-family: "Oblik";
-  src: url("/assets/fonts/Oblik_Bold.otf");
+  font-family: 'Oblik';
+  src: url('/assets/fonts/Oblik_Bold.otf');
 }
 
 @media screen and (min-width: 1901px) {
@@ -2212,35 +1023,30 @@ export default {
     position: relative;
   }
 }
-
 @media screen and (min-width: 1501px) and (max-width: 1900px) {
   div#category {
     padding-top: 18%;
     position: relative;
   }
 }
-
 @media screen and (min-width: 1301px) and (max-width: 1500px) {
   div#category {
     padding-top: 20.8%;
     position: relative;
   }
 }
-
 @media screen and (min-width: 1200px) and (max-width: 1300px) {
   div#category {
     padding-top: 23%;
     position: relative;
   }
 }
-
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   div#category {
     padding-top: 21.4%;
     position: relative;
   }
 }
-
 $border-color: #3d315b;
 $background-color: #266dd3;
 $list-background-color: #444b6e;
@@ -2254,13 +1060,11 @@ $border-radius: 5px;
     display: none;
   }
 }
-
-.sidebar__header__clear1 {
+.sidebar__header__clear {
   line-height: 37px;
   color: #c7c7c7;
-  font-size: 0.8em;
-  min-width: 102px;
   text-decoration: underline;
+  font-size: 9px;
   @media screen and (max-width: 767px) {
     line-height: 50px;
   }
@@ -2268,77 +1072,66 @@ $border-radius: 5px;
     padding: 0px 0px 0px 12px;
   }
 }
-
 @media screen and (min-width: 768px) {
   .breadcrumbrow {
     padding-top: 22px;
     padding-right: 10px;
   }
 }
-
 .btn {
   &__filter {
     min-width: 100px;
   }
 }
-
 .divider {
   width: calc(100vw - 8px);
   bottom: 20px;
   left: -36px;
 }
-
 .category-filters {
   width: 242px;
 }
-
 .mobile-filters {
   display: none;
   overflow: auto;
 }
-
 .mobile-filters-button {
-  display: block;
+  display: none;
 }
-
 .mobile-sorting {
   display: none;
 }
-
+.breadcrumb {
+  padding: 21px 0;
+}
 .sorting {
   label {
     margin-right: 10px;
   }
 }
-
 .bottom-pagination {
   display: flex;
   justify-content: flex-end;
   // border-top: 1px solid #b2b2b1;
 }
-
 .bordertop {
   border-top: 1px solid #b2b2b1;
 }
-
 .bottom-pagination .pages {
   margin-top: 10px;
   margin-right: 20px;
 }
-
 @media (min-width: 767px) and (max-width: 1200px) {
   .main-pagination {
     display: none;
   }
 }
-
 @media (min-width: 1200px) {
   .main-pagination {
-    display: none;
+    display: block;
     max-width: 45.666667%;
   }
 }
-
 @media (max-width: 767px) {
   .bottom-pagination {
     margin-right: 20px;
@@ -2348,18 +1141,15 @@ $border-radius: 5px;
     margin-right: 0;
   }
 }
-
 @media (max-width: 767px) {
   .mobileheader {
     .container {
       padding-right: 0px;
       padding-left: 0px;
     }
-
     .mr15filters1 {
       margin-right: 19px;
     }
-
     .mobile-filters-button1 {
       height: 45px;
       display: -ms-flexbox;
@@ -2368,22 +1158,19 @@ $border-radius: 5px;
       margin-top: 3px;
       background-color: #fff;
     }
-
     .mobile-filters-button1 img {
       margin-top: 4px;
       margin-left: 11px;
       width: 25px;
       height: 25px;
     }
-
     .mobile-filters-button1 p {
       margin: 8px 0px 0px 8px;
       color: #29275b;
       font-weight: bold;
       font-size: 3.733vw;
-      font-family: "Arial";
+      font-family: 'Arial';
     }
-
     .mobile-sorting1 p {
       font-family: Arial;
       font-weight: bold;
@@ -2408,15 +1195,12 @@ $border-radius: 5px;
   header {
     padding: 0px;
     background-color: #fff;
-
     .breadcrumb {
       display: none;
     }
-
     .mobile-image {
       max-width: 100%;
     }
-
     .mobile-sorting p {
       font-family: Arial, Helvetica, sans-serif;
       font-weight: bold;
@@ -2427,21 +1211,14 @@ $border-radius: 5px;
       @media screen and (max-width: 767px) {
         font-size: 12px;
       }
-      @media screen and (max-width: 380px) {
-        margin-left: 3px;
-      }
     }
   }
   .under-catergory-filter {
     border-bottom: 2px solid #ebebeb;
     height: 48px;
-
     .row {
       margin-top: 0px;
       padding-left: 10px;
-      @media (max-width: 380px) {
-        padding-left: 0;
-      }
     }
   }
   .products-upper {
@@ -2452,13 +1229,12 @@ $border-radius: 5px;
     position: relative;
     border-bottom: 2px solid #ebebeb;
     height: 42px;
-
     .category-title {
       font-size: 4.5vw;
       line-height: 40px;
       text-align: center;
       width: 100%;
-      font-family: "Oblik";
+      font-family: 'Oblik';
       color: #2a2857;
       margin-top: 0px;
     }
@@ -2475,7 +1251,6 @@ $border-radius: 5px;
     height: 53px;
     background-color: #29275b;
     z-index: 10;
-
     .close-container {
       height: 52px;
       width: 100%;
@@ -2487,7 +1262,6 @@ $border-radius: 5px;
       justify-content: center;
       background-color: #29275b;
     }
-
     i {
       color: #fff;
       font-weight: bold;
@@ -2499,11 +1273,10 @@ $border-radius: 5px;
   }
   .mobile-filters-button {
     height: 45px;
-    display: flex !important;
+    display: flex;
     padding: 6px 0px;
     margin-top: 3px;
     background-color: #fff;
-
     img {
       margin-top: 0px;
       margin-left: 27px;
@@ -2513,13 +1286,12 @@ $border-radius: 5px;
         margin-left: 6px !important;
       }
     }
-
     p {
       margin: 8px 0px 0px 8px;
       color: #434343;
       font-weight: bold;
       font-size: 14px;
-      font-family: "Arial";
+      font-family: 'Arial';
       @media screen and (max-width: 625px) {
         margin: 8px 0px 0px 3px !important;
       }
@@ -2528,6 +1300,15 @@ $border-radius: 5px;
   .sorting {
     display: none;
   }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    .mobile-filters {
+      top: 58px !important;
+    }
+    .close-button {
+      top: 58px !important;
+      height: 54px !important;
+    }
+  }
   @media screen and (max-width: 767px) {
     .sorting1 {
       display: block;
@@ -2535,19 +1316,6 @@ $border-radius: 5px;
     }
     .dropd1 {
       line-height: 47px;
-    }
-    .filtericon1 {
-      width: 35px;
-      height: 35px;
-      margin-top: -2px;
-    }
-    .filterp1 {
-      display: block;
-      margin-top: 7px;
-      padding-left: 8px;
-      font-size: 17px;
-      color: #2a285a;
-      font-family: "Arial";
     }
   }
   .mobile-sorting {
@@ -2579,11 +1347,9 @@ $border-radius: 5px;
     z-index: 100;
     width: 100%;
     background-color: #fff;
-
     .sticky-inner {
       padding-bottom: 5px;
     }
-
     button {
       left: 15%;
       top: -4px;
@@ -2603,29 +1369,16 @@ $border-radius: 5px;
     padding: 0;
   }
 }
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .mobile-filters {
-    top: 58px !important;
-  }
-  .close-button {
-    top: 58px !important;
-    height: 54px !important;
-  }
-}
-
 @media (min-width: 768px) {
   .mobile-image {
     display: none;
   }
 }
-
 .filtericon {
   width: 35px;
   height: 35px;
   margin-top: -2px;
 }
-
 .filterp {
   margin: 7px 0px 0px 0px;
   padding-left: 8px;
@@ -2640,20 +1393,16 @@ $border-radius: 5px;
     font-size: 13px;
   }
 }
-
 .side-filter {
   display: inline-flex;
 }
-
 .product-image {
   max-height: unset !important;
 }
-
 .maindiv {
   display: inline-flex;
   width: 100%;
 }
-
 .firstcol {
   position: absolute;
   top: 6px;
@@ -2665,50 +1414,42 @@ $border-radius: 5px;
   z-index: 1;
   width: 378px;
 }
-
 @media screen and (max-width: 1700px) {
   .firstcol {
     overflow-y: auto;
   }
 }
-
 .firstcol::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
   border-radius: 5px;
 }
-
 .firstcol::-webkit-scrollbar {
   width: 5px;
   background-color: #f5f5f5;
   border-radius: 5px;
 }
-
 .firstcol::-webkit-scrollbar-thumb {
   background-color: #676566;
   border-radius: 5px;
 }
-
 .firstcol p {
   color: #2a285a;
   font-size: 14px;
-  font-family: "Arial";
+  font-family: 'Arial';
   line-height: 19px;
   margin: 8px 0 9px 0;
 }
-
 .firstcol h1 {
   color: #2a285a;
-  font-family: "Oblik";
+  font-family: 'Oblik';
   color: #2a285a;
   font-size: 32px;
   margin: 5px 0 0 0;
 }
-
 .secondcol.img-box {
   margin-top: 5px;
 }
-
 .category-description {
   color: #fff;
   position: absolute;
@@ -2716,11 +1457,9 @@ $border-radius: 5px;
   width: 20%;
   padding-left: 35px;
 }
-
 .headerimg {
   width: 100%;
 }
-
 @media screen and (max-width: 767px) {
   .headerimg {
     display: none;
@@ -2734,19 +1473,16 @@ $border-radius: 5px;
     font-family: Arial;
   }
 }
-
 @media screen and (max-width: 413px) and (min-width: 375px) {
   .clearallp {
     padding: 0 0 0px 8px !important;
   }
 }
-
 @media screen and (max-width: 767px) {
   .category-filters {
     display: none;
   }
 }
-
 @media screen and (min-width: 993px) and (max-width: 1199px) {
   .firstcol {
     h1 {
@@ -2754,7 +1490,6 @@ $border-radius: 5px;
     }
   }
 }
-
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .firstcol {
     h1 {
@@ -2762,7 +1497,6 @@ $border-radius: 5px;
     }
   }
 }
-
 @media screen and (min-width: 768px) {
   .mobileheader {
     display: none;
@@ -2780,7 +1514,6 @@ $border-radius: 5px;
     display: block !important;
   }
 }
-
 @media screen and (max-width: 767px) {
   .mobileheader {
     display: block;
@@ -2792,31 +1525,26 @@ $border-radius: 5px;
     display: none !important;
   }
 }
-
 p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
   color: #434343;
   font-family: Arial;
   font-weight: bold;
   font-size: 14px;
 }
-
 #pagination {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-
 #pagination ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-
   li {
     color: #fff;
     display: flex;
-
     a {
       background-color: white;
       padding: 5px 10px;
@@ -2826,26 +1554,21 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
       font-weight: 600;
     }
   }
-
   li.active a {
     background-color: #dcd9d9;
   }
-
   li:first-child a {
     border-radius: 5px 0 0 5px;
     border: none;
   }
-
   li:last-child a {
     border-radius: 0 5px 5px 0;
     border-right: 1px solid $border-color;
   }
 }
-
 .sot {
   display: inline-flex;
 }
-
 .sorting label {
   color: #29275b;
   font-weight: bold;
@@ -2863,44 +1586,34 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     font-size: 13px;
   }
 }
-
-@media screen and (max-width: 1023px) and (min-width: 768px) {
-  .textForTab {
-    width: 50%;
-  }
-}
-
 .totalprods {
   color: #29275b;
   font-weight: bold;
   padding-right: 10px;
-  margin: 7px 0px 0px 0px;
+  margin: 7px 0px 0px 11px;
   font-size: 17px;
   font-family: Arial;
   @media screen and (max-width: 1278px) and (min-width: 1024px) {
     font-size: 15px;
-    margin: 7px 0px 0px 20px;
+    margin: 7px 0px 0px 11px;
   }
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     font-size: 13px;
-    margin: 10px 0px 0px 3px;
-    padding: 0;
+    margin: 10px 0px 0px 8px;
   }
 }
-
 .sortp {
-  // width: 80px;
+  width: 80px;
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     width: auto;
   }
-
   p {
     color: #29275b;
     font-weight: bold;
     padding-right: 6px;
     margin: 7px 0px 0px 0px;
     margin-left: 5px;
-    font-family: "Arial";
+    font-family: 'Arial';
     font-size: 17px;
     @media screen and (max-width: 1278px) and (min-width: 1024px) {
       font-size: 15px;
@@ -2911,14 +1624,13 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     }
   }
 }
-
 .sortp1 p {
   color: #434343;
   font-weight: bold;
   padding-right: 10px;
   margin: 9px 0px 0px 0px;
   margin-left: 5px;
-  font-family: "Arial";
+  font-family: 'Arial';
   font-size: 16px;
   @media (min-width: 900px) and (max-width: 1278px) {
     font-size: 14px;
@@ -2930,11 +1642,9 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     font-size: 13px;
   }
 }
-
 .paging {
   display: inline-flex;
   float: right;
-
   p {
     padding: 0px;
     margin: 7px 4px 0px 0px;
@@ -2943,7 +1653,6 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     color: #2a285a;
   }
 }
-
 .secondhead {
   border-bottom: 1px solid #c7c7c7;
   padding-bottom: 8px;
@@ -2952,11 +1661,9 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     display: none;
   }
 }
-
 p {
   font-size: 12px;
 }
-
 .droppy {
   display: inline-flex;
   padding-left: 17px;
@@ -2964,11 +1671,9 @@ p {
     padding-left: 4px;
   }
 }
-
 .floatright {
   float: right;
 }
-
 .sb-left-text {
   margin-bottom: 0;
   margin-left: auto;
@@ -2976,19 +1681,16 @@ p {
   overflow-x: hidden;
   overflow-y: hidden;
 }
-
 @media (max-width: 1200px) and (min-width: 992px) {
   .firstcol {
     height: 195px;
   }
 }
-
 @media (min-width: 767px) and (max-width: 991px) {
   .firstcol {
     height: 142px;
   }
 }
-
 @media (max-width: 584px) and (min-width: 443px) {
   header .mobile-sorting p {
     font-size: 14px;
@@ -3000,32 +1702,16 @@ p {
     color: #434343;
   }
 }
-
 @media (max-width: 374px) and (min-width: 320px) {
-  .sot {
-    flex-basis: 68.1%;
-    max-width: 75%;
-    padding-top: 2px;
-  }
-  .sidebar__header__clear {
-    padding: 0;
-    margin-left: 8px !important;
-    margin-top: -2px !important;
-  }
   .mobile-filters-button {
-    padding: 14.3px 0;
-    margin: 0;
-
+    margin-top: 4px;
     p {
       font-size: 11px;
-      z-index: 1;
-      margin-left: 1px !important;
+      z-index: 9999;
     }
-
     img {
       width: 25px;
       height: 25px;
-      margin-left: 6px !important;
     }
   }
   header {
@@ -3033,9 +1719,8 @@ p {
       font-size: 11px;
       margin-bottom: 0px;
       margin-top: 10px;
-      margin-left: 0;
+      margin-left: 7px;
     }
-
     .mobile-sorting1 p {
       font-family: Arial, Helvetica, sans-serif;
       font-weight: bold;
@@ -3044,1140 +1729,69 @@ p {
       color: #434343;
     }
   }
-  .sortp1 {
-    width: 20%;
-  }
   .sortp1 p {
     font-size: 10px;
     padding-right: 0px;
-    margin-left: 0;
+    margin-left: 4px;
     margin-right: 0px;
     color: #434343;
-    margin-top: 9.5px;
-    //padding-left: 11px;
   }
   .clearallp {
-    margin: 5px 0 !important;
-    padding: 0 !important;
-  }
-  .dropd1 {
-    width: 52%;
-  }
-  .sort-by {
-    width: 86% !important;
-
-    select {
-      padding-left: 2.5px;
-    }
-  }
-  .mobile-sorting {
-    width: 30%;
+    margin: -2px 0 !important;
+    padding: 0 0 0px 2px !important;
   }
   header .mobile-sorting p {
     font-size: 10px;
   }
-  .sortbycleartxt.col-sm-4.col-xs-2 {
-    flex-basis: 12.66667% !important;
-    max-width: 16.66666667% !important;
-  }
 }
-
 @media screen and (min-width: 375px) and (max-width: 767px) {
   .sortp1 {
     p {
       font-size: 12px !important;
-      padding-right: 4px !important;
+      padding-right: 1px !important;
     }
   }
 }
-
 @media screen and (min-width: 320px) and (max-width: 374px) {
   .under-catergory-filter {
     .row {
       margin-top: 0px;
-      padding-left: 0 !important;
+      padding-left: 4px !important;
     }
   }
 }
-
 @media screen and (min-width: 320px) and (max-width: 330px) {
   .mobile-filters {
     height: 87vh !important;
   }
 }
-
-@media (max-width: 320px) {
+@media screen and (min-width: 320px) and (max-width: 324px) {
   .clearallp {
-    margin: 5px 0 !important;
-    padding: 0 !important;
-  }
-  .mobile-filters-button p {
-    margin: 7px 0px 0px 1px !important;
+    margin: -0px 0 !important;
   }
 }
-
 @media (max-width: 440px) and (min-width: 320px) {
   .mobile-filters-button {
     p {
-      z-index: 1;
-      //margin-top: 6px !important;
-      //margin-bottom: 6px !important;
+      z-index: 9999;
     }
   }
 }
-
 @media screen and (min-width: 320px) and (max-width: 475px) {
   .category-info .category-title {
     font-size: 4.5vw;
     letter-spacing: 0px;
   }
 }
-
-@media screen and (min-width: 1023px) {
+@media screen and (min-width: 767px) {
   .products-list {
     margin-top: 1%;
     padding-left: 46px;
     padding-right: 0px;
   }
   .sotby {
-    padding-left: 14px;
+    padding-left: 49px;
     display: inline-flex;
   }
-}
-@media screen and (min-width: 767px) and (max-width: 1022px) {
-  .sotby {
-    padding-left: 46px;
-  }
-}
-
-.sort-by1 {
-  display: inline-flex;
-}
-
-.sidebar__header__clearAll {
-  color: #c7c7c7;
-  text-decoration: underline;
-  font-size: 13px;
-  float: right;
-  margin-top: -10px;
-}
-
-.index-div:nth-child(2) .container1 input:checked ~ .checkmark1 {
-  background: #fff !important;
-  border-color: #da2f89 !important;
-}
-
-.index-div:nth-child(2) .checkmark1 {
-  height: 20px !important;
-  width: 20px !important;
-  border-radius: 50%;
-  border: 1px solid black !important;
-}
-
-.index-div:nth-child(2) .container1 .checkmark1:after {
-  left: 0px !important;
-  top: 0px !important;
-  width: 4px;
-  height: 8px;
-  color: #da2f89;
-  border: 1px solid #da2f89;
-  border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-p.filterp {
-  margin-top: 6px;
-  padding-left: 11px;
-  font-size: 17px;
-}
-
-.sort-by1 select {
-  font-size: 12px;
-  width: 132px;
-  color: #606063;
-  font-family: "Arial";
-  font-weight: bold;
-  margin-right: 0;
-  border-radius: 3px;
-  border: 1px solid #7d7d7d;
-  height: 33px;
-  background: transparent url(/assets/arrows.svg) no-repeat right;
-  background-position-x: 92px;
-  -webkit-appearance: none;
-  line-height: 33px;
-  padding-left: 5px;
-  @media (max-width: px) and (min-width: 320px) {
-    width: 93px;
-    background-position-x: 75px;
-    font-size: 9px;
-    height: 29px;
-    line-height: 29px;
-    margin-left: 5px;
-    margin-top: 10px;
-  }
-}
-
-.sort-by1 h3 {
-  color: #29275b;
-  font-weight: bold;
-  padding-right: 6px;
-  margin: 9px 0px 0px 5px;
-  font-family: "Arial";
-  font-size: 16px;
-  @media (max-width: 584px) and (min-width: 443px) {
-    font-size: 14px;
-    color: #434343;
-  }
-  @media (max-width: 442px) and (min-width: 320px) {
-    font-size: 11px;
-    padding-right: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    color: #434343;
-    margin-top: 20px;
-  }
-}
-
-.border {
-  border-bottom: 1px solid #c7c7c7;
-}
-
-.mobile-filters-button1 {
-  display: none;
-}
-
-.mobile-filters-button11 {
-  display: none;
-}
-
-.mobile-filters-button {
-  display: none;
-}
-
-.search-page-main.container .row.upper-row {
-  padding: 10px 0px;
-  display: flex;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-// .sort-by {
-//   border-bottom: 1px solid #afafaf;
-// }
-
-.sort-by select {
-  font-size: 0.9325rem;
-  color: #808898;
-  font-family: "open sans";
-  border: none;
-  width: 100%;
-  border-radius: 0;
-  margin-right: 0;
-  -webkit-appearance: none;
-  background: transparent url(/assets/category-images/filter-down-arrow.png)
-    no-repeat 100% 75%;
-  padding-left: 0.55rem;
-  height: 100%;
-  line-height: 2;
-}
-
-img.home-breadcrumb-icon-img {
-  width: 15px;
-  float: left;
-  margin: 0 2.5px 0 0;
-}
-
-.totalItems {
-  color: #2a285a;
-  font-size: 0.9325rem;
-  // font-family: "open sans";
-  padding-right: 8px;
-  padding-left: 8px;
-  font-weight: bold;
-  text-align: right;
-  @media screen and (max-width: 767px) {
-    padding-top: 15px;
-  }
-  @media (max-width: 401px) and (min-width: 320px) {
-    font-size: 11px;
-  }
-}
-
-.col-md-3.search-SideBar {
-  padding-right: 17px;
-}
-
-.col-md-9.search-listing {
-  padding: 0;
-}
-
-.seemore-search {
-  padding: 7.5px 15px;
-  border-bottom-left-radius: 6px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  background: #d5de28;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.breadcrumbs {
-  padding-top: 33px;
-  padding-bottom: 27px;
-  span {
-    color: #808898;
-    a {
-      color: #808898;
-      padding: 0px 2.5px;
-    }
-  }
-}
-.rangePageBreadcrumb {
-  padding-top: 29px;
-}
-
-.filter-section-main {
-  // border-top: 1px solid #e7e7e7;
-}
-
-h4.filter-heading {
-  font-size: 14px;
-  color: #2a285a;
-  font-weight: bold;
-  font-family: Arial;
-  margin-bottom: 0px;
-  margin-top: 4px;
-  cursor: pointer;
-  text-transform: capitalize;
-  background: url("/assets/category-images/plus.png") no-repeat 100% 16%;
-  height: 25px;
-  user-select: none;
-  @media (max-width: 480px) {
-    width: 90%;
-  }
-}
-
-h4.toggleIcon {
-  background: url("/assets/category-images/minus.png") no-repeat 100% 16%;
-}
-
-h3.filter-heading {
-  font-size: 0.875rem;
-  color: #54575b;
-  font-weight: bold;
-  text-transform: uppercase;
-  height: 25px;
-  @media (max-width: 480px) {
-    width: 90%;
-  }
-}
-
-span.filter-label {
-  line-height: 30px;
-  font-size: 16px;
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-  cursor: pointer;
-  position: relative;
-  user-select: none;
-}
-
-span.filter-label span:before {
-  content: "";
-  position: relative;
-  top: 1px;
-  margin-right: 10px;
-  display: inline-block;
-  vertical-align: text-top;
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-}
-
-.filter-div {
-  display: none;
-}
-
-.filter-div.filter-open {
-  display: block;
-  margin-top: 13px;
-}
-.filter-div.filter-open1 {
-  display: block !important;
-  margin-top: 13px !important;
-}
-
-.filter-div {
-  display: none;
-}
-
-.filter-div.filter-open {
-  display: block;
-}
-
-span.filter-label span.active-filter:before {
-  background: #4f4f4f;
-  border-color: #4f4f4f;
-}
-
-input.active-filter + span {
-  color: #da2f89;
-  font-weight: bold;
-}
-
-span.filter-label span.active-filter:after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 8px;
-  background: white;
-  width: 2px;
-  height: 2px;
-  -webkit-box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white,
-    4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
-  box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white,
-    4px -6px 0 white, 4px -8px 0 white;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-@media (max-width: 767px) {
-  .col-md-3.search-SideBar {
-    padding: 0 20px;
-  }
-  .sidebar__header {
-    min-height: 50px;
-    border-top: 2px solid #c7c7c7;
-    border-bottom: 1px solid #c7c7c7;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .mobile-filters-button1 {
-    display: inline-flex;
-    background-color: #fff;
-    padding: 3px 0px;
-  }
-  .mobile-filters-button11 {
-    display: inline-flex;
-    background-color: #fff;
-    padding: 3px 0px;
-  }
-  .mobile-filters-button1 img {
-    margin-top: 7px;
-    width: 28px;
-    height: 27px;
-  }
-  .mobile-filters-button11 img {
-    margin-top: 7px;
-    width: 28px;
-    height: 27px;
-  }
-  .filtericon1 .filterp {
-    margin: 13px 0px 0px 8px;
-  }
-  .filterp {
-    // /padding-bottom: 0px;
-    margin: 5px 0px 0px 8px;
-    font-size: 15px;
-    font-weight: bold;
-    z-index: 1;
-    font-family: Arial;
-  }
-  .mobile-filters {
-    position: fixed;
-    background-color: #fff;
-    z-index: 99999;
-    left: 0;
-    width: 90%;
-    height: 100vh;
-    top: 123px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0px;
-  }
-  .close-button {
-    position: fixed;
-    right: 0px;
-    top: 123px;
-    width: 10%;
-    height: 52px;
-    background-color: #29275b;
-    z-index: 10;
-
-    .close-container {
-      height: 52px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-pack: center;
-      justify-content: center;
-      background-color: #29275b;
-    }
-
-    i {
-      // margin-top: 20px;
-      color: #fff;
-      font-weight: bold;
-      padding: 14px;
-    }
-  }
-  .category-filters {
-    display: none;
-  }
-  .filter-section-main {
-    width: 88%;
-    padding-left: 39px;
-  }
-  .mobile-filters-button1 {
-    display: inline-flex;
-  }
-  .mobile-filters-button11 {
-    display: inline-flex;
-  }
-  .search-page-main.container .row.upper-row {
-    justify-content: space-between;
-    border-bottom: 2px solid #dfdfdf;
-    border-top: 2px solid #dfdfdf;
-    margin-bottom: 0px;
-    padding-top: 0px;
-  }
-  .full-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-    cursor: pointer;
-  }
-  .sticky {
-    position: static;
-    bottom: 0px;
-    background-color: #fff;
-    margin: 0px;
-    z-index: 100;
-    width: 90%;
-    // border-top: 2px solid #dfdfdf;
-    padding-bottom: 32px;
-
-    .sticky-inner {
-      padding-bottom: 5px;
-    }
-
-    button {
-      left: 15%;
-      top: -4px;
-      width: 70%;
-      margin-right: 0px;
-      margin-left: 0px;
-      padding-right: 0px;
-      padding-left: 0px;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      font-weight: bold;
-      background-color: #29275b;
-      border-radius: 10px;
-    }
-  }
-  .filter-section-main {
-    border: none;
-  }
-}
-
-.container1 {
-  display: block;
-  position: relative;
-  padding-left: 29px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container1 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 14px;
-  width: 14px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-}
-
-.container1:hover input ~ .checkmark1 {
-  background-color: #ccc;
-}
-
-.container1 input.active-filter:checked ~ .checkmark1 {
-  background: #da2f89;
-  border-color: #da2f89;
-}
-
-.checkmark1:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.container1 input.active-filter:checked ~ .checkmark1:after {
-  display: block;
-}
-
-.container1 .checkmark1:after {
-  left: -3px !important;
-  top: -3px !important;
-  border: none !important;
-  -webkit-transform: none !important;
-  -ms-transform: none !important;
-  transform: none !important;
-  border-radius: 50%;
-  font-family: "FontAwesome";
-  content: "\F00C";
-  color: #fff;
-  line-height: 21px;
-  font-size: 19px;
-  font-weight: 100;
-}
-
-.container2 {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 17px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default radio button */
-.container2 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* Create a custom radio button */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-/* On mouse-over, add a grey background color */
-.container2:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.container2 input:checked ~ .checkmark {
-  background-color: #2196f3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container2 input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container2 .checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-}
-
-.radiobuttons {
-  border-bottom: 1px solid #dfdfdf;
-}
-
-.sort-by h3 {
-  font-size: 14px;
-}
-
-.sortSelected span.checkmark {
-  background: #4e4e4e;
-}
-
-.sortSelected span.checkmark::after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  display: block !important;
-}
-
-.index-div {
-  // padding-left: 37px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #afafaf;
-  width: 100%;
-}
-
-// [data-filter='price'] .toggleIcon {
-//   background: none !important;
-// }
-
-// [data-filter='price'] {
-//   border: none !important;
-// }
-// [data-filter='price'] {
-//   border: none !important;
-// }
-
-[data-filter="color"] .filter-div {
-  max-height: 200px;
-  -ms-flex-flow: column wrap;
-  flex-flow: column wrap;
-  -webkit-column-count: 2;
-  -moz-column-count: 2;
-  column-count: 2;
-}
-
-[data-filter="price"] .filter-heading {
-  background: none;
-  cursor: default;
-}
-
-[data-filter="price"] .filter-div {
-  display: block;
-  margin-top: 13px;
-}
-
-@media screen and (max-width: 767px) {
-  .filtericon {
-    // border-bottom: 1px solid #e7e7e7;
-    padding-bottom: 1px;
-  }
-  .index-div {
-    padding-left: 37px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #afafaf;
-    width: 88%;
-  }
-}
-
-.side-filter {
-  display: inline-flex;
-  // margin-left: -11px;
-  @media screen and (max-width: 767px) {
-    margin-left: 32px;
-    margin-top: 7px;
-  }
-}
-
-// .filtericon {
-//   width: 28px;
-//   height: 27px;
-// }
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  .side-filter {
-    display: inline-flex;
-  }
-  .filtericon {
-    width: 28px;
-    height: 27px;
-  }
-  p.filterp {
-    margin-top: 4px;
-    padding-left: 11px;
-    font-size: 13px;
-  }
-
-  .sortp p {
-    font-size: 13px !important;
-    // margin: 9px 0 0 -21px !important;
-  }
-  .sorting label {
-    font-size: 13px;
-  }
-  .totalProducts {
-    font-size: 13px !important;
-  }
-}
-
-.filt {
-  height: calc(100% - 39%);
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.filterp {
-  font-family: Arial;
-  color: #2a285a;
-}
-
-.sort-by h3 {
-  font-family: Arial;
-  margin-top: 0px;
-  color: #2a285a;
-}
-
-@media screen and (max-width: 767px) {
-  .mobile-filters-button1 {
-    padding-left: 27px;
-    padding-top: 0px;
-  }
-  .filtericon1 {
-    // border-bottom: 1px solid #e7e7e7;
-    padding-bottom: 11px;
-    // border-top: 1px solid #e7e7e7;
-  }
-}
-
-//Custom Styling
-p.noResultsHeading,
-div.SearchText p {
-  color: #2a285a;
-  font-size: 41px;
-  font-family: "oblik";
-  margin-top: 70px;
-  margin-bottom: 30px;
-}
-
-p.noResultsDescription {
-  margin-top: 0px;
-  margin-bottom: 30px;
-  font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #6b6b6c;
-}
-
-div.SearchText p {
-  font-weight: bold;
-
-  span {
-    //color: grey
-  }
-}
-
-//From Category.vue
-.sot {
-  display: inline-flex;
-}
-
-.sorting label {
-  color: #29275b;
-  font-weight: bold;
-  margin: 9px 9px 0px 15px;
-  font-size: 17px;
-}
-
-.totalProducts {
-  color: #29275b;
-  font-weight: bold;
-  padding-right: 10px;
-  margin: 9px 0px 0px 11px;
-  font-size: 17px;
-  @media screen and (max-width: 991px) and (min-width: 768px) {
-    font-size: 12px;
-    margin: 12px 0px 0px 4px;
-  }
-}
-
-@media screen and (max-width: 991px) and (min-width: 768px) {
-  .sorting label {
-    color: #29275b;
-    font-weight: bold;
-    margin: 9px 7px 0px 21px;
-    font-size: 13px;
-  }
-}
-
-.droppy {
-  display: inline-flex;
-  // margin-left: -23px;
-  width: 170px;
-}
-
-.sortp p {
-  color: #29275b;
-  font-weight: bold;
-  padding-right: 6px;
-  margin: 9px 0 0 5px;
-  font-family: "Arial", serif;
-  font-size: 17px;
-}
-
-.paging {
-  display: inline-flex;
-  float: right;
-
-  p {
-    padding: 0;
-    margin: 7px 4px 0 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #2a285a;
-  }
-}
-
-.mobile-hide2 {
-  display: flex;
-  justify-content: flex-end;
-  border-top: 1px solid #b2b2b1;
-  width: 100%;
-  padding-right: 20px;
-  padding-top: 10px;
-}
-
-@media (max-width: 767px) {
-  p.noResultsHeading,
-  div.SearchText p {
-    color: #2a285a;
-    font-size: 5.067vw;
-    font-family: "oblik";
-    margin-top: 23px;
-    margin-bottom: 16px;
-    padding: 0px 20px 0px 20px;
-  }
-  p.noResultsDescription {
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 11px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #6b6b6c;
-    padding: 0px 20px 0px 20px;
-  }
-  .mobile-hide1 {
-    display: none;
-  }
-  .mobile-hide2 {
-    padding: 17px;
-  }
-  .sort-by {
-    border-bottom: none;
-  }
-  .sorting label {
-    display: none;
-  }
-  .filterp {
-    font-size: 3.2vw;
-    display: none;
-  }
-  .sortp p {
-    font-size: 3.2vw;
-    margin: 15px 0 0 0px;
-    white-space: nowrap;
-    color: #434343;
-    font-family: Arial;
-  }
-  .sot {
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    margin-right: 0px;
-  }
-  .sort-by {
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 9px;
-    width: 88%;
-  }
-  .sort-by-hideMob {
-    display: none;
-  }
-  .totalProducts {
-    font-size: 3.2vw;
-    color: #434343;
-    margin-top: 16px;
-    font-family: Arial;
-    margin-left: 21px;
-    padding: 0;
-  }
-  .filterq {
-    font-family: Arial;
-    color: #434343;
-    font-size: 3.2vw;
-    margin: 6px 0px 0px 3px !important;
-  }
-  .pt15 {
-    padding-top: 0px;
-  }
-  .sidebar__header__clear {
-    color: #f20d7c;
-    text-decoration: underline;
-    font-size: 2.4vw;
-    margin: 1px 0px 0px 0px;
-    font-weight: 600;
-    line-height: 50px;
-  }
-  .mobile-hide2 {
-    border: none;
-  }
-}
-
-@media (min-width: 767px) {
-  .filterq {
-    display: none;
-  }
-  .sidebar__header__clear {
-    display: none !important;
-  }
-  .products-list {
-    margin-top: 1%;
-    padding-left: 46px;
-    padding-right: 0px;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  .sidebar__header__clear {
-    color: #f20d7c;
-    text-decoration: underline;
-    font-size: 2.4vw;
-    margin: 14px 0 0px -4px;
-    font-weight: 600;
-  }
-  .sortp p {
-    font-size: 3.2vw;
-    margin: 15px 8px 0 50px;
-    white-space: nowrap;
-    color: #434343;
-    margin-top: 16px;
-  }
-  .totalProducts {
-    font-size: 3.2vw;
-    color: #434343;
-    margin-top: 16px;
-    font-family: Arial;
-  }
-  .totalProducts {
-    font-size: 14px !important;
-    color: #434343;
-    margin-top: 16px;
-  }
-  .sortp p {
-    font-size: 15px !important;
-  }
-  .filterq {
-    font-size: 15px !important;
-  }
-  .sort-by select {
-    width: 95px !important;
-    background-position-x: 72px !important;
-  }
-}
-
-@media (max-width: 1200px) and (min-width: 767px) {
-  .mobile-hide1 {
-    display: none;
-  }
-}
-
-@media (min-width: 1200px) {
-  .droppy {
-    display: inline-flex;
-    //margin-left: -40px;
-  }
-  .sot {
-    margin-left: 34px;
-  }
-}
-
-@media (min-width: 1023px) and (max-width: 1200px) {
-  .sort-by select {
-    width: 136px;
-    background-position-x: 116px;
-  }
-  .sot {
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    margin-left: 56px;
-  }
-  .sortp p {
-    color: #29275b;
-    font-weight: bold;
-    padding-right: 6px;
-    margin: 9px 0px 0 -19px;
-    font-family: "Arial", serif;
-    font-size: 17px;
-  }
-}
-
-@media (max-width: 575px) and (min-width: 320px) {
-  .sortp p {
-    font-size: 3.2vw;
-    margin: 15px 0 0 -14px;
-    white-space: nowrap;
-    color: #434343;
-    font-family: Arial;
-  }
-}
-
-.applyFilterBtnBR {
-  margin-top: 20px;
-}
-
-.Price-container1 {
-  padding-left: 0px;
-}
-
-.clearAllClass {
-  display: none;
-}
-.side-filter-reset-btn {
-  display: none;
-}
-
-.pHtml-description {
-  /deep/ p {
-    color: #2a285a;
-    font-size: 14px;
-    font-family: "Arial";
-    line-height: 19px;
-    margin: 8px 0 9px 0;
-  }
-}
-.bgnone {
-  background: none !important;
 }
 </style>

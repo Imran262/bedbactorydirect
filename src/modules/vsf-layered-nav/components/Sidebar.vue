@@ -158,9 +158,9 @@ export default {
         item.classList.remove("sortSelected");
       }
       setTimeout(() => {
-        // event.target.classList.add('sortSelected');
-        if (event.target.localName === "input") {
-          event.target.parentNode.classList.add("sortSelected");
+        // event.toElement.classList.add('sortSelected');
+        if (event.toElement.localName === "input") {
+          event.toElement.parentNode.classList.add("sortSelected");
         }
       }, 10);
     },

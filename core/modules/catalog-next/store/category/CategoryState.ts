@@ -7,7 +7,5 @@ export default interface CategoryState {
   filtersMap: { [id: string]: any },
   products: Product[],
   searchProductsStats: any,
-  categoryRange: any,
-  listingRange: any,
   menuCategories: Category[]
 }

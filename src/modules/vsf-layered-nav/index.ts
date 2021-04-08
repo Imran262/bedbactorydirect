@@ -11,9 +11,6 @@ const LayeredNavigationStore = {
 const extendedCatalogModule = {
   state: {
     priceRange: {},
-    categoryRange: {},
-    listingRange: {},
-    stats_fields:{},
     initial_products: []
   },
   mutations,
