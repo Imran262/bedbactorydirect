@@ -326,14 +326,11 @@ getCategoryProducts {{getCategoryProducts}} -->
               getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
-          So here we are 
-          {{isLazyHydrateEnabled &&
-                getCategoryProductsTotal > lengthOfProductArray}}
-
-                <product-listing
+          <product-listing
               @showPagination="showbottompage"
               :columns="defaultColumn"
               :products="pagination.currentPageItems || getCategoryProducts"
+              :filters="getAvailableFilters"
             />
             <lazy-hydrate
               :trigger-hydration="!loading"
@@ -347,6 +344,7 @@ getCategoryProducts {{getCategoryProducts}} -->
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
                 class="pagination-true"
+                :filters="getAvailableFilters"
                 :products="
                   pagination.currentPageItems &&
                   pagination.currentPageItems.length > 0
@@ -368,6 +366,7 @@ getCategoryProducts {{getCategoryProducts}} -->
                 class="pagination-false"
                 :products="getCategoryProducts"
                 @showPagination="showbottompage"
+                :filters="getAvailableFilters"
               />
             </lazy-hydrate>
             <product-listing
@@ -375,6 +374,7 @@ getCategoryProducts {{getCategoryProducts}} -->
               @showPagination="showbottompage"
               :columns="defaultColumn"
               :products="pagination.currentPageItems || getCategoryProducts"
+              :filters="getAvailableFilters"
             />
             <!-- pagination.currentPageItems || getCategoryProducts <br /><br /><br />{{ getCategoryProducts}} -->
           </div>

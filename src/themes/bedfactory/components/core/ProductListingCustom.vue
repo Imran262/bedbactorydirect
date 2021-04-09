@@ -8,7 +8,7 @@
       class="col-sm-12 col-md-4 flex col-xs-12 pading"
     >
    <!-- Current Product {{product.name}} -->
-      <product-tile-custom :product="product" />
+      <product-tile-custom :product="product" :filters="filters"/>
     </div>
   </div>
 </template>
@@ -34,6 +34,10 @@ export default {
     columns: {
       type: [Number, String],
       required: true
+    },
+     filters: {
+      type: Object,
+      required:true
     }
   },
   methods: {
