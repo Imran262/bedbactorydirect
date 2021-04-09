@@ -313,10 +313,6 @@ getCategoryProducts {{getCategoryProducts}} -->
             </div>
           </div>
           <!-- For Categories -->
-          Hello
-          {{isListingProducts ||
-              getCurrentCategory.display_mode === 'PRODUCTS' ||
-              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'}}
           <div
             class="product-lisitng-inner"
             id="products-list-new"
