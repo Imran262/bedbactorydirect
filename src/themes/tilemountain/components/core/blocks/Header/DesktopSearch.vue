@@ -33,7 +33,7 @@
                   ref="search"
                   id="search"
                   v-model="search"
-                  @input="makeSearchApi(search)"
+                  @input="makeSearch"
                   @blur="
                     $v.search.$touch();
                     removeborders();
@@ -57,14 +57,13 @@
             </div>
           </div>
         </div>
+
+shouldShowProducts {{shouldShowProducts}}
+        visibleProducts {{visibleProducts}}
         <div
           id="search-mainmain"
           class="sb-filters"
-          v-if="
-            shouldShowProducts &&
-            search.length > 2 &&
-            productsFromApi.length > 0
-          "
+         v-if="shouldShowProducts && search.length > 2"
         >
           <div class="fixedbut">
             <transition name="fade">
@@ -76,7 +75,7 @@
               </div>
             </transition>
             <div class="product-listing row">
-              <template v-for="(product, index) in productsFromApi">
+              <template v-for="(product, index) in visibleProducts">
                 <ProductTileSearch
                   :word="search"
                   :serresult="productsFromApi"
@@ -123,7 +122,7 @@
 
 <script>
 import SearchPanel from "@vue-storefront/core/compatibility/components/blocks/SearchPanel/SearchPanel"
-import ProductTileSearch from "theme/components/core/ProductTileSearchTop"
+import ProductTileSearch from "theme/components/core/ProductTileSearch"
 import VueOfflineMixin from "vue-offline/mixin"
 import CategoryPanel from "theme/components/core/blocks/Category/CategoryPanel"
 import { minLength } from "vuelidate/lib/validators"
@@ -133,43 +132,6 @@ import debounce from 'lodash-es/debounce'
 export default {
   name: "DesktopSearch",
   methods: {
-    makeSearchApi: debounce(async function (search) {
-      if (document.getElementById('search-mainmain') != null) {
-        document.getElementById('search-mainmain').classList.remove('dontshow')
-      }
-      if (search.length > 2) {
-        const searchRes = await this.$store.dispatch(
-          'brautosuggest/brAutosuggestFunction',
-          { searchWord: search }
-        )
-        console.log('searchRes ', searchRes)
-        let redirectArray = []
-        if (searchRes && searchRes.docs.length === 1) {
-          this.formSubmitUrl = '/' + searchRes.docs[0].url
-        }
-        if (searchRes && searchRes.docs) {
-          this.showResultPage = true
-          this.productsFromApi = searchRes.docs
-        }
-      }
-    }, 200),
-    // async makeSearchApi (search) {
-    //   if (document.getElementById('search-mainmain') != null) {
-    //     document.getElementById('search-mainmain').classList.remove('dontshow');
-    //   }
-    //   if (search.length > 2) {
-    //     const searchRes = await this.$store.dispatch(
-    //       'brautosuggest/brAutosuggestFunction',
-    //       { searchWord: search }
-    //     );
-    //     console.log('searchRes ', searchRes);
-    //     let redirectArray = [];
-    //     if (searchRes.docs.length === 1) {
-    //       this.formSubmitUrl = '/' + searchRes.docs[0].url
-    //     }
-    //     this.productsFromApi = searchRes.docs;
-    //   }
-    // },
     async searchRedirectMethodCall () {
       const searchRedirectRes = await this.$store.dispatch(
         'searchredirect/searchRedirectFunction',
@@ -325,13 +287,13 @@ export default {
       size: 7,
       formSubmitUrl: '',
       products: [],
-      productsFromApi: [],
       shows: false,
       showResultPage: false
     }
   },
   computed: {
     visibleProducts () {
+      console.log("11223344 ",this.products);
       const productList = this.products || []
       if (this.selectedCategoryIds.length) {
         return productList.filter((product) =>
@@ -348,7 +310,7 @@ export default {
     },
     shouldShowProducts () {
       this.shows =
-        this.productsFromApi.length >= !0 && this.showPanelNewDesktop
+        this.visibleProducts.length >= !0 && this.showPanelNewDesktop
       return this.shows
     },
     categories () {
