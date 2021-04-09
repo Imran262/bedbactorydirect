@@ -35,7 +35,7 @@
           { sale: labelsActive && isOnSale },
           { new: labelsActive && isNew },
         ]"
-      >thumbnailObj {{thumbnailObj}}
+      >
         <product-image
           class=" image-category product-cover__thumb"
           :image="thumbnailObj"
