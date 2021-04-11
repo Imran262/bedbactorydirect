@@ -166,11 +166,14 @@ export default {
 .mobile {
   width: 100%;
 }
+*{
+	outline: none;
+}
 </style>
 
-<style lang='scss'>
+<style lang=scss>
 .homepage-slider-detail-img-only{
-  /* padding-bottom: 20%; */
+  padding-bottom: 90%;
   position: relative;
   a{
     position: unset !important;
@@ -180,7 +183,7 @@ export default {
     height: auto;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 50%;
+    top: 51%;
     left: 50%;
     object-fit: contain;
   }

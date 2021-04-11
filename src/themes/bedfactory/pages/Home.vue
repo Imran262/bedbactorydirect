@@ -1,9 +1,11 @@
 <template>
   <div id="home">
     <head-image />
-     <UspBar />
+     <UspBar :identifier="'usp-bar-TM'" />
      <FamiliarProducts />
+     <swatches :identifier="'swatches-TM'"/>
      <Brands />
+   
     <!-- <HomeBottomContent /> -->
     <!-- <homeDelivery :identifier="'home-Delivery'" />
     <FamiliarProducts />
@@ -35,6 +37,7 @@ import homeDelivery from 'theme/components/core/blocks/homeDelivery/homeDelivery
 import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"; // BFD Component
 import FamiliarProductsORiginal from 'theme/components/core/blocks/FamiliarProducts/FamiliarProducts'
 import FamiliarProducts from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/FamiliarProducts"; // BFD Component
+import Swatches from 'src/themes/bedfactory/components/core/blocks/Swatches/Swatches';
 // Theme local components
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import slider from 'theme/components/core/blocks/slider/slider'
@@ -80,7 +83,8 @@ export default {
     FamiliarProducts,
     UspBar, // BFD
     Brands, //BFD
-    HomeBottomContent //BFD
+    HomeBottomContent, //BFD
+    Swatches
   },
   computed: {
     ...mapGetters('user', ['isLoggedIn']),

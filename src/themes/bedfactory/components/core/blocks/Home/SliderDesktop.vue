@@ -73,7 +73,7 @@ export default {
       let liParsedSlides = this.parsedContent.querySelectorAll("li");
 
       if (liParsedSlides.length === 0) return false;
-      console.log(" parsed slides" , liParsedSlides);
+      // console.log(" parsed slides" , liParsedSlides);
       liParsedSlides.forEach(function (slide, index) {
         let id = slide.querySelector("id").innerHTML,
           title = slide.querySelector("title")
@@ -99,7 +99,7 @@ export default {
           button,
           buttonLink: routeLink,
         };
-        console.log('slideObj',slideObj);
+        // console.log('slideObj',slideObj);
         slides.push(slideObj);
       });
 

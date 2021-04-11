@@ -7,14 +7,13 @@
           Shop by category
         </h1>
       </div>-->
-
-      <Productlist :identifier="'familiar-brands'" />
+      <Productlist :identifier="'familiar-brands-TM'" />
     </div>
   </div>
 </template>
 
 <script>
-import Productlist from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/Productlist";
+import Productlist from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/ProductlistTM";
 export default {
   components: {
     Productlist,
@@ -72,7 +71,7 @@ export default {
           background: rgba(0, 0, 0, 0.3);
         }
         &:hover h3 {
-          color: #ffffff;
+          color:#29275b;
           z-index: 999;
         }
       }
@@ -120,7 +119,7 @@ export default {
         img {
           width: 100%;
           height: auto;
-          z-index: 1;
+          z-index: 0;
         }
         .heading {
           margin-top: -6px;

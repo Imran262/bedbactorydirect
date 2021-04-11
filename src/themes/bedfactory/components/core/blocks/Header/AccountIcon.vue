@@ -180,7 +180,7 @@ $color-icon-hover: color(secondary, $colors-background);
     // height: 28px;
     // margin-top: 8px;
     height: 100%;
-    width: 6vw;
+    width: 5vw;
     padding-top: 1px;
     margin: 0px;
   }
