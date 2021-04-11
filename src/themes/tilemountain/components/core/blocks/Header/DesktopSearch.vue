@@ -57,9 +57,6 @@
             </div>
           </div>
         </div>
-
-shouldShowProducts {{shouldShowProducts}}
-        visibleProducts {{visibleProducts}}
         <div
           id="search-mainmain"
           class="sb-filters"
