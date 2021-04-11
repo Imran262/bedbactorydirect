@@ -511,6 +511,52 @@
         </section>
       </div>
     </section>
+    <section class="container px15 pt20 pb35 cl-accent details product-desc">
+      <div
+        class="h4 details-wrapper"
+        :class="[detailsOpen ? 'details-wrapper--open' : '']"
+      >
+        <div class="row between-md m0">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 productdetail-col">
+            <h2
+              class="row h3 m0 mb10 serif lh20 details-title hidden-xs"
+              @click="productDetails()"
+            >
+              {{ $t('Product Details') }}
+              <span id="right-icon" class="icon-rotate" />
+            </h2>
+            <h2
+              class="row h3 m0 mb10 serif lh20 details-title hidden-lg hidden-md"
+            >
+              {{ $t('Product Info') }}
+            </h2>
+            <div
+              class="lh20 h5 productdetail-close"
+              itemprop="description"
+              v-html="getCurrentProduct.description"
+            />
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infoprod-col">
+            <div class="information-prod">
+              <h2 class="info-break" @click="infoProd()">
+                {{ $t('Information Breakdown') }}
+                <span id="right-icon-info" class="icon-rotate-info" />
+              </h2>
+              <ul class="attributes p0 pt5 m0 infoprod-close">
+                <product-attribute
+                  :key="attr.attribute_code"
+                  v-for="attr in getCustomAttributes"
+                  :product="getCurrentProduct"
+                  :attribute="attr"
+                  empty-placeholder="N/A"
+                />
+              </ul>
+            </div>
+          </div>
+          <div class="details-overlay" @click="showDetails" />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
