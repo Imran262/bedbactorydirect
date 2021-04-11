@@ -557,6 +557,23 @@
         </div>
       </div>
     </section>
+    <div class="recently-viewed-items-contain container">
+        <!-- similar_products {{similar_products}} -->
+
+        <!-- Put data in similar products to see similar products -->
+      <template
+        v-if="similar_products.items && similar_products.items.length > 0"
+      >
+        <h4 class="recent-heading recent">Customers also liked</h4>
+        <div class="recently-inner-container">
+          <no-ssr>
+            <lazy-hydrate when-visible>
+              <RecentlyViewedItems :product="getCurrentProduct" />
+            </lazy-hydrate>
+          </no-ssr>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
