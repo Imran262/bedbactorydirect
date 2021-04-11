@@ -160,7 +160,7 @@
                 <meta itemprop="mpn" :content="getCurrentProduct.sku" />
                 <meta itemprop="url" :content="getProductUrl" />
                 <meta itemprop="aggregateRating" content />
-                <meta itemprop="brand" :content="`Tile Mountain`" />
+                <meta itemprop="brand" :content="`Bed Factory Direct`" />
                 <div
                   itemprop="manufacturer"
                   itemscope
@@ -200,11 +200,6 @@
                 </div>
                 <div class="row">
                   <div class="col-xs-6 col-md-6 col-lg-6 col-xl-7 product-size-sku">
-                    <span
-                      class="size-value"
-                      v-if="getCurrentProduct.qty_per_sqm"
-                    >{{ $t('Size ') }} {{ getCurrentProduct.size }}</span
-                    >
                     <div
                       :class="!getCurrentProduct.qty_per_sqm ? 'no-size' : ''"
                       itemprop="offers"
@@ -240,18 +235,20 @@
                         :content="getSchemaImageUrl"
                       />
                       <span class="sku-value">{{
-                          $t('SKU: {sku}') 
+                          $t('SKU:') 
                         }} {{getCurrentProduct.sku}} </span>
                     </div>
                   </div>
-                  <div class="col-xs-6 col-md-6 col-lg-6 col-xl-5 product-stock">
+                  <!-- Stock level -->
+                  <!-- <div class="col-xs-6 col-md-6 col-lg-6 col-xl-5 product-stock">
                     <span
                       v-html="getCurrentProduct.stock_level_text"
                       class="sqm"
                     />
-                  </div>
+                  </div> -->
                 </div>
               </div>
+<!-- Price Section Start-->
               <div
                 v-if="!getCurrentProduct.bundle_options"
                 class="product-pricing"
@@ -271,91 +268,8 @@
                   >
                     <div class="row">
                       <div
-                        class="col-lg-8 col-md-7 col-xs-6 border-sqm-bottom first-child"
-                        v-if="getCurrentProduct.qty_per_sqm"
-                      >
-                        <div class="price serif price-infos">
-                          <div
-                            class="old-price"
-                            v-if="!getCurrentProduct.special_price"
-                          >
-                            <span class="sale-info">
-                              <span class="h2 cl-mine-shaft weight-700"
-                              >£{{ getPerSqmPrice }}</span
-                              >
-                              <span class="sqm-title"
-                              >/
-                                <span
-                                  v-html="
-                                    productTileTypeUnitCheck(getCurrentProduct)
-                                  "
-                                /></span>
-                            </span>
-                          </div>
-                          <div class="sale-price" v-else>
-                            <div class="salepriceshow">
-                              <span class="sale-title">
-                                {{ $t('sale price') }}
-                              </span>
-                              <span class="specialprice"
-                              >£{{ getPerSqmPrice }}</span
-                              >
-                              <span class="sqm-title-special"
-                              >/<span
-                                v-html="
-                                    productTileTypeUnitCheck(getCurrentProduct)
-                                  "
-                              /></span>
-                              <!-- <span class="h2 cl-mine-shaft weight-700">£{{ getPerSqmPrice }}</span> -->
-                              <!-- <span class="sqm-title">/ Sqm</span> -->
-                            </div>
-
-                            <span class="sale-info-special">
-                              <span class="salelineprice"
-                              >£{{ getPerSqmNormalPrice }}</span
-                              >
-                              <span class="sqm-titlespecial"
-                              >/<span
-                                v-html="
-                                    productTileTypeUnitCheck(getCurrentProduct)
-                                  "
-                              /></span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="col-lg-4 col-md-5 col-xs-6 border-sqm-bottom fields"
-                        v-if="getCurrentProduct.qty_per_sqm"
-                      >
-                        <div class="tile-quantity">
-                          <div class="base-input-number">
-                            <product-quantity-sqm
-                              v-if="
-                                getCurrentProduct.type_id !== 'grouped' &&
-                                getCurrentProduct.type_id !== 'bundle'
-                              "
-                              :value="tileSqmQuantity"
-                              :sqm-value="tileSqmQuantity"
-                              :product="getCurrentProduct"
-                              :max-quantity="maxQuantity"
-                              :loading="isStockInfoLoading"
-                              :min-sqm-quantity="parseFloat(minSqmQuantity)"
-                              :is-simple-or-configurable="
-                                isSimpleOrConfigurable
-                              "
-                              :show-quantity="manageQuantity"
-                              :check-max-quantity="manageQuantity"
-                              @keyup="SqmValUpdated"
-                              @error="handleQuantityError"
-                              :forbaseinput="'sqm'"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div
                         class="col-lg-8 col-md-7 col-xs-6 border-tile-bottom first-child"
-                      >
+                      > 
                         <div
                           class="price serif price-infos"
                           :class="
@@ -366,24 +280,16 @@
                               ? ' hidden-tiles-price '
                               : '')
                           "
-                        >
+                        > 
                           <div
                             class="old-price"
                             v-if="!getCurrentProduct.special_price"
-                          >
+                          > 
                             <span class="sale-info">
                               <span
                                 class="h2 cl-mine-shaft weight-700 this tile_price"
                               >£{{ getPerTilePrice }}
-                                <span class="each">{{
-                                    !getCurrentProduct.qty_per_sqm ? 'each' : ''
-                                  }}</span>
                               </span>
-                              <span
-                                class="sqm-title"
-                                v-if="getCurrentProduct.qty_per_sqm"
-                              >/ Tile</span
-                              >
                             </span>
                           </div>
                           <div class="sale-price" v-else>
@@ -403,12 +309,6 @@
                             </span>
 
                           </div>
-                        </div>
-                        <div class="pack"
-                             v-if="getCurrentProduct.filter_type && getCurrentProduct.filter_type === 'Pack'">
-                          <span class="weight-700 pack-price">
-                            £{{ getCurrentProduct.price }} <span class="sqm-title">per pack</span>
-                          </span>
                         </div>
                       </div>
                       <div
@@ -441,76 +341,10 @@
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="col-lg-3 col-md-3 how-may-need"
-                    v-if="getCurrentProduct.qty_per_sqm"
-                  >
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="calculator">
-                          <div class="cal-img" @click="show">
-                            <img
-                              src="/assets/images/cal.png"
-                              alt="calculations"
-                            />
-                          </div>
-                          <small class="calculateTxt" @click="show"
-                          >How many do I need?</small
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
-              <div
-                class="vinyl-products-detail"
-                v-if="
-                  getCurrentProduct.filter_type &&
-                  getCurrentProduct.filter_type === 'Pack' &&
-                  tileSqmQuantity
-                "
-              >
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-xs-12">
-                    <vinyl-recommended-items
-                      v-if="
-                        getCurrentProduct.filter_type &&
-                        getCurrentProduct.filter_type === 'Pack' &&
-                        tileSqmQuantity
-                      "
-                      :product="getCurrentProduct"
-                      :sqm-quantity="tileSqmQuantity"
-                      :box-sqm="boxSqm"
-                      :underlay-products="vinylProducts.skuItems"
-                      :recommendations="vinylProducts.recommendItems"
-                      @vinylPriceAndQty="showVinylPrice"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="modalcalc">
-                <modal name="modal-calculator" :width="569">
-                  <CalculatorModal
-                    :product="getCurrentProduct"
-                    :get-per-sqm-price="getPerSqmPrice"
-                    @totalSqmUpdate="UpdateSqmFromModal"
-                    @addWasted="addWasteCalculator"
-                  />
-                </modal>
-              </div>
-              <div
-                v-if="
-                  getCurrentProduct.qty_per_sqm && getCurrentProduct.wastage
-                "
-                class="col-md-12 wastage-main-box transform"
-                id="wastage-main-box"
-              >
-                <waste-percent-toggle
-                  :product="getCurrentProduct"
-                  @click="addWaste"
-                />
-              </div>
+<!--  Price Section  End -->
+              <!--  -->
               <product-bundle-options
                 v-if="
                   getCurrentProduct.bundle_options &&
@@ -671,44 +505,6 @@
                   <AddToCompare :product="getCurrentProduct" />
                 </div>
               </div>-->
-            </div>
-            <div
-              class="products-buttons"
-              v-if="
-                getCurrentProduct.qty_per_sqm &&
-                getCurrentProduct.visualiser_enabled === 1
-              "
-            >
-              <div class="row">
-                <div
-                  @click="openGallery()"
-                  class="col-xs-12 col-md-6 col-lg-6"
-                  v-if="customerPhotosGallery.length > 0"
-                >
-                  <button class="customer-photos">
-                    {{ $t('Customer Photos') }}
-                  </button>
-                </div>
-                <div
-                  :class="
-                    `col-xs-12 col-md-12 col-lg-12 visualisetiles ` +
-                    (customerPhotosGallery.length < 1 ? `` : ``)
-                  "
-                >
-                  <a
-                    :href="'/visualiser/?sku=' + getCurrentProduct.sku"
-                    target="_blank"
-                    class="visualise-tiles"
-                  >
-                    {{ $t('Visualise These Tiles') }}
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="modalcutsample-main">
-              <modal name="modal-cutsample">
-                <CutSampleModal :similar-products="similar_products" />
-              </modal>
             </div>
           </div>
 
@@ -1348,7 +1144,6 @@ export default {
         // const URL =config.reviews.getReviews_endpoint + product_Id
         const URL =
           'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id=454';
-        console.log('112233444 URL', URL);
         axios
           .get(URL)
           .then(res => {
