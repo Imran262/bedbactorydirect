@@ -574,6 +574,16 @@
         </div>
       </template>
     </div>
+    <template v-if="loaded">
+      <reviews
+        :product-name="getCurrentProduct.name"
+        :product-id="getCurrentProduct.id"
+        v-show="isOnline"
+        :product="getCurrentProduct"
+        @hasTotalQA="updateReviewsTotals"
+        ref="reviewsSection"
+      />
+    </template>
   </div>
 </template>
 
@@ -698,6 +708,7 @@ export default {
   },
   data() {
     return {
+        loaded : false,
       reviewData: null,
       cartItems: 0,
       detailsOpen: false,
@@ -1050,7 +1061,12 @@ export default {
       this.modalTwo = bool;
     });
   },
-
+  created () {
+    var self = this;
+    self.$nextTick(function () {
+      self.loaded = true;
+    })
+  },
   async mounted() {
     this.setReviews();
     this.setProductPage();
