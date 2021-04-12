@@ -1720,7 +1720,7 @@ p {
       font-size: 11px;
       margin-bottom: 0px;
       margin-top: 10px;
-      margin-left: 7px;
+      margin-left: 4px;
     }
     .mobile-sorting1 p {
       font-family: Arial, Helvetica, sans-serif;

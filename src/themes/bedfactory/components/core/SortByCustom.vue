@@ -186,7 +186,7 @@ $color-tertiary: color(tertiary);
        font-size: 9px;
        height: 28px;
        line-height: 24px;
-       margin-left: -4px;
+       margin-left: 0px;
     }
     @media (max-width: 382px) and (min-width: 375px) {
       margin-left: 0px !important;
