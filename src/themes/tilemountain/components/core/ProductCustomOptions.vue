@@ -1,7 +1,6 @@
 <template>
   <form class="custom-options">
     <div v-for="option in product.custom_options" :key="('customOption_' + option.option_id)">
-      optoinTypeIs: {{ option.type }}
       <div class="custom-option mb15">
         <h4>{{ option.title }}</h4>
         <input

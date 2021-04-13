@@ -2282,6 +2282,7 @@ $bg-secondary: color(secondary, $colors-background);
   color: red;
   font-weight: bold;
   padding-bottom: 15px;
+  display: none;
 }
 
 .image {
@@ -3975,5 +3976,17 @@ a:not(.no-underline):hover:after {
     border-radius: 3px;
     top: 32% !important;
   }
+}
+select.m0.no-outline {
+    width: 350px;
+     padding-left: 5px;
+}
+form.custom-options {
+    padding-left: 40px;
+}
+@media (max-width: 400px){
+  select.m0.no-outline {
+    width: 250px;
+}
 }
 </style>
