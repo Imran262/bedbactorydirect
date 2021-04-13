@@ -152,7 +152,7 @@ $color-event: color(tertiary);
 $color-active: color(accent);
 
 .price-slider-container {
-  padding-bottom: 50px;
+  padding-bottom: 55px;
   position: relative;
   z-index: 0;
   @media (max-width: 480px) {
@@ -236,5 +236,14 @@ $color-active: color(accent);
     border: none !important;
     font-size: 18px;
   }
+}
+span.vue-slider-tooltip {
+    padding: 7px 2px !important;
+}
+@media screen and (min-width: 768px) and (max-width: 991px)
+{
+  span.vue-slider-tooltip {
+    font-size: 10px !important;
+}
 }
 </style>
