@@ -118,9 +118,9 @@
         />
       </nav>
     </header>
-    <div class="scroll">
-      <span @click="animateToTop(e)" class="scrollimg"></span>
-    </div>
+    <div class="scroll" @click="animateToTop()">
+<span class="scrollimage"><img src="/assets/icons/arrowupicon.png"></span>
+</div>
     <!-- <div class="header-placeholder" /> -->
   </div>
   <!-- <CutSampleModelHome /> -->
@@ -267,10 +267,10 @@ export default {
           let pos = window.pageYOffset
           if (pos > 0 && pageYOffset >= 10) {
             window.scrollTo(0, pos - 110)
-            document.querySelector('.scrollimg').style.visibility = 'visible'
+            document.querySelector('.scrollimage').style.visibility = 'visible'
           } else {
             window.clearInterval(scrollToTop)
-            document.querySelector('.scrollimg').style.visibility = 'visible'
+            document.querySelector('.scrollimage').style.visibility = 'visible'
           }
         }
       )
@@ -645,6 +645,16 @@ span.scrollimg:after {
 .header-icon{
     margin-left: 30px;
 }
+}
+.scrollimage{
+  padding-left: 13px;
+  img{
+    color: black;
+    width: 23px;
+    height: 23px;
+    transform: rotate( 268deg );
+    margin-top: 12px;
+  }
 }
 </style>
 <style>
