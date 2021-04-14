@@ -17,7 +17,7 @@
     <section class="bg-cl-secondary px20 product-top-section">
       <div class="container">
         <section class="row m0 between-xs">
-            <!-- schema review -->
+          <!-- schema review -->
           <template v-if="reviewData.bottomline">
             <template v-if="reviewData.bottomline.average_score">
               <div
@@ -44,7 +44,7 @@
           >
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
               <div class="product-cover bg-cl-secondary">
-                <img src="/assets/placeholder.svg" alt="placeholder">
+                <img src="/assets/placeholder.svg" alt="placeholder" />
               </div>
             </div>
             <div
@@ -124,7 +124,7 @@
             </div>
           </div>
           <!-- upper section  -->
-           <div class="col-xs-12 col-md-12 col-lg-6 data product-detail">
+          <div class="col-xs-12 col-md-12 col-lg-6 data product-detail">
             <div class="product-detail-inner">
               <div
                 class="product-head"
@@ -199,7 +199,9 @@
                   </a>
                 </div>
                 <div class="row">
-                  <div class="col-xs-6 col-md-6 col-lg-6 col-xl-7 product-size-sku">
+                  <div
+                    class="col-xs-6 col-md-6 col-lg-6 col-xl-7 product-size-sku"
+                  >
                     <div
                       :class="!getCurrentProduct.qty_per_sqm ? 'no-size' : ''"
                       itemprop="offers"
@@ -234,9 +236,9 @@
                         v-if="getCurrentProduct.image"
                         :content="getSchemaImageUrl"
                       />
-                      <span class="sku-value">{{
-                          $t('SKU:') 
-                        }} {{getCurrentProduct.sku}} </span>
+                      <span class="sku-value"
+                        >{{ $t("SKU:") }} {{ getCurrentProduct.sku }}
+                      </span>
                     </div>
                   </div>
                   <!-- Stock level -->
@@ -248,7 +250,7 @@
                   </div> -->
                 </div>
               </div>
-<!-- Price Section Start-->
+              <!-- Price Section Start-->
               <div
                 v-if="!getCurrentProduct.bundle_options"
                 class="product-pricing"
@@ -269,7 +271,7 @@
                     <div class="row">
                       <div
                         class="col-lg-8 col-md-7 col-xs-6 border-tile-bottom first-child"
-                      > 
+                      >
                         <div
                           class="price serif price-infos"
                           :class="
@@ -280,34 +282,33 @@
                               ? ' hidden-tiles-price '
                               : '')
                           "
-                        > 
+                        >
                           <div
                             class="old-price"
                             v-if="!getCurrentProduct.special_price"
-                          > 
+                          >
                             <span class="sale-info">
                               <span
                                 class="h2 cl-mine-shaft weight-700 this tile_price"
-                              >£{{ getPerTilePrice }}
+                                >£{{ getPerTilePrice }}
                               </span>
                             </span>
                           </div>
                           <div class="sale-price" v-else>
                             <div class="salepriceshow">
                               <span class="sale-title">
-                                {{ $t('sale price') }}
+                                {{ $t("sale price") }}
                               </span>
                               <span class="specialprice">{{
-                                  getCurrentProduct.special_price | price
-                                }}</span>
+                                getCurrentProduct.special_price | price
+                              }}</span>
                             </div>
 
                             <span class="sale-info-special">
                               <span class="salelineprice">{{
-                                  getCurrentProduct.original_price | price
-                                }}</span>
+                                getCurrentProduct.original_price | price
+                              }}</span>
                             </span>
-
                           </div>
                         </div>
                       </div>
@@ -343,7 +344,7 @@
                   </div>
                 </div>
               </div>
-<!--  Price Section  End -->
+              <!--  Price Section  End -->
               <!--  -->
               <product-bundle-options
                 v-if="
@@ -352,13 +353,52 @@
                 "
                 :product="getCurrentProduct"
               />
-              <product-custom-options
-                v-else-if="
+
+              <div
+                v-if="
                   getCurrentProduct.custom_options &&
                   getCurrentProduct.custom_options.length > 0
                 "
-                :product="getCurrentProduct"
-              />
+              >
+                <product-custom-options
+                  :currProduct="getCurrentProduct.sku"
+                  :product="getCurrentProduct"
+                  @option-added="addCustomOption($event)"
+                  :color="false"
+                />
+                <div
+                  v-if="
+                    getCurrentProduct.isFabric !== 0 &&
+                    getCurrentProduct.isFabric !== '0' &&
+                    getCurrentProduct.isFabric !== ' ' &&
+                    getCurrentProduct.isFabric !== false
+                  "
+                >
+                  <button
+                    class="select-color-button"
+                    type="button"
+                    @click="showColorPicker"
+                  >
+                    {{ getColorName() }}
+                    <i
+                      class="material-icons p15 cl-bg-tertiary pointer select-color-icon"
+                      >keyboard_arrow_right</i
+                    >
+                  </button>
+                  <div
+                    id="overlay"
+                    @click="hideColorPicker"
+                    v-if="colorPickerCheck"
+                  />
+                  <!-- {{getCurrentProduct.custom_options[2]}} -->
+                  <color-picker
+                    :colors="getCurrentProduct"
+                    v-show="colorPickerCheck"
+                    @closeColorPickerModal="hideColorPicker"
+                    @selectedColor="setColorName($event)"
+                  />
+                </div>
+              </div>
               <div class="add-to-cart row m0">
                 <div class="col-xs-12 col-md-6 col-lg-6 total-amount">
                   <product-price
@@ -391,8 +431,8 @@
                       <div class="variants-label" data-testid="variantsLabel">
                         {{ option.label }}
                         <span class="weight-700">{{
-                            getOptionLabel(option)
-                          }}</span>
+                          getOptionLabel(option)
+                        }}</span>
                       </div>
                       <div class="row top-xs m0 pt15 pb40 variants-wrapper">
                         <div v-if="option.label === 'Color'">
@@ -436,7 +476,7 @@
                           class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
                         >
                           <i class="pr5 material-icons">accessibility</i>
-                          <span>{{ $t('Size guide') }}</span>
+                          <span>{{ $t("Size guide") }}</span>
                         </span>
                       </div>
                     </div>
@@ -492,7 +532,7 @@
                     @click="show"
                     v-if="getCurrentProduct.qty_per_sqm"
                   >
-                    {{ $t('How many do I need?') }}
+                    {{ $t("How many do I need?") }}
                   </span>
                 </div>
                 <!-- <p @click="clearancemodal()">hello</p> -->
@@ -507,7 +547,6 @@
               </div>-->
             </div>
           </div>
-
         </section>
       </div>
     </section>
@@ -522,13 +561,13 @@
               class="row h3 m0 mb10 serif lh20 details-title hidden-xs"
               @click="productDetails()"
             >
-              {{ $t('Product Details') }}
+              {{ $t("Product Details") }}
               <span id="right-icon" class="icon-rotate" />
             </h2>
             <h2
               class="row h3 m0 mb10 serif lh20 details-title hidden-lg hidden-md"
             >
-              {{ $t('Product Info') }}
+              {{ $t("Product Info") }}
             </h2>
             <div
               class="lh20 h5 productdetail-close"
@@ -539,7 +578,7 @@
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infoprod-col">
             <div class="information-prod">
               <h2 class="info-break" @click="infoProd()">
-                {{ $t('Information Breakdown') }}
+                {{ $t("Information Breakdown") }}
                 <span id="right-icon-info" class="icon-rotate-info" />
               </h2>
               <ul class="attributes p0 pt5 m0 infoprod-close">
@@ -558,9 +597,9 @@
       </div>
     </section>
     <div class="recently-viewed-items-contain container">
-        <!-- similar_products {{similar_products}} -->
+      <!-- similar_products {{similar_products}} -->
 
-        <!-- Put data in similar products to see similar products -->
+      <!-- Put data in similar products to see similar products -->
       <template
         v-if="similar_products.items && similar_products.items.length > 0"
       >
@@ -607,7 +646,7 @@ import ProductQuantitySqm from 'theme/components/core/ProductQuantitySqm.vue';
 // import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/tilemountain/components/core/productQuantitySqm.vue"
 import ProductLinks from 'theme/components/core/ProductLinks.vue';
 // import ProductCustomOptions from '/home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactory/components/core/ProductCustomOptions.vue';
-import ProductCustomOptions from '../components/core/ProductCustomOptions'
+import ProductCustomOptions from '../components/core/ProductCustomOptions';
 import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue';
 import VinylRecommendedItems from 'theme/components/core/vinyl/VinylRecommendedItem';
 import ProductGallery from 'theme/components/core/ProductGallery';
@@ -661,10 +700,12 @@ import { prepareRelatedQuery } from '@vue-storefront/core/modules/catalog/querie
 // import QuickCheckoutModel from 'theme/components/core/blocks/QuickCheckout/QuickCheckoutModel';
 import { getThumbnailPath } from '@vue-storefront/core/helpers';
 import ReviewItemImageModel from 'theme/components/core/blocks/Reviews/ReviewItemImageModel';
-
+import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker"
+                         //theme/components/core/blocks/ColorPicker/ColorPicker.vue
 export default {
   name: 'ProductPage',
   components: {
+    ColorPicker,
     VinylRecommendedItems,
     WastePercentToggle,
     AddToCart,
@@ -709,7 +750,8 @@ export default {
   },
   data() {
     return {
-        loaded : false,
+        colorPickerCheck: false,
+      loaded: false,
       reviewData: null,
       cartItems: 0,
       detailsOpen: false,
@@ -1062,11 +1104,11 @@ export default {
       this.modalTwo = bool;
     });
   },
-  created () {
+  created() {
     var self = this;
-    self.$nextTick(function () {
+    self.$nextTick(function() {
       self.loaded = true;
-    })
+    });
   },
   async mounted() {
     this.setReviews();
@@ -1212,6 +1254,78 @@ export default {
     }
   },
   methods: {
+       addCustomOption(option) {
+      let prodFlag = true
+      if (this.sendProductCustomOptions.length == 0) {
+        this.sendProductCustomOptions.push(option)
+        // console.log("11226610 ", this.sendProductCustomOptions);
+      } else {
+        this.sendProductCustomOptions.forEach((prodOption, index) => {
+          // console.log(
+          //   "\n",
+          //   "prodOption.title",
+          //   prodOption,
+          //   "\n",
+          //   " option.title",
+          //   option,
+          //   "\n",
+          //   index,
+          //   "\n",
+          //   this.sendProductCustomOptions.length
+          // );
+          if (prodOption.title === option.title) {
+            prodOption = option
+            this.sendProductCustomOptions[index] = option
+            this.sendProductCustomOptions[index]
+            prodFlag = false
+            // console.log(
+            //   "1122669 indexer",
+            //   index,
+            //   this.sendProductCustomOptions[index]
+            // );
+          } else {
+            if (index == this.sendProductCustomOptions.length - 1) {
+              if (!prodFlag) {
+                this.sendProductCustomOptions.push(option)
+                //   console.log("1122667 ", this.sendProductCustomOptions);
+              } else {
+                //   console.log("1122668 ", this.sendProductCustomOptions);
+              }
+            }
+          }
+        })
+      }
+    },
+      setColorName(name) {
+      this.colorName = name
+    },
+     getColorName() {
+      if (this.colorName == "") {
+        this.getCurrentProduct.custom_options.forEach((option) => {
+          if (
+            option.iscolor == 1 ||
+            option.iscolor == "1" ||
+            option.iscolor == true
+          ) {
+            this.colorName = "Please Select " + option.title
+          }
+        })
+      } else {
+        return this.colorName
+      }
+    },
+      showColorPicker() {
+      this.colorPickerCheck = true
+      //  document.body.style.overflow("hidden");
+      //  let scrollDisable = document.getElementsByTagName("body");
+      //  scrollDisable.style.overflow("hidden");
+      //    console.log( "  document.body",scrollDisable);
+      document.body.style.overflow = "hidden"
+    },
+    hideColorPicker() {
+      this.colorPickerCheck = false
+      document.body.style.overflow = "scroll"
+    },
     setReviews() {
       try {
         let product_Id = '';
@@ -2160,6 +2274,18 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  cursor: pointer;
+}
 .abc {
   height: 50px;
   width: 50px;
@@ -3979,15 +4105,15 @@ a:not(.no-underline):hover:after {
   }
 }
 select.m0.no-outline {
-    width: 350px;
-     padding-left: 5px;
+  width: 350px;
+  padding-left: 5px;
 }
 form.custom-options {
-    padding-left: 40px;
+  padding-left: 40px;
 }
-@media (max-width: 400px){
+@media (max-width: 400px) {
   select.m0.no-outline {
     width: 250px;
-}
+  }
 }
 </style>
