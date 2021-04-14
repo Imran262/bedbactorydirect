@@ -2421,7 +2421,6 @@ $bg-secondary: color(secondary, $colors-background);
   }
 
   .product-head {
-    border-bottom: 1px solid #cccccc;
     padding: 20px 40px 15px 40px;
 
     .product-name {
@@ -2483,10 +2482,10 @@ $bg-secondary: color(secondary, $colors-background);
 
     .size-value,
     .sku-value {
-      color: #4a4a4a;
+      color: #828282;
       display: inline-block;
       font-family: Arial;
-      font-size: 0.875rem;
+      font-size: 0.815rem;
       font-weight: bold;
     }
 
@@ -2520,8 +2519,7 @@ $bg-secondary: color(secondary, $colors-background);
   }
 
   .product-pricing {
-    padding: 17px 40px 13px 40px;
-    border-bottom: 1px solid #cccccc;
+    padding: 0px 40px 0px 40px;
 
     .mb40 {
       margin-bottom: 0px;
@@ -2679,6 +2677,8 @@ a:not(.no-underline):hover:after {
       color: #484340;
       font-family: Arial;
       text-decoration: line-through;
+      padding-top: 8px;
+      padding-left: 20px;
     }
 
     .salelineprice {
@@ -2691,10 +2691,11 @@ a:not(.no-underline):hover:after {
       font-size: 16px;
       color: #d20505;
       font-family: Arial;
+      display: none;
     }
 
     .specialprice {
-      font-size: 22px;
+      font-size: 25px;
       color: #d20505;
       font-weight: bold;
       font-family: Arial;
@@ -2923,7 +2924,7 @@ a:not(.no-underline):hover:after {
 }
 
 .price-infos .sale-price {
-  display: block;
+  display: flex;
 }
 
 .price-infos.sale .sale-price {
