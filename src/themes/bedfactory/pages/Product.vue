@@ -606,7 +606,8 @@ import OutOfStockModal from 'theme/components/core/OutOfStockModal';
 import ProductQuantitySqm from 'theme/components/core/ProductQuantitySqm.vue';
 // import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/tilemountain/components/core/productQuantitySqm.vue"
 import ProductLinks from 'theme/components/core/ProductLinks.vue';
-import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue';
+// import ProductCustomOptions from '/home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactory/components/core/ProductCustomOptions.vue';
+import ProductCustomOptions from '../components/core/ProductCustomOptions'
 import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue';
 import VinylRecommendedItems from 'theme/components/core/vinyl/VinylRecommendedItem';
 import ProductGallery from 'theme/components/core/ProductGallery';
