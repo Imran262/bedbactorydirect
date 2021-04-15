@@ -424,11 +424,20 @@
                     "
                     class="add-btn"
                     @Modal="modalshow"
+                    :sqm-val-updated="'0'"
+                  />
+                  <!-- <add-to-cart
+                    :product="getCurrentProduct"
+                    :disabled="
+                      isAddToCartDisabled || cartDisabledOnQuoteItemBased
+                    "
+                    class="add-btn"
+                    @Modal="modalshow"
                     :sqm-val-updated="tileSqmQuantity"
                     @update-sqm-qty="sqmQtyCheck"
                     @update-tile-qty="tileQtyCheck"
                     @atcPixel="atcPixel"
-                  />
+                  /> -->
                   <span
                     class="mobile-cal-btn"
                     @click="show"
