@@ -398,7 +398,7 @@
                   :product-tile-quantity="tilesQuantity"
                   :fixing="fixing"
                   :made-of="madeOf"
-                  :box-sqm="boxSqm"
+                  :box-sqm="getCurrentProduct.qty"
                   :grout-joint="groutJoint"
                   :min-sqm-value="minSqmValue"
                   :vinyl-product-price="vinylProductPrice"
