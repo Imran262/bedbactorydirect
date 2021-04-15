@@ -401,90 +401,20 @@
               </div>
               <div class="add-to-cart row m0">
                 <div class="col-xs-12 col-md-6 col-lg-6 total-amount">
-                  <product-price
-                    class="mb40"
-                    v-if="getCurrentProduct.type_id !== 'grouped'"
-                    :product="getCurrentProduct"
-                    :custom-options="getCurrentCustomOptions"
-                    :hide-price-on-load="tileSqmQuantity"
-                    :vinyl-product-price="vinylProductPrice"
-                    @finalPrice="vinylFullProductPrice"
-                  />
-                  <div
-                    class="cl-primary variants"
-                    v-if="getCurrentProduct.type_id == 'configurable'"
-                  >
-                    <div
-                      class="error"
-                      v-if="
-                        getCurrentProduct.errors &&
-                        Object.keys(getCurrentProduct.errors).length > 0
-                      "
-                    >
-                      {{ getCurrentProduct.errors | formatProductMessages }}
-                    </div>
-                    <div
-                      class="h5"
-                      v-for="option in getProductOptions"
-                      :key="option.id"
-                    >
-                      <div class="variants-label" data-testid="variantsLabel">
-                        {{ option.label }}
-                        <span class="weight-700">{{
-                          getOptionLabel(option)
-                        }}</span>
-                      </div>
-                      <div class="row top-xs m0 pt15 pb40 variants-wrapper">
-                        <div v-if="option.label === 'Color'">
-                          <color-selector
-                            v-for="filter in getAvailableFilters[
-                              option.attribute_code
-                            ]"
-                            :key="filter.id"
-                            :variant="filter"
-                            :selected-filters="getSelectedFilters"
-                            @change="changeFilter"
-                          />
-                        </div>
-                        <div class="sizes" v-else-if="option.label == 'Size'">
-                          <size-selector
-                            class="mr10 mb10"
-                            v-for="filter in getAvailableFilters[
-                              option.attribute_code
-                            ]"
-                            :key="filter.id"
-                            :variant="filter"
-                            :selected-filters="getSelectedFilters"
-                            @change="changeFilter"
-                          />
-                        </div>
-                        <div :class="option.attribute_code" v-else>
-                          <generic-selector
-                            class="mr10 mb10"
-                            v-for="filter in getAvailableFilters[
-                              option.attribute_code
-                            ]"
-                            :key="filter.id"
-                            :variant="filter"
-                            :selected-filters="getSelectedFilters"
-                            @change="changeFilter"
-                          />
-                        </div>
-                        <span
-                          v-if="option.label == 'Size'"
-                          @click="openSizeGuide"
-                          class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
-                        >
-                          <i class="pr5 material-icons">accessibility</i>
-                          <span>{{ $t("Size guide") }}</span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <product-links
-                    v-if="getCurrentProduct.type_id == 'grouped'"
-                    :products="getCurrentProduct.product_links"
-                  />
+                <product-quantity
+                class="product-quantity bt-product-qty row m0 mb35"
+                v-if="
+                  getCurrentProduct.type_id !== 'grouped' &&
+                  getCurrentProduct.type_id !== 'bundle'
+                "
+                v-model="getCurrentProduct.qty"
+                :max-quantity="maxQuantity"
+                input-type="text"
+                :loading="isStockInfoLoading"
+                :is-simple-or-configurable="isSimpleOrConfigurable"
+                show-quantity
+                @error="handleQuantityError"
+              />
                 </div>
                 <addtobasket
                   v-if="showModal"
@@ -750,6 +680,7 @@ export default {
   },
   data() {
     return {
+        sendProductCustomOptions: [],
         colorPickerCheck: false,
       loaded: false,
       reviewData: null,
@@ -1832,14 +1763,10 @@ export default {
         2
       );
       // console.log('neecheay', this.tileSqmQuantity)
-      this.boxSqm = this.tileSqmQuantity;
-      this.calculateTenPercentwaste();
+     
     },
     forVinyl() {
-      this.boxSqm = this.roundTo(
-        this.getCurrentProduct.qty / this.getCurrentProduct.qty_per_sqm,
-        2
-      );
+      this.boxSqm = this.getCurrentProduct.qty;
     },
     notifyOutStock() {
       this.$store.dispatch('notification/spawnNotification', {
@@ -2139,7 +2066,7 @@ export default {
         });
 
         this.manageQuantity = res.isManageStock;
-        this.maxQuantity = res.isManageStock ? res.qty : null;
+        this.maxQuantity =  res.qty ;
         this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
       } finally {
         this.isStockInfoLoading = false;
