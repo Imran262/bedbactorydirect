@@ -268,7 +268,7 @@
                   >
                     <div class="row">
                       <div
-                        class="col-lg-8 col-md-7 col-xs-6 border-tile-bottom first-child"
+                        class="col-lg-12 col-md-12 col-xs-12 border-tile-bottom first-child"
                       > 
                         <div
                           class="price serif price-infos"
@@ -311,10 +311,29 @@
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="col-lg-4 col-md-5 col-xs-6 border-tile-bottom fields"
-                      >
-                        <product-quantity
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!--  Price Section  End -->
+              <!--  -->
+              <product-bundle-options
+                v-if="
+                  getCurrentProduct.bundle_options &&
+                  getCurrentProduct.bundle_options.length > 0
+                "
+                :product="getCurrentProduct"
+              />
+              <product-custom-options
+                v-else-if="
+                  getCurrentProduct.custom_options &&
+                  getCurrentProduct.custom_options.length > 0
+                "
+                :product="getCurrentProduct"
+              />
+              <div class="add-to-cart row m0">
+                <div class="col-xs-12 col-md-6 col-lg-6 total-amount">
+                    <product-quantity
                           class="row m0 mb10"
                           :class="
                             !getCurrentProduct.qty_per_sqm
@@ -338,30 +357,7 @@
                             getCurrentProduct.qty_per_sqm ? 'Tiles' : 'Qty'
                           "
                         />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-<!--  Price Section  End -->
-              <!--  -->
-              <product-bundle-options
-                v-if="
-                  getCurrentProduct.bundle_options &&
-                  getCurrentProduct.bundle_options.length > 0
-                "
-                :product="getCurrentProduct"
-              />
-              <product-custom-options
-                v-else-if="
-                  getCurrentProduct.custom_options &&
-                  getCurrentProduct.custom_options.length > 0
-                "
-                :product="getCurrentProduct"
-              />
-              <div class="add-to-cart row m0">
-                <div class="col-xs-12 col-md-6 col-lg-6 total-amount">
-                  <product-price
+                  <!--product-price
                     class="mb40"
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
@@ -444,7 +440,7 @@
                   <product-links
                     v-if="getCurrentProduct.type_id == 'grouped'"
                     :products="getCurrentProduct.product_links"
-                  />
+                  /-->
                 </div>
                 <addtobasket
                   v-if="showModal"
@@ -2604,7 +2600,6 @@ a:not(.no-underline):hover:after {
     color: #4a4a4a;
     font-size: 16px;
   }
-
   .tile-txt {
     margin-left: 10px;
     font-family: oblik;
@@ -2612,7 +2607,6 @@ a:not(.no-underline):hover:after {
     font-size: 16px;
   }
 }
-
 .calculator {
   margin-top: 15px;
   float: right;
@@ -2941,7 +2935,7 @@ a:not(.no-underline):hover:after {
 
 .product-quantity {
   padding-top: 7px;
-  margin-left: 12px;
+ /* margin-left: 12px;*/
 }
 
 .recent {
@@ -2965,7 +2959,7 @@ a:not(.no-underline):hover:after {
 }
 
 .adhesive-qty {
-  float: right;
+  /*float: right;*/
 }
 
 .product-slider {
