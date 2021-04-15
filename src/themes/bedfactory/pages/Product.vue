@@ -333,30 +333,6 @@
               />
               <div class="add-to-cart row m0">
                 <div class="col-xs-12 col-md-6 col-lg-6 total-amount">
-                    <product-quantity
-                          class="row m0 mb10"
-                          :class="
-                            !getCurrentProduct.qty_per_sqm
-                              ? 'adhesive-qty'
-                              : 'simple-tiles'
-                          "
-                          v-if="
-                            getCurrentProduct.type_id !== 'grouped' &&
-                            getCurrentProduct.type_id !== 'bundle'
-                          "
-                          v-model="getCurrentProduct.qty"
-                          :product="getCurrentProduct"
-                          :max-quantity="maxQuantity"
-                          :loading="isStockInfoLoading"
-                          :is-simple-or-configurable="isSimpleOrConfigurable"
-                          :show-quantity="manageQuantity"
-                          :check-max-quantity="manageQuantity"
-                          @keyup="tileQtyUpdated"
-                          @error="handleQuantityError"
-                          :forbase-input="
-                            getCurrentProduct.qty_per_sqm ? 'Tiles' : 'Qty'
-                          "
-                        />
                   <!--product-price
                     class="mb40"
                     v-if="getCurrentProduct.type_id !== 'grouped'"
@@ -2440,7 +2416,7 @@ $bg-secondary: color(secondary, $colors-background);
           display: inline-block;
 
           .fa {
-            color: #fcde02;
+            color: #FFD055;
             font-size: 20px;
           }
         }
