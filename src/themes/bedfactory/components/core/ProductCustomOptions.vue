@@ -5,7 +5,7 @@
         v-for="(option, count) in product.custom_options"
         :key="'customOption_' + option.option_id + count"
       >
-        <h4 v-if="!color" class="basin-head">{{ option.title }} Hello </h4>
+        <h4 v-if="!color" class="basin-head">{{ option.title }} </h4>
         <div
           v-if="
             (option.iscolor == 1 ||

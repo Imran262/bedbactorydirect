@@ -106,7 +106,7 @@ export default {
 }
 .fa {
     color: #434243;
-    font-size: 30px !important;
+    font-size: 20px !important;
 }
 @media only screen and (min-width: 320px) and (max-width: 500px){
 .circle {
