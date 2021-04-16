@@ -338,7 +338,7 @@
                   @option-added="addCustomOption($event)"
                   :color="false"
                 />
-                <div
+                <div  class="fabric-button-design"
                   v-if="
                     getCurrentProduct.isFabric !== 0 &&
                     getCurrentProduct.isFabric !== '0' &&
@@ -353,7 +353,7 @@
                   >
                     {{ getColorName() }}
                     <i
-                      class="material-icons p15 cl-bg-tertiary pointer select-color-icon"
+                      class="material-icons cl-bg-tertiary pointer select-color-icon"
                       >keyboard_arrow_right</i
                     >
                   </button>
@@ -3490,7 +3490,6 @@ a:not(.no-underline):hover:after {
     margin-right: 50px;
   }
   .border-tile-bottom .price-infos {
-    float: right;
     margin-right: 50px;
   }
   .product-desc {
@@ -4029,7 +4028,41 @@ form.custom-options {
 }
 @media (max-width: 400px) {
   select.m0.no-outline {
-    width: 250px;
+    width: 250px !important;
   }
+}
+@media (max-width: 767px) {
+  select.m0.no-outline {
+    width: 350px !important;
+  }
+}
+.fabric-button-design {
+    padding-left: 40px;
+}
+button.select-color-button {
+   width: 550px;
+    border: 2px solid #24224d;
+    height: 44px;
+    background: #fff;
+}
+ @media (max-width: 1268px){
+   button.select-color-button {
+   width: 400px;
+}
+ }
+
+  @media (max-width: 767px){
+   button.select-color-button {
+   width: 350px !important;
+}
+ }
+   @media (max-width: 400px){
+   button.select-color-button {
+   width: 250px !important;
+}
+ }
+i.material-icons {
+    float: right;
+    color: #24224d !important;
 }
 </style>

@@ -349,21 +349,31 @@ $color-error: color(error);
   }
   .basin_size {
     select {
-      width: 350px;
+      width: 550px;
       background: #ffffff;
       font-family: "Poppins", sans-serif;
       color: #000;
       font-size: 16px;
-      border: 3px solid #f0f1f2;
+      border: 2px solid #24224d;
       appearance: none;
       padding-left: 4px !important;
     }
   }
+  @media (max-width: 1268px){
+    .basin_size {
+    select {
+      width: 400px;
+  
+    }
+  }
+  }
+
   // .basin-head,
   // .basin_size {
   //   display: inline-block;
   // }
 }
+
 #overlay {
   position: fixed;
   width: 100%;
@@ -550,14 +560,6 @@ input[type="checkbox"] {
     max-width: calc(100% - 60px);
   }
 }
-@media (min-width: 768px) and (max-width: 992px) {
-  .basin .basin_size select {
-    width: 250px;
-  }
-   .basin_size{
-    width: 250px !important;
-  }
-}
 
 @media (min-width: 768px) and (max-width: 992px) {
   .custom-attribute-list div {
@@ -580,7 +582,7 @@ input[type="checkbox"] {
 .select-color-icon {
   padding: 0;
   float: right;
-  color: #000;
+  color: #24224d;
   font-size: 20px;
   position: absolute;
   right: 3px;
@@ -599,14 +601,30 @@ select {
   border: none;
 }
 .basin_size {
-  width: 350px;
+  width: 550px;
 }
-@media only screen and (min-device-width: 320px) and (max-device-width: 370px) {
-  .basin .basin_size select {
-    width: 300px;
+ @media (max-width: 1268px){
+    .basin_size {
+      width: 400px;
   }
-  .basin_size {
-    width: 300px !important;
+  }
+h4.basin-head {
+    color: #24224d !important;
+     margin-bottom: 5px;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 400px) {
+  .basin .basin_size select {
+    width: 250px !important;
+}
+}
+@media (max-width: 767px) {
+   .basin_size{
+    width: 350px !important;
+  }
+}
+@media (max-width: 400px) {
+   .basin_size{
+    width: 250px !important;
   }
 }
 .basin-size-color {
