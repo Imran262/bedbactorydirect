@@ -508,6 +508,12 @@
       </div>
     </section>
     <div class="recently-viewed-items-contain container">
+        <lazy-hydrate when-idle>
+      <related-products
+        type="upsell"
+        :heading="$t('Customers also liked')"
+      />
+    </lazy-hydrate>
       <!-- similar_products {{similar_products}} -->
 
       <!-- Put data in similar products to see similar products -->
@@ -543,7 +549,7 @@
 // import i18n from '@vue-storefront/i18n';
 // import VueOfflineMixin from 'vue-offline/mixin';
 import config from 'config';
-// import RelatedProducts from 'theme/components/core/blocks/Product/Related.vue';
+import RelatedProducts from 'src/themes/bedfactory/components/core/blocks/Product/Related.vue';
 import Reviews from 'theme/components/core/blocks/Reviews/Reviews.vue';
 import AddToCart from 'theme/components/core/AddToCart.vue';
 import GenericSelector from 'theme/components/core/GenericSelector';
@@ -618,6 +624,7 @@ import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicke
 export default {
   name: 'ProductPage',
   components: {
+      RelatedProducts,
     ColorPicker,
     VinylRecommendedItems,
     WastePercentToggle,

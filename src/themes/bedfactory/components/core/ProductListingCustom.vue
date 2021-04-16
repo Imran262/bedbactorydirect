@@ -5,7 +5,7 @@
     <div
       v-for="(product, key) in products"
       :key="key"
-      class="col-sm-12 col-md-4 flex col-xs-12 pading"
+      class="col-sm-12 col-md-3 flex col-xs-12 pading"
     >
    <!-- Current Product {{product.name}} -->
       <product-tile-custom :product="product" :filters="filters"/>

@@ -96,6 +96,7 @@
                 </div>
               </div>
             </div>
+             <template v-if="qas">
             <template v-if="qas.length > 0">
               <template v-for="(qaItem, index) in pageOfQas">
                 <qa-item :key="index" :qa="qaItem"/>
@@ -113,6 +114,7 @@
               <p class="not-found">
                 No Questions yet
               </p>
+            </template>
             </template>
           </div>
         </div>
