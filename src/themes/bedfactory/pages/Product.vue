@@ -461,52 +461,153 @@
         </section>
       </div>
     </section>
-    <section class="container px15 pt20 pb35 cl-accent details product-desc">
-      <div
-        class="h4 details-wrapper"
-        :class="[detailsOpen ? 'details-wrapper--open' : '']"
-      >
-        <div class="row between-md m0">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 productdetail-col">
-            <h2
-              class="row h3 m0 mb10 serif lh20 details-title hidden-xs"
-              @click="productDetails()"
+
+
+
+
+
+   
+    <section
+      class="container pt50 pb35 cl-accent details product-description-main"
+    >
+      <div class="row">
+        <div
+          class="col-lg-7 col-md-7 col-sm-12 col-xs-12 product-description-left"
+        >
+        <h2
+            class="h3 m0 mb10 serif lh20 details-dimension"
+            @click="ProDimensionShowFn"
+          >
+            {{ $t("Description") }}
+            <i
+              data-v-d65c5c7c
+              class="material-icons p15 cl-bg-tertiary pointer product-detail-icon icon-rotate"
+              id="product-dimension-icon-id"
+              >keyboard_arrow_right</i
             >
-              {{ $t("Product Details") }}
-              <span id="right-icon" class="icon-rotate" />
-            </h2>
-            <h2
-              class="row h3 m0 mb10 serif lh20 details-title hidden-lg hidden-md"
-            >
-              {{ $t("Product Info") }}
-            </h2>
-            <div
-              class="lh20 h5 productdetail-close"
-              itemprop="description"
-              v-html="getCurrentProduct.description"
-            />
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infoprod-col">
-            <div class="information-prod">
-              <h2 class="info-break" @click="infoProd()">
-                {{ $t("Information Breakdown") }}
-                <span id="right-icon-info" class="icon-rotate-info" />
-              </h2>
-              <ul class="attributes p0 pt5 m0 infoprod-close">
-                <product-attribute
-                  :key="attr.attribute_code"
-                  v-for="attr in getCustomAttributes"
-                  :product="getCurrentProduct"
-                  :attribute="attr"
-                  empty-placeholder="N/A"
-                />
-              </ul>
+          </h2>
+          <div
+            v-if="ProDimensionShow"
+            class="h4 dimension-wrapper bt-dimension-wrapper-show-close dimension-wrapper-show"
+            :class="{ 'dimension-wrapper--open': detailsOpen }"
+          >
+            <div class="row between-md m0">
+              <div class="col-xs-12 col-sm-12 long-description">
+                <!-- <h2 class="m0 serif details-title">{{ $t('Product details') }}</h2> -->
+                <div
+                  class="h4 details-wrapper"
+                  :class="{ 'details-wrapper--open': detailsOpen }"
+                >
+                  <div class="row between-md m0">
+                    <div class="col-xs-12 col-sm-12">
+                      <div
+                        class="lh30 h5"
+                        itemprop="description"
+                        v-html="getCurrentProduct.description"
+                      />
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-5">
+                      <ul class="attributes p0 pt5 m0">
+                        <product-attribute
+                          :key="attr.attribute_code"
+                          v-for="attr in getCustomAttributes"
+                          :product="getCurrentProduct"
+                          :attribute="attr"
+                          empty-placeholder="N/A"
+                        />
+                      </ul>
+                    </div>-->
+                    <!-- <div class="details-overlay" @click="showDetails" /> -->
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="details-overlay" @click="showDetails" />
+          <h2
+            class="h3 m0 mb10 serif lh20 details-Delivery"
+            @click="ProSpecificationsShowFn"
+          >
+            {{ $t("Specifications") }}
+            <i
+              data-v-d65c5c7c
+              class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
+              id="product-Specifications-icon-id"
+              >keyboard_arrow_right</i
+            >
+          </h2>
+          <div
+            v-if="ProDeliveryShow"
+            class="h4 Delivery-wrapper bt-Specifications-wrapper-show-close"
+          >
+         
+            <div class="row between-md m0">
+              <div class="col-xs-12 col-sm-12">
+                <div class="Specifications-main">
+                  <div v-html="getCurrentProduct.specs" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2
+            class="h3 m0 mb10 serif lh20 details-Delivery"
+            @click="ProDeliveryShowFn"
+          >
+            {{ $t("Delivery Information") }}
+            <i
+              data-v-d65c5c7c
+              class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
+              id="product-Delivery-icon-id"
+              >keyboard_arrow_right</i
+            >
+          </h2>
+          <div
+            v-if="ProDeliveryShow"
+            class="h4 Delivery-wrapper bt-Delivery-wrapper-show-close"
+          >
+            <div class="row between-md m0">
+              <div class="col-xs-12 col-sm-12">
+                <div class="delivery-main">
+                  <!--<img src="/assets/free-delivery-icon.png" />
+                  <span>
+                    Order before 12pm for
+                    <router-link to="/i/deliveryinfo">
+                      <span class="purple">next working day delivery</span>
+                    </router-link>
+                  </span>-->
+                  <!-- BLock is {{getCurrentProduct.delivery_cms_block}} block -->
+                  <!-- <br /> -->
+                  <cms-block
+                    :identifier="
+                      getCurrentProduct.delivery_cms_block
+                        ? getCurrentProduct.delivery_cms_block
+                        : 'delivery_Info'
+                    "
+                  />
+                  <!--<router-link to="/i/deliveryinfo">
+                    <span class="purple">delivery page</span>
+                  </router-link>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-lg-5 col-md-5 col-sm-12 col-xs-12 product-description-right"
+        >
+          <div
+            class="bt-new-description-main"
+            v-if="getCurrentProduct.short_description"
+          >
+            <!-- <ProdReadmore :shortdesc="getCurrentProduct.short_description" /> -->
+
+            <div v-html="getShortDescription" />
+          </div>
         </div>
       </div>
     </section>
+
+
+
     <div class="recently-viewed-items-contain container">
         <lazy-hydrate when-idle>
       <related-products
@@ -548,6 +649,7 @@
 <script>
 // import i18n from '@vue-storefront/i18n';
 // import VueOfflineMixin from 'vue-offline/mixin';
+import CmsBlock from "src/themes/bedfactory/components/core/blocks/Cms/DeliveryBlock"
 import config from 'config';
 import RelatedProducts from 'src/themes/bedfactory/components/core/blocks/Product/Related.vue';
 import Reviews from 'theme/components/core/blocks/Reviews/Reviews.vue';
@@ -624,6 +726,7 @@ import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicke
 export default {
   name: 'ProductPage',
   components: {
+    CmsBlock,
       RelatedProducts,
     ColorPicker,
     VinylRecommendedItems,
@@ -670,6 +773,10 @@ export default {
   },
   data() {
     return {
+       detailsOpen: false,
+       ProDeliveryShow: true,
+      ProReviewShow: true,
+      ProDimensionShow: true,
         sendProductCustomOptions: [],
         colorPickerCheck: false,
       loaded: false,
@@ -753,6 +860,16 @@ export default {
       productsInCart: 'cart/getCartItems',
       getCartToken: 'cart/getCartToken'
     }),
+    getShortDescription() {
+      const formatShortDesc = this.getCurrentProduct.short_description
+      let formatShortDescUlInc = ""
+      if (formatShortDesc.includes("<ul") === true) {
+        formatShortDescUlInc = formatShortDesc
+      } else {
+        formatShortDescUlInc = "<ul>" + formatShortDesc + "</ul>"
+      }
+      return formatShortDescUlInc
+    },
     perBox() {
       if (this.getCurrentProduct.box_coverage) {
         let box_coverage = this.getCurrentProduct.box_coverage;
@@ -1175,6 +1292,54 @@ export default {
     }
   },
   methods: {
+showDetails(event) {
+      this.detailsOpen = true
+      event.target.classList.add("hidden")
+    },
+    ProSpecificationsShowFn() {
+      var details_element = document.getElementsByClassName(
+        "bt-Specifications-wrapper-show-close"
+      )[0]
+      details_element.classList.toggle("Specifications-wrapper-show")
+      document
+        .getElementById("product-Specifications-icon-id")
+        .classList.toggle("icon-rotate")
+    },
+    ProReviewShowFn() {
+      var details_element = document.getElementsByClassName(
+        "bt-review-wrapper-show-close"
+      )[0]
+      details_element.classList.toggle("review-wrapper-show")
+      document
+        .getElementById("product-review-icon-id")
+        .classList.toggle("icon-rotate")
+    },
+    ProDimensionShowFn() {
+      var details_element = document.getElementsByClassName(
+        "bt-dimension-wrapper-show-close"
+      )[0]
+      details_element.classList.toggle("dimension-wrapper-show")
+      document
+        .getElementById("product-dimension-icon-id")
+        .classList.toggle("icon-rotate")
+      if (document.getElementById("comes-with-main") !== null) {
+        // console.log('sasa');
+        const slider2 = document
+          .getElementById("comes-with-main")
+          .querySelector(".VueCarousel-inner")
+        slider2.style.transform =
+          "translate3d(" + "-" + slider2.style.flexBasis + ", 0px, 0px)"
+      }
+    },
+    ProDeliveryShowFn() {
+      var details_element = document.getElementsByClassName(
+        "bt-Delivery-wrapper-show-close"
+      )[0]
+      details_element.classList.toggle("Delivery-wrapper-show")
+      document
+        .getElementById("product-Delivery-icon-id")
+        .classList.toggle("icon-rotate")
+    },
        addCustomOption(option) {
       let prodFlag = true
       if (this.sendProductCustomOptions.length == 0) {
@@ -2183,6 +2348,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 
@@ -2191,6 +2357,127 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+
+.bt-new-description-main {
+  background-color: #f6f6f6;
+  -webkit-box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75);
+}
+.product-description-right {
+    order: 1;
+    -webkit-order: 1;
+  }
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+table tr {
+  border: 1px solid red;
+  padding: .35em;
+}
+
+table td {
+  border: 1px solid red;
+  padding: .625em;
+  text-align: left;
+}
+h2.h3 {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  color: #54575b;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 35px 0px 25px 0px;
+  cursor: pointer;
+}
+h2.h3:after {
+  border-bottom: 1px solid #f0f1f2;
+  content: "";
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+}
+.details-dimension {
+  margin: 5px 0px 25px 0px !important;
+}
+.bt-dimension-wrapper-show-close {
+  display: none;
+}
+
+.bt-dimension-wrapper-show-close.dimension-wrapper-show {
+  display: block;
+}
+i.icon-rotate {
+  transform: rotate(90deg);
+}
+i.product-detail-icon {
+  padding: 0;
+  float: right;
+  color: #9aa09c;
+  font-size: 35px;
+  position: absolute;
+  right: 0;
+  top: -4px;
+}
+.bt-Delivery-wrapper-show-close .lh30 {
+  font-size: 16px !important;
+}
+
+.bt-Delivery-wrapper-show-close {
+  display: none;
+}
+
+.bt-Delivery-wrapper-show-close.Delivery-wrapper-show {
+  display: block;
+}
+.bt-Specifications-wrapper-show-close .lh30 {
+  font-size: 16px !important;
+}
+.bt-Specifications-wrapper-show-close {
+  display: none;
+}
+.bt-Specifications-wrapper-show-close.Specifications-wrapper-show {
+  display: block;
+}
+.delivery-main .cms-content p {
+  margin: 0;
+}
+.delivery-main .cms-content ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.delivery-main .cms-content p a {
+  color: #4DBA87;
+}
+.delivery-main {
+  display: inline-flex;
+}
+.delivery-main img {
+  width: 30px;
+  float: left;
+  height: 20px;
+}
+
+.bt-new-delivery-main {
+  padding: 5px 0px 20px 0px;
+  border-bottom: 1px solid #f0f1f2;
+}
+.delivery-main span {
+  padding-left: 15px;
+  color: #54575b;
+  font-weight: 600;
+}
+
 #overlay {
   position: fixed;
   width: 100%;
@@ -3594,6 +3881,63 @@ a:not(.no-underline):hover:after {
 }
 </style>
 <style>
+.bt-new-description-main ul {
+  padding: 18px 0px 18px 18px;
+  list-style: none;
+}
+
+.bt-new-description-main ul li {
+  color: #54575b;
+  margin-bottom: 5px;
+  position: relative;
+  margin-left: 15px;
+}
+
+.bt-new-description-main ul li:before {
+  content: "-";
+  margin-right: 15px;
+  position: absolute;
+  left: -15px;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+}
+@media only screen and (max-width: 700px) and (min-width: 320px) {
+  table {
+    width: 100%;
+  }
+}
+table tr {
+  border: 1px solid red;
+  padding: .35em;
+}
+
+table td {
+  border: 1px solid black;
+  padding: .625em;
+  text-align: left;
+  font-size: 14px !important;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px){
+  table td {
+font-size: 1.5vw !important;
+  }
+  .Specifications-main td strong {
+    font-size: 1.4vw !important;
+}
+.Specifications-main p {
+    font-size: 1.5vw !important;
+}
+.Specifications-main p strong{
+    font-size: 14px !important;
+}
+}
 .sqm-titlespecial span sup {
   text-decoration: none;
   display: inline-block;
