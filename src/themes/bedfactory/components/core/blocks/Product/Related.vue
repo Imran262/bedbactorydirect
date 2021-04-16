@@ -10,7 +10,7 @@
         </h2>
       </header>
     </div>
-    <product-listing columns="4" :products="getCurrentRelatedProducts" :filters="{}" :searchPage="true"/>
+    <product-listing columns="4" :products="getCurrentRelatedProducts" :filters="{}" :searchPage="true" :isCategory="false"/>
   </section>
 </template>
 

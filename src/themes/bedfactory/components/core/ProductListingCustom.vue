@@ -2,6 +2,16 @@
   <div class="product-listing row m0 center-xs start-md">
     <!-- In product Listing
   Products are <br /> -->
+  <template v-if="isCategory">
+    <div
+      v-for="(product, key) in products"
+      :key="key"
+      class="col-sm-12 col-md-4 flex col-xs-12 pading"
+    >
+      <product-tile-custom-cat :product="product" :filters="filters"/>
+    </div>
+  </template>
+  <template v-else>
     <div
       v-for="(product, key) in products"
       :key="key"
@@ -10,11 +20,13 @@
    <!-- Current Product {{product.name}} -->
       <product-tile-custom :product="product" :filters="filters"/>
     </div>
+  </template>
   </div>
 </template>
 
 <script>
-import ProductTileCustom from './ProductTileBFD.vue'
+import ProductTileCustomCat from './ProductTileBFD.vue'
+import ProductTileCustom from './ProductTileSearch.vue'
 
 export default {
   name: 'ProductListing',
@@ -37,6 +49,10 @@ export default {
     },
      filters: {
       type: Object,
+      required:true
+    },
+     isCategory: {
+      type: Boolean,
       required:true
     }
   },

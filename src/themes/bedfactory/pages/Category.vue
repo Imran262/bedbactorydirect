@@ -327,6 +327,7 @@ getCategoryProducts {{getCategoryProducts}} -->
               :columns="defaultColumn"
               :products="pagination.currentPageItems || getCategoryProducts"
               :filters="getAvailableFilters"
+              :isCategory="true"
             />
             <lazy-hydrate
               :trigger-hydration="!loading"
@@ -335,12 +336,13 @@ getCategoryProducts {{getCategoryProducts}} -->
                 getCategoryProductsTotal > lengthOfProductArray
               "
             >
-            So we in here <br /> Total products {{getCategoryProductsTotal}}
+            <!-- So we in here <br /> Total products {{getCategoryProductsTotal}} -->
               <product-listing
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
                 class="pagination-true"
                 :filters="getAvailableFilters"
+                :isCategory="true"
                 :products="
                   pagination.currentPageItems &&
                   pagination.currentPageItems.length > 0
@@ -363,6 +365,7 @@ getCategoryProducts {{getCategoryProducts}} -->
                 :products="getCategoryProducts"
                 @showPagination="showbottompage"
                 :filters="getAvailableFilters"
+                :isCategory="true"
               />
             </lazy-hydrate>
             <product-listing
@@ -371,6 +374,7 @@ getCategoryProducts {{getCategoryProducts}} -->
               :columns="defaultColumn"
               :products="pagination.currentPageItems || getCategoryProducts"
               :filters="getAvailableFilters"
+              :isCategory="true"
             />
             <!-- pagination.currentPageItems || getCategoryProducts <br /><br /><br />{{ getCategoryProducts}} -->
           </div>

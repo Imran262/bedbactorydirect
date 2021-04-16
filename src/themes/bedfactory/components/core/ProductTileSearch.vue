@@ -44,35 +44,9 @@
           data-testid="productImage"
         />
       </div>
-      <div class="brand-size1">
-        <!-- {{ getBrandImage() }}
-        {{ product.brand }} -->
-        <!-- {{ product.brand }} -->
-        <img class="brand-size" :src="getBrandImage()" alt="" />
-      </div>
       <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-      <div class="comfort-size">
-        <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
-          <div
-            v-for="(comfort, comfortIndex) in filters.comfort_grade"
-            :key="comfortIndex"
-          >
-            <!-- class="rounded-button" -->
-            <button
-              id="comfortBtn"
-              class="rounded-button comfort-size"
-              :class="setComfortColor()"
-              v-if="comfort.id == product.comfort_grade[0]"
-            >
-              {{ comfort.label }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <!--  -->
-
       <div
         class="catstar review-size"
         v-if="reviewData && reviewData.bottomline.total_review <= 0"
