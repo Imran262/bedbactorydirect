@@ -374,13 +374,7 @@ $color-white: color(white);
   /* text-align: right; */
   // margin-top: 14px;
   ul {
-    margin-top: 15px !important;
-    @media (min-width: 768px) and (max-width: 1199px) {
-      margin-top: 0px !important;
-    }
-    @media screen and (max-width: 460px) {
-      margin-top: 7px !important;
-    }
+    margin-top: 2px !important;
   }
 
   @media screen and (max-width: 1199px) {

@@ -31,7 +31,7 @@
               <select
                 ref="colorImage"
                 :name="'customOption_' + option.option_id"
-                class="m0 no-outline chevron-down chevron-down-color"
+                class="m0 no-outline chevron-down chevron-down-color inside-Fabric"
                 v-model="inputValues['customOption_' + option.option_id]"
                 @focus="$emit('focus')"
                 @blur="$emit('blur')"
@@ -161,7 +161,7 @@
               <select
                 ref="selectedOption"
                 :name="'customOption_' + option.option_id"
-                class="m0 no-outline"
+                class="m0 no-outline size-storage-select"
                 focus
                 v-model="inputValues['customOption_' + option.option_id]"
                 @focus="$emit('focus')"
@@ -632,6 +632,11 @@ h4.basin-head {
 }
 .chevron-down-color {
   width: 100% !important;
+}
+@media (max-width: 767px){
+.inside-Fabric {
+     width: 100% !important;
+}
 }
 .chevron-down-clr{
  padding: 0;
