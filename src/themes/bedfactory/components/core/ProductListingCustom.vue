@@ -31,7 +31,8 @@ import ProductTileCustom from './ProductTileSearch.vue'
 export default {
   name: 'ProductListing',
   components: {
-    ProductTileCustom
+    ProductTileCustom,
+    ProductTileCustomCat
   },
   data () {
     return {
