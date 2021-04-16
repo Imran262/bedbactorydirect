@@ -106,7 +106,7 @@ export default {
 }
 .fa {
     color: #434243;
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 @media only screen and (min-width: 320px) and (max-width: 500px){
 .circle {
@@ -116,6 +116,13 @@ export default {
     margin-left: 2px;
     margin-right: 5px !important;
 }
+}
+input#input_370 {
+    border: 2px solid #24224d  !important;
+    text-align: center  !important;
+    height: 45px !important;
+    width: 45px !important;
+    border-radius: 7px;
 }
 </style>
 <style>

@@ -4044,6 +4044,7 @@ button.select-color-button {
     border: 2px solid #24224d;
     height: 44px;
     background: #fff;
+    text-align: left;
 }
  @media (max-width: 1268px){
    button.select-color-button {
@@ -4064,5 +4065,11 @@ button.select-color-button {
 i.material-icons {
     float: right;
     color: #24224d !important;
+}
+label.base-input-number__label.cl-primary.flex {
+    display: none !important;
+}
+.base-input-numberz {
+    margin-top: -2px !important;
 }
 </style>
