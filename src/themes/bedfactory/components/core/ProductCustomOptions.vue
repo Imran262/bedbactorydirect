@@ -614,15 +614,17 @@ h4.basin-head {
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 400px) {
   .basin .basin_size select {
-    width: 300px !important;
-  }
-  .basin_size {
     width: 250px !important;
-  }
+}
 }
 @media (max-width: 767px) {
    .basin_size{
     width: 350px !important;
+  }
+}
+@media (max-width: 400px) {
+   .basin_size{
+    width: 250px !important;
   }
 }
 .basin-size-color {

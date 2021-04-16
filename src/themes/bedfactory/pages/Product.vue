@@ -3472,7 +3472,6 @@ a:not(.no-underline):hover:after {
     margin-right: 50px;
   }
   .border-tile-bottom .price-infos {
-    float: right;
     margin-right: 50px;
   }
   .product-desc {
@@ -4033,14 +4032,15 @@ button.select-color-button {
    width: 400px;
 }
  }
-  @media (max-width: 400px){
-   button.select-color-button {
-   width: 250px !important;
-}
- }
+
   @media (max-width: 767px){
    button.select-color-button {
    width: 350px !important;
+}
+ }
+   @media (max-width: 400px){
+   button.select-color-button {
+   width: 250px !important;
 }
  }
 i.material-icons {
