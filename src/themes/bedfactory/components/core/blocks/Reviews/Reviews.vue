@@ -1,9 +1,10 @@
 <template>
   <div class="brdr-top-1 brdr-cl-secondary">
-    <template v-if="reviews">
-      <div v-for="(review, index) in reviews" :key="index">
+
+    <template v-if="finalReview">
+      <div v-for="(review, index) in finalReview.reviews" :key="index">
         <div v-if="review && index === 0" itemprop="review" itemscope itemtype="https://schema.org/Review">
-          <meta itemprop="datePublished" :content="formatDate(review.updated_date)">
+          <meta itemprop="datePublished" :content="formatDate(review.created_at)">
           <meta itemprop="description" :content="review.content">
           <meta itemprop="name" :content="review.title">
           <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
@@ -11,7 +12,7 @@
             <meta itemprop="bestRating" content="5">
           </div>
           <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" :content="review.reviewerName">
+            <meta itemprop="name" :content="review.user.display_name">
           </div>
         </div>
       </div>
@@ -24,17 +25,18 @@
             <span id="right-icon-review" class="icon-rotate-review"/>
           </h2>
           <div class="reviews-detail-box productReview-close">
-            <template v-if="reviews.length > 0">
+            <template v-if="finalReview.reviews.length > 0">
+              
               <template v-for="(reviewItem, index) in pageOfItems">
                 <review-item :key="index" :review="reviewItem"/>
               </template>
               <div class="pagination-box">
                 <b class="pagination_clr">
-                  <template v-if="reviews.length > reviewsPageSize">
+                  <template v-if="finalReview.reviews.length > reviewsPageSize">
                     Read More Reviews:
                   </template>
                 </b>
-                <pagination :items="reviews" @changePage="onChangePage" :page-size="reviewsPageSize"
+                <pagination :items="finalReview.reviews" @changePage="onChangePage" :page-size="reviewsPageSize"
                             :product-id="productId"/>
               </div>
             </template>
@@ -156,6 +158,10 @@ export default {
     }
   },
   props: {
+    finalReview:{
+      type: Object,
+      required: true
+    },
     productId: {
       type: [String, Number],
       required: true
@@ -182,11 +188,11 @@ export default {
     }
   },
   serverPrefetch () {
-    return this.fetchReviews();
+    // return this.fetchReviews();
   },
   created () {
     this.question.product_id = this.productId;
-    this.fetchReviews();
+    // this.fetchReviews();
   },
   methods: {
     formatDate (date) {
@@ -307,7 +313,7 @@ export default {
     // this.$bus.$off('user-after-loggedin', this.fillInUserData)
   },
   beforeMount () {
-    this.fetchReviews();
+    // this.fetchReviews();
     this.fetchQA();
   },
   validations: {

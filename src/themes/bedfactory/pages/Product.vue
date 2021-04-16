@@ -526,10 +526,12 @@
     </div>
     <template v-if="loaded">
       <reviews
+      v-if="reviewData"
         :product-name="getCurrentProduct.name"
         :product-id="getCurrentProduct.id"
         v-show="isOnline"
         :product="getCurrentProduct"
+        :finalReview ="reviewData"
         @hasTotalQA="updateReviewsTotals"
         ref="reviewsSection"
       />

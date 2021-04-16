@@ -11,9 +11,9 @@
           <div class="col-xs-8 col-md-8 mrg">
             <p>
               <span class="blue" :user-id="review.user_id">{{
-                review.reviewerName
+                review.user.display_name
               }}</span>
-              <span class="buyer">{{ formatDate(review.created_date) }}</span>
+              <span class="buyer">{{ formatDate(review.created_at) }}</span>
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="verified-buyer-mobile">
         <div class="verify-buyer">
-          <p v-if="review.is_verified_buyer" class="buyer">
+          <p v-if="review.verified_buyer" class="buyer">
             Verified Buyer <i class="fa fa-check-circle" aria-hidden="true" />
           </p>
         </div>
