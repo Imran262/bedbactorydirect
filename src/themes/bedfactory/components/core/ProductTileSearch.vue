@@ -242,10 +242,10 @@ export default {
         // }
         product_Id = this.product.id;
 
-        // const URL = config.api.url + config.reviews.getReviews_endpoint + product_Id;
+         const URL = config.api.url + config.reviews.getReviews_endpoint + product_Id;
       //  const URL = 'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id='+ product_Id;
      //  const URL = config.api.url + config.reviews.getReviews_endpoint + product_Id;
-        console.log('URL is for Reviews is ', URL);
+       // console.log('URL is for Reviews is ', URL);
         axios
           .get(URL)
           .then(res => {

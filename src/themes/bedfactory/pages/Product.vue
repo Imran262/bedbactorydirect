@@ -4416,4 +4416,12 @@ label.base-input-number__label.cl-primary.flex {
 .base-input-numberz {
     margin-top: -2px !important;
 }
+
+input#input_371 {
+    border: 2px solid #24224d  !important;
+    text-align: center  !important;
+    height: 45px !important;
+    width: 45px !important;
+    border-radius: 7px;
+}
 </style>
