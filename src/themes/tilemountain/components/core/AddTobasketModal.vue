@@ -36,7 +36,7 @@
               >
                 <template >
                   <li>{{ product.name }}</li>
-                  <span class="Qty">Qty New:</span>
+                  <span class="Qty">Qty :</span>
                       <span>{{ boxSqm }}</span>
                   <li class="product_price">
                     {{
@@ -193,9 +193,6 @@ export default {
     this.handleResize()
     this.getProductDetails(this.product)
     await this.extractProductItemId()
-    if(this.checkGroutAdhesive) {
-      await this.getProductDefaultGroutAndAdhesive()
-    }
     if(this.fixing) {
       this.selectedFixing = this.fixing[ 0 ]
     }

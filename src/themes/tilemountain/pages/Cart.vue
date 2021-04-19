@@ -297,7 +297,6 @@ export default {
     BaseInput
   },
   async mounted () {
-    await this.checkCartHasGroutAdhesiveAttachedToProduct()
     await this.getGrandTotal()
     await this.discountAppliedCheck()
     if (this.grandTotal) {
@@ -353,7 +352,6 @@ export default {
         delete this.hasGroutAdhesives[productId]
         this.groutAdhesivesOnCart()
       }
-      this.checkCartHasGroutAdhesiveAttachedToProduct()
     })
     this.$bus.$on('has-grout-adhesive', ({ recommendation, productId }) => {
       if (productId in this.hasGroutAdhesives) {
@@ -413,7 +411,6 @@ export default {
       deep: true
     },
     productsInCart: function (oldVal) {
-      this.checkCartHasGroutAdhesiveAttachedToProduct()
       this.discountAppliedCheck()
       if (oldVal.length === 0 && this.$route.name === 'cart') {
         this.$router.push('/')

@@ -11,35 +11,6 @@
         @tile-quantity-updated="tileQuantityUpdated"
       />
       <div class="col-lg-12 col-md-12 sb-md-dropdown">
-<!--        <template v-if="minSqmValue <= sqmQuantity">-->
-        <template
-          v-if="(cartAdhesiveGrout[0] || cartAdhesiveGrout.length > 0) && (groutAdhesiveArray[0] || groutAdhesiveArray.length > 0)">
-          <AdhesiveAndGroutDropDown
-            :product="product"
-            :cart-has-grout-adhesive="cartAdhesiveGrout"
-            :adhesive-grout-data="groutAdhesiveArray"
-            :has-recommendation="sqmCheckForModelType"
-            :tiles-quantity="productQty"
-            :min-sqm-value="minSqmValue"
-            :sqm-quantity-new="sqmQuantity"
-            @add-total-price="addTotalPrice"
-            @all-adhesive-grout-products="adhesivesGroutsFromChild"
-          />
-        </template>
-        <template v-else-if="groutAdhesiveArray[0] || groutAdhesiveArray.length > 0">
-          <AdhesiveAndGroutDropDown
-            :product="product"
-            :cart-has-grout-adhesive="cartAdhesiveGrout"
-            :adhesive-grout-data="groutAdhesiveArray"
-            :has-recommendation="sqmCheckForModelType"
-            :tiles-quantity="productQty"
-            :min-sqm-value="minSqmValue"
-            :sqm-quantity-new="sqmQuantity"
-            @add-total-price="addTotalPrice"
-            @all-adhesive-grout-products="adhesivesGroutsFromChild"
-          />
-        </template>
-<!--        </template>-->
       </div>
     </div>
   </div>
@@ -117,19 +88,19 @@ export default {
   mixins: [Product, ProductOption, EditMode],
   async mounted () {
     this.sqmQuantity = parseFloat(this.product.qty / this.product.qty_per_sqm).toFixed(2)
-    this.loaderSet();
-    await this.checkIfProductHasGroutAndAdhesive();
+    // this.loaderSet();
+    // await this.checkIfProductHasGroutAndAdhesive();
     if (this.minSqmValue > this.sqmQuantity) {
       this.$bus.$emit('remove-grout-adhesive-section', {
         doesNotHasGroutAdhesiveSection: true,
         productId: this.product.id
       })
     }
-    this.$bus.$emit('minSqmValue', {
-      minSqmVal: this.minSqmValue,
-      sqm: parseFloat(this.sqmQuantity),
-      productId: this.product.id
-    })
+    // this.$bus.$emit('minSqmValue', {
+    //   minSqmVal: this.minSqmValue,
+    //   sqm: parseFloat(this.sqmQuantity),
+    //   productId: this.product.id
+    // })
   },
   watch: {
     changeGroutAdhesive () {

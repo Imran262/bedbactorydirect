@@ -522,7 +522,7 @@ export default {
     getBreadcrumbsRoutes (newval, old) {
       if (newval.length > 0 && !this.hasFired) {
         this.hasFired = true
-        this.addBloom()
+        // this.addBloom()
       }
 
     },
@@ -530,7 +530,7 @@ export default {
     $route (to, from) {
       if (!this.asFired) {
         this.hasFired = true
-        this.addBloom()
+        // this.addBloom()
       }
       this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
       if (from.path !== to.path) {
@@ -599,7 +599,7 @@ export default {
     this.pagination.currentPageItems = this.getCategoryProducts
     this.totalCategoryItemsCustom = this.getCategoryProductsTotal
     if (this.getBreadcrumbsRoutes.length > 0 && typeof BrTrk !== 'undefined') {
-      this.addBloom()
+      // this.addBloom()
     }
 
     // ForGtag
@@ -746,31 +746,7 @@ export default {
       }
       cat_name = cat_name + this.getBreadcrumbsCurrent
 
-      if (config && config.bloomreach) {
-        let categoryName = this.getCurrentCategory.path
-        categoryName = categoryName.replace(/[/]/g, '|')
-        let res = categoryName.split('|')
-        var br_data = br_data || {}
-        br_data.acct_id = config.bloomreach.accountID
-        br_data.ptype = 'category'
-        br_data.view_id = config.bloomreach.viewId
-        br_data.test_data = config.bloomreach.testData
-        br_data.title = this.getCurrentCategory.meta_title || this.getCurrentCategory.name
-        br_data.domain_key = config.bloomreach.domainKey
-        br_data.cat_id = this.getCurrentCategory.id
-        br_data.cat = cat_name
-        if (typeof BrTrk === 'undefined') {
-          var brtrk = document.createElement('script')
-          brtrk.type = 'text/javascript'
-          brtrk.async = true
-          brtrk.src = `//cdn.brcdn.com/v1/br-trk-${config.bloomreach.accountID}.js`
-          var s = document.getElementsByTagName('script')[0]
-          s.parentNode.insertBefore(brtrk, s)
-        } else {
-          BrTrk.getTracker().updateBrData(br_data)
-          BrTrk.getTracker().logPageView()
-        }
-      }
+     
     },
     async getCatproduct (sku) {
       this.product_link = ''

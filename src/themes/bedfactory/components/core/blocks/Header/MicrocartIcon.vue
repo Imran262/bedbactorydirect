@@ -6,9 +6,7 @@
     ref="MicrocartBtn"
     :aria-label="$t('Open microcart')"
     id="minicarticon"
-    @mouseover="openMicrocartCustom"
-    @mouseout="leaveMicrocartCustom"
-    @click="toggleMicrocartCustom"
+    @click="toggleMicroCartCustom"
   >
     <img src="/assets/icons/basket.svg" alt="basket">
     <span
@@ -32,7 +30,26 @@ import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/
 import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers'
 
 export default {
-  mounted () {
+  data () {
+    return {
+      onlyCutSizeSample: [],
+      onlyFullSizeSample: []
+    }
+  },
+  watch: {
+    totalItems: {
+      handler (newVal, oldVal) {
+        if (oldVal === newVal) {
+          this.getFullSampleItems()
+          this.getCutSampleItems()
+        }
+      },
+      deep: true
+    }
+  },
+  async mounted () {
+    await this.getFullSampleItems()
+    await this.getCutSampleItems()
     syncCartWhenLocalStorageChange.addEventListener()
     this.$once('hook:beforeDestroy', () => {
       syncCartWhenLocalStorageChange.removeEventListener()
@@ -69,14 +86,54 @@ export default {
     leaveMicrocartCustom (event) {
       document.getElementsByClassName('microcart-sidebar')[0].style.display = 'none'
     },
-    toggleMicrocartCustom () {
-      var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
-      if (xCartDiv.classList.contains('fullCloseCart')) {
-        xCartDiv.classList.add('openFullMiniCart')
-        xCartDiv.classList.remove('fullCloseCart')
-      } else {
-        xCartDiv.classList.remove('openFullMiniCart')
-        xCartDiv.classList.add('fullCloseCart')
+    async getFullSampleItems () {
+      this.onlyFullSizeSample = await this.totalItems.filter((item, index) => {
+        return item.totals && item.totals.options && item.totals.options.length > 0 && item.totals.options[0].value === 'Full Size'
+      });
+      return this.onlyFullSizeSample
+    },
+    isTotalsLoaded () {
+      let firstItem = this.totalItems?.[0];
+      if (firstItem) {
+        return firstItem.totals && firstItem.totals.options
+      }
+      return true
+    },
+    async getCutSampleItems () {
+      this.onlyCutSizeSample = await this.totalItems.filter((item, index) => {
+        return item.totals && item.totals.options && item.totals.options.length > 0 && item.totals.options[0].value === 'Cut Size'
+      });
+      return this.onlyCutSizeSample
+    },
+    toggleMicroCartCustom () {
+      console.log("from PSWP")
+      this.getFullSampleItems()
+      this.getCutSampleItems()
+      if (!this.isTotalsLoaded()) {
+        return false;
+      }
+      if (this.onlyCutSizeSample.length > 0 && this.onlyCutSizeSample.length <= 3 && this.totalItems.length <= 3 && this.onlyCutSizeSample.length === this.totalItems.length) {
+        this.$bus.$emit('modal-show', 'modal-quickcheckoutmodel')
+      } else if (this.onlyCutSizeSample.length > 3 && this.onlyCutSizeSample.length === this.totalItems.length) {
+        this.$router.push(this.localizedRoute('/cart'))
+      } else if (this.onlyFullSizeSample.length > 0 && this.onlyFullSizeSample.length === this.totalItems.length) {
+        this.$router.push(this.localizedRoute('/checkout'))
+      } else if (this.onlyFullSizeSample.length === 0 && this.onlyCutSizeSample.length === 0 && this.totalItems.length > 0) {
+        this.$router.push(this.localizedRoute('/cart'))
+      } else if (this.totalItems.length > 0) {
+        this.$router.push(this.localizedRoute('/cart'))
+      }
+      if (this.totalItems.length === 0) {
+        var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
+        if (xCartDiv.classList.contains('fullCloseCart')) {
+          xCartDiv.classList.add('openFullMiniCart')
+          xCartDiv.style.display = 'block'
+          xCartDiv.classList.remove('fullCloseCart')
+        } else {
+          xCartDiv.classList.remove('openFullMiniCart')
+          xCartDiv.classList.add('fullCloseCart')
+          xCartDiv.style.display = 'none'
+        }
       }
     },
     closeMiniCart (event) {
@@ -94,10 +151,7 @@ export default {
           } else {
             let getClassForHide = document.getElementsByClassName('microcart-sidebar')[0];
             getClassForHide.style.display = 'none'
-            if (getClassForHide.classList.contains('fullCloseCart')) {
-              getClassForHide.classList.add('openFullMiniCart')
-              getClassForHide.classList.remove('fullCloseCart')
-            } else {
+            if (!getClassForHide.classList.contains('fullCloseCart')) {
               getClassForHide.classList.remove('openFullMiniCart')
               getClassForHide.classList.add('fullCloseCart')
             }
@@ -108,17 +162,20 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 @font-face {
   font-family: 'Oblik';
   src: url('/assets/fonts/Oblik_Bold.otf');
 }
 .minicart-count {
-  top: 34px;
-  left: 14%;
-  min-width: 20px;
-  min-height: 20px;
-  border-radius: 10px;
+  top: 32px;
+  left: 15px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ed108c;
 }
 .cart {
@@ -132,7 +189,6 @@ export default {
 }
 img {
   height: 29px;
-  /* margin-top: 22px; */
 }
 .price {
   /* margin-top: 35px; */
@@ -142,7 +198,7 @@ img {
   font-family: 'Oblik';
   color: #29275b;
 }
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (max-width: 1199px) {
   .cart {
     height: 100%;
     width: 100%;
@@ -151,16 +207,23 @@ img {
     -ms-flex-align: center;
     align-items: center;
     margin: 0px;
+    min-width: auto !important;
   }
   .cart img {
     margin-top: -4px;
+    height: 25px;
   }
   .minicart-count {
-    top: 36px;
-    left: 24%;
+    top: 28px;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
   }
   .price {
     margin-top: 4px;
+    margin-left: 10px;
+    font-size: 14px !important;
   }
 }
 @media (max-width: 991px) {
@@ -174,19 +237,18 @@ img {
     margin: 0px;
   }
   .cart img {
-    margin-top: -11px;
+    margin-top: -2px;
+    height: 19px;
   }
   .price {
     display: none;
   }
   .minicart-count {
     left: 25%;
-    top: 35px;
-  }
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-  .cart img {
-    margin-top: -6px;
+    top: 27px;
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
   }
 }
 @media (max-width: 767px) {
@@ -194,40 +256,41 @@ img {
     min-width: 0px;
     height: 100%;
     width: 100%;
-    /* max-width: 6.5em; */
     padding: 0px;
     align-items: center;
   }
   .cart img {
-    /* margin-top: 1px;
-    height: 34px; */
     height: 100%;
-    width: 6vw;
-    padding-top: 6px;
+    width: 30px;
+    padding-top: 0px;
     margin: 0px;
     margin-top: -10px;
     min-height: 83px;
   }
   .minicart-count {
     top: 20px;
-    left: 49%;
+    left: 20px;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
   }
   .price {
     display: none;
   }
 }
-@media (min-width: 320px) and (max-width: 480px) {
+@media (max-width: 480px) {
   .cart {
     max-width: 3em;
-    /* transform: scale(0.60); */
-  }
-}
-/* @media (max-width: 399px) {
-  .cart img {
-    height: 30px;
+    img {
+      width: 25px;
+    }
   }
   .minicart-count {
-    top: 13px;
+    top: 24px;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
   }
-} */
+}
 </style>

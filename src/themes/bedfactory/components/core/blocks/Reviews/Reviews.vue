@@ -25,14 +25,14 @@
             <span id="right-icon-review" class="icon-rotate-review"/>
           </h2>
           <div class="reviews-detail-box productReview-close">
-            <template v-if="finalReview.reviews.length > 0">
+            <template v-if="finalReview.reviews && finalReview.reviews.length > 0">
               
               <template v-for="(reviewItem, index) in pageOfItems">
                 <review-item :key="index" :review="reviewItem"/>
               </template>
               <div class="pagination-box">
                 <b class="pagination_clr">
-                  <template v-if="finalReview.reviews.length > reviewsPageSize">
+                  <template v-if="finalReview.reviews && finalReview.reviews.length > reviewsPageSize">
                     Read More Reviews:
                   </template>
                 </b>
@@ -161,7 +161,7 @@ export default {
   },
   props: {
     finalReview:{
-      type: Object,
+      type: [Object , Array],
       required: true
     },
     productId: {

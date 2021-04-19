@@ -3900,7 +3900,7 @@ a:not(.no-underline):hover:after {
   left: -15px;
 }
 
-table {
+.Specifications-main table {
   border: 1px solid #ccc;
   border-collapse: collapse;
   margin: 0;
@@ -3908,16 +3908,16 @@ table {
   table-layout: fixed;
 }
 @media only screen and (max-width: 700px) and (min-width: 320px) {
-  table {
+  .Specifications-main table {
     width: 100%;
   }
 }
-table tr {
+.Specifications-main table tr {
   border: 1px solid red;
   padding: .35em;
 }
 
-table td {
+.Specifications-main table td {
   border: 1px solid black;
   padding: .625em;
   text-align: left;
@@ -3925,7 +3925,7 @@ table td {
 }
 
 @media only screen and (max-width: 767px) and (min-width: 320px){
-  table td {
+  .Specifications-main table td {
 font-size: 1.5vw !important;
   }
   .Specifications-main td strong {
