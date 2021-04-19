@@ -8,7 +8,6 @@
     id="minicarticon"
     @click="toggleMicroCartCustom"
   >
-  Hello
     <img src="/assets/icons/basket.svg" alt="basket">
     <span
       class="minicart-count absolute flex center-xs middle-xs border-box py0 px2 h6 lh16 weight-700 cl-white"
