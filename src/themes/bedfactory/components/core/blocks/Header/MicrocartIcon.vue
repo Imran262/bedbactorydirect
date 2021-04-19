@@ -8,6 +8,7 @@
     id="minicarticon"
     @click="toggleMicroCartCustom"
   >
+  Hello
     <img src="/assets/icons/basket.svg" alt="basket">
     <span
       class="minicart-count absolute flex center-xs middle-xs border-box py0 px2 h6 lh16 weight-700 cl-white"
@@ -124,16 +125,18 @@ export default {
         this.$router.push(this.localizedRoute('/cart'))
       }
       if (this.totalItems.length === 0) {
-        var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
-        if (xCartDiv.classList.contains('fullCloseCart')) {
-          xCartDiv.classList.add('openFullMiniCart')
-          xCartDiv.style.display = 'block'
-          xCartDiv.classList.remove('fullCloseCart')
-        } else {
-          xCartDiv.classList.remove('openFullMiniCart')
-          xCartDiv.classList.add('fullCloseCart')
-          xCartDiv.style.display = 'none'
-        }
+        //this.$router.push(this.localizedRoute('/'))
+        // var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
+        // console.log('xCartDiv',xCartDiv);
+        // if (xCartDiv.classList.contains('fullCloseCart')) {
+        //   xCartDiv.classList.add('openFullMiniCart')
+        //   xCartDiv.style.display = 'block'
+        //   xCartDiv.classList.remove('fullCloseCart')
+        // } else {
+        //   xCartDiv.classList.remove('openFullMiniCart')
+        //   xCartDiv.classList.add('fullCloseCart')
+        //   xCartDiv.style.display = 'none'
+        // }
       }
     },
     closeMiniCart (event) {
