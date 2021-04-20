@@ -297,6 +297,7 @@ export default {
     BaseInput
   },
   async mounted () {
+    await this.checkCart()
     await this.getGrandTotal()
     await this.discountAppliedCheck()
     if (this.grandTotal) {
@@ -314,6 +315,7 @@ export default {
       totals: 'cart/getTotals',
       getCartToken: 'cart/getCartToken'
     }),
+
     checkIfAnyGroutAdhesive () {
       if (this.cartHasGroutAdhesive && this.cartHasGroutAdhesive.length > 0) {
         return false
@@ -346,7 +348,13 @@ export default {
     //   return false
     // }
   },
-  beforeMount () {
+ async beforeMount () {
+   await this.checkCart()
+console.log("789456  ",this.productsInCart.length);
+if(this.productsInCart.length === 0){
+  console.log("Cart is Empty ");
+  this.$router.push(this.localizedRoute('/'))
+}
     this.$bus.$on('carPageUpdate', ({ productId }) => {
       if (productId in this.hasGroutAdhesives) {
         delete this.hasGroutAdhesives[productId]
@@ -428,6 +436,15 @@ export default {
     ...mapActions({
       applyCoupon: 'cart/applyCoupon'
     }),
+    checkCart(){
+      console.log("789456 Checking cart ",this.$store.state.cart.cartItems.length);
+      if (this.$store.state.cart.cartItems.length === 0) {
+          this.notifyEmptyCart()
+          this.$router.push(this.localizedRoute('/'))
+          return true
+        }
+        else{return true}
+    },
     getGrandTotal () {
       if (this.totals && this.totals.length > 0) {
         let grandTotal = this.totals.filter(item => item.code === 'grand_total')

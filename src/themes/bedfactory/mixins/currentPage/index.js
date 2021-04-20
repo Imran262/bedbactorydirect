@@ -20,6 +20,13 @@ export default {
   },
   watch: {
     '$route.name': function () {
+      console.log('789456 About to check current page', this.$route);
+      if (this.$route.name === 'cart') {
+        console.log('789456 This is cart page');
+
+      } else {
+        console.log('789456 This is not cart page');
+      }
       this.setCurrentPage()
       this.isCartPage()
       this.isSuccessPage()
@@ -48,6 +55,7 @@ export default {
     },
     isCartPage () {
       if (this.$route.name === 'cart') {
+        console.log('789456 This is cart pAge');
         this.isCart = true;
       } else {
         this.isCart = false;

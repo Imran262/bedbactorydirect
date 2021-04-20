@@ -43,6 +43,7 @@
               <div class="flex inner-icons">
                 <wishlist-icon class="icon pointer r-icons location-icon"/>
                 <account-icon class="icon pointer r-icons1 account-icon"/>
+            
                 <microcart-icon class="icon pointer r-icons"/>
               </div>
             </div>
@@ -185,6 +186,22 @@ export default {
       phone : config.phoneNumber
     }
   },
+  async beforeRouteEnter (to, from, next) {
+    console.log("789456  header",this.productsInCart.length);
+  },
+  watch:{
+    $route (to, from){
+      // console.log("789456 In Header",this.$route,to,from);
+      if (to.name==="cart"){
+        console.log("789456 Header ",this.productsInCart.length);
+if(this.productsInCart.length === 0){
+  console.log("789456 Cart is Empty ");
+  this.$router.push(this.localizedRoute('/'))
+}
+      }
+
+           }
+      },
   computed: {
     ...mapState({
       isOpenLogin: (state) => state.ui.signUp,
@@ -206,6 +223,18 @@ export default {
   },
   beforeMount () {
     history.scrollRestoration = 'auto'
+
+      console.log("789456 In Header ",this.$route);
+       if (this.$route.name==="cart"){
+        console.log("789456 Header ",this.productsInCart.length);
+if(this.productsInCart.length === 0){
+  console.log("789456 Cart is Empty ");
+  this.$router.push(this.localizedRoute('/'))
+}
+      }
+     
+
+           
     window.addEventListener(
       'scroll',
       () => {
