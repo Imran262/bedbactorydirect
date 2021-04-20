@@ -73,9 +73,8 @@
             </transition>
             <div class="product-listing row">
               <template v-for="(product, index) in visibleProducts">
-                <ProductTileSearch
+        <ProductTileSearch
                   :word="search"
-                  :serresult="productsFromApi"
                   :key="index"
                   :uniqueid="index"
                    v-if="index < 7"

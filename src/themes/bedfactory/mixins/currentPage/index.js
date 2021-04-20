@@ -23,7 +23,6 @@ export default {
       console.log('789456 About to check current page', this.$route);
       if (this.$route.name === 'cart') {
         console.log('789456 This is cart page');
-
       } else {
         console.log('789456 This is not cart page');
       }

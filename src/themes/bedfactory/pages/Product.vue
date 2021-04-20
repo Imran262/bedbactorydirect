@@ -134,13 +134,18 @@
                     : 'simple-product-head'
                 "
               >
-                <h1
-                  class="mb20 mt0 cl-mine-shaft product-name"
-                  data-testid="productName"
-                  itemprop="name"
+                 <h1  
                 >
+              <div class="mb20 mt0 cl-mine-shaft product-name"
+                  data-testid="productName"
+                  itemprop="name">
+               
+
                   {{ getCurrentProduct.name | htmlDecode }}
-                </h1>
+                
+              </div>
+              </h1>
+                
                 <meta itemprop="sku" :content="getCurrentProduct.sku" />
                 <meta
                   itemprop="color"

@@ -34,16 +34,12 @@
             {{ product.name | htmlDecode }}
           </p>
           <span class="sizeprice">
-            <span>
-              <p class="only1" v-if="product.size !=='PALLET' && product.size !=='pallet' && product.size !=='Pallet'"> 
-                <span v-if="product.size">Size:{{ product.size }}</span>
-              </p>
-            </span>
+            
             <span class="p-from">
               <p class="only">
                 <span class="priceprod">  
-
-                  {{ product.calculated_sqm_price | price(storeView) }} <span v-if="productTileTypeUnitCheck(product) !== 'piece'">/</span> <span v-if="productTileTypeUnitCheck(product) !== 'piece'"   v-html="productTileTypeUnitCheck(product)"></span>
+                £  {{product.final_price || product.price}}
+                  <!-- {{ product.calculated_sqm_price | price(storeView) }} <span v-if="productTileTypeUnitCheck(product) !== 'piece'">/</span> <span v-if="productTileTypeUnitCheck(product) !== 'piece'"   v-html="productTileTypeUnitCheck(product)"></span> -->
                   
                   <!-- {{product.price}}/<  span v-if="productTileTypeUnitCheck(product) !== 'piece'" v-html="productTileTypeUnitCheck(product)"></span> -->
                 </span>
