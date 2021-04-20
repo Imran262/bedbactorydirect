@@ -354,7 +354,7 @@ $color-error: color(error);
   }
   .basin_size {
     select {
-      width: 550px;
+      /*width: 550px;*/
       background: #ffffff;
       font-family: "Poppins", sans-serif;
       color: #000;
@@ -364,19 +364,14 @@ $color-error: color(error);
       padding-left: 4px !important;
     }
   }
-  @media (max-width: 1268px){
+  /*@media (max-width: 1268px){
     .basin_size {
     select {
       width: 400px;
   
     }
   }
-  }
-
-  // .basin-head,
-  // .basin_size {
-  //   display: inline-block;
-  // }
+  }*/
 }
 
 #overlay {
@@ -520,7 +515,8 @@ input[type="checkbox"] {
 .green-grad-main {
   background: #fafafa;
   height: 75px;
-  width: 96.7%;
+  /*width: 96.7%;*/
+  width: 90%;
   position: absolute;
   bottom: 15px;
 }
@@ -591,7 +587,7 @@ input[type="checkbox"] {
   font-size: 20px;
   position: absolute;
   right: 3px;
-  top: 10px;
+  top: 15px;
   font-weight: 500;
   background: url(/assets/icons/downarrow.png) no-repeat 100% 35%;
   -webkit-transform: rotate(90deg);
@@ -603,7 +599,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding: 2px 2px 2px 2px;
+  /*padding: 2px 2px 2px 2px;*/
   border: none;
 }
 .basin_size {
@@ -618,8 +614,8 @@ h4.basin-head {
     color: #24224d !important;
      margin-bottom: 5px;
 }
-@media only screen and (min-device-width: 320px) and (max-device-width: 400px) {
-  .basin .basin_size select {
+/*@media only screen and (min-device-width: 320px) and (max-device-width: 400px) {
+.size-storage-select {
     width: 250px !important;
 }
 }
@@ -632,7 +628,7 @@ h4.basin-head {
    .basin_size{
     width: 250px !important;
   }
-}
+}*/
 .basin-size-color {
   width: 100% !important;
 }
@@ -657,5 +653,10 @@ h4.basin-head {
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-
+.basin_size{
+    width: 95%;
+}
+select.m0.no-outline.size-storage-select {
+    width: 100%;
+}
 </style>

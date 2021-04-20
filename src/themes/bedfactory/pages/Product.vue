@@ -343,7 +343,8 @@
                   @option-added="addCustomOption($event)"
                   :color="false"
                 />
-                <div  class="fabric-button-design"
+              <div class="fabric-btn-responsive">  
+              <div  class="fabric-button-design"
                   v-if="
                     getCurrentProduct.isFabric !== 0 &&
                     getCurrentProduct.isFabric !== '0' &&
@@ -376,10 +377,11 @@
                   />
                 </div>
               </div>
+              </div>
               <div class="add-to-cart row m0">
-                <div class="col-xs-12 col-md-6 col-lg-6 total-amount">
+                <div class="col-xs-2 col-sm-6 col-md-6 col-lg-6 total-amount">
                 <product-quantity
-                class="product-quantity bt-product-qty row m0 mb35"
+                class="product-quantity bt-product-qty row m0"
                 v-if="
                   getCurrentProduct.type_id !== 'grouped' &&
                   getCurrentProduct.type_id !== 'bundle'
@@ -420,7 +422,7 @@
                   <out-of-stock-modal :product="getCurrentProduct" />
                 </modal>
                 <div
-                  class="col-xs-11 col-sm-12 col-md-6 col-lg-6 col-margin addtocartbuttonMobile"
+                  class="col-xs-10 col-sm-6 col-md-6 col-lg-6 col-margin addtocartbuttonMobile"
                 >
                   <add-to-cart
                     :product="getCurrentProduct"
@@ -2978,7 +2980,8 @@ a:not(.no-underline):hover:after {
 // }
 
 .add-to-cart {
-  padding: 20px 30px;
+   padding: 20px 0px 20px 40px;
+    width: 95%;
 }
 
 .vinyl-products-detail {
@@ -3103,15 +3106,15 @@ a:not(.no-underline):hover:after {
   margin-top: 5px;
   float: right;
   @media (max-width: 767px) {
-    background-position: 29% 45%;
-    padding-bottom: 11px;
+    background-position: 15% 45%;
+    /*padding-bottom: 11px;*/
   }
-  @media (max-width: 400px) {
+  /*@media (max-width: 400px) {
     background-position: 27% 45%;
   }
   @media (max-width: 350px) {
     background-position: 22% 45%;
-  }
+  }*/
 }
 
 .products-buttons {
@@ -3488,11 +3491,11 @@ a:not(.no-underline):hover:after {
       }
     }
 
-    .product-quantity {
+    /*.product-quantity {
       padding-top: 0px;
       float: right;
       margin-left: 0px;
-    }
+    }*/
 
     .border-sqm-bottom.first-child {
       padding-right: 0px;
@@ -3530,10 +3533,10 @@ a:not(.no-underline):hover:after {
     }
 
     .add-to-cart {
-      padding: 20px 18px;
+      /*padding: 20px 18px;
       padding-top: 16px;
       padding-left: 0;
-      padding-right: 0;
+      padding-right: 0;*/
 
       .h3 {
         display: block;
@@ -3543,7 +3546,7 @@ a:not(.no-underline):hover:after {
 
       button {
         max-width: 100%;
-        border-radius: 8px;
+        /*border-radius: 8px;*/
         width: 100%;
       }
 
@@ -3699,7 +3702,7 @@ a:not(.no-underline):hover:after {
     padding-bottom: 12px;
   }
   .addtocartbuttonMobile {
-    padding-top: 17px;
+    /*padding-top: 17px;*/
   }
   .price-infos .cl-mine-shaft,
   .price-infos .sqm-title {
@@ -4380,42 +4383,45 @@ select.m0.no-outline {
 form.custom-options {
   padding-left: 40px;
 }
-@media (max-width: 400px) {
-  select.m0.no-outline {
+/*@media (max-width: 400px) {
+ .size-storage-select  {
     width: 250px !important;
   }
 }
 @media (max-width: 767px) {
-  select.m0.no-outline {
+  .size-storage-select {
     width: 350px !important;
   }
-}
-.fabric-button-design {
+}*/
+.fabric-btn-responsive {
     padding-left: 40px;
 }
+.fabric-button-design {
+    width:95%;
+}
 button.select-color-button {
-   width: 550px;
+   width: 100%;
     border: 2px solid #24224d;
     height: 44px;
     background: #fff;
     text-align: left;
 }
- @media (max-width: 1268px){
-   button.select-color-button {
-   width: 400px;
+/*@media (max-width: 1199px){
+ .fabric-button-design {
+   width: 87%;
 }
  }
 
-  @media (max-width: 767px){
-   button.select-color-button {
-   width: 350px !important;
+  @media (max-width: 991px){
+.fabric-button-design {
+   width: 90%;
 }
  }
    @media (max-width: 400px){
    button.select-color-button {
    width: 250px !important;
 }
- }
+ }*/
 i.material-icons {
     float: right;
     color: #24224d !important;
@@ -4427,11 +4433,19 @@ label.base-input-number__label.cl-primary.flex {
     margin-top: -2px !important;
 }
 
-input#input_371 {
+.base-input-number__input{
     border: 2px solid #24224d  !important;
     text-align: center  !important;
     height: 45px !important;
     width: 45px !important;
     border-radius: 7px;
+}
+.addtocartbuttonMobile {
+    padding-right: 0px  !important;
+}
+@media (min-width: 992px){
+.bt-product-qty{
+  margin-bottom: 35px  !important;
+}
 }
 </style>
