@@ -23,15 +23,15 @@
               class="mt5 mb5 basin_size basin-size-color"
               v-if="option.type === 'select' || option.type === 'drop_down'"
             >
-              <i
+              <!-- <i
                 data-v-35f9ed0c=""
                 class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down-clr"
-                >keyboard_arrow_right</i
-              >
+                ></i
+              > -->
               <select
                 ref="colorImage"
                 :name="'customOption_' + option.option_id"
-                class="m0 no-outline chevron-down chevron-down-color inside-Fabric"
+                class="m0 no-outline chevron-down chevron-down-color inside-Fabric chevron-down"
                 v-model="inputValues['customOption_' + option.option_id]"
                 @focus="$emit('focus')"
                 @blur="$emit('blur')"
@@ -154,14 +154,15 @@
               class="mt5 mb5 relative basin_size"
               v-if="option.type === 'select' || option.type === 'drop_down'"
             >
-              <i
+              <!-- <i
                 class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down"
-                >keyboard_arrow_right</i
-              >
+                ></i 
+              > -->
+
               <select
                 ref="selectedOption"
                 :name="'customOption_' + option.option_id"
-                class="m0 no-outline size-storage-select"
+                class="m0 no-outline size-storage-select chevron-down"
                 focus
                 v-model="inputValues['customOption_' + option.option_id]"
                 @focus="$emit('focus')"
@@ -315,6 +316,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.chevron-down{
+background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
+background-size: 30px !important ;
+}
 .height-adjust {
   height: calc(100vh - 212px);
 }
@@ -588,6 +593,7 @@ input[type="checkbox"] {
   right: 3px;
   top: 10px;
   font-weight: 500;
+  background: url(/assets/icons/downarrow.png) no-repeat 100% 35%;
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);

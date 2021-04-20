@@ -352,15 +352,15 @@
                   "
                 >
                   <button
-                    class="select-color-button"
+                    class="select-color-button chevron-down"
                     type="button"
                     @click="showColorPicker"
                   >
                     {{ getColorName() }}
-                    <i
+                    <!-- <i
                       class="material-icons cl-bg-tertiary pointer select-color-icon"
                       >keyboard_arrow_right</i
-                    >
+                    > -->
                   </button>
                   <div
                     id="overlay"
@@ -2362,6 +2362,11 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
+
+.chevron-down{
+background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+background-size: 17px !important ;
+}
 
 .bt-new-description-main {
   background-color: #f6f6f6;
