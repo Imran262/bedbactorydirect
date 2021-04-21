@@ -3695,7 +3695,6 @@ a:not(.no-underline):hover:after {
   .total-amount {
     display: block;
     padding: 0;
-    border-bottom: 1px solid #cccccc;
   }
   .add-to-cart .mb40 {
     margin-bottom: 0px;
