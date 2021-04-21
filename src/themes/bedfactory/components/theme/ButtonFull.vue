@@ -55,6 +55,12 @@ export default {
 
 <style lang="scss">
   .button-full {
-    min-width: 250px;
+    min-width: 250px !important;
+  }
+  @media (max-width: 400px) {
+.button-full {
+    min-width: 180px !important;
+    padding-left: 30px  !important;
+  }
   }
 </style>
