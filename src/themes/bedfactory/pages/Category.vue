@@ -86,14 +86,14 @@
           <div class="firstcol title-box sb-category-tile-text">
             <div class="sb-left-text">
               <h1>{{ getCurrentCategory.name }}</h1>
-              <p v-html="getCurrentCategory.cat_banner_desp" />
+              <p v-html="getCurrentCategory.banner_description" />
             </div>
           </div>
           <div class="secondcol img-box">
             <img
               :src="
-                getCurrentCategory.cat_banner
-                  ? `${baseUrlImage}img/1280/298/resize/catalog/category/${getCurrentCategory.cat_banner}`
+                getCurrentCategory.banner_image
+                  ? getCurrentCategory.banner_image
                   : `/assets/category-images/header.png`
               "
               :alt="getCurrentCategory.name"
