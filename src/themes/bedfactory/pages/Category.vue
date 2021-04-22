@@ -93,7 +93,7 @@
             <img
               :src="
                 getCurrentCategory.banner_image
-                  ? baseUrlImage+'1200/1200/resize'+ getCurrentCategory.banner_image
+                  ? getCurrentCategory.banner_image
                   : `/assets/category-images/header.png`
               "
               :alt="getCurrentCategory.name"
@@ -504,7 +504,7 @@ export default {
       },
       cateRoute: [],
       lengthOfProductArray: config.filterShowItems.selectedOption,
-      baseUrlImage: config.images.baseUrl
+      baseUrlImage: ""
     }
   },
   async serverPrefetch () {
@@ -572,7 +572,7 @@ export default {
     }
   },
   created () {
-    this.baseUrlImage = config.images.baseUrl
+    this.baseUrlImage = config.server.baseUrl
     if (this.$route.query && this.$route.query.page && !isNaN(this.$route.query.page)) {
       this.pagination.selectedPage = parseInt(this.$route.query.page)
     }
