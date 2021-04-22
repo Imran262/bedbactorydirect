@@ -379,7 +379,7 @@
               </div>
               </div>
               <div class="add-to-cart row m0">
-                <div class="col-xs-2 col-sm-6 col-md-6 col-lg-6 total-amount">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
                 <product-quantity
                 class="product-quantity bt-product-qty row m0"
                 v-if="
@@ -422,7 +422,7 @@
                   <out-of-stock-modal :product="getCurrentProduct" />
                 </modal>
                 <div
-                  class="col-xs-10 col-sm-6 col-md-6 col-lg-6 col-margin addtocartbuttonMobile"
+                  class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-margin addtocartbuttonMobile"
                 >
                   <add-to-cart
                     :product="getCurrentProduct"
@@ -3695,7 +3695,6 @@ a:not(.no-underline):hover:after {
   .total-amount {
     display: block;
     padding: 0;
-    border-bottom: 1px solid #cccccc;
   }
   .add-to-cart .mb40 {
     margin-bottom: 0px;
@@ -4446,6 +4445,11 @@ label.base-input-number__label.cl-primary.flex {
 @media (min-width: 992px){
 .bt-product-qty{
   margin-bottom: 35px  !important;
+}
+}
+@media (max-width: 400px){
+.add-to-cart button{
+    background-position: 10% 45% !important;
 }
 }
 </style>
