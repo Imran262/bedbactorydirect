@@ -2359,10 +2359,23 @@ table td {
   padding: .625em;
   text-align: left;
 }
-h2.h3 {
+/* h2.h3 {
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   color: #54575b;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 35px 0px 25px 0px;
+  cursor: pointer;
+} */
+h2.h3 {
+  font-size: 26px;
+  font-family: 'Oblik';
+  color: #4a4a4a;
   padding: 0px 0px 0px 0px;
   position: relative;
   -webkit-user-select: none;
@@ -2998,10 +3011,10 @@ a:not(.no-underline):hover:after {
     }
 
     .specialprice {
-      font-size: 25px;
+      font-size: 2rem;
       color: #d20505;
       font-weight: bold;
-      font-family: Arial;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .sqm-title-special {
