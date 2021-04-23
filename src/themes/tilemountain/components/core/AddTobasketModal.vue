@@ -39,9 +39,10 @@
                   <span class="Qty">Qty :</span>
                       <span>{{ boxSqm }}</span>
                   <li class="product_price">
-                    {{
+                    <!-- {{
                       (product.price * (product.qty || 1)) | price(storeView)
-                    }}
+                    }} -->
+                    {{priceToShow.special}}
                   </li>
                 </template>
               </ul>
@@ -139,6 +140,10 @@ export default {
     }
   },
   props: {
+    priceToShow:{
+      required:true,
+      type : Object
+    },
     fixing: {
       required: true,
       type: Array

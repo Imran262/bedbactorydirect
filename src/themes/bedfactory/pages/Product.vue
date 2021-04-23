@@ -256,7 +256,68 @@
                 </div>
               </div>
               <!-- Price Section Start-->
-              <div
+
+
+
+
+
+
+<div
+                class="price serif bt-price-main"
+                v-if="getCurrentProduct.type_id !== 'grouped'"
+              >
+                <div
+                  v-if="
+                    getCurrentProduct.price_incl_tax &&
+                    getCurrentProduct.original_price_incl_tax
+                  "
+                >
+                  <!-- deltaproduct {{ productCurrentCustomOptions }} -->
+                  <!-- {{productCurrentCustomOptions}}
+                  <br /><br /><br />{{getCurrentCustomOptions}}
+                  <br />
+                  <br />
+                  <br /> -->
+                  <!-- {{productCurrentCustomOptions}} -->
+                  <!-- <br/>{{getCurrentProductConfiguration }}
+                 <br/>
+                 <br/>
+                  {{ $store.state.product.current_options }}
+                  <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/>
+                 <br/> -->
+                <!-- getCurrentProduct.type_id {{getCurrentProduct.type_id}} -->
+                  <product-price
+                    v-if="getCurrentProduct.type_id !== 'grouped'"
+                    :product="getCurrentProduct"
+                    :custom-options="getCurrentProductCustomOptionsRedo"
+                    :key="reRender"
+                    v-on:calculatedPrice="setPrice($event)"
+                  />
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <!-- <div
                 v-if="!getCurrentProduct.bundle_options"
                 class="product-pricing"
                 :class="
@@ -320,7 +381,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!--  Price Section  End -->
               <!--  -->
               <product-bundle-options
@@ -398,6 +459,7 @@
                 <addtobasket
                   v-if="showModal"
                   @closemodal="hidemodal"
+                  :priceToShow="calculatedProductPrice"
                   :product="getCurrentProduct"
                   :check-grout-adhesive="sqmCheckForModelType"
                   :grout-adhesive-data="groutAdhesiveOptions"
@@ -716,7 +778,6 @@ import {
   // productJsonLd,
 } from '@vue-storefront/core/helpers';
 import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks';
-import ProductPrice from 'theme/components/core/ProductPrice.vue';
 import { doPlatformPricesSync } from '@vue-storefront/core/modules/catalog/helpers';
 import { filterChangedProduct } from '@vue-storefront/core/modules/catalog/events';
 import Modal from 'theme/components/core/Modal.vue';
@@ -729,12 +790,14 @@ import { prepareRelatedQuery } from '@vue-storefront/core/modules/catalog/querie
 import { getThumbnailPath } from '@vue-storefront/core/helpers';
 import ReviewItemImageModel from 'theme/components/core/blocks/Reviews/ReviewItemImageModel';
 import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker"
+import ProductPrice from "src/themes/bedfactory/components/core/ProductPrice.vue"
                          //theme/components/core/blocks/ColorPicker/ColorPicker.vue
 export default {
   name: 'ProductPage',
   components: {
+    ProductPrice,
     CmsBlock,
-      RelatedProducts,
+    RelatedProducts,
     ColorPicker,
     VinylRecommendedItems,
     WastePercentToggle,
@@ -760,7 +823,6 @@ export default {
     'no-ssr': NoSSR,
     ProductQuantity,
     ProductQuantitySqm,
-    ProductPrice,
     Modal,
     CalculatorModal,
     CutSampleModal,
@@ -853,7 +915,9 @@ export default {
         recommendItems: []
       },
       vinylProductPrice: 0,
-      vinylRecommendedItemPrice: 0
+      vinylRecommendedItemPrice: 0,
+      reRender:0,
+      calculatedProductPrice :{}
     };
   },
   computed: {
@@ -867,6 +931,45 @@ export default {
       productsInCart: 'cart/getCartItems',
       getCartToken: 'cart/getCartToken'
     }),
+    getCurrentProductCustomOptionsRedo() {
+      // let cOptions = this.$store.state.product;
+      let currentOptions = {};
+      let listOptions = [];
+
+      if (this.getCurrentProduct.custom_options) {
+        if (this.getCurrentProduct.custom_options.length > 0) {
+          this.getCurrentProduct.custom_options.forEach((option, index) => {
+            let obj2 = {
+              [option.option_id]: {
+                option_id: option.option_id,
+              },
+            };
+            let value = null;
+            if (this.$store.state.product.current_custom_options) {
+              if (
+                this.$store.state.product.current_custom_options[
+                  option.option_id
+                ]
+              ) {
+                value = this.$store.state.product.current_custom_options[
+                  option.option_id
+                ].option_value;
+              }
+            }
+            currentOptions[option.option_id] = {
+              option_id: option.option_id,
+              option_value: value,
+            };
+          });
+          // this.productCurrentCustomOptions = currentOptions;
+          return currentOptions;
+        } else {
+          return {};
+        }
+      } else {
+        return {};
+      }
+    },
     getShortDescription() {
       const formatShortDesc = this.getCurrentProduct.short_description
       let formatShortDescUlInc = ""
@@ -1265,6 +1368,11 @@ export default {
         }
       }
     },
+    "$route.name": function () {
+      this.reRender++;
+      console.log('routeGotUpdated', this.sendProductCustomOptions,this.getCurrentProductCustomOptionsRedo, this.getCurrentProduct, this.getCurrentCustomOptions)
+      console.log('calculatedProductPrice', this.calculatedProductPrice)
+      },
     currRoute(newVal, oldVal) {
       this.$refs.getProductGallery.$refs.carousel.navigate(0);
       if (document.getElementById('prod-gallery-thumbnails-carousel')) {
@@ -1296,6 +1404,10 @@ export default {
     }
   },
   methods: {
+    setPrice(data){
+    //  console.log(data);
+      this.calculatedProductPrice=data;
+    },
 showDetails(event) {
       this.detailsOpen = true
       event.target.classList.add("hidden")
