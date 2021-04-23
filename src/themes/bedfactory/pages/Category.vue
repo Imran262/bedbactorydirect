@@ -598,9 +598,6 @@ export default {
     // For Pagination
     this.pagination.currentPageItems = this.getCategoryProducts
     this.totalCategoryItemsCustom = this.getCategoryProductsTotal
-    if (this.getBreadcrumbsRoutes.length > 0 && typeof BrTrk !== 'undefined') {
-      // this.addBloom()
-    }
 
     // ForGtag
     this.setGtagProductsList()

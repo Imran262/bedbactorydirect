@@ -136,13 +136,6 @@ export default {
     if (!this.isLoggedIn && localStorage.getItem('redirect')) {
       this.$bus.$emit('modal-show', 'modal-signup')
     }
-    if (typeof BrTrk === 'undefined') {
-      document.getElementsByTagName('script')[0].addEventListener('load', () => {
-        this.addBloom()
-      })
-    } else {
-      this.addBloom()
-    }
   },
   methods: {
     metatitle () {
@@ -150,18 +143,7 @@ export default {
       return config?.themeConfigurations?.title;
       }
     },
-    addBloom () {
-      if (config && config.bloomreach) {
-        var br_data = br_data || {}
-        br_data.acct_id = config.bloomreach.accountID
-        br_data.ptype = 'homepage'
-        br_data.domain_key = config.bloomreach.domainKey
-        br_data.view_id = config.bloomreach.viewId
-        br_data.test_data = config.bloomreach.testData
-        BrTrk.getTracker().updateBrData(br_data)
-        BrTrk.getTracker().logPageView()
-      }
-    }
+   
   },
 
   watch: {

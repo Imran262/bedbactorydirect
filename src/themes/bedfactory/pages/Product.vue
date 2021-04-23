@@ -1168,7 +1168,6 @@ export default {
       'recently-viewed/addItem',
       this.getCurrentProduct
     );
-    this.addBloom();
     this.disabledQuoteAddtoCart();
     this.updateHasSamples(this.getCurrentProduct.id)
       .then(({ data }) => {
@@ -1267,8 +1266,6 @@ export default {
       }
     },
     currRoute(newVal, oldVal) {
-      this.sqmChanged();
-      this.addBloom();
       this.$refs.getProductGallery.$refs.carousel.navigate(0);
       if (document.getElementById('prod-gallery-thumbnails-carousel')) {
         const sliderThumb = document
@@ -1465,40 +1462,6 @@ showDetails(event) {
     },
     showVinylPrice(vinylResult, sumTotal) {
       this.vinylProductPrice = parseFloat(vinylResult);
-    },
-    atcPixel() {
-      if (config.bloomreach && BrTrk) {
-        BrTrk.getTracker().logEvent('cart', 'click-add', {
-          prod_id: config.bloomreach.prefix + this.getCurrentProduct.id,
-          sku: this.getCurrentProduct.sku
-        });
-      }
-    },
-    addBloom() {
-      if (config && config.bloomreach) {
-        var br_data = br_data || {};
-        br_data.acct_id = config.bloomreach.accountID;
-        br_data.ptype = 'product';
-        br_data.title =
-          this.getCurrentProduct.meta_title || this.getCurrentProduct.name;
-        br_data.domain_key = config.bloomreach.domainKey;
-        br_data.view_id = config.bloomreach.viewId;
-        br_data.test_data = config.bloomreach.testData;
-        br_data.prod_id = config.bloomreach.prefix + this.getCurrentProduct.id;
-        br_data.prod_name = this.getCurrentProduct.name;
-        br_data.sku = this.getCurrentProduct.sku;
-        if (typeof BrTrk === 'undefined') {
-          var brtrk = document.createElement('script');
-          brtrk.type = 'text/javascript';
-          brtrk.async = true;
-          brtrk.src = `//cdn.brcdn.com/v1/br-trk-${config.bloomreach.accountID}.js`;
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(brtrk, s);
-        } else {
-          BrTrk.getTracker().updateBrData(br_data);
-          BrTrk.getTracker().logPageView();
-        }
-      }
     },
     sqmQtyCheck({ sqm, tileQty }) {
       this.tileSqmQuantity = sqm;
@@ -2035,7 +1998,7 @@ showDetails(event) {
           document
             .getElementById('wastage wastage-btn')
             .classList.remove('addWaste');
-          this.addWaste();
+          // this.addWaste();
         }
       }
     },
@@ -2080,9 +2043,7 @@ showDetails(event) {
     },
     tileQtyUpdated(event) {
       this.tilesQuantity = event;
-      this.updateSqmQuantity(event);
-      this.calculateTenPercentwaste();
-      this.sqmChanged();
+      
       let classCheckOnPrice = document
         .getElementById('hidePriceOnLoadPage')
         .classList.contains('hide');

@@ -253,30 +253,6 @@ if(this.productsInCart.length === 0){
     })
   },
   mounted () {
-    if (config && config.bloomreach && typeof BrTrk === 'undefined') {
-      var brtrk = document.createElement('script')
-      brtrk.type = 'text/javascript'
-      brtrk.async = true
-      brtrk.src = `//cdn.brcdn.com/v1/br-trk-${config.bloomreach.accountID}.js`
-      var s = document.getElementsByTagName('script')[0]
-      s.parentNode.insertBefore(brtrk, s)
-    }
-    let iubendaInnerHtmlVar = '';
-    if (config && config.themeConfigurations && config.themeConfigurations && config.themeConfigurations.iubendaParams) {
-      if (config.themeConfigurations.iubendaParams.siteName === 'Flooring Mountain') {
-        iubendaInnerHtmlVar = `var _iub = _iub || []; _iub.csConfiguration = {"consentOnContinuedBrowsing":false,"whitelabel":false,"lang":"en","siteId":${config.themeConfigurations.iubendaParams.siteId},"cookiePolicyId":${config.themeConfigurations.iubendaParams.cookiePolicyId}, "banner":{ "acceptButtonDisplay":true,"customizeButtonDisplay":true,"position":"float-bottom-left","acceptButtonColor":"#ffffff","acceptButtonCaptionColor":"${config.themeConfigurations.iubendaParams.acceptButtonCaptionColor}","customizeButtonColor":"${config.themeConfigurations.iubendaParams.customizeButtonColor}","customizeButtonCaptionColor":"white","rejectButtonColor":"${config.themeConfigurations.iubendaParams.rejectButtonColor}","rejectButtonCaptionColor":"${config.themeConfigurations.iubendaParams.rejectButtonCaptionColor}","textColor":"white","backgroundColor":"#29275b","content":"<div id='iubenda-cs-paragraph'>To enhance your shopping experience, we use cookies or similar technologies as specified in our <a href='privacy-policy/12918755/cookie-policy?an=no&s_ck=false&newmarkup=yes' class='iubenda-cs-cookie-policy-lnk'>cookie policy</a>.<br /></div>" }};`
-      } else {
-        iubendaInnerHtmlVar = `var _iub = _iub || []; _iub.csConfiguration = {"consentOnContinuedBrowsing":false,"perPurposeConsent":true,"whitelabel":false,"lang":"en","siteId":${config.themeConfigurations.iubendaParams.siteId},"cookiePolicyId":${config.themeConfigurations.iubendaParams.cookiePolicyId}, "banner":{"acceptButtonDisplay":true,"customizeButtonDisplay":true,"acceptButtonColor":"#ffffff","acceptButtonCaptionColor":"${config.themeConfigurations.iubendaParams.acceptButtonCaptionColor}","customizeButtonColor":"${config.themeConfigurations.iubendaParams.customizeButtonColor}","customizeButtonCaptionColor":"white","position":"float-bottom-left","textColor":"white","backgroundColor":"#29275b","content":"<div id='iubenda-cs-paragraph'>To enhance your shopping experience, we use cookies or similar technologies as specified in our <a href='/privacy-policy/12918755/cookie-policy?an=no&s_ck=false&newmarkup=yes' class='iubenda-cs-cookie-policy-lnk'>cookie policy</a>.<br /></div>" }}`
-      }
-    } else {
-      iubendaInnerHtmlVar = ''
-    }
-    const iubPlugin = document.createElement('script');
-    iubPlugin.innerHTML = iubendaInnerHtmlVar;
-    document.head.appendChild(iubPlugin);
-    const iubPluginScript = document.createElement('script')
-    iubPluginScript.setAttribute('src', '//cdn.iubenda.com/cs/iubenda_cs.js')
-    document.head.appendChild(iubPluginScript)
     window.addEventListener('scroll', this.updateScroll)
     document.addEventListener('scroll', () => {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop
