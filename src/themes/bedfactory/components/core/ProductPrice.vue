@@ -145,6 +145,7 @@ export default {
 $color-primary: color(primary);
 .price-original {
   text-decoration: line-through;
+ font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .price {
@@ -156,6 +157,15 @@ $color-primary: color(primary);
   color: #d10000b8;
   display: inline-block;
   margin-top: 15px;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 2rem !important;
+   @media (max-width: 1200px) {
+      font-size: 1.5rem !important;
+   }
+      @media (max-width: 767px) {
+      font-size: 1.55rem !important;
+   }
+
 }
 
 .bt-product-gallery {
@@ -178,5 +188,22 @@ $color-primary: color(primary);
 span.save-amount {
   padding-left: 15px;
   color: #d10000b8;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.h3.cl-secondary {
+    padding: 0px 40px 0px 40px;
+}
+.price.serif {
+    margin-top: -20px;
+}
+@media (max-width: 767px) {
+  .h3.cl-secondary {
+    padding: 0px 40px 0px 25px;
+}
+}
+@media (max-width: 392px) {
+.saving-price-detail-div{
+  padding-left: 0px !important;
+}
 }
 </style>

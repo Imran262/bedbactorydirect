@@ -541,7 +541,7 @@
     >
       <div class="row">
         <div
-          class="col-lg-7 col-md-7 col-sm-12 col-xs-12 product-description-left"
+          class="col-lg-6 col-md-7 col-sm-12 col-xs-12 product-description-left"
         >
         <h2
             class="h3 m0 mb10 serif lh20 details-dimension"
@@ -661,7 +661,7 @@
           </div>
         </div>
         <div
-          class="col-lg-5 col-md-5 col-sm-12 col-xs-12 product-description-right"
+          class="col-lg-6 col-md-5 col-sm-12 col-xs-12 product-description-right"
         >
           <div
             class="bt-new-description-main"
@@ -3068,6 +3068,9 @@ a:not(.no-underline):hover:after {
 .add-to-cart {
    padding: 20px 0px 20px 40px;
     width: 95%;
+    @media (max-width: 767px){
+      padding: 20px 0px 20px 25px;
+    }
 }
 
 .vinyl-products-detail {
@@ -4460,6 +4463,12 @@ font-size: 1.5vw !important;
     border-radius: 3px;
     top: 32% !important;
   }
+  form.custom-options {
+  padding-left: 25px !important;
+}
+.fabric-btn-responsive {
+    padding-left: 25px  !important;
+}
 }
 select.m0.no-outline {
   width: 350px;
@@ -4537,5 +4546,8 @@ label.base-input-number__label.cl-primary.flex {
 .add-to-cart button{
     background-position: 10% 45% !important;
 }
+}
+.product-head.adhesive-product-head h1 {
+    margin: 5px 0px 10px 0px;
 }
 </style>
