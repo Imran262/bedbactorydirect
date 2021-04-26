@@ -144,6 +144,7 @@ export default {
       this.$refs.searchContainer.classList.toggle("show")
     },
     searchEvent () {
+    //  console.log("74125 in search event");
       if (config && config.bloomreach) {
         var searchData = {}
         searchData['q'] = this.query
@@ -215,6 +216,8 @@ export default {
       this.hideSearchPanel()
     },
     onSearchSubmit () {
+      this.showResultPage =true
+     // console.log("74125 In Search submit" ,this.search.length  , this.showResultPage ,this.search.length > 2 && this.showResultPage , );
       this.searchEvent()
       if (this.search.length > 2 && this.showResultPage) {
         this.clearSearchBar()

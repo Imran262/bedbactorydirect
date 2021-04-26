@@ -201,12 +201,19 @@
           :columns="defaultColumn"
           :products="apiProductsApi"
         />
+        <product-listing
+              :columns="defaultColumn"
+              :products="apiProductsApi"
+              :filters="getAvailableFilters"
+              :isCategory="true"
+            />
       </div>
     </div>
   </div>
 </template>
 <script>
-import ProductListing from '../components/core/ProductListingCustom.vue'
+// import ProductListing from '../components/core/ProductListingCustom.vue'
+import ProductListing from '/src/themes/bedfactory/components/core/ProductListingCustom'
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 import Columns from '../components/core/ColumnsCustom.vue'
 import SortBy from '../components/core/SortByCustom.vue'
