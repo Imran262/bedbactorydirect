@@ -355,9 +355,9 @@ $color-error: color(error);
   .basin_size {
     select {
       /*width: 550px;*/
-      background: #ffffff;
-      font-family: "Poppins", sans-serif;
-      color: #000;
+    background: #ffffff;
+     font-family: 'OBLIK';
+      color: #4a4a4a;
       font-size: 16px;
       border: 2px solid #24224d;
       appearance: none;
