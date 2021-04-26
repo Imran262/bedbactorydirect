@@ -148,7 +148,7 @@ export default {
         var searchData = {}
         searchData['q'] = this.query
         searchData['catalogs'] = [{ 'name': 'example_products' }]
-        BrTrk.getTracker().logEvent('suggest', 'submit', searchData, {}, true)
+        // BrTrk.getTracker().logEvent('suggest', 'submit', searchData, {}, true)
       }
     },
     suggestEvent (q) {
@@ -157,7 +157,7 @@ export default {
         searchData['aq'] = this.query
         searchData['q'] = q
         searchData['catalogs'] = [{ 'name': 'example_products' }]
-        BrTrk.getTracker().logEvent('suggest', 'submit', searchData, {}, true)
+        // BrTrk.getTracker().logEvent('suggest', 'submit', searchData, {}, true)
       }
     },
     addborders () {

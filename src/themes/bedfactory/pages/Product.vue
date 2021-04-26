@@ -1537,17 +1537,20 @@ showDetails(event) {
         } else {
           product_Id = this.getCurrentProduct.id;
         }
-        // const URL =config.reviews.getReviews_endpoint + product_Id
-        const URL =
-          'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id=454';
+         const URL = config.baseUrl.url + config.reviews.getReviews_endpoint + product_Id;
+        // const URL = 'http://46.101.17.57/' + config.reviews.getReviews_endpoint + product_Id;
+        // console.log("1234654321 URL in products is ",URL);
+        // const URL =
+        //   'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id=454';
         axios
           .get(URL)
           .then(res => {
             const response = res;
             if (response.status !== 200 && !review.data.length) {
-              throw ('Error:', response.data[0].message);
+              throw ('Error Occured while requesting for reviews:', response.data[0].message);
             } else {
               this.reviewData = response.data[1];
+              // console.log("1234654321 Reviews are: ",this.reviewData);
               // console.log(this.reviewData,"this.reviewData",this.reviewData.average_score, (parseFloat (this.reviewData.bottomline.average_score)).toFixed(2));
               let average = parseFloat(
                 this.reviewData.bottomline.average_score
