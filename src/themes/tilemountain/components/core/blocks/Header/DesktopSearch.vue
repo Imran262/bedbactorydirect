@@ -123,7 +123,7 @@
 
 <script>
 import SearchPanel from "@vue-storefront/core/compatibility/components/blocks/SearchPanel/SearchPanel"
-import ProductTileSearch from "theme/components/core/ProductTileBFD"
+import ProductTileSearch from "theme/components/core/ProductTileSearch"
 import VueOfflineMixin from "vue-offline/mixin"
 import CategoryPanel from "theme/components/core/blocks/Category/CategoryPanel"
 import { minLength } from "vuelidate/lib/validators"
