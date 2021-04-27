@@ -292,6 +292,7 @@
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12"
+            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express'"
           >
             <label class="radioStyled sb-payment-method-label">
               {{ method.title ? method.title : method.name }}

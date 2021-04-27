@@ -92,10 +92,7 @@
 <!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
             <img
-              :src="
-                getCurrentCategory.banner_image
-                  ? getCurrentCategory.banner_image
-                  : `/assets/category-images/header.png`
+              :src="'http://devadmin.bedfactorydirect.co.uk'+ getCurrentCategory.banner_image
               "
               :alt="getCurrentCategory.name"
               class="headerimg"

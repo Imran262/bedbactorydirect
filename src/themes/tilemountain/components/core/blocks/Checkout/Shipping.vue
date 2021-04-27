@@ -712,11 +712,11 @@
                 class="selected-collection-time"
                 :class="!shipping.narrowRoad ? 'show' : 'hide'"
               >
-                <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
+                <!-- <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
                   Select a Delivery Time
-                </h3>
+                </h3> -->
                 <!--  <h3 v-if="selectedDeliveryMethod == 'warehouse'">Select a collection time:</h3>-->
-                <div class="selected-collection-time-inner">
+                <!-- <div class="selected-collection-time-inner">
                   <template v-for="slotData in shippingSlotsData">
                     <div
                       v-if="
@@ -800,14 +800,6 @@
                             "
                           />
                         </template>
-                        <!--<span v-if="selectedMethod == slotData.customData.method_code">
-                      |
-                      {{
-                          slotData.customData.amount === 0
-                            ? "Free Delivery"
-                            : `&pound;${slotData.customData.amount}`
-                        }}
-                    </span>-->
                         <input
                           type="radio"
                           :value="slotData.customData.method_code"
@@ -827,7 +819,7 @@
                       </label>
                     </div>
                   </template>
-                </div>
+                </div> -->
               </div>
               <div class="instruction">
                 <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
@@ -907,12 +899,7 @@
                   sendDataToCheckout();
                   dateSelected();
                 "
-                :disabled="
-                  $v.shipping.$invalid ||
-                  getShippingMethods.length === 0 ||
-                  (isCalendarSelected && shippingSlotsData.length === 0) ||
-                  !deliveryBtnEnable
-                "
+                :disabled="!(getShippingMethods.length>0 && isCalendarSelected)"
               >
                 <span v-if="deliveryBtnClicked == true">
                   {{ $t('Delivery: ') }}
