@@ -218,7 +218,7 @@ if(this.productsInCart.length === 0){
         : false
     },
     checkoutLogoPath () {
-      return config?.themeConfigurations?.checkoutLogo || '/assets/checkout-logo.svg';
+      return '/assets/logo.svg';
     }
   },
   beforeMount () {
