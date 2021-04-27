@@ -1,5 +1,9 @@
 <template>
   <div class="breadcrumbs h5 cl-gray" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <router-link :to="'/'" itemprop="item">
+         <span class="no-padding" itemprop="name"> Home </span>
+          
+        </router-link>
     <span v-for="(link, index) in paths" :key="link.route_link" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <template
         v-if="link.name !== 'Default Category' && link.name !== 'New Default'"
