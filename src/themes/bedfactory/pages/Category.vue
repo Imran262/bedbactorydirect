@@ -89,7 +89,7 @@
               <p v-html="getCurrentCategory.banner_description" />
             </div>
           </div>
-getCurrentCategory          {{getCurrentCategory.banner_image}}
+<!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
             <img
               :src="
