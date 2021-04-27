@@ -397,6 +397,7 @@ export default {
   mixins: [MeasureProductClick],
   data () {
     return {
+      bottompagination :false,
       mobileFilters: false,
       loadingProducts: false,
       loading: true,
@@ -667,6 +668,9 @@ export default {
     }
   },
   methods: {
+    showbottompage () {
+      this.bottompagination = true
+    },
     addBloom () {
       if (config && config.bloomreach) {
         var br_data = br_data || {}
