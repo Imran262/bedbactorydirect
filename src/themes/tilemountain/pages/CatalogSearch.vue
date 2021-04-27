@@ -324,10 +324,17 @@
         </div>
       </div>
       <div class="col-md-10 search-listing products-list">
-        <product-listing
+        <!-- <product-listing
           :columns="defaultColumn"
           :products="pagination.currentPageProducts"
-        />
+        /> -->
+        <product-listing
+              @showPagination="showbottompage"
+              :columns="4"
+              :products="pagination.currentPageItems || getCategoryProducts"
+              :filters="{}"
+              :isCategory="true"
+            />
       </div>
       <div
         class="pagination sorting main-pagination col-sm-12 col-xs-12 col-md-12"
@@ -367,7 +374,8 @@
   </div>
 </template>
 <script>
-import ProductListing from '../components/core/ProductListingCustom.vue'
+// import ProductListing from '../components/core/ProductListingCustom.vue'
+import ProductListing from  'src/themes/bedfactory/components/core/ProductListingCustom'
 import { Logger } from '@vue-storefront/core/lib/logger'
 import { SearchQuery } from 'storefront-query-builder'
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
@@ -389,6 +397,7 @@ export default {
   mixins: [MeasureProductClick],
   data () {
     return {
+      bottompagination :false,
       mobileFilters: false,
       loadingProducts: false,
       loading: true,
@@ -659,6 +668,9 @@ export default {
     }
   },
   methods: {
+    showbottompage () {
+      this.bottompagination = true
+    },
     addBloom () {
       if (config && config.bloomreach) {
         var br_data = br_data || {}

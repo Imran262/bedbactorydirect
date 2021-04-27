@@ -60,7 +60,7 @@
         <div
           id="search-mainmain"
           class="sb-filters"
-         v-if="shouldShowProducts && search.length > 2"
+          v-if="shouldShowProducts && search.length > 2"
         >
           <div class="fixedbut">
             <transition name="fade">
@@ -71,26 +71,31 @@
                 {{ $t(getNoResultsMessage) }}
               </div>
             </transition>
+            <!-- <div
+              v-if="visibleProducts.length && categories.length > 1"
+              class="categories"
+            >
+              <category-panel
+                :categories="categories"
+                v-model="selectedCategoryIds"
+              />
+            </div> -->
             <div class="product-listing row">
-              <template v-for="(product, index) in visibleProducts">
-        <ProductTileSearch
-                  :word="search"
-                  :key="index"
-                  :uniqueid="index"
-                   v-if="index < 7"
-                  :product="product"
-                  @click.native="
-                    hideSearchPanel();
-                    clearSearchBar();
-                    onEnter(product);
-                  "
-                  @removeborders="removeborders()"
-                />
-              </template>
+              <ProductTileSearch
+                v-for="(product, index) in visibleProducts"
+                :key="index"
+                :product="product"
+                @click.native="
+                  hideSearchPanel();
+                  clearSearchBar();
+                  onEnter(product);
+                "
+                @removeborders="removeborders()"
+              />
             </div>
           </div>
-          <!-- <div
-            v-show="productsFromApi.length >= size"
+          <div
+            v-show="OnlineOnly && visibleProducts.length >= size"
             class="buttons-set align-center"
           >
             <button
@@ -104,11 +109,11 @@
             >
               {{ $t('View All Results') }}
             </button>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
-    <div class="custom-search-icon fd" @click="onSearchSubmit()" ref="magnify">
+    <div class="custom-search-icon" ref="magnify">
       <span>
         <img src="/assets/icons/search.svg" alt="desktop search" />
       </span>
@@ -123,7 +128,6 @@ import VueOfflineMixin from "vue-offline/mixin"
 import CategoryPanel from "theme/components/core/blocks/Category/CategoryPanel"
 import { minLength } from "vuelidate/lib/validators"
 import config from 'config'
-import debounce from 'lodash-es/debounce'
 // import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 export default {
   name: "DesktopSearch",
@@ -164,12 +168,14 @@ export default {
       // if (this.shows) {
       this.$emit("rightborder", true)
       document.getElementById("search").classList.add("addborders")
+      this.$refs.magnify.classList.add("leftborder")
       // }
     },
     removeborders () {
       // if (!this.shows) {
       this.$emit("rightborder", false)
       this.$refs.search.classList.remove("addborders")
+      this.$refs.magnify.classList.remove("leftborder")
       // }
     },
     clearSearchBar () {
@@ -194,12 +200,11 @@ export default {
       } else {
         document.getElementsByClassName('back-layout')[0].style.display = 'none'
       }
-      this.formSubmitUrl = '/catalogsearch/result/?q=' + this.search
+      this.formSubmitUrl = '/catalog-search/?s=' + this.search
       let savedRedirects = this.$store.state.searchredirect
       if (savedRedirects.searchRedirectState) {
         savedRedirects.searchRedirectState.forEach(element => {
           if (element.query_text == this.search) {
-            console.log('savedRedirects', element.redirect)
             this.formSubmitUrl = element.redirect
           }
         })
@@ -216,7 +221,7 @@ export default {
     },
     onSearchSubmit () {
       this.searchEvent()
-      if (this.search.length > 2 && this.showResultPage) {
+      if (this.search.length > 2) {
         this.clearSearchBar()
         this.hideSearchPanel()
         this.$refs.searchIconRef.click()
@@ -267,7 +272,7 @@ export default {
   },
   components: {
     ProductTileSearch,
-    CategoryPanel
+    CategoryPanel,
   },
   mixins: [SearchPanel, VueOfflineMixin],
   validations: {
@@ -280,16 +285,14 @@ export default {
       selectedCategoryIds: [],
       showPanelNewDesktop: true,
       searchHidden: false,
-      size: 7,
+      size: 3,
       formSubmitUrl: '',
       products: [],
-      shows: false,
-      showResultPage: false
+      shows: false
     }
   },
   computed: {
     visibleProducts () {
-      console.log("11223344 ",this.products);
       const productList = this.products || []
       if (this.selectedCategoryIds.length) {
         return productList.filter((product) =>
@@ -370,13 +373,13 @@ export default {
   src: url('/assets/fonts/Oblik_Bold.otf');
 }
 
-// @media screen and (max-width: 767px) {
-//   .leftborder {
-//     border-left: 2px solid #29a795 !important;
-//     top: 0 !important;
-//     border-top: 2px solid #e3e3e5;
-//   }
-// }
+@media screen and (max-width: 767px) {
+  .leftborder {
+    border-left: 2px solid #29a795 !important;
+    top: 0 !important;
+    border-top: 2px solid #e3e3e5;
+  }
+}
 
 .showresults {
   background: none;
@@ -422,12 +425,12 @@ export default {
   }
 }
 
-// @media screen and (max-width: 767px) {
-//   .addborders {
-//     border-top: 2px solid #29a795 !important;
-//     border-bottom: 2px solid #29a795 !important;
-//   }
-// }
+@media screen and (max-width: 767px) {
+  .addborders {
+    border-top: 2px solid #29a795 !important;
+    border-bottom: 2px solid #29a795 !important;
+  }
+}
 
 @media screen and (min-width: 768px) {
   .categories {
@@ -537,12 +540,10 @@ export default {
         font-size: 0.839375rem;
         padding-left: 0.5rem;
         background-color: #e6ebee;
-        color: #777777;
-        font-family: 'Arial';
-        font-weight: bold;
+        color: #888;
+        font-family: 'Oblik';
         margin-right: 10px;
-        text-transform: capitalize;
-        // z-index: 3;
+        z-index: 3;
         position: relative;
       }
 
@@ -577,19 +578,20 @@ export default {
       padding-right: map-get($grid-gutter-widths, xs) / 2;
     }
   }
-  @media screen and (min-width: 768px) {
-    .product-listing {
-      border-top: 1px solid #b3b6b4;
-    }
+
+  .product-listing {
+    // padding-top: 30px;
+    // overflow-y: auto;
+    // height: 510px;
+    // border-top: 2px solid #b3b6b4;
   }
 
   .product {
     box-sizing: border-box;
     width: 33.33%;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-left: map-get($grid-gutter-widths, lg) / 2;
+    padding-right: map-get($grid-gutter-widths, lg) / 2;
+    padding-top: 21px;
     @media #{$media-xs} {
       width: 50%;
       padding-left: 15px;
@@ -722,17 +724,15 @@ export default {
             border: 2px solid #e3e3e5;
             max-width: 100%;
             height: 35px;
-            text-transform: capitalize;
             background-color: #f7f6f6;
-            color: #8f8d8d;
-            font-family: Arial;
+            color: #434343;
+            font-family: sans-serif;
+            font-weight: bold;
             line-height: 17px !important;
             margin: 0px;
             padding: 0px;
             padding-left: 4rem;
-            font-size: 16px;
             -webkit-appearance: none;
-            font-weight: normal;
           }
 
           .search-icon {
@@ -747,19 +747,21 @@ export default {
 
         .sb-filters {
           position: absolute;
-          background-color: #f3f3f3;
-          z-index: 9999;
+          background-color: #ffffff;
+          z-index: 9;
           padding: 0px 0px 0px 0px;
           top: 37px;
-          left: 9px;
-          width: 100%;
-          max-width: 100%;
+          left: 52px;
+          width: calc(100% - 104px);
+          max-width: 86.2%;
           border: 2px solid #e4e4e4;
           border-top: none;
-          overflow: hidden;
+          overflow: auto;
+          overflow: auto;
           @media screen and (max-width: 767px) {
+            border-left: 2px solid #29a795 !important;
+            border-right: 2px solid #29a795 !important;
             border-bottom: 2px solid #29a795 !important;
-            border-top: 2px solid #29a795 !important;
           }
         }
       }
