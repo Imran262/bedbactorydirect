@@ -66,7 +66,7 @@ export const actions: ActionTree<UrlState, any> = {
           return resolve(parametrizeRouteData(routeData, query, storeCodeInPath))
         } else {
           const mappingActionName = config.urlModule.enableMapFallbackUrl ? 'mapFallbackUrl' : 'mappingFallback'
-          dispatch(mappingActionName, { url, params: parsedQuery }).then(mappedFallback => {
+          dispatch('mappingFallback', { url, params: parsedQuery }).then(mappedFallback => {
             const routeData = getFallbackRouteData({ mappedFallback, url })
             dispatch('registerMapping', { url, routeData }) // register mapping for further usage
             resolve(parametrizeRouteData(routeData, query, storeCodeInPath))
@@ -85,6 +85,17 @@ export const actions: ActionTree<UrlState, any> = {
     //   Deprecated action mappingFallback - use mapFallbackUrl instead.
     //   You can enable mapFallbackUrl by changing 'config.urlModule.enableMapFallbackUrl' to true
     // `)()
+    url = (removeStoreCodeFromRoute(url.startsWith('/') ? url.slice(1) : url) as string)
+    const cms = await dispatch('cmsPage/list', { filterValues: url }, { root: true })
+//    console.log("789654 cms page is ",url,cms.length,cms[0].identifier);
+    if (cms.length > 0) {
+      return {
+        name: 'cms-page',
+        params: {
+          slug: cms[0].identifier
+        }
+      }
+    }
     const productQuery = new SearchQuery()
     url = (removeStoreCodeFromRoute(url.startsWith('/') ? url.slice(1) : url) as string)
     productQuery.applyFilter({ key: 'url_path', value: { 'eq': url } }) // Tees category
