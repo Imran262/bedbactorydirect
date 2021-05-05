@@ -53,6 +53,7 @@
                   "
                   @keyup.enter="onEnter"
                 />
+                <div class="Desktop-search"><img data-v-1b40edbc="" src="/assets/icons/search.svg" alt="desktop search" class="search-icon-img"></div>
               </form>
             </div>
           </div>
@@ -818,5 +819,26 @@ export default {
 // }
 .search-icon {
   display: none !important;
+}
+.Desktop-search{
+   cursor: pointer;
+    position: absolute;
+    right: 13px;
+    top: 16px;
+}
+.search-icon-img{
+  height: 18px;
+    position: absolute;
+    z-index: 999;
+}
+@media screen and (max-width: 767px){
+.Desktop-search {
+    display: none;
+}
+}
+@media screen and (min-width: 1200px){
+.Desktop-search{
+    right: 35px;
+}
 }
 </style>
