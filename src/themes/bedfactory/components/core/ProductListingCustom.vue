@@ -73,10 +73,8 @@ export default {
 <style scoped>
 @media screen and (max-width: 767px) {
 .pading{
-    /* padding-bottom: 9px !important; */
-    padding: 0px;
-    border-bottom: 1px solid #ccc;
-    /* padding-top: 8px !important; */
+   padding-bottom: 20px !important; 
+
 }
 }
 </style>

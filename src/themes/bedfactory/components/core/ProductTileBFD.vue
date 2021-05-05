@@ -53,7 +53,8 @@
       <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
       </p>
-      <div class="comfort-size">
+      <div class="inline-both">
+      <div class="comfort-size gap-btwn">
         <div v-if="product.comfort_grade && product.comfort_grade.length >= 0">
           <div
             v-for="(comfort, comfortIndex) in filters.comfort_grade"
@@ -74,14 +75,14 @@
       <!--  -->
 
       <div
-        class="catstar review-size"
+        class="catstar review-size "
         v-if="reviewData && reviewData.bottomline.total_review <= 0"
       >
         <!-- {{ getReviews() }} -->
         <!-- {{reviewData.bottomline.total_review > 0}}
         {{reviewData.bottomline.total_review}} -->
       </div>
-      <div class="catstar review-size" v-else>
+      <div class="catstar review-size gap-btwn" v-else>
         <!-- {{ getReviews().bottomline.average_score }}
         {{getReviews().bottomline.average_score
             ? parseFloat(getReviews().bottomline.average_score) : 0}} -->
@@ -104,7 +105,7 @@
           >
         </div>
       </div>
-
+      </div>
       <div class="price-top">
         <span
           class="mr5 lh30 cl-secondary old-price"
@@ -436,6 +437,10 @@ $color-white: color(white);
 .review-size {
  padding-top: 10px;
  height: 40px;
+ @media (max-width: 767px){
+ padding-top: 3px;
+ }
+
 }
 .price-size {
   height: 40px;
@@ -702,7 +707,7 @@ img.product-cover-thumb {
     font-size: 11px;
   }
   .name-size{
-    height: 64px;
+    height: 40px;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -738,4 +743,14 @@ img.product-cover-thumb {
   
   }
   }
+    @media screen and (max-width: 767px){
+  .inline-both {
+    display: inline-flex;
+}
+    }
+    @media screen and (max-width: 767px){
+    .gap-btwn {
+    margin: 0 5px;
+}
+    }
 </style>
