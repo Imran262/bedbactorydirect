@@ -1,7 +1,7 @@
 <template>
   <div class="bg-cl-transparent brdr-none">
     <button type="button" class="bg-cl-transparent brdr-none p0 location">
-      <router-link :to="localizedRoute('/i/showrooms_info')" exact>
+      <router-link :to="localizedRoute('/bed-factory-stores')" exact>
         <img src="/assets/icons/location.svg" alt="location" />
       </router-link>
 
