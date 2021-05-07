@@ -434,7 +434,7 @@ header {
   height: auto !important;
 
   .bg-cl-primary {
-    background: #2a275c !important;
+    /*background: #2a275c !important;*/
     padding: 10px 0px 15px 0px;
     z-index: 102;
   }

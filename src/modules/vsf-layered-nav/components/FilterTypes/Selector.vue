@@ -1,20 +1,24 @@
 <template>
-  <div :class="{'filter-label': true}">
+  <div :class="{'filter-label work': true }">
     <span
       :class="{'active': isActive, 'filter-label': true}"
       @click="$emit('change', variant)"
       :aria-label="$t('Select ' + variant.label)"
     >
-      {{ variant.label }}
+    <button class="rounded-button ">
+      {{ variant.label }}   
+    </button>
     </span>
-    <span v-if="showCount && variant.label !== 0 && variant.id !== 0" class="product-counter">({{ variant.count }})</span>
+
   </div>
 </template>
 
 <script>
 import filterMixin from 'src/modules/vsf-layered-nav/mixins/filterMixin'
+import Button from 'src/modules/vsf-paypal-method/components/Button.vue'
 
 export default {
+  components: { Button },
   mixins: [filterMixin]
 }
 </script>
@@ -93,4 +97,46 @@ export default {
       // color: #8d8d8d;
     }
   }
+  button.rounded-button {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 3px 0px;
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 6px 23px 6px 23px;
+    font-weight: bold;
+    width: 169px;
+    background: #fa8a63;
+}
+@media screen and (max-width: 1244px){
+ button.rounded-button{
+padding: 6px 15px 6px 15px;
+width: 86%;
+}
+}
+@media screen and (max-width: 1199px){
+ button.rounded-button{
+  font-size: 14px;
+  padding: 6px 8px 6px 8px;
+    width: 125px;
+}
+}
+@media (min-width: 768px) and (max-width: 991px) { 
+    button.rounded-button{
+    font-size: 13px;
+    padding: 6px 6px 6px 6px;   
+    width: 118px;
+       }
+}
+@media screen and (max-width: 767px){
+      button.rounded-button{
+    font-size: 16px;
+    padding: 6px 23px 6px 23px;
+    width: 169px;
+}
+}
 </style>
