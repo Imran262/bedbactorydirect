@@ -921,7 +921,7 @@
                   </span>
                 </span>
                 <span v-else>
-                  {{ $t('Confirm Delivery: ') }}
+                  {{ $t('Continue to Payment') }}
                   <span class="date-span" v-if="deliveryTimeDate"
                     >{{ deliveryTimeDate }}
                   </span>

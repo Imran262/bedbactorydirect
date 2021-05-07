@@ -169,11 +169,11 @@ export default {
         for (let c in catFilters.filter_size) {
           // console.log("id at ",c," is ", catFilters.filter_size[c].id );
         }
-        for (let c in newcat) {
-          if(newcat[c])
-          if(newcat[c].id)
-          // console.log("\n\n\n\nNEW id at ",c," is ", newcat[c].id);
-        }
+        // for (let c in newcat) {
+        //   if(newcat[c])
+        //   if(newcat[c].id)
+        //   // console.log("\n\n\n\nNEW id at ",c," is ", newcat[c].id);
+        // }
         // console.log("\n\n\n\n");
         
       
