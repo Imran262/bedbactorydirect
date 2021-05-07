@@ -2764,7 +2764,7 @@ i.product-detail-icon {
 
 .details {
   @media (max-width: 767px) {
-    padding: 50px 15px 15px;
+    padding: 20px 15px 15px;
   }
 }
 
@@ -4552,5 +4552,10 @@ label.base-input-number__label.cl-primary.flex {
 }
 .product-head.adhesive-product-head h1 {
     margin: 5px 0px 10px 0px;
+}
+@media only screen and (max-width: 767px){
+  .product-description-left {
+    order: 2;
+  }
 }
 </style>
