@@ -185,6 +185,7 @@
       </div>
 
       <div class="row pt10">
+        <!-- Desktop Filters -->
         <div
           v-if="pageLayout !== '1column'"
           class="col-md-2 start-xs category-filters p0 pr0"
@@ -228,6 +229,7 @@
             </i>
           </div>
         </div>
+        <!-- Mobile Filters -->
         <div class="col-md-3 start-xs mobile-filters" v-if="mobileFilters">
           <sidebar
             class="mobile-filters-body"
@@ -356,7 +358,7 @@ getCategoryProducts {{getCategoryProducts}} -->
                 getCategoryProductsTotal <= lengthOfProductArray
               "
             >
-             So we not in there <br /> Total products {{getCategoryProductsTotal}}
+             <!-- So we not in there <br /> Total products {{getCategoryProductsTotal}} -->
               <product-listing
                 :columns="defaultColumn"
                 class="pagination-false"
@@ -382,7 +384,6 @@ getCategoryProducts {{getCategoryProducts}} -->
             v-if="isListingProducts"
           >
             <ProductListingPagination
-              v-if="bottompagination"
               :items="pagination.currentPageItems"
               :total-items="getCategoryProductsTotal"
               :page-size="pagination.pageSize"

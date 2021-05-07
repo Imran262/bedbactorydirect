@@ -107,7 +107,8 @@ export default {
           )
         );
       });
-
+      // console.log("9874",filteredFilters,this.getSortedFilters(filteredFilters));
+      filteredFilters = this.getSortedFilters(filteredFilters);
       for (let key in filteredFilters) {
         if (key === 'filter_type.keyword') {
           let filteredFiltersArray = filteredFilters[key];
@@ -127,6 +128,7 @@ export default {
           }
         }
       }
+      // console.log("9874 1236544",filteredFilters);
       return filteredFilters;
     },
     filterOptionDisplayLimit() {
@@ -142,6 +144,74 @@ export default {
     },
   },
   methods: {
+     getSortedFilters(catFilters) {
+     // let catFilters = Object.assign({}, this.getAvailableFilters);
+       if (catFilters && catFilters.filter_size){
+      let size = catFilters["filter_size"];
+      // console.log(
+      //   "1122336655 in sort filter function ", this.getAvailableFilters,catFilters,
+      //   typeof catFilters,
+      //   catFilters["filter_size"],"\n\n\n 23456789 ",size
+      // );
+      
+      // catFilters.filter_size.forEach(() => {});
+      // for (let a in catFilters.filter_size) {
+      //   for (let b in catFilters.filter_size) {
+      //     console.log("a is ", catFilters.filter_size[a].id, "\n b is ", catFilters.filter_size[b].id);
+      //      let keyA = catFilters.filter_size[a].id,
+      //      keyB = catFilters.filter_size[b].id;
+      //   }
+      // }
+      let newcat={};
+      
+        catFilters.filter_size.sort(function (a, b) {
+        // console.log("\n\n\n\n");
+        for (let c in catFilters.filter_size) {
+          // console.log("id at ",c," is ", catFilters.filter_size[c].id );
+        }
+        // for (let c in newcat) {
+        //   if(newcat[c])
+        //   if(newcat[c].id)
+        //   // console.log("\n\n\n\nNEW id at ",c," is ", newcat[c].id);
+        // }
+        // console.log("\n\n\n\n");
+        
+      
+        // console.log("a is ", a, "\n b is ", b);
+        var keyA = parseInt (a.id),
+          keyB = parseInt(b.id);
+        // console.log(
+        //   "keys are \n key A : ",
+        //   keyA, typeof keyA,
+        //   "\tkey B:  ",
+        //   keyB,
+        //   "keyA < keyB : ",
+        //   keyA < keyB,
+        //   "keyA > keyB : ",
+        //   keyA > keyB
+        // );
+        if (keyA < keyB) {
+          // console.log("A is less than b ");
+          newcat[a] = catFilters.filter_size[a]
+          return -1;
+        }
+        if (keyA > keyB) {
+          // console.log("A is greater than b ");
+          newcat[a] = catFilters.filter_size[b]
+          return 1;
+          
+        }
+         
+       
+      });
+      // console.log("1122336655 ",catFilters);
+      // console.log("112233665577 mattress filters ",catFilters.mattress_type && catFilters.mattress_type.length>0);
+      }
+      // if (catFilters && catFilters.mattress_type && catFilters.mattress_type.length>0){
+      //   console.log("112233665577 It has mattress filters ");
+      //   }
+      return catFilters;
+    },
     resetAllFilters() {
       this.$store.dispatch("category-next/resetSearchFilters");
     },

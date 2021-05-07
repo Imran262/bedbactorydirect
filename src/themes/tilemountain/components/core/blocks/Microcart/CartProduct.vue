@@ -26,14 +26,14 @@
         <span class="size-text">Size:</span>
         <span class="size-p-text">{{ product.size }}</span>
       </div>
-      <div class="area" v-if="fullCart && productArea && !optionCheck">
+      <!-- <div class="area" v-if="fullCart && productArea && !optionCheck">
         <template v-if="productArea !== 'Infinity'">
         <span class="area-text">Area:</span>
         <span class="area-p-text">
           {{ productArea }}sq.m
         </span>
         </template>
-      </div>
+      </div> -->
       <div class="options" v-if="isTotalsActive && product && product.totals">
         <div v-for="opt in product.totals.options" :key="opt.label">
           <span class="opn">{{ opt.label }}:</span>
