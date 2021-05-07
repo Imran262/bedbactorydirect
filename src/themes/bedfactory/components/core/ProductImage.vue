@@ -207,7 +207,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
   .product-image {
     mix-blend-mode: unset;
-    padding-bottom: 88% !important;
+    padding-bottom: 75% !important;
   }
   .CustomProduct{
     padding-bottom: 100% !important;
