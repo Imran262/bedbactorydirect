@@ -3,11 +3,8 @@
     <h4
       :class="[
         'filter-heading ',
-        ['price', 'product_type', 'filter_type.keyword'].includes(filterIndex)
-          ? 'toggle-icon'
-          : '',
-        changeFilterName === 'Type' ? 'tgle' : '',
-        filterIndex === 'price' ? 'tgle1' : ''
+        ['price', 'product_type', 'filter_type.keyword'].includes(filterIndex)      
+        ,
       ]"
       :data-attr-index="$t(filterIndex)"
       @click="FiltershowList"
@@ -42,7 +39,7 @@
       />
     </div>
     <div
-      class="filter-main-container is-open price-open"
+      class="filter-option filter-main-container"
       style="width: 90%; margin-left: 5%;"
       :id="filterIndex"
       :data-attr-contaent="filterIndex"
