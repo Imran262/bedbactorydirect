@@ -49,11 +49,17 @@
                     searchClick();
                     showSearchPanel();
                     addborders();
+
+
                     closeMenu();
                   "
                   @keyup.enter="onEnter"
                 />
-                <div class="Desktop-search"><img data-v-1b40edbc="" src="/assets/icons/search.svg" alt="desktop search" class="search-icon-img"></div>
+                <div class="Desktop-search"   @click="
+                onSearchSubmit();
+                onEnter();
+                removeborders();
+              "><img data-v-1b40edbc="" src="/assets/icons/search.svg" alt="desktop search" class="search-icon-img"></div>
               </form>
             </div>
           </div>
@@ -115,7 +121,7 @@
       </div>
     </div>
     <div class="custom-search-icon" ref="magnify">
-      <span>
+      <span >
         <img src="/assets/icons/search.svg" alt="desktop search" />
       </span>
     </div>
