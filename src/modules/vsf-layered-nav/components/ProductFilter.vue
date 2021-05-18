@@ -49,6 +49,7 @@
         context="category"
         code="price"
         id="price"
+        :key="renderSlider"
         :price-range="filter"
         content="Price "
         label="Price Label"
@@ -163,6 +164,7 @@ export default {
     return {
       filterExpand: false,
       filterNewExpand: false,
+      renderSlider: 0,
     };
   },
   components: {
@@ -253,11 +255,12 @@ export default {
       }
     },
     FiltershowList(e) {
-      if(this.changeFilterName == 'Type' || this.filterIndex === 'price'){ }
+      if(this.changeFilterName == 'Type'){ }
       else{
       e.currentTarget.classList.toggle("toggle-icon");
       const data_index = e.currentTarget.getAttribute("data-attr-index");
       var x_container, i_container;
+      this.renderSlider++
       x_container = document.querySelectorAll(".filter-main-container");
       for (i_container = 0; i_container < x_container.length; i_container++) {
         const data_index_main = x_container[i_container].getAttribute(
