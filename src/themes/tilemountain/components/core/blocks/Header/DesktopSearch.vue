@@ -53,6 +53,11 @@
                   "
                   @keyup.enter="onEnter"
                 />
+                <div class="Desktop-search"   @click="
+                onSearchSubmit();
+                onEnter();
+                removeborders();
+              "><img data-v-1b40edbc="" src="/assets/icons/search.svg" alt="desktop search" class="search-icon-img"></div>
               </form>
             </div>
           </div>
@@ -113,8 +118,13 @@
         </div>
       </div>
     </div>
-    <div class="custom-search-icon" ref="magnify">
-      <span>
+    <div class="custom-search-icon" ref="magnify"  @click="
+                onSearchSubmit();
+                onEnter();
+                removeborders();
+              ">
+      <span 
+      >
         <img src="/assets/icons/search.svg" alt="desktop search" />
       </span>
     </div>
@@ -818,5 +828,26 @@ export default {
 // }
 .search-icon {
   display: none !important;
+}
+.Desktop-search{
+   cursor: pointer;
+    position: absolute;
+    right: 13px;
+    top: 16px;
+}
+.search-icon-img{
+  height: 18px;
+    position: absolute;
+    z-index: 999;
+}
+@media screen and (max-width: 767px){
+.Desktop-search {
+    display: none;
+}
+}
+@media screen and (min-width: 1200px){
+.Desktop-search{
+    right: 35px;
+}
 }
 </style>
