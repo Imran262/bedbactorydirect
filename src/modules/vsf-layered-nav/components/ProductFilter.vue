@@ -13,7 +13,8 @@
       @click="FiltershowList"
     >
     <!-- {{changeFilterName}} -->
-      <span class="col-md-6 pl0">{{ $t(changeFilterName) }} </span>
+       <span class="col-md-6 pl0" v-if="changeFilterName === 'filter size'">Size</span>
+      <span class="col-md-6 pl0" v-else>{{ $t(changeFilterName) }} </span>
       <span
         v-if="changeFilterName == 'Type'"
         class="weight-400 sidebar__header__clear pointer sans-serif col-md-6 clear"
