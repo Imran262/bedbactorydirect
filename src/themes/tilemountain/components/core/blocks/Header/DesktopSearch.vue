@@ -120,7 +120,6 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
     <div class="custom-search-icon" ref="magnify"  @click="
                 onSearchSubmit();
                 onEnter();
@@ -128,10 +127,6 @@
               ">
       <span 
       >
-=======
-    <div class="custom-search-icon" ref="magnify">
-      <span >
->>>>>>> 3be904366b1364e8e61cb269700f42c98902f4c4
         <img src="/assets/icons/search.svg" alt="desktop search" />
       </span>
     </div>

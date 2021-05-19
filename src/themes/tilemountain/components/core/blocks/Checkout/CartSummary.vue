@@ -216,11 +216,11 @@
       <div class="cart-bottom-text">
         <p>
           By selecting the Buy Now button, you agree to our
-          <router-link to="/i/privacy_policy" target="_blank"
+          <router-link to="/privacy-policy" target="_blank"
             ><span>Privacy Policy</span></router-link
           >
           and
-          <router-link to="/i/terms_and_condition" target="_blank"
+          <router-link to="/terms" target="_blank"
             ><span>Terms and Conditions</span></router-link
           >
         </p>
