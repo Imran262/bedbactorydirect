@@ -253,5 +253,9 @@ export default {
 }
 .menuspan {
   width: 100%;
+} 
+.bullet .view-all{
+  color: #24224d !important;
+  font-weight: bold;
 }
 </style>
