@@ -30,6 +30,7 @@
                   <ul class="bullet">
                     <li v-for="finallink in sublink.sub_links">
                       <router-link
+                        :class="finallink.class"
                         :to="localizedRoute(finallink.link)"
                         v-html="finallink.title"
                       >
@@ -125,7 +126,7 @@ export default {
               totalsubmenublocks = submenublockselements.length
 
               var allsubmenublocks = [];
-              [].forEach.call(submenublockselements, (submenublockelement) => {
+              [].forEach.call(submenublockselements, (submenublockelement) => {    
                 var submenublockls = []
                 var submenublocklinks = []
 
@@ -146,9 +147,14 @@ export default {
                 var bulletlicount = 0;
 
                 [].forEach.call(bulletullis, (bulletulli) => {
-                  var submenulink = new Array(2)
+                  var submenulink = new Array(3)
 
                   var bulletullianchor = bulletulli.querySelector('a')
+                 if (bulletulli && bulletulli.attributes['class']) {
+                    submenulink['class'] = bulletulli.attributes['class']
+                  } else {
+                    submenulink['class'] = ''
+                  }
                   if (bulletullianchor && bulletullianchor.attributes['href']) {
                     submenulink['link'] = bulletullianchor.attributes['href']
                   } else {
