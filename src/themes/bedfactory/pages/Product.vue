@@ -548,12 +548,7 @@
             @click="ProDimensionShowFn"
           >
             {{ $t("Description") }}
-            <i
-              data-v-d65c5c7c
-              class="material-icons p15 cl-bg-tertiary pointer product-detail-icon icon-rotate"
-              id="product-dimension-icon-id"
-              >keyboard_arrow_right</i
-            >
+            <span id="span-icon" class="Icon-update delivery-info-icon2"></span>
           </h2>
           <div
             v-if="ProDimensionShow"
@@ -597,12 +592,10 @@
             @click="ProSpecificationsShowFn"
           >
             {{ $t("Specifications") }}
-            <i
-              data-v-d65c5c7c
-              class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
+            <span
               id="product-Specifications-icon-id"
-              >keyboard_arrow_right</i
-            >
+              class="Icon-update icon-rotate delivery-info-icon1 "
+            ></span>
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -622,12 +615,7 @@
             @click="ProDeliveryShowFn"
           >
             {{ $t("Delivery Information") }}
-            <i
-              data-v-d65c5c7c
-              class="material-icons p15 cl-bg-tertiary pointer product-detail-icon"
-              id="product-Delivery-icon-id"
-              >keyboard_arrow_right</i
-            >
+           <span id="product-Delivery-icon-id" class="Icon-update icon-rotate delivery-info-icon"></span>
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -2517,6 +2505,42 @@ h2.h3:after {
 
 .bt-dimension-wrapper-show-close.dimension-wrapper-show {
   display: block;
+}
+span.Icon-update {
+  background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
+  background-size: 30px !important;
+  z-index: 200;
+  position: relative;
+  float: right;
+  height: 10px;
+  width: 300px;
+}
+.icon-rotate {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(272deg);
+  top: 140px;
+  left: 129px;
+}
+@media (max-width: 991px) and (min-width: 768px){
+.delivery-info-icon{
+      margin-top: -18px;
+}
+}
+@media (max-width: 504px) {
+  .delivery-info-icon {
+        margin-top: -14px;
+}
+}
+@media (max-width: 452px){
+    .delivery-info-icon1 {
+        margin-top: -14px;
+}
+}
+@media (max-width: 429px){
+    .delivery-info-icon2 {
+       margin-top: -14px;
+}
 }
 i.icon-rotate {
   transform: rotate(90deg);
