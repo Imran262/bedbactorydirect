@@ -47,10 +47,10 @@
                   v-if="links.imglink != '#'"
                   :to="localizedRoute(links.imglink)"
                 >
-                  <img alt="Menu Image" v-lazy="links.submenuimg" />
+                  <img alt="Menu Image" :src="links.submenuimg" />
                 </router-link>
                 <span v-else>
-                  <img alt="Menu Image" v-lazy="links.submenuimg" />
+                  <img alt="Menu Image" :src="links.submenuimg" />
                 </span>
               </div>
             </div>
