@@ -1670,8 +1670,8 @@ p {
 }
 @media (max-width: 584px) and (min-width: 443px) {
   header .mobile-sorting p {
-    font-size: 14px;
-    margin-left: 11px;
+    font-size: 12px;
+    margin-left: 7px;
     margin-top: 7px;
   }
   .sortp1 p {

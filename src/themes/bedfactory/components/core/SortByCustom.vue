@@ -181,7 +181,7 @@ $color-tertiary: color(tertiary);
     line-height: 33px;
     padding-left: 5px;
     @media (max-width: 575px) and (min-width: 320px) {
-       width: 113px;
+       width: 98px;
        background-position-x: 81px;
        font-size: 9px;
        height: 28px;
@@ -214,7 +214,7 @@ $color-tertiary: color(tertiary);
 }
 @media (min-width: 576px) and (max-width: 767px){
 .sort-by select {
-    width: 163px !important;
+    width: 149px !important;
     background-position-x: 125px !important;
 }
 }
