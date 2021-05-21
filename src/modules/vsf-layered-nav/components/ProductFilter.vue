@@ -1,5 +1,5 @@
 <template>
-  <div class="product-filter" :class="filterIndex === 'price' && (filter[1] - filter[0] == 1 || filter[1] - filter[0] == 0) ? 'hidePriceFilterDiv': ''">
+  <div class="product-filter abc" :class="filterIndex === 'price' && (filter[1] - filter[0] == 1 || filter[1] - filter[0] == 0) ? 'hidePriceFilterDiv': ''">
     <h4
       :class="[
         'filter-heading ',
