@@ -108,7 +108,7 @@ export default {
         );
       });
       // console.log("9874",filteredFilters,this.getSortedFilters(filteredFilters));
-      filteredFilters = this.getSortedFilters(filteredFilters);
+   //   filteredFilters = this.getSortedFilters(filteredFilters);
       for (let key in filteredFilters) {
         if (key === 'filter_type.keyword') {
           let filteredFiltersArray = filteredFilters[key];
