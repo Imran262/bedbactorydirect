@@ -745,7 +745,7 @@ img.product-cover-thumb {
   }
     @media screen and (max-width: 767px){
   .inline-both {
-    display: inline-flex;
+    /*display: inline-flex;*/
 }
     }
     @media screen and (max-width: 767px){
