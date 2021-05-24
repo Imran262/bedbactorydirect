@@ -5,9 +5,12 @@
       @click="$emit('change', variant)"
       :aria-label="$t('Select ' + variant.label)"
     >
-    <button class="rounded-button ">
+    <button v-if="code==='comfort_grade'" class='rounded-button'>
       {{ variant.label }}   
     </button>
+    <div v-else>
+      {{ variant.label }} 
+    </div>
     </span>
 
   </div>
@@ -19,7 +22,61 @@ import Button from 'src/modules/vsf-paypal-method/components/Button.vue'
 
 export default {
   components: { Button },
-  mixins: [filterMixin]
+  props:{
+    code: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    position: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+  },
+  mixins: [filterMixin],
+  mounted () {
+    console.log("I have it here",this.position)
+  },
+  // methods: {
+  //   setComfortColor() {
+  //     // let classList=document.getElementById('comfortBtn').classList;
+
+  //     // console.log("hello Before ",classList);
+  //     //   classList=document.getElementById('comfortBtn').classList.add("color-red");
+  //     // console.log("hello Afer",classList);
+  //     // document.getElementById('comfortBtn').style.backgroundColor = 'red';
+
+  //     if (
+  //       this.product.comfort_grade[0] === 203 ||
+  //       this.product.comfort_grade[0] === '203'
+  //     ) {
+  //       return 'color-soft';
+  //     } else if (
+  //       this.product.comfort_grade[0] === 204 ||
+  //       this.product.comfort_grade[0] === '204'
+  //     ) {
+  //       return 'color-medium-soft';
+  //     } else if (
+  //       this.product.comfort_grade[0] === 205 ||
+  //       this.product.comfort_grade[0] === '205'
+  //     ) {
+  //       return 'color-medium';
+  //     } else if (
+  //       this.product.comfort_grade[0] === 206 ||
+  //       this.product.comfort_grade[0] === '206'
+  //     ) {
+  //       return 'color-medium-firm';
+  //     } else if (
+  //       this.product.comfort_grade[0] === 207 ||
+  //       this.product.comfort_grade[0] === '207'
+  //     ) {
+  //       return 'color-orthopaedic';
+  //     } else {
+  //       return 'color-soft';
+  //     }
+  //   },
+  // }
 }
 </script>
 
@@ -40,6 +97,7 @@ export default {
     font-size: 16px;
     opacity: 1;
     transition: opacity .2s;
+    display: flex;
     &.no-products-left {
       opacity: .3;
       cursor: not-allowed;
@@ -53,7 +111,7 @@ export default {
       &:before {
         content: '';
         position: relative;
-        top: 1px;
+        top: 6px;
         margin-right: 10px;
         display: inline-block;
         vertical-align: text-top;
