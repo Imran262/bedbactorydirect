@@ -39,6 +39,7 @@
               <Telephone
                 class="p15 icon pointer t-mobile"
                 :callText="phone"
+                :callNumber="call"
               />
               <div class="flex inner-icons">
                 <wishlist-icon class="icon pointer r-icons location-icon"/>
@@ -88,7 +89,7 @@
           </div>
           <div class="col-xs-7 col-md-6 end-xs">
             <div>
-              <Telephone :from-checkout-page="true" :callText="phone"/>
+              <Telephone :from-checkout-page="true" :callText="phone"  :callNumber="call"/>
               <a
                 v-if="!currentUser"
                 href="#"
@@ -183,7 +184,8 @@ export default {
       Microcart,
       rightborder: false,
       scrollPosition: null,
-      phone : config.phoneNumber
+      phone : config.phoneNumber.toShow,
+      call:config.phoneNumber.toCall
     }
   },
   async beforeRouteEnter (to, from, next) {
