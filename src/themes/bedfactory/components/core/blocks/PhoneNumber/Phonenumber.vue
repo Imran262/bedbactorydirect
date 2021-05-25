@@ -25,6 +25,11 @@ export default {
       type: String,
       required: false,
       default: '0151 548 15542'
+    },
+    callNumber: {
+      type: String,
+      required: false,
+      default: '+441515481554'
     }
   },
 };

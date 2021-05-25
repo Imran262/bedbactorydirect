@@ -1,6 +1,6 @@
 <template>
   <div class="phone phone-icon" v-if="!fromCheckoutPage">
-    <a :title="callText || subtitle" :href="link" class="contact NEw">
+    <a :title="callText || subtitle" href="tel:+441515481554" class="contact NEw">
       <!-- <img :src="image" alt="icon"> -->
       <p class="call-us">{{ callText || subtitle }}</p>
     </a>
