@@ -27,7 +27,7 @@
                   :class="sublink.sub_links.length>=10 ? 'sb-height-dropdown-menu col-lg-4 col-md-4':'sb-height-dropdown-menu col-lg-2 col-md-2'"
                 >
                   <span class="subcag-title">{{ sublink.main_title }}</span>
-                  <ul class="bullet">
+                 <ul :class="sublink.sub_links.length>=10 ? 'bullet menu-frame':'bullet'">
                     <li v-for="finallink in sublink.sub_links">
                       <router-link
                         :class="finallink.class"
@@ -259,9 +259,11 @@ export default {
   color: #24224d !important;
   font-weight: bold;
 }
-ul.bullet {
+.menu-frame {
     max-height: 200px;
+    -ms-flex-flow: wrap column;
     flex-flow: wrap column;
+    display: -ms-flexbox;
     display: flex;
 }
 </style>

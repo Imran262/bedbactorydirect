@@ -96,10 +96,15 @@ export default {
               border-right: 3px solid #c1c1c1;
               padding-left: 19px;
               padding-right: 19px;
-              padding-top: 37px;
+              padding-top: 28px;
               height: 100%;
               min-height: 256px;
-
+@media (min-width: 1025px) and (max-width: 1199px){
+     padding-top: 15px;
+}
+@media (min-width: 768px) and (max-width: 991px){
+     min-height: 277px;
+}
               .subcag-title {
                 font-size: 17px;
                 font-family: 'Oblik';
@@ -112,7 +117,7 @@ export default {
               }
 
               ul.bullet {
-                margin: 20px 0px 0px 0;
+                margin: 10px 0px 0px 0;
                 padding: 0;
 
                 li {
@@ -131,7 +136,10 @@ export default {
                     margin: 0;
                     border: none;
                     text-transform: capitalize;
-
+@media (min-width: 1025px) and (max-width: 1199px){
+   line-height: 1.5;
+    font-size: 12px;
+}
                     &:hover {
                       color: #5bd2ec;
                     }
@@ -315,8 +323,8 @@ export default {
               .sb-height-dropdown-menu {
                 // padding-left: 10px;
                 // padding-right: 10px;
-                flex-basis: 20.666667%;
-                max-width: 20.666667%;
+                //flex-basis: 20.666667%;
+               // max-width: 20.666667%;
 
                 .subcag-title {
                   font-size: 12px;
@@ -374,8 +382,8 @@ export default {
           .nav-panel-inner {
             .nav-block {
               .sb-height-dropdown-menu {
-                flex-basis: 14.666667%;
-                max-width: 14.666667%;
+                /*flex-basis: 14.666667%;
+                max-width: 14.666667%;*/
 
                 .subcag-title {
                   width: 95%;
@@ -437,5 +445,17 @@ export default {
       }
     }
   }
+}
+@media (min-width: 1025px) and (max-width: 1199px)
+{
+  .menu-frame {
+     flex-basis: 0%; 
+     max-width: 47%; 
+}
+}
+@media (min-width: 768px) and (max-width: 991px){
+.menu-frame {
+    max-width: 55%;
+}
 }
 </style>
