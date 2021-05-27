@@ -891,7 +891,7 @@
                 data-testid="shippingSubmit"
                 ref="referenceShippingSubmit"
                 id="shippingSubmitBtnId"
-                v-if="homeDeliverySelected"
+                v-if="homeDeliverySelected && !(deliveryBtnClicked == true)"
                 :class="
                   deliveryBtnClicked ? 'newdateSelected' : 'noNewdateSelected'
                 "
@@ -901,28 +901,28 @@
                 "
                 :disabled="!(getShippingMethods.length>0 && isCalendarSelected)"
               >
-                <span v-if="deliveryBtnClicked == true">
+                <!-- <span v-if="deliveryBtnClicked == true">
                   {{ $t('Delivery: ') }}
                   <span class="date-span" v-if="deliveryTimeDate"
                     >{{ deliveryTimeDate }}
                   </span>
-                </span>
-                <span v-else>
-                  {{ $t('Continue to Payment') }}
+                </span> -->
+                <span v-if="!(deliveryBtnClicked == true)">
+                  {{ $t('Continue to Payment ') }}
                   <span class="date-span" v-if="deliveryTimeDate"
                     >{{ deliveryTimeDate }}
                   </span>
                 </span>
               </button-full>
             </div>
-            <div class="col-xs-12 col-md-6">
+            <!-- <div class="col-xs-12 col-md-6">
               <div
                 class="editdate"
                 v-if="displayEditButton && homeDeliverySelected"
               >
                 <span @click="resetForm">Edit Delivery Date</span>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <NarrowModal :date-prop="narrowDateProp" />
@@ -1452,7 +1452,7 @@ export default {
     dateSelected: function () {
       this.$emit('date-selected',this.isDateSelected)
       this.deliveryBtnClicked=true
-      this.displayEditButton=true
+      this.displayEditButton=false
     },
     selectRenderedDate () {
       setTimeout(() => {
