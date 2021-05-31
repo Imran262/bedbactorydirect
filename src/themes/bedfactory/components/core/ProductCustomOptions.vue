@@ -15,7 +15,7 @@
           "
         >
           <div class="custom-option mb15 basin">
-            <h4 class="basin-head">{{ option.title }}</h4>
+            <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close cl-accent fab-cross" @click="$emit('closeColorPickerModal')">close</i></h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
             </span>
 
@@ -362,6 +362,7 @@ $color-error: color(error);
       border: 2px solid #24224d;
       appearance: none;
       padding-left: 4px !important;
+       cursor: pointer;
     }
   }
   /*@media (max-width: 1268px){
@@ -658,5 +659,11 @@ h4.basin-head {
 }
 select.m0.no-outline.size-storage-select {
     width: 100%;
+}
+.fab-cross {
+    position: relative;
+    top: -2px;
+    float: right;
+   cursor: pointer;
 }
 </style>
