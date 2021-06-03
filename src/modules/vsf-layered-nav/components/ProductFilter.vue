@@ -1,10 +1,11 @@
 <template>
-  <div class="product-filter" :class="filterIndex === 'price' && (filter[1] - filter[0] == 1 || filter[1] - filter[0] == 0) ? 'hidePriceFilterDiv': ''">
+  <div class="product-filter" >
     <h4
       :class="[
         'filter-heading ',
         ['price', 'product_type', 'filter_type.keyword'].includes(filterIndex)      
         ,
+        filterIndex === 'price' && windowWidth > 767 ? 'tgle1' : ''
       ]"
       :data-attr-index="$t(filterIndex)"
       @click="FiltershowList"
@@ -40,6 +41,7 @@
     </div>
     <div
       class="filter-option filter-main-container"
+      :class="windowWidth > 767 ? 'is-open' : ''"
       style="width: 90%; margin-left: 5%;"
       :id="filterIndex"
       :data-attr-contaent="filterIndex"
@@ -165,7 +167,18 @@ export default {
       filterExpand: false,
       filterNewExpand: false,
       renderSlider: 0,
+      windowWidth:0
     };
+  },
+  beforeMount () {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+  mounted () {
+    setTimeout(()=>{
+      document.getElementById('price').classList.add('is-open')
+      this.renderSlider++
+    },10)
   },
   components: {
     ColorSelector,
@@ -230,6 +243,9 @@ export default {
     resetAllFilters() {
       this.$store.dispatch("category-next/resetSearchFilters");
     },
+    handleResize () {
+      this.windowWidth = window.innerWidth
+    },
     filterExpander() {
       this.filterExpand = !this.filterExpand;
       let thisEvent = event;
@@ -255,7 +271,7 @@ export default {
       }
     },
     FiltershowList(e) {
-      if(this.changeFilterName == 'Type'){ }
+      if(this.changeFilterName == 'Type' || (this.windowWidth > 767 && this.changeFilterName == 'price')){ }
       else{
       e.currentTarget.classList.toggle("toggle-icon");
       const data_index = e.currentTarget.getAttribute("data-attr-index");
@@ -463,9 +479,9 @@ h4 {
 }
 .tgle1 {
   background: none !important;
-      width: 100%;
-      display: inline-flex;
-      margin-bottom: 10px;
+      // width: 100%;
+      // display: inline-flex;
+      // margin-bottom: 10px;
 }
 .clear{
   text-align: right;
