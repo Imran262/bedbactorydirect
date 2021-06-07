@@ -1817,4 +1817,9 @@ p {
     padding-right: 8px !important;
 }
 }
+@media screen and (min-width: 650px) and (max-width: 767px) {
+  div#category {
+    padding-top: 20px !important;
+}
+}
 </style>
