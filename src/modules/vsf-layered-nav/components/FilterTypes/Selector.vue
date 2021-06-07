@@ -142,7 +142,7 @@ export default {
           content: '';
           position: absolute;
           left: 3px;
-          top: 8px;
+          top: 13px;
           background: white;
           width: 2px;
           height: 2px;
