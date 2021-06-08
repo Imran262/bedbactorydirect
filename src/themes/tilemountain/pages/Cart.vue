@@ -303,7 +303,8 @@ export default {
     if (this.grandTotal) {
       await this.sendCartClick({ productsInCart: this.productsInCart, grandTotal: this.grandTotal })
     }
-    window.addEventListener('scroll', this.handleScroll)
+   // window.addEventListener('scroll', this.handleScroll)
+   this.updateScroll()
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
@@ -436,6 +437,12 @@ if(this.productsInCart.length === 0){
     ...mapActions({
       applyCoupon: 'cart/applyCoupon'
     }),
+    updateScroll () {
+      if (this.$route.name === 'cart') {
+        document.getElementById('app').style.overflowX  = "unset";
+        document.getElementById('viewport').style.overflow = "unset";
+      }
+    },
     checkCart(){
       console.log("789456 Checking cart ",this.$store.state.cart.cartItems.length);
       if (this.$store.state.cart.cartItems.length === 0) {
@@ -667,34 +674,34 @@ if(this.productsInCart.length === 0){
       await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
       this.$forceUpdate()
     },
-    handleScroll (event) {
-      var SAFETY_MARGIN = 20
-      const FOOTER_HEIGHT = document.getElementsByClassName('footer-main')[0]
-        .offsetHeight
-      if (FOOTER_HEIGHT) {
-        SAFETY_MARGIN = FOOTER_HEIGHT + 150
-      } else {
-        SAFETY_MARGIN = 600
-      }
-      const scrollY = window.scrollY
-      const visible = window.innerHeight
-      const pageHeight = document.documentElement.scrollHeight
-      const bottomOfPage = scrollY + SAFETY_MARGIN >= pageHeight - visible
-      var position = document.getElementsByClassName('footer-main')[0].scrollTop
-      if (bottomOfPage === true) {
-        let stickyDiv = document.getElementById('cart-summary-main')
-        if (stickyDiv && stickyDiv.classList) {
-          stickyDiv.classList.add('topSticky')
-          stickyDiv.classList.remove('bottomSticky')
-        }
-      } else {
-        let stickyDiv = document.getElementById('cart-summary-main')
-        if (stickyDiv && stickyDiv.classList) {
-          stickyDiv.classList.add('bottomSticky')
-          stickyDiv.classList.remove('topSticky')
-        }
-      }
-    }
+    // handleScroll (event) {
+    //   var SAFETY_MARGIN = 20
+    //   const FOOTER_HEIGHT = document.getElementsByClassName('footer-main')[0]
+    //     .offsetHeight
+    //   if (FOOTER_HEIGHT) {
+    //     SAFETY_MARGIN = FOOTER_HEIGHT + 150
+    //   } else {
+    //     SAFETY_MARGIN = 600
+    //   }
+    //   const scrollY = window.scrollY
+    //   const visible = window.innerHeight
+    //   const pageHeight = document.documentElement.scrollHeight
+    //   const bottomOfPage = scrollY + SAFETY_MARGIN >= pageHeight - visible
+    //   var position = document.getElementsByClassName('footer-main')[0].scrollTop
+    //   if (bottomOfPage === true) {
+    //     let stickyDiv = document.getElementById('cart-summary-main')
+    //     if (stickyDiv && stickyDiv.classList) {
+    //       stickyDiv.classList.add('topSticky')
+    //       stickyDiv.classList.remove('bottomSticky')
+    //     }
+    //   } else {
+    //     let stickyDiv = document.getElementById('cart-summary-main')
+    //     if (stickyDiv && stickyDiv.classList) {
+    //       stickyDiv.classList.add('bottomSticky')
+    //       stickyDiv.classList.remove('topSticky')
+    //     }
+    //   }
+    // }
   }
 };
 </script>
@@ -712,7 +719,7 @@ if(this.productsInCart.length === 0){
 .maincart {
   background-color: #f2f2f2 !important;
 
-  overflow: auto;
+//  overflow: auto;
   @media (max-width: 767px) {
     background-color: #ffffff !important;
     margin-top: 10px;
@@ -983,7 +990,9 @@ if(this.productsInCart.length === 0){
 
   @media (min-width: 767px) {
     .total-box-inner {
-      height: 740px;
+      height: 556px;
+      position: sticky;
+      top: 70px;
     }
   }
 

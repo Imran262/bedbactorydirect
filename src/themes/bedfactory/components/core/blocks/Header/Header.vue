@@ -192,14 +192,24 @@ export default {
     console.log("789456  header",this.productsInCart.length);
   },
   watch:{
+        '$route.name': function (to, from) {
+      if (from === 'checkout' && to !== 'cart') {
+        document.getElementById('app').style.overflowX  = "hidden";
+        document.getElementById('viewport').style.overflow = "hidden";
+      } 
+      if (from === 'cart' && to !== 'checkout') {
+        document.getElementById('app').style.overflowX  = "hidden";
+        document.getElementById('viewport').style.overflow = "hidden";
+      } 
+    },
     $route (to, from){
       // console.log("789456 In Header",this.$route,to,from);
       if (to.name==="cart"){
         console.log("789456 Header ",this.productsInCart.length);
-if(this.productsInCart.length === 0){
-  console.log("789456 Cart is Empty ");
-  this.$router.push(this.localizedRoute('/'))
-}
+        if(this.productsInCart.length === 0){
+          console.log("789456 Cart is Empty ");
+          this.$router.push(this.localizedRoute('/'))
+          }
       }
 
            }
