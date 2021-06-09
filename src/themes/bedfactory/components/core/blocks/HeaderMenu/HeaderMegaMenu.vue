@@ -37,7 +37,7 @@ export default {
 }
 
 .new-menu-bar {
-  background-color: #24224d;
+  background-color: #071A44;
   margin-top: 2px;
   ul.menu {
     padding: 0;
@@ -86,7 +86,7 @@ export default {
         display: none;
         left: 0;
         top: 66px;
-        border: 5px solid #0fa897;
+        border: 5px solid #EE4C56;
 
         .nav-panel-inner {
           .nav-block {
@@ -150,7 +150,7 @@ export default {
           }
 
           .sb-price-match {
-            background-color: #0fa897;
+            background-color: #EE4C56;
             display: flex;
             justify-content: flex-end;
             width: 82.2%;
@@ -187,7 +187,7 @@ export default {
       .box {
         width: 115px;
         height: 66px;
-        background-color: #0fa897;
+        background-color:#EE4C56;
         position: absolute;
         display: none;
         top: 0px;
@@ -197,7 +197,7 @@ export default {
           height: 0;
           border-left: 58px solid transparent;
           border-right: 58px solid transparent;
-          border-top: 20px solid #0fa897;
+          border-top: 20px solid #EE4C56;
           position: absolute;
           bottom: -24px;
           left: 0;

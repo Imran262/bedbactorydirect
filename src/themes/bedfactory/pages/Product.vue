@@ -3197,13 +3197,13 @@ a:not(.no-underline):hover:after {
 .add-to-cart button {
   background-attachment: scroll;
   background-clip: border-box;
-  background-color: #29275b;
+  background-color: #071A44;
   background-image: url(../assets/images/add-to-basket.jpg);
   background-origin: padding-box;
   background-position: 14% 45%;
   background-repeat: no-repeat;
   background-size: auto auto;
-  border: 2px solid #29275b;
+  border: 2px solid #071A44;
   border-radius: 3px;
   color: #fff;
   cursor: pointer;
@@ -4545,7 +4545,7 @@ button.select-color-button {
  }*/
 i.material-icons {
     float: right;
-    color: #24224d !important;
+    color: #ffff !important;
 }
 label.base-input-number__label.cl-primary.flex {
     display: none !important;

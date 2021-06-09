@@ -442,7 +442,7 @@ thead tr th {
     padding-right: 60px;
     padding-left: 60px;
     .btn {
-      background: #2a275c;
+      background: #071A44;
       color: #fff;
       padding: 18px;
       display: block;

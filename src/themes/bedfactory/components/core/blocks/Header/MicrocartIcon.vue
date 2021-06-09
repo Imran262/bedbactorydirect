@@ -178,7 +178,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ed108c;
+  background-color: #EE4C56;
 }
 .cart {
   width: auto;

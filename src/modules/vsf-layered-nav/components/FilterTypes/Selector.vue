@@ -86,19 +86,19 @@ export default {
   $border-secondary: color(secondary, $colors-border);
 
 .color-soft {
-  background-color: #f6a076 !important;
+  background-color: #F5949A !important;
 }
 .color-medium-soft {
-  background-color: #fa8a63 !important;
+  background-color: #9CA3B4 !important;
 }
 .color-medium {
-  background-color: #cb6885 !important;
+  background-color: #6A768F !important;
 }
 .color-medium-firm {
-  background-color: #965177 !important;
+  background-color: #071A44 !important;
 }
 .color-orthopaedic {
-  background-color: #5b364c !important;
+  background-color: #333333 !important;
 }
   .filter-label {
     line-height: 30px;

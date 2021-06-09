@@ -665,5 +665,8 @@ select.m0.no-outline.size-storage-select {
     top: -2px;
     float: right;
    cursor: pointer;
+   background: #EE4C56;
+    border: 2px solid #EE4C56;
+    border-radius: 22px;
 }
 </style>

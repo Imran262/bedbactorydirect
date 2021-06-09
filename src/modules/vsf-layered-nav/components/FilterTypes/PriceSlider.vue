@@ -195,10 +195,10 @@ $color-active: color(accent);
   box-shadow: none;
 }
 .vue-slider-dot-handle {
-  background-color: #da2f89 !important;
+  background-color: #EE4C56 !important;
 }
 .vue-slider-component.vue-slider-horizontal .vue-slider-process {
-  background-color: #2a285a !important;
+  background-color: #071A44 !important;
   height: 4px !important;
   padding: 0px !important ;
 }

@@ -950,7 +950,7 @@ if(this.productsInCart.length === 0){
 
     height: 45px;
 
-    background-color: #29275b !important;
+    background-color: #071A44 !important;
 
     color: #fff !important;
 
