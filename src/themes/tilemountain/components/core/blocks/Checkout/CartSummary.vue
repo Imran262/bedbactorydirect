@@ -390,7 +390,7 @@ thead tr th {
 }
 
 .cart-summary-main {
-   height: 556px;
+   height: 625px;
     position: sticky;
     top: 70px;
   .paypal-btn {
@@ -473,7 +473,7 @@ thead tr th {
   overflow-x: hidden;
   padding: 0px;
   overflow-y: auto;
-  max-height: 261px;
+  max-height: 160px;
 }
 
 .order-summary-details::-webkit-scrollbar-track {

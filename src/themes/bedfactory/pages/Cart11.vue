@@ -990,9 +990,9 @@ if(this.productsInCart.length === 0){
 
   @media (min-width: 767px) {
     .total-box-inner {
-      height: 556px;
-      position: sticky;
-      top: 70px;
+      height: 740px;
+      // position: sticky;
+      // top: 70px;
     }
   }
 

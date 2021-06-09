@@ -756,9 +756,9 @@ if(this.productsInCart.length === 0){
 
   .cart-summary-main {
     width: 412px;
-    position: fixed;
-    // z-index: 1;
-    top: auto;
+    // position: fixed;
+    // // z-index: 1;
+    // top: auto;
   }
 
   .cart-details {
