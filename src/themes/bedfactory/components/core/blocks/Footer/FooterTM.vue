@@ -159,7 +159,7 @@ $color-secondary: color(secondary);
 // my customization for footr starts here
 .footer-main {
   padding: 20px 0 36px;
-  background-color: #606060;
+  background-color: #858585;
 }
 .footer-main h2 {
   font-family: 'Oblik';
@@ -433,7 +433,7 @@ p {
   color: #fff;
 }
 .copyright {
-  background-color: #444444;
+  background-color: #333333;
   height: 86px;
 }
 .copyright1 {

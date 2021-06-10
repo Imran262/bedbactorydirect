@@ -99,7 +99,7 @@ div.phone-icon > .contact {
   p {
     margin-left: 6px;
     font-size: 18px;
-    color: #29275b;
+    color: #071A44;
     font-family: 'Oblik';
     padding-left: 29px;
     // font-weight: 600;

@@ -109,7 +109,7 @@ export default {
                 font-size: 17px;
                 font-family: 'Oblik';
                 text-transform: capitalize;
-                color: #2a285a;
+                color: #071A44;
               }
 
               &:last-child {
@@ -128,7 +128,7 @@ export default {
                   a {
                     font-size: 13px;
                     font-family: Arial;
-                    color: #000000;
+                    color: #858585;
                     padding: 0;
                     display: block;
                     text-align: left;

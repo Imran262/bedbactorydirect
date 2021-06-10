@@ -95,7 +95,7 @@ a.usp-a {
 .home_delivery_text {
     margin-left: 10px;
     margin-top: 4px;
-    color: #24224d;
+    color: #071A44;
 }
 @media screen and (max-width:991px){
   .home_delivery_text {
