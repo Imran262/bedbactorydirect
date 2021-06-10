@@ -204,8 +204,8 @@ $color-active: color(accent);
 }
 .vue-slider-tooltip {
   background-color: #ffffff !important;
-  color: #434343 !important;
-  border-color: #2a285a !important;
+  color: #858585 !important;
+  border-color: #071A44 !important;
 }
 .vue-slider-tooltip:before {
   display: none;

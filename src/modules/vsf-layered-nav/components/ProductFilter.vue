@@ -429,7 +429,7 @@ h4 {
   }
   h4 {
     font-size: 14px;
-    color: #2A285A;
+    color: #071A44;
     font-weight: bold;
     font-family: "Arial";
     text-transform: capitalize !important;
