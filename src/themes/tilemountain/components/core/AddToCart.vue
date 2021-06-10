@@ -28,7 +28,7 @@ import { notifications } from '@vue-storefront/core/modules/cart/helpers'
 import focusClean from 'theme/components/theme/directives/focusClean'
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 import { mapGetters } from 'vuex'
-import PopupCart from "theme/components/PopupCart";
+import PopupCart from "src/themes/bedfactory/components/PopupCart";
 
 export default {
   directives: { focusClean },
