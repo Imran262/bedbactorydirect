@@ -205,4 +205,7 @@ width: 86%;
     width: 169px;
 }
 }
+span.filter-label {
+    color: #858585;
+}
 </style>

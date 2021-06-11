@@ -546,7 +546,7 @@ $color-white: color(white);
     margin-bottom: 20px;
     text-transform: capitalize; */
     font-size: 1.2rem;
-    color: #54575b;
+    color: #858585;
     font-family: "Poppins", sans-serif;
     /* font-weight: bold; */
     /* margin-bottom: 20px; */

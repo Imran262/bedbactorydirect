@@ -222,7 +222,7 @@ $color-active: color(accent);
 @media (min-width: 768px) {
 .vue-slider-component .vue-slider-tooltip{
   font-size: 14px;
-  color: #434343 !important;
+  color: #858585 !important;
   font-weight: bold;
 }}
 @media (max-width: 767px) {
