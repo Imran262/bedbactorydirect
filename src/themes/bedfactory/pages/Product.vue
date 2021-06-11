@@ -3112,15 +3112,6 @@ a:not(.no-underline):hover:after {
 // #wastage-main-box {
 //   display: none;
 // }
-
-.add-to-cart {
-   padding: 20px 0px 20px 40px;
-    width: 95%;
-    @media (max-width: 767px){
-      padding: 20px 0px 20px 25px;
-    }
-}
-
 .vinyl-products-detail {
   padding: 17px 40px 13px 40px;
   height: 100%;
@@ -3210,50 +3201,6 @@ a:not(.no-underline):hover:after {
   color: #4a4a4a;
   font-size: 16px;
 }
-
-.add-to-cart .mb40 {
-  margin-bottom: 0px;
-}
-
-.add-to-cart button {
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: #29275b;
-  background-image: url(../assets/images/add-to-basket.jpg);
-  background-origin: padding-box;
-  background-position: 14% 45%;
-  background-repeat: no-repeat;
-  background-size: auto auto;
-  border: 2px solid #29275b;
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
-  display: block;
-  font-size: 14px;
-  max-width: 260px;
-  min-height: auto;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  font-family: Arial;
-  line-height: auto;
-  font-weight: bold;
-  padding: 15px 0px;
-  text-transform: uppercase;
-  margin-top: 5px;
-  float: right;
-  @media (max-width: 767px) {
-    background-position: 15% 45%;
-    /*padding-bottom: 11px;*/
-  }
-  /*@media (max-width: 400px) {
-    background-position: 27% 45%;
-  }
-  @media (max-width: 350px) {
-    background-position: 22% 45%;
-  }*/
-}
-
 .products-buttons {
   padding: 15px 0;
   padding-top: 26px;
@@ -3670,23 +3617,11 @@ a:not(.no-underline):hover:after {
     }
 
     .add-to-cart {
-      /*padding: 20px 18px;
-      padding-top: 16px;
-      padding-left: 0;
-      padding-right: 0;*/
-
       .h3 {
         display: block;
         margin: auto;
         text-align: center;
       }
-
-      button {
-        max-width: 100%;
-        /*border-radius: 8px;*/
-        width: 100%;
-      }
-
       .sqm-title {
         text-align: center;
         display: block;
@@ -3901,10 +3836,6 @@ a:not(.no-underline):hover:after {
   .wastage-detail .wastage {
     right: 36%;
   }
-  .add-to-cart button {
-    float: none;
-    max-width: 100%;
-  }
   .price-infos .cl-mine-shaft,
   .price-infos .sqm-title {
     width: auto;
@@ -3989,11 +3920,6 @@ a:not(.no-underline):hover:after {
   .price-infos .cl-mine-shaft,
   .price-infos .sqm-title {
     width: auto;
-  }
-  .add-to-cart button {
-    background-position: 3% 45%;
-    width: 100%;
-    min-width: 100%;
   }
   .vinyl-product-support p {
     width: 100%;
@@ -4603,4 +4529,70 @@ label.base-input-number__label.cl-primary.flex {
     order: 2;
   }
 }
+
+.add-to-cart button {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #29275b;
+  background-image: url(../assets/images/add-to-basket.jpg);
+  background-origin: padding-box;
+  background-position: 14% 45%;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  border: 2px solid #29275b;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  max-width: 260px;
+  min-height: auto;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  font-family: Arial;
+  line-height: auto;
+  font-weight: bold;
+  padding: 15px 0px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  float: right;
+  @media (max-width: 767px) {
+    background-position: 15% 45%;
+    /*padding-bottom: 11px;*/
+  }
+  /*@media (max-width: 400px) {
+    background-position: 27% 45%;
+  }
+  @media (max-width: 350px) {
+    background-position: 22% 45%;
+  }*/
+}
+.add-to-cart {
+   padding: 20px 0px 20px 40px;
+    width: 95%;
+    @media (max-width: 767px){
+      padding: 20px 0px 20px 25px;
+    }
+}
+.add-to-cart .mb40 {
+  margin-bottom: 0px;
+}
+@media (min-width: 767px) and (max-width: 991px){
+ .add-to-cart button {
+    float: none;
+    max-width: 100%;
+  }
+}
+@media (min-width: 991px) and (max-width: 1200px){
+  .add-to-cart button {
+    background-position: 3% 45%;
+    width: 100%;
+    min-width: 100%;
+  }
+}
+.add-to-cart   button {
+        max-width: 100%;
+        width: 100%;
+      }
 </style>
