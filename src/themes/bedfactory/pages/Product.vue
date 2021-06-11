@@ -486,7 +486,7 @@
                 <div
                   class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-margin addtocartbuttonMobile"
                 >
-                  <add-to-cart
+                  <!-- <add-to-cart
                     :product="getCurrentProduct"
                     :disabled="
                       isAddToCartDisabled || cartDisabledOnQuoteItemBased
@@ -494,7 +494,19 @@
                     class="add-btn"
                     @Modal="modalshow"
                     :sqm-val-updated="'0'"
-                  />
+                  /> -->
+                  <add-to-cart 
+                  :product-options="sendProductCustomOptions"
+                  :product="getCurrentProduct"
+                  :custom-options="getCurrentProductCustomOptionsRedo"
+                  class="col-xs-12 col-sm-4 col-md-6"
+                  :product-calculated-price="calculatedProductPrice"
+                  :disableProduct="false"
+                  :disableProductFlag="false"
+                />
+
+
+
                   <!-- <add-to-cart
                     :product="getCurrentProduct"
                     :disabled="
@@ -1445,14 +1457,16 @@ showDetails(event) {
         .classList.toggle("icon-rotate")
     },
        addCustomOption(option) {
+         console.log("235689 In  addCustomOption Funtion \ncustom options are ",this.sendProductCustomOptions);
       let prodFlag = true
-      if (this.sendProductCustomOptions.length == 0) {
+      if (this.sendProductCustomOptions.length === 0) {
         this.sendProductCustomOptions.push(option)
         // console.log("11226610 ", this.sendProductCustomOptions);
-      } else {
+      }
+      else {
         this.sendProductCustomOptions.forEach((prodOption, index) => {
           // console.log(
-          //   "\n",
+          //   "235689 \n",
           //   "prodOption.title",
           //   prodOption,
           //   "\n",
@@ -1461,9 +1475,10 @@ showDetails(event) {
           //   "\n",
           //   index,
           //   "\n",
-          //   this.sendProductCustomOptions.length
+          //   this.sendProductCustomOptions.length,"prodOption.title === option.title" ,prodOption.title === option.title,"\n index === this.sendProductCustomOptions.length - 1",index === this.sendProductCustomOptions.length - 1
           // );
           if (prodOption.title === option.title) {
+            console.log("235689 Updating the custom option");
             prodOption = option
             this.sendProductCustomOptions[index] = option
             this.sendProductCustomOptions[index]
@@ -1474,13 +1489,19 @@ showDetails(event) {
             //   this.sendProductCustomOptions[index]
             // );
           } else {
-            if (index == this.sendProductCustomOptions.length - 1) {
+            if (index === this.sendProductCustomOptions.length - 1) {
+              console.log("235689 Loop ended");
               if (!prodFlag) {
+                console.log("235689 Adding new custom option");
                 this.sendProductCustomOptions.push(option)
                 //   console.log("1122667 ", this.sendProductCustomOptions);
               } else {
+                console.log("235689 Already Updated the custom option");
                 //   console.log("1122668 ", this.sendProductCustomOptions);
               }
+            }
+            else{
+              console.log("235689 Loop not ended");
             }
           }
         })

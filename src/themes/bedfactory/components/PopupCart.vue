@@ -279,8 +279,8 @@ export default {
     this.$nextTick(() => {
       this.componentLoaded = true;
       this.$bus.$emit("modal-show", "modal-switcher");
-      document.getElementsByClassName("vue-back-to-top")[0].classList.add("removeButton");
-      console.log("1122 class added",document.getElementsByClassName("vue-back-to-top")[0].classList);
+      // document.getElementsByClassName("vue-back-to-top")[0].classList.add("removeButton");
+      // console.log("1122 class added",document.getElementsByClassName("vue-back-to-top")[0].classList);
     });
     if (this.variantSku) {
       const variantSkuPro = await this.getProduct({
@@ -596,8 +596,8 @@ export default {
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
-      document.getElementsByClassName("vue-back-to-top")[0].classList.remove("removeButton");
-      console.log("1122 class removed",document.getElementsByClassName("vue-back-to-top")[0].classList);
+      // document.getElementsByClassName("vue-back-to-top")[0].classList.remove("removeButton");
+      // console.log("1122 class removed",document.getElementsByClassName("vue-back-to-top")[0].classList);
       var x = document.getElementsByTagName("BODY")[0];
       x.style.overflow = "scroll";
       clearAllBodyScrollLocks();

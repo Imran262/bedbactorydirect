@@ -33,6 +33,17 @@ import PopupCart from "src/themes/bedfactory/components/PopupCart";
 export default {
   directives: { focusClean },
   components: { ButtonFull , PopupCart },
+   data() {
+    return {
+      cartpopupshow: false,
+      cusOptionChecked : false,
+      flag :true,
+      optionsFlag:[],
+      customOptionFlag : false,
+      cFlag: false,
+      cList:[]
+    };
+  },
   props: {
     productCalculatedPrice: {
       required: true,
