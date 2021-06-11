@@ -138,7 +138,7 @@
                   Continue Shopping
                 </button>
                 <router-link
-                  :to="localizedRoute('/checkout')"
+                  :to="localizedRoute('/cart')"
                   class="no-underline cl-secondary link btn-checkout"
                 >
                   <button class="btn-checkout" @click="popupclose">
@@ -158,7 +158,7 @@
             CONTINUE SHOPPING
           </button>
           <router-link
-            :to="localizedRoute('/checkout')"
+            :to="localizedRoute('/cart')"
             class="no-underline cl-secondary link btn-checkout"
           >
             <button class="btn-checkout" @click="popupclose">
