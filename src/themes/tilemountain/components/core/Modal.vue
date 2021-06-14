@@ -78,7 +78,9 @@ export default {
       state ? this.setOverlay(state) : setTimeout(() => this.setOverlay(state), this.delay)
     },
     close () {
-      this.toggle(false)
+      this.toggle(false);
+      this.$bus.$emit("modal-hide", "modal-switcher");
+      this.$emit("popInterface", 0);
     }
   },
   beforeMount () {
