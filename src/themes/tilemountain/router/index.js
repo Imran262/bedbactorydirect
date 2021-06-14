@@ -71,10 +71,10 @@ let routes = [
     component: TmSearch
   },
   {
-    name: "swatches",
-    path: "/swatches",
+    name: 'swatches',
+    path: '/swatches',
     component: Swatches,
-    props: { page: "swatches", title: "Swatches" }
+    props: { page: 'swatches', title: 'Swatches' }
   }
 ]
 
