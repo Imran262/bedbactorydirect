@@ -440,6 +440,7 @@
               </div>
               </div>
               <div class="add-to-cart row m0">
+                <div class="cart-items">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
                 <product-quantity
                 class="product-quantity bt-product-qty row m0"
@@ -499,7 +500,7 @@
                   :product-options="sendProductCustomOptions"
                   :product="getCurrentProduct"
                   :custom-options="getCurrentProductCustomOptionsRedo"
-                  class="col-xs-12 col-sm-4 col-md-6"
+                  class="col-xs-12 col-sm-4 col-md-6 float-right"
                   :product-calculated-price="calculatedProductPrice"
                   :disableProduct="false"
                   :disableProductFlag="false"
@@ -537,6 +538,7 @@
                   <AddToCompare :product="getCurrentProduct" />
                 </div>
               </div>-->
+            </div>
             </div>
           </div>
         </section>
@@ -4556,7 +4558,7 @@ label.base-input-number__label.cl-primary.flex {
   padding: 15px 0px;
   text-transform: uppercase;
   margin-top: 5px;
-  float: right;
+   float: right;
   @media (max-width: 767px) {
     background-position: 15% 45%;
     /*padding-bottom: 11px;*/
@@ -4570,7 +4572,7 @@ label.base-input-number__label.cl-primary.flex {
 }
 .add-to-cart {
    padding: 20px 0px 20px 40px;
-    width: 95%;
+    width: 100%;
     @media (max-width: 767px){
       padding: 20px 0px 20px 25px;
     }
@@ -4580,13 +4582,13 @@ label.base-input-number__label.cl-primary.flex {
 }
 @media (min-width: 767px) and (max-width: 991px){
  .add-to-cart button {
-    float: none;
+    /* float: none; */
     max-width: 100%;
   }
 }
 @media (min-width: 991px) and (max-width: 1200px){
   .add-to-cart button {
-    background-position: 3% 45%;
+    /* background-position: 3% 45%; */
     width: 100%;
     min-width: 100%;
   }
@@ -4595,4 +4597,18 @@ label.base-input-number__label.cl-primary.flex {
         max-width: 100%;
         width: 100%;
       }
+      .disabled{
+    background-color: #29275b !important;
+}
+.\:bg-cl-th-secondary:hover {
+    background-color:  #29275b !important;
+}
+.cart-items {
+    width: 95%;
+    display: flex;
+
+}
+.float-right {
+    float: right;
+}
 </style>

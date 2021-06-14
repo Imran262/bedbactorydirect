@@ -14,7 +14,7 @@
 import { formatProductMessages } from "@vue-storefront/core/filters/product-messages";
 import { notifications } from "@vue-storefront/core/modules/cart/helpers";
 import focusClean from "theme/components/theme/directives/focusClean";
-import ButtonFull from "theme/components/theme/ButtonFull.vue";
+import ButtonFull from "theme/components/theme/ButtonFullCustom.vue";
 import { mapGetters } from "vuex";
 import { log } from 'util';
 
@@ -182,7 +182,7 @@ if (product.custom_options && product.custom_options.length > 0) {
 </script>
 <style scoped>
 button.carousel-addtocart-btn {
-  border: 2px solid #4dba87;
+  border: 2px solid #29275b;
   border-radius: 5px;
   min-width: auto;
   color: #fff;
@@ -193,7 +193,7 @@ button.carousel-addtocart-btn {
   font-size: 12px;
   margin-top: 5px;
   text-transform: uppercase;
-  background: #4dba87;
+  background: #29275b;
   font-family: "Poppins", sans-serif;
 }
 button.carousel-addtocart-btn:hover {
