@@ -4,6 +4,7 @@
       v-if="children"
       class="sidebar-submenu level1 absolute w-100 p0 bg-cl-primary newCLass"
       :style="styles"
+      :class="active"
     >
       <!-- <li
         v-if="parentSlug"
@@ -129,6 +130,15 @@ export default {
     getSubmenu() {
       return this.submenu;
     },
+    active() {
+      const pos = this.submenu.path.indexOf(this.id);
+        return pos !== -1
+        ? {
+        active: true,
+      }
+      : false
+    },
+
     styles() {
       const pos = this.submenu.path.indexOf(this.id);
       return pos !== -1
@@ -145,6 +155,7 @@ export default {
       );
     },
   },
+
   methods: {
     async logout() {
       await this.$store.dispatch("user/logout", {});
@@ -174,6 +185,10 @@ export default {
   left: 0;
   top: 0;
   transform: translateX(-100%);
+  display: none;
+}
+.sidebar-submenu.active {
+  display: block!important;
 }
 
 .subcategory-item {

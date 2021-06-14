@@ -5,7 +5,7 @@
       @click="$emit('change', variant)"
       :aria-label="$t('Select ' + variant.label)"
     >
-    <button v-if="code==='comfort_grade'" class='rounded-button'>
+    <button v-if="code==='comfort_grade'" class='rounded-button' :class="setComfortColor(variant)">
       {{ variant.label }}   
     </button>
     <div v-else>
@@ -38,45 +38,38 @@ export default {
   mounted () {
     console.log("I have it here",this.position)
   },
-  // methods: {
-  //   setComfortColor() {
-  //     // let classList=document.getElementById('comfortBtn').classList;
-
-  //     // console.log("hello Before ",classList);
-  //     //   classList=document.getElementById('comfortBtn').classList.add("color-red");
-  //     // console.log("hello Afer",classList);
-  //     // document.getElementById('comfortBtn').style.backgroundColor = 'red';
-
-  //     if (
-  //       this.product.comfort_grade[0] === 203 ||
-  //       this.product.comfort_grade[0] === '203'
-  //     ) {
-  //       return 'color-soft';
-  //     } else if (
-  //       this.product.comfort_grade[0] === 204 ||
-  //       this.product.comfort_grade[0] === '204'
-  //     ) {
-  //       return 'color-medium-soft';
-  //     } else if (
-  //       this.product.comfort_grade[0] === 205 ||
-  //       this.product.comfort_grade[0] === '205'
-  //     ) {
-  //       return 'color-medium';
-  //     } else if (
-  //       this.product.comfort_grade[0] === 206 ||
-  //       this.product.comfort_grade[0] === '206'
-  //     ) {
-  //       return 'color-medium-firm';
-  //     } else if (
-  //       this.product.comfort_grade[0] === 207 ||
-  //       this.product.comfort_grade[0] === '207'
-  //     ) {
-  //       return 'color-orthopaedic';
-  //     } else {
-  //       return 'color-soft';
-  //     }
-  //   },
-  // }
+  methods:{
+    setComfortColor(variant) {
+      if (
+        variant.id === 203 ||
+        variant.id === '203'
+      ) {
+        return 'color-soft';
+      } else if (
+        variant.id === 204 ||
+        variant.id === '204'
+      ) {
+        return 'color-medium-soft';
+      } else if (
+        variant.id === 205 ||
+        variant.id === '205'
+      ) {
+        return 'color-medium';
+      } else if (
+        variant.id === 206 ||
+        variant.id === '206'
+      ) {
+        return 'color-medium-firm';
+      } else if (
+        variant.id === 207 ||
+        variant.id === '207'
+      ) {
+        return 'color-orthopaedic';
+      } else {
+        return 'color-soft';
+      }
+    },
+  }
 }
 </script>
 
@@ -92,6 +85,21 @@ export default {
   $bg-secondary: color(secondary, $colors-background);
   $border-secondary: color(secondary, $colors-border);
 
+.color-soft {
+  background-color: #f6a076 !important;
+}
+.color-medium-soft {
+  background-color: #fa8a63 !important;
+}
+.color-medium {
+  background-color: #cb6885 !important;
+}
+.color-medium-firm {
+  background-color: #965177 !important;
+}
+.color-orthopaedic {
+  background-color: #5b364c !important;
+}
   .filter-label {
     line-height: 30px;
     font-size: 16px;
@@ -134,7 +142,7 @@ export default {
           content: '';
           position: absolute;
           left: 3px;
-          top: 8px;
+          top: 13px;
           background: white;
           width: 2px;
           height: 2px;

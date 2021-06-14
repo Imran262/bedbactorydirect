@@ -80,5 +80,9 @@ button i {
     z-index: 10;
     bottom: 0;
   }
+  i#hamberger {
+    bottom: 15px !important;
 }
+}
+
 </style>
