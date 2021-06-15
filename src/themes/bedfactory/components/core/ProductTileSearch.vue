@@ -516,7 +516,7 @@ $color-white: color(white);
     margin-bottom: 20px;
     text-transform: capitalize; */
     font-size: 1.2rem;
-    color: #54575b;
+    color: #071A44;
     font-family: "Poppins", sans-serif;
     /* font-weight: bold; */
     /* margin-bottom: 20px; */
@@ -665,7 +665,7 @@ img.product-cover-thumb {
   display: block !important;
 }
 .price-special {
-  color: #CA3625;
+  color: #071A44;
   font-size: 18px;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {

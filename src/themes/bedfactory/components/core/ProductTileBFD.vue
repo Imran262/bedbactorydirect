@@ -382,6 +382,7 @@ $color-white: color(white);
 .TotalReviewStar {
   font-size: 13px;
   margin-top: 4px;
+  color: #858585;
 }
 .rating ul {
   display: inline-flex;
@@ -419,6 +420,7 @@ $color-white: color(white);
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
+  color: #858585;
 }
 .brand-size {
   height: 30px;
@@ -560,7 +562,7 @@ $color-white: color(white);
   }
   span.sb-category-price {
     font-size: 1.131875rem;
-    color: #54575b;
+    color: #858585;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
@@ -695,7 +697,7 @@ img.product-cover-thumb {
   display: block !important;
 }
 .price-special {
-  color: #CA3625;
+  color: #EE4C56;
   font-size: 18px;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
@@ -753,4 +755,7 @@ img.product-cover-thumb {
     margin: 0 5px;
 }
     }
+    span.mr5.lh30.cl-secondary.old-price {
+    color: #9CA3B4;
+}
 </style>

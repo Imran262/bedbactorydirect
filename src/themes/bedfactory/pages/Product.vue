@@ -2478,7 +2478,7 @@ table td {
 h2.h3 {
   font-size: 26px;
   font-family: 'Oblik';
-  color: #4a4a4a;
+  color: #071A44;
   padding: 0px 0px 0px 0px;
   position: relative;
   -webkit-user-select: none;
@@ -2881,7 +2881,7 @@ i.product-detail-icon {
 
     .product-name {
       font-family: Oblik;
-      color: #4a4a4a;
+      color:#071A44;
       font-size: 1.6rem;
       line-height: 1.3;
       width: 100%;
@@ -2917,14 +2917,14 @@ i.product-detail-icon {
         margin: 0 10px 0 5px;
         font-family: Arial;
         font-size: 14px;
-        color: #828282;
+        color: #858585;
         cursor: pointer;
       }
 
       .qa {
         font-family: Arial;
         font-size: 14px;
-        color: #dc2f89;
+        color: #071A44;
 
         :hover {
           text-decoration: none;
@@ -2938,7 +2938,7 @@ i.product-detail-icon {
 
     .size-value,
     .sku-value {
-      color: #828282;
+      color: #858585;
       display: inline-block;
       font-family: Arial;
       font-size: 0.815rem;
@@ -4015,7 +4015,7 @@ a:not(.no-underline):hover:after {
 }
 
 .bt-new-description-main ul li {
-  color: #54575b;
+  color: #858585;
   margin-bottom: 5px;
   position: relative;
   margin-left: 15px;
@@ -4522,10 +4522,13 @@ form.custom-options {
 }
 button.select-color-button {
    width: 100%;
-    border: 2px solid #24224d;
+    border: 2px solid #071A44;
     height: 44px;
     background: #fff;
     text-align: left;
+    /* font-family: 'OBLIK'; */
+    color: #071A44;
+    font-size: 16px;
 }
 /*@media (max-width: 1199px){
  .fabric-button-design {
@@ -4555,7 +4558,7 @@ label.base-input-number__label.cl-primary.flex {
 }
 
 .base-input-number__input{
-    border: 2px solid #24224d  !important;
+    border: 2px solid #071A44  !important;
     text-align: center  !important;
     height: 45px !important;
     width: 45px !important;
@@ -4581,5 +4584,26 @@ label.base-input-number__label.cl-primary.flex {
   .product-description-left {
     order: 2;
   }
+}
+.lh30.h5 p {
+    color: #858585;
+}
+.Specifications-main p {
+    color: #858585;
+}
+.Specifications-main ul {
+  color: #858585;
+}
+.cms-content p {
+    color: #858585;
+}
+.cms-content h3 {
+    color: #858585;
+}
+.cms-content a {
+    color: #858585;
+}
+.cms-content strong {
+    color: #57c9c0;
 }
 </style>

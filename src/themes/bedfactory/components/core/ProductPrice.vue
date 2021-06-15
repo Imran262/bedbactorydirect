@@ -154,7 +154,7 @@ $color-primary: color(primary);
   }
 }
 .bt-price-main .h2.cl-mine-shaft.weight-700 {
-  color: #d10000b8;
+  color: #071A44;
   display: inline-block;
   margin-top: 15px;
   font-family: Arial, Helvetica, sans-serif !important;
@@ -167,7 +167,6 @@ $color-primary: color(primary);
    }
 
 }
-
 .bt-product-gallery {
   padding-right: 30px;
 }
@@ -179,7 +178,7 @@ $color-primary: color(primary);
   display: inline-block;
   padding-left: 15px;
   font-size: 17px;
-  color: #54575b;
+  color: #9CA3B4;
 }
 .product-detail-inner {
   padding-bottom: 30px;
@@ -187,8 +186,9 @@ $color-primary: color(primary);
 }
 span.save-amount {
   padding-left: 15px;
-  color: #d10000b8;
+  color: #EE4C56;
   font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: bold;
 }
 .h3.cl-secondary {
     padding: 0px 40px 0px 40px;

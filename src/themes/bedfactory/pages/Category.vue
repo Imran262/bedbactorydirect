@@ -1418,7 +1418,6 @@ $border-radius: 5px;
   margin: 8px 0 9px 0;
 }
 .firstcol h1 {
-  color: #2a285a;
   font-family: 'Oblik';
   color: #071A44;
   font-size: 32px;
