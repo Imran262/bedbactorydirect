@@ -25,7 +25,12 @@ const TmSearch = () =>
   );
 const Success3D = () => import(/* webpackChunkName: "vsf-my-account" */ 'theme/pages/Success.vue')
 const Fail3D = () => import(/* webpackChunkName: "vsf-my-account" */ 'theme/pages/Fail.vue')
-
+const Swatches = () =>
+  import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/Swatches.vue');
+const SwatchSuccess = () =>
+  import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/SwatchesSuccess.vue');
+const CheckoutSuccess = () =>
+  import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/CheckoutSuccess.vue');
 let routes = [
   { name: 'home', path: '/', component: Home, alias: '/pwa.html' },
   { name: 'checkout', path: '/checkout', component: Checkout },
@@ -68,7 +73,20 @@ let routes = [
     name: 'tm-search',
     path: '/catalogsearch/result',
     component: TmSearch
-  }
+  },
+  {
+    name: 'swatches',
+    path: '/swatches',
+    component: Swatches,
+    props: { page: 'swatches', title: 'Swatches' }
+  },
+  {
+    name: 'swatches-success',
+    path: '/swatches-success',
+    component: SwatchSuccess,
+    props: { page: 'swatches', title: 'Swatches' }
+  },
+  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess }
 ]
 
 export default routes
