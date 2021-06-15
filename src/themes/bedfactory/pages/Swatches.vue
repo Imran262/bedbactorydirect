@@ -500,7 +500,7 @@ export default {
                 "get-swatch-customer-fullname",
                 this.retrunFullName()
               );
-              this.$router.replace("/success");
+              this.$router.replace("/swatches-success");
             }
           })
           .catch((err) => {
