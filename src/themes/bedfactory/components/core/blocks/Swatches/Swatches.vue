@@ -86,7 +86,7 @@ export default {
 .hm-style-advice {
   margin-top: 80px !important;
   font-size: 25px;
-  color: #29275b;
+  color: #071A44;
   font-family: Arial;
   font-weight: bold;
   font-family: oblik;
@@ -100,7 +100,7 @@ export default {
     font-size: 18px;
     line-height: 1.6;
     padding-bottom: 20px;
-    color: #59595b;
+    color: #858585;
     padding-right: 119px;
 }
 
@@ -114,7 +114,7 @@ export default {
   padding: 15px 47px;
   font-size: 14px;
   border-radius: 4px;
-  background-color: #29275b;
+  background-color: #071A44;
   color: #ffffff;
 }
 .hm-watch-vid-mobile {
@@ -143,7 +143,7 @@ export default {
   .hm-tiling-para {
     font-size: 16px;
     line-height: 1.6;
-    color: #59595b;
+    color: #858585;
     padding-bottom: 0px;
     padding-right: 50px;
   }

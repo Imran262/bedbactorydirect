@@ -3,7 +3,7 @@
     <label class="base-input-number__label cl-primary flex" :for="getInputId">{{ name }}</label>
     <input
       :id="getInputId"
-      type="number"
+      type="text"
       :min="min"
       :max="max"
       :disabled="disabled"

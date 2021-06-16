@@ -195,17 +195,17 @@ $color-active: color(accent);
   box-shadow: none;
 }
 .vue-slider-dot-handle {
-  background-color: #da2f89 !important;
+  background-color: #EE4C56 !important;
 }
 .vue-slider-component.vue-slider-horizontal .vue-slider-process {
-  background-color: #2a285a !important;
+  background-color: #071A44 !important;
   height: 4px !important;
   padding: 0px !important ;
 }
 .vue-slider-tooltip {
   background-color: #ffffff !important;
-  color: #434343 !important;
-  border-color: #2a285a !important;
+  color: #858585 !important;
+  border-color: #071A44 !important;
 }
 .vue-slider-tooltip:before {
   display: none;
@@ -222,7 +222,7 @@ $color-active: color(accent);
 @media (min-width: 768px) {
 .vue-slider-component .vue-slider-tooltip{
   font-size: 14px;
-  color: #434343 !important;
+  color: #858585 !important;
   font-weight: bold;
 }}
 @media (max-width: 767px) {

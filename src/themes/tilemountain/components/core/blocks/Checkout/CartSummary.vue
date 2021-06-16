@@ -279,7 +279,7 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   },
   computed: {
     phoneValidate () {
@@ -287,9 +287,9 @@ export default {
     }
   },
 
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll)
-  },
+  // destroyed () {
+  //   window.removeEventListener('scroll', this.handleScroll)
+  // },
   methods: {
     async handleOrderSubmit () {
       await this.placeOrder()
@@ -304,28 +304,28 @@ export default {
     paypalPayment () {
       document.getElementsByClassName('paypal-button')[ 0 ].click()
     },
-    handleScroll (event) {
-      var SAFETY_MARGIN = 20
-      const FOOTER_HEIGHT = document.getElementsByClassName('footer-main')[ 0 ]
-        .offsetHeight
-      if (FOOTER_HEIGHT) {
-        SAFETY_MARGIN = FOOTER_HEIGHT + 150
-      } else {
-        SAFETY_MARGIN = 600
-      }
-      const scrollY = window.scrollY
-      const visible = window.innerHeight
-      const pageHeight = document.documentElement.scrollHeight
-      const bottomOfPage = scrollY + SAFETY_MARGIN >= pageHeight - visible
-      var position = document.getElementsByClassName('footer-main')[ 0 ].scrollTop
-      if (bottomOfPage === true) {
-        document.getElementById('cart-summary-main').classList.add('topSticky')
-        document.getElementById('cart-summary-main').classList.remove('bottomSticky')
-      } else {
-        document.getElementById('cart-summary-main').classList.add('bottomSticky')
-        document.getElementById('cart-summary-main').classList.remove('topSticky')
-      }
-    }
+    // handleScroll (event) {
+    //   var SAFETY_MARGIN = 20
+    //   const FOOTER_HEIGHT = document.getElementsByClassName('footer-main')[ 0 ]
+    //     .offsetHeight
+    //   if (FOOTER_HEIGHT) {
+    //     SAFETY_MARGIN = FOOTER_HEIGHT + 150
+    //   } else {
+    //     SAFETY_MARGIN = 600
+    //   }
+    //   const scrollY = window.scrollY
+    //   const visible = window.innerHeight
+    //   const pageHeight = document.documentElement.scrollHeight
+    //   const bottomOfPage = scrollY + SAFETY_MARGIN >= pageHeight - visible
+    //   var position = document.getElementsByClassName('footer-main')[ 0 ].scrollTop
+    //   if (bottomOfPage === true) {
+    //     document.getElementById('cart-summary-main').classList.add('topSticky')
+    //     document.getElementById('cart-summary-main').classList.remove('bottomSticky')
+    //   } else {
+    //     document.getElementById('cart-summary-main').classList.add('bottomSticky')
+    //     document.getElementById('cart-summary-main').classList.remove('topSticky')
+    //   }
+    // }
   },
   validations: {
     phoneValidate: {
@@ -390,11 +390,9 @@ thead tr th {
 }
 
 .cart-summary-main {
-  width: 440px;
-  position: fixed;
-  // z-index: 1;
-  top: auto;
-  height: 770px;
+   height: 625px;
+    position: sticky;
+    top: 70px;
   .paypal-btn {
     padding-right: unset !important;
     padding-left: unset !important;
@@ -442,7 +440,7 @@ thead tr th {
     padding-right: 60px;
     padding-left: 60px;
     .btn {
-      background: #2a275c;
+      background: #071A44;
       color: #fff;
       padding: 18px;
       display: block;
@@ -475,7 +473,7 @@ thead tr th {
   overflow-x: hidden;
   padding: 0px;
   overflow-y: auto;
-  max-height: 261px;
+  max-height: 160px;
 }
 
 .order-summary-details::-webkit-scrollbar-track {

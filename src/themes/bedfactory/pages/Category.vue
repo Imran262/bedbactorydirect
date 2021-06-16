@@ -1360,7 +1360,7 @@ $border-radius: 5px;
   margin: 7px 0px 0px 0px;
   padding-left: 8px;
   font-size: 17px;
-  color: #2a285a;
+  color: #071A44;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   @media screen and (max-width: 1278px) and (min-width: 1024px) {
@@ -1411,16 +1411,15 @@ $border-radius: 5px;
   border-radius: 5px;
 }
 .firstcol p {
-  color: #2a285a;
+  color: #071A44;
   font-size: 14px;
   font-family: 'Arial';
   line-height: 19px;
   margin: 8px 0 9px 0;
 }
 .firstcol h1 {
-  color: #2a285a;
   font-family: 'Oblik';
-  color: #2a285a;
+  color: #071A44;
   font-size: 32px;
   margin: 5px 0 0 0;
 }
@@ -1547,7 +1546,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
   display: inline-flex;
 }
 .sorting label {
-  color: #29275b;
+  color: #071A44;
   font-weight: bold;
   margin: 7px 9px 0px 15px;
   font-size: 17px;
@@ -1564,7 +1563,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
   }
 }
 .totalprods {
-  color: #29275b;
+  color: #071A44;
   font-weight: bold;
   padding-right: 10px;
   margin: 7px 0px 0px 11px;
@@ -1585,7 +1584,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     width: auto;
   }
   p {
-    color: #29275b;
+    color: #071A44;
     font-weight: bold;
     padding-right: 6px;
     margin: 7px 0px 0px 0px;
@@ -1627,7 +1626,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     margin: 7px 4px 0px 0px;
     font-size: 16px;
     font-weight: bold;
-    color: #2a285a;
+    color: #071A44;
   }
 }
 .secondhead {

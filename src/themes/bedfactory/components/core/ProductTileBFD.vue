@@ -382,6 +382,7 @@ $color-white: color(white);
 .TotalReviewStar {
   font-size: 13px;
   margin-top: 4px;
+  color: #858585;
 }
 .rating ul {
   display: inline-flex;
@@ -419,6 +420,7 @@ $color-white: color(white);
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
+  color: #858585;
 }
 .brand-size {
   height: 30px;
@@ -446,19 +448,19 @@ $color-white: color(white);
   height: 40px;
 }
 .color-soft {
-  background-color: #f6a076 !important;
+  background-color: #F5949A  !important;
 }
 .color-medium-soft {
-  background-color: #fa8a63 !important;
+  background-color: #9CA3B4 !important;
 }
 .color-medium {
-  background-color: #cb6885 !important;
+  background-color: #6A768F !important;
 }
 .color-medium-firm {
-  background-color: #965177 !important;
+  background-color: #071A44 !important;
 }
 .color-orthopaedic {
-  background-color: #5b364c !important;
+  background-color: #333333 !important;
 }
 /* .rounded-button {
   border: none;
@@ -546,7 +548,7 @@ $color-white: color(white);
     margin-bottom: 20px;
     text-transform: capitalize; */
     font-size: 1.2rem;
-    color: #54575b;
+    color: #858585;
     font-family: "Poppins", sans-serif;
     /* font-weight: bold; */
     /* margin-bottom: 20px; */
@@ -560,7 +562,7 @@ $color-white: color(white);
   }
   span.sb-category-price {
     font-size: 1.131875rem;
-    color: #54575b;
+    color: #858585;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
@@ -695,7 +697,7 @@ img.product-cover-thumb {
   display: block !important;
 }
 .price-special {
-  color: #CA3625;
+  color: #EE4C56;
   font-size: 18px;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
@@ -753,4 +755,7 @@ img.product-cover-thumb {
     margin: 0 5px;
 }
     }
+    span.mr5.lh30.cl-secondary.old-price {
+    color: #9CA3B4;
+}
 </style>

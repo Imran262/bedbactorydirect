@@ -1,24 +1,22 @@
 <template>
-  <div class="thankyou-main">
+  <div>
     <header class="thank-you-title bg-cl-secondary pl20">
       <div class="container">
-        <!-- <breadcrumbs
+        <breadcrumbs
           :with-homepage="true"
           :routes="[]"
           :active-route="this.$t('Order confirmation')"
-        />-->
+        />
         <h2 class="category-title hidden">{{ $t('Order confirmation') }}</h2>
       </div>
     </header>
     <div class="container mobile-container">
       <div class="row">
-        <div class="col-md-8 col-sm-12 col-padding">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-padding">
           <div v-if="OnlineOnly" class="success-header row">
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2">
-             <img class="abc" src="/assets/tick.png" alt="tick"></div>
-            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-10 success-heading">
-
-              <p class="order-received">Your Order has been received!</p>
+            <div class="col-md-3 col-lg-2 col-xs-4 non-selected-tick" />
+            <div class="col-md-9 col-lg-10 col-xs-8 success-heading">
+              <p class="order-received">Your Order has been received! pay pal</p>
               <p
                 class="order-received-text"
               >Please keep an eye on your inbox, we'll send you an email shortly</p>
@@ -26,34 +24,28 @@
           </div>
           <div v-if="OnlineOnly" class="seccess-body row">
             <div class="col-md-12 inner-success">
-              <!-- <span class="purchaser-text" v-if="orderElements.length">
+              <span class="purchaser-text" v-if="orderElements.length">
                 <label
                   class="purchaser-name"
                 >{{ orderElements.order.addressInformation.shippingAddress.firstname }}</label>, thank you for your purchase!
-              </span>-->
-              <span>Thank you for your purchase with Tile Mountain.</span>
-              <span class="ref-no">
-                Your Order Reference is:
+              </span>
+              <span>
+                Your personal order ID is:
                 <label
                   class="order-num"
                 >{{ lastOrderConfirmation.orderNumber }}</label>
               </span>
-              <span
-                class="confirm-order"
-              >You will receive an order confirmation email with full details of your order and a link to track its progresss.</span>
+              <span>You will receive an order confirmation email with full details of your order.</span>
             </div>
           </div>
           <div v-if="getAddressInformation">
-            <DeliveryInformationSuccess :address-information="getAddressInformation" />
           </div>
-          <ThingsToRememberSuccess />
         </div>
         <div
-          class="col-md-4 col-padding"
-          v-if="getCartItems && getFinalItems && orderPriceElements && getPersonalDetails"
+          class="col-lg-4 col-md-12 col-padding"
+          v-if="getCartItems && getCartItems && getFinalItems && orderPriceElements && getPersonalDetails"
         >
-          <RegisterAccountSuccess :personal-details="getPersonalDetails" />
-          <OrderReviewList :products="getFinalItems" :totals="orderPriceElements" />
+          
         </div>
       </div>
     </div>
@@ -67,7 +59,7 @@
               v-if="OnlineOnly"
               v-html="
                 this.$t(
-                  'You have successfully placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.'
+                  'You have successfuly placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.'
                 )
               "
             />
@@ -166,58 +158,45 @@
 </template>
 
 <script>
-import Composite from "@vue-storefront/core/mixins/composite";
-import Breadcrumbs from "theme/components/core/Breadcrumbs";
-import BaseTextarea from "theme/components/core/blocks/Form/BaseTextarea";
-import ButtonOutline from "theme/components/theme/ButtonOutline";
-import VueOfflineMixin from "vue-offline/mixin";
-import { EmailForm } from "@vue-storefront/core/modules/mailer/components/EmailForm";
-import { isServer } from "@vue-storefront/core/helpers";
-import config from "config";
-import { registerModule } from "@vue-storefront/core/lib/modules";
-import { MailerModule } from "@vue-storefront/core/modules/mailer";
-import _ from "lodash";
-import OrderReviewList from "theme/components/theme/blocks/OrderReviewList/OrderReviewList";
-import DeliveryInformationSuccess from "theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess";
-import RegisterAccountSuccess from "theme/components/theme/blocks/RegisterAccountSuccess/RegisterAccountSuccess";
-import ThingsToRememberSuccess from "theme/components/theme/blocks/ThingsToRememberSuccess/ThingsToRememberSuccess";
+import Composite from '@vue-storefront/core/mixins/composite';
+import Breadcrumbs from 'theme/components/core/Breadcrumbs';
+import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea';
+import ButtonOutline from 'theme/components/theme/ButtonOutline';
+import VueOfflineMixin from 'vue-offline/mixin';
+import { EmailForm } from '@vue-storefront/core/modules/mailer/components/EmailForm';
+import { isServer } from '@vue-storefront/core/helpers';
+import config from 'config';
+import { registerModule } from '@vue-storefront/core/lib/modules';
+import { MailerModule } from '@vue-storefront/core/modules/mailer';
+import _ from 'lodash';
 
 export default {
-  name: "ThankYouPage",
+  name: 'ThankYouPage',
   mixins: [Composite, VueOfflineMixin, EmailForm],
   beforeCreate() {
     registerModule(MailerModule);
   },
   data() {
     return {
-      feedback: "",
+      feedback: '',
     };
   },
   mounted() {
-    this.hideModelQuickCheckout();
-    this.$bus.$on("order-after-placed", async () => {
+    this.$bus.$on('order-after-placed', async () => {
       setTimeout(async () => {
-        await window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+        await window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
       }, 200);
     });
   },
   computed: {
     getAddressInformation() {
-      if (
-        this.orderElements &&
-        this.orderElements.order &&
-        this.orderElements.order.addressInformation
-      ) {
+      if (this.orderElements && this.orderElements.order) {
         return this.orderElements.order.addressInformation;
       }
       return undefined;
     },
     getPersonalDetails() {
-      if (
-        this.orderElements &&
-        this.orderElements.order &&
-        this.orderElements.order.addressInformation
-      ) {
+      if (this.orderElements && this.orderElements.order) {
         const firstName = this.orderElements.order.addressInformation
           .billingAddress.firstname;
         const lastName = this.orderElements.order.addressInformation
@@ -238,12 +217,12 @@ export default {
         : {};
     },
     isNotificationSupported() {
-      if (isServer || !("Notification" in window)) return false;
-      return "Notification" in window;
+      if (isServer || !('Notification' in window)) return false;
+      return 'Notification' in window;
     },
     isPermissionGranted() {
-      if (isServer || !("Notification" in window)) return false;
-      return Notification.permission === "granted";
+      if (isServer || !('Notification' in window)) return false;
+      return Notification.permission === 'granted';
     },
     checkoutPersonalEmailAddress() {
       return this.$store.state.checkout.personalDetails.emailAddress;
@@ -252,6 +231,7 @@ export default {
       return config.mailer.contactAddress;
     },
     orderElements() {
+      console.log('orderElementsOrderCheck ', this.$store.state.order);
       if (this.$store.state.order.last_order_confirmation !== null) {
         return this.$store.state.order.last_order_confirmation;
       } else {
@@ -262,18 +242,26 @@ export default {
       return this.$store.state.cart.platformTotals;
     },
     getOrderItems() {
+      console.log(
+        'getOrderItemsOrderCheck ',
+        this.$store.state.order.last_order_confirmation
+      );
       if (this.$store.state.order.last_order_confirmation !== null) {
+        console.log(
+          'getOrderItemsOrderCheckif ',
+          this.$store.state.order.last_order_confirmation.order.products
+        );
         return this.$store.state.order.last_order_confirmation.order.products;
       } else {
         return {};
       }
     },
     getCartItems() {
-      if (
-        this.$store.state.cart &&
-        this.$store.state.cart.platformTotals &&
-        this.$store.state.cart.platformTotals.items !== null
-      ) {
+      console.log(
+        'getCartItemsOrderCheck ',
+        this.$store.state.cart.platformTotals
+      );
+      if (this.$store.state.cart.platformTotals !== null) {
         return this.$store.state.cart.platformTotals.items;
       } else {
         return {};
@@ -281,8 +269,8 @@ export default {
     },
     getFinalItems() {
       const merged = _.merge(
-        // _.keyBy(this.getCartItems, 'item_id'),
-        _.keyBy(this.getOrderItems, "sku")
+        _.keyBy(this.getCartItems, 'item_id'),
+        _.keyBy(this.getOrderItems, 'item_id')
       );
       const values = _.values(merged);
       const extensionAttributes = values.filter(
@@ -300,7 +288,7 @@ export default {
       let finalItems = [];
       if (extensionAttributes.length > 0) {
         const reducedProducts = extensionAttributes.reduce((acc, current) => {
-          const skuKey = current["extension_attributes"]["original_item_sku"];
+          const skuKey = current['extension_attributes']['original_item_sku'];
           if (!(skuKey in acc) && !acc[skuKey]) {
             return { ...acc, [skuKey]: [current] };
           }
@@ -331,19 +319,10 @@ export default {
       return finalItems;
     },
   },
-  watch: {
-    lastOrderConfirmation () {
-      this.hideModelQuickCheckout();
-    }
-  },
   methods: {
-    hideModelQuickCheckout () {
-      this.$bus.$emit('dontShowValue', true);
-      this.$bus.$emit('modal-hide', 'modal-quickcheckoutmodel');
-    },
     requestNotificationPermission() {
       if (isServer) return false;
-      if ("Notification" in window && Notification.permission !== "granted") {
+      if ('Notification' in window && Notification.permission !== 'granted') {
         Notification.requestPermission();
       }
     },
@@ -352,7 +331,7 @@ export default {
         {
           sourceAddress: this.checkoutPersonalEmailAddress,
           targetAddress: this.mailerElements,
-          subject: this.$t("What we can improve?"),
+          subject: this.$t('What we can improve?'),
           emailText: this.feedback,
         },
         this.onSuccess,
@@ -360,16 +339,16 @@ export default {
       );
     },
     onSuccess(message) {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "success",
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'success',
         message,
-        action1: { label: this.$t("OK") },
+        action1: { label: this.$t('OK') },
       });
       if (this.mailerElements.sendConfirmation) {
         this.sendEmail({
           sourceAddress: this.mailerElements,
           targetAddress: this.checkoutPersonalEmailAddress,
-          subject: this.$t("Confirmation of receival"),
+          subject: this.$t('Confirmation of receival'),
           emailText: this.$t(
             `Dear customer,\n\nWe have received your letter.\nThank you for your feedback!`
           ),
@@ -378,36 +357,25 @@ export default {
       }
     },
     onFailure(message) {
-      this.$store.dispatch("notification/spawnNotification", {
-        type: "error",
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
         message,
-        action1: { label: this.$t("OK") },
+        action1: { label: this.$t('OK') },
       });
     },
   },
   destroyed() {
-    this.$store.dispatch("checkout/setThankYouPage", false);
+    this.$store.dispatch('checkout/setThankYouPage', false);
   },
   components: {
     BaseTextarea,
     Breadcrumbs,
-    ButtonOutline,
-    OrderReviewList,
-    DeliveryInformationSuccess,
-    RegisterAccountSuccess,
-    ThingsToRememberSuccess,
+    ButtonOutline
   },
 };
 </script>
 
 <style lang="scss">
-.thankyou-main {
-  background-color: #fff;
-  margin-top: 21px;
-  @media (max-width: 767px) {
-    margin-top: 0px;
-  }
-}
 .thank-you-content {
   padding-left: 0;
 
@@ -438,12 +406,13 @@ export default {
 
 .success-header {
   position: relative;
- padding: 30px 30px;
-  background: #29275b;
+  margin-top: 25px;
+  padding: 25px 25px;
+  background: #00a997;
 }
 
 .success-header .non-selected-tick {
-  background: url(/assets/icons/tick.png) no-repeat;
+  background: url(/assets/tick.png) no-repeat;
   height: 80px;
   width: 100%;
   position: relative;
@@ -452,15 +421,15 @@ export default {
 }
 
 .success-heading {
-  color: #35e635;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
 }
 
 p.order-received {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
-  margin: 0px 0 0 0;
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 7px 0 0 0;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
 }
 
@@ -479,31 +448,14 @@ p.order-received-text {
 .seccess-body {
   padding: 25px 0px;
   font-size: 17px;
+  font-family: 'Poppins', sans-serif;
   color: #54575b;
-  @media (max-width: 767px) {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .inner-success {
-    padding: 0px;
-  }
-}
-span .ref-no {
-  font-size: 22px;
 }
 
 .seccess-body span {
   display: block;
   padding-bottom: 15px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-}
-span.confirm-order {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
 }
 
 span.purchaser-text {
@@ -511,15 +463,18 @@ span.purchaser-text {
   font-weight: 600;
   color: #54575b;
   padding-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
 }
 
 label.order-num {
-    color: #29275b;
-    font-weight: 700;
+  color: #00a997;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
 }
 
 table.order-item {
   width: 100%;
+  font-family: 'Poppins', sans-serif;
   border-spacing: 0;
   padding: 0;
 }
@@ -569,9 +524,16 @@ td.footer-last-cel {
   text-align: left;
   text-align: center;
 }
+@media (max-width: 423px) {
+  p.order-received {
+    font-size: 12px !important;
+  }
+  p.order-received-text {
+    font-size: 12px !important;
+  }
+}
 @media (max-width: 767px) {
   .mobile-container {
-    margin-top: 25px;
     padding: 0px;
   }
   .mobile-container .row {
@@ -590,27 +552,17 @@ td.footer-last-cel {
   .seccess-body .inner-success {
     padding: 0px 20px;
   }
+  span.purchaser-text {
+    font-size: 16px;
+  }
+  .seccess-body span {
+    font-size: 14px;
+  }
 }
 @media (min-width: 767px) and (max-width: 991px) {
   .col-padding {
     padding-right: 20px;
     padding-left: 20p;
   }
-  p.order-received {
-    font-size: 25px;
 }
-p.order-received-text {
-    font-size: 11px;
-}
-}
-@media (max-width: 767px) {
- .abc{
-    height: 46px;
-    width: auto;
-}}
 </style>
-
-
-
-
-

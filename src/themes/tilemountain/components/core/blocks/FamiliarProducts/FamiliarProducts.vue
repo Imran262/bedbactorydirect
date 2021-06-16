@@ -79,7 +79,7 @@ export default {
           h3 {
             font-family: oblik;
             font-size: 24px;
-            color: #29275b;
+            color: #071A44;
             text-align: center
           }
           sup{
@@ -106,12 +106,12 @@ export default {
   margin: 0 auto !important;
   background: transparent;
   display: none;
-  color: #29275b;
+  color: #071A44;
   font-size: 14px;
   margin-top: 10px;
   border-radius: 3px;
   padding: 15px;
-  border: 2px solid #29275b
+  border: 2px solid #071A44;
 }
 
 .brand-detail:hover .main_product_btn {

@@ -985,8 +985,8 @@ option {
 }
 
 .Modalbutton {
-  background-color: #29275b;
-  border: 2px solid #29275b;
+  background-color: #071A44;
+  border: 2px solid #071A44;
   border-radius: 3px;
   color: #fff;
   cursor: pointer;
@@ -1011,8 +1011,8 @@ option {
   }
 }
 .shopping-button {
-  background-color: #27acf4;
-  border: 2px solid #27acf4;
+  background-color: #57c9c0;
+  border: 2px solid #57c9c0;
   border-radius: 3px;
   color: #fff;
   cursor: pointer;

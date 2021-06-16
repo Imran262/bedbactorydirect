@@ -178,7 +178,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ed108c;
+  background-color: #EE4C56;
 }
 .cart {
   width: auto;
@@ -198,7 +198,7 @@ img {
   margin-left: 15px;
   font-size: 18px;
   font-family: 'Oblik';
-  color: #29275b;
+  color: #071A44;
 }
 @media (max-width: 1199px) {
   .cart {

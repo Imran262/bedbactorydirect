@@ -548,11 +548,11 @@ export default {
         max-width: 406px;
         height: 45px;
         width: 100%;
-        border: 1px solid #bfc3cb;
+        border: 1px solid #858585;
         font-size: 0.839375rem;
         padding-left: 0.5rem;
-        background-color: #e6ebee;
-        color: #888;
+        background-color: #F2F2F2;
+        color: #858585;
         font-family: 'Oblik';
         margin-right: 10px;
         z-index: 3;
