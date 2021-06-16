@@ -548,7 +548,7 @@
             @click="ProDimensionShowFn"
           >
             {{ $t("Description") }}
-            <span id="span-icon" class="Icon-update delivery-info-icon2"></span>
+            <span id="product-dimension-icon-id" class="Icon-update delivery-info-icon2 "></span>
           </h2>
           <div
             v-if="ProDimensionShow"
@@ -2509,7 +2509,6 @@ h2.h3:after {
 span.Icon-update {
   background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
   background-size: 30px !important;
-  z-index: 200;
   position: relative;
   float: right;
   height: 10px;
@@ -4587,23 +4586,37 @@ label.base-input-number__label.cl-primary.flex {
 }
 .lh30.h5 p {
     color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
 .Specifications-main p {
     color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
 .Specifications-main ul {
   color: #858585;
+  font-size: 14px;
+   line-height: 30px;
 }
 .cms-content p {
     color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
 .cms-content h3 {
     color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
 .cms-content a {
     color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
 .cms-content strong {
     color: #57c9c0;
+    font-size: 14px;
+    line-height: 30px;
 }
 </style>

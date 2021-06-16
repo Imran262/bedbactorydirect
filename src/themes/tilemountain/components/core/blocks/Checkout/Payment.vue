@@ -998,7 +998,7 @@ button.find-address {
 
   .checkmark {
     &:after {
-      background: #00998c !important;
+      background: #57c9c0 !important;
     }
   }
 
