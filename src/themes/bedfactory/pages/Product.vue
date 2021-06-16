@@ -3619,6 +3619,7 @@ a:not(.no-underline):hover:after {
     }
 
     .add-to-cart {
+      padding: 20px 0px 20px 40px;
       .h3 {
         display: block;
         margin: auto;
@@ -3958,6 +3959,9 @@ a:not(.no-underline):hover:after {
 }
 </style>
 <style>
+.product-detail-inner .add-to-cart {
+    padding: 20px 0px 20px 40px;
+}
 .bt-new-description-main ul {
   padding: 18px 0px 18px 18px;
   list-style: none;
