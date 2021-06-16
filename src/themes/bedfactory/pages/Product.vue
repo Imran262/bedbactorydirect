@@ -562,7 +562,7 @@
             @click="ProDimensionShowFn"
           >
             {{ $t("Description") }}
-            <span id="span-icon" class="Icon-update delivery-info-icon2"></span>
+            <span id="product-dimension-icon-id" class="Icon-update delivery-info-icon2 "></span>
           </h2>
           <div
             v-if="ProDimensionShow"
@@ -2501,7 +2501,7 @@ table td {
 h2.h3 {
   font-size: 26px;
   font-family: 'Oblik';
-  color: #4a4a4a;
+  color: #071A44;
   padding: 0px 0px 0px 0px;
   position: relative;
   -webkit-user-select: none;
@@ -2532,7 +2532,6 @@ h2.h3:after {
 span.Icon-update {
   background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
   background-size: 30px !important;
-  z-index: 200;
   position: relative;
   float: right;
   height: 10px;
@@ -2904,7 +2903,7 @@ i.product-detail-icon {
 
     .product-name {
       font-family: Oblik;
-      color: #4a4a4a;
+      color:#071A44;
       font-size: 1.6rem;
       line-height: 1.3;
       width: 100%;
@@ -2940,14 +2939,14 @@ i.product-detail-icon {
         margin: 0 10px 0 5px;
         font-family: Arial;
         font-size: 14px;
-        color: #828282;
+        color: #858585;
         cursor: pointer;
       }
 
       .qa {
         font-family: Arial;
         font-size: 14px;
-        color: #dc2f89;
+        color: #071A44;
 
         :hover {
           text-decoration: none;
@@ -2961,7 +2960,7 @@ i.product-detail-icon {
 
     .size-value,
     .sku-value {
-      color: #828282;
+      color: #858585;
       display: inline-block;
       font-family: Arial;
       font-size: 0.815rem;
@@ -3203,6 +3202,50 @@ a:not(.no-underline):hover:after {
   color: #4a4a4a;
   font-size: 16px;
 }
+
+.add-to-cart .mb40 {
+  margin-bottom: 0px;
+}
+
+.add-to-cart button {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #071A44;
+  background-image: url(../assets/images/add-to-basket.jpg);
+  background-origin: padding-box;
+  background-position: 14% 45%;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  border: 2px solid #071A44;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  max-width: 260px;
+  min-height: auto;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  font-family: Arial;
+  line-height: auto;
+  font-weight: bold;
+  padding: 15px 0px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  float: right;
+  @media (max-width: 767px) {
+    background-position: 15% 45%;
+    /*padding-bottom: 11px;*/
+  }
+  /*@media (max-width: 400px) {
+    background-position: 27% 45%;
+  }
+  @media (max-width: 350px) {
+    background-position: 22% 45%;
+  }*/
+}
+
 .products-buttons {
   padding: 15px 0;
   padding-top: 26px;
@@ -3964,7 +4007,7 @@ a:not(.no-underline):hover:after {
 }
 
 .bt-new-description-main ul li {
-  color: #54575b;
+  color: #858585;
   margin-bottom: 5px;
   position: relative;
   margin-left: 15px;
@@ -4471,10 +4514,13 @@ form.custom-options {
 }
 button.select-color-button {
    width: 100%;
-    border: 2px solid #24224d;
+    border: 2px solid #071A44;
     height: 44px;
     background: #fff;
     text-align: left;
+    /* font-family: 'OBLIK'; */
+    color: #071A44;
+    font-size: 16px;
 }
 /*@media (max-width: 1199px){
  .fabric-button-design {
@@ -4494,7 +4540,7 @@ button.select-color-button {
  }*/
 i.material-icons {
     float: right;
-    color: #24224d !important;
+    color: #ffff !important;
 }
 label.base-input-number__label.cl-primary.flex {
     display: none !important;
@@ -4504,7 +4550,7 @@ label.base-input-number__label.cl-primary.flex {
 }
 
 .base-input-number__input{
-    border: 2px solid #24224d  !important;
+    border: 2px solid #071A44  !important;
     text-align: center  !important;
     height: 45px !important;
     width: 45px !important;
@@ -4531,84 +4577,39 @@ label.base-input-number__label.cl-primary.flex {
     order: 2;
   }
 }
-
-.add-to-cart button {
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: #29275b;
-  background-image: url(../assets/images/add-to-basket.jpg);
-  background-origin: padding-box;
-  background-position: 14% 45%;
-  background-repeat: no-repeat;
-  background-size: auto auto;
-  border: 2px solid #29275b;
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
-  display: block;
+.lh30.h5 p {
+    color: #858585;
+    font-size: 14px;
+    line-height: 30px;
+}
+.Specifications-main p {
+    color: #858585;
+    font-size: 14px;
+    line-height: 30px;
+}
+.Specifications-main ul {
+  color: #858585;
   font-size: 14px;
-  max-width: 260px;
-  min-height: auto;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  font-family: Arial;
-  line-height: auto;
-  font-weight: bold;
-  padding: 15px 0px;
-  text-transform: uppercase;
-  margin-top: 5px;
-   float: right;
-  @media (max-width: 767px) {
-    background-position: 15% 45%;
-    /*padding-bottom: 11px;*/
-  }
-  /*@media (max-width: 400px) {
-    background-position: 27% 45%;
-  }
-  @media (max-width: 350px) {
-    background-position: 22% 45%;
-  }*/
+   line-height: 30px;
 }
-.add-to-cart {
-   padding: 20px 0px 20px 40px;
-    width: 100%;
-    @media (max-width: 767px){
-      padding: 20px 0px 20px 25px;
-    }
+.cms-content p {
+    color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
-.add-to-cart .mb40 {
-  margin-bottom: 0px;
+.cms-content h3 {
+    color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
-@media (min-width: 767px) and (max-width: 991px){
- .add-to-cart button {
-    /* float: none; */
-    max-width: 100%;
-  }
+.cms-content a {
+    color: #858585;
+    font-size: 14px;
+    line-height: 30px;
 }
-@media (min-width: 991px) and (max-width: 1200px){
-  .add-to-cart button {
-    /* background-position: 3% 45%; */
-    width: 100%;
-    min-width: 100%;
-  }
-}
-.add-to-cart   button {
-        max-width: 100%;
-        width: 100%;
-      }
-      .disabled{
-    background-color: #29275b !important;
-}
-.\:bg-cl-th-secondary:hover {
-    background-color:  #29275b !important;
-}
-.cart-items {
-    width: 95%;
-    display: flex;
-
-}
-.float-right {
-    float: right;
+.cms-content strong {
+    color: #57c9c0;
+    font-size: 14px;
+    line-height: 30px;
 }
 </style>

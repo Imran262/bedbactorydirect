@@ -63,7 +63,7 @@ $color-tertiary: color(tertiary);
       padding-left: 22px;
     }
     @media (min-width: 767px) {
-      color: #606063;
+      color: #858585;
       // margin-top: 3px;
     }
 

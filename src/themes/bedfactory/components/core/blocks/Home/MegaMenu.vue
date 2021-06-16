@@ -256,7 +256,7 @@ export default {
   width: 100%;
 } 
 .bullet .view-all{
-  color: #24224d !important;
+  color: #071A44 !important;
   font-weight: bold;
 }
 .menu-frame {

@@ -356,11 +356,11 @@ export default {
 }
 
 .back_clr {
-  background-color: #e8edf5;
+background-color: #F2F2F2;
 }
 
 .back_clr1 {
-  background-color: #ecf4f6;
+  background-color: #D6D6D6 ;
 }
 
 .add_review {
@@ -414,7 +414,7 @@ export default {
 }
 
 .product_review h2 {
-  color: #4a4a4a;
+  color: #071A44;
 }
 
 .product_review h2 span {
@@ -438,7 +438,7 @@ export default {
 }
 
 .add_review h2 {
-  color: #4a4a4a;
+  color: #071A44;
   border-bottom: 2px dashed #acacac;
   padding-bottom: 10px;
 }
@@ -470,7 +470,7 @@ export default {
   display: block !important;
   float: right;
   font-size: 18px;
-  color: #191b59;
+  color: #071A44;
   cursor: pointer;
 }
 

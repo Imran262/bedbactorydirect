@@ -3,7 +3,7 @@
     <label class="base-input-number__label cl-primary flex" :for="getInputId">{{ name }}</label>
     <input
       :id="getInputId"
-      type="number"
+      type="text"
       :min="min"
       :max="max"
       :disabled="disabled"
@@ -132,11 +132,11 @@ export default {
     text-align: center;
     width: 37px;
     height: 39px;
-    border: 2px solid #cccccc;
-    border-radius: 3px;
-    color: #878382;
+    color: #fff;
     font-size: 16px;
     font-weight: bold;
+    background: #57c9c0;
+    border: none !important;
   }
   .base-input-number {
     height: 100%;
@@ -154,6 +154,11 @@ export default {
     -webkit-appearance: none;
     margin: 0;
   }
+}
+.base-input-numberz.sd {
+    border: 2px solid #cccccc;
+    border-radius: 3px;
+    padding: 2px;
 }
 </style>
 

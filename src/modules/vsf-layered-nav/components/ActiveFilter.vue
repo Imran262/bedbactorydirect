@@ -3,7 +3,7 @@
     <span
       v-for="(variant, index) in attributes"
       :key="index"
-      class="active active-filter-label"
+      class="active active-filter-label aa"
       :aria-label="$t('Select ' + variant.label)"
     >
       {{ getVariantInfo(variant) }}

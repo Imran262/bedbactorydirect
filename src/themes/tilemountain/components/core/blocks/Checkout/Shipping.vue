@@ -1886,7 +1886,7 @@ export default {
   }
 
   button {
-    background-color: #29275b;
+    background-color: red;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 600;
@@ -2133,7 +2133,7 @@ button.find-address {
   border-top: 1px solid #bdbdbd;
 
   button {
-    background: #2ba897;
+    background: #57c9c0;
     color: #fff;
     padding: 15px;
     display: block;
@@ -2233,7 +2233,7 @@ button.find-address {
   }
 
   button {
-    background-color: #29275b;
+    background-color:#071A44 ;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 600;

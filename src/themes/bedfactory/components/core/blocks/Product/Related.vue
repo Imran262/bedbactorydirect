@@ -102,3 +102,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+h2.align-center.cl-accent {
+    color: #071A44;
+}
+</style>

@@ -15,7 +15,7 @@
           "
         >
           <div class="custom-option mb15 basin">
-            <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close cl-accent fab-cross" @click="$emit('closeColorPickerModal')">close</i></h4>
+            <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close fab-cross" @click="$emit('closeColorPickerModal')">close</i></h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
             </span>
 
@@ -354,27 +354,17 @@ $color-error: color(error);
   }
   .basin_size {
     select {
-      /*width: 550px;*/
     background: #ffffff;
-     font-family: 'OBLIK';
-      color: #4a4a4a;
+    //  font-family: 'OBLIK';
+      color: #071A44;
       font-size: 16px;
-      border: 2px solid #24224d;
+      border: 2px solid #071A44;
       appearance: none;
       padding-left: 4px !important;
        cursor: pointer;
     }
   }
-  /*@media (max-width: 1268px){
-    .basin_size {
-    select {
-      width: 400px;
-  
-    }
-  }
-  }*/
 }
-
 #overlay {
   position: fixed;
   width: 100%;
@@ -535,7 +525,7 @@ input[type="checkbox"] {
   font-family: Arial;
   font-weight: 600;
   display: inline-block;
-  background: #4dba87 no-repeat 100%
+  background: #57c9c0 no-repeat 100%
     55%;
   left: 0;
   cursor: pointer;
@@ -612,7 +602,7 @@ select {
   }
   }
 h4.basin-head {
-    color: #24224d !important;
+    color: #071A44 !important;
      margin-bottom: 5px;
 }
 /*@media only screen and (min-device-width: 320px) and (max-device-width: 400px) {
@@ -665,5 +655,8 @@ select.m0.no-outline.size-storage-select {
     top: -2px;
     float: right;
    cursor: pointer;
+   background: #EE4C56;
+    border: 2px solid #EE4C56;
+    border-radius: 22px;
 }
 </style>

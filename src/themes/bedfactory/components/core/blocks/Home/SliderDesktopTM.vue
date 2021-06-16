@@ -335,7 +335,7 @@ ul.slick-dots {
 
 .home-page-slider .slick-dots li.slick-active button:before {
   opacity: 1;
-  color: #e10081 !important;
+  color: #EE4C56 !important;
 }
 </style>
 <style scoped>

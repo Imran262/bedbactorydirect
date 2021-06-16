@@ -73,5 +73,6 @@ a:not(.no-underline):hover:after {
   padding-right: 0px !important;
   padding-bottom: 0px !important;
   padding-top: 0px !important;
+  color: #858585;
 }
 </style>

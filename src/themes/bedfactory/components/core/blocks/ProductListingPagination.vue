@@ -222,9 +222,9 @@ display: none !important;
   font-weight: 600;
 }
 .pagination .active a{
-  background-color: #dcd9d9;
+  background-color: #F2F2F2;
   border-radius: 5px 0 0 5px;
-  border: 1px solid #dcd9d9;
+  border: 1px solid #F2F2F2;
   padding: 5px 10px ;
 }
 .pagination a.underline:after, a:not(.no-underline):hover:after {
@@ -274,4 +274,7 @@ display: none !important;
   .pages{
     display: inline-flex;
   }
+  a.page-link {
+    color: #071A44 !important;
+}
 </style>
