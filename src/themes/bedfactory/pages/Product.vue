@@ -297,6 +297,134 @@
                     v-on:calculatedPrice="setPrice($event)"
                   />
                 </div>
+                <div
+                class="cl-primary variants"
+                v-if="getCurrentProduct.type_id == 'configurable'"
+              >
+                <div
+                  class="error"
+                  v-if="
+                    getCurrentProduct.errors &&
+                    Object.keys(getCurrentProduct.errors).length > 0
+                  "
+                >
+                  <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
+                </div>
+                <div
+                  class="h5"
+                  v-for="option in getProductOptions" 
+                  :key="option.id"
+                >
+                  <h4
+                    class="variants-label basin-head"
+                    data-testid="variantsLabel"
+                  >
+                    {{ option.label }}
+                    <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
+                  </h4>
+                  <div class="row top-xs m0 pt15 pb40 variants-wrapper">
+                    <div
+                      class="sizes basin_size"
+                      v-if="option.label == 'Color'"
+                    >
+                      <select @change="changeFilterCustom($event)">
+                        <option :value="null" :key="2378695843" selected>
+                          Please select
+                        </option>
+                        <template
+                          v-for="filter in getAvailableFilters[
+                            option.attribute_code
+                          ]"
+                        >
+                          <option
+                            :key="filter.id"
+                            :value="JSON.stringify(filter)"
+                          >
+                            {{ filter.label }}
+                          </option>
+                        </template>
+                      </select>
+                      <!-- <color-selector
+                        v-for="filter in getAvailableFilters[option.attribute_code]"
+                        :key="filter.id"
+                        :variant="filter"
+                        :selected-filters="getSelectedFilters"
+                        @change="changeFilter"
+                      />-->
+                    </div>
+                    <div
+                      class="sizes basin_size"
+                      v-else-if="option.label == 'Size'"
+                    >
+                      <select @change="changeFilterCustom($event)">
+                        <option :value="null" :key="2378695843" selected>
+                          Please select
+                        </option>
+                        <template
+                          v-for="filter in getAvailableFilters[
+                            option.attribute_code
+                          ]"
+                        >
+                          <option
+                            :key="filter.id"
+                            :value="JSON.stringify(filter)"
+                          >
+                            {{ filter.label }}
+                          </option>
+                        </template>
+                      </select>
+                      <!-- <size-selector
+                        class="mr10 mb10"
+                        v-for="filter in getAvailableFilters[option.attribute_code]"
+                        :key="filter.id"
+                        :variant="filter"
+                        :selected-filters="getSelectedFilters"
+                        @change="changeFilter"
+                      />-->
+                    </div>
+
+                    <div
+                      class="basin_size"
+                      :class="option.attribute_code"
+                      v-else
+                    >
+                      <select @change="changeFilterCustom($event)">
+                        <option :value="null" :key="2378695843" selected>
+                          Please select
+                        </option>
+                        <template
+                          v-for="filter in getAvailableFilters[
+                            option.attribute_code
+                          ]"
+                        >
+                          <option
+                            :key="filter.id"
+                            :value="JSON.stringify(filter)"
+                          >
+                            {{ filter.label }}
+                          </option>
+                        </template>
+                      </select>
+                      <!-- <generic-selector
+                        class="mr10 mb10"
+                        v-for="filter in getAvailableFilters[option.attribute_code]"
+                        :key="filter.id"
+                        :variant="filter"
+                        :selected-filters="getSelectedFilters"
+                        @change="changeFilter"
+                      />-->
+                    </div>
+                    <!-- <span
+                      v-if="option.label == 'Size'"
+                      @click="openSizeGuide"
+                      class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
+                    >
+                      <i class="pr5 material-icons">accessibility</i>
+                      <span>{{ $t('Size guide') }}</span>
+                    </span>-->
+                  </div>
+                </div>
+              </div>
               </div>
 
               <!-- <div
