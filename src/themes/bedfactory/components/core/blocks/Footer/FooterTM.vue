@@ -33,7 +33,7 @@
                   <input type="checkbox" id="chck4" />
                   <label class="tab-label" for="chck4">Follow Us</label>
                   <div class="content socialicons">
-                    <sociallinks :identifier="'sb-social-links'"/>
+                    <sociallinks :identifier="'follow-us-social-links-TM'"/>
                   </div>
                 </section>
                 <section id="huge-variety" class="tab-panel tab-panel-two">
@@ -86,7 +86,7 @@ import FollowUsLik from 'src/themes/bedfactory/components/core/blocks/Footer/Fol
 
 
 import footerlink from 'theme/components/core/blocks/Cms/FooterLinks'
-import footerlinkmobile from 'theme/components/core/blocks/Cms/FooterLinkMobile'
+import footerlinkmobile from 'src/themes/bedfactory/components/core/blocks/Cms/FooterLinkMobile'
 import BlockTitle from 'theme/components/core/blocks/Cms/BlockTitle';
 import { getPathForStaticPage } from 'theme/helpers';
 import sociallinks from 'src/themes/bedfactory/components/core/blocks/Cms/SocialLinks'

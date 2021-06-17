@@ -4,7 +4,7 @@
       <div class="tab-panels">
         <section id="luxurious-experiences" class="tab-panel">
           <input type="checkbox" id="chck1" />
-          <label class="tab-label" for="chck1">Customer Info</label>
+          <label class="tab-label" for="chck1">{{ footerHeadings['footerlink1'] || 'About' }} </label>
           <div class="content">
             <ul>
               <li v-for="(singleblock, index) in singleblockdata1" :key="index">
@@ -26,7 +26,7 @@
 
         <section id="impeccable-quality" class="tab-panel tab-panel">
           <input type="checkbox" id="chck2" />
-          <label class="tab-label" for="chck2">Popular Tiles</label>
+          <label class="tab-label" for="chck2">{{ footerHeadings['footerlink2'] || 'Ordering' }}</label>
           <div class="content">
             <ul>
               <li v-for="(singleblock, index) in singleblockdata2" :key="index">
@@ -48,7 +48,7 @@
 
         <section id="huge-variety" class="tab-panel">
           <input type="checkbox" id="chck3" />
-          <label class="tab-label" for="chck3">Company</label>
+          <label class="tab-label" for="chck3">{{ footerHeadings['footerlink3'] || "T&Zzz's" }}</label>
           <div class="content">
             <ul>
               <li v-for="(singleblock, index) in singleblockdata3" :key="index">
@@ -165,6 +165,16 @@ export default {
       }
       return homeSmallBlocks3
     },
+    footerHeadings () {
+      let footerHeads = {};
+      if (this.data) {
+        let fHeads = this.parsedContent.querySelectorAll('.footerHeadings');
+        fHeads.forEach((element, index) => {
+          footerHeads[element.id] = element.innerHTML;
+        })
+      }
+      return footerHeads;
+    }
   },
 };
 </script>

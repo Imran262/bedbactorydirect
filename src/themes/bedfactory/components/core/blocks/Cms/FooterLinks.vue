@@ -26,7 +26,7 @@
         </ul>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <h2>{{ footerHeadings['footerlink3'] || 'T&Zzz's' }}</h2>
+        <h2>{{ footerHeadings['footerlink3'] || "T&Zzz's" }}</h2>
         <ul>
           <li v-for="(singleblock, index) in singleblockdata3" :key="index">
             <a v-if="singleblock.target === '_blank'" :href="singleblock.atag">{{ singleblock.hthree }}</a>
