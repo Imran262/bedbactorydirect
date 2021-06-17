@@ -338,13 +338,13 @@
                 </div>
               </div>
             </div>
-            <p>
+             <p>
               Read our full
-              <a href="#" class="ui-link" data-ajax="false"
+              <a href="/terms" class="ui-link" data-ajax="false"
                 >terms and conditions</a
               >
               and
-              <a href="#" class="ui-link" data-ajax="false">privacy policy</a>
+              <a href="/privacy-policy" class="ui-link" data-ajax="false">privacy policy</a>
             </p>
             <button
               type="submit"
