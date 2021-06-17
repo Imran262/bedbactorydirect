@@ -235,7 +235,7 @@ export default {
     ul.menu {
       li {
         &.nav-1 {
-          background: #24224d;
+          background: #071a44;
           z-index: 999;
           display: block;
         }
