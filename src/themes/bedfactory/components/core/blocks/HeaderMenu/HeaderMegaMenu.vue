@@ -152,7 +152,6 @@ export default {
             width: 82.2%;
 
             .menu-dropdown-logo-img {
-              background: url("/assets/menu-logo.png") no-repeat 100% 100%;
               height: 59px;
               width: 121px;
               background-size: 100%;
