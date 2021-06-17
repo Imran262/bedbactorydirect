@@ -1,12 +1,11 @@
 import { router } from '@vue-storefront/core/app'
 import config from 'config'
 import { LocalizedRoute } from '@vue-storefront/core/lib/types'
-import { currentStoreView, localizedDispatcherRoute, localizedRoute } from '@vue-storefront/core/lib/multistore'
+import { localizedDispatcherRoute, localizedRoute, currentStoreView } from '@vue-storefront/core/lib/multistore'
 import { RouteConfig } from 'vue-router/types/router';
 import { RouterManager } from '@vue-storefront/core/lib/router-manager'
 import { Category } from 'core/modules/catalog-next/types/Category'
 import { Logger } from '@vue-storefront/core/lib/logger'
-import { Store } from 'vuex'
 
 export function parametrizeRouteData (routeData: LocalizedRoute, query: { [id: string]: any } | string, storeCodeInPath: string): LocalizedRoute {
   const parametrizedRoute = Object.assign({}, routeData)
@@ -21,7 +20,8 @@ function prepareDynamicRoute (routeData: LocalizedRoute, path: string): RouteCon
   const userRoute = RouterManager.findByName(routeData.name)
   if (userRoute) {
     const normalizedPath = `${path.startsWith('/') ? '' : '/'}${path}`
-    return Object.assign({}, userRoute, routeData, { path: normalizedPath, name: `urldispatcher-${normalizedPath}` })
+    const dynamicRoute = Object.assign({}, userRoute, routeData, { path: normalizedPath, name: `urldispatcher-${normalizedPath}` })
+    return dynamicRoute
   } else {
     Logger.error('Route not found ' + routeData['name'], 'dispatcher')()
     return null
@@ -91,13 +91,18 @@ export function formatProductLink (
 ): string | LocalizedRoute {
   if (config.seo.useUrlDispatcher && product.url_path) {
     let routeData: LocalizedRoute;
+    console.log("114455 formatProductLink", routeData ,product.url_path,"Configurable children", product.sku,(product.configurable_children && product.configurable_children.length > 0));
     if ((product.options && product.options.length > 0) || (product.configurable_children && product.configurable_children.length > 0)) {
-      routeData = {
-        path: product.url_path,
-        params: { childSku: product.sku }
-      }
+      
+      routeData = { path: product.url_path }
+      // routeData = {
+      //   path: product.url_path,
+      //   params: { childSku: product.sku }
+      // }
+      console.log("114455 if",routeData);
     } else {
       routeData = { path: product.url_path }
+      console.log("114455 else",routeData);
     }
     return localizedDispatcherRoute(routeData, storeCode)
   } else {
