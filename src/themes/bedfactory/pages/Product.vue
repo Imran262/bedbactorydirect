@@ -40,7 +40,13 @@
           </template>
           <!-- Product Gallery -->
           <div
-            class="col-xs-12 col-md-12 col-lg-6 center-xs middle-xs image product-image-box product-slider"
+            class="
+              col-xs-12 col-md-12 col-lg-6
+              center-xs
+              middle-xs
+              image
+              product-image-box product-slider
+            "
           >
             <div v-if="getProductGallery.length === 0" class="onlyPlaceholder">
               <div class="product-cover bg-cl-secondary">
@@ -134,18 +140,16 @@
                     : 'simple-product-head'
                 "
               >
-                 <h1  
-                >
-              <div class="mb20 mt0 cl-mine-shaft product-name"
-                  data-testid="productName"
-                  itemprop="name">
-               
+                <h1>
+                  <div
+                    class="mb20 mt0 cl-mine-shaft product-name"
+                    data-testid="productName"
+                    itemprop="name"
+                  >
+                    {{ getCurrentProduct.name | htmlDecode }}
+                  </div>
+                </h1>
 
-                  {{ getCurrentProduct.name | htmlDecode }}
-                
-              </div>
-              </h1>
-                
                 <meta itemprop="sku" :content="getCurrentProduct.sku" />
                 <meta
                   itemprop="color"
@@ -257,12 +261,7 @@
               </div>
               <!-- Price Section Start-->
 
-
-
-
-
-
-<div
+              <div
                 class="price serif bt-price-main"
                 v-if="getCurrentProduct.type_id !== 'grouped'"
               >
@@ -289,7 +288,7 @@
                  <br/>
                  <br/>
                  <br/> -->
-                <!-- getCurrentProduct.type_id {{getCurrentProduct.type_id}} -->
+                  <!-- getCurrentProduct.type_id {{getCurrentProduct.type_id}} -->
                   <product-price
                     v-if="getCurrentProduct.type_id !== 'grouped'"
                     :product="getCurrentProduct"
@@ -299,23 +298,6 @@
                   />
                 </div>
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               <!-- <div
                 v-if="!getCurrentProduct.bundle_options"
@@ -404,90 +386,94 @@
                   @option-added="addCustomOption($event)"
                   :color="false"
                 />
-              <div class="fabric-btn-responsive">  
-              <div  class="fabric-button-design"
-                  v-if="
-                    getCurrentProduct.isFabric !== 0 &&
-                    getCurrentProduct.isFabric !== '0' &&
-                    getCurrentProduct.isFabric !== ' ' &&
-                    getCurrentProduct.isFabric !== false
-                  "
-                >
-                  <button
-                    class="select-color-button chevron-down"
-                    type="button"
-                    @click="showColorPicker"
+                <div class="fabric-btn-responsive">
+                  <div
+                    class="fabric-button-design"
+                    v-if="
+                      getCurrentProduct.isFabric !== 0 &&
+                      getCurrentProduct.isFabric !== '0' &&
+                      getCurrentProduct.isFabric !== ' ' &&
+                      getCurrentProduct.isFabric !== false
+                    "
                   >
-                    {{ getColorName() }}
-                    <!-- <i
+                    <button
+                      class="select-color-button chevron-down"
+                      type="button"
+                      @click="showColorPicker"
+                    >
+                      {{ getColorName() }}
+                      <!-- <i
                       class="material-icons cl-bg-tertiary pointer select-color-icon"
                       >keyboard_arrow_right</i
                     > -->
-                  </button>
-                  <div
-                    id="overlay"
-                    @click="hideColorPicker"
-                    v-if="colorPickerCheck"
-                  />
-                  <!-- {{getCurrentProduct.custom_options[2]}} -->
-                  <color-picker
-                    :colors="getCurrentProduct"
-                    v-show="colorPickerCheck"
-                    @closeColorPickerModal="hideColorPicker"
-                    @selectedColor="setColorName($event)"
-                  />
+                    </button>
+                    <div
+                      id="overlay"
+                      @click="hideColorPicker"
+                      v-if="colorPickerCheck"
+                    />
+                    <!-- {{getCurrentProduct.custom_options[2]}} -->
+                    <color-picker
+                      :colors="getCurrentProduct"
+                      v-show="colorPickerCheck"
+                      @closeColorPickerModal="hideColorPicker"
+                      @selectedColor="setColorName($event)"
+                    />
+                  </div>
                 </div>
-              </div>
               </div>
               <div class="add-to-cart row m0">
                 <div class="cart-items">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
-                <product-quantity
-                class="product-quantity bt-product-qty row m0"
-                v-if="
-                  getCurrentProduct.type_id !== 'grouped' &&
-                  getCurrentProduct.type_id !== 'bundle'
-                "
-                v-model="getCurrentProduct.qty"
-                :max-quantity="maxQuantity"
-                input-type="text"
-                :loading="isStockInfoLoading"
-                :is-simple-or-configurable="isSimpleOrConfigurable"
-                show-quantity
-                @error="handleQuantityError"
-              />
-                </div>
-                <addtobasket
-                  v-if="showModal"
-                  @closemodal="hidemodal"
-                  :priceToShow="calculatedProductPrice"
-                  :product="getCurrentProduct"
-                  :check-grout-adhesive="sqmCheckForModelType"
-                  :grout-adhesive-data="groutAdhesiveOptions"
-                  :product-sqm-quantity="tileSqmQuantity"
-                  :product-tile-quantity="tilesQuantity"
-                  :fixing="fixing"
-                  :made-of="madeOf"
-                  :box-sqm="getCurrentProduct.qty"
-                  :grout-joint="groutJoint"
-                  :min-sqm-value="minSqmValue"
-                  :vinyl-product-price="vinylProductPrice"
-                  :vinyl-recommended-item-price="vinylRecommendedItemPrice"
-                />
-                <modal name="modal-clearancemodal" class="ClearanceModal">
-                  <clearancemodal
-                    :similar-products="similar_products"
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
+                    <product-quantity
+                      class="product-quantity bt-product-qty row m0"
+                      v-if="
+                        getCurrentProduct.type_id !== 'grouped' &&
+                        getCurrentProduct.type_id !== 'bundle'
+                      "
+                      v-model="getCurrentProduct.qty"
+                      :max-quantity="maxQuantity"
+                      input-type="text"
+                      :loading="isStockInfoLoading"
+                      :is-simple-or-configurable="isSimpleOrConfigurable"
+                      show-quantity
+                      @error="handleQuantityError"
+                    />
+                  </div>
+                  <addtobasket
+                    v-if="showModal"
+                    @closemodal="hidemodal"
+                    :priceToShow="calculatedProductPrice"
                     :product="getCurrentProduct"
-                    :current-user-tiles="tileSqmQuantity"
+                    :check-grout-adhesive="sqmCheckForModelType"
+                    :grout-adhesive-data="groutAdhesiveOptions"
+                    :product-sqm-quantity="tileSqmQuantity"
+                    :product-tile-quantity="tilesQuantity"
+                    :fixing="fixing"
+                    :made-of="madeOf"
+                    :box-sqm="getCurrentProduct.qty"
+                    :grout-joint="groutJoint"
+                    :min-sqm-value="minSqmValue"
+                    :vinyl-product-price="vinylProductPrice"
+                    :vinyl-recommended-item-price="vinylRecommendedItemPrice"
                   />
-                </modal>
-                <modal name="outofstock-modal" class="OFSModal">
-                  <out-of-stock-modal :product="getCurrentProduct" />
-                </modal>
-                <div
-                  class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-margin addtocartbuttonMobile"
-                >
-                  <!-- <add-to-cart
+                  <modal name="modal-clearancemodal" class="ClearanceModal">
+                    <clearancemodal
+                      :similar-products="similar_products"
+                      :product="getCurrentProduct"
+                      :current-user-tiles="tileSqmQuantity"
+                    />
+                  </modal>
+                  <modal name="outofstock-modal" class="OFSModal">
+                    <out-of-stock-modal :product="getCurrentProduct" />
+                  </modal>
+                  <div
+                    class="
+                      col-xs-6 col-sm-6 col-md-6 col-lg-6 col-margin
+                      addtocartbuttonMobile
+                    "
+                  >
+                    <!-- <add-to-cart
                     :product="getCurrentProduct"
                     :disabled="
                       isAddToCartDisabled || cartDisabledOnQuoteItemBased
@@ -496,19 +482,17 @@
                     @Modal="modalshow"
                     :sqm-val-updated="'0'"
                   /> -->
-                  <add-to-cart 
-                  :product-options="sendProductCustomOptions"
-                  :product="getCurrentProduct"
-                  :custom-options="getCurrentProductCustomOptionsRedo"
-                  class="col-xs-12 col-sm-4 col-md-6 float-right"
-                  :product-calculated-price="calculatedProductPrice"
-                  :disableProduct="false"
-                  :disableProductFlag="false"
-                />
+                    <add-to-cart
+                      :product-options="sendProductCustomOptions"
+                      :product="getCurrentProduct"
+                      :custom-options="getCurrentProductCustomOptionsRedo"
+                      class="col-xs-12 col-sm-4 col-md-6 float-right"
+                      :product-calculated-price="calculatedProductPrice"
+                      :disableProduct="false"
+                      :disableProductFlag="false"
+                    />
 
-
-
-                  <!-- <add-to-cart
+                    <!-- <add-to-cart
                     :product="getCurrentProduct"
                     :disabled="
                       isAddToCartDisabled || cartDisabledOnQuoteItemBased
@@ -520,17 +504,17 @@
                     @update-tile-qty="tileQtyCheck"
                     @atcPixel="atcPixel"
                   /> -->
-                  <span
-                    class="mobile-cal-btn"
-                    @click="show"
-                    v-if="getCurrentProduct.qty_per_sqm"
-                  >
-                    {{ $t("How many do I need?") }}
-                  </span>
+                    <span
+                      class="mobile-cal-btn"
+                      @click="show"
+                      v-if="getCurrentProduct.qty_per_sqm"
+                    >
+                      {{ $t("How many do I need?") }}
+                    </span>
+                  </div>
+                  <!-- <p @click="clearancemodal()">hello</p> -->
                 </div>
-                <!-- <p @click="clearancemodal()">hello</p> -->
-              </div>
-              <!-- <div class="row add-to-buttons">
+                <!-- <div class="row add-to-buttons">
                 <div class="col-xs-6 col-sm-3 col-md-6">
                   <AddToWishlist :product="getCurrentProduct" />
                 </div>
@@ -538,18 +522,13 @@
                   <AddToCompare :product="getCurrentProduct" />
                 </div>
               </div>-->
-            </div>
+              </div>
             </div>
           </div>
         </section>
       </div>
     </section>
 
-
-
-
-
-   
     <section
       class="container pt50 pb35 cl-accent details product-description-main"
     >
@@ -557,16 +536,24 @@
         <div
           class="col-lg-6 col-md-7 col-sm-12 col-xs-12 product-description-left"
         >
-        <h2
+          <h2
             class="h3 m0 mb10 serif lh20 details-dimension"
             @click="ProDimensionShowFn"
           >
             {{ $t("Description") }}
-            <span id="product-dimension-icon-id" class="Icon-update delivery-info-icon2 "></span>
+            <span
+              id="product-dimension-icon-id"
+              class="Icon-update delivery-info-icon2"
+            ></span>
           </h2>
           <div
             v-if="ProDimensionShow"
-            class="h4 dimension-wrapper bt-dimension-wrapper-show-close dimension-wrapper-show"
+            class="
+              h4
+              dimension-wrapper
+              bt-dimension-wrapper-show-close
+              dimension-wrapper-show
+            "
             :class="{ 'dimension-wrapper--open': detailsOpen }"
           >
             <div class="row between-md m0">
@@ -608,14 +595,13 @@
             {{ $t("Specifications") }}
             <span
               id="product-Specifications-icon-id"
-              class="Icon-update icon-rotate delivery-info-icon1 "
+              class="Icon-update icon-rotate delivery-info-icon1"
             ></span>
           </h2>
           <div
             v-if="ProDeliveryShow"
             class="h4 Delivery-wrapper bt-Specifications-wrapper-show-close"
           >
-         
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
                 <div class="Specifications-main">
@@ -629,7 +615,10 @@
             @click="ProDeliveryShowFn"
           >
             {{ $t("Delivery Information") }}
-           <span id="product-Delivery-icon-id" class="Icon-update icon-rotate delivery-info-icon"></span>
+            <span
+              id="product-Delivery-icon-id"
+              class="Icon-update icon-rotate delivery-info-icon"
+            ></span>
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -663,7 +652,10 @@
           </div>
         </div>
         <div
-          class="col-lg-6 col-md-5 col-sm-12 col-xs-12 product-description-right"
+          class="
+            col-lg-6 col-md-5 col-sm-12 col-xs-12
+            product-description-right
+          "
         >
           <div
             class="bt-new-description-main"
@@ -677,15 +669,10 @@
       </div>
     </section>
 
-
-
     <div class="recently-viewed-items-contain container">
-        <lazy-hydrate when-idle>
-      <related-products
-        type="upsell"
-        :heading="$t('Customers also liked')"
-      />
-    </lazy-hydrate>
+      <lazy-hydrate when-idle>
+        <related-products type="upsell" :heading="$t('Customers also liked')" />
+      </lazy-hydrate>
       <!-- similar_products {{similar_products}} -->
 
       <!-- Put data in similar products to see similar products -->
@@ -704,12 +691,12 @@
     </div>
     <template v-if="loaded">
       <reviews
-      v-if="reviewData"
+        v-if="reviewData"
         :product-name="getCurrentProduct.name"
         :product-id="getCurrentProduct.id"
         v-show="isOnline"
         :product="getCurrentProduct"
-        :finalReview ="reviewData"
+        :finalReview="reviewData"
         @hasTotalQA="updateReviewsTotals"
         ref="reviewsSection"
       />
@@ -2442,7 +2429,6 @@ showDetails(event) {
 </script>
 
 <style lang="scss" scoped>
-
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 
@@ -2452,9 +2438,9 @@ $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
 
-.chevron-down{
-background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
-background-size: 17px !important ;
+.chevron-down {
+  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+  background-size: 17px !important ;
 }
 
 .bt-new-description-main {
@@ -2464,9 +2450,9 @@ background-size: 17px !important ;
   box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.75);
 }
 .product-description-right {
-    order: 1;
-    -webkit-order: 1;
-  }
+  order: 1;
+  -webkit-order: 1;
+}
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
@@ -2477,12 +2463,12 @@ table {
 }
 table tr {
   border: 1px solid red;
-  padding: .35em;
+  padding: 0.35em;
 }
 
 table td {
   border: 1px solid red;
-  padding: .625em;
+  padding: 0.625em;
   text-align: left;
 }
 /* h2.h3 {
@@ -2500,8 +2486,8 @@ table td {
 } */
 h2.h3 {
   font-size: 26px;
-  font-family: 'Oblik';
-  color: #071A44;
+  font-family: "Oblik";
+  color: #071a44;
   padding: 0px 0px 0px 0px;
   position: relative;
   -webkit-user-select: none;
@@ -2544,25 +2530,25 @@ span.Icon-update {
   top: 140px;
   left: 129px;
 }
-@media (max-width: 991px) and (min-width: 768px){
-.delivery-info-icon{
-      margin-top: -18px;
-}
+@media (max-width: 991px) and (min-width: 768px) {
+  .delivery-info-icon {
+    margin-top: -18px;
+  }
 }
 @media (max-width: 504px) {
   .delivery-info-icon {
-        margin-top: -14px;
+    margin-top: -14px;
+  }
 }
+@media (max-width: 452px) {
+  .delivery-info-icon1 {
+    margin-top: -14px;
+  }
 }
-@media (max-width: 452px){
-    .delivery-info-icon1 {
-        margin-top: -14px;
-}
-}
-@media (max-width: 429px){
-    .delivery-info-icon2 {
-       margin-top: -14px;
-}
+@media (max-width: 429px) {
+  .delivery-info-icon2 {
+    margin-top: -14px;
+  }
 }
 i.icon-rotate {
   transform: rotate(90deg);
@@ -2604,7 +2590,7 @@ i.product-detail-icon {
   margin-bottom: 10px;
 }
 .delivery-main .cms-content p a {
-  color: #4DBA87;
+  color: #4dba87;
 }
 .delivery-main {
   display: inline-flex;
@@ -2903,7 +2889,7 @@ i.product-detail-icon {
 
     .product-name {
       font-family: Oblik;
-      color:#071A44;
+      color: #071a44;
       font-size: 1.6rem;
       line-height: 1.3;
       width: 100%;
@@ -2922,7 +2908,7 @@ i.product-detail-icon {
           display: inline-block;
 
           .fa {
-            color: #FFD055;
+            color: #ffd055;
             font-size: 20px;
           }
         }
@@ -2946,7 +2932,7 @@ i.product-detail-icon {
       .qa {
         font-family: Arial;
         font-size: 14px;
-        color: #071A44;
+        color: #071a44;
 
         :hover {
           text-decoration: none;
@@ -3210,13 +3196,13 @@ a:not(.no-underline):hover:after {
 .add-to-cart button {
   background-attachment: scroll;
   background-clip: border-box;
-  background-color: #071A44;
+  background-color: #071a44;
   background-image: url(../assets/images/add-to-basket.jpg);
   background-origin: padding-box;
   background-position: 14% 45%;
   background-repeat: no-repeat;
   background-size: auto auto;
-  border: 2px solid #071A44;
+  border: 2px solid #071a44;
   border-radius: 3px;
   color: #fff;
   cursor: pointer;
@@ -3412,7 +3398,7 @@ a:not(.no-underline):hover:after {
 
 .product-quantity {
   padding-top: 7px;
- /* margin-left: 12px;*/
+  /* margin-left: 12px;*/
 }
 
 .recent {
@@ -4034,29 +4020,29 @@ a:not(.no-underline):hover:after {
 }
 .Specifications-main table tr {
   border: 1px solid red;
-  padding: .35em;
+  padding: 0.35em;
 }
 
 .Specifications-main table td {
   border: 1px solid black;
-  padding: .625em;
+  padding: 0.625em;
   text-align: left;
   font-size: 14px !important;
 }
 
-@media only screen and (max-width: 767px) and (min-width: 320px){
+@media only screen and (max-width: 767px) and (min-width: 320px) {
   .Specifications-main table td {
-font-size: 1.5vw !important;
+    font-size: 1.5vw !important;
   }
   .Specifications-main td strong {
     font-size: 1.4vw !important;
-}
-.Specifications-main p {
+  }
+  .Specifications-main p {
     font-size: 1.5vw !important;
-}
-.Specifications-main p strong{
+  }
+  .Specifications-main p strong {
     font-size: 14px !important;
-}
+  }
 }
 .sqm-titlespecial span sup {
   text-decoration: none;
@@ -4483,11 +4469,11 @@ font-size: 1.5vw !important;
     top: 32% !important;
   }
   form.custom-options {
-  padding-left: 25px !important;
-}
-.fabric-btn-responsive {
-    padding-left: 25px  !important;
-}
+    padding-left: 25px !important;
+  }
+  .fabric-btn-responsive {
+    padding-left: 25px !important;
+  }
 }
 select.m0.no-outline {
   width: 350px;
@@ -4507,20 +4493,20 @@ form.custom-options {
   }
 }*/
 .fabric-btn-responsive {
-    padding-left: 40px;
+  padding-left: 40px;
 }
 .fabric-button-design {
-    width:95%;
+  width: 95%;
 }
 button.select-color-button {
-   width: 100%;
-    border: 2px solid #071A44;
-    height: 44px;
-    background: #fff;
-    text-align: left;
-    /* font-family: 'OBLIK'; */
-    color: #071A44;
-    font-size: 16px;
+  width: 100%;
+  border: 2px solid #071a44;
+  height: 44px;
+  background: #fff;
+  text-align: left;
+  /* font-family: 'OBLIK'; */
+  color: #071a44;
+  font-size: 16px;
 }
 /*@media (max-width: 1199px){
  .fabric-button-design {
@@ -4539,77 +4525,77 @@ button.select-color-button {
 }
  }*/
 i.material-icons {
-    float: right;
-    color: #ffff !important;
+  float: right;
+  color: #ffff !important;
 }
 label.base-input-number__label.cl-primary.flex {
-    display: none !important;
+  display: none !important;
 }
 .base-input-numberz {
-    margin-top: -2px !important;
+  margin-top: -2px !important;
 }
 
-.base-input-number__input{
-    border: 2px solid #071A44  !important;
-    text-align: center  !important;
-    height: 45px !important;
-    width: 45px !important;
-    border-radius: 7px;
+.base-input-number__input {
+  border: 2px solid #071a44 !important;
+  text-align: center !important;
+  height: 45px !important;
+  width: 45px !important;
+  border-radius: 7px;
 }
 .addtocartbuttonMobile {
-    padding-right: 0px  !important;
+  padding-right: 0px !important;
 }
-@media (min-width: 992px){
-.bt-product-qty{
-  margin-bottom: 35px  !important;
+@media (min-width: 992px) {
+  .bt-product-qty {
+    margin-bottom: 35px !important;
+  }
 }
-}
-@media (max-width: 400px){
-.add-to-cart button{
+@media (max-width: 400px) {
+  .add-to-cart button {
     background-position: 10% 45% !important;
-}
+  }
 }
 .product-head.adhesive-product-head h1 {
-    margin: 5px 0px 10px 0px;
+  margin: 5px 0px 10px 0px;
 }
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 767px) {
   .product-description-left {
     order: 2;
   }
 }
 .lh30.h5 p {
-    color: #858585;
-    font-size: 14px;
-    line-height: 30px;
+  color: #858585;
+  font-size: 14px;
+  line-height: 30px;
 }
 .Specifications-main p {
-    color: #858585;
-    font-size: 14px;
-    line-height: 30px;
+  color: #858585;
+  font-size: 14px;
+  line-height: 30px;
 }
 .Specifications-main ul {
   color: #858585;
   font-size: 14px;
-   line-height: 30px;
+  line-height: 30px;
 }
 .cms-content p {
-    color: #858585;
-    font-size: 14px;
-    line-height: 30px;
+  color: #858585;
+  font-size: 14px;
+  line-height: 30px;
 }
 .cms-content h3 {
-    color: #858585;
-    font-size: 14px;
-    line-height: 30px;
+  color: #858585;
+  font-size: 14px;
+  line-height: 30px;
 }
 .cms-content a {
-    color: #858585;
-    font-size: 14px;
-    line-height: 30px;
+  color: #858585;
+  font-size: 14px;
+  line-height: 30px;
 }
 .cms-content strong {
-    color: #57c9c0;
-    font-size: 14px;
-    line-height: 30px;
+  color: #57c9c0;
+  font-size: 14px;
+  line-height: 30px;
 }
 </style>
