@@ -2518,11 +2518,6 @@ p.filterp {
   -ms-flex-align: center;
   align-items: center;
 }
-
-// .sort-by {
-//   border-bottom: 1px solid #afafaf;
-// }
-
 .sort-by select {
   font-size: 0.9325rem;
   color: #808898;

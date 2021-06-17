@@ -61,9 +61,8 @@ export default {
     this.$bus.$off("reset-price-slider", this.resetPriceSlider);
   },
   mounted() {
-    const routeQueryData = this.$store.state.route[
-      products.routerFiltersSource
-    ];
+    const routeQueryData =
+      this.$store.state.route[products.routerFiltersSource];
     if (routeQueryData.hasOwnProperty("price")) {
       const routePriceRange = routeQueryData["price"].split("-");
       if (!isEqual(this.value, routePriceRange)) {
@@ -77,8 +76,8 @@ export default {
       remove: false,
       value: this.priceRange,
       currencySign: this.$store.state.config.i18n.currencySign,
-      priceSliderConfig: this.$store.state.config.layeredNavigation
-        .priceSliderOptions,
+      priceSliderConfig:
+        this.$store.state.config.layeredNavigation.priceSliderOptions,
     };
   },
   computed: {
@@ -90,7 +89,7 @@ export default {
       };
     },
     tooltipContent() {
-      return { formatter: this.currencySign + " {value}"  };
+      return { formatter: this.currencySign + " {value}" };
     },
     getMin() {
       return this.priceRange[0];
@@ -101,11 +100,11 @@ export default {
   },
   watch: {
     $route: function (to, from) {
-      this.validateRoute('update');
+      this.validateRoute("update");
       if (from.path && to.path && from.path !== to.path) {
         this.value = this.priceRange;
       }
-    }
+    },
   },
   methods: {
     setPrice: function (e) {
@@ -131,9 +130,8 @@ export default {
       }
     },
     validateRoute() {
-      const routeQueryData = this.$store.state.route[
-        products.routerFiltersSource
-      ];
+      const routeQueryData =
+        this.$store.state.route[products.routerFiltersSource];
       if (this.$refs.priceSlider && !routeQueryData.hasOwnProperty("price")) {
         this.$nextTick(() => {
           this.$refs.priceSlider.setValue(this.priceRange);
@@ -170,14 +168,6 @@ $color-active: color(accent);
     }
   }
 }
-
-// .square {
-//   width: 80%;
-//   height: 80%;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%,-50%);
-// }
 .square {
   width: 80%;
   @media (max-width: 480px) {
@@ -195,17 +185,17 @@ $color-active: color(accent);
   box-shadow: none;
 }
 .vue-slider-dot-handle {
-  background-color: #EE4C56 !important;
+  background-color: #ee4c56 !important;
 }
 .vue-slider-component.vue-slider-horizontal .vue-slider-process {
-  background-color: #071A44 !important;
+  background-color: #071a44 !important;
   height: 4px !important;
   padding: 0px !important ;
 }
 .vue-slider-tooltip {
   background-color: #ffffff !important;
-  color: #858585 !important;
-  border-color: #071A44 !important;
+  color: #333333 !important;
+  border-color: #071a44 !important;
 }
 .vue-slider-tooltip:before {
   display: none;
@@ -214,23 +204,23 @@ $color-active: color(accent);
   padding: 0px !important;
 }
 .vue-slider-always.vue-slider-dot .vue-slider-tooltip-bottom {
-    margin-left: 13px !important;
+  margin-left: 13px !important;
 }
 .vue-slider-always.vue-slider-dot:nth-child(2) .vue-slider-tooltip-bottom {
-    margin-left: -18px !important;
+  margin-left: -18px !important;
 }
 @media (min-width: 768px) {
-.vue-slider-component .vue-slider-tooltip{
-  font-size: 14px;
-  color: #858585 !important;
-  font-weight: bold;
-}}
+  .vue-slider-component .vue-slider-tooltip {
+    font-size: 14px;
+    color: #333333 !important;
+    font-weight: bold;
+  }
+}
 @media (max-width: 767px) {
   .vue-slider-tooltip {
     background-color: #ffffff !important;
-    color:#434343 !important;
+    color: #333333 !important;
     border-color: #2a285a !important;
-    // font-weight: bold;
   }
   .vue-slider-component .vue-slider-tooltip {
     border: none !important;
@@ -238,12 +228,11 @@ $color-active: color(accent);
   }
 }
 span.vue-slider-tooltip {
-    padding: 7px 2px !important;
+  padding: 7px 2px !important;
 }
-@media screen and (min-width: 768px) and (max-width: 991px)
-{
+@media screen and (min-width: 768px) and (max-width: 991px) {
   span.vue-slider-tooltip {
     font-size: 10px !important;
-}
+  }
 }
 </style>

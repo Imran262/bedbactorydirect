@@ -192,7 +192,7 @@ $color-tertiary: color(tertiary);
       margin-left: 0px !important;
     }
     @media (min-width: 768px) {
-      color: #858585;
+      color: #333333;
       font-weight: 400;
     }
     &:focus {
