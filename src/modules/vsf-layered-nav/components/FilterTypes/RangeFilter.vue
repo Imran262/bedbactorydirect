@@ -139,7 +139,6 @@ $color-active: color(accent);
     width: 90%;
   }
 }
-
 .price-selector {
   width: 20px;
   height: 20px;
@@ -150,14 +149,6 @@ $color-active: color(accent);
     }
   }
 }
-
-// .square {
-//   width: 80%;
-//   height: 80%;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%,-50%);
-// }
 .square {
   width: 80%;
   @media (max-width: 480px) {
@@ -187,7 +178,7 @@ $color-active: color(accent);
 
 .vue-slider-tooltip {
   background-color: #ffffff !important;
-  color: #434343 !important;
+  color: #333333 !important;
   border-color: #2a285a !important;
 }
 
@@ -218,9 +209,8 @@ $color-active: color(accent);
 @media (max-width: 767px) {
   .vue-slider-tooltip {
     background-color: #ffffff !important;
-    color: #434343 !important;
+    color: #333333 !important;
     border-color: #2a285a !important;
-    // font-weight: bold;
   }
   .vue-slider-component .vue-slider-tooltip {
     border: none;

@@ -8,9 +8,9 @@
 </template>
 <script>
 // import CmsBlock from 'theme/components/core/blocks/Cms/Block';
-import MegaMenu from 'src/themes/bedfactory/components/core/blocks/Home/MegaMenu'
-import { mapState } from 'vuex'
-import CurrentPage from 'theme/mixins/currentPage'
+import MegaMenu from "src/themes/bedfactory/components/core/blocks/Home/MegaMenu";
+import { mapState } from "vuex";
+import CurrentPage from "theme/mixins/currentPage";
 
 export default {
   components: {
@@ -18,26 +18,25 @@ export default {
     MegaMenu,
   },
   mixins: [CurrentPage],
-  mounted () {
-  },
+  mounted() {},
   computed: {
-    isThankYouPage () {
+    isThankYouPage() {
       return this.$store.state.checkout.isThankYouPage
         ? this.$store.state.checkout.isThankYouPage
-        : false
-    }
-  }
+        : false;
+    },
+  },
 };
 </script>
 <style lang="scss">
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
   font-display: block;
 }
 
 .new-menu-bar {
-  background-color: #071A44;
+  background-color: #071a44;
   margin-top: 2px;
   ul.menu {
     padding: 0;
@@ -67,9 +66,8 @@ export default {
         color: #fff;
         line-height: 1;
         text-transform: capitalize;
-        // margin: 10px 0 10px 0;
         font-size: 14.96px;
-        font-family: 'Oblik';
+        font-family: "Oblik";
         z-index: 999;
         width: 100%;
 
@@ -80,13 +78,12 @@ export default {
 
       .nav-panel-dropdown {
         width: 100%;
-        // border: 7px solid rgb(91, 210, 236) !important;
         position: absolute;
         background-color: #fff;
         display: none;
         left: 0;
         top: 66px;
-        border: 5px solid #EE4C56;
+        border: 5px solid #ee4c56;
 
         .nav-panel-inner {
           .nav-block {
@@ -99,17 +96,17 @@ export default {
               padding-top: 28px;
               height: 100%;
               min-height: 256px;
-@media (min-width: 1025px) and (max-width: 1199px){
-     padding-top: 15px;
-}
-@media (min-width: 768px) and (max-width: 991px){
-     min-height: 277px;
-}
+              @media (min-width: 1025px) and (max-width: 1199px) {
+                padding-top: 15px;
+              }
+              @media (min-width: 768px) and (max-width: 991px) {
+                min-height: 277px;
+              }
               .subcag-title {
                 font-size: 17px;
-                font-family: 'Oblik';
+                font-family: "Oblik";
                 text-transform: capitalize;
-                color: #071A44;
+                color: #071a44;
               }
 
               &:last-child {
@@ -128,7 +125,7 @@ export default {
                   a {
                     font-size: 13px;
                     font-family: Arial;
-                    color: #858585;
+                    color: #333333;
                     padding: 0;
                     display: block;
                     text-align: left;
@@ -136,10 +133,10 @@ export default {
                     margin: 0;
                     border: none;
                     text-transform: capitalize;
-@media (min-width: 1025px) and (max-width: 1199px){
-   line-height: 1.5;
-    font-size: 12px;
-}
+                    @media (min-width: 1025px) and (max-width: 1199px) {
+                      line-height: 1.5;
+                      font-size: 12px;
+                    }
                     &:hover {
                       color: #5bd2ec;
                     }
@@ -148,15 +145,14 @@ export default {
               }
             }
           }
-
           .sb-price-match {
-            background-color: #EE4C56;
+            background-color: #ee4c56;
             display: flex;
             justify-content: flex-end;
             width: 82.2%;
 
             .menu-dropdown-logo-img {
-              background: url('/assets/menu-logo.png') no-repeat 100% 100%;
+              background: url("/assets/menu-logo.png") no-repeat 100% 100%;
               height: 59px;
               width: 121px;
               background-size: 100%;
@@ -187,7 +183,7 @@ export default {
       .box {
         width: 115px;
         height: 66px;
-        background-color:#EE4C56;
+        background-color: #ee4c56;
         position: absolute;
         display: none;
         top: 0px;
@@ -197,7 +193,7 @@ export default {
           height: 0;
           border-left: 58px solid transparent;
           border-right: 58px solid transparent;
-          border-top: 20px solid #EE4C56;
+          border-top: 20px solid #ee4c56;
           position: absolute;
           bottom: -24px;
           left: 0;
@@ -234,14 +230,8 @@ export default {
 .new-menu-bar ul.menu li.sb-menu:nth-child(11n) a {
   border: none;
 }
-
-// .new-menu-bar ul.menu li.sb-menu:last-child {
-//   display: none;
-// }
-
 @media (min-width: 768px) and (max-width: 992px) {
   .new-menu-bar {
-    // display: none !important;
     ul.menu {
       li {
         &.nav-1 {
@@ -253,42 +243,12 @@ export default {
         .nav-panel-dropdown {
           top: 50px !important;
           left: 0;
-          //   .nav-panel-inner {
-          //     .nav-block {
-          //       .sb-height-dropdown-menu {
-          //         padding-left: 10px;
-          //         padding-right: 10px;
-          //         .subcag-title {
-          //           font-size: 10px;
-          //         }
-          //         ul.bullet {
-          //           li {
-          //             a {
-          //               height: 100%;
-          //               font-size: 10px;
-          //             }
-          //           }
-          //         }
-          //       }
-          //     }
-          //     .sb-price-match {
-          //       width: 100%;
-          //     }
-          //   }
-          //   .dropdown-menu-right-img {
-          //     display: none;
-          //   }
         }
         a {
           font-size: 11.96px !important;
           padding: 20px 0px;
-          //   line-height: 0.5;
-          //   height: 5px;
         }
-
         .box {
-          // width: 60px !important;
-          // bottom: -24px;
           height: 52px;
           width: 95px !important;
           .arrow-down {
@@ -321,15 +281,9 @@ export default {
           .nav-panel-inner {
             .nav-block {
               .sb-height-dropdown-menu {
-                // padding-left: 10px;
-                // padding-right: 10px;
-                //flex-basis: 20.666667%;
-               // max-width: 20.666667%;
-
                 .subcag-title {
                   font-size: 12px;
                 }
-
                 ul.bullet {
                   li {
                     a {
@@ -353,7 +307,6 @@ export default {
 
         a {
           font-size: 12.96px;
-          //   padding: 6px 0px;
         }
 
         .box {
@@ -382,14 +335,10 @@ export default {
           .nav-panel-inner {
             .nav-block {
               .sb-height-dropdown-menu {
-                /*flex-basis: 14.666667%;
-                max-width: 14.666667%;*/
-
                 .subcag-title {
                   width: 95%;
                   display: block;
                 }
-
                 ul.bullet {
                   li {
                     a {
@@ -399,7 +348,6 @@ export default {
                 }
               }
             }
-
             .sb-price-match {
               width: 76.2%;
             }
@@ -410,10 +358,8 @@ export default {
         }
 
         a {
-          //   padding: 5px 5px;
           line-height: 1;
           font-size: 12.96px;
-          //   height: 10px;
         }
 
         .box {
@@ -446,16 +392,15 @@ export default {
     }
   }
 }
-@media (min-width: 1025px) and (max-width: 1199px)
-{
+@media (min-width: 1025px) and (max-width: 1199px) {
   .menu-frame {
-     flex-basis: 0%; 
-     max-width: 47%; 
+    flex-basis: 0%;
+    max-width: 47%;
+  }
 }
-}
-@media (min-width: 768px) and (max-width: 991px){
-.menu-frame {
+@media (min-width: 768px) and (max-width: 991px) {
+  .menu-frame {
     max-width: 55%;
-}
+  }
 }
 </style>

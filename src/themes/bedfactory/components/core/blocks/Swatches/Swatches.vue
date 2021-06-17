@@ -100,7 +100,7 @@ export default {
     font-size: 18px;
     line-height: 1.6;
     padding-bottom: 20px;
-    color: #858585;
+    color: #333333;
     padding-right: 119px;
 }
 
@@ -142,8 +142,6 @@ export default {
   }
   .hm-tiling-para {
     font-size: 16px;
-    line-height: 1.6;
-    color: #858585;
     padding-bottom: 0px;
     padding-right: 50px;
   }
