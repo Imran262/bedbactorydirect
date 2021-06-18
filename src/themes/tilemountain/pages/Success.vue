@@ -1,72 +1,156 @@
 <template>
-  <div class="top">
+  <div>
     <header class="thank-you-title bg-cl-secondary pl20">
       <div class="container">
+        <breadcrumbs
+          :with-homepage="true"
+          :routes="[]"
+          :active-route="this.$t('Order confirmation')"
+        />
         <h2 class="category-title hidden">{{ $t('Order confirmation') }}</h2>
       </div>
     </header>
     <div class="container mobile-container">
       <div class="row">
-        <div class="col-md-8 col-sm-12 col-padding order-recieved">
-          <div v-if="OnlineOnly" class="success-header">
-            <div class="col-md-12 col-lg-12 col-xs-12 success-heading">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-padding">
+          <div v-if="OnlineOnly" class="success-header row">
+            <div class="col-md-3 col-lg-2 col-xs-4 non-selected-tick" />
+            <div class="col-md-9 col-lg-10 col-xs-8 success-heading">
               <p class="order-received">Your Order has been received!</p>
-              <!-- <p
+              <p
                 class="order-received-text"
-              >Please keep an eye on your inbox, we'll send you an email shortly</p> -->
+              >Please keep an eye on your inbox, we'll send you an email shortly</p>
             </div>
           </div>
-          <div class="row" v-if="alreadyOrderedMsg !== ''">
-            <div class="col-md-12 col-lg-12 col-xs-12 batch-variation-top">
-              <div class="batch-variation">
-                <div class="batch-top">
-                  <img src="/assets/batch-icon.png" alt="batch" />
-                  <h2>Batch Variation</h2>
-                </div>
-                <p>{{ alreadyOrderedMsg }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="OnlineOnly" class="seccess-body">
+          <div v-if="OnlineOnly" class="seccess-body row">
             <div class="col-md-12 inner-success">
-              <span v-if="purchaserName" class="purchaser-text">
-                <!-- <label class="purchaser-name">{{ purchaserName }}</label>, thank you for your purchase! -->
-                <label class="purchaser-name"></label>Thank you for your
-                purchase with {{title}}.
+              <span class="purchaser-text" v-if="orderElements.length">
+                <label
+                  class="purchaser-name"
+                >{{ orderElements.order.addressInformation.shippingAddress.firstname }}</label>, thank you for your purchase!
               </span>
-              <span v-if="backendOrderId">
-                Your Order Reference is:
-                <label class="order-num">{{ backendOrderId }}</label>
+              <span>
+                Your personal order ID is:
+                <label
+                  class="order-num"
+                >{{ lastOrderConfirmation.orderNumber }}</label>
               </span>
-              <span class="order-info"
-                >You will receive an order confirmation email with full details
-                of your purchase and a link to track its progress.</span
-              >
+              <span>You will receive an order confirmation email with full details of your order.</span>
             </div>
           </div>
           <div v-if="getAddressInformation">
-            <DeliveryInformationSuccess
-              :address-information="getAddressInformation"
-            />
           </div>
-          <ThingsToRememberSuccess />
         </div>
         <div
-          class="col-md-4 col-padding account-create"
-          v-if="
-            lastOrderItem &&
-            !getCartItems &&
-            getFinalItems &&
-            orderPriceElements &&
-            getPersonalDetails
-          "
+          class="col-lg-4 col-md-12 col-padding"
+          v-if="getCartItems && getCartItems && getFinalItems && orderPriceElements && getPersonalDetails"
         >
-          <RegisterAccountSuccess :personal-details="getPersonalDetails" />
-          <OrderReviewList
-            :products="getFinalItems"
-            :totals="orderPriceElements"
-          />
+          
+        </div>
+      </div>
+    </div>
+    <div class="thank-you-content align-justify pl20">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 pl20 pr20">
+            <h3 class="hidden" v-if="OnlineOnly">{{ $t('Your purchase') }}</h3>
+            <p
+              class="hidden"
+              v-if="OnlineOnly"
+              v-html="
+                this.$t(
+                  'You have successfuly placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.'
+                )
+              "
+            />
+            <p
+              class="hidden"
+              v-if="OnlineOnly && lastOrderConfirmation.orderNumber"
+              v-html="
+                this.$t('The OrderNumber is {id}', {
+                  id: lastOrderConfirmation.orderNumber
+                })
+              "
+            />
+
+            <h4 v-if="OfflineOnly">{{ $t('You are offline') }}</h4>
+            <p v-if="OfflineOnly && !isNotificationSupported">
+              {{
+              $t(
+              'To finish the order just come back to our store while online. Your order will be sent to the server as soon as you come back here while online and then confirmed regarding the stock quantities of selected items'
+              )
+              }}
+            </p>
+            <p
+              v-if="
+                OfflineOnly && isNotificationSupported && !isPermissionGranted
+              "
+            >
+              {{
+              $t(
+              "You can allow us to remind you about the order via push notification after coming back online. You'll only need to click on it to confirm."
+              )
+              }}
+            </p>
+            <p
+              v-if="
+                OfflineOnly && isNotificationSupported && !isPermissionGranted
+              "
+            >
+              {{
+              $t(
+              `Or if you will stay on "Order confirmation" page, the order will be placed automatically without confirmation, once the internet connection will be back.`
+              )
+              }}
+            </p>
+            <p
+              v-if="
+                OfflineOnly && isNotificationSupported && isPermissionGranted
+              "
+            >
+              <strong>
+                {{
+                $t(
+                'You will receive Push notification after coming back online. You can confirm the order by clicking on it'
+                )
+                }}
+              </strong>
+            </p>
+            <p v-if="!isPermissionGranted && isNotificationSupported && OfflineOnly">
+              <button-outline
+                color="dark"
+                @click.native="requestNotificationPermission()"
+              >{{ $t('Allow notification about the order') }}</button-outline>
+            </p>
+            <p v-if="OfflineOnly">
+              <button-outline
+                color="dark"
+                @click.native="$router.push('/')"
+              >{{ $t('Return to shopping') }}</button-outline>
+            </p>
+            <div v-if="OfflineOnly" id="thank-you-extensions" />
+          </div>
+          <div v-if="OfflineOnly">
+            <h3>{{ $t('What we can improve?') }}</h3>
+            <p class="mb25">
+              {{
+              $t(
+              'Your feedback is important for us. Let us know what we could improve.'
+              )
+              }}
+            </p>
+            <form @submit.prevent="sendFeedback">
+              <base-textarea
+                class="mb25"
+                type="text"
+                name="body"
+                v-model="feedback"
+                :placeholder="$t('Type your opinion')"
+                :autofocus="true"
+              />
+              <button-outline color="dark">{{ $t('Give a feedback') }}</button-outline>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -74,559 +158,280 @@
 </template>
 
 <script>
-import VueOfflineMixin from 'vue-offline/mixin'
-import Composite from '@vue-storefront/core/mixins/composite'
-import { isServer } from '@vue-storefront/core/helpers'
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
-import i18n from '@vue-storefront/i18n'
-import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList'
-import DeliveryInformationSuccess
-  from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess'
-import RegisterAccountSuccess from 'theme/components/theme/blocks/RegisterAccountSuccess/RegisterAccountSuccess'
-import ThingsToRememberSuccess from 'theme/components/theme/blocks/ThingsToRememberSuccess/ThingsToRememberSuccess'
-import axios from 'axios'
-import { format } from 'date-fns'
-import config from 'config'
-
-const merchantId = config.googleCustomerReviews.merchantID
+import Composite from '@vue-storefront/core/mixins/composite';
+import Breadcrumbs from 'theme/components/core/Breadcrumbs';
+import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea';
+import ButtonOutline from 'theme/components/theme/ButtonOutline';
+import VueOfflineMixin from 'vue-offline/mixin';
+import { EmailForm } from '@vue-storefront/core/modules/mailer/components/EmailForm';
+import { isServer } from '@vue-storefront/core/helpers';
+import config from 'config';
+import { registerModule } from '@vue-storefront/core/lib/modules';
+import { MailerModule } from '@vue-storefront/core/modules/mailer';
+import _ from 'lodash';
 
 export default {
-  name: 'SuccessPage',
-  mixins: [Composite, VueOfflineMixin],
-  data () {
+  name: 'ThankYouPage',
+  mixins: [Composite, VueOfflineMixin, EmailForm],
+  beforeCreate() {
+    registerModule(MailerModule);
+  },
+  data() {
     return {
-      lastOrderItem: null,
-      executedOnce: false,
-      orderDetailsUrl: null,
-      alreadyOrderedMsg: '',
-      item: { items: [] },
-      googleReviewsData: {
-        // REQUIRED FIELDS
-        merchant_id: merchantId,
-        order_id: null,
-        email: null,
-        delivery_country: null,
-        estimated_delivery_date: 'YYYY-MM-DD',
-        // OPTIONAL FIELDS
-        // 'products': [{ 'gtin': 'GTIN1' }, { 'gtin': 'GTIN2' }]
-      },
-      title: config?.themeConfigurations?.title
-    }
+      feedback: '',
+    };
   },
-  components: {
-    OrderReviewList,
-    DeliveryInformationSuccess,
-    RegisterAccountSuccess,
-    ThingsToRememberSuccess,
-  },
-  beforeRouteEnter (to, from, next) {
-    let toQuery = to.query
-    if (!from.name && toQuery.orderId && !toQuery.hasOwnProperty('cko-session-id')) {
-      next({ name: 'home' })
-    } else {
-      next()
-    }
+  mounted() {
+    this.$bus.$on('notification-progress-start')
+    this.$bus.$on('order-after-placed', async () => {
+      setTimeout(async () => {
+        await window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
+      }, 200);
+    });
   },
   computed: {
-    ...mapGetters({
-      productsInCart: 'cart/getCartItems',
-      getCartToken: 'cart/getCartToken',
-      isCartEmpty: 'cart/isCartEmpty',
-      totals: 'cart/getTotals'
-    }),
-    backendOrderId () {
-      if (this.lastOrderItem && this.lastOrderItem.confirmation) {
-        return this.lastOrderItem.confirmation.backendOrderId
+    getAddressInformation() {
+      if (this.orderElements && this.orderElements.order) {
+        return this.orderElements.order.addressInformation;
       }
-      return undefined
+      return undefined;
     },
-    getAddressInformation () {
-      if (this.lastOrderItem && this.lastOrderItem.order) {
-        return this.lastOrderItem.order.addressInformation
-      }
-      return undefined
-    },
-    purchaserName () {
-      if (
-        this.lastOrderItem &&
-        this.lastOrderItem.order &&
-        this.lastOrderItem.order.addressInformation
-      ) {
-        return this.lastOrderItem.order.addressInformation.billingAddress
-          .firstname
-      }
-      return undefined
-    },
-    getPersonalDetails () {
-      if (this.lastOrderItem) {
-        const firstName = this.lastOrderItem.order.addressInformation
-          .billingAddress.firstname
-        const lastName = this.lastOrderItem.order.addressInformation
-          .billingAddress.lastname
-        const email = this.lastOrderItem.order.addressInformation.billingAddress
-          .email
+    getPersonalDetails() {
+      if (this.orderElements && this.orderElements.order) {
+        const firstName = this.orderElements.order.addressInformation
+          .billingAddress.firstname;
+        const lastName = this.orderElements.order.addressInformation
+          .billingAddress.lastname;
+        const email = this.orderElements.order.addressInformation.billingAddress
+          .email;
         return {
           firstName,
           lastName,
           email,
-        }
+        };
       }
-      return undefined
+      return undefined;
     },
-    orderElements () {
-      if (!this.getParameterByName('orderId')) {
-        if (this.$store.state.order.last_order_confirmation !== null) {
-          return this.$store.state.order.last_order_confirmation
-        } else {
-          return {}
-        }
-      }
+    lastOrderConfirmation() {
+      return this.$store.state.order.last_order_confirmation
+        ? this.$store.state.order.last_order_confirmation.confirmation
+        : {};
     },
-    orderPriceElements () {
-      if (this.lastOrderItem && this.lastOrderItem.platformTotals) {
-        return this.lastOrderItem.platformTotals
-      }
+    isNotificationSupported() {
+      if (isServer || !('Notification' in window)) return false;
+      return 'Notification' in window;
     },
-    getOrderItems () {
-      if (this.lastOrderItem && this.lastOrderItem.order.products) {
-        return _.values(this.lastOrderItem.order.products)
+    isPermissionGranted() {
+      if (isServer || !('Notification' in window)) return false;
+      return Notification.permission === 'granted';
+    },
+    checkoutPersonalEmailAddress() {
+      return this.$store.state.checkout.personalDetails.emailAddress;
+    },
+    mailerElements() {
+      return config.mailer.contactAddress;
+    },
+    orderElements() {
+      console.log('orderElementsOrderCheck ', this.$store.state.order);
+      if (this.$store.state.order.last_order_confirmation !== null) {
+        return this.$store.state.order.last_order_confirmation;
       } else {
-        return []
+        return {};
       }
-      //   if(!this.getParameterByName("orderId")){
-      // if (this.$store.state.order.last_order_confirmation !== null) {
-      //   console.log(
-      //     "getOrderItemsOrderCheckif ",
-      //     this.$store.state.order.last_order_confirmation.order.products
-      //   );
-      //   return this.$store.state.order.last_order_confirmation.order.products;
-      // } else {
-      //   return {};
-      // }
-      //   } else {
-      //      if (this.lastOrderItem && this.lastOrderItem.order.products) {
-      //   return _.values(this.lastOrderItem.order.products);
-      // } else {
-      //   return [];
-      // }
-      //   }
     },
-    getCartItems () {
-      if (this.lastOrderItem && this.lastOrderItem.platformTotals) {
-        return this.lastOrderItem.platformTotals.items
+    orderPriceElements() {
+      return this.$store.state.cart.platformTotals;
+    },
+    getOrderItems() {
+      console.log(
+        'getOrderItemsOrderCheck ',
+        this.$store.state.order.last_order_confirmation
+      );
+      if (this.$store.state.order.last_order_confirmation !== null) {
+        console.log(
+          'getOrderItemsOrderCheckif ',
+          this.$store.state.order.last_order_confirmation.order.products
+        );
+        return this.$store.state.order.last_order_confirmation.order.products;
       } else {
-        return []
+        return {};
       }
     },
-    getFinalItems () {
+    getCartItems() {
+      console.log(
+        'getCartItemsOrderCheck ',
+        this.$store.state.cart.platformTotals
+      );
+      if (this.$store.state.cart.platformTotals !== null) {
+        return this.$store.state.cart.platformTotals.items;
+      } else {
+        return {};
+      }
+    },
+    getFinalItems() {
       const merged = _.merge(
-        // _.keyBy(this.getCartItems, 'item_id'),
-        _.keyBy(this.getOrderItems, 'sku')
-      )
-      const values = _.values(merged)
+        _.keyBy(this.getCartItems, 'item_id'),
+        _.keyBy(this.getOrderItems, 'item_id')
+      );
+      const values = _.values(merged);
       const extensionAttributes = values.filter(
         (value) =>
           value.extension_attributes &&
           value.extension_attributes.original_item_sku
-      )
+      );
       const simpleProducts = values.filter(
         (value) =>
           !(
             value.extension_attributes &&
             value.extension_attributes.original_item_sku
           )
-      )
-      let finalItems = []
+      );
+      let finalItems = [];
       if (extensionAttributes.length > 0) {
         const reducedProducts = extensionAttributes.reduce((acc, current) => {
-          const skuKey = current['extension_attributes']['original_item_sku']
+          const skuKey = current['extension_attributes']['original_item_sku'];
           if (!(skuKey in acc) && !acc[skuKey]) {
-            return { ...acc, [skuKey]: [current] }
+            return { ...acc, [skuKey]: [current] };
           }
-          return { ...acc, [skuKey]: [...acc[skuKey], current] }
-        }, {})
+          return { ...acc, [skuKey]: [...acc[skuKey], current] };
+        }, {});
 
         for (const item of _.values(reducedProducts)) {
           const reducedItem = item.reduce(
             (acc, current) => {
-              const price = acc.price_incl_tax
+              const price = acc.price_incl_tax;
 
               return {
                 price_incl_tax: price + current.price_incl_tax,
                 name: current.extension_attributes.product_name,
                 sku: current.extension_attributes.original_item_sku,
-                qty: current.qty
-              }
+                qty: current.qty,
+              };
             },
             { price_incl_tax: 0 }
-          )
+          );
 
-          finalItems.push(reducedItem)
+          finalItems.push(reducedItem);
         }
       }
       if (simpleProducts.length > 0) {
-        finalItems = [...finalItems, ...simpleProducts]
+        finalItems = [...finalItems, ...simpleProducts];
       }
-      return finalItems
+      return finalItems;
     },
   },
   methods: {
-    addBloom () {
-      if (config && config.bloomreach) {
-        var br_data = br_data || {}
-        br_data.acct_id = config.bloomreach.accountID
-        br_data.ptype = 'other'
-        br_data.domain_key = config.bloomreach.domainKey
-        br_data.view_id = config.bloomreach.viewId
-        br_data.test_data = config.bloomreach.testData
-        br_data.is_conversion = 1
-        br_data.basket_value = this.lastOrderItem.platformTotals.grand_total
-        br_data.order_id = this.backendOrderId
-        br_data.basket = this.item
-        BrTrk.getTracker().updateBrData(br_data)
-        BrTrk.getTracker().logPageView()
+    requestNotificationPermission() {
+      if (isServer) return false;
+      if ('Notification' in window && Notification.permission !== 'granted') {
+        Notification.requestPermission();
       }
     },
-    removeLastOrderItem () {
-      // localStorage.removeItem("lastOrderItem");
+    sendFeedback() {
+      this.sendEmail(
+        {
+          sourceAddress: this.checkoutPersonalEmailAddress,
+          targetAddress: this.mailerElements,
+          subject: this.$t('What we can improve?'),
+          emailText: this.feedback,
+        },
+        this.onSuccess,
+        this.onFailure
+      );
     },
-    includeGoogleReviews () {
-      let googleReviewsScript = document.createElement('script')
-      // googleReviewsScript.setAttribute("defer", "defer");
-      googleReviewsScript.defer = true
-      googleReviewsScript.async = true
-      googleReviewsScript.setAttribute(
-        'src',
-        'https://apis.google.com/js/platform.js?onload=renderOptIn'
-      )
-      document.head.appendChild(googleReviewsScript)
-      window.renderOptIn = () => {
-        window.gapi.load('surveyoptin', () => {
-          window.gapi.surveyoptin.render(this.googleReviewsData)
-        })
+    onSuccess(message) {
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'success',
+        message,
+        action1: { label: this.$t('OK') },
+      });
+      if (this.mailerElements.sendConfirmation) {
+        this.sendEmail({
+          sourceAddress: this.mailerElements,
+          targetAddress: this.checkoutPersonalEmailAddress,
+          subject: this.$t('Confirmation of receival'),
+          emailText: this.$t(
+            `Dear customer,\n\nWe have received your letter.\nThank you for your feedback!`
+          ),
+          confirmation: true,
+        });
       }
     },
-    gTagConversionValue () {
-      if (this.orderPriceElements && (this.orderPriceElements.base_grand_total || this.orderPriceElements.grand_total)) {
-        if (this.orderPriceElements.grand_total) {
-          return parseFloat(this.orderPriceElements.grand_total).toFixed(2)
-        }
-        if (this.orderPriceElements.base_grand_total) {
-          return parseFloat(this.orderPriceElements.base_grand_total).toFixed(2)
-        }
-      }
-      return 0.00
-    },
-    getParameterByName (name, url) {
-      if (!url) url = window.location.href
-      name = name.replace(/[\[\]]/g, '\\$&')
-      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url)
-      if (!results) return null
-      if (!results[2]) return ''
-      return decodeURIComponent(results[2].replace(/\+/g, ' '))
-    },
-    countProducts (products) {
-      return Object.keys(products).length
-    },
-    gTagConversion ({ orderId, data }) {
-      if (
-        document.documentElement.innerHTML.search(
-          'AW-982121778/bFzMCO2byNYBELL6p9QD'
-        ) !== -1
-      ) {
-        this.executedOnce = true
-        return false
-      }
-
-      const gtagScript = document.createElement('script')
-      // If No Order Data was found, then just return false
-
-      // console.log('orderDatadd', data, data.result.orderData);
-
-      if (!data.result || !data.result.orderData) {
-        return false
-      }
-      let orderData = data.result.orderData
-      let totalProductsQty = this.countProducts(orderData.order.products)
-
-      if (!orderData.order) {
-        return false
-      }
-
-      gtagScript.innerHTML =
-        'gtag(\'event\', \'conversion\', {\n' +
-        '      \'send_to\': \'AW-982121778/bFzMCO2byNYBELL6p9QD\',\n' +
-        '      \'value\': ' + this.gTagConversionValue() + ',\n' +
-        '      \'currency\': \'GBP\',\n' +
-        '      \'transaction_id\': ' +
-        orderData.order_id +
-        ' \n' +
-        '  });'
-      document.body.appendChild(gtagScript)
+    onFailure(message) {
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
+        message,
+        action1: { label: this.$t('OK') },
+      });
     },
   },
-  // async beforeMount() {
-  //   let { data } = await axios.get(
-  //     "https://tiles247.co.uk/vueapi/ext/sagepay/orderDetails?orderId=" +
-  //       orderId
-  //   );
-
-  //   if (data.code === 200) {
-  //     let order = data.result.orderData.order;
-  //     let confirmation = data.result.orderData.confirmation;
-
-  //     this.lastOrderItem = {
-  //       order,
-  //       confirmation,
-  //       platformTotals: this.$store.state.cart.platformTotals,
-  //       orderHistory: this.$store.state.user.orders_history
-  //     };
-  //   }
-  // },
-  async mounted () {
-    this.$bus.$emit('notification-progress-start', i18n.t('Loading'))
-    if ((this.productsInCart.length > 0 || this.getCartToken) && (this.$route.fullPath.includes("orderId") || this.$route.fullPath.includes("cko-session-id"))) {
-      await this.$store.dispatch('cart/clear', {
-        recreateAndSyncCart: true
-      }) // just clear the items without sync
-      await this.$store.dispatch('cart/sync', {
-        forceClientState: true,
-      })
-    }
-    // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/
-    if (!Object.keys) {
-      Object.keys = (function () {
-        'use strict'
-        var hasOwnProperty = Object.prototype.hasOwnProperty,
-          hasDontEnumBug = !{ toString: null }.propertyIsEnumerable('toString'),
-          dontEnums = [
-            'toString',
-            'toLocaleString',
-            'valueOf',
-            'hasOwnProperty',
-            'isPrototypeOf',
-            'propertyIsEnumerable',
-            'constructor',
-          ],
-          dontEnumsLength = dontEnums.length
-
-        return function (obj) {
-          if (
-            typeof obj !== 'function' &&
-            (typeof obj !== 'object' || obj === null)
-          ) {
-            throw new TypeError('Object.keys called on non-object')
-          }
-
-          var result = [],
-            prop,
-            i
-
-          for (prop in obj) {
-            if (hasOwnProperty.call(obj, prop)) {
-              result.push(prop)
-            }
-          }
-
-          if (hasDontEnumBug) {
-            for (i = 0; i < dontEnumsLength; i++) {
-              if (hasOwnProperty.call(obj, dontEnums[i])) {
-                result.push(dontEnums[i])
-              }
-            }
-          }
-          return result
-        }
-      })()
-    }
-
-    await config
-    let apiBaseUrl = config.api.url
-    let OrderDetailsUrl =
-      config.sagepay[config.sagepay.selectedMode].urls.orderDetails
-
-    if (!OrderDetailsUrl) {
-      OrderDetailsUrl =
-        apiBaseUrl + '/vueapi/ext/sagepay/orderDetails?orderId='
-    }
-    var orderId
-    if (this.$route.query.hasOwnProperty('cko-session-id')) {
-      if (localStorage.getItem('checkout_3dSecure_orderId')) {
-        orderId = localStorage.getItem('checkout_3dSecure_orderId')
-        localStorage.removeItem('checkout_3dSecure_orderId')
-      } else {
-        this.$router.push({ name: 'home' })
-      }
-
-    } else {
-      orderId = this.getParameterByName('orderId')
-        ? this.getParameterByName('orderId')
-        : this.$route.params.orderId
-    }
-
-    let { data } = await axios.get(OrderDetailsUrl + orderId)
-    this.$bus.$emit('notification-progress-stop')
-    if (data && data.result && !data.result.orderData.errors) {
-      let confirmedOrderDetails = null
-      if (data.result.orderData && data.result.orderData.order) {
-        confirmedOrderDetails = data.result.orderData.order
-      } else if (data.result.order) {
-        confirmedOrderDetails = data.result.order
-      }
-
-      if (confirmedOrderDetails && confirmedOrderDetails.addressInformation) {
-        this.alreadyOrderedMsg = confirmedOrderDetails.already_ordered_msg
-        // Updating values for Google Reviews
-        this.googleReviewsData.order_id = orderId
-        this.googleReviewsData.email =
-          confirmedOrderDetails.addressInformation.billingAddress.email ||
-          confirmedOrderDetails.addressInformation.shippingAddress.email
-        this.googleReviewsData.delivery_country =
-          confirmedOrderDetails.addressInformation.shippingAddress.country_id
-        // this.googleReviewsData.products = Object.keys(
-        //   confirmedOrderDetails.products
-        // ).map((key, index) => {
-        //   return { gtin: confirmedOrderDetails.products[key].sku }
-        // })
-        let mostexpDate = new Date()
-        mostexpDate = (format(mostexpDate, 'YYYY-MM-DD'))
-        let shippingDate =
-          confirmedOrderDetails.addressInformation.shipping_date
-        this.googleReviewsData.estimated_delivery_date = shippingDate
-          ? shippingDate.split('-').reverse().join('-')
-          : mostexpDate
-        this.includeGoogleReviews()
-      }
-    } else {
-      this.$router.push({ name: 'home' })
-    }
-
-    if (!isServer) {
-      try {
-        if (data.code === 200) {
-          let order = data.result.orderData.order
-          let confirmation = data.result.orderData.confirmation
-          let subtotal = data.result.orderData.order.subtotal
-          let grandtotal = data.result.orderData.order.grandtotal
-          let shipping_total = data.result.orderData.order.shipping_incl_tax
-
-          let sagePayDropIn = localStorage.getItem('lastOrderItem')
-          sagePayDropIn = JSON.parse(sagePayDropIn)
-
-          // sagePayDropIn = JSON.parse(lastOrderItem);
-
-          // console.log("sagePayDropIn33", sagePayDropIn);
-
-          this.lastOrderItem = {
-            order,
-            confirmation,
-            platformTotals: {
-              sub_total: subtotal,
-              grand_total: grandtotal,
-              shipping_total: shipping_total
-            },
-            // sagePayDropIn && sagePayDropIn.platformTotals
-            //   ? sagePayDropIn.platformTotals
-            //   : [],
-            orderHistory:
-              sagePayDropIn && sagePayDropIn.orders_history
-                ? sagePayDropIn.orders_history
-                : []
-          }
-        }
-
-        // Check if its a reload
-        if (this.lastOrderItem && this.lastOrderItem) {
-          // this.$bus.$emit('checkout_com-order-placed', this.lastOrderItem)
-          // console.log('routeInformation', this.$route.fullPath)
-          this.$store.commit('google-gtag/SET_SUCCESS_PURCHASE', this.lastOrderItem)
-        }
-      } catch (error) {
-        console.log('itsGoingToCatch', error)
-      }
-
-      if (!this.executedOnce) {
-        // this.$nextTick(async () => {
-        await this.gTagConversion({ orderId, data })
-        // })
-      }
-    }
-    await this.lastOrderItem
-    if (this.lastOrderItem) {
-      this.getFinalItems.forEach(element => {
-        let prod = {
-          'prod_id': config.bloomreach.prefix + element.item_id,
-          'sku': element.sku,
-          'name': element.name,
-          'quantity': element.qty,
-          'price': element.price
-        }
-        this.item.items.push(prod)
-      })
-      this.addBloom()
-    }
+  destroyed() {
+    this.$store.dispatch('checkout/setThankYouPage', false);
   },
-  beforeDestroy () {
-    // this.removeLastOrderItem();
-    let gScriptTag = document.getElementById('data-gtag-script')
-    if (gScriptTag) {
-      gScriptTag.remove()
-    }
-  },
-  destroyed () {
-    if (localStorage.getItem('checkout_3dSecure_orderId')) {
-      localStorage.removeItem('checkout_3dSecure_orderId')
-    }
-    this.$bus.$off('checkout_com-order-placed')
+  components: {
+    BaseTextarea,
+    Breadcrumbs,
+    ButtonOutline
   },
 };
 </script>
 
-<style scoped>
-.top {
-  margin-top: 35px;
-}
+<style lang="scss">
+.thank-you-content {
+  padding-left: 0;
 
+  p {
+    line-height: 25px;
+  }
+
+  @media (min-width: 64em) {
+    h4 {
+      font-size: 24px;
+    }
+  }
+}
 .thank-you-title .category-title {
   margin-bottom: 0;
+}
+.thank-you-improvment {
+  padding: 0 20px 15px;
+
+  @media (min-width: 64em) {
+    padding: 0 40px 10px;
+  }
+
+  textarea {
+    min-height: 100px;
+  }
 }
 
 .success-header {
   position: relative;
+  margin-top: 25px;
   padding: 25px 25px;
-  background: #2a285a;
+  background: #00a997;
 }
 
 .success-header .non-selected-tick {
-  background: url(/assets/icons/tick.png) no-repeat;
+  background: url(/assets/tick.png) no-repeat;
   height: 80px;
   width: 100%;
+  position: relative;
+  top: 0;
+  right: 0;
 }
 
 .success-heading {
-  color: #434343;
-}
-
-@media (min-width: 767px) {
-  .order-recieved {
-    padding-right: 70px;
-  }
-
-  .account-create {
-    padding-right: 0;
-    padding-left: 0;
-  }
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
 }
 
 p.order-received {
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 700;
-  margin: 0px 0 0 0;
+  margin: 7px 0 0 0;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  color: #fff;
-  font-family: oblik;
 }
 
 p.order-received-text {
@@ -634,51 +439,43 @@ p.order-received-text {
   font-size: 18px;
   margin: 0px;
   text-align: center;
-  color: #fff;
 }
 
-/* .col-padding {
+.col-padding {
   padding-right: 35px;
   padding-left: 20px;
-} */
+}
+
 .seccess-body {
   padding: 25px 0px;
-  font-size: 24px;
-  color: #2a285a;
-  font-weight: bold;
+  font-size: 17px;
+  font-family: 'Poppins', sans-serif;
+  color: #54575b;
 }
 
 .seccess-body span {
   display: block;
   padding-bottom: 15px;
-  font-size: 24px;
-  font-family: Arial;
+  font-family: 'Poppins', sans-serif;
 }
 
 span.purchaser-text {
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 600;
-  color: #2a285a;
-  padding-bottom: 25px;
-  font-family: Arial;
-  margin-top: 10px;
-}
-
-span.order-info {
-  font-weight: normal;
-  color: #434343;
-  font-size: 19px;
-  line-height: 1.5;
-  margin-top: 10px;
+  color: #54575b;
+  padding-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
 }
 
 label.order-num {
-  color: #2a285a;
+  color: #00a997;
   font-weight: 700;
+  font-family: 'Poppins', sans-serif;
 }
 
 table.order-item {
   width: 100%;
+  font-family: 'Poppins', sans-serif;
   border-spacing: 0;
   padding: 0;
 }
@@ -710,7 +507,6 @@ td.empty-dark-row-cell {
   min-width: 100%;
   color: transparent;
 }
-
 table.order-item tfoot {
   background: #ebebeb;
 }
@@ -729,119 +525,45 @@ td.footer-last-cel {
   text-align: left;
   text-align: center;
 }
-
-.batch-variation {
-  margin: 20px 0px;
-  border: 4px solid #ee008c;
-  padding: 10px 22px;
+@media (max-width: 423px) {
+  p.order-received {
+    font-size: 12px !important;
+  }
+  p.order-received-text {
+    font-size: 12px !important;
+  }
 }
-
-.batch-variation .batch-top {
-  display: flex;
-}
-
-.batch-variation .batch-top img,
-.batch-variation .batch-top h2 {
-  float: left;
-}
-
-.batch-variation .batch-top h2 {
-  color: #ee008c;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
-  margin-bottom: 0px;
-  margin-left: 20px;
-}
-
-.batch-variation p {
-  margin-bottom: 0px;
-  font-family: Arial, Helvetica, sans-serif;
-  /* font-weight: 100; */
-  color: #434343;
-  font-size: 19px;
-  line-height: 1.7;
-}
-
 @media (max-width: 767px) {
   .mobile-container {
     padding: 0px;
-    margin-top: -29px;
   }
-
   .mobile-container .row {
     margin: 0px;
   }
-
   .mobile-container .col-padding {
     padding-right: 0px;
     padding-left: 0px;
   }
-
   p.order-received {
     font-size: 16px;
   }
-
   p.order-received-text {
     font-size: 14px;
   }
-
   .seccess-body .inner-success {
     padding: 0px 20px;
   }
-
-  .seccess-body {
-    font-size: 17px;
-    padding-top: 5px;
-    padding-bottom: 0;
-  }
-
-  span.order-info {
-    font-weight: normal;
-    color: #434343;
-    font-size: 14px;
-    line-height: 1.7;
-    margin-top: 0;
-  }
-
-  .batch-variation-top {
-    padding: 0px 20px;
-  }
-
-  .batch-variation {
-    padding: 10px;
-  }
-
-  .batch-variation p {
-    font-size: 14px;
-  }
-
   span.purchaser-text {
-    font-size: 14px;
+    font-size: 16px;
   }
-
   .seccess-body span {
     font-size: 14px;
-    padding-bottom: 14px;
-    margin-bottom: -6px;
-  }
-
-  .success-header {
-    padding: 17px 25px;
-  }
-
-  .seccess-body span:nth-child(3n + 2) {
-    padding-bottom: 25px;
-  }
-
-  .seccess-body span:nth-child(3n + 3) {
-    padding-bottom: 25px;
   }
 }
-
 @media (min-width: 767px) and (max-width: 991px) {
   .col-padding {
     padding-right: 20px;
-    padding-left: 20 p;
+    padding-left: 20p;
   }
 }
 </style>
