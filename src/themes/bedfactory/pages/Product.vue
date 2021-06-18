@@ -298,82 +298,82 @@
                   />
                 </div>
                 <div
-                class="cl-primary variants"
-                v-if="getCurrentProduct.type_id == 'configurable'"
-              >
-                <div
-                  class="error"
-                  v-if="
-                    getCurrentProduct.errors &&
-                    Object.keys(getCurrentProduct.errors).length > 0
-                  "
+                  class="cl-primary variants"
+                  v-if="getCurrentProduct.type_id == 'configurable'"
                 >
-                  <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
-                </div>
-                <div
-                  class="h5"
-                  v-for="option in getProductOptions" 
-                  :key="option.id"
-                >
-                  <h4
-                    class="variants-label basin-head"
-                    data-testid="variantsLabel"
+                  <div
+                    class="error"
+                    v-if="
+                      getCurrentProduct.errors &&
+                      Object.keys(getCurrentProduct.errors).length > 0
+                    "
                   >
-                    {{ option.label }}
-                    <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
-                  </h4>
-                  <div class="row top-xs m0 pt15 pb40 variants-wrapper">
-                    <div
-                      class="sizes basin_size"
-                      v-if="option.label == 'Color'"
+                    <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
+                  </div>
+                  <div
+                    class="h5"
+                    v-for="option in getProductOptions"
+                    :key="option.id"
+                  >
+                    <h4
+                      class="variants-label basin-head"
+                      data-testid="variantsLabel"
                     >
-                      <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>
-                          Please select
-                        </option>
-                        <template
-                          v-for="filter in getAvailableFilters[
-                            option.attribute_code
-                          ]"
-                        >
-                          <option
-                            :key="filter.id"
-                            :value="JSON.stringify(filter)"
-                          >
-                            {{ filter.label }}
+                      {{ option.label }}
+                      <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
+                    </h4>
+                    <div class="row top-xs m0 pt15 pb40 variants-wrapper">
+                      <div
+                        class="sizes basin_size"
+                        v-if="option.label == 'Color'"
+                      >
+                        <select @change="changeFilterCustom($event)">
+                          <option :value="null" :key="2378695843" selected>
+                            Please select
                           </option>
-                        </template>
-                      </select>
-                      <!-- <color-selector
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <color-selector
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
                         :variant="filter"
                         :selected-filters="getSelectedFilters"
                         @change="changeFilter"
                       />-->
-                    </div>
-                    <div
-                      class="sizes basin_size"
-                      v-else-if="option.label == 'Size'"
-                    >
-                      <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>
-                          Please select
-                        </option>
-                        <template
-                          v-for="filter in getAvailableFilters[
-                            option.attribute_code
-                          ]"
-                        >
-                          <option
-                            :key="filter.id"
-                            :value="JSON.stringify(filter)"
-                          >
-                            {{ filter.label }}
+                      </div>
+                      <div
+                        class="sizes basin_size"
+                        v-else-if="option.label == 'Size'"
+                      >
+                        <select @change="changeFilterCustom($event)">
+                          <option :value="null" :key="2378695843" selected>
+                            Please select
                           </option>
-                        </template>
-                      </select>
-                      <!-- <size-selector
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <size-selector
                         class="mr10 mb10"
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
@@ -381,31 +381,31 @@
                         :selected-filters="getSelectedFilters"
                         @change="changeFilter"
                       />-->
-                    </div>
+                      </div>
 
-                    <div
-                      class="basin_size"
-                      :class="option.attribute_code"
-                      v-else
-                    >
-                      <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>
-                          Please select
-                        </option>
-                        <template
-                          v-for="filter in getAvailableFilters[
-                            option.attribute_code
-                          ]"
-                        >
-                          <option
-                            :key="filter.id"
-                            :value="JSON.stringify(filter)"
-                          >
-                            {{ filter.label }}
+                      <div
+                        class="basin_size"
+                        :class="option.attribute_code"
+                        v-else
+                      >
+                        <select @change="changeFilterCustom($event)">
+                          <option :value="null" :key="2378695843" selected>
+                            Please select
                           </option>
-                        </template>
-                      </select>
-                      <!-- <generic-selector
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <generic-selector
                         class="mr10 mb10"
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
@@ -413,8 +413,8 @@
                         :selected-filters="getSelectedFilters"
                         @change="changeFilter"
                       />-->
-                    </div>
-                    <!-- <span
+                      </div>
+                      <!-- <span
                       v-if="option.label == 'Size'"
                       @click="openSizeGuide"
                       class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
@@ -422,9 +422,9 @@
                       <i class="pr5 material-icons">accessibility</i>
                       <span>{{ $t('Size guide') }}</span>
                     </span>-->
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
 
               <!-- <div
@@ -2913,13 +2913,6 @@ i.product-detail-icon {
   @media (max-width: 767px) {
     padding-bottom: 30px;
   }
-
-  .sizes {
-    @media (max-width: 767px) {
-      width: 100%;
-    }
-  }
-
   .size-guide {
     height: 40px;
     @media (max-width: 767px) {
@@ -4649,5 +4642,28 @@ label.base-input-number__label.cl-primary.flex {
   color: #57c9c0;
   font-size: 14px;
   line-height: 30px;
+}
+.cl-primary.variants {
+  padding-left: 40px;
+}
+@media (max-width: 767px) {
+  .cl-primary.variants {
+    padding-left: 25px !important;
+  }
+}
+h4.variants-label.basin-head {
+  color: #071a44 !important;
+  margin-bottom: 5px;
+}
+.sizes.basin_size {
+  width: 95%;
+}
+.sizes.basin_size select {
+  width: 100%;
+  font-size: 16px;
+  border: 2px solid #071a44;
+  padding-left: 4px !important;
+  cursor: pointer;
+  background: none;
 }
 </style>
