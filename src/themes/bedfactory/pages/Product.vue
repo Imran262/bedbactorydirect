@@ -322,7 +322,7 @@
                       {{ option.label }}
                       <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                     </h4>
-                    <div class="row top-xs m0 pt15 pb40 variants-wrapper">
+                    <div class="row top-xs m0 variants-wrapper">
                       <div
                         class="sizes basin_size"
                         v-if="option.label == 'Color'"
@@ -3317,37 +3317,37 @@ a:not(.no-underline):hover:after {
   margin-bottom: 0px;
 }
 
-.add-to-cart button {
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: #071a44;
-  background-image: url(../assets/images/add-to-basket.jpg);
-  background-origin: padding-box;
-  background-position: 14% 45%;
-  background-repeat: no-repeat;
-  background-size: auto auto;
-  border: 2px solid #071a44;
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
-  display: block;
-  font-size: 14px;
-  max-width: 260px;
-  min-height: auto;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  font-family: Arial;
-  line-height: auto;
-  font-weight: bold;
-  padding: 15px 0px;
-  text-transform: uppercase;
-  margin-top: 5px;
-  float: right;
-  @media (max-width: 767px) {
-    background-position: 15% 45%;
-  }
-}
+// .add-to-cart button {
+//   background-attachment: scroll;
+//   background-clip: border-box;
+//   background-color: #071a44;
+//   background-image: url(../assets/images/add-to-basket.jpg);
+//   background-origin: padding-box;
+//   background-position: 14% 45%;
+//   background-repeat: no-repeat;
+//   background-size: auto auto;
+//   border: 2px solid #071a44;
+//   border-radius: 3px;
+//   color: #fff;
+//   cursor: pointer;
+//   display: block;
+//   font-size: 14px;
+//   max-width: 260px;
+//   min-height: auto;
+//   position: relative;
+//   text-align: center;
+//   width: 100%;
+//   font-family: Arial;
+//   line-height: auto;
+//   font-weight: bold;
+//   padding: 15px 0px;
+//   text-transform: uppercase;
+//   margin-top: 5px;
+//   float: right;
+//   @media (max-width: 767px) {
+//     background-position: 15% 45%;
+//   }
+// }
 
 .products-buttons {
   padding: 15px 0;
@@ -3733,6 +3733,7 @@ a:not(.no-underline):hover:after {
 
     .add-to-cart {
       padding: 20px 0px 20px 40px;
+      width: 100%;
       .h3 {
         display: block;
         margin: auto;
@@ -4069,7 +4070,7 @@ a:not(.no-underline):hover:after {
 </style>
 <style>
 .product-detail-inner .add-to-cart {
-    padding: 20px 0px 20px 40px;
+  padding: 20px 0px 20px 40px;
 }
 .bt-new-description-main ul {
   padding: 18px 0px 18px 18px;
@@ -4665,5 +4666,45 @@ h4.variants-label.basin-head {
   padding-left: 4px !important;
   cursor: pointer;
   background: none;
+}
+.cart-items {
+  width: 95%;
+  display: flex;
+}
+.float-right {
+  float: right;
+}
+.add-to-cart button {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-image: url('/assets/add-to-basket.jpg');
+  background-origin: padding-box;
+  background-position: 14% 45%;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  border: 2px solid #071a44;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  max-width: 260px;
+  min-height: auto;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  font-family: Arial;
+  font-weight: bold;
+  padding: 15px 0px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  float: right;
+  background: #071a44;
+}
+.disabled{
+    background-color: #071a44 !important;
+}
+.\:bg-cl-th-secondary:hover {
+    background-color: #071a44 !important;
 }
 </style>
