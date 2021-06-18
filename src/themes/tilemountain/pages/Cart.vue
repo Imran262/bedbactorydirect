@@ -943,7 +943,7 @@ if(this.productsInCart.length === 0){
   }
 
   .check-btn-outer {
-    padding: 30px 46px;
+    padding: 30px 20px;
   }
 
   .checkoutbutton {

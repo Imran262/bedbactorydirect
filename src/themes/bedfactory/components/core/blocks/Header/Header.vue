@@ -1,161 +1,169 @@
 <template>
   <div>
-  <div
-    class="header"
-    :class="
-      !isCheckoutPage && $route.name !== 'confirmorder'
-        ? 'notcheckoutheader'
-        : 'ischeckoutheader'
-    "
-  >
-    <header
-      class="w-100 bg-cl-primary brdr-cl-secondary"
-      :class="{
-        relativeHeader: scrollPosition < 100,
-        fixedHeader: scrollPosition > 100,
-      }"
+    <div
+      class="header"
+      :class="
+        !isCheckoutPage && $route.name !== 'confirmorder'
+          ? 'notcheckoutheader'
+          : 'ischeckoutheader'
+      "
     >
-      <div class="container px15">
-        <div
-          class="row between-xs middle-xs header-main"
-          v-if="
-            (!isCheckoutPage && $route.name !== 'confirmorder') ||
-            isThankYouPage
-          "
-        >
-          <div class="col-md-2 col-xs-4 pt5">
-            <div class="logo-desktop">
-              <logo width="150px" height="68px"/>
-            </div>
-          </div>
-          <div class="search-bar col-md-5 col-xs-12 middle-xs">
-            <div class="back-layout"></div>
-            <div>
-              <DesktopSearch @rightborder="rightborderfunction($event)"/>
-            </div>
-          </div>
-          <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
-            <div class="inline-flex sb-icons">
-              <Telephone
-                class="p15 icon pointer t-mobile"
-                :callText="phone"
-                :callNumber="call"
-              />
-              <div class="flex inner-icons">
-                <wishlist-icon class="icon pointer r-icons location-icon"/>
-                <account-icon class="icon pointer r-icons1 account-icon"/>
-            
-                <microcart-icon class="icon pointer r-icons"/>
+      <header
+        class="w-100 bg-cl-primary brdr-cl-secondary"
+        :class="{
+          relativeHeader: scrollPosition < 100,
+          fixedHeader: scrollPosition > 100,
+        }"
+      >
+        <div class="container px15">
+          <div
+            class="row between-xs middle-xs header-main"
+            v-if="
+              (!isCheckoutPage && $route.name !== 'confirmorder') ||
+              isThankYouPage
+            "
+          >
+            <div class="col-md-2 col-xs-4 pt5">
+              <div class="logo-desktop">
+                <logo width="150px" height="68px" />
               </div>
             </div>
-            <async-sidebar
-              ref="asyncSideBar"
-              :async-component="Microcart"
-              :is-open="isMicrocartOpen"
-              class="microcart-sidebar fullCloseCart"
-              style="display: none"
-              :class="
-                productsInCart.length > 0 ? 'productsPresent' : 'productsAbsent'
-              "
-              @close="$store.commit('ui/setMicrocart')"
-            />
+            <div class="search-bar col-md-5 col-xs-12 middle-xs">
+              <div class="back-layout"></div>
+              <div>
+                <DesktopSearch @rightborder="rightborderfunction($event)" />
+              </div>
+            </div>
+            <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
+              <div class="inline-flex sb-icons">
+                <Telephone
+                  class="p15 icon pointer t-mobile"
+                  :callText="phone"
+                  :callNumber="call"
+                />
+                <div class="flex inner-icons">
+                  <wishlist-icon class="icon pointer r-icons location-icon" />
+                  <account-icon class="icon pointer r-icons1 account-icon" />
+
+                  <microcart-icon class="icon pointer r-icons" />
+                </div>
+              </div>
+              <async-sidebar
+                ref="asyncSideBar"
+                :async-component="Microcart"
+                :is-open="isMicrocartOpen"
+                class="microcart-sidebar fullCloseCart"
+                style="display: none"
+                :class="
+                  productsInCart.length > 0
+                    ? 'productsPresent'
+                    : 'productsAbsent'
+                "
+                @close="$store.commit('ui/setMicrocart')"
+              />
+            </div>
           </div>
-        </div>
-        <div
-          class="row between-xs middle-xs px15 py5"
-          v-if="
-            (isCheckoutPage || $route.name === 'confirmorder') &&
-            !isThankYouPage
-          "
-        >
-          <!-- <div class="col-xs-5 col-md-3 middle-xs">
+          <div
+            class="row between-xs middle-xs px15 py5"
+            v-if="
+              (isCheckoutPage || $route.name === 'confirmorder') &&
+              !isThankYouPage
+            "
+          >
+            <!-- <div class="col-xs-5 col-md-3 middle-xs">
             <div>
               <router-link :to="localizedRoute('/')" class="cl-tertiary links">
                 {{ $t("Return to shopping") }}
               </router-link>
             </div>
           </div> -->
-          <div class="col-xs-5 col-md-6">
-            <!-- <logo width="auto" height="41px" /> -->
-            <router-link :to="localizedRoute('/')" class="cl-tertiary links">
-              <img
-                width="133"
-                height="60"
-                class="checkout-logo"
-                :src="checkoutLogoPath"
-                alt="checkout logo"
-              />
-            </router-link>
-          </div>
-          <div class="col-xs-7 col-md-6 end-xs">
-            <div>
-              <Telephone :from-checkout-page="true" :callText="phone"  :callNumber="call"/>
-              <a
-                v-if="!currentUser"
-                href="#"
-                @click.prevent="gotoAccount"
-                class="cl-tertiary links"
-              ><img src="/assets/checkout-user.png" alt="checkout user"
-              /></a>
-              <span v-else>{{
-                  $t('You are logged in as {firstname}', currentUser)
+            <div class="col-xs-5 col-md-6">
+              <!-- <logo width="auto" height="41px" /> -->
+              <router-link :to="localizedRoute('/')" class="cl-tertiary links">
+                <img
+                  width="133"
+                  height="60"
+                  class="checkout-logo"
+                  :src="checkoutLogoPath"
+                  alt="checkout logo"
+                />
+              </router-link>
+            </div>
+            <div class="col-xs-7 col-md-6 end-xs">
+              <div>
+                <Telephone
+                  :from-checkout-page="true"
+                  :callText="phone"
+                  :callNumber="call"
+                />
+                <a
+                  v-if="!currentUser"
+                  href="#"
+                  @click.prevent="gotoAccount"
+                  class="cl-tertiary links"
+                  ><img src="/assets/checkout-user.png" alt="checkout user"
+                /></a>
+                <span v-else>{{
+                  $t("You are logged in as {firstname}", currentUser)
                 }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- <nav>
+        <!-- <nav>
         <MainMenu class="hidden-xs" />
         <hamburger-icon class="sb-mobile-menu pointer hidden-md" />
       </nav> -->
-      <nav>
-        <header-menu class="navigation"/>
-        <hamburger-icon
-          v-if="
-            (!isCheckoutPage && $route.name !== 'confirmorder') ||
-            isThankYouPage
-          "
-          class="sb-mobile-menu pointer hidden-md"
-          :rightborder="rightborder"
-        />
-      </nav>
-    </header>
-    <div class="scroll" @click="animateToTop()">
-<span class="scrollimage"><img src="/assets/icons/arrowupicon.png"></span>
-</div>
-    <!-- <div class="header-placeholder" /> -->
-  </div>
-  <!-- <CutSampleModelHome /> -->
+        <nav>
+          <header-menu class="navigation" />
+          <hamburger-icon
+            v-if="
+              (!isCheckoutPage && $route.name !== 'confirmorder') ||
+              isThankYouPage
+            "
+            class="sb-mobile-menu pointer hidden-md"
+            :rightborder="rightborder"
+          />
+        </nav>
+      </header>
+      <div class="scroll" @click="animateToTop()">
+        <span class="scrollimage"
+          ><img src="/assets/icons/arrowupicon.png"
+        /></span>
+      </div>
+      <!-- <div class="header-placeholder" /> -->
+    </div>
+    <!-- <CutSampleModelHome /> -->
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
-import { mapGetters, mapActions } from 'vuex'
-import CurrentPage from 'theme/mixins/currentPage'
-import AccountIcon from 'src/themes/bedfactory/components/core/blocks/Header/AccountIcon'
-import CompareIcon from 'theme/components/core/blocks/Header/CompareIcon'
-import HamburgerIcon from 'theme/components/core/blocks/Header/HamburgerIcon'
-import Logo from 'theme/components/core/Logo'
-import MicrocartIcon from 'src/themes/bedfactory/components/core/blocks/Header/MicrocartIcon'
-import SearchIcon from 'theme/components/core/blocks/Header/SearchIcon'
-import WishlistIcon from 'theme/components/core/blocks/Header/WishlistIcon'
-import DesktopSearch from 'theme/components/core/blocks/Header/DesktopSearch'
-import Telephone from 'theme/components/core/blocks/PhoneNumber/Telephone'
-import Phonenumber from 'src/themes/bedfactory/components/core/blocks/PhoneNumber/Phonenumber'
-import MainMenu from 'theme/components/core/blocks/Header/MainMenu'
-import AsyncSidebar from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebar.vue'
-import Overlay from 'theme/components/core/Overlay.vue'
-import HeaderMenu from 'src/themes/bedfactory/components/core/blocks/HeaderMenu/HeaderMegaMenu'
-import CutSampleModelHome from 'theme/components/core/blocks/Footer/CutSampleModelHome.vue'
-import config from 'config'
-import { themeConfigurations } from '@vue-storefront/core/helpers';
+import { mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import CurrentPage from "theme/mixins/currentPage";
+import AccountIcon from "src/themes/bedfactory/components/core/blocks/Header/AccountIcon";
+import CompareIcon from "theme/components/core/blocks/Header/CompareIcon";
+import HamburgerIcon from "theme/components/core/blocks/Header/HamburgerIcon";
+import Logo from "theme/components/core/Logo";
+import MicrocartIcon from "src/themes/bedfactory/components/core/blocks/Header/MicrocartIcon";
+import SearchIcon from "theme/components/core/blocks/Header/SearchIcon";
+import WishlistIcon from "theme/components/core/blocks/Header/WishlistIcon";
+import DesktopSearch from "theme/components/core/blocks/Header/DesktopSearch";
+import Telephone from "theme/components/core/blocks/PhoneNumber/Telephone";
+import Phonenumber from "src/themes/bedfactory/components/core/blocks/PhoneNumber/Phonenumber";
+import MainMenu from "theme/components/core/blocks/Header/MainMenu";
+import AsyncSidebar from "theme/components/theme/blocks/AsyncSidebar/AsyncSidebar.vue";
+import Overlay from "theme/components/core/Overlay.vue";
+import HeaderMenu from "src/themes/bedfactory/components/core/blocks/HeaderMenu/HeaderMegaMenu";
+import CutSampleModelHome from "theme/components/core/blocks/Footer/CutSampleModelHome.vue";
+import config from "config";
+import { themeConfigurations } from "@vue-storefront/core/helpers";
 
 const Microcart = () =>
   import(
-    /* webpackPreload: true */ /* webpackChunkName: "vsf-microcart" */ 'theme/components/core/blocks/Microcart/Microcart.vue'
-    )
+    /* webpackPreload: true */ /* webpackChunkName: "vsf-microcart" */ "theme/components/core/blocks/Microcart/Microcart.vue"
+  );
 export default {
-  name: 'Header',
+  name: "Header",
   components: {
     CutSampleModelHome,
     AccountIcon,
@@ -171,10 +179,10 @@ export default {
     WishlistIcon,
     AsyncSidebar,
     Overlay,
-    HeaderMenu
+    HeaderMenu,
   },
   mixins: [CurrentPage],
-  data () {
+  data() {
     return {
       navVisible: true,
       isScrolling: false,
@@ -184,141 +192,138 @@ export default {
       Microcart,
       rightborder: false,
       scrollPosition: null,
-      phone : config.phoneNumber.toShow,
-      call:config.phoneNumber.toCall
-    }
+      phone: config.phoneNumber.toShow,
+      call: config.phoneNumber.toCall,
+    };
   },
-  async beforeRouteEnter (to, from, next) {
-    console.log("789456  header",this.productsInCart.length);
+  async beforeRouteEnter(to, from, next) {
+    console.log("789456  header", this.productsInCart.length);
   },
-  watch:{
-        '$route.name': function (to, from) {
-      if (from === 'checkout' && to !== 'cart') {
-        document.getElementById('app').style.overflowX  = "hidden";
-        document.getElementById('viewport').style.overflow = "hidden";
-      } 
-      if (from === 'cart' && to !== 'checkout') {
-        document.getElementById('app').style.overflowX  = "hidden";
-        document.getElementById('viewport').style.overflow = "hidden";
-      } 
-    },
-    $route (to, from){
-      // console.log("789456 In Header",this.$route,to,from);
-      if (to.name==="cart"){
-        console.log("789456 Header ",this.productsInCart.length);
-        if(this.productsInCart.length === 0){
-          console.log("789456 Cart is Empty ");
-          this.$router.push(this.localizedRoute('/'))
-          }
+  watch: {
+    "$route.name": function (to, from) {
+      if (from === "checkout" && to !== "cart") {
+        document.getElementById("app").style.overflowX = "hidden";
+        document.getElementById("viewport").style.overflow = "hidden";
       }
-
-           }
-      },
+      if (from === "cart" && to !== "checkout") {
+        document.getElementById("app").style.overflowX = "hidden";
+        document.getElementById("viewport").style.overflow = "hidden";
+      }
+    },
+    $route(to, from) {
+      // console.log("789456 In Header",this.$route,to,from);
+      if (to.name === "cart") {
+        console.log("789456 Header ", this.productsInCart.length);
+        if (this.productsInCart.length === 0) {
+          console.log("789456 Cart is Empty ");
+          this.$router.push(this.localizedRoute("/"));
+        }
+      }
+    },
+  },
   computed: {
     ...mapState({
       isOpenLogin: (state) => state.ui.signUp,
       currentUser: (state) => state.user.current,
-      isMicrocartOpen: (state) => state.ui.microcart
+      isMicrocartOpen: (state) => state.ui.microcart,
     }),
     ...mapGetters({
-      productsInCart: 'cart/getCartItems',
-      totals: 'cart/getTotals'
+      productsInCart: "cart/getCartItems",
+      totals: "cart/getTotals",
     }),
-    isThankYouPage () {
+    isThankYouPage() {
       return this.$store.state.checkout.isThankYouPage
         ? this.$store.state.checkout.isThankYouPage
-        : false
+        : false;
     },
-    checkoutLogoPath () {
-      return '/assets/logo.svg';
-    }
+    checkoutLogoPath() {
+      return "/assets/logo.svg";
+    },
   },
-  beforeMount () {
-    history.scrollRestoration = 'auto'
+  beforeMount() {
+    history.scrollRestoration = "auto";
 
-      console.log("789456 In Header ",this.$route);
-       if (this.$route.name==="cart"){
-        console.log("789456 Header ",this.productsInCart.length);
-if(this.productsInCart.length === 0){
-  console.log("789456 Cart is Empty ");
-  this.$router.push(this.localizedRoute('/'))
-}
+    console.log("789456 In Header ", this.$route);
+    if (this.$route.name === "cart") {
+      console.log("789456 Header ", this.productsInCart.length);
+      if (this.productsInCart.length === 0) {
+        console.log("789456 Cart is Empty ");
+        this.$router.push(this.localizedRoute("/"));
       }
-     
+    }
 
-           
     window.addEventListener(
-      'scroll',
+      "scroll",
       () => {
-        this.isScrolling = true
+        this.isScrolling = true;
       },
       { passive: true }
-    )
+    );
     setInterval(() => {
       if (this.isScrolling) {
-        this.hasScrolled()
-        this.isScrolling = false
+        this.hasScrolled();
+        this.isScrolling = false;
       }
-    }, 250)
-    this.$bus.$on('dontShowValue', () => {
-      this.cutSampleshow = true
-    })
+    }, 250);
+    this.$bus.$on("dontShowValue", () => {
+      this.cutSampleshow = true;
+    });
   },
-  mounted () {
-    window.addEventListener('scroll', this.updateScroll)
-    document.addEventListener('scroll', () => {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop
+  mounted() {
+    window.addEventListener("scroll", this.updateScroll);
+    document.addEventListener("scroll", () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > 100) {
-        document.querySelector('.scroll').style.display = 'block';
+        document.querySelector(".scroll").style.display = "block";
       } else {
-        document.querySelector('.scroll').style.display = 'none';
+        document.querySelector(".scroll").style.display = "none";
       }
-    })
+    });
   },
-  destroy () {
-    window.removeEventListener('scroll', this.updateScroll)
+  destroy() {
+    window.removeEventListener("scroll", this.updateScroll);
   },
   methods: {
-    animateToTop (e) {
+    animateToTop(e) {
       let scrollToTop = window.setInterval(function () {
-          let pos = window.pageYOffset
-          if (pos > 0 && pageYOffset >= 10) {
-            window.scrollTo(0, pos - 110)
-            document.querySelector('.scrollimage').style.visibility = 'visible'
-          } else {
-            window.clearInterval(scrollToTop)
-            document.querySelector('.scrollimage').style.visibility = 'visible'
-          }
+        let pos = window.pageYOffset;
+        if (pos > 0 && pageYOffset >= 10) {
+          window.scrollTo(0, pos - 110);
+          document.querySelector(".scrollimage").style.visibility = "visible";
+        } else {
+          window.clearInterval(scrollToTop);
+          document.querySelector(".scrollimage").style.visibility = "visible";
         }
-      )
+      });
     },
-    rightborderfunction (border) {
-      this.rightborder = border
+    rightborderfunction(border) {
+      this.rightborder = border;
     },
-    gotoAccount () {
-      this.$bus.$emit('modal-toggle', 'modal-signup')
+    gotoAccount() {
+      this.$bus.$emit("modal-toggle", "modal-signup");
     },
-    updateScroll () {
-      this.scrollPosition = window.scrollY
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
     },
-    hasScrolled () {
-      this.scrollTop = window.scrollY
-      this.navVisible = !(this.scrollTop > this.lastScrollTop &&
-        this.scrollTop > this.navbarHeight)
-      this.lastScrollTop = this.scrollTop
-    }
-  }
+    hasScrolled() {
+      this.scrollTop = window.scrollY;
+      this.navVisible = !(
+        this.scrollTop > this.lastScrollTop &&
+        this.scrollTop > this.navbarHeight
+      );
+      this.lastScrollTop = this.scrollTop;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
 .header-icon {
-    margin-left: 50px;
+  margin-left: 50px;
 }
-
 
 .relativeHeader .navigation {
   position: relative;
@@ -341,7 +346,7 @@ if(this.productsInCart.length === 0){
   @media (max-width: 1199px) and(min-width: 992px) {
     padding-left: 8px;
   }
-  @media (max-width: 767px){
+  @media (max-width: 767px) {
     padding-left: 0px;
   }
 }
@@ -365,7 +370,7 @@ header {
     .wishlist-text {
       span {
         font-size: 0.671875rem;
-        font-family: 'Open Sans';
+        font-family: "Open Sans";
         color: #808898;
       }
     }
@@ -389,26 +394,26 @@ header {
     }
   }
 }
-@media (min-width: 1200px){
-.r-icons {
-  padding: 12px 34px 12px 12px;
-  // padding: 0px;
-}
+@media (min-width: 1200px) {
+  .r-icons {
+    padding: 12px 34px 12px 12px;
+    // padding: 0px;
+  }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-.r-icons {
-  padding: 12px 22px 12px 12px;
-  // padding: 0px;
-}
-.r-icons1{
+  .r-icons {
+    padding: 12px 22px 12px 12px;
+    // padding: 0px;
+  }
+  .r-icons1 {
     padding: 12px 22px 12px 12px !important;
-}
+  }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-.r-icons {
-  padding: 12px 7px 12px 4px;
-  // padding: 0px;
-}
+  .r-icons {
+    padding: 12px 7px 12px 4px;
+    // padding: 0px;
+  }
 }
 .r-icons1 {
   padding: 12px 36px 12px 12px;
@@ -559,7 +564,6 @@ header {
     width: 13.7vw;
   }
   .ischeckoutheader .bg-cl-primary {
-    background: #2a275c !important;
     padding: 10px 0px 15px 0px;
     height: auto;
   }
@@ -597,15 +601,14 @@ header {
   }
 }
 
-
 //
 @media (max-width: 992px) and (min-width: 768px) {
-  .inner-icons{
+  .inner-icons {
     padding-left: 2px;
-}
-.r-icons1{
-    padding:10px;
-}
+  }
+  .r-icons1 {
+    padding: 10px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -643,7 +646,7 @@ span.scrollimg:after {
   background-image: none;
   border: solid #333;
   transform: rotate(45deg);
-  content: '';
+  content: "";
   display: block;
   width: 10px;
   height: 10px;
@@ -658,18 +661,18 @@ span.scrollimg:after {
     display: none !important;
   }
 }
-@media (max-width: 1199px) and (min-width:993px){
-.header-icon{
+@media (max-width: 1199px) and (min-width: 993px) {
+  .header-icon {
     margin-left: 30px;
+  }
 }
-}
-.scrollimage{
+.scrollimage {
   padding-left: 13px;
-  img{
+  img {
     color: black;
     width: 23px;
     height: 23px;
-    transform: rotate( 268deg );
+    transform: rotate(268deg);
     margin-top: 12px;
   }
 }
@@ -680,7 +683,6 @@ span.scrollimg:after {
 }
 
 @media screen and (min-width: 768px) {
-
   .back-layout {
     position: fixed;
     z-index: 3;
@@ -694,6 +696,5 @@ span.scrollimg:after {
     opacity: 0.5;
     display: none;
   }
-
 }
 </style>
