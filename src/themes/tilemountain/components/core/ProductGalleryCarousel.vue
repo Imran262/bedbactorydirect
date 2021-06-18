@@ -634,4 +634,8 @@ figure {
   display: block;
   margin: 0px;
 }
+figure img {
+    width: 100%;
+    object-fit: cover;
+}
 </style>
