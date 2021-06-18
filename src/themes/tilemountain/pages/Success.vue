@@ -1,14 +1,6 @@
 <template>
   <div>
     <header class="thank-you-title bg-cl-secondary pl20">
-      <div class="container">
-        <breadcrumbs
-          :with-homepage="true"
-          :routes="[]"
-          :active-route="this.$t('Order confirmation')"
-        />
-        <h2 class="category-title hidden">{{ $t('Order confirmation') }}</h2>
-      </div>
     </header>
     <div class="container mobile-container">
       <div class="row">
