@@ -194,7 +194,7 @@
             :value="
               getCurrentSearchQuery.sort ? getCurrentSearchQuery.sort : ''
             "
-            :filters="getAvailableFilters"
+            :filters="categoryFilters"
             @changeFilter="changeFilter"
             :prodlisting="
               isListingProducts ||
@@ -233,7 +233,7 @@
         <div class="col-md-3 start-xs mobile-filters" v-if="mobileFilters">
           <sidebar
             class="mobile-filters-body"
-            :filters="getAvailableFilters"
+            :filters="categoryFilters"
             @changeFilter="changeFilter"
           />
           <div class="sticky pb10">
@@ -478,6 +478,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      categoryFilters: {},
       bottompagination: false,
       product_link: '',
       mobileFilters: false,
@@ -591,6 +592,7 @@ export default {
     this.handleResize()
   },
   async mounted () {
+    this.getAvailableFiltersCustom();
     this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
     window.addEventListener('resize', this.myEventHandler)
     this.children = await this.fetchCategoriesAndSubCategories()
@@ -723,6 +725,22 @@ export default {
     }
   },
   methods: {
+    getAvailableFiltersCustom(){
+      let catFilters = {...this.getAvailableFilters};
+      console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+      if(catFilters.filter_size && catFilters.filter_size.length >0){
+        catFilters.filter_size.sort(function (a, b) {
+          // if (a.id>b.id){
+          //   return 1
+          // }
+         return a.id -b.id
+        })
+        console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+      }
+      this.categoryFilters= catFilters;
+      return catFilters
+    
+    },
     gototop () {
       setTimeout(() => {
         localStorage.setItem("topLevelCategoryPosition", '')

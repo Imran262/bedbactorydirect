@@ -175,7 +175,7 @@ export default {
   methods: {
     getBrandImage() {
       let imagelocation = '/assets/brandLogo/';
-      console.log('filters.brand', this.filters);
+      // console.log('filters.brand', this.filters);
       //  return imagelocation;
       if (this.filters && this.filters.brand){
 
