@@ -298,82 +298,82 @@
                   />
                 </div>
                 <div
-                class="cl-primary variants"
-                v-if="getCurrentProduct.type_id == 'configurable'"
-              >
-                <div
-                  class="error"
-                  v-if="
-                    getCurrentProduct.errors &&
-                    Object.keys(getCurrentProduct.errors).length > 0
-                  "
+                  class="cl-primary variants"
+                  v-if="getCurrentProduct.type_id == 'configurable'"
                 >
-                  <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
-                </div>
-                <div
-                  class="h5"
-                  v-for="option in getProductOptions" 
-                  :key="option.id"
-                >
-                  <h4
-                    class="variants-label basin-head"
-                    data-testid="variantsLabel"
+                  <div
+                    class="error"
+                    v-if="
+                      getCurrentProduct.errors &&
+                      Object.keys(getCurrentProduct.errors).length > 0
+                    "
                   >
-                    {{ option.label }}
-                    <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
-                  </h4>
-                  <div class="row top-xs m0 pt15 pb40 variants-wrapper">
-                    <div
-                      class="sizes basin_size"
-                      v-if="option.label == 'Color'"
+                    <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
+                  </div>
+                  <div
+                    class="h5"
+                    v-for="option in getProductOptions"
+                    :key="option.id"
+                  >
+                    <h4
+                      class="variants-label basin-head"
+                      data-testid="variantsLabel"
                     >
-                      <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>
-                          Please select
-                        </option>
-                        <template
-                          v-for="filter in getAvailableFilters[
-                            option.attribute_code
-                          ]"
-                        >
-                          <option
-                            :key="filter.id"
-                            :value="JSON.stringify(filter)"
-                          >
-                            {{ filter.label }}
+                      {{ option.label }}
+                      <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
+                    </h4>
+                    <div class="row top-xs m0 pt15 pb40 variants-wrapper">
+                      <div
+                        class="sizes basin_size"
+                        v-if="option.label == 'Color'"
+                      >
+                        <select @change="changeFilterCustom($event)">
+                          <option :value="null" :key="2378695843" selected>
+                            Please select
                           </option>
-                        </template>
-                      </select>
-                      <!-- <color-selector
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <color-selector
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
                         :variant="filter"
                         :selected-filters="getSelectedFilters"
                         @change="changeFilter"
                       />-->
-                    </div>
-                    <div
-                      class="sizes basin_size"
-                      v-else-if="option.label == 'Size'"
-                    >
-                      <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>
-                          Please select
-                        </option>
-                        <template
-                          v-for="filter in getAvailableFilters[
-                            option.attribute_code
-                          ]"
-                        >
-                          <option
-                            :key="filter.id"
-                            :value="JSON.stringify(filter)"
-                          >
-                            {{ filter.label }}
+                      </div>
+                      <div
+                        class="sizes basin_size"
+                        v-else-if="option.label == 'Size'"
+                      >
+                        <select @change="changeFilterCustom($event)">
+                          <option :value="null" :key="2378695843" selected>
+                            Please select
                           </option>
-                        </template>
-                      </select>
-                      <!-- <size-selector
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <size-selector
                         class="mr10 mb10"
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
@@ -381,31 +381,31 @@
                         :selected-filters="getSelectedFilters"
                         @change="changeFilter"
                       />-->
-                    </div>
+                      </div>
 
-                    <div
-                      class="basin_size"
-                      :class="option.attribute_code"
-                      v-else
-                    >
-                      <select @change="changeFilterCustom($event)">
-                        <option :value="null" :key="2378695843" selected>
-                          Please select
-                        </option>
-                        <template
-                          v-for="filter in getAvailableFilters[
-                            option.attribute_code
-                          ]"
-                        >
-                          <option
-                            :key="filter.id"
-                            :value="JSON.stringify(filter)"
-                          >
-                            {{ filter.label }}
+                      <div
+                        class="basin_size"
+                        :class="option.attribute_code"
+                        v-else
+                      >
+                        <select @change="changeFilterCustom($event)">
+                          <option :value="null" :key="2378695843" selected>
+                            Please select
                           </option>
-                        </template>
-                      </select>
-                      <!-- <generic-selector
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <generic-selector
                         class="mr10 mb10"
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
@@ -413,8 +413,8 @@
                         :selected-filters="getSelectedFilters"
                         @change="changeFilter"
                       />-->
-                    </div>
-                    <!-- <span
+                      </div>
+                      <!-- <span
                       v-if="option.label == 'Size'"
                       @click="openSizeGuide"
                       class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
@@ -422,9 +422,9 @@
                       <i class="pr5 material-icons">accessibility</i>
                       <span>{{ $t('Size guide') }}</span>
                     </span>-->
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
 
               <!-- <div
@@ -835,82 +835,82 @@
 <script>
 // import i18n from '@vue-storefront/i18n';
 // import VueOfflineMixin from 'vue-offline/mixin';
-import CmsBlock from "src/themes/bedfactory/components/core/blocks/Cms/DeliveryBlock"
-import config from 'config';
-import RelatedProducts from 'src/themes/bedfactory/components/core/blocks/Product/Related.vue';
-import Reviews from 'theme/components/core/blocks/Reviews/Reviews.vue';
-import AddToCart from 'theme/components/core/AddToCart.vue';
-import GenericSelector from 'theme/components/core/GenericSelector';
-import ColorSelector from 'theme/components/core/ColorSelector.vue';
-import SizeSelector from 'theme/components/core/SizeSelector.vue';
-import Breadcrumbs from 'theme/components/core/Breadcrumbs.vue';
-import ProductAttribute from 'theme/components/core/ProductAttribute.vue';
-import ProductQuantity from 'theme/components/core/ProductQuantity.vue';
-import addtobasket from 'theme/components/core/AddTobasketModal';
-import clearancemodal from 'theme/components/core/ClearanceModal';
-import OutOfStockModal from 'theme/components/core/OutOfStockModal';
-import ProductQuantitySqm from 'theme/components/core/ProductQuantitySqm.vue';
+import CmsBlock from "src/themes/bedfactory/components/core/blocks/Cms/DeliveryBlock";
+import config from "config";
+import RelatedProducts from "src/themes/bedfactory/components/core/blocks/Product/Related.vue";
+import Reviews from "theme/components/core/blocks/Reviews/Reviews.vue";
+import AddToCart from "theme/components/core/AddToCart.vue";
+import GenericSelector from "theme/components/core/GenericSelector";
+import ColorSelector from "theme/components/core/ColorSelector.vue";
+import SizeSelector from "theme/components/core/SizeSelector.vue";
+import Breadcrumbs from "theme/components/core/Breadcrumbs.vue";
+import ProductAttribute from "theme/components/core/ProductAttribute.vue";
+import ProductQuantity from "theme/components/core/ProductQuantity.vue";
+import addtobasket from "theme/components/core/AddTobasketModal";
+import clearancemodal from "theme/components/core/ClearanceModal";
+import OutOfStockModal from "theme/components/core/OutOfStockModal";
+import ProductQuantitySqm from "theme/components/core/ProductQuantitySqm.vue";
 // import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/tilemountain/components/core/productQuantitySqm.vue"
-import ProductLinks from 'theme/components/core/ProductLinks.vue';
+import ProductLinks from "theme/components/core/ProductLinks.vue";
 // import ProductCustomOptions from '/home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactory/components/core/ProductCustomOptions.vue';
-import ProductCustomOptions from '../components/core/ProductCustomOptions';
-import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue';
-import VinylRecommendedItems from 'theme/components/core/vinyl/VinylRecommendedItem';
-import ProductGallery from 'theme/components/core/ProductGallery';
-import Spinner from 'theme/components/core/Spinner';
-import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers';
-import focusClean from 'theme/components/theme/directives/focusClean';
-import WebShare from 'theme/components/theme/WebShare';
-import CutSizeSample from 'src/modules/cut-full-sample/components/CutSizeSample';
-import FullSizeSample from 'src/modules/cut-full-sample/components/FullSizeSample';
-import HalfSizeSample from 'src/modules/cut-full-sample/components/HalfSizeSample';
-import QSizeSample from 'src/modules/cut-full-sample/components/QSizeSample';
-import AddedToBasket from 'src/modules/cut-full-sample/components/AddedToBasket';
-import CalculatorModal from 'theme/components/core/CalculatorModal';
-import CutSampleModal from 'theme/components/core/CutSampleModal';
-import rating from 'theme/components/core/blocks/Reviews/Rating';
-import { mapGetters } from 'vuex';
-import NoSSR from 'vue-no-ssr';
-import LazyHydrate from 'vue-lazy-hydration';
-import { ProductOption } from '@vue-storefront/core/modules/catalog/components/ProductOption.ts';
+import ProductCustomOptions from "../components/core/ProductCustomOptions";
+import ProductBundleOptions from "theme/components/core/ProductBundleOptions.vue";
+import VinylRecommendedItems from "theme/components/core/vinyl/VinylRecommendedItem";
+import ProductGallery from "theme/components/core/ProductGallery";
+import Spinner from "theme/components/core/Spinner";
+import PromotedOffers from "theme/components/theme/blocks/PromotedOffers/PromotedOffers";
+import focusClean from "theme/components/theme/directives/focusClean";
+import WebShare from "theme/components/theme/WebShare";
+import CutSizeSample from "src/modules/cut-full-sample/components/CutSizeSample";
+import FullSizeSample from "src/modules/cut-full-sample/components/FullSizeSample";
+import HalfSizeSample from "src/modules/cut-full-sample/components/HalfSizeSample";
+import QSizeSample from "src/modules/cut-full-sample/components/QSizeSample";
+import AddedToBasket from "src/modules/cut-full-sample/components/AddedToBasket";
+import CalculatorModal from "theme/components/core/CalculatorModal";
+import CutSampleModal from "theme/components/core/CutSampleModal";
+import rating from "theme/components/core/blocks/Reviews/Rating";
+import { mapGetters } from "vuex";
+import NoSSR from "vue-no-ssr";
+import LazyHydrate from "vue-lazy-hydration";
+import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption.ts";
 import {
   getAvailableFiltersByProduct,
-  getSelectedFiltersByProduct
-} from '@vue-storefront/core/modules/catalog/helpers/filters';
-import { isOptionAvailableAsync } from '@vue-storefront/core/modules/catalog/helpers/index';
+  getSelectedFiltersByProduct,
+} from "@vue-storefront/core/modules/catalog/helpers/filters";
+import { isOptionAvailableAsync } from "@vue-storefront/core/modules/catalog/helpers/index";
 import {
   localizedRoute,
-  currentStoreView
-} from '@vue-storefront/core/lib/multistore';
-import { htmlDecode } from '@vue-storefront/core/filters';
-import { ReviewModule } from '@vue-storefront/core/modules/review';
-import { RecentlyViewedModule } from '@vue-storefront/core/modules/recently-viewed';
+  currentStoreView,
+} from "@vue-storefront/core/lib/multistore";
+import { htmlDecode } from "@vue-storefront/core/filters";
+import { ReviewModule } from "@vue-storefront/core/modules/review";
+import { RecentlyViewedModule } from "@vue-storefront/core/modules/recently-viewed";
 import {
   registerModule,
-  isModuleRegistered
-} from '@vue-storefront/core/lib/modules';
+  isModuleRegistered,
+} from "@vue-storefront/core/lib/modules";
 import {
   onlineHelper,
-  isServer
+  isServer,
   // productJsonLd,
-} from '@vue-storefront/core/helpers';
-import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks';
-import { doPlatformPricesSync } from '@vue-storefront/core/modules/catalog/helpers';
-import { filterChangedProduct } from '@vue-storefront/core/modules/catalog/events';
-import Modal from 'theme/components/core/Modal.vue';
-import RecentlyViewedItems from 'theme/components/RecentlyViewedItems';
-import axios from 'axios';
-import WastePercentToggle from 'theme/components/core/WastePercentToggle';
-import { CartService } from '@vue-storefront/core/data-resolver';
-import { prepareRelatedQuery } from '@vue-storefront/core/modules/catalog/queries/related';
+} from "@vue-storefront/core/helpers";
+import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks";
+import { doPlatformPricesSync } from "@vue-storefront/core/modules/catalog/helpers";
+import { filterChangedProduct } from "@vue-storefront/core/modules/catalog/events";
+import Modal from "theme/components/core/Modal.vue";
+import RecentlyViewedItems from "theme/components/RecentlyViewedItems";
+import axios from "axios";
+import WastePercentToggle from "theme/components/core/WastePercentToggle";
+import { CartService } from "@vue-storefront/core/data-resolver";
+import { prepareRelatedQuery } from "@vue-storefront/core/modules/catalog/queries/related";
 // import QuickCheckoutModel from 'theme/components/core/blocks/QuickCheckout/QuickCheckoutModel';
-import { getThumbnailPath } from '@vue-storefront/core/helpers';
-import ReviewItemImageModel from 'theme/components/core/blocks/Reviews/ReviewItemImageModel';
-import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker"
-import ProductPrice from "src/themes/bedfactory/components/core/ProductPrice.vue"
-                         //theme/components/core/blocks/ColorPicker/ColorPicker.vue
+import { getThumbnailPath } from "@vue-storefront/core/helpers";
+import ReviewItemImageModel from "theme/components/core/blocks/Reviews/ReviewItemImageModel";
+import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker";
+import ProductPrice from "src/themes/bedfactory/components/core/ProductPrice.vue";
+//theme/components/core/blocks/ColorPicker/ColorPicker.vue
 export default {
-  name: 'ProductPage',
+  name: "ProductPage",
   components: {
     ProductPrice,
     CmsBlock,
@@ -935,9 +935,9 @@ export default {
     OutOfStockModal,
     RecentlyViewedItems,
     addtobasket,
-    Carousel: () => import('vue-carousel').then(Slider => Slider.Carousel),
-    Slide: () => import('vue-carousel').then(Slider => Slider.Slide),
-    'no-ssr': NoSSR,
+    Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
+    Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
+    "no-ssr": NoSSR,
     ProductQuantity,
     ProductQuantitySqm,
     Modal,
@@ -949,7 +949,7 @@ export default {
     HalfSizeSample,
     QSizeSample,
     AddedToBasket,
-    ReviewItemImageModel
+    ReviewItemImageModel,
   },
   mixins: [ProductOption],
   directives: { focusClean },
@@ -959,12 +959,12 @@ export default {
   },
   data() {
     return {
-       detailsOpen: false,
-       ProDeliveryShow: true,
+      detailsOpen: false,
+      ProDeliveryShow: true,
       ProReviewShow: true,
       ProDimensionShow: true,
-        sendProductCustomOptions: [],
-        colorPickerCheck: false,
+      sendProductCustomOptions: [],
+      colorPickerCheck: false,
       loaded: false,
       reviewData: null,
       cartItems: 0,
@@ -992,8 +992,8 @@ export default {
       wastePercentage: 0,
       addWasteRadioCalculator: false,
       availableSamplesTypes: null,
-      adhesiveSku: '5K70003',
-      groutSku: '6011005A',
+      adhesiveSku: "5K70003",
+      groutSku: "6011005A",
       cartDisabledOnQuoteItemBased: false,
       customerPhotosGallery: [],
       reverseSqm: null,
@@ -1001,21 +1001,21 @@ export default {
       reverseTileQty: null,
       similar_products: {
         skus: [],
-        items: []
+        items: [],
       },
       sqmCheckForModelType: true,
       payload: {
         data: {
-          product_id: '',
-          item_id: '',
-          fixing_type: '',
-          applied_material: '',
-          grout_width: '',
-          total_qty: '',
-          sqm: ''
-        }
+          product_id: "",
+          item_id: "",
+          fixing_type: "",
+          applied_material: "",
+          grout_width: "",
+          total_qty: "",
+          sqm: "",
+        },
       },
-      currentUserTiles: '',
+      currentUserTiles: "",
       groutAdhesiveOptions: [],
       tilesQuantity: 0,
       minSqmValue: 0,
@@ -1023,30 +1023,30 @@ export default {
       madeOf: [],
       groutJoint: [],
       vinylPayload: {
-        productId: 0
+        productId: 0,
       },
       vinylProducts: {
         recommend: [],
         skus: [],
         skuItems: [],
-        recommendItems: []
+        recommendItems: [],
       },
       vinylProductPrice: 0,
       vinylRecommendedItemPrice: 0,
-      reRender:0,
-      calculatedProductPrice :{}
+      reRender: 0,
+      calculatedProductPrice: {},
     };
   },
   computed: {
     ...mapGetters({
-      getCurrentCategory: 'category-next/getCurrentCategory',
-      getCurrentProduct: 'product/getCurrentProduct',
-      getProductGallery: 'product/getProductGallery',
-      getCurrentProductConfiguration: 'product/getCurrentProductConfiguration',
-      attributesByCode: 'attribute/attributeListByCode',
-      getCurrentCustomOptions: 'product/getCurrentCustomOptions',
-      productsInCart: 'cart/getCartItems',
-      getCartToken: 'cart/getCartToken'
+      getCurrentCategory: "category-next/getCurrentCategory",
+      getCurrentProduct: "product/getCurrentProduct",
+      getProductGallery: "product/getProductGallery",
+      getCurrentProductConfiguration: "product/getCurrentProductConfiguration",
+      attributesByCode: "attribute/attributeListByCode",
+      getCurrentCustomOptions: "product/getCurrentCustomOptions",
+      productsInCart: "cart/getCartItems",
+      getCartToken: "cart/getCartToken",
     }),
     getCurrentProductCustomOptionsRedo() {
       // let cOptions = this.$store.state.product;
@@ -1068,9 +1068,10 @@ export default {
                   option.option_id
                 ]
               ) {
-                value = this.$store.state.product.current_custom_options[
-                  option.option_id
-                ].option_value;
+                value =
+                  this.$store.state.product.current_custom_options[
+                    option.option_id
+                  ].option_value;
               }
             }
             currentOptions[option.option_id] = {
@@ -1088,51 +1089,51 @@ export default {
       }
     },
     getShortDescription() {
-      const formatShortDesc = this.getCurrentProduct.short_description
-      let formatShortDescUlInc = ""
+      const formatShortDesc = this.getCurrentProduct.short_description;
+      let formatShortDescUlInc = "";
       if (formatShortDesc.includes("<ul") === true) {
-        formatShortDescUlInc = formatShortDesc
+        formatShortDescUlInc = formatShortDesc;
       } else {
-        formatShortDescUlInc = "<ul>" + formatShortDesc + "</ul>"
+        formatShortDescUlInc = "<ul>" + formatShortDesc + "</ul>";
       }
-      return formatShortDescUlInc
+      return formatShortDescUlInc;
     },
     perBox() {
       if (this.getCurrentProduct.box_coverage) {
         let box_coverage = this.getCurrentProduct.box_coverage;
-        return box_coverage.replace('m2', '');
+        return box_coverage.replace("m2", "");
       } else {
         return this.roundTo(1 / this.getCurrentProduct.qty_per_sqm, 2);
       }
     },
     socialLinksSchema() {
-      return config.socialUrlsForSchema ? config.socialUrlsForSchema : '';
+      return config.socialUrlsForSchema ? config.socialUrlsForSchema : "";
     },
     getImageObjJsonLd() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             this.getImageUrl(this.getCurrentProduct.thumbnail)
-        : 'http://tilemountain.co.uk/' +
+        : "http://tilemountain.co.uk/" +
             this.getImageUrl(this.getCurrentProduct.thumbnail);
     },
     getProductUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl + this.getCurrentProduct.url_path
-        : 'http://tilemountain.co.uk/' + this.getCurrentProduct.url_path;
+        : "http://tilemountain.co.uk/" + this.getCurrentProduct.url_path;
     },
     getSchemaImageUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
-            'img/600/744/resize/catalog/product' +
+            "img/600/744/resize/catalog/product" +
             this.getCurrentProduct.image
-        : 'http://tilemountain.co.uk/' +
-            'img/600/744/resize/catalog/product' +
+        : "http://tilemountain.co.uk/" +
+            "img/600/744/resize/catalog/product" +
             this.getCurrentProduct.image;
     },
     getVideoObjJsonLd() {
       let videoElement = [];
       if (this.getCurrentProduct.media_gallery) {
-        videoElement = this.getCurrentProduct.media_gallery.filter(item => {
+        videoElement = this.getCurrentProduct.media_gallery.filter((item) => {
           return item.vid;
         });
         if (videoElement.length > 0) {
@@ -1140,12 +1141,12 @@ export default {
             thumbnailUrl: config.schemaUrl.baseUrl
               ? config.schemaUrl.baseUrl +
                 this.getImageUrl(videoElement[0].image)
-              : 'http://tilemountain.co.uk/' +
+              : "http://tilemountain.co.uk/" +
                 this.getImageUrl(videoElement[0].image),
-            contentUrl: videoElement[0].vid.url
+            contentUrl: videoElement[0].vid.url,
           };
         } else {
-          return '';
+          return "";
         }
       }
     },
@@ -1153,17 +1154,17 @@ export default {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             this.getImageUrl(this.getCurrentProduct.image)
-        : 'http://tilemountain.co.uk/' +
+        : "http://tilemountain.co.uk/" +
             this.getImageUrl(this.getCurrentProduct.image);
     },
     getProductGalleryCustom() {
       let mediaGallery = [];
       let mediaGallerySame = [];
       if (this.getProductGallery.length > 0) {
-        this.getProductGallery.forEach(imgFile => {
-          let srcFromPath = imgFile.src.split('product')[1];
+        this.getProductGallery.forEach((imgFile) => {
+          let srcFromPath = imgFile.src.split("product")[1];
           mediaGallerySame.push({
-            image: srcFromPath
+            image: srcFromPath,
           });
         });
       }
@@ -1172,7 +1173,7 @@ export default {
     similarCutDisabled() {
       if (this.productsInCart && this.productsInCart.length > 0) {
         return (
-          this.productsInCart.filter(product => {
+          this.productsInCart.filter((product) => {
             if (
               this.getCurrentProduct.cut_sample_location &&
               product.cut_sample_location &&
@@ -1225,7 +1226,7 @@ export default {
       return this.roundTo(this.getCurrentProduct.price, 2);
     },
     getOptionLabel() {
-      return option => {
+      return (option) => {
         const configName = option.attribute_code
           ? option.attribute_code
           : option.label.toLowerCase();
@@ -1245,28 +1246,28 @@ export default {
     structuredData() {
       const stockText = this.getCurrentProduct.stock_level_text
         ? this.getCurrentProduct.stock_level_text
-        : '';
-      let stockTextString = '';
-      console.log('stockText', stockText, stockText.indexOf('More') !== -1);
+        : "";
+      let stockTextString = "";
+      console.log("stockText", stockText, stockText.indexOf("More") !== -1);
       if (
-        (stockText.indexOf('Available') !== -1) === true ||
-        (stockText.indexOf('available') !== -1) === true ||
-        (stockText.indexOf('In Stock') !== -1) === true ||
-        (stockText.indexOf('in Stock') !== -1) === true ||
-        (stockText.indexOf('in stock') !== -1) === true ||
-        (stockText.indexOf('Please call') !== -1) === true
+        (stockText.indexOf("Available") !== -1) === true ||
+        (stockText.indexOf("available") !== -1) === true ||
+        (stockText.indexOf("In Stock") !== -1) === true ||
+        (stockText.indexOf("in Stock") !== -1) === true ||
+        (stockText.indexOf("in stock") !== -1) === true ||
+        (stockText.indexOf("Please call") !== -1) === true
       ) {
-        stockTextString = 'InStock';
+        stockTextString = "InStock";
       } else {
-        stockTextString = 'OutOfStock';
+        stockTextString = "OutOfStock";
       }
-      console.log('stockTextString', stockTextString);
+      console.log("stockTextString", stockTextString);
       return {
         availability: stockTextString,
         contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
           ? this.getCurrentProduct.url_path
           : this.attachBaseUrl(this.getCurrentProduct.url_path),
-        imageUrl: this.getImageUrl(this.getCurrentProduct.image)
+        imageUrl: this.getImageUrl(this.getCurrentProduct.image),
       };
     },
     getProductOptions() {
@@ -1295,13 +1296,13 @@ export default {
           this.getCurrentProduct.image,
           config.products.thumbnails.width,
           config.products.thumbnails.height
-        )
+        ),
       };
     },
     getCustomAttributes() {
       return Object.values(this.attributesByCode || [])
         .filter(
-          a =>
+          (a) =>
             (parseInt(a.is_visible_on_front) ||
               a.is_visible_on_front === true) &&
             (this.getCurrentProduct[a.attribute_code] ||
@@ -1321,7 +1322,7 @@ export default {
       );
     },
     isSimpleOrConfigurable() {
-      return ['simple', 'configurable'].includes(
+      return ["simple", "configurable"].includes(
         this.getCurrentProduct.type_id
       );
     },
@@ -1350,42 +1351,42 @@ export default {
     getTotalAfterWasteRemoved() {
       this.tileSqmQuantity =
         parseFloat(this.tileSqmQuantity) - parseFloat(this.wastePercentage);
-    }
+    },
   },
   async beforeMount() {
     this.vinylFullProductPrice();
-    this.$bus.$on('cart-after-update', () => {
+    this.$bus.$on("cart-after-update", () => {
       this.disableSampleButton();
     });
-    this.$bus.$on('cart-after-itemchanged', cartItem => {
+    this.$bus.$on("cart-after-itemchanged", (cartItem) => {
       this.disableSampleButton();
     });
-    this.$bus.$on('cart-after-delete', items => {
+    this.$bus.$on("cart-after-delete", (items) => {
       // e.stopImmediatePropagation();
       this.disableSampleButton();
     });
 
-    this.$bus.$on('show-samples-modal', bool => {
+    this.$bus.$on("show-samples-modal", (bool) => {
       this.modalTwo = bool;
     });
   },
   created() {
     var self = this;
-    self.$nextTick(function() {
+    self.$nextTick(function () {
       self.loaded = true;
     });
   },
   async mounted() {
     this.setReviews();
     this.setProductPage();
-    this.$bus.$on('sendvalueToCart', value => {
+    this.$bus.$on("sendvalueToCart", (value) => {
       this.cartItems = value;
     });
-    this.tileSqmQuantity = '';
+    this.tileSqmQuantity = "";
     this.calculateTenPercentwaste();
     await this.getVinylProductItem();
     await this.$store.dispatch(
-      'recently-viewed/addItem',
+      "recently-viewed/addItem",
       this.getCurrentProduct
     );
     this.disabledQuoteAddtoCart();
@@ -1417,18 +1418,18 @@ export default {
           this.availableSamplesTypes = null;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         this.hasSamples = false;
         this.availableSamples = null;
-        console.log('hasAnError', err);
+        console.log("hasAnError", err);
       });
     this.getCustomerPhotos();
-    this.$bus.$on('samples-successfully-ordered', () => {
+    this.$bus.$on("samples-successfully-ordered", () => {
       this.disableSampleButton();
     });
     this.getSimilarTiles();
 
-    this.$bus.$on('cartUpdated', payload => {
+    this.$bus.$on("cartUpdated", (payload) => {
       // TODO: Update the Samples Button from here.
       if (this.getCartToken) {
         this.updateSampleButtons();
@@ -1437,32 +1438,32 @@ export default {
     if (
       this.$store.state.url.prevRoute &&
       this.$store.state.url.prevRoute.name &&
-      this.$store.state.url.prevRoute.name.includes('.html') &&
+      this.$store.state.url.prevRoute.name.includes(".html") &&
       this.$store.state.url.prevRoute.params
     ) {
       localStorage.setItem(
-        'topLevelCategoryPosition',
+        "topLevelCategoryPosition",
         this.$store.state.url.prevRoute.params.slug
       );
     }
     // For GTAG
     let primaryCategory = this.getProductPrimaryCategory();
-    this.$store.commit('google-gtag/SET_PRODUCT_CURRENT', {
+    this.$store.commit("google-gtag/SET_PRODUCT_CURRENT", {
       product: this.getCurrentProduct,
-      category: primaryCategory?.[0]?.name
+      category: primaryCategory?.[0]?.name,
     });
   },
   async asyncData({ store, route, context }) {
-    if (context) context.output.cacheTags.add('product');
-    const product = await store.dispatch('product/loadProduct', {
+    if (context) context.output.cacheTags.add("product");
+    const product = await store.dispatch("product/loadProduct", {
       parentSku: route.params.parentSku,
       childSku:
         route && route.params && route.params.childSku
           ? route.params.childSku
-          : null
+          : null,
     });
     const loadBreadcrumbsPromise = store.dispatch(
-      'product/loadProductBreadcrumbs',
+      "product/loadProductBreadcrumbs",
       { product }
     );
     if (isServer) await loadBreadcrumbsPromise;
@@ -1472,7 +1473,7 @@ export default {
     if (isServer) {
       next();
     } else {
-      next(vm => {
+      next((vm) => {
         vm.getQuantity();
       });
     }
@@ -1483,104 +1484,112 @@ export default {
         if (isOnline) {
           this.getQuantity();
         }
-      }
+      },
     },
     "$route.name": function () {
       this.reRender++;
-      console.log('routeGotUpdated', this.sendProductCustomOptions,this.getCurrentProductCustomOptionsRedo, this.getCurrentProduct, this.getCurrentCustomOptions)
-      console.log('calculatedProductPrice', this.calculatedProductPrice)
-      },
+      console.log(
+        "routeGotUpdated",
+        this.sendProductCustomOptions,
+        this.getCurrentProductCustomOptionsRedo,
+        this.getCurrentProduct,
+        this.getCurrentCustomOptions
+      );
+      console.log("calculatedProductPrice", this.calculatedProductPrice);
+    },
     currRoute(newVal, oldVal) {
       this.$refs.getProductGallery.$refs.carousel.navigate(0);
-      if (document.getElementById('prod-gallery-thumbnails-carousel')) {
+      if (document.getElementById("prod-gallery-thumbnails-carousel")) {
         const sliderThumb = document
-          .getElementById('prod-gallery-thumbnails-carousel')
-          .querySelector('.VueCarousel-inner');
-        sliderThumb.style.transform = 'translate(0px, 0px)';
+          .getElementById("prod-gallery-thumbnails-carousel")
+          .querySelector(".VueCarousel-inner");
+        sliderThumb.style.transform = "translate(0px, 0px)";
       }
       if (newVal !== oldVal) {
         this.$refs.reviewsSection.fetchReviews();
         this.$refs.reviewsSection.fetchQA();
 
-        this.$bus.$emit('modal-hide', 'modal-cutsample');
-        this.$bus.$emit('modal-hide', 'modal-clearancemodal');
+        this.$bus.$emit("modal-hide", "modal-cutsample");
+        this.$bus.$emit("modal-hide", "modal-clearancemodal");
         // For Quote Sample Buttons
         this.updateSampleButtons();
         this.disabledQuoteAddtoCart();
         this.getCustomerPhotos();
         this.similar_products = {
           skus: [],
-          items: []
+          items: [],
         };
         this.getSimilarTiles();
-        this.tileSqmQuantity = '';
+        this.tileSqmQuantity = "";
 
         // For GTAG
         this.setProductPage();
       }
-    }
+    },
   },
   methods: {
-    setPrice(data){
-    //  console.log(data);
-      this.calculatedProductPrice=data;
+    setPrice(data) {
+      //  console.log(data);
+      this.calculatedProductPrice = data;
     },
-showDetails(event) {
-      this.detailsOpen = true
-      event.target.classList.add("hidden")
+    showDetails(event) {
+      this.detailsOpen = true;
+      event.target.classList.add("hidden");
     },
     ProSpecificationsShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-Specifications-wrapper-show-close"
-      )[0]
-      details_element.classList.toggle("Specifications-wrapper-show")
+      )[0];
+      details_element.classList.toggle("Specifications-wrapper-show");
       document
         .getElementById("product-Specifications-icon-id")
-        .classList.toggle("icon-rotate")
+        .classList.toggle("icon-rotate");
     },
     ProReviewShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-review-wrapper-show-close"
-      )[0]
-      details_element.classList.toggle("review-wrapper-show")
+      )[0];
+      details_element.classList.toggle("review-wrapper-show");
       document
         .getElementById("product-review-icon-id")
-        .classList.toggle("icon-rotate")
+        .classList.toggle("icon-rotate");
     },
     ProDimensionShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-dimension-wrapper-show-close"
-      )[0]
-      details_element.classList.toggle("dimension-wrapper-show")
+      )[0];
+      details_element.classList.toggle("dimension-wrapper-show");
       document
         .getElementById("product-dimension-icon-id")
-        .classList.toggle("icon-rotate")
+        .classList.toggle("icon-rotate");
       if (document.getElementById("comes-with-main") !== null) {
         // console.log('sasa');
         const slider2 = document
           .getElementById("comes-with-main")
-          .querySelector(".VueCarousel-inner")
+          .querySelector(".VueCarousel-inner");
         slider2.style.transform =
-          "translate3d(" + "-" + slider2.style.flexBasis + ", 0px, 0px)"
+          "translate3d(" + "-" + slider2.style.flexBasis + ", 0px, 0px)";
       }
     },
     ProDeliveryShowFn() {
       var details_element = document.getElementsByClassName(
         "bt-Delivery-wrapper-show-close"
-      )[0]
-      details_element.classList.toggle("Delivery-wrapper-show")
+      )[0];
+      details_element.classList.toggle("Delivery-wrapper-show");
       document
         .getElementById("product-Delivery-icon-id")
-        .classList.toggle("icon-rotate")
+        .classList.toggle("icon-rotate");
     },
-       addCustomOption(option) {
-         console.log("235689 In  addCustomOption Funtion \ncustom options are ",this.sendProductCustomOptions);
-      let prodFlag = true
+    addCustomOption(option) {
+      console.log(
+        "235689 In  addCustomOption Funtion \ncustom options are ",
+        this.sendProductCustomOptions
+      );
+      let prodFlag = true;
       if (this.sendProductCustomOptions.length === 0) {
-        this.sendProductCustomOptions.push(option)
+        this.sendProductCustomOptions.push(option);
         // console.log("11226610 ", this.sendProductCustomOptions);
-      }
-      else {
+      } else {
         this.sendProductCustomOptions.forEach((prodOption, index) => {
           // console.log(
           //   "235689 \n",
@@ -1596,10 +1605,10 @@ showDetails(event) {
           // );
           if (prodOption.title === option.title) {
             console.log("235689 Updating the custom option");
-            prodOption = option
-            this.sendProductCustomOptions[index] = option
-            this.sendProductCustomOptions[index]
-            prodFlag = false
+            prodOption = option;
+            this.sendProductCustomOptions[index] = option;
+            this.sendProductCustomOptions[index];
+            prodFlag = false;
             // console.log(
             //   "1122669 indexer",
             //   index,
@@ -1610,24 +1619,23 @@ showDetails(event) {
               console.log("235689 Loop ended");
               if (!prodFlag) {
                 console.log("235689 Adding new custom option");
-                this.sendProductCustomOptions.push(option)
+                this.sendProductCustomOptions.push(option);
                 //   console.log("1122667 ", this.sendProductCustomOptions);
               } else {
                 console.log("235689 Already Updated the custom option");
                 //   console.log("1122668 ", this.sendProductCustomOptions);
               }
-            }
-            else{
+            } else {
               console.log("235689 Loop not ended");
             }
           }
-        })
+        });
       }
     },
-      setColorName(name) {
-      this.colorName = name
+    setColorName(name) {
+      this.colorName = name;
     },
-     getColorName() {
+    getColorName() {
       if (this.colorName == "") {
         this.getCurrentProduct.custom_options.forEach((option) => {
           if (
@@ -1635,45 +1643,49 @@ showDetails(event) {
             option.iscolor == "1" ||
             option.iscolor == true
           ) {
-            this.colorName = "Please Select " + option.title
+            this.colorName = "Please Select " + option.title;
           }
-        })
+        });
       } else {
-        return this.colorName
+        return this.colorName;
       }
     },
-      showColorPicker() {
-      this.colorPickerCheck = true
+    showColorPicker() {
+      this.colorPickerCheck = true;
       //  document.body.style.overflow("hidden");
       //  let scrollDisable = document.getElementsByTagName("body");
       //  scrollDisable.style.overflow("hidden");
       //    console.log( "  document.body",scrollDisable);
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     },
     hideColorPicker() {
-      this.colorPickerCheck = false
-      document.body.style.overflow = "scroll"
+      this.colorPickerCheck = false;
+      document.body.style.overflow = "scroll";
     },
     setReviews() {
       try {
-        let product_Id = '';
+        let product_Id = "";
 
-        if ((this.getCurrentProduct.type_id = 'configurable')) {
+        if ((this.getCurrentProduct.type_id = "configurable")) {
           product_Id = this.getCurrentProduct.parentId;
         } else {
           product_Id = this.getCurrentProduct.id;
         }
-         const URL = config.baseUrl.url + config.reviews.getReviews_endpoint + product_Id;
+        const URL =
+          config.baseUrl.url + config.reviews.getReviews_endpoint + product_Id;
         // const URL = 'http://46.101.17.57/' + config.reviews.getReviews_endpoint + product_Id;
         // console.log("1234654321 URL in products is ",URL);
         // const URL =
         //   'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id=454';
         axios
           .get(URL)
-          .then(res => {
+          .then((res) => {
             const response = res;
             if (response.status !== 200 && !review.data.length) {
-              throw ('Error Occured while requesting for reviews:', response.data[0].message);
+              throw (
+                ("Error Occured while requesting for reviews:",
+                response.data[0].message)
+              );
             } else {
               this.reviewData = response.data[1];
               // console.log("1234654321 Reviews are: ",this.reviewData);
@@ -1685,11 +1697,11 @@ showDetails(event) {
               // console.log("this.reviewData",this.reviewData);
             }
           })
-          .catch(err => {
-            throw ('Error:', err);
+          .catch((err) => {
+            throw ("Error:", err);
           });
       } catch (err) {
-        console.error('error message', err);
+        console.error("error message", err);
       }
     },
     getReviews() {
@@ -1718,24 +1730,24 @@ showDetails(event) {
       if (
         this.getCurrentProduct &&
         this.getCurrentProduct.filter_type &&
-        this.getCurrentProduct.filter_type === 'Pack'
+        this.getCurrentProduct.filter_type === "Pack"
       ) {
         this.vinylPayload.productId = this.getCurrentProduct.id;
         await this.$store
-          .dispatch('vinyl/getVinylItems', this.vinylPayload)
-          .then(res => {
+          .dispatch("vinyl/getVinylItems", this.vinylPayload)
+          .then((res) => {
             if (res.success) {
               if (res.vinyl.recommendations && res.vinyl.underlay) {
-                res.vinyl.recommendations.forEach(singleSku => {
+                res.vinyl.recommendations.forEach((singleSku) => {
                   this.vinylProducts.recommend.push(singleSku);
                 });
-                res.vinyl.underlay.forEach(singleSku => {
+                res.vinyl.underlay.forEach((singleSku) => {
                   this.vinylProducts.skus.push(singleSku);
                 });
               }
               this.getVinylItemProducts();
             } else {
-              console.log('getVinylProductItemFailed', res);
+              console.log("getVinylProductItemFailed", res);
             }
           });
       }
@@ -1743,21 +1755,21 @@ showDetails(event) {
     async getVinylItemProducts() {
       if (this.vinylProducts.skus && this.vinylProducts.skus.length > 0) {
         let vinylItemsQuery = prepareRelatedQuery(
-          'sku',
+          "sku",
           this.vinylProducts.skus
         );
         await this.$store
-          .dispatch('product/list', {
+          .dispatch("product/list", {
             query: vinylItemsQuery,
             size: 10,
             prefetchGroupProducts: false,
-            updateState: false
+            updateState: false,
           })
           .then(({ items }) => {
             this.vinylProducts.skuItems = items;
           })
-          .catch(err => {
-            console.log('FailedToFetch vinyl Item Products', err);
+          .catch((err) => {
+            console.log("FailedToFetch vinyl Item Products", err);
           });
       }
       if (
@@ -1765,28 +1777,28 @@ showDetails(event) {
         this.vinylProducts.recommend.length > 0
       ) {
         let vinylRecommendItemsQuery = prepareRelatedQuery(
-          'sku',
+          "sku",
           this.vinylProducts.recommend
         );
         await this.$store
-          .dispatch('product/list', {
+          .dispatch("product/list", {
             query: vinylRecommendItemsQuery,
             size: 10,
             prefetchGroupProducts: false,
-            updateState: false
+            updateState: false,
           })
           .then(({ items }) => {
             this.vinylProducts.recommendItems = items;
           })
-          .catch(err => {
-            console.log('FailedToFetch vinyl Recommend Products', err);
+          .catch((err) => {
+            console.log("FailedToFetch vinyl Recommend Products", err);
           });
       }
     },
     async disabledQuoteAddtoCart() {
       if (
         this.getCartToken &&
-        this.getCartToken !== '' &&
+        this.getCartToken !== "" &&
         this.getCartToken !== null
       ) {
         const quoteItemData = await CartService.getItems();
@@ -1797,7 +1809,7 @@ showDetails(event) {
           quoteItemData.result &&
           quoteItemData.result.length > 0
         ) {
-          quoteItem = quoteItemData.result.filter(quoteItemInside => {
+          quoteItem = quoteItemData.result.filter((quoteItemInside) => {
             if (
               quoteItemInside.extension_attributes &&
               quoteItemInside.extension_attributes.is_vue_quote
@@ -1817,28 +1829,28 @@ showDetails(event) {
       }
       if (this.similar_products.skus && this.similar_products.skus.length > 0) {
         let relatedProductsQuery = prepareRelatedQuery(
-          'sku',
+          "sku",
           this.similar_products.skus
         );
 
         await this.$store
-          .dispatch('product/list', {
+          .dispatch("product/list", {
             query: relatedProductsQuery,
             size: 10,
             prefetchGroupProducts: false,
-            updateState: false
+            updateState: false,
           })
           .then(({ items }) => {
             this.similar_products.items = items.filter(
-              i => !i.product_banner_image?.includes('Out_of_Stock')
+              (i) => !i.product_banner_image?.includes("Out_of_Stock")
             );
             // Also update the skus, remove the ones not included in items.
-            this.similar_products.skus = this.similar_products.items.filter(i =>
-              this.similar_products.skus.includes(i.sku)
+            this.similar_products.skus = this.similar_products.items.filter(
+              (i) => this.similar_products.skus.includes(i.sku)
             );
           })
-          .catch(err => {
-            console.log('FailedToFetch Similar Products', err);
+          .catch((err) => {
+            console.log("FailedToFetch Similar Products", err);
           });
       }
     },
@@ -1872,33 +1884,33 @@ showDetails(event) {
             this.availableSamplesTypes = null;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.hasSamples = false;
           this.availableSamples = null;
-          console.log('hasAnError', err);
+          console.log("hasAnError", err);
         });
     },
     async getProduct() {
-      this.product = await this.$store.dispatch('product/single', {
+      this.product = await this.$store.dispatch("product/single", {
         options: { sku: this.sku },
         setCurrentProduct: false,
         setCurrentCategoryPath: false,
-        selectDefaultVariant: false
+        selectDefaultVariant: false,
       });
       this.img = this.product.image;
     },
     productTileTypeUnitCheck(product) {
-      let productUnit = '';
+      let productUnit = "";
       if (product.product_price_type) {
-        if (this.productTileType[product.product_price_type] === 'sqm') {
-          productUnit = 'm<sup>2</sup>';
+        if (this.productTileType[product.product_price_type] === "sqm") {
+          productUnit = "m<sup>2</sup>";
         } else if (this.productTileType[product.product_price_type]) {
           productUnit = this.productTileType[product.product_price_type];
         } else {
-          productUnit = 'm<sup>2</sup>';
+          productUnit = "m<sup>2</sup>";
         }
       } else {
-        productUnit = 'm<sup>2</sup>';
+        productUnit = "m<sup>2</sup>";
       }
       return productUnit;
     },
@@ -1908,12 +1920,12 @@ showDetails(event) {
     setProductPage() {
       let primaryCategory = this.getProductPrimaryCategory();
       let productPayload = {
-        product: this.getCurrentProduct
+        product: this.getCurrentProduct,
       };
       if (primaryCategory && primaryCategory.length > 0 && primaryCategory[0]) {
-        productPayload['category'] = primaryCategory[0].name;
+        productPayload["category"] = primaryCategory[0].name;
       }
-      this.$store.commit('google-gtag/SET_PRODUCT_CLICK', productPayload);
+      this.$store.commit("google-gtag/SET_PRODUCT_CLICK", productPayload);
     },
     /**
      * will return objects in array with following attributes
@@ -1925,32 +1937,32 @@ showDetails(event) {
     getProductPrimaryCategory() {
       if (
         this.getCurrentProduct &&
-        typeof this.getCurrentProduct !== 'undefined' &&
+        typeof this.getCurrentProduct !== "undefined" &&
         this.getCurrentProduct.category &&
-        typeof this.getCurrentProduct.category !== 'undefined' &&
+        typeof this.getCurrentProduct.category !== "undefined" &&
         this.getCurrentProduct.primary_category
       ) {
-        if (typeof this.getCurrentProduct.category === 'object') {
+        if (typeof this.getCurrentProduct.category === "object") {
           return Object.keys(this.getCurrentProduct.category)
-            .filter(c => {
+            .filter((c) => {
               return (
                 parseInt(this.getCurrentProduct.category[c].category_id) ===
                 parseInt(this.getCurrentProduct.primary_category)
               );
             })
-            .map(c => ({ ...this.getCurrentProduct.category[c] }));
+            .map((c) => ({ ...this.getCurrentProduct.category[c] }));
         }
       }
       return false;
     },
     openFigureGallery() {
       this.$refs.getProductGallery.$refs.carousel.stopVideo();
-      document.getElementsByTagName('figure')[0].click();
+      document.getElementsByTagName("figure")[0].click();
     },
     openGallery() {
       this.$refs.getProductGallery.$refs.carousel.openOverlay();
       setTimeout(() => {
-        document.getElementById('custBtn').click();
+        document.getElementById("custBtn").click();
       }, 100);
     },
     calculateTenPercentwaste() {
@@ -1965,17 +1977,17 @@ showDetails(event) {
       let apiUrl = config.api.url;
       let cartId = null;
       await this.getCartId()
-        .then(r => {
+        .then((r) => {
           cartId = r;
         })
-        .catch(err => console.log('getCartIdHasErr', err));
-      let reqUrl = apiUrl + optionsPath + productId + '/' + cartId;
+        .catch((err) => console.log("getCartIdHasErr", err));
+      let reqUrl = apiUrl + optionsPath + productId + "/" + cartId;
       return axios.get(reqUrl);
     },
     async getCartId() {
       if (!this.getCartToken) {
-        await this.$store.dispatch('cart/createCartId', {
-          productToAdd: this.getCurrentProduct
+        await this.$store.dispatch("cart/createCartId", {
+          productToAdd: this.getCurrentProduct,
         });
       }
       return this.getCartToken;
@@ -1993,32 +2005,48 @@ showDetails(event) {
         if (cartProductsSkus && cartProductsSkus.length > 0) {
           if (cartProductsSkus.includes(this.getCurrentProduct.sku)) {
             if (
-              this.hasSampleType('cut_size') ||
-              this.hasSampleType('full_size') ||
-              this.hasSampleType('half_size') ||
-              this.hasSampleType('quarter_size')
+              this.hasSampleType("cut_size") ||
+              this.hasSampleType("full_size") ||
+              this.hasSampleType("half_size") ||
+              this.hasSampleType("quarter_size")
             ) {
               this.fullSampleButtonDisable = true;
               this.cutSampleButtonDisable = true;
               this.halfSampleButtonDisable = true;
               this.qSampleButtonDisable = true;
             } else {
-              this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
+              this.fullSampleButtonDisable =
+                this.cutSampleButtonDisable =
+                this.halfSampleButtonDisable =
+                this.qSampleButtonDisable =
+                  false;
             }
           } else {
-            this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
+            this.fullSampleButtonDisable =
+              this.cutSampleButtonDisable =
+              this.halfSampleButtonDisable =
+              this.qSampleButtonDisable =
+                false;
           }
         } else {
-          this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
+          this.fullSampleButtonDisable =
+            this.cutSampleButtonDisable =
+            this.halfSampleButtonDisable =
+            this.qSampleButtonDisable =
+              false;
         }
       } else {
-        this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
+        this.fullSampleButtonDisable =
+          this.cutSampleButtonDisable =
+          this.halfSampleButtonDisable =
+          this.qSampleButtonDisable =
+            false;
       }
     },
     modalshow() {
       this.showModal = true;
-      let x = document.getElementsByTagName('BODY')[0];
-      x.style.overflow = 'hidden';
+      let x = document.getElementsByTagName("BODY")[0];
+      x.style.overflow = "hidden";
     },
     modalShowTwo() {
       this.modalTwo = true;
@@ -2027,7 +2055,7 @@ showDetails(event) {
     hasSampleType(sample) {
       if (sample && this.availableSamples) {
         let selectedSample = this.availableSamples.filter(
-          e => e.type === sample
+          (e) => e.type === sample
         );
 
         if (selectedSample.length === 0) {
@@ -2039,20 +2067,20 @@ showDetails(event) {
           price:
             selectedSample[0].price && selectedSample[0].price != 0
               ? parseFloat(selectedSample[0].price).toFixed(2)
-              : null
+              : null,
         };
       }
       return false;
     },
     navigateToReviews() {
       let productReviews = this.$refs.reviewsSection.$refs.productReviews;
-      const headerClass = document.getElementsByClassName('header')[0];
+      const headerClass = document.getElementsByClassName("header")[0];
       const headerHeight = parseFloat(headerClass.offsetHeight);
       const elementPosition = productReviews.getBoundingClientRect().top;
       const offsetPosition = elementPosition - headerHeight;
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
       if (screen.width < 991) {
         setTimeout(() => {
@@ -2060,20 +2088,20 @@ showDetails(event) {
           const offsetPosition = elementPosition - headerHeight;
           window.scrollTo({
             top: offsetPosition,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }, 10);
       }
     },
     navigateToQA() {
       let productReviewsQas = this.$refs.reviewsSection.$refs.productQAS;
-      const headerClass = document.getElementsByClassName('header')[0];
+      const headerClass = document.getElementsByClassName("header")[0];
       const headerHeight = parseFloat(headerClass.offsetHeight);
       const elementPosition = productReviewsQas.getBoundingClientRect().top;
       const offsetPosition = elementPosition - headerHeight;
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
       if (screen.width < 991) {
         setTimeout(() => {
@@ -2081,7 +2109,7 @@ showDetails(event) {
           const offsetPosition = elementPosition - headerHeight;
           window.scrollTo({
             top: offsetPosition,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }, 10);
       }
@@ -2099,27 +2127,27 @@ showDetails(event) {
     },
     showDetails(event) {
       this.detailsOpen = true;
-      event.target.classList.add('hidden');
+      event.target.classList.add("hidden");
     },
     productDetails() {
-      var desc = document.getElementsByClassName('productdetail-close')[0];
-      desc.classList.toggle('productdetail-show');
-      document.getElementById('right-icon').classList.toggle('icon-rotate');
+      var desc = document.getElementsByClassName("productdetail-close")[0];
+      desc.classList.toggle("productdetail-show");
+      document.getElementById("right-icon").classList.toggle("icon-rotate");
     },
     infoProd() {
-      var desc = document.getElementsByClassName('infoprod-close')[0];
-      desc.classList.toggle('infoprod-show');
+      var desc = document.getElementsByClassName("infoprod-close")[0];
+      desc.classList.toggle("infoprod-show");
       document
-        .getElementById('right-icon-info')
-        .classList.toggle('icon-rotate-info');
+        .getElementById("right-icon-info")
+        .classList.toggle("icon-rotate-info");
     },
     show() {
-      this.$bus.$emit('modal-show', 'modal-calculator');
+      this.$bus.$emit("modal-show", "modal-calculator");
       this.addWasteRadioCalculator = false;
     },
     updateSqmQuantity(productQuantity) {
       console.log(
-        'productQuantity',
+        "productQuantity",
         productQuantity,
         this.getCurrentProduct.qty,
         this.tileSqmQuantity
@@ -2129,18 +2157,17 @@ showDetails(event) {
         2
       );
       // console.log('neecheay', this.tileSqmQuantity)
-     
     },
     forVinyl() {
       this.boxSqm = this.getCurrentProduct.qty;
     },
     notifyOutStock() {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'error',
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "error",
         message: this.$t(
-          'The product is out of stock and cannot be added to the cart!'
+          "The product is out of stock and cannot be added to the cart!"
         ),
-        action1: { label: this.$t('OK') }
+        action1: { label: this.$t("OK") },
       });
     },
     pageChange(index) {
@@ -2151,12 +2178,12 @@ showDetails(event) {
       this.addWasteRadioCalculator = !this.addWasteRadioCalculator;
       if (this.addWasteRadioCalculator) {
         document
-          .getElementById('wastage wastage-btn')
-          .classList.add('addWaste');
+          .getElementById("wastage wastage-btn")
+          .classList.add("addWaste");
       } else {
         document
-          .getElementById('wastage wastage-btn')
-          .classList.remove('addWaste');
+          .getElementById("wastage wastage-btn")
+          .classList.remove("addWaste");
       }
       if (this.addWasteRadioCalculator) {
         this.getTotalAfterWasteAdded;
@@ -2172,39 +2199,39 @@ showDetails(event) {
       this.SqmValUpdated(sqmQuantity);
     },
     SqmValUpdated(sqmQuantity, wasteCheck = true) {
-      if (sqmQuantity === '') {
+      if (sqmQuantity === "") {
         if (
           this.getCurrentProduct &&
           this.getCurrentProduct.filter_type &&
-          this.getCurrentProduct.filter_type === 'Pack'
+          this.getCurrentProduct.filter_type === "Pack"
         ) {
           let vinylAccessories = document.getElementById(
-            'vinyl-accessories-box'
+            "vinyl-accessories-box"
           );
           if (vinylAccessories && vinylAccessories.classList) {
-            vinylAccessories.classList.remove('transform-active-vinyl');
+            vinylAccessories.classList.remove("transform-active-vinyl");
           }
         }
-        let wasteArea = document.getElementById('wastage-main-box');
+        let wasteArea = document.getElementById("wastage-main-box");
         if (wasteArea && wasteArea.classList) {
-          wasteArea.classList.remove('transform-active');
+          wasteArea.classList.remove("transform-active");
         }
       } else {
         if (
           this.getCurrentProduct &&
           this.getCurrentProduct.filter_type &&
-          this.getCurrentProduct.filter_type === 'Pack'
+          this.getCurrentProduct.filter_type === "Pack"
         ) {
           let vinylAccessories = document.getElementById(
-            'vinyl-accessories-box'
+            "vinyl-accessories-box"
           );
           if (vinylAccessories && vinylAccessories.classList) {
-            vinylAccessories.classList.add('transform-active-vinyl');
+            vinylAccessories.classList.add("transform-active-vinyl");
           }
         }
-        let wasteArea = document.getElementById('wastage-main-box');
+        let wasteArea = document.getElementById("wastage-main-box");
         if (wasteArea && wasteArea.classList) {
-          wasteArea.classList.add('transform-active');
+          wasteArea.classList.add("transform-active");
         }
       }
       if (!sqmQuantity || parseFloat(sqmQuantity) === 0) {
@@ -2212,12 +2239,12 @@ showDetails(event) {
         this.getCurrentProduct.qty = 1;
         return false;
       }
-      let classCheckOnPrice1 = document.getElementById('hidePriceOnLoadPage');
+      let classCheckOnPrice1 = document.getElementById("hidePriceOnLoadPage");
       // if (classCheckOnPrice1) {
       //   classCheckOnPrice1.classList.contains('hide')
       // }
       if (classCheckOnPrice1) {
-        classCheckOnPrice1.classList.remove('hide');
+        classCheckOnPrice1.classList.remove("hide");
       }
       if (wasteCheck) {
         this.sqmChanged();
@@ -2230,15 +2257,15 @@ showDetails(event) {
       this.forVinyl();
     },
     sqmChanged() {
-      if (document.getElementById('wastage wastage-btn')) {
+      if (document.getElementById("wastage wastage-btn")) {
         let classCheck = document
-          .getElementById('wastage wastage-btn')
-          .classList.contains('addWaste');
+          .getElementById("wastage wastage-btn")
+          .classList.contains("addWaste");
         if (classCheck && this.addWasteRadio) {
-          document.getElementById('wastage wastage-btn').checked = false;
+          document.getElementById("wastage wastage-btn").checked = false;
           document
-            .getElementById('wastage wastage-btn')
-            .classList.remove('addWaste');
+            .getElementById("wastage wastage-btn")
+            .classList.remove("addWaste");
           // this.addWaste();
         }
       }
@@ -2247,12 +2274,12 @@ showDetails(event) {
       this.addWasteRadio = !this.addWasteRadio;
       if (this.addWasteRadio) {
         document
-          .getElementById('wastage wastage-btn')
-          .classList.add('addWaste');
+          .getElementById("wastage wastage-btn")
+          .classList.add("addWaste");
       } else {
         document
-          .getElementById('wastage wastage-btn')
-          .classList.remove('addWaste');
+          .getElementById("wastage wastage-btn")
+          .classList.remove("addWaste");
       }
 
       if (this.addWasteRadio) {
@@ -2284,46 +2311,46 @@ showDetails(event) {
     },
     tileQtyUpdated(event) {
       this.tilesQuantity = event;
-      
+
       let classCheckOnPrice = document
-        .getElementById('hidePriceOnLoadPage')
-        .classList.contains('hide');
+        .getElementById("hidePriceOnLoadPage")
+        .classList.contains("hide");
       if (classCheckOnPrice) {
-        document.getElementById('hidePriceOnLoadPage').classList.remove('hide');
+        document.getElementById("hidePriceOnLoadPage").classList.remove("hide");
       }
-      if (this.tilesQuantity === '') {
+      if (this.tilesQuantity === "") {
         if (
           this.getCurrentProduct &&
           this.getCurrentProduct.filter_type &&
-          this.getCurrentProduct.filter_type === 'Pack'
+          this.getCurrentProduct.filter_type === "Pack"
         ) {
           let vinylAccessories = document.getElementById(
-            'vinyl-accessories-box'
+            "vinyl-accessories-box"
           );
           if (vinylAccessories && vinylAccessories.classList) {
-            vinylAccessories.classList.remove('transform-active-vinyl');
+            vinylAccessories.classList.remove("transform-active-vinyl");
           }
         }
-        let wasteArea = document.getElementById('wastage-main-box');
+        let wasteArea = document.getElementById("wastage-main-box");
         if (wasteArea && wasteArea.classList) {
-          wasteArea.classList.remove('transform-active');
+          wasteArea.classList.remove("transform-active");
         }
       } else {
         if (
           this.getCurrentProduct &&
           this.getCurrentProduct.filter_type &&
-          this.getCurrentProduct.filter_type === 'Pack'
+          this.getCurrentProduct.filter_type === "Pack"
         ) {
           let vinylAccessories = document.getElementById(
-            'vinyl-accessories-box'
+            "vinyl-accessories-box"
           );
           if (vinylAccessories && vinylAccessories.classList) {
-            vinylAccessories.classList.add('transform-active-vinyl');
+            vinylAccessories.classList.add("transform-active-vinyl");
           }
         }
-        let wasteArea = document.getElementById('wastage-main-box');
+        let wasteArea = document.getElementById("wastage-main-box");
         if (wasteArea && wasteArea.classList) {
-          wasteArea.classList.add('transform-active');
+          wasteArea.classList.add("transform-active");
         }
       }
 
@@ -2347,12 +2374,12 @@ showDetails(event) {
       return n;
     },
     notifyWrongAttributes() {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'warning',
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "warning",
         message: this.$t(
-          'No such configuration for the product. Please do choose another combination of attributes.'
+          "No such configuration for the product. Please do choose another combination of attributes."
         ),
-        action1: { label: this.$t('OK') }
+        action1: { label: this.$t("OK") },
       });
     },
     getSingleAttributeLabel(code, val) {
@@ -2362,7 +2389,7 @@ showDetails(event) {
           : null;
       let attrFinalLabel;
       if (attributName) {
-        attributName.map(attrFinal => {
+        attributName.map((attrFinal) => {
           if (val === parseInt(attrFinal.value)) {
             attrFinalLabel = attrFinal.label;
           }
@@ -2376,16 +2403,16 @@ showDetails(event) {
     },
     attachBaseUrl(str) {
       if (config.server.baseUrl) {
-        return config.server.baseUrl + '/' + str;
+        return config.server.baseUrl + "/" + str;
       }
       return str;
     },
     getImageUrl(img) {
       if (!img) {
-        return '';
+        return "";
       }
 
-      let subPathImg = 'img/250/250/resize/catalog/product';
+      let subPathImg = "img/250/250/resize/catalog/product";
       if (!this.validateUrl(img)) {
         return subPathImg + img;
       }
@@ -2403,7 +2430,7 @@ showDetails(event) {
       this.getQuantity();
     },
     openSizeGuide() {
-      this.$bus.$emit('modal-show', 'modal-sizeguide');
+      this.$bus.$emit("modal-show", "modal-sizeguide");
     },
     isOptionAvailable(option) {
       // check if the option is available
@@ -2414,7 +2441,7 @@ showDetails(event) {
       currentConfig[option.type] = option;
       return isOptionAvailableAsync(this.$store, {
         product: this.getCurrentProduct,
-        configuration: currentConfig
+        configuration: currentConfig,
       });
     },
     async getQuantity() {
@@ -2424,13 +2451,13 @@ showDetails(event) {
         if (config.products.alwaysSyncPricesClientSide) {
           doPlatformPricesSync([this.getCurrentProduct]);
         }
-        const res = await this.$store.dispatch('stock/check', {
+        const res = await this.$store.dispatch("stock/check", {
           product: this.getCurrentProduct,
-          qty: this.getCurrentProduct.qty
+          qty: this.getCurrentProduct.qty,
         });
 
         this.manageQuantity = res.isManageStock;
-        this.maxQuantity =  res.qty ;
+        this.maxQuantity = res.qty;
         this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
       } finally {
         this.isStockInfoLoading = false;
@@ -2441,9 +2468,9 @@ showDetails(event) {
     },
     async getCustomerPhotos() {
       const customerPhotosRes = await this.$store.dispatch(
-        'customerphotos/customerPhotosFunction',
+        "customerphotos/customerPhotosFunction",
         {
-          product_id: this.getCurrentProduct.id
+          product_id: this.getCurrentProduct.id,
         }
       );
       if (
@@ -2451,9 +2478,9 @@ showDetails(event) {
         customerPhotosRes.status === 200 &&
         customerPhotosRes.errors === false
       ) {
-        const responseUrlObject = customerPhotosRes.urls.map(imgGallery => {
+        const responseUrlObject = customerPhotosRes.urls.map((imgGallery) => {
           return {
-            src: imgGallery
+            src: imgGallery,
             // src: this.getThumbnail(
             //   imgGallery,
             //   config.galleryZoomImageSize.width,
@@ -2475,84 +2502,84 @@ showDetails(event) {
       } else {
         this.customerPhotosGallery = [];
       }
-    }
+    },
   },
   metaInfo() {
     const storeView = currentStoreView();
     let metaDescription = this.getCurrentProduct.description
-      ? this.getCurrentProduct.description.replace(/<\/?[^>]+(>|$)/g, '')
-      : '';
+      ? this.getCurrentProduct.description.replace(/<\/?[^>]+(>|$)/g, "")
+      : "";
     let metaLength = 233;
     if (metaDescription) {
       metaDescription =
         metaDescription.length > metaLength
-          ? metaDescription.substring(0, metaLength - 3) + '...'
+          ? metaDescription.substring(0, metaLength - 3) + "..."
           : metaDescription;
     }
     let metaData = [
       {
-        property: 'og:url',
+        property: "og:url",
         content: this.getCurrentProduct.canonical_url
           ? this.getCurrentProduct.canonical_url
-          : '/' + this.getCurrentProduct.url_path
+          : "/" + this.getCurrentProduct.url_path,
       },
       {
-        property: 'og:title',
+        property: "og:title",
         content: htmlDecode(
           this.getCurrentProduct.meta_title || this.getCurrentProduct.name
-        )
+        ),
       },
       {
-        property: 'og:type',
-        content: 'website'
+        property: "og:type",
+        content: "website",
       },
       {
-        property: 'og:description',
+        property: "og:description",
         content: this.getCurrentProduct.meta_description
           ? this.getCurrentProduct.meta_description
-          : metaDescription
+          : metaDescription,
       },
       {
-        property: 'og:image',
+        property: "og:image",
         content:
           config.images.baseUrl +
-          '1200/630/resize/catalog/product' +
+          "1200/630/resize/catalog/product" +
           (this.getCurrentProduct.google_feed_img
             ? this.getCurrentProduct.google_feed_img
-            : this.getCurrentProduct.image)
-      }
+            : this.getCurrentProduct.image),
+      },
     ];
 
     if (this.getCurrentProduct.meta_description) {
       metaData.push({
-        vmid: 'description',
-        name: 'description',
-        content: this.getCurrentProduct.meta_description
+        vmid: "description",
+        name: "description",
+        content: this.getCurrentProduct.meta_description,
       });
     } else {
       metaData.push({
-        vmid: 'description',
-        name: 'description',
-        content: metaDescription
+        vmid: "description",
+        name: "description",
+        content: metaDescription,
       });
     }
 
     return {
       link: [
         {
-          rel: 'canonical',
+          rel: "canonical",
           href: this.getCurrentProduct.canonical_url
             ? this.getCurrentProduct.canonical_url
-            : '/' + this.getCurrentProduct.url_path
-        }
+            : "/" + this.getCurrentProduct.url_path,
+        },
       ],
       title: htmlDecode(
         this.getCurrentProduct.meta_title || this.getCurrentProduct.name
       ),
-      titleTemplate: htmlDecode('%s'),
-      meta: metaData
+      titleTemplate: htmlDecode("%s"),
+      meta: metaData,
     };
-  }
+  },
 };
 </script>
 
@@ -2899,13 +2926,6 @@ i.product-detail-icon {
   @media (max-width: 767px) {
     padding-bottom: 30px;
   }
-
-  .sizes {
-    @media (max-width: 767px) {
-      width: 100%;
-    }
-  }
-
   .size-guide {
     height: 40px;
     @media (max-width: 767px) {
@@ -4725,5 +4745,28 @@ label.base-input-number__label.cl-primary.flex {
   color: #57c9c0;
   font-size: 14px;
   line-height: 30px;
+}
+.cl-primary.variants {
+  padding-left: 40px;
+}
+@media (max-width: 767px) {
+  .cl-primary.variants {
+    padding-left: 25px !important;
+  }
+}
+h4.variants-label.basin-head {
+  color: #071a44 !important;
+  margin-bottom: 5px;
+}
+.sizes.basin_size {
+  width: 95%;
+}
+.sizes.basin_size select {
+  width: 100%;
+  font-size: 16px;
+  border: 2px solid #071a44;
+  padding-left: 4px !important;
+  cursor: pointer;
+  background: none;
 }
 </style>
