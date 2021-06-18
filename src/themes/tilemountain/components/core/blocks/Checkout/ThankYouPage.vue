@@ -16,7 +16,7 @@
           <div v-if="OnlineOnly" class="success-header row">
             <div class="col-md-3 col-lg-2 col-xs-4 non-selected-tick" />
             <div class="col-md-9 col-lg-10 col-xs-8 success-heading">
-              <p class="order-received">Your Order has been received! pay pal</p>
+              <p class="order-received">Your Order has been received!</p>
               <p
                 class="order-received-text"
               >Please keep an eye on your inbox, we'll send you an email shortly</p>
