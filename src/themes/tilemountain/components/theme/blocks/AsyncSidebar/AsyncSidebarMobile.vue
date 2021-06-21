@@ -160,12 +160,12 @@ export default {
     min-width: 310px;
   }
   .right-sidebar-mobile {
-    top: 122px;
+    top: 134px;
   }
 }
-@media (min-width: 320px) and (max-width: 480px) {
+@media (max-width: 480px) {
   .right-sidebar-mobile {
-    top: 98px;
+    top: 104px;
   }
 }
 </style>

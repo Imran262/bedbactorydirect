@@ -152,7 +152,7 @@ export default {
 @media (min-width: 700px) and (max-width: 767px) {
   .slider-mobile {
     display: block;
-    margin-top: 2px;
+    margin-top: -9px;
     padding-bottom: 6px;
     background-color: #fff;
   }

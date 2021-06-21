@@ -77,7 +77,6 @@ button i {
   .body-fixed .overlay.fixed.w-100 {
     height: 88vh;
     top: auto;
-    z-index: 10;
     bottom: 0;
   }
   i#hamberger {
