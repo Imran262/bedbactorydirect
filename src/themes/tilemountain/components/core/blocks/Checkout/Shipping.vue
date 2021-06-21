@@ -899,7 +899,11 @@
                   sendDataToCheckout();
                   dateSelected();
                 "
-                :disabled="!(getShippingMethods.length>0 && isCalendarSelected)"
+                :disabled="
+                      $v.shipping.$invalid ||
+                      getShippingMethods.length === 0 ||
+                      (isCalendarSelected && shippingSlotsData.length === 0)
+                    "
               >
                 <!-- <span v-if="deliveryBtnClicked == true">
                   {{ $t('Delivery: ') }}
@@ -1791,9 +1795,6 @@ export default {
         maxLength: maxLength(11)
       },
       mobile: {
-        maxLength: maxLength(11)
-      },
-      newsLetter: {
         maxLength: maxLength(11)
       }
     }
