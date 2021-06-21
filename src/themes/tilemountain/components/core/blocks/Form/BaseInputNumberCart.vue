@@ -132,10 +132,9 @@ export default {
     text-align: center;
     width: 37px;
     height: 39px;
-    color: #fff;
+    color: #071a44;
     font-size: 16px;
     font-weight: bold;
-    background: #57c9c0;
     border: none !important;
   }
   .base-input-number {
@@ -156,7 +155,7 @@ export default {
   }
 }
 .base-input-numberz.sd {
-    border: 2px solid #cccccc;
+    border: 2px solid #071a44;
     border-radius: 3px;
     padding: 2px;
 }
