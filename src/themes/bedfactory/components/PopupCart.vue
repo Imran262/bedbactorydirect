@@ -1205,8 +1205,8 @@ button.shopping-button {
   max-width: 40% !important;
   background-image: none !important;
   margin-right: 20px;
-  background: #27acf4 !important;
-  border: 2px solid #27acf4 !important;
+  background: #57c9c0 !important;
+  border: 2px solid #57c9c0 !important;
 }
 button.Modalbutton {
   max-width: 40% !important;
