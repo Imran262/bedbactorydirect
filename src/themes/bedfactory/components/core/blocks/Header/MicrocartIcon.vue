@@ -170,8 +170,8 @@ export default {
   src: url('/assets/fonts/Oblik_Bold.otf');
 }
 .minicart-count {
-  top: 32px;
-  left: 15px;
+  top: 30px;
+  left: 20px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -247,7 +247,7 @@ img {
   }
   .minicart-count {
     left: 25%;
-    top: 27px;
+    top: 32px;
     width: 14px;
     height: 14px;
     font-size: 9px;
@@ -270,7 +270,7 @@ img {
     min-height: 83px;
   }
   .minicart-count {
-    top: 20px;
+    top: 13px;
     left: 20px;
     width: 22px;
     height: 22px;
@@ -288,8 +288,8 @@ img {
     }
   }
   .minicart-count {
-    top: 24px;
-    left: 12px;
+    top: 19px;
+    left: 17px;
     width: 16px;
     height: 16px;
     font-size: 10px;

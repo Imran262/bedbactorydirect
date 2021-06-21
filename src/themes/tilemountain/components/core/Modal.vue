@@ -13,7 +13,7 @@
           <slot name="header" />
           <i
             slot="close"
-            class="modal-close material-icons cl-bg-tertiary"
+            class="modal-close material-icons cl-bg-tertiary cl-gray"
             @click="close"
             data-testid="closeModalButton"
           >

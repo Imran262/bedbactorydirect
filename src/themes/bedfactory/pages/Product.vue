@@ -4761,7 +4761,7 @@ button.select-color-button {
   color: #071a44;
   font-size: 16px;
 }
-i.material-icons {
+.cl-white {
   float: right;
   color: #ffff !important;
 }

@@ -15,7 +15,7 @@
           "
         >
           <div class="custom-option mb15 basin">
-            <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close fab-cross" @click="$emit('closeColorPickerModal')">close</i></h4>
+            <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close fab-cross cl-white" @click="$emit('closeColorPickerModal')">close</i></h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
             </span>
 
