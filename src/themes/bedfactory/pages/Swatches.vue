@@ -639,7 +639,6 @@ export default {
   background: rgba(115, 192, 193, 0.95);
   border-radius: 2px;
   padding: 13px;
-  z-index:1;
 }
 .fabric-tile__trigger::before {
   content: " ";
