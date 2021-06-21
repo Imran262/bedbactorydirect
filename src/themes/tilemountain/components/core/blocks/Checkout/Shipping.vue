@@ -2733,7 +2733,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
   }
 
   .vc-highlights {
-    background: #ed008c;
+    background: #57c9c0;
 
     .vc-day-layer {
       border: none;
