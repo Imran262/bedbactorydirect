@@ -313,339 +313,117 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- {{showMethods()}} -->
+    <!-- {{ showAvailableMethod() }} -->
     <div class="pt20 delivery-methods-detail">
-      <div class="delivery-method-boxes pl30 pr30">
-        <h3>Delivery Method</h3>
-        <div v-if="getShippingMethods.length === 0">
-          No Delivery Methods Found
-        </div>
-        <div class="row delivery-method">
-          <div class="col-md-6 col-xs-12">
-            <label class="radioStyled">
-              Home Delivery:
-              <input
-                type="radio"
-                name="choose-date"
-                ref="chooseDate"
-                checked="checked"
-                @click="handleChooseDateClick"
-              />
-              <span
-                class="checkmark black-border-checkmark"
-                :class="isCalendarSelected ? 'customselectedclass' : ''"
-              />
-            </label>
-          </div>
-          <div class="col-md-6 col-xs-12">
-            <template v-if="getShippingMethodsWithoutDates.length > 0">
-              <span
-                v-for="method in getShippingMethodsWithoutDates"
-                :key="method.method_code"
-              >
-                <label class="radioStyled">
-                  Collection from Stoke Warehouse:
-                  <input
-                    type="radio"
-                    @click="handleShippingMethodWithoutDateClick"
-                    :value="method.method_code"
-                    ref="shippingMethodWithoutDate"
-                    name="shipping-method"
-                    v-model="shipping.shippingMethod"
-                    @change="
-                      $v.shipping.shippingMethod.$touch();
-                      changeShippingMethod('fromInput');
-                    "
-                  />
-                  <span
-                    class="checkmark black-border-checkmark no-checked"
-                    id="noChecked"
-                  />
-                </label>
-              </span>
-            </template>
-          </div>
-        </div>
-      </div>
       <div class="home-delivery-box">
-        <template
-          v-if="
-            getShippingMethodsWithRoyalMail.length !== 0 &&
-            getShippingMethodsWithOOS.length == 0
-          "
-        >
+         <!-- {{ showAvailableMethod() }} -->
           <h3
             class="pl30 pr30"
-            v-if="
-              selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length !== 1
-            "
           >
-            Delivery Date
+            Delivery Date/Method
           </h3>
-          <label
-            class="pl30 pr30"
-            v-if="
-              getShippingMethodsWithOOS.length == 0 &&
-              selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length !== 1
-            "
-          >
-            Your order will be posted through the letterbox, no signature
-            required
-          </label>
-        </template>
-        <template v-if="getShippingMethodsWithOOS.length > 0">
-          <h3
-            class="pl30 pr30"
-            v-if="
-              selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length !== 1
-            "
-          >
-            Delivery Date
-          </h3>
-        </template>
-        <template
-          v-if="getShippingMethodsWithOOS.length > 0 && outOfStockCode()"
-        >
-          <div
-            class="OutOfstockItem"
-            v-if="
-              getShippingMethodsWithOOS.length > 0 &&
-              selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length !== 1
-            "
-          >
-            <span>Out of Stock Item</span>
-            <p>
-              Delivery Date currently unavailable. We will contact you when the
-              goods are ready to ship.
-            </p>
-          </div>
-        </template>
-        <template
-          v-if="
-            getShippingMethodsWithOOS.length == 0 &&
-            getShippingMethodsWithRoyalMail.length == 0
-          "
-        >
-          <h3
-            class="pl30 pr30"
-            v-if="
-              selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length !== 1
-            "
-          >
-            Delivery Date
-          </h3>
-        </template>
-        <!-- <template v-else>
-          <h3 class="pl30 pr30" v-if="getShippingMethodsWithOOS.length !== 0 && selectedDeliveryMethod === 'homedelivery' && getSortedDates.length !== 1">
-            Delivery Date
-          </h3>
-        </template> -->
-        <h3
-          class="pl30 pr30 hidden"
-          v-if="selectedDeliveryMethod === 'warehouse'"
-        >
-          Choose Collection Date
-        </h3>
-        <h3
-          class="pl30 pr30"
-          v-if="
-            selectedDeliveryMethod === 'homedelivery' &&
-            getSortedDates.length === 1
-          "
-        >
-          Shipping Date
-        </h3>
-        <div
-          class="cal-txt"
-          id="deliveryMethods"
-          :class="
-            getShippingMethodsWithRoyalMail.length === 0
-              ? 'showDelSection'
-              : 'hideDelSection'
-          "
-          v-if="
-            selectedDeliveryMethod === 'homedelivery' &&
-            getSortedDates.length === 0
-          "
-        >
-          <p
-            class="pl30 pr30"
-            v-for="method in getShippingMethods"
-            :key="method.method_code"
-          >
+          <div class="free-des" v-if="isBFDContact">
             <label class="radioStyled">
-              <span>{{ method.method_title }}</span>
+              Free Standard Delivery
+              <!-- {{shipping}} -->
               <input
                 type="radio"
-                @click="handleShippingMethodAll"
-                :value="method.method_code"
-                ref="shippingMethodWithoutDateAll"
+                :value="'is_bfd_contact'"
                 name="shipping-method"
+                ref="shippingMethodRef"
                 v-model="shipping.shippingMethod"
                 @change="
                   $v.shipping.shippingMethod.$touch();
-                  changeShippingMethod('fromInput');
+                  changeShippingMethod(true);
+                  selectedMethod = 'is_bfd_contact';
                 "
               />
-              <span
-                class="checkmark black-border-checkmark shippingMethodAll"
-                :class="!radioCheckedFlag ? 'allunchecked' : ''"
-              />
             </label>
-          </p>
-        </div>
-        <div
-          v-if="
-            getSortedDates.length === 1 &&
-            selectedDeliveryMethod === 'homedelivery'
-          "
-        >
-          <h5
-            class="pl30 pr30 mb10 delivery-msg-date"
-            v-if="!$v.shipping.$invalid || fromCart"
-          >
-            We currently have limited availability for
-            {{ calenderHasSingleDate }}. Order now to secure your delivery slot.
-          </h5>
-          <div class="row singleDateRowData">
-            <div class="col-md-6 col-xs-12 pl30 pr30 instruction one">
-              <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
-                Special Delivery Instructions
-              </h3>
-              <textarea
-                row="20"
-                cols="10"
-                name="delivery-note"
-                placeholder="Enter instructions"
-                v-model.trim="shipping.deliveryNote"
-              />
-              <input
-                type="hidden"
-                name="delivery-note-hidden"
-                placeholder="Enter instructions"
-                v-model.trim="shipping.deliveryNoteHidden"
-              />
-            </div>
-            <div class="col-md-6 col-xs-12 pl30 pr30 instruction two">
-              <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
-                If no one is in:
-              </h3>
-              <base-select
-                class="col-xs-12 col-sm-12 col-md-12 mb20 req-label NOone-req-label"
-                name="noOneField"
-                :options="noOneField"
-                :selected="shipping.noOneField ? shipping.noOneField : ''"
-                v-model="shipping.noOneField"
-                autocomplete="noOneField"
-              />
-            </div>
+            {{ methodMessage }}
           </div>
-          <template v-for="slotData in shippingSlotsData">
-            <div
-              v-if="
-                slotData &&
-                slotData.customData &&
-                slotData.customData.method_code
-              "
-              :key="slotData.customData.method_code"
-              class="calendar-right-inner hidden"
-            >
-              <label class="label">
-                <template
-                  v-if="
-                    (slotData.customData.method_code.indexOf('Kerbside') !==
-                      -1) ==
-                    true
-                  "
-                  ><span
-                    v-html="
-                      parseTitle(
-                        slotData.customData.method_title,
-                        slotData.customData.price_incl_tax
-                      )
-                    "
-                  />
-                </template>
-                <template
-                  v-if="
-                    (slotData.customData.method_code.indexOf('DPD') !== -1) ==
-                    true
-                  "
-                  ><span
-                    v-html="
-                      parseTitle(
-                        slotData.customData.method_title,
-                        slotData.customData.price_incl_tax
-                      )
-                    "
-                  />
-                </template>
-                <template
-                  v-if="
-                    ((slotData.customData.method_code.indexOf('Royal Mail') !==
-                      -1) ==
-                      true ||
-                      (slotData.customData.method_code.indexOf('Royal_Mail') !==
-                        -1) ==
-                        true) &&
-                    getSortedDates.length !== 1
-                  "
-                  ><span
-                    v-html="
-                      parseTitle(
-                        slotData.customData.method_title,
-                        slotData.customData.price_incl_tax
-                      )
-                    "
-                  />
-                </template>
-                <template
-                  v-if="
-                    (slotData.customData.method_code.indexOf('Samples') !==
-                      -1) ==
-                    true
-                  "
-                  ><span
-                    v-html="
-                      parseTitle(
-                        slotData.customData.method_title,
-                        slotData.customData.price_incl_tax
-                      )
-                    "
-                  />
-                </template>
-                <input
-                  type="radio"
-                  :value="slotData.customData.method_code"
-                  name="single-shipping-method"
-                  ref="singleShippingMethodRef"
-                  v-model="shipping.shippingMethod"
-                  @change="
-                    $v.shipping.shippingMethod.$touch();
-                    changeShippingMethod();
-                    selectedMethod = slotData.customData.method_code;
-                  "
-                  @click="dateAndTimeUpdate(slotData.customData.method_title)"
-                />
-                <span class="checkmarkbox" />
-              </label>
+          <div v-else-if="canNotDeliver">
+            <div class="not deliver">
+              {{ methodMessage }}
             </div>
-          </template>
-        </div>
-        <div
-          class="row pl30 pr30 calendar-area"
-          :class="
-            getShippingMethodsWithRoyalMail.length === 0
-              ? 'showDelSection'
-              : 'hideDelSection'
-          "
-          v-else
-        >
-          <div
+            <button
+              data-v-469979b9=""
+              type="button"
+              data-testid="personalDetailsSubmit"
+              class="
+                cont-pay
+                no-outline
+                button-full
+                block
+                brdr-none
+                px10
+                py20
+                bg-cl-mine-shaft
+                :bg-cl-th-secondary
+                ripple
+                weight-400
+                h4
+                cl-white
+                sans-serif
+                fs-medium
+                button-disabled
+              "
+            >
+              Continue to payment
+            </button>
+          </div>
+
+          <div v-else-if="noMethodsFound">No Delivery Methods Found</div>
+          <div v-else>
+            <div
             class="col-md-12 col-xs-12"
             v-if="
               getMinDate &&
@@ -680,190 +458,13 @@
                 :masks="masksObj"
               />
             </no-ssr>
-            <div
-              class="cal-checkbox"
-              v-if="
-                selectedDeliveryMethod === 'homedelivery' &&
-                getKerbsideShppingMethods.length > 0
-              "
-            >
-              <input
-                type="checkbox"
-                name="vehicle"
-                id="vehicle"
-                v-model="shipping.narrowRoad"
-                @click="narrowCheckedFn"
-              />
-              <label for="vehicle">
-                Narrow Road - Smaller Vehicle Advisable</label
-              >
             </div>
           </div>
-          <div
-            class="calendar-right col-md-6 col-xs-12"
-            v-if="
-              shippingSlotsData &&
-              shippingSlotsData.length > 0 &&
-              isCalendarSelected
-            "
-          >
-            <div class="calendar-ineer-main">
-              <div
-                class="selected-collection-time"
-                :class="!shipping.narrowRoad ? 'show' : 'hide'"
-              >
-                <!-- <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
-                  Select a Delivery Time
-                </h3> -->
-                <!--  <h3 v-if="selectedDeliveryMethod == 'warehouse'">Select a collection time:</h3>-->
-                <!-- <div class="selected-collection-time-inner">
-                  <template v-for="slotData in shippingSlotsData">
-                    <div
-                      v-if="
-                        slotData &&
-                        slotData.customData &&
-                        slotData.customData.method_code
-                      "
-                      :key="slotData.customData.method_code"
-                      class="calendar-right-inner"
-                    >
-                      <label class="label">
-                        <template
-                          v-if="
-                            (slotData.customData.method_code.indexOf(
-                              'Kerbside'
-                            ) !==
-                              -1) ==
-                            true
-                          "
-                          ><span
-                            v-html="
-                              parseTitle(
-                                slotData.customData.method_title,
-                                slotData.customData.price_incl_tax
-                              )
-                            "
-                          />
-                        </template>
-                        <template
-                          v-else-if="
-                            (slotData.customData.method_code.indexOf('DPD') !==
-                              -1) ==
-                            true
-                          "
-                          ><span
-                            v-html="
-                              parseTitle(
-                                slotData.customData.method_title,
-                                slotData.customData.price_incl_tax
-                              )
-                            "
-                          />
-                        </template>
-                        <template
-                          v-else-if="
-                            ((slotData.customData.method_code.indexOf(
-                              'Royal Mail'
-                            ) !==
-                              -1) ==
-                              true ||
-                              (slotData.customData.method_code.indexOf(
-                                'Royal_Mail'
-                              ) !==
-                                -1) ==
-                                true) &&
-                            getSortedDates.length !== 1
-                          "
-                          ><span
-                            v-html="
-                              parseTitle(
-                                slotData.customData.method_title,
-                                slotData.customData.price_incl_tax
-                              )
-                            "
-                          />
-                        </template>
-                        <template
-                          v-else-if="
-                            (slotData.customData.method_code.indexOf(
-                              'Samples'
-                            ) !==
-                              -1) ==
-                            true
-                          "
-                          ><span
-                            v-html="
-                              parseTitle(
-                                slotData.customData.method_title,
-                                slotData.customData.price_incl_tax
-                              )
-                            "
-                          />
-                        </template>
-                        <input
-                          type="radio"
-                          :value="slotData.customData.method_code"
-                          name="shipping-method"
-                          ref="shippingMethodRef"
-                          v-model="shipping.shippingMethod"
-                          @change="
-                            $v.shipping.shippingMethod.$touch();
-                            changeShippingMethod();
-                            selectedMethod = slotData.customData.method_code;
-                          "
-                          @click="
-                            dateAndTimeUpdate(slotData.customData.method_title)
-                          "
-                        />
-                        <span class="checkmarkbox" />
-                      </label>
-                    </div>
-                  </template>
-                </div> -->
-              </div>
-              <div class="instruction">
-                <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
-                  Special Delivery Instructions
-                </h3>
-                <textarea
-                  row="20"
-                  cols="10"
-                  name="delivery-note"
-                  placeholder="Enter instructions"
-                  v-model.trim="shipping.deliveryNote"
-                />
-                <input
-                  type="hidden"
-                  name="delivery-note-hidden"
-                  placeholder="Enter instructions"
-                  v-model.trim="shipping.deliveryNoteHidden"
-                />
-              </div>
-            </div>
-          </div>
-          <template v-if="getShippingMethodsWithoutDates.length > 0">
-            <div
-              class="col-md-12 col-xs-12"
-              v-for="method in getShippingMethodsWithoutDates"
-              :key="method.method_code"
-            >
-              <StoreLocation v-if="selectedDeliveryMethod === 'warehouse'" />
-              <!--<ShippingMethod
-                :identifier="method.method_code"
-                :current-method="shipping.shippingMethod"
-                :is-calendar-selected="isCalendarSelected"
-              />-->
-            </div>
-          </template>
-          <span
-            class="validation-error"
-            v-if="
-              $v.shipping.shippingMethod.$error &&
-              !$v.shipping.shippingMethod.required
-            "
-            >{{ $t('Field is required') }}</span
-          >
-        </div>
+        <!-- <template v-else>
+          <h3 class="pl30 pr30" v-if="getShippingMethodsWithOOS.length !== 0 && selectedDeliveryMethod === 'homedelivery' && getSortedDates.length !== 1">
+            Delivery Date
+          </h3>
+        </template> -->
 
         <div
           class="col-xs-12 col-sm-12 col-md-12 pl30 pr30"
@@ -881,7 +482,6 @@
               : 'hideDeliBtnSection'
           "
           v-if="
-            selectedDeliveryMethod === 'homedelivery' &&
             getSortedDates.length > 1
           "
         >
@@ -990,7 +590,12 @@ export default {
       narrowDateMatch: '',
       noOneField: config.checkoutNoOneField,
       getProductFromCart: this.productsInCart,
-      masksObj: {weekdays: 'WW'}
+      masksObj: {weekdays: 'WW'},
+      isBFDContact : false,
+      canNotDeliver : false,
+      showCalender : false,
+      noMethodsFound : false,
+      methodMessage : ""
     }
   },
   components: {
@@ -1014,6 +619,70 @@ export default {
     },
   },
   methods: {
+    showMethods(){
+      let methodCheckFlag = false;
+      console.log("3216 In Available Method Function", this.getShippingMethods);
+      if (this.getShippingMethods && this.getShippingMethods.length>0){
+        }
+      else{
+
+      }
+    },
+     showAvailableMethod() {
+      let methodCheckFlag = false;
+      console.log("3216 In Available Method Function", this.getShippingMethods);
+      this.getShippingMethods.forEach((method, index) => {
+        console.log("3216 Methods code ", method.method_code, method);
+        console.log(
+          "3216 total length : ",
+          this.getShippingMethods.length,
+          "\t Current iteration :",
+          index
+        );
+        if (method.method_code === "is_bfd_contact") {
+          console.log("3216 is_bfd_contact");
+          methodCheckFlag = true;
+          this.isBFDContact = true;
+          this.canNotDeliver = false;
+          this.showCalender = false;
+          this.noMethodsFound = false;
+          this.methodMessage = method.carrier_title;
+          // console.log("3216", this.$refs['shippingMethodRef'],this.$refs);
+          setTimeout(() => {
+            this.$refs["shippingMethodRef"].click();
+            // console.log("3216 After", this.$refs['shippingMethodRef'].click(),this.$refs);
+          }, 100);
+        } 
+        else if (method.method_code === "cannot_deliver") {
+          console.log("3216 cannot_deliver");
+          methodCheckFlag = true;
+          this.isBFDContact = false;
+          this.canNotDeliver = true;
+          this.showCalender = false;
+          this.noMethodsFound = false;
+          this.methodMessage = method.carrier_title;
+        }
+        if (methodCheckFlag) {
+          console.log("3216 Yes the flag is ", methodCheckFlag);
+        } else {
+          if (this.getShippingMethods.length === index + 1) {
+            if (this.getShippingMethods.length > 2) {
+              console.log("3216 we ll show the dates");
+              this.isBFDContact = false;
+              this.canNotDeliver = false;
+              this.showCalender = true;
+              this.noMethodsFound = false;
+            } else {
+              console.log("3216 No delivery methods found");
+              this.isBFDContact = false;
+              this.canNotDeliver = false;
+              this.showCalender = false;
+              this.noMethodsFound = true;
+            }
+          }
+        }
+      });
+    },
     editShipping () {
       let token=this.$route.query.token
       if (config.paypalManual.mode==="sandbox") {
