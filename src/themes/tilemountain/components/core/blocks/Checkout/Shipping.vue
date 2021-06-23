@@ -365,7 +365,7 @@
     <!-- {{ showAvailableMethod() }} -->
     <div class="pt20 delivery-methods-detail">
       <div class="home-delivery-box">
-         <!-- {{ showAvailableMethod() }} -->
+         {{ showAvailableMethod() }}
           <h3
             class="pl30 pr30"
           >
@@ -429,10 +429,22 @@
               getMinDate &&
               getMaxDate &&
               disabledDateFn &&
-              attributes &&
-              shouldShowChooseDate
+              attributes 
             "
-          />
+          >
+          <label class="radioStyled pre-del">
+                Select your preferred delivery day
+                <input
+                  type="radio"
+                  name="choose-date"
+                  ref="chooseDate"
+                />
+                <span
+                  class="checkmark black-border-checkmark pre-del-check"
+                  :class="isCalendarSelected ? 'customselectedclass' : ''"
+                />
+              </label>
+            </div>
           <div class="col-xs-12 col-sm-12 col-md-6 calendar-box">
             <no-ssr>
               <v-calendar
@@ -458,6 +470,98 @@
                 :masks="masksObj"
               />
             </no-ssr>
+          </div>
+          </div>
+            <div
+              class="calendar-right col-lg-6 col-md-12 col-xs-12"
+              v-if="
+                shippingSlotsData &&
+                shippingSlotsData.length > 0 &&
+                isCalendarSelected
+              "
+            >
+              <div class="calendar-ineer-main">
+                <template v-for="slotData in shippingSlotsData">
+                  <div
+                    v-if="
+                      slotData &&
+                      slotData.customData &&
+                      slotData.customData.method_code
+                    "
+                    :key="slotData.customData.method_code"
+                    class="calendar-right-inner"
+                  >
+                    <label class="radioStyled pre-del">
+                      <template
+                        v-if="
+                          (slotData.customData.method_code.indexOf(
+                            'Kerbside'
+                          ) !==
+                            -1) ==
+                          true
+                        "
+                        >Pallet</template
+                      >
+                      <template
+                        v-if="
+                          (slotData.customData.method_code.indexOf('DPD') !==
+                            -1) ==
+                          true
+                        "
+                        >DPD parcel</template
+                      >
+                      <span
+                        v-if="selectedMethod == slotData.customData.method_code"
+                      >
+                        {{
+                          slotData.customData.amount === 0
+                            ? "Free Delivery"
+                            : calendarPriceCurrency + slotData.customData.amount
+                        }}
+                      </span>
+                      <input
+                        type="radio"
+                        :value="slotData.customData.method_code"
+                        name="shipping-method"
+                        ref="shippingMethodRef"
+                        v-model="shipping.shippingMethod"
+                        @change="
+                          $v.shipping.shippingMethod.$touch();
+                          changeShippingMethod('fromInput0');
+                          selectedMethod = slotData.customData.method_code;
+                        "
+                      />
+                      <span
+                        class="free-del"
+                        v-if="slotData.customData.carrier_title"
+                      >
+                        <p class="free-del-p">
+                          {{ slotData.customData.carrier_title }}
+                        </p>
+                      </span>
+                      <span
+                        class="checkmark black-border-checkmark pre-del-check"
+                      />
+                    </label>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div v-else class="pl20">
+              <p v-if="getMinDate && getMaxDate && isCalendarSelected">
+                <strong>Please select delivery date</strong>
+              </p>
+              <span
+                v-if="getMinDate && getMaxDate && isCalendarSelected"
+                calss="pl20 free-del"
+              >
+                <p
+                  class="free-del-p2"
+                  v-if="getShippingMethods[1].carrier_title"
+                >
+                  {{ getShippingMethods[1].carrier_title }}
+                </p>
+              </span>
             </div>
           </div>
         <!-- <template v-else>
@@ -961,8 +1065,8 @@ export default {
           result
         )
         if (
-          this.getShippingMethodsWithDates.length>0&&
-          this.getShippingMethodsWithoutDates.length>=0
+          this.getShippingMethodsWithDates.length>0
+         // this.getShippingMethodsWithoutDates.length>=0
         ) {
           // this.selectFirstShippingMethod();
         }
