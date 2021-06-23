@@ -18,7 +18,9 @@
       </p>
     </div>
     <div class="modal-content bg-cl-primary cl-secondary">
-      <p class="pb40 loginheading">If you already have an account with us, please log in.</p>
+      <p class="pb40 loginheading">
+        If you already have an account with us, please log in.
+      </p>
       <form @submit.prevent="login" novalidate>
         <base-input
           class="mb10 filldata"
@@ -59,13 +61,67 @@
           </base-checkbox>
           <p id="info">What is this?</p>
         </div>
-        <button-full
+        <div class="alignnext">
+          <button
+            type="submit"
+            data-testid="loginSubmit"
+            class="
+              no-outline
+              button-full
+              block
+              brdr-none
+              w-100
+              px10
+              py20
+              bg-cl-mine-shaft
+              :bg-cl-th-secondary
+              ripple
+              weight-400
+              h4
+              cl-white
+              sans-serif
+              fs-medium
+              mb20
+              loginconfirm
+            "
+          >
+            Login
+          </button>
+          <a
+            href="/customer/account/create"
+            class="
+              no-outline
+              button-full
+              block
+              brdr-none
+              w-100
+              px10
+              py20
+              bg-cl-mine-shaft
+              ripple
+              weight-400
+              h4
+              cl-white
+              sans-serif
+              fs-medium
+              mb20
+              createaccount
+              no-underline
+              pointer
+              align-center
+              border-box
+            "
+            data-testid="subscribeSubmit"
+            >Create an Account</a
+          >
+        </div>
+        <!-- <button-full
           class="mb20 loginconfirm"
           type="submit"
           data-testid="loginSubmit"
         >
           {{ $t("Login") }}
-        </button-full>
+        </button-full> -->
       </form>
     </div>
     <div
@@ -87,7 +143,7 @@ import BaseCheckbox from "../Form/BaseCheckbox.vue";
 import BaseInput from "../Form/BaseInput.vue";
 import { required, email } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
-import i18n from '@vue-storefront/i18n'
+import i18n from "@vue-storefront/i18n";
 import {
   currentStoreView,
   localizedRoute,
@@ -123,30 +179,42 @@ export default {
     }
   },
   methods: {
-    callLoginQuote(getTokenCustomer){
-      this.$bus.$emit('notification-progress-start', i18n.t('Customer Login in progress ...'))
+    callLoginQuote(getTokenCustomer) {
+      this.$bus.$emit(
+        "notification-progress-start",
+        i18n.t("Customer Login in progress ...")
+      );
       if (this.isLogged) {
-        this.$bus.$emit('notification-progress-stop')
-        this.$router.push(this.localizedRoute('/my-account/quotations/'));
-        this.close()
+        this.$bus.$emit("notification-progress-stop");
+        this.$router.push(this.localizedRoute("/my-account/quotations/"));
+        this.close();
       } else {
-        this.$store.dispatch('user/login', { username: 'test', password: getTokenCustomer }).then((result) => {
-          this.$bus.$emit('notification-progress-stop', {})
+        this.$store
+          .dispatch("user/login", {
+            username: "test",
+            password: getTokenCustomer,
+          })
+          .then((result) => {
+            this.$bus.$emit("notification-progress-stop", {});
 
-          if (result.code !== 200) {
-            this.onFailure(result)
-          } else {
-            this.onSuccess()
-            this.$bus.$emit('notification-progress-stop')
-            this.$router.push(this.localizedRoute('/my-account/quotations/'));
-            this.close()
-          }
-        }).catch(err => {
-          Logger.error(err, 'user')()
-          this.onFailure({ result: 'Unexpected authorization error. Check your Network conection.' })
-          // TODO Move to theme
-          this.$bus.$emit('notification-progress-stop')
-        })
+            if (result.code !== 200) {
+              this.onFailure(result);
+            } else {
+              this.onSuccess();
+              this.$bus.$emit("notification-progress-stop");
+              this.$router.push(this.localizedRoute("/my-account/quotations/"));
+              this.close();
+            }
+          })
+          .catch((err) => {
+            Logger.error(err, "user")();
+            this.onFailure({
+              result:
+                "Unexpected authorization error. Check your Network conection.",
+            });
+            // TODO Move to theme
+            this.$bus.$emit("notification-progress-stop");
+          });
       }
     },
     close(e) {
@@ -228,7 +296,7 @@ $white: color(white);
     border: none;
     font-weight: bold;
     border-radius: 24px;
-    background-color: #EE4C56 !important;
+    background-color: #ee4c56 !important;
     i {
       color: #ffffff;
       display: block;
@@ -237,7 +305,7 @@ $white: color(white);
     }
   }
   .loginconfirm {
-    background: #57c9c0 ;
+    background: #57c9c0;
     width: 100%;
     color: #ffffff;
     font-size: 19.92px;
@@ -268,8 +336,8 @@ $white: color(white);
   }
   @media (max-width: 1199px) and(min-width: 992px) {
     .modal-content {
-      padding: 13px;
-      max-width: 440px;
+      // padding: 13px;
+      // max-width: 440px;
       .rem-group {
         padding-left: 8px;
       }
@@ -283,12 +351,12 @@ $white: color(white);
   }
   @media (max-width: 991px) and (min-width: 768px) {
     .modal-header {
-      font-size: 20px;
-      width: 86.2%;
+      // font-size: 20px;
+      // width: 86.2%;
     }
     .modal-content {
-      padding: 8px;
-      max-width: 341px;
+      // padding: 8px;
+      // max-width: 341px;
       .rem-group {
         padding-left: 11px;
       }
@@ -319,7 +387,7 @@ $white: color(white);
       }
       .passwordbox {
         min-height: 3.3rem;
-            margin-bottom: 0;
+        margin-bottom: 0;
       }
       .rem-group {
         padding-left: 8px;
@@ -343,6 +411,7 @@ $white: color(white);
     }
   }
 }
+
 .modal-header {
   display: flex;
   align-items: center;
@@ -370,7 +439,7 @@ $white: color(white);
   padding-right: 36px;
   padding-top: 20px;
   padding-bottom: 54px;
-  .loginheading{
+  .loginheading {
     color: #333333;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -389,13 +458,55 @@ $white: color(white);
   background-color: $color-error;
   color: $white;
 }
+  @media (max-width: 1199px) and(min-width: 992px) {
+   .LoginDetails .modal-content {
+       padding: 13px;
+       max-width: 440px;
+    }
+  }
+  @media (max-width: 991px) and (min-width: 768px) {
+   .LoginDetails .modal-content {
+      padding: 8px;
+      max-width: 341px;
+    }
+    .LoginDetails .modal-header {
+      font-size: 20px;
+      width: 86.2%;
+    }
+  }
+  @media (max-width: 767px){
+.modal-container  .createaccount{
+    padding: 10px !important;
+    font-size: 12px !important;
+    width: 50% !important;
+}
+  }
+   .LoginDetails  .button-full {
+    min-width: 250px !important;
+  }
+  @media (max-width: 400px) {
+ .LoginDetails .button-full {
+    min-width: 180px !important;
+    padding-left: 30px  !important;
+  }
+  }
+     .modal-container   .button-full {
+    min-width: 0 !important;
+  }
+  @media (max-width: 400px) {
+ .modal-container  .button-full {
+    min-width: 0 !important;
+    padding-left: 10px  !important;
+  }
+  }
+
 </style>
 <style lang="scss">
 .LoginForm {
   .base-input {
     min-height: 5.9rem;
   }
- .base-input.passwordbox {
+  .base-input.passwordbox {
     min-height: 0px;
     margin-bottom: 8px;
   }
@@ -426,17 +537,17 @@ $white: color(white);
     right: -10px;
     bottom: 0px;
     font-size: 17px;
-  } 
-  .remember{
+  }
+  .remember {
     padding-left: 8px;
-    @media(max-width: 1200px) and (min-width: 320px){
+    @media (max-width: 1200px) and (min-width: 320px) {
       padding-left: 0px;
     }
   }
-  .remember label{
-        padding-left: 28px;
+  .remember label {
+    padding-left: 28px;
   }
-  .remember label:before{
+  .remember label:before {
     height: 17px;
     width: 17px;
   }
@@ -496,6 +607,25 @@ $white: color(white);
   }
 }
 .required-Field {
-    color: #EE4C56 !important;
+  color: #ee4c56 !important;
+}
+.LoginForm .alignnext {
+    display: flex;
+    grid-gap: 10px;
+}
+.LoginDetails .createaccount {
+    display: none;
+}
+.LoginForm .createaccount {
+    background: #24224d;
+    width: 100%;
+    color: #ffffff;
+    font-size: 19.92px;
+    padding: 19.5px;
+    font-weight: bold;
+    border-radius: 3px;
+    max-width: 308px;
+    font-family: Arial;
+    min-width: auto !important;
 }
 </style>
