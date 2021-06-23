@@ -12,7 +12,13 @@
           <div class="grid12-12 uz-proceed-checkout">
             <button-full
               type="button"
-              class="sb-button button btn-proceed-checkout override-btn-checkout btn-checkout"
+              class="
+                sb-button
+                button
+                btn-proceed-checkout
+                override-btn-checkout
+                btn-checkout
+              "
               :link="{ name: 'checkout' }"
             >
               <span><span class="sb-checkout-cart">CHECKOUT</span></span>
@@ -27,10 +33,10 @@
               class="col-md-12 sb-special-main"
               v-if="
                 !addAllBtnClicked &&
-                  productsIncludesTileProduct &&
-                  totalPriceToSendInCall !== 0 &&
-                  productsHasAdhesivesAndGroutCheck &&
-                  groutAddedOrNoThanks
+                productsIncludesTileProduct &&
+                totalPriceToSendInCall !== 0 &&
+                productsHasAdhesivesAndGroutCheck &&
+                groutAddedOrNoThanks
               "
             >
               <div class="row">
@@ -49,7 +55,12 @@
                 </div>
 
                 <div
-                  class="col-md-4 col-xs-4 rec_banner_total sb-add-all-button pull-right"
+                  class="
+                    col-md-4 col-xs-4
+                    rec_banner_total
+                    sb-add-all-button
+                    pull-right
+                  "
                 >
                   <button
                     id="rec_banner_total_btn"
@@ -73,7 +84,7 @@
           <div class="cartinfo">
             <div class="bg-cl-primary m0 px40 products prod-ul">
               <div class="headingtop col-md-12 col-xs-12">
-                <h2>{{ $t('Your Basket') }}</h2>
+                <h2>{{ $t("Your Basket") }}</h2>
               </div>
               <ProductCartPage
                 :products-in-cart="productsInCart"
@@ -95,11 +106,19 @@
               class="col-xs-12 hidden-xs"
             >
               <button
-                class="p0 brdr-none serif fs-medium-small cl-accent bg-cl-transparent Voucher"
+                class="
+                  p0
+                  brdr-none
+                  serif
+                  fs-medium-small
+                  cl-accent
+                  bg-cl-transparent
+                  Voucher
+                "
                 type="button"
                 @click="addDiscountCoupon"
               >
-                {{ $t('Apply a voucher code?') }}
+                {{ $t("Apply a voucher code?") }}
               </button>
             </div>
             <div
@@ -107,7 +126,7 @@
               class="col-xs-12 pt30 coupon-wrapper"
             >
               <div class="coupon-input">
-                <label class="h6 cl-secondary">{{ $t('Discount code') }}</label>
+                <label class="h6 cl-secondary">{{ $t("Discount code") }}</label>
                 <base-input
                   type="text"
                   id="couponinput"
@@ -120,7 +139,7 @@
                 color="dark"
                 :disabled="!couponCode"
                 @click.native="setCoupon"
-                >{{ $t('Add discount code') }}
+                >{{ $t("Add discount code") }}
               </button-outline>
             </div>
           </div>
@@ -136,7 +155,7 @@
                 v-if="segment.code !== 'grand_total'"
               >
                 <div class="subtotal">
-                  {{ segment.code == 'subtotal' ? segment.title : '' }}
+                  {{ segment.code == "subtotal" ? segment.title : "" }}
                 </div>
 
                 <div
@@ -192,7 +211,7 @@
                 <div class="col-xs align-right sep-price">
                   {{
                     segment.value === 0
-                      ? 'Free Delivery'
+                      ? "Free Delivery"
                       : segment.value | price()
                   }}
                 </div>
@@ -218,7 +237,7 @@
                   class="checkoutbutton"
                   :link="{ name: 'checkout' }"
                 >
-                  {{ $t('Proceed To Checkout') }}
+                  {{ $t("Proceed To Checkout") }}
                 </button-full>
               </div>
             </div>
@@ -245,32 +264,32 @@
 </template>
 
 <script>
-import i18n from '@vue-storefront/i18n'
-import { CartSummary } from '@vue-storefront/core/modules/checkout/components/CartSummary'
-import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
-import config from 'config'
-import axios from 'axios'
-import ProductCartPage from 'theme/components/core/blocks/Microcart/ProductCartPage'
-import ButtonFull from 'theme/components/theme/ButtonFull'
-import VueOfflineMixin from 'vue-offline/mixin'
-import { mapGetters, mapActions } from 'vuex'
-import ButtonOutline from 'theme/components/theme/ButtonOutline'
-import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
-import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
-import _ from 'lodash'
+import i18n from "@vue-storefront/i18n";
+import { CartSummary } from "@vue-storefront/core/modules/checkout/components/CartSummary";
+import EventBus from "@vue-storefront/core/compatibility/plugins/event-bus";
+import config from "config";
+import axios from "axios";
+import ProductCartPage from "theme/components/core/blocks/Microcart/ProductCartPage";
+import ButtonFull from "theme/components/theme/ButtonFull";
+import VueOfflineMixin from "vue-offline/mixin";
+import { mapGetters, mapActions } from "vuex";
+import ButtonOutline from "theme/components/theme/ButtonOutline";
+import BaseInput from "theme/components/core/blocks/Form/BaseInput";
+import { MeasureProductClick } from "src/modules/google-gtag/mixins/MeasureProductClick";
+import _ from "lodash";
 
 export default {
-  data () {
+  data() {
     return {
       regular: true,
       addCouponPressed: false,
       sorted: [],
-      couponCode: '',
+      couponCode: "",
       cartHasGroutAdhesive: [],
       discount: false,
       allGroutsAdhesivesDataArray: {},
       allGroutsAdhesives: {
-        'data': []
+        data: [],
       },
       totalPriceOfGroutAdhesive: 0,
       totalPriceToSendInCall: 0,
@@ -286,48 +305,51 @@ export default {
       groutAddedOrNoThanks: true,
       discountCheck: false,
       productsIncludesTileProduct: false,
-      grandTotal: 0
-    }
+      grandTotal: 0,
+    };
   },
   mixins: [VueOfflineMixin, CartSummary, MeasureProductClick],
   components: {
     ProductCartPage,
     ButtonFull,
     ButtonOutline,
-    BaseInput
+    BaseInput,
   },
-  async mounted () {
-    await this.checkCart()
-    await this.getGrandTotal()
-    await this.discountAppliedCheck()
+  async mounted() {
+    await this.checkCart();
+    await this.getGrandTotal();
+    await this.discountAppliedCheck();
     if (this.grandTotal) {
-      await this.sendCartClick({ productsInCart: this.productsInCart, grandTotal: this.grandTotal })
+      await this.sendCartClick({
+        productsInCart: this.productsInCart,
+        grandTotal: this.grandTotal,
+      });
     }
-   // window.addEventListener('scroll', this.handleScroll)
-   this.updateScroll()
+    // window.addEventListener('scroll', this.handleScroll)
+    this.updateScroll();
   },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll)
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   computed: {
     ...mapGetters({
-      productsInCart: 'cart/getCartItems',
-      appliedCoupon: 'cart/getCoupon',
-      totals: 'cart/getTotals',
-      getCartToken: 'cart/getCartToken'
+      productsInCart: "cart/getCartItems",
+      appliedCoupon: "cart/getCoupon",
+      totals: "cart/getTotals",
+      getCartToken: "cart/getCartToken",
     }),
 
-    checkIfAnyGroutAdhesive () {
+    checkIfAnyGroutAdhesive() {
       if (this.cartHasGroutAdhesive && this.cartHasGroutAdhesive.length > 0) {
-        return false
+        return false;
       }
-      return true
+      return true;
     },
-    nonzeroProduct () {
+    nonzeroProduct() {
       return this.productsInCart.filter((item) => {
-        return item.totals.price_incl_tax > 0
-      })
-    }
+        return item.totals.price_incl_tax > 0;
+      });
+    },
     // productsHasAdhesivesAndGrouts () {
     //   if (!this.productsInCart || this.productsInCart.length === 0) {
     //     return false
@@ -349,330 +371,373 @@ export default {
     //   return false
     // }
   },
- async beforeMount () {
-   await this.checkCart()
-console.log("789456  ",this.productsInCart.length);
-if(this.productsInCart.length === 0){
-  console.log("Cart is Empty ");
-  this.$router.push(this.localizedRoute('/'))
-}
-    this.$bus.$on('carPageUpdate', ({ productId }) => {
+  async beforeMount() {
+    await this.checkCart();
+    console.log("789456  ", this.productsInCart.length);
+    if (this.productsInCart.length === 0) {
+      console.log("Cart is Empty ");
+      this.$router.push(this.localizedRoute("/"));
+    }
+    this.$bus.$on("carPageUpdate", ({ productId }) => {
       if (productId in this.hasGroutAdhesives) {
-        delete this.hasGroutAdhesives[productId]
-        this.groutAdhesivesOnCart()
+        delete this.hasGroutAdhesives[productId];
+        this.groutAdhesivesOnCart();
       }
-    })
-    this.$bus.$on('has-grout-adhesive', ({ recommendation, productId }) => {
+    });
+    this.$bus.$on("has-grout-adhesive", ({ recommendation, productId }) => {
       if (productId in this.hasGroutAdhesives) {
-        this.hasGroutAdhesives[productId].recommendation = recommendation
+        this.hasGroutAdhesives[productId].recommendation = recommendation;
       } else {
-        this.hasGroutAdhesives[productId] = { recommendation }
+        this.hasGroutAdhesives[productId] = { recommendation };
       }
-      this.groutAdhesivesOnCart()
-    })
+      this.groutAdhesivesOnCart();
+    });
 
-    this.$bus.$on('quantity-updated', ({ sqm, productId }) => {
+    this.$bus.$on("quantity-updated", ({ sqm, productId }) => {
       if (productId in this.ProductsHasAdhesiveGrouts) {
-        this.ProductsHasAdhesiveGrouts[productId].sqm = sqm
+        this.ProductsHasAdhesiveGrouts[productId].sqm = sqm;
       } else {
-        this.ProductsHasAdhesiveGrouts[productId] = { sqm }
+        this.ProductsHasAdhesiveGrouts[productId] = { sqm };
       }
-      this.productsHasAdhesivesAndGrouts()
-    })
+      this.productsHasAdhesivesAndGrouts();
+    });
 
-    this.$bus.$on('minSqmValue', ({ minSqmVal, productId, sqm }) => {
+    this.$bus.$on("minSqmValue", ({ minSqmVal, productId, sqm }) => {
       if (productId in this.ProductsHasAdhesiveGrouts) {
-        this.ProductsHasAdhesiveGrouts[productId].minSqmValue = minSqmVal
-        this.ProductsHasAdhesiveGrouts[productId].sqm = sqm
+        this.ProductsHasAdhesiveGrouts[productId].minSqmValue = minSqmVal;
+        this.ProductsHasAdhesiveGrouts[productId].sqm = sqm;
       } else {
         this.ProductsHasAdhesiveGrouts[productId] = {
           minSqmValue: minSqmVal,
-          sqm
-        }
+          sqm,
+        };
       }
-      this.productsHasAdhesivesAndGrouts()
-    })
-    this.$bus.$on('remove-grout-adhesive-section', ({ doesNotHasGroutAdhesiveSection, productId }) => {
-      if (productId in this.groutAdhesiveAddedOrNoThanks) {
-        this.groutAdhesiveAddedOrNoThanks[productId].check = doesNotHasGroutAdhesiveSection
-      } else {
-        this.groutAdhesiveAddedOrNoThanks[productId] = {
-          check: doesNotHasGroutAdhesiveSection
+      this.productsHasAdhesivesAndGrouts();
+    });
+    this.$bus.$on(
+      "remove-grout-adhesive-section",
+      ({ doesNotHasGroutAdhesiveSection, productId }) => {
+        if (productId in this.groutAdhesiveAddedOrNoThanks) {
+          this.groutAdhesiveAddedOrNoThanks[productId].check =
+            doesNotHasGroutAdhesiveSection;
+        } else {
+          this.groutAdhesiveAddedOrNoThanks[productId] = {
+            check: doesNotHasGroutAdhesiveSection,
+          };
         }
+        this.groutAndAdhesiveAddedOrNoThanks();
       }
-      this.groutAndAdhesiveAddedOrNoThanks()
-    })
+    );
     /* this.$bus.$on('cartItemQuantityUpdated', _.debounce(async (payload) => {
           await this.sendCartClick({ productsInCart: this.productsInCart, grandTotal: this.grandTotal });
         }, 600)) */
   },
   watch: {
     totals: {
-      handler (newVal, oldVal) {
+      handler(newVal, oldVal) {
         if (newVal !== oldVal) {
           // Re-fetch the GrandTotal
-          this.getGrandTotal()
+          this.getGrandTotal();
           // if (this.grandTotal) {
           //   this.sendCartClick({ productsInCart: this.productsInCart, grandTotal: this.grandTotal });
           // }
         }
       },
-      deep: true
+      deep: true,
     },
     productsInCart: function (oldVal) {
-      this.discountAppliedCheck()
-      if (oldVal.length === 0 && this.$route.name === 'cart') {
-        this.$router.push('/')
+      this.discountAppliedCheck();
+      if (oldVal.length === 0 && this.$route.name === "cart") {
+        this.$router.push("/");
       }
-    }
+    },
   },
-  metaInfo () {
+  metaInfo() {
     return {
-      title: '',
-      titleTemplate:
-        'Shopping Cart'
-    }
+      title: "",
+      titleTemplate: "Shopping Cart",
+    };
   },
   methods: {
     ...mapActions({
-      applyCoupon: 'cart/applyCoupon'
+      applyCoupon: "cart/applyCoupon",
     }),
-    updateScroll () {
-      if (this.$route.name === 'cart') {
-        document.getElementById('app').style.overflowX  = "unset";
-        document.getElementById('viewport').style.overflow = "unset";
+    updateScroll() {
+      if (this.$route.name === "cart") {
+        document.getElementById("app").style.overflowX = "unset";
+        document.getElementById("viewport").style.overflow = "unset";
       }
     },
-    checkCart(){
-      console.log("789456 Checking cart ",this.$store.state.cart.cartItems.length);
+    checkCart() {
+      console.log(
+        "789456 Checking cart ",
+        this.$store.state.cart.cartItems.length
+      );
       if (this.$store.state.cart.cartItems.length === 0) {
-          this.notifyEmptyCart()
-          this.$router.push(this.localizedRoute('/'))
-          return true
-        }
-        else{return true}
+        this.notifyEmptyCart();
+        this.$router.push(this.localizedRoute("/"));
+        return true;
+      } else {
+        return true;
+      }
     },
-    getGrandTotal () {
+    getGrandTotal() {
       if (this.totals && this.totals.length > 0) {
-        let grandTotal = this.totals.filter(item => item.code === 'grand_total')
-        if (grandTotal && grandTotal.length > 0 && grandTotal[0] && grandTotal[0].value) {
-          this.grandTotal = grandTotal[0].value
-          return grandTotal[0].value
+        let grandTotal = this.totals.filter(
+          (item) => item.code === "grand_total"
+        );
+        if (
+          grandTotal &&
+          grandTotal.length > 0 &&
+          grandTotal[0] &&
+          grandTotal[0].value
+        ) {
+          this.grandTotal = grandTotal[0].value;
+          return grandTotal[0].value;
         }
       }
     },
-    discountAppliedCheck () {
+    discountAppliedCheck() {
       if (this.totals && this.totals.length > 0) {
-        let discountCheck = []
+        let discountCheck = [];
         this.totals.forEach((item) => {
-          discountCheck.push((item.code && item.code === 'discount'))
-        })
-        this.discountCheck = discountCheck.filter(check => check === true).length > 0
-        return this.discountCheck
+          discountCheck.push(item.code && item.code === "discount");
+        });
+        this.discountCheck =
+          discountCheck.filter((check) => check === true).length > 0;
+        return this.discountCheck;
       }
     },
-    groutAndAdhesiveAddedOrNoThanks () {
-      let booleans = []
+    groutAndAdhesiveAddedOrNoThanks() {
+      let booleans = [];
       for (let x in this.groutAdhesiveAddedOrNoThanks) {
-        if (this.groutAdhesiveAddedOrNoThanks.hasOwnProperty(x) && this.groutAdhesiveAddedOrNoThanks[x].check === false) {
-          booleans.push(this.groutAdhesiveAddedOrNoThanks[x].check)
+        if (
+          this.groutAdhesiveAddedOrNoThanks.hasOwnProperty(x) &&
+          this.groutAdhesiveAddedOrNoThanks[x].check === false
+        ) {
+          booleans.push(this.groutAdhesiveAddedOrNoThanks[x].check);
         }
       }
-      this.groutAddedOrNoThanks = booleans.filter(bool => bool === false).length > 0
-      return this.groutAddedOrNoThanks
+      this.groutAddedOrNoThanks =
+        booleans.filter((bool) => bool === false).length > 0;
+      return this.groutAddedOrNoThanks;
     },
-    productsHasAdhesivesAndGrouts () {
-      let booleans = []
+    productsHasAdhesivesAndGrouts() {
+      let booleans = [];
       for (let key in this.ProductsHasAdhesiveGrouts) {
         if (
           this.ProductsHasAdhesiveGrouts.hasOwnProperty(key) &&
           this.ProductsHasAdhesiveGrouts[key].minSqmValue &&
           this.ProductsHasAdhesiveGrouts[key].sqm &&
-          this.ProductsHasAdhesiveGrouts[key].minSqmValue <= this.ProductsHasAdhesiveGrouts[key].sqm
+          this.ProductsHasAdhesiveGrouts[key].minSqmValue <=
+            this.ProductsHasAdhesiveGrouts[key].sqm
         ) {
-          booleans.push(this.ProductsHasAdhesiveGrouts[key].minSqmValue <= this.ProductsHasAdhesiveGrouts[key].sqm)
+          booleans.push(
+            this.ProductsHasAdhesiveGrouts[key].minSqmValue <=
+              this.ProductsHasAdhesiveGrouts[key].sqm
+          );
         }
       }
-      this.productsHasAdhesivesAndGroutCheck = booleans.filter(bool => bool === true).length > 0
-      return this.productsHasAdhesivesAndGroutCheck
+      this.productsHasAdhesivesAndGroutCheck =
+        booleans.filter((bool) => bool === true).length > 0;
+      return this.productsHasAdhesivesAndGroutCheck;
     },
-    groutAdhesivesOnCart () {
-      let booleans = []
+    groutAdhesivesOnCart() {
+      let booleans = [];
       for (let key in this.hasGroutAdhesives) {
-        if (this.hasGroutAdhesives.hasOwnProperty(key) && this.hasGroutAdhesives[key].recommendation === true) {
-          booleans.push(this.hasGroutAdhesives[key].recommendation)
+        if (
+          this.hasGroutAdhesives.hasOwnProperty(key) &&
+          this.hasGroutAdhesives[key].recommendation === true
+        ) {
+          booleans.push(this.hasGroutAdhesives[key].recommendation);
         }
       }
-      this.productsIncludesTileProduct = booleans.filter(bool => bool === true).length > 0
-      return this.productsIncludesTileProduct
+      this.productsIncludesTileProduct =
+        booleans.filter((bool) => bool === true).length > 0;
+      return this.productsIncludesTileProduct;
     },
-    addAllTotalPrice (singleProductTotal) {
+    addAllTotalPrice(singleProductTotal) {
       for (let key in singleProductTotal) {
         if (singleProductTotal[key] && singleProductTotal.hasOwnProperty(key)) {
-          this.allProductsTotals[key] = singleProductTotal[key]
+          this.allProductsTotals[key] = singleProductTotal[key];
         }
       }
       // console.log('this.allProductsTotals', this.allProductsTotals)
-      this.totalPriceOfGroutAdhesive = this.allProductsTotalsValue()
-      this.totalPriceToSendInCall = this.allProductsTotalsValue()
+      this.totalPriceOfGroutAdhesive = this.allProductsTotalsValue();
+      this.totalPriceToSendInCall = this.allProductsTotalsValue();
       if (this.totalPriceOfGroutAdhesive > 100) {
-        this.discountOfTenPound = false
-        this.totalPriceOfGroutAdhesive -= this.discountPrice
+        this.discountOfTenPound = false;
+        this.totalPriceOfGroutAdhesive -= this.discountPrice;
       } else if (this.totalPriceOfGroutAdhesive >= 50) {
-        this.discountOfTenPound = true
-        this.totalPriceOfGroutAdhesive -= 10
+        this.discountOfTenPound = true;
+        this.totalPriceOfGroutAdhesive -= 10;
       }
     },
-    allProductsTotalsValue () {
-      let totals = 0
+    allProductsTotalsValue() {
+      let totals = 0;
       for (const key in this.allProductsTotals) {
-        totals += this.allProductsTotals[key]
+        totals += this.allProductsTotals[key];
       }
-      return totals
+      return totals;
     },
-    async checkCartHasGroutAdhesiveAttachedToProduct () {
-      await this.$store.dispatch(
-        'groutadhesive/groutAdhesiveGetRecommendations', {
-          'data': {
-            'quote_id': this.getCartToken
+    async checkCartHasGroutAdhesiveAttachedToProduct() {
+      await this.$store
+        .dispatch("groutadhesive/groutAdhesiveGetRecommendations", {
+          data: {
+            quote_id: this.getCartToken,
+          },
+        })
+        .then((resp) => {
+          let response = JSON.parse(resp);
+          if (response.success) {
+            this.cartHasGroutAdhesive = response.data;
+            this.noGroutAdhesives = false;
+            this.$bus.$emit("notification-progress-stop");
+          } else {
+            this.cartHasGroutAdhesive = [];
+            this.noGroutAdhesives = true;
+            this.$bus.$emit("notification-progress-stop");
           }
-        }).then((resp) => {
-        let response = JSON.parse(resp)
-        if (response.success) {
-          this.cartHasGroutAdhesive = response.data
-          this.noGroutAdhesives = false
-          this.$bus.$emit('notification-progress-stop')
-        } else {
-          this.cartHasGroutAdhesive = []
-          this.noGroutAdhesives = true
-          this.$bus.$emit('notification-progress-stop')
-        }
-      })
+        });
     },
-    addDiscountCoupon () {
-      this.addCouponPressed = true
+    addDiscountCoupon() {
+      this.addCouponPressed = true;
     },
-    getProducts () {
-      var pQuery = {}
+    getProducts() {
+      var pQuery = {};
       this.nonzeroProduct.forEach((p, i) => {
-        let product = p.totals.price_incl_tax
-        product = product.toFixed(2)
-        var tmp = {}
-        tmp['L_PAYMENTREQUEST_0_NAME' + i] =
-          p.name.replace(/[^a-zA-Z0-9- ]/g, '') + '&'
+        let product = p.totals.price_incl_tax;
+        product = product.toFixed(2);
+        var tmp = {};
+        tmp["L_PAYMENTREQUEST_0_NAME" + i] =
+          p.name.replace(/[^a-zA-Z0-9- ]/g, "") + "&";
         // tmp['L_PAYMENTREQUEST_0_DESC' + i ] = p.short_description.replace(/[^a-zA-Z0-9- ]/g, '')+ '&';
-        tmp['L_PAYMENTREQUEST_0_AMT' + i] = product + '&'
-        tmp['L_PAYMENTREQUEST_0_NUMBER' + i] =
-          p.sku.replace(/[^a-zA-Z0-9- ]/g, '') + '&'
-        tmp['L_PAYMENTREQUEST_0_QTY' + i] = p.qty + '&'
-        tmp['L_PAYMENTREQUEST_0_ITEMCATEGORY' + i] = 'Physical' + '&'
-        Object.assign(pQuery, tmp)
-      })
+        tmp["L_PAYMENTREQUEST_0_AMT" + i] = product + "&";
+        tmp["L_PAYMENTREQUEST_0_NUMBER" + i] =
+          p.sku.replace(/[^a-zA-Z0-9- ]/g, "") + "&";
+        tmp["L_PAYMENTREQUEST_0_QTY" + i] = p.qty + "&";
+        tmp["L_PAYMENTREQUEST_0_ITEMCATEGORY" + i] = "Physical" + "&";
+        Object.assign(pQuery, tmp);
+      });
 
-      return pQuery
+      return pQuery;
     },
-    expressCheckout () {
-      var url = `${config.api.url}${config.paypalManual.endpoints.initiatePayment}`
-      let subtotal = this.totals[0].value
-      subtotal = subtotal.toFixed(2)
-      let shippingAmt = this.totals[1].value
-      shippingAmt = shippingAmt.toFixed(2)
-      let taxAmt = this.totals[2].value
-      taxAmt = taxAmt.toFixed(2)
-      let grandTotal = this.totals[3].value
-      grandTotal = grandTotal.toFixed(2)
+    expressCheckout() {
+      var url = `${config.api.url}${config.paypalManual.endpoints.initiatePayment}`;
+      let subtotal = this.totals[0].value;
+      subtotal = subtotal.toFixed(2);
+      let shippingAmt = this.totals[1].value;
+      shippingAmt = shippingAmt.toFixed(2);
+      let taxAmt = this.totals[2].value;
+      taxAmt = taxAmt.toFixed(2);
+      let grandTotal = this.totals[3].value;
+      grandTotal = grandTotal.toFixed(2);
       let data = {
         totalCost: grandTotal,
         subtotal: subtotal,
         shipping: shippingAmt,
         tax: taxAmt,
         product: JSON.stringify(this.getProducts())
-          .replace(/[^a-zA-Z_ : & 0-9 .]/g, '')
-          .replace(/[:]/g, '=')
-      }
-      EventBus.$emit('notification-progress-start', i18n.t('Please wait...'))
+          .replace(/[^a-zA-Z_ : & 0-9 .]/g, "")
+          .replace(/[:]/g, "="),
+      };
+      EventBus.$emit("notification-progress-start", i18n.t("Please wait..."));
       axios.post(url, data).then(({ data }) => {
         if (data) {
-          let token = data.result.split('&TIMESTAMP')
-          token = token[0]
-          token = token.split('TOKEN=')
-          token = token[1]
-          token = decodeURIComponent(token)
-          if (token.includes('EC')) {
-            if (config.paypalManual.mode === 'sandbox') {
-              window.location.href = `https://${config.paypalManual.approvalUrl.sandbox}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`
+          let token = data.result.split("&TIMESTAMP");
+          token = token[0];
+          token = token.split("TOKEN=");
+          token = token[1];
+          token = decodeURIComponent(token);
+          if (token.includes("EC")) {
+            if (config.paypalManual.mode === "sandbox") {
+              window.location.href = `https://${config.paypalManual.approvalUrl.sandbox}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`;
             } else {
-              window.location.href = `https://${config.paypalManual.approvalUrl.live}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`
+              window.location.href = `https://${config.paypalManual.approvalUrl.live}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`;
             }
           }
         }
-      })
+      });
     },
-    clearCoupon () {
-      this.$store.dispatch('cart/removeCoupon')
-      this.addCouponPressed = false
+    clearCoupon() {
+      this.$store.dispatch("cart/removeCoupon");
+      this.addCouponPressed = false;
     },
-    async setCoupon () {
-      const couponApplied = await this.applyCoupon(this.couponCode)
-      this.addCouponPressed = false
-      this.couponCode = ''
+    async setCoupon() {
+      const couponApplied = await this.applyCoupon(this.couponCode);
+      this.addCouponPressed = false;
+      this.couponCode = "";
       if (!couponApplied) {
-        this.$store.dispatch('notification/spawnNotification', {
-          type: 'warning',
+        this.$store.dispatch("notification/spawnNotification", {
+          type: "warning",
           message: i18n.t(
-            'You\'ve entered an incorrect coupon code. Please try again.'
+            "You've entered an incorrect coupon code. Please try again."
           ),
-          action1: { label: i18n.t('OK') }
-        })
+          action1: { label: i18n.t("OK") },
+        });
       }
     },
-    updateAllGroutsAdhesives (groutAdhesive) {
-      if (groutAdhesive && groutAdhesive.length > 0 && groutAdhesive[0] && groutAdhesive[0].length > 0) {
+    updateAllGroutsAdhesives(groutAdhesive) {
+      if (
+        groutAdhesive &&
+        groutAdhesive.length > 0 &&
+        groutAdhesive[0] &&
+        groutAdhesive[0].length > 0
+      ) {
         groutAdhesive[0].map((item, key) => {
           if (this.allGroutsAdhesivesDataArray[item.product_id]) {
-            this.allGroutsAdhesivesDataArray[item.product_id][item.recomm_id] = item
+            this.allGroutsAdhesivesDataArray[item.product_id][item.recomm_id] =
+              item;
           } else {
-            this.allGroutsAdhesivesDataArray[item.product_id] = { [item.recomm_id]: { item } }
+            this.allGroutsAdhesivesDataArray[item.product_id] = {
+              [item.recomm_id]: { item },
+            };
           }
-        })
+        });
       }
     },
-    mergeAdhesiveGrouts () {
+    mergeAdhesiveGrouts() {
       if (!_.isEmpty(this.allGroutsAdhesivesDataArray)) {
-        this.allGroutsAdhesives.data = []
+        this.allGroutsAdhesives.data = [];
         for (let key in this.allGroutsAdhesivesDataArray) {
           for (let subKey in this.allGroutsAdhesivesDataArray[key]) {
-            this.allGroutsAdhesives.data.push(this.allGroutsAdhesivesDataArray[key][subKey])
+            this.allGroutsAdhesives.data.push(
+              this.allGroutsAdhesivesDataArray[key][subKey]
+            );
           }
         }
       }
     },
-    async addAllGroutAdhesives () {
-      let updatedObjectValues = {}
-      this.mergeAdhesiveGrouts()
+    async addAllGroutAdhesives() {
+      let updatedObjectValues = {};
+      this.mergeAdhesiveGrouts();
       this.allGroutsAdhesives.data.forEach((value, index) => {
-        updatedObjectValues[index] = value
-      })
-      updatedObjectValues.apply_discount = true
-      updatedObjectValues.total_recommendations = this.totalPriceToSendInCall
-      await this.$store.dispatch('groutadhesive/groutAdhesiveAddRecommendationsFunction', { data: updatedObjectValues }).then((res) => {
-        let response = JSON.parse(res)
-        if (response.success) {
-          this.addAllBtnClicked = true
-          this.pullCartSync()
-          this.discountAppliedCheck()
-        } else if (!response.success) {
-          this.addAllBtnClicked = false
-        }
-      })
+        updatedObjectValues[index] = value;
+      });
+      updatedObjectValues.apply_discount = true;
+      updatedObjectValues.total_recommendations = this.totalPriceToSendInCall;
+      await this.$store
+        .dispatch("groutadhesive/groutAdhesiveAddRecommendationsFunction", {
+          data: updatedObjectValues,
+        })
+        .then((res) => {
+          let response = JSON.parse(res);
+          if (response.success) {
+            this.addAllBtnClicked = true;
+            this.pullCartSync();
+            this.discountAppliedCheck();
+          } else if (!response.success) {
+            this.addAllBtnClicked = false;
+          }
+        });
     },
-    async pullCartSync () {
-      await this.$store.dispatch('cart/sync', {
+    async pullCartSync() {
+      await this.$store.dispatch("cart/sync", {
         forceClientState: false,
-        forceSync: true
-      })
-      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
-      this.$forceUpdate()
+        forceSync: true,
+      });
+      await this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
+      this.$forceUpdate();
     },
     // handleScroll (event) {
     //   var SAFETY_MARGIN = 20
@@ -702,14 +767,14 @@ if(this.productsInCart.length === 0){
     //     }
     //   }
     // }
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
 }
 
 .paypalBtn {
@@ -719,7 +784,7 @@ if(this.productsInCart.length === 0){
 .maincart {
   background-color: #f2f2f2 !important;
 
-//  overflow: auto;
+  //  overflow: auto;
   @media (max-width: 767px) {
     background-color: #ffffff !important;
     margin-top: 10px;
@@ -783,7 +848,7 @@ if(this.productsInCart.length === 0){
         h2 {
           padding-top: 10px;
           color: #29275b;
-          font-family: 'Oblik';
+          font-family: "Oblik";
 
           font-size: 30px;
         }
@@ -943,7 +1008,7 @@ if(this.productsInCart.length === 0){
   }
 
   .check-btn-outer {
-    padding: 30px 20px;
+       padding: 30px 20px 15px 20px;
   }
 
   .checkoutbutton {
@@ -957,7 +1022,7 @@ if(this.productsInCart.length === 0){
 
     height: 45px;
 
-    background-color: #071A44 !important;
+    background-color: #071a44 !important;
 
     color: #fff !important;
 
@@ -974,6 +1039,7 @@ if(this.productsInCart.length === 0){
     font-weight: bold;
 
     min-width: 150px;
+    margin-bottom: 15px;
 
     @media (max-width: 1200px) and (min-width: 992px) {
       font-size: 13px;

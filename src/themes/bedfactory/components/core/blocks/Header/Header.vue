@@ -697,4 +697,14 @@ span.scrollimg:after {
     display: none;
   }
 }
+a.cl-tertiary.links img {
+    position: relative;
+    top: 5px;
+}
+@media (max-width: 336px)
+{
+.phone-no{
+    margin-right: 0px !important;
+}
+}
 </style>
