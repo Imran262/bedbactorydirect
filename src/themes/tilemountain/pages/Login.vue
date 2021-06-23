@@ -99,7 +99,7 @@ export default {
     }
     p {
       font-size: 18px;
-      color: #6b6b6c;
+      color: #333333;
       line-height: 1.9;
     }
   }
@@ -107,7 +107,7 @@ export default {
     padding: 36px 0;
     .registerbutton {
       width: 50%;
-      background: #7f77a7;
+      background: #071a44;
       color: #ffffff;
       font-size: 19px;
       padding: 19.5px;

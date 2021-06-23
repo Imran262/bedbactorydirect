@@ -228,7 +228,7 @@ $white: color(white);
     border: none;
     font-weight: bold;
     border-radius: 24px;
-    background-color: #ec0e8b !important;
+    background-color: #EE4C56 !important;
     i {
       color: #ffffff;
       display: block;
@@ -237,7 +237,7 @@ $white: color(white);
     }
   }
   .loginconfirm {
-    background: #02a89a;
+    background: #57c9c0 ;
     width: 100%;
     color: #ffffff;
     font-size: 19.92px;
@@ -266,7 +266,7 @@ $white: color(white);
     font-family: Arial;
     cursor: pointer;
   }
-  @media (max-width: 1200px) and(min-width: 992px) {
+  @media (max-width: 1199px) and(min-width: 992px) {
     .modal-content {
       padding: 13px;
       max-width: 440px;
@@ -371,7 +371,7 @@ $white: color(white);
   padding-top: 20px;
   padding-bottom: 54px;
   .loginheading{
-    color: #6b6b6c;
+    color: #333333;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
   }
@@ -494,5 +494,8 @@ $white: color(white);
       height: 4px;
     }
   }
+}
+.required-Field {
+    color: #EE4C56 !important;
 }
 </style>
