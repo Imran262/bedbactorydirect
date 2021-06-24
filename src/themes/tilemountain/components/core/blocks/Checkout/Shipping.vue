@@ -313,54 +313,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- {{showMethods()}} -->
     <!-- {{ showAvailableMethod() }} -->
     <div class="pt20 delivery-methods-detail">
@@ -433,7 +385,7 @@
             "
           >
           <label class="radioStyled pre-del">
-                Select your preferred delivery day
+               <span class="delivery-date"> Select your preferred delivery day</span>
                 <input
                   type="radio"
                   name="choose-date"
@@ -445,6 +397,7 @@
                 />
               </label>
             </div>
+            <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-6 calendar-box">
             <no-ssr>
               <v-calendar
@@ -471,9 +424,8 @@
               />
             </no-ssr>
           </div>
-          </div>
             <div
-              class="calendar-right col-lg-6 col-md-12 col-xs-12"
+              class="calendar-right col-lg-6 col-md-6 col-xs-12"
               v-if="
                 shippingSlotsData &&
                 shippingSlotsData.length > 0 &&
@@ -510,7 +462,7 @@
                         "
                         >DPD parcel</template
                       >
-                      <span
+                      <span class="free-del"
                         v-if="selectedMethod == slotData.customData.method_code"
                       >
                         {{
@@ -564,21 +516,15 @@
               </span>
             </div>
           </div>
-        <!-- <template v-else>
-          <h3 class="pl30 pr30" v-if="getShippingMethodsWithOOS.length !== 0 && selectedDeliveryMethod === 'homedelivery' && getSortedDates.length !== 1">
-            Delivery Date
-          </h3>
-        </template> -->
-
-        <div
+          </div>
+           <div
           class="col-xs-12 col-sm-12 col-md-12 pl30 pr30"
           v-if="$v.shipping.$invalid && !fromCart"
         >
           <div class="mb8 cl-error" v-if="$v.shipping.$invalid">
             Please Enter All required fields*
           </div>
-        </div>
-        <div
+            <div
           class="delivery-btn"
           :class="
             getShippingMethodsWithRoyalMail.length === 0
@@ -609,12 +555,6 @@
                       (isCalendarSelected && shippingSlotsData.length === 0)
                     "
               >
-                <!-- <span v-if="deliveryBtnClicked == true">
-                  {{ $t('Delivery: ') }}
-                  <span class="date-span" v-if="deliveryTimeDate"
-                    >{{ deliveryTimeDate }}
-                  </span>
-                </span> -->
                 <span v-if="!(deliveryBtnClicked == true)">
                   {{ $t('Continue to Payment ') }}
                   <span class="date-span" v-if="deliveryTimeDate"
@@ -623,19 +563,13 @@
                 </span>
               </button-full>
             </div>
-            <!-- <div class="col-xs-12 col-md-6">
-              <div
-                class="editdate"
-                v-if="displayEditButton && homeDeliverySelected"
-              >
-                <span @click="resetForm">Edit Delivery Date</span>
-              </div>
-            </div> -->
-          </div>
-        </div>
         <NarrowModal :date-prop="narrowDateProp" />
       </div>
+      </div>
+        </div>
+       
     </div>
+  </div>
   </div>
 </template>
 
@@ -2181,6 +2115,9 @@ button.find-address {
     padding: 12px 0px;
     height: 48px;
   }
+  button#shippingSubmitBtnId {
+      font-size: 17px;
+}
   .crafty-postcodelookup {
     padding: 0px 0px 5px 8px;
   }
@@ -2337,7 +2274,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
 }
 
 #checkout .delivery-methods-detail .radioStyled span {
-  padding-left: 30px;
+  // padding-left: 30px;
 }
 
 #checkout
@@ -2507,7 +2444,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
   }
 
   .vc-highlights {
-    background: #ed008c;
+    background: #57c9c0;
 
     .vc-day-layer {
       border: none;
@@ -2737,5 +2674,43 @@ span.postcodelookup-required {
 
 .hideDelSection {
   display: none;
+}
+#checkout .radioStyled {
+    display: block;
+    position: relative;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+label.radioStyled.pre-del {
+    color: #333333 !important;
+}
+button#shippingSubmitBtnId {
+    width: auto;
+}
+p.free-del-p {
+     border: 1px solid #858585;
+    background: #F2F2F2;
+    margin-right: 10px;
+    padding: 40px 15px 40px 15px;
+    line-height: 30px;
+    border-radius: 5px;
+}
+span.free-del {
+    padding-left: 40px;
+      @media (min-width: 480px) and (max-width: 767px){
+padding-left: 20px;
+      }
+}
+span.delivery-date {
+    padding-left: 50px;
+      @media (min-width: 480px) and (max-width: 767px){
+padding-left: 10px;
+      }
 }
 </style>
