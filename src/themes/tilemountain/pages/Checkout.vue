@@ -313,7 +313,7 @@ $color-black: color(black);
     .radioStyled {
       display: block;
       position: relative;
-      padding-left: 0px;
+      // padding-left: 0px;
       margin-bottom: 12px;
       cursor: pointer;
       font-size: 15px;
@@ -343,28 +343,28 @@ $color-black: color(black);
     .checkmark {
       position: absolute;
       top: 0;
-      left: auto !important;
+      // left: auto !important;
       height: 25px;
       width: 25px;
       border-radius: 50%;
-      border: 1px solid #4c5053 !important;
+      border: 1px solid #57c9c0  !important;
       margin-left: 15px;
     }
     input:checked ~ .checkmark:after {
-      content: '' !important;
-      position: absolute;
-      display: none;
-      top: 4px !important;
-      left: 9px !important;
-      width: 4px !important;
-      height: 10px !important;
-      border-radius: 0 !important;
-      border: solid #4c5053;
-      border-width: 0 3px 3px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-      background: transparent !important;
+      // content: '' !important;
+      // position: absolute;
+      // display: none;
+      // top: 4px !important;
+      // left: 9px !important;
+      // width: 4px !important;
+      // height: 10px !important;
+      // border-radius: 0 !important;
+      // border: solid #4c5053;
+      // border-width: 0 3px 3px 0;
+      // -webkit-transform: rotate(45deg);
+      // -ms-transform: rotate(45deg);
+      // transform: rotate(45deg);
+      // background: transparent !important;
     }
   }
 
@@ -372,11 +372,11 @@ $color-black: color(black);
     .radioStyled {
       display: block;
       position: relative;
-      padding-left: 40px;
+      // padding-left: 40px;
       margin-bottom: 12px;
       cursor: pointer;
       font-size: 15px;
-      line-height: 30px;
+      line-height: 40px;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -403,22 +403,22 @@ $color-black: color(black);
       position: absolute;
       top: 6px !important;
       left: 0 !important;
-      height: 18px !important;
-      width: 18px !important;
+      height: 25px !important;
+      width: 25px !important;
       border-radius: 50%;
-      border: 1px solid #ed008c !important;
+      border: 1px solid #57c9c0 !important;
       margin-left: 0px !important;
 
       &:after {
         content: '' !important;
         position: absolute;
         display: none;
-        top: 3.5px !important;
-        left: 3.82px !important;
-        width: 10px !important;
-        height: 10px !important;
+        top: 3px !important;
+        left: 3px !important;
+        width: 19px !important;
+        height: 19px !important;
         border-radius: 50% !important;
-        background: #ed008c !important;
+        background: #57c9c0 !important;
         border: none !important;
         border-width: none !important;
       }
@@ -428,7 +428,7 @@ $color-black: color(black);
   .radioStyled {
     display: block;
     position: relative;
-    padding-left: 65px;
+    // padding-left: 50px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 15px;
@@ -467,7 +467,7 @@ $color-black: color(black);
         width: 19px;
         height: 19px;
         border-radius: 50%;
-        background: $color-secondary;
+       background: #57c9c0 ;
       }
     }
 
@@ -615,13 +615,13 @@ $color-black: color(black);
 
 @media (max-width: 480px) {
   #checkout .radioStyled .checkmark {
-    top: 4px !important;
-    left: -10px;
+    // top: 4px !important;
+    left: -18px;
   }
 }
 @media (min-width: 480px) and (max-width: 580px) {
   #checkout .radioStyled .checkmark {
-    top: 3px !important;
+    // top: 3px !important;
   }
 }
 
@@ -641,40 +641,49 @@ $color-black: color(black);
     font-size: 12px;
   }
   #checkout .radioStyled .checkmark {
-    height: 20px;
-    width: 20px;
-    top: -2px;
-    left: -10px;
+    // height: 20px;
+    // width: 20px;
+    // top: -2px;
+    // left: -10px;
   }
   #checkout .delivery-methods-detail input:checked ~ .checkmark:after {
-    top: 2px !important;
-    left: 7px !important;
-    width: 4px !important;
+    // top: 2px !important;
+    // left: 7px !important;
+    // width: 4px !important;
   }
   #checkout .radioStyled .checkmark:after {
-    content: '';
-    top: 0px;
-    left: 0px;
-    width: 20px;
-    height: 20px;
+    // content: '';
+    // top: 0px;
+    // left: 0px;
+    // width: 20px;
+    // height: 20px;
   }
 }
 
 @media (max-width: 767px) {
   #checkout .radioStyled {
     font-size: 12px;
-    padding-left: 45px;
+    padding-left: 20px;
   }
+    #checkout .calendar-right-inner .checkmark {
+      margin-left: 18px !important;
+    }
+        label.radioStyled.pre-del span {
+      margin-left: 9px !important;
+    }
 }
 @media (min-width: 320px) and (max-width: 480px) {
   #checkout .radioStyled {
     font-size: 2.35vw;
-    padding-left: 34px !important;
+    padding-left: 20px !important;
   }
   .bank-card ul li img {
     width: 22px;
     margin-top: 7px;
     display: block;
   }
+   label.radioStyled.pre-del span {
+      margin-left: 30px !important;
+    }
 }
 </style>
