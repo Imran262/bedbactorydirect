@@ -80,6 +80,12 @@
               </span>
             </div>
           </td>
+          </tr>
+         <tr>
+          <td colspan="2"><p class="sku" v-if="product.qty_per_sqm">
+                <!-- Sku : {{ product.sku }} -->
+              </p></td>
+          <td> <span class="Sqm-price">{{product.totals.base_row_total_incl_tax | price}}</span></td>
         </tr>
       </tbody>
     </table>
