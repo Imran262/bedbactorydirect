@@ -1,6 +1,6 @@
 <template>
   <div class="cart-summary-main" id="cart-summary-main">
-    <div class="brdr-cl-primary pb20">
+    <div class="brdr-cl-primary pb20 cart-summary-inner">
       <h3 class="cl-accent summary-title">
         {{ $t('Order Review:') }}
       </h3>
@@ -100,7 +100,7 @@
               </div>
             </div>
           </div>
-          <FullToCutConverter :cart-items="productsInCart" />
+          <FullToCutConverter :cart-items="productsInCart" v-if="$route.name !== 'confirmorder'" />
         </div>
         <div
           class="cart-bottom-detail paypal-btn"
@@ -111,11 +111,7 @@
               @click="prepareCartOrder"
               data-testid="orderReviewSubmit"
               class="btn"
-              :disabled="
-                !shippingMethod ||
-                !$v.phoneValidate.required ||
-                !$v.phoneValidate.maxLength
-              "
+              :disabled="!shippingMethod || !$v.phoneValidate.required"
             >
               {{ $t('Place the order') }}
             </button-full>
@@ -125,7 +121,7 @@
           class="cart-bottom-detail"
           v-if="activePaymentSection && activatePaymentBtnTitle === 'PayPal'"
         >
-          <div class="cart-bottom-detail-inner">
+          <div class="cart-bottom-detail-inner paypal-btn">
             <span @click="handleOrderSubmit">
               <paypal-button />
             </span>
@@ -202,6 +198,7 @@
               class="btn"
               @click="proceedPayment()"
               v-if="
+                activatePaymentBtnTitle !== '' &&
                 activatePaymentBtn &&
                 activePaymentSection &&
                 activatePaymentBtnTitle !== 'PayPal' &&
@@ -254,6 +251,7 @@ export default {
   data () {
     return {
       paymentRadioChecked: false,
+      scrollPosition: null
     }
   },
   props: {
@@ -279,18 +277,26 @@ export default {
     }
   },
   mounted () {
+    this.updateScroll();
+    // this.handleScroll();
     // window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.updateScroll)
   },
   computed: {
     phoneValidate () {
       return this.hasPhone ? this.hasPhone.replace(/[-]/g, '') : this.hasPhone
     }
   },
-
   // destroyed () {
-  //   window.removeEventListener('scroll', this.handleScroll)
-  // },
+  //   // window.removeEventListener('scroll', this.handleScroll)
+  //  },
   methods: {
+    updateScroll () {
+      if (this.$route.name === 'checkout') {
+        document.getElementById('app').style.overflowX  = "unset";
+        document.getElementById('viewport').style.overflow = "unset";
+      }
+    },
     async handleOrderSubmit () {
       await this.placeOrder()
     },
@@ -306,10 +312,10 @@ export default {
     },
     // handleScroll (event) {
     //   var SAFETY_MARGIN = 20
-    //   const FOOTER_HEIGHT = document.getElementsByClassName('footer-main')[ 0 ]
-    //     .offsetHeight
+    //   const FOOTER_HEIGHT = document.getElementsByClassName('footer-main') !== undefined && document.getElementsByClassName('footer-main').length > 0 ? document.getElementsByClassName('footer-main')[0]
+    //     .offsetHeight : null
     //   if (FOOTER_HEIGHT) {
-    //     SAFETY_MARGIN = FOOTER_HEIGHT + 150
+    //     SAFETY_MARGIN = FOOTER_HEIGHT + 200
     //   } else {
     //     SAFETY_MARGIN = 600
     //   }
@@ -317,10 +323,9 @@ export default {
     //   const visible = window.innerHeight
     //   const pageHeight = document.documentElement.scrollHeight
     //   const bottomOfPage = scrollY + SAFETY_MARGIN >= pageHeight - visible
-    //   var position = document.getElementsByClassName('footer-main')[ 0 ].scrollTop
     //   if (bottomOfPage === true) {
-    //     document.getElementById('cart-summary-main').classList.add('topSticky')
-    //     document.getElementById('cart-summary-main').classList.remove('bottomSticky')
+    //      document.getElementById('cart-summary-main').classList.add('topSticky')
+    //      document.getElementById('cart-summary-main').classList.remove('bottomSticky')
     //   } else {
     //     document.getElementById('cart-summary-main').classList.add('bottomSticky')
     //     document.getElementById('cart-summary-main').classList.remove('topSticky')
@@ -337,8 +342,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cart-summary-inner {
+  position: sticky;
+  top: 14px;
+}
 thead tr th {
-  padding: 10px 15px;
+  padding: 10px 8px;
   text-align: left;
   color: #fff;
   font-weight: 600;
@@ -352,12 +361,12 @@ thead tr th {
   }
   color: #fff;
   font-size: 22px;
-  margin-top: 38px;
+  margin-top: 31px;
   margin-bottom: 0px;
   background: #2a275c;
   padding: 17px 30px;
   font-weight: 600;
-  font-family: oblik;
+  font-family: Arial;
 }
 
 .order-summary-inner {
@@ -385,14 +394,16 @@ thead tr th {
 
 .topSticky {
   position: absolute !important;
-  bottom: 30px !important;
-  top: 1px !important;
+  bottom: 0px !important;
+  //top: 1px !important;
 }
 
 .cart-summary-main {
-   height: 625px;
-    position: sticky;
-    top: 70px;
+  width: 440px;
+  // position: fixed;
+  // z-index: 1;
+  // top: auto;
+  height: auto;
   .paypal-btn {
     padding-right: unset !important;
     padding-left: unset !important;
@@ -406,7 +417,10 @@ thead tr th {
 
   .subtotal-main {
     border-bottom: 1px solid #bdbdbd;
-    padding: 25px 25px 25px 20px;
+    padding: 25px 20px;
+    @media (max-width: 1199px) {
+      padding: 25px 16px;
+    }
   }
   .subtotal-main:first-child {
     border-top: 1px solid #bdbdbd;
@@ -415,32 +429,40 @@ thead tr th {
     border-bottom: 1px solid transparent;
   }
 
-  .right-text {
-    font-weight: 500 !important;
-  }
+  // .right-text {
+  //   font-weight: 500 !important;
+  // }
   .subtotal {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: #4f4f4f;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
+    font-weight: bold;
   }
 
   .grand-total-main {
-    padding: 25px 25px 25px 20px;
+    padding: 25px 20px;
     color: #2a275c;
+    @media (max-width: 1199px) {
+      padding: 25px 16px;
+    }
     .grand-total-price {
-      font-size: 17px;
+      font-size: 14px;
       font-weight: 700;
       color: #2a275c;
       font-family: Arial;
+      &:last-child {
+        font-size: 17px;
+      }
     }
   }
 
   .cart-bottom-detail {
     padding-right: 60px;
     padding-left: 60px;
+    
     .btn {
-      background: #071A44;
+      background: #2a275c;
       color: #fff;
       padding: 18px;
       display: block;
@@ -449,7 +471,10 @@ thead tr th {
       border-radius: 5px;
       width: 100%;
       border: none;
-      margin: 25px 0px;
+      margin: 12px 0px 25px;
+    }
+    .paypal-btn {
+      margin-bottom: 20px !important;
     }
   }
   .cart-bottom-text {
@@ -473,7 +498,7 @@ thead tr th {
   overflow-x: hidden;
   padding: 0px;
   overflow-y: auto;
-  max-height: 160px;
+  //max-height: 261px;
 }
 
 .order-summary-details::-webkit-scrollbar-track {
@@ -496,8 +521,12 @@ thead tr th {
 .cart-summary-table {
   width: 100%;
   margin-top: 10px;
-  padding-left: 3px;
-  padding-right: 3px;
+  padding-left: 12px;
+  padding-right: 12px;
+  @media (max-width: 1199px) {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
   tr {
     th {
       color: #2a275c;
@@ -506,14 +535,19 @@ thead tr th {
   }
 }
 .cart-summary-table tr th:first-child {
-  width: 70%;
+  width: 43%;
   color: #59595b;
+  @media (max-width: 480px) {
+    width: 37%;
+  }
 }
 .cart-summary-table tr th:nth-child(2n) {
   width: 15%;
+  text-align: left;
 }
 .cart-summary-table tr th:last-child {
-  width: 15%;
+  width: 16%;
+  text-align: right;
 }
 @media (min-width: 991px) and (max-width: 1200px) {
   .cart-summary-main {
@@ -557,7 +591,7 @@ thead tr th {
   }
 }
 
-@media (min-width: 320px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .cart-summary-main {
     width: 100%;
   }
@@ -602,7 +636,7 @@ thead tr th {
     padding: 0px 40px !important;
   }
 }
-@media screen and (min-width: 320px) and (max-width: 374px) {
+@media (max-width: 374px) {
   #submit-container {
     padding: 0px 10px !important;
   }
