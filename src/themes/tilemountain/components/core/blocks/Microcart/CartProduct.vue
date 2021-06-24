@@ -76,9 +76,9 @@
                 Update
               </button>
             </div>
-            <div class="firstprice" v-if="orignalprice && !optionCheck">
+            <div class="firstprice">
               <span class="firstprice-cross">x</span>
-              {{ product.price_incl_tax.toFixed(2) | price(storeView) }}
+              {{ product.totals.price_incl_tax.toFixed(2) | price(storeView) }}
             </div>
           </div>
         </template>
