@@ -242,7 +242,7 @@
               </div>
             </div>
 
-            <div class="Gpay">
+            <!-- <div class="Gpay">
               <h3>You can also pay with:</h3>
 
               <img
@@ -251,11 +251,7 @@
                 class="paypalBtn"
                 @click="expressCheckout"
               />
-
-              <!--<img src="assets/amazon pay.svg" />
-              <img src="assets/apple.svg" />
-              <img src="assets/gpay.svg" />-->
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

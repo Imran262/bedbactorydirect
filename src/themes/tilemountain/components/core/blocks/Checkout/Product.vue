@@ -56,16 +56,16 @@
             <div v-if="isOnline && product.totals">
               <span class="h4 price" v-if="product.totals.discount_amount">
                 <!-- {{ (product.totals.row_total_incl_tax - product.totals.discount_amount) | price }} -->
-                {{ (product.price_incl_tax) | price }}
+                {{ (product.total.price_incl_tax) | price }}
               </span>
               <!-- <span class="price-original h5"
                     v-if="product.totals.discount_amount"> {{ product.totals.row_total_incl_tax | price }} </span> -->
-              <span v-if="!product.totals.discount_amount" class="h4 price"> {{ product.price_incl_tax | price }} </span>
+              <span v-if="!product.totals.discount_amount" class="h4 price"> {{ product.totals.price_incl_tax | price }} </span>
             </div>
             <div v-else>
               <span class="h4 cl-error" v-if="product.special_price">
                 {{
-                  (product.price_incl_tax * product.qty) | price
+                  (product.totals.price_incl_tax * product.qty) | price
                 }}
               </span>
               <span class="price-original h5" v-if="product.special_price">
@@ -75,19 +75,11 @@
               </span>
               <span v-if="!product.special_price" class="h4">
                 {{
-                  (product.price_incl_tax * product.qty) | price
+                  (product.totals.price_incl_tax * product.qty) | price
                 }}
               </span>
             </div>
           </td>
-
-        </tr>
-        <tr>
-          <td colspan="2"><p class="sku" v-if="product.qty_per_sqm">
-                <!-- Sku : {{ product.sku }} -->
-                Area {{ (product.qty/product.qty_per_sqm).toFixed(2) }} Sqm
-              </p></td>
-          <td> <span class="Sqm-price">{{product.totals.base_row_total_incl_tax | price}}</span></td>
         </tr>
       </tbody>
     </table>
