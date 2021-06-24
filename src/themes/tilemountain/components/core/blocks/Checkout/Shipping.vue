@@ -340,7 +340,7 @@
                 "
               />
             </label>
-            {{ methodMessage }}
+           <span> {{ methodMessage }}</span>
           </div>
           <div v-else-if="canNotDeliver">
             <div class="not deliver">
@@ -1820,9 +1820,9 @@ button.find-address {
   }
   .cl-error {
     font-size: 12px;
-    margin-top: 0px;
+    margin-top: 30px;
     position: relative;
-    top: -10px;
+    top: -15px;
   }
 
   .calendar {
@@ -2498,6 +2498,9 @@ span.checkmark.black-border-checkmark.no-checked:after {
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
+  .free-des {
+    margin: 10px 15px 10px 15px !important;
+}
   .shiping-edit {
     float: right;
     padding: 15px;
@@ -2712,5 +2715,16 @@ span.delivery-date {
       @media (min-width: 480px) and (max-width: 767px){
 padding-left: 10px;
       }
+}
+.free-des {
+    border: 1px solid #858585;
+    background: #F2F2F2;
+    margin: 10px 30px 10px 30px;
+    padding: 15px 15px 30px 15px;
+    line-height: 20px;
+    border-radius: 5px;
+}
+.free-des span {
+    color: #333333;
 }
 </style>
