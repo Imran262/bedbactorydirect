@@ -346,31 +346,6 @@
             <div class="not deliver">
               {{ methodMessage }}
             </div>
-            <button
-              data-v-469979b9=""
-              type="button"
-              data-testid="personalDetailsSubmit"
-              class="
-                cont-pay
-                no-outline
-                button-full
-                block
-                brdr-none
-                px10
-                py20
-                bg-cl-mine-shaft
-                :bg-cl-th-secondary
-                ripple
-                weight-400
-                h4
-                cl-white
-                sans-serif
-                fs-medium
-                button-disabled
-              "
-            >
-              Continue to payment
-            </button>
           </div>
 
           <div v-else-if="noMethodsFound">No Delivery Methods Found</div>
@@ -518,9 +493,11 @@
           </div>
           </div>
            <div
-          class="col-xs-12 col-sm-12 col-md-12 pl30 pr30"
+          class="col-xs-12 col-sm-12 col-md-12 pl30 pr30 not-delivery"
           v-if="$v.shipping.$invalid && !fromCart"
         >
+        <button type="button" data-testid="personalDetailsSubmit" class="cont-pay no-outline button-full block brdr-none px10 
+         py20 bg-cl-mine-shaft :bg-cl-th-secondary  ripple weight-400 h4 cl-white sans-serif fs-medium button-disabled" >  Continue to payment </button>
           <div class="mb8 cl-error" v-if="$v.shipping.$invalid">
             Please Enter All required fields*
           </div>
@@ -2181,8 +2158,16 @@ button.find-address {
   .cal-checkbox label {
     font-size: 12px;
   }
+  .not.deliver {
+    margin: 10px 15px 10px 15px !important;
 }
-
+.not-delivery {
+    padding-left: 15px !important;
+}
+.mb8.cl-error {
+    margin-left: 5px;
+}
+}
 /*Phone NUmber Text box */
 p.phone-text {
   margin: 0;
@@ -2726,5 +2711,27 @@ padding-left: 10px;
 }
 .free-des span {
     color: #333333;
+}
+.not.deliver {
+    border: 1px solid #858585;
+    background: #F2F2F2;
+    margin: 10px 30px 10px 30px;
+    padding: 30px 15px 30px 15px;
+    line-height: 25px;
+    border-radius: 5px;
+}
+.home-delivery-box button {
+    background: #57c9c0;
+    color: #fff;
+    padding: 15px;
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+.not-delivery {
+    border-top: 1px solid #bdbdbd;
+    margin-top: 35px;
 }
 </style>
