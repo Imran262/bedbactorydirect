@@ -2163,7 +2163,7 @@ button.find-address {
     margin: 30px 15px 30px 15px !important;
 }
 .not-delivery {
-    padding-left: 15px !important;
+    // padding-left: 15px !important;
 }
 .mb8.cl-error {
     margin-left: 5px;
@@ -2741,7 +2741,7 @@ padding-left: 15px !important;
 .not-delivery {
     border-top: 1px solid #bdbdbd;
     // margin-top: 35px;
-        padding-left: 30px;
+        // padding-left: 30px;
 }
 .button-extra {
     display: none;
