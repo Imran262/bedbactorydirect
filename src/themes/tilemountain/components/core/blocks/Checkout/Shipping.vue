@@ -493,14 +493,15 @@
           </div>
           </div>
            <div
-          class="col-xs-12 col-sm-12 col-md-12 pl30 pr30 not-delivery"
+          class="col-xs-12 col-sm-12 col-md-12 not-delivery"
           v-if="$v.shipping.$invalid && !fromCart"
         >
-        <button type="button" data-testid="personalDetailsSubmit" class="cont-pay no-outline button-full block brdr-none px10 
-         py20 bg-cl-mine-shaft :bg-cl-th-secondary  ripple weight-400 h4 cl-white sans-serif fs-medium button-disabled" >  Continue to payment </button>
-          <div class="mb8 cl-error" v-if="$v.shipping.$invalid">
+         <div class="mb8 cl-error" v-if="$v.shipping.$invalid">
             Please Enter All required fields*
           </div>
+        <button type="button" data-testid="personalDetailsSubmit" class="cont-pay no-outline button-full block brdr-none px10 
+         py20 bg-cl-mine-shaft :bg-cl-th-secondary  ripple weight-400 h4 cl-white sans-serif fs-medium button-disabled" >  Continue to payment </button>
+         
             <div
           class="delivery-btn"
           :class="
@@ -513,7 +514,7 @@
           "
         >
           <div class="row" v-if="!fromCart">
-            <div class="col-xs-12 col-md-6 my30 pl40 pr30">
+            <div class="col-xs-12 col-md-6 my30 pl40 pr30 button-extra">
               <button-full
                 data-testid="shippingSubmit"
                 ref="referenceShippingSubmit"
@@ -1815,7 +1816,7 @@ button.find-address {
 }
 
 .delivery-btn {
-  border-top: 1px solid #bdbdbd;
+  // border-top: 1px solid #bdbdbd;
 
   button {
     background: #57c9c0;
@@ -2283,8 +2284,8 @@ span.checkmark.black-border-checkmark.no-checked:after {
   display: none !important;
 }
 @media (min-width: 320px) and (max-width: 480px) {
-  #checkout .delivery-methods-detail .radioStyled span[data-v-0267c926] {
-    padding-left: 0px;
+  #checkout .delivery-methods-detail .radioStyled span{
+    // padding-left: 0px;
   }
 }
 </style>
@@ -2692,13 +2693,19 @@ p.free-del-p {
 span.free-del {
     padding-left: 40px;
       @media (min-width: 480px) and (max-width: 767px){
-padding-left: 20px;
+padding-left: 45px;
+      }
+            @media (min-width: 320px) and (max-width: 479px){
+padding-left: 22px !important;
       }
 }
 span.delivery-date {
     padding-left: 50px;
       @media (min-width: 480px) and (max-width: 767px){
-padding-left: 10px;
+padding-left: 35px;
+      }
+       @media (min-width: 320px) and (max-width: 479px){
+padding-left: 15px !important;
       }
 }
 .free-des {
@@ -2728,10 +2735,23 @@ padding-left: 10px;
     text-align: center;
     font-weight: 600;
     border-radius: 4px;
-    margin-top: 30px;
+    margin-bottom: 20px;
 }
 .not-delivery {
     border-top: 1px solid #bdbdbd;
-    margin-top: 35px;
+    // margin-top: 35px;
+}
+.button-extra {
+    display: none;
+}
+ @media (min-width: 480px){
+  .home-delivery-box {
+    padding: 0 30px 0 30px;
+}
+}
+ @media (max-width: 479px){
+  .home-delivery-box {
+    padding: 0 15px 0 15px;
+}
 }
 </style>
