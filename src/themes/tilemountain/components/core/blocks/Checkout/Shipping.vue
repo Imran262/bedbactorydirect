@@ -2160,7 +2160,7 @@ button.find-address {
     font-size: 12px;
   }
   .not.deliver {
-    margin: 10px 15px 10px 15px !important;
+    margin: 30px 15px 30px 15px !important;
 }
 .not-delivery {
     padding-left: 15px !important;
@@ -2485,7 +2485,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
 
 @media (min-width: 320px) and (max-width: 767px) {
   .free-des {
-    margin: 10px 15px 10px 15px !important;
+    margin: 30px 15px 30px 15px !important;
 }
   .shiping-edit {
     float: right;
@@ -2711,7 +2711,7 @@ padding-left: 15px !important;
 .free-des {
     border: 1px solid #858585;
     background: #F2F2F2;
-    margin: 10px 30px 10px 30px;
+    margin: 30px;
     padding: 15px 15px 30px 15px;
     line-height: 20px;
     border-radius: 5px;
@@ -2722,7 +2722,7 @@ padding-left: 15px !important;
 .not.deliver {
     border: 1px solid #858585;
     background: #F2F2F2;
-    margin: 10px 30px 10px 30px;
+    margin: 30px;
     padding: 30px 15px 30px 15px;
     line-height: 25px;
     border-radius: 5px;
@@ -2736,12 +2736,17 @@ padding-left: 15px !important;
     font-weight: 600;
     border-radius: 4px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .not-delivery {
     border-top: 1px solid #bdbdbd;
     // margin-top: 35px;
+        padding-left: 30px;
 }
 .button-extra {
+    display: none;
+}
+.mb8.cl-error {
     display: none;
 }
  @media (min-width: 480px){
