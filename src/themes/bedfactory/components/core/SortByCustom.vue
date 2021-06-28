@@ -165,7 +165,7 @@ $color-tertiary: color(tertiary);
   select {
     @extend .h4;
     font-size: 14px;
-    width: 137px;
+    width: 150px;
     color: #606063;
     font-family: "Arial";
     font-weight: bold;
@@ -176,7 +176,8 @@ $color-tertiary: color(tertiary);
     border: 1px solid #7d7d7d;
     height: 33px;
     background: url(/assets/arrows.svg) no-repeat right;
-    background-position-x: 115px;
+    background-position-x: 125px;
+    background-position-y: 8px;
     -webkit-appearance: none;
     line-height: 33px;
     padding-left: 5px;
