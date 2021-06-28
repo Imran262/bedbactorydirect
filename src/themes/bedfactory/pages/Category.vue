@@ -38,17 +38,36 @@
             "
           >
             <button
-              class="col-xs-2 col-sm-2 mr15filters mobile-filters-button brdr-none cl-white"
+              class="col-xs-6 col-sm-6 mr15filters mobile-filters-button brdr-none cl-white"
               @click="
                 openFilters();
                 overlayshow();
                 buttonshow();
               "
             >
-              <img src="/assets/images/filter.svg" alt="filter" />
+              <!-- <img src="/assets/images/filter.svg" alt="filter" /> -->
               <p>{{ $t('Filter') }}</p>
             </button>
-            <span
+            <div class="sorting1 sot col-sm-6 col-md-2 col-xs-6 p0">
+              <!-- <div class="sortp1">
+                <p>Sort by:</p>
+              </div> -->
+              <div class="dropd1">
+                <sort-by
+                  :has-label="true"
+                  @change="changeFilterSort"
+                  :value="getCurrentSearchQuery.sort"
+                />
+              </div>
+              <!-- <div class="mobile-sorting p0">
+                <p>{{ getCategoryProductsTotal }} Results</p>
+              </div> -->
+            </div>
+             
+          </div>
+        </div>
+      </div>
+             <span
               class="weight-400 sidebar__header__clear pointer sans-serif flex lh37 sortbycleartxt col-sm-4 col-xs-2"
             >
               <p
@@ -59,24 +78,6 @@
                 {{ $t('Clear All') }}
               </p>
             </span>
-            <div class="sorting1 sot col-sm-6 col-md-2 col-xs-8 p0">
-              <div class="sortp1">
-                <p>Sort by:</p>
-              </div>
-              <div class="dropd1">
-                <sort-by
-                  :has-label="true"
-                  @change="changeFilterSort"
-                  :value="getCurrentSearchQuery.sort"
-                />
-              </div>
-              <div class="mobile-sorting p0">
-                <p>{{ getCategoryProductsTotal }} Results</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </header>
     <header class="desktopheader">
       <div class="container">
@@ -1061,10 +1062,10 @@ $border-radius: 5px;
   text-decoration: underline;
   font-size: 9px;
   @media screen and (max-width: 767px) {
-    line-height: 50px;
+    line-height: 20px;
   }
   @media screen and (min-width: 320px) and (max-width: 374px) {
-    padding: 0px 0px 0px 12px;
+    padding:0;
   }
 }
 @media screen and (min-width: 768px) {
@@ -1210,7 +1211,9 @@ $border-radius: 5px;
   }
   .under-catergory-filter {
     border-bottom: 2px solid #ebebeb;
-    height: 48px;
+    height: 60px;
+    margin-top: 5px;
+     background: #fffefc;
     .row {
       margin-top: 0px;
       padding-left: 10px;
@@ -1266,12 +1269,43 @@ $border-radius: 5px;
   .mobile-filters {
     display: block;
   }
-  .mobile-filters-button {
-    height: 45px;
+
+// select.cl-secondary {
+//     border: none !important;
+//     width: 100% !important;
+//     background: none !important;
+//     align-items: center !important;
+//     justify-content: center !important;
+// }
+ .dropd1 {
+    height: 43px;
+    display: -ms-flexbox;
     display: flex;
-    padding: 6px 0px;
+    padding: 0;
     margin-top: 3px;
+    align-items: center;
+    justify-content: center;
+    line-height: 2.9;
     background-color: #fff;
+    border: 1px solid #dedede;
+    width: 100%;
+    margin: 0 0px 0px 10px;
+    top: 3px;
+    position: relative;
+}
+  .mobile-filters-button {
+   height: 45px;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    margin-top: 3px;
+    align-items: center;
+    justify-content: center;
+    line-height: 2.9;
+    background-color: #fff;
+    border: 1px solid #dedede;
+    width: 49%;
+
     img {
       margin-top: 0px;
       margin-left: 27px;
@@ -1282,13 +1316,12 @@ $border-radius: 5px;
       }
     }
     p {
-      margin: 8px 0px 0px 8px;
       color: #434343;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 12px;
       font-family: 'Arial';
       @media screen and (max-width: 625px) {
-        margin: 8px 0px 0px 3px !important;
+        // margin: 8px 0px 0px 3px !important;
       }
     }
   }
@@ -1698,9 +1731,9 @@ p {
 }
 @media (max-width: 374px) and (min-width: 320px) {
   .mobile-filters-button {
-    margin-top: 4px;
+    // margin-top: 4px;
     p {
-      font-size: 11px;
+      // font-size: 11px;
       z-index: 9999;
     }
     img {
@@ -1833,10 +1866,32 @@ p {
     padding-left: 8px !important;
     padding-right: 8px !important;
 }
+span.sortbycleartxt {
+    width: 100%;
+    margin-left: auto;
+}
+.dropd1 .sort-by {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 }
 @media screen and (min-width: 650px) and (max-width: 767px) {
   div#category {
     padding-top: 20px !important;
 }
 }
+</style>
+<style lang="scss">
+.dropd1 .sort-by select.cl-secondary {
+    border: none;
+    // width: 100% ;
+    width: auto;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px !important;
+    color: #434343;
+}
+
 </style>

@@ -5,7 +5,7 @@
       <p class="call-us">{{ callText || subtitle }}</p>
     </a>
   </div>
-  <div v-else class="ALI" style="display: inline-block">
+  <div v-else class="" style="display: inline-block">
     <a href="tel:01782 223822" class="phone-no">
       <img src="/assets/checkout-phone.png" alt="checkout phone"/>
       <span>{{ callText || subtitle }}</span>
