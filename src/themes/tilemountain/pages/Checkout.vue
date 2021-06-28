@@ -322,7 +322,7 @@ $color-black: color(black);
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      color: #eb008b;
+      color: #333333;
       font-weight: 600;
       letter-spacing: 1px;
       font-family: Arial, Helvetica, sans-serif;
@@ -663,7 +663,7 @@ $color-black: color(black);
 @media (max-width: 767px) {
   #checkout .radioStyled {
     font-size: 12px;
-    padding-left: 20px;
+    // padding-left: 20px;
   }
     #checkout .calendar-right-inner .checkmark {
       margin-left: 18px !important;
@@ -675,7 +675,7 @@ $color-black: color(black);
 @media (min-width: 320px) and (max-width: 480px) {
   #checkout .radioStyled {
     font-size: 2.35vw;
-    padding-left: 20px !important;
+    // padding-left: 20px !important;
   }
   .bank-card ul li img {
     width: 22px;
