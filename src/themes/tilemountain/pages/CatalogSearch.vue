@@ -1,39 +1,6 @@
 <template>
   <div class="search-page-main container">
-    <div class="breadcrumbs mt10 h5 cl-gray">
-      <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
-        <router-link :to="localizedRoute('/')" class="cl-tertiary links">
-          <img
-            class="home-breadcrumb-icon-img"
-            src="/assets/home-breadcrumb-icon.svg"
-          /> </router-link
-        >|
-      </span>
-      <span class="cl-mine-shaft">You are searching {{ searchUrl }}</span>
-    </div>
-    <div class="container">
-      <div class="row upper-row desktop-upper-row">
-        <div class="col-xs-6 filter-mobile-div">
-          <button class="mobile-filters-button" @click="openFilters">
-            Filters
-          </button>
-        </div>
-        <div class="sort-by col-xs-6">
-          <select
-            name="sortby"
-            @change="sortOnChange($event)"
-            class="selectSortBy"
-            v-model="selectSortBy"
-          >
-            <option value>Sort</option>
-            <option value="updated_at:desc">Latest</option>
-            <option value="final_price">Price: Low to high</option>
-            <option value="final_price:desc">Price: High to low</option>
-          </select>
-        </div>
-        <span class="totalItems">{{ totalResults }} Items</span>
-      </div>
-    </div>
+    
     <div class="container">
       <div class="row">
         <div
