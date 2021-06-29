@@ -126,7 +126,7 @@
               v-if="updateFilter"
               ref="priceMainMobile"
             >
-              <!-- <price-slider
+              <price-slider
                 context="category"
                 code="price"
                 id="price"
@@ -135,7 +135,7 @@
                 content="Price "
                 label="Price Label"
                 @change="changePriceFilter"
-              /> -->
+              />
             </div>
           </div>
 
@@ -228,7 +228,7 @@
               v-if="updateFilter"
               ref="priceMain"
             >
-              <!-- <price-slider
+              <price-slider
                 context="category"
                 code="price"
                 id="price"
@@ -237,12 +237,23 @@
                 content="Price "
                 label="Price Label"
                 @change="changePriceFilter"
-              /> -->
+              />
+              <!-- <range-filter
+                    :code="index"
+                    :price-range="[filter[0], filter[1]]"
+                    @change="changeRangeFilter($event, { filterType })"
+                  /> -->
             </div>
           </div>
         </div>
         <div class="col-md-9 search-listing">
-          <product-listing :columns="defaultColumn" :isCategory="false" :products="products" :filters="{}" :searchPage="true"/>
+          <product-listing :columns="defaultColumn" :isCategory="true" :products="products" :filters="{}"/>
+          <!-- <product-listing
+              :columns="4"
+              :products="pagination.currentPageItems || getCategoryProducts"
+              :filters="{}"
+              :isCategory="true"
+            /> -->
         </div>
       </div>
     </div>
@@ -272,7 +283,7 @@
 <script>
 import ProductListing from 'src/themes/bedfactory/components/core/ProductListingCustom';
 import { Logger } from '@vue-storefront/core/lib/logger';
-// import PriceSlider from 'src/modules/vsf-l-navigation/components/FilterTypes/PriceSlider';
+import PriceSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/PriceSlider';
 import { SearchQuery } from 'storefront-query-builder'
 import i18n from '@vue-storefront/i18n';
 import ButtonFull from 'theme/components/theme/ButtonFull.vue';
@@ -316,7 +327,7 @@ export default {
   },
   components: {
     ProductListing,
-    // PriceSlider,
+    PriceSlider,
     ButtonFull
   },
   computed: {
