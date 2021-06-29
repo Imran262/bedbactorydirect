@@ -1,6 +1,35 @@
 <template>
   <div class="search-page-main container">
-    
+    <div class="breadcrumbs mt10 h5 cl-gray" v-if="search !== ''">
+      <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
+        <router-link :to="localizedRoute('/')" class="cl-tertiary links">
+          <!-- <img
+            class="home-breadcrumb-icon-img"
+            src="/assets/home-breadcrumb-icon.svg"
+          /> -->
+          <span>Home</span>
+        </router-link>
+        |
+      </span>
+      <span class="cl-mine-shaft">Search results for: {{ searchUrl }}</span>
+    </div>
+    <div class="SearchText mt50" v-if="!emptyResults">
+      <p class="cl-mine-shaft">
+        Search results
+        <template v-if="searchUrl">
+          for ’<span class="cl-gray">{{ searchUrl }}</span
+          >’
+        </template>
+        returned <span class="cl-gray">{{ totalResults }}</span> results.
+      </p>
+    </div>
+
+
+
+
+
+
+
     <div class="container">
       <div class="row">
         <div
@@ -469,6 +498,7 @@ export default {
           })
           .then(resp => {
             this.allProducts = resp.items;
+            this.totalResults = resp.items.length
             console.log("145698 all products are",resp.items);
             const categories = resp.items
               .filter(p => p.category)
@@ -527,6 +557,7 @@ export default {
             this.colorArray = uniqueColorFinal;
             this.colorArrayOri = uniqueColorFinal;
             this.filterProducts = resp.items;
+            
             console.log("145698 Products to be filtered" , this.filterProducts);
             const allFiterFinalArrayConst = {};
             let uniqueStyleFullFinal = [];
@@ -726,7 +757,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.search-page-main.container .row {
+
+.search-page-main.container .row.upper-row {
+    justify-content: space-between;
+    border-bottom: 2px solid #dfdfdf;
+    border-top: 2px solid #dfdfdf;
+    margin-bottom: 0px;
+    padding-top: 0px;
+  }
+/* .search-page-main.container .row {
   padding: 5px 0px;
 }
 .search-page-main.container .row.upper-row {
@@ -736,7 +775,7 @@ export default {
   justify-content: flex-end;
   -ms-flex-align: center;
   align-items: center;
-}
+} */
 .sort-by {
   display: -ms-inline-flexbox;
   display: inline-flex;
