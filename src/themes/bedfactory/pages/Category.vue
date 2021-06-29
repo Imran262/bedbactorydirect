@@ -1583,7 +1583,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
 .totalprods {
   color: #071A44;
   font-weight: bold;
-  padding-right: 10px;
+  // padding-right: 10px;
   margin: 7px 0px 0px 11px;
   font-size: 17px;
   font-family: Arial;
