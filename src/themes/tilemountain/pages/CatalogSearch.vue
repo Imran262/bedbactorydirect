@@ -31,14 +31,14 @@
             Filters
           </button>
         </div>
-        <div class="sort-by col-xs-6">
+        <div class="sort-by col-xs-6 dropd1">
+          <div class="sortp-search"><p>Sort by:</p></div>
           <select
             name="sortby"
             @change="sortOnChange($event)"
-            class="selectSortBy"
+            class="selectSortBy cl-secondary"
             v-model="selectSortBy"
           >
-            <option value>Sort</option>
             <option value="updated_at:desc">Latest</option>
             <option value="final_price">Price: Low to high</option>
             <option value="final_price:desc">Price: High to low</option>
@@ -53,7 +53,7 @@
 
 
     <div class="container">
-      <div class="row">
+      <div class="row pt15">
         <div
           class="col-md-3 search-SideBar start-xs mobile-filters"
           ref="mobileFiltersRef"
@@ -166,7 +166,7 @@
             </button-full>
           </div>
         </div>
-        <div class="col-md-3 search-SideBar desktop-SideBar-col">
+        <div class="col-md-2 search-SideBar desktop-SideBar-col">
           <h4
             class="sidebar__header relative mt35 mb20 flex"
             v-if="
@@ -264,7 +264,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-9 search-listing">
+        <div class="col-md-10 search-listing">
           <product-listing :columns="defaultColumn" :isCategory="true" :products="products" :filters="{}"/>
           <!-- <product-listing
               :columns="4"
@@ -758,6 +758,7 @@ export default {
   },
   mounted() {
     this.search = this.$route.query.s;
+    this.selectSortBy= "final_price"
     if (this.search) {
       this.customSearch();
       this.searchFilterQuery();
@@ -781,11 +782,12 @@ export default {
 <style lang="scss" scoped>
 
 .search-page-main.container .row.upper-row {
-    justify-content: space-between;
-    border-bottom: 2px solid #dfdfdf;
-    border-top: 2px solid #dfdfdf;
+    justify-content: flex-end;
+    border-bottom: 1px solid #c7c7c7;
     margin-bottom: 0px;
     padding-top: 0px;
+    align-items: center;
+    padding: 10px 0px;
   }
 /* .search-page-main.container .row {
   padding: 5px 0px;
@@ -799,32 +801,49 @@ export default {
   align-items: center;
 } */
 .sort-by {
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  position: relative;
-  border: 1px solid #eaeaea;
-  background-color: #f5f7fa;
-  border-radius: 5px;
-  height: 35px;
-  margin-right: 1rem;
-  width: 160px;
+  // display: -ms-inline-flexbox;
+  // display: inline-flex;
+  // position: relative;
+  // border: 1px solid #eaeaea;
+  // background-color: #f5f7fa;
+  // border-radius: 5px;
+  // height: 35px;
+  // margin-right: 1rem;
+  // width: 160px;
 }
 
 .sort-by select {
-  font-size: 0.9325rem;
-  color: #808898;
-  font-family: 'open sans';
-  border: none;
-  width: 100%;
-  border-radius: 0;
-  background-color: transparent;
-  margin-right: 0;
-  -webkit-appearance: none;
-  background: url(/assets/category-images/filter-down-arrow.png) no-repeat 100%
-  100%;
-  padding-left: 0.55rem;
-  height: 100%;
-  line-height: 2;
+  // font-size: 0.9325rem;
+  // color: #808898;
+  // font-family: 'open sans';
+  // border: none;
+  // width: 100%;
+  // border-radius: 0;
+  // background-color: transparent;
+  // margin-right: 0;
+  // -webkit-appearance: none;
+  // background: url(/assets/category-images/filter-down-arrow.png) no-repeat 100%
+  // 100%;
+  // padding-left: 0.55rem;
+  // height: 100%;
+  // line-height: 2;
+      font-size: 14px;
+    width: 150px;
+    color: #333333;
+    font-family: "Arial";
+    font-weight: 400;
+    background-color: transparent;
+    margin-right: 0;
+    border-radius: 4px;
+    border: 1px solid #7d7d7d;
+    height: 33px;
+    background: url(/assets/arrows.svg) no-repeat right;
+    background-position-x: 125px;
+    background-position-y: 8px;
+    -webkit-appearance: none;
+    line-height: 33px;
+    padding-left: 5px;
+    outline: none;
 }
 img.home-breadcrumb-icon-img {
   width: 15px;
@@ -832,7 +851,7 @@ img.home-breadcrumb-icon-img {
 }
 
 .totalItems {
-  color: #808898;
+  color: #333333;
   font-size: 0.9325rem;
   font-family: 'open sans';
   padding-right: 8px;
@@ -871,15 +890,13 @@ img.home-breadcrumb-icon-img {
 
 h4.filter-heading {
   user-select: none;
-  font-size: 0.875rem;
-  color: #606060;
-  font-family: 'open sans';
+  font-size: 14px;
+  color: #071A44;
+   font-family: "Arial";
   font-weight: bold;
-  text-transform: uppercase;
-  background: url(/assets/category-images/filter-up-arrow.png) no-repeat 100%
-  100%;
+  background: url(/assets/category-images/add.png) no-repeat 96% 75%;
   height: 25px;
-  border-top: 1px solid #e7e7e7;
+  // border-top: 1px solid #e7e7e7;
   margin-top: 0px;
   padding-top: 20px;
 }
@@ -899,7 +916,7 @@ span.filter-label {
 span.filter-label span:before {
   content: '';
   position: relative;
-  top: 5px;
+  top: 2px;
   margin-right: 10px;
   display: inline-block;
   vertical-align: text-top;
@@ -926,15 +943,15 @@ span.active-filter {
   // vertical-align: text-top;
 }
 span.filter-label span.active-filter:before {
-  background: #4f4f4f;
-  border-color: #4f4f4f;
+  background: #da2f89;
+  border-color: #da2f89;
 }
 
 span.filter-label span.active-filter:after {
   content: '';
   position: absolute;
   left: 3px;
-  top: 13px;
+  top: 9px;
   background: white;
   width: 2px;
   height: 2px;
@@ -947,8 +964,7 @@ span.filter-label span.active-filter:after {
   transform: rotate(45deg);
 }
 h4.toggleIcon {
-  background: url(/assets/category-images/filter-down-arrow.png) no-repeat 100%
-  100%;
+      background: url(/assets/category-images/minus.png) no-repeat 96% 75%;
 }
 @media (min-width: 768px) {
   .col-xs-6.filter-mobile-div {
@@ -956,8 +972,14 @@ h4.toggleIcon {
   }
   .sort-by.col-xs-6 {
     width: 180px !important;
-    max-width: 180px !important;
+    max-width: 250px !important;
   }
+  .search-listing {
+    margin-top: 1%;
+    padding-left: 46px;
+    padding-right: 0;
+}
+
 }
 @media (max-width: 767px) {
   .col-md-3.search-SideBar {
@@ -980,20 +1002,36 @@ h4.toggleIcon {
     display: none;
   }
   .mobile-filters-button {
-    display: block;
-    border: 2px solid #e7e7e7;
+    // display: block;
+    // border: 2px solid #e7e7e7;
 
-    height: 35px;
-    border-radius: 5px;
-    color: #54575b;
-    font-size: 0.8rem;
-    font-family: 'Poppins', sans-serif;
-    background: #f5f7fa
-    url('/assets/category-images/category-filer-mobile-icon.png') no-repeat
-    95% 55%;
-    text-align: left;
+    // height: 35px;
+    // border-radius: 5px;
+    // color: #54575b;
+    // font-size: 0.8rem;
+    // font-family: 'Poppins', sans-serif;
+    // background: #f5f7fa
+    // url('/assets/category-images/category-filer-mobile-icon.png') no-repeat
+    // 95% 55%;
+    // text-align: left;
+    // width: 100%;
+    // float: right;
+    height: 45px;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    margin-top: 3px;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    line-height: 2.9;
+    background-color: #fff;
+    border: 1px solid #dedede;
     width: 100%;
-    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    color: #434343;
   }
   h4.filter-heading {
     border-top: 0px solid #e7e7e7 !important;
@@ -1067,10 +1105,45 @@ h4.toggleIcon {
   .filter-expander {
     background-color: #f2f2f2 !important;
   }
+  .dropd1 {
+    height: 45px;
+    display: inline-grid;
+    padding: 0;
+    margin-top: 3px;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    line-height: 2.9;
+    background-color: #fff;
+    border: 1px solid #dedede;
+    width: 100%;
+    position: relative;
+    background: none;
+    border-radius: unset;
+}
+.dropd1 .sortp-search p{
+    display: none;
+}
+.dropd1 select.selectSortBy.cl-secondary {
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #434343;
+     width: 100%;
+}
+// .sort-by .dropd1 {
+//     display: inline-grid;
+//     justify-content: center;
+//     align-items: center;
+// }
+.desktop-SideBar-col {
+    display: none;
+}
 }
 
 .filter-options {
-  max-height: 300px;
+  max-height: 700px !important;
   -webkit-transition: max-height 0.3s ease-in;
   -o-transition: max-height 0.3s ease-in;
   transition: max-height 0.3s ease-in;
@@ -1105,11 +1178,11 @@ h4.toggleIcon {
   text-decoration: underline;
   font-weight: 700;
   font-size: 14px;
-  color: #4dba87;
+ color: #071A44;
 }
 .plus-minus .horizontal {
   position: absolute;
-  background-color: #4dba87;
+  background-color: #071A44;
   width: 10px;
   height: 2px;
   left: 50%;
@@ -1120,7 +1193,7 @@ h4.toggleIcon {
 
 .plus-minus .vertical {
   position: absolute;
-  background-color: #4dba87;
+  background-color: #071A44;
   width: 2px;
   height: 10px;
   left: 50%;
@@ -1172,5 +1245,56 @@ h4.toggleIcon {
 .sidebar__header__clear {
   font-size: 0.8em;
   min-width: 102px;
+}
+.sort-by {
+    display: flex;
+    @media (max-width: 767px){
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    }
+}
+.sortp-search p {
+    color: #071a44;
+    font-weight: bold;
+    padding-right: 6px;
+    margin: 9px 0 0 5px;
+    font-family: 'Arial', serif;
+    font-size: 17px;
+     @media (max-width: 767px){
+       display: none;
+     }
+
+}
+.SearchText .cl-mine-shaft {
+    color: #071A44;
+    font-size: 41px;
+    font-family: oblik;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    @media (max-width: 767px){
+    font-size: 5.067vw;
+    margin-top: 23px;
+    margin-bottom: 16px;
+    padding: 0 20px 0 20px;
+    }
+}
+h4.sidebar__header {
+    display: none;
+}
+span.filter-label span {
+    color: #333333;
+}
+h4.filter-heading.price-filter-heading {
+    background: url(/assets/category-images/add.png) no-repeat 96% 75%;
+}
+h4.filter-heading.price-filter-heading.toggleIcon {
+    background: url(/assets/category-images/minus.png) no-repeat 96% 75%;
+}
+.filter-section-main {
+    border-bottom: 1px solid #afafaf;
+}
+.filter-section-main:last-child {
+    border-bottom: none;
 }
 </style>
