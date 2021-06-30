@@ -503,7 +503,7 @@ h4 {
 .product-filter.hidePriceFilterDiv {
   display: none;
 }
-.product-filter div.filter-main-container.is-open {
-max-height: 450px  !important;
-}
+// .product-filter div.filter-main-container.is-open {
+// max-height: 450px  !important;
+// }
 </style>

@@ -1039,6 +1039,7 @@ export default {
       reRender: 0,
       calculatedProductPrice: {},
       configurableChildren: {},
+      colorName: ""
     };
   },
   computed: {
@@ -1486,6 +1487,7 @@ export default {
           }
         });
       }
+      // console.log("114455",this.getColorName(), this.colorName);
     },
     getCurrentCustomOptions: {
       handler() {
@@ -1823,8 +1825,10 @@ export default {
       this.colorName = name;
     },
     getColorName() {
+      // console.log("741258 in get color name",this.colorName);
       if (this.colorName == "") {
         this.getCurrentProduct.custom_options.forEach((option) => {
+          // console.log("741258 ",option);
           if (
             option.iscolor == 1 ||
             option.iscolor == "1" ||

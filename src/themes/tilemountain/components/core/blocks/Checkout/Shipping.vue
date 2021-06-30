@@ -340,37 +340,12 @@
                 "
               />
             </label>
-            {{ methodMessage }}
+           <span> {{ methodMessage }}</span>
           </div>
           <div v-else-if="canNotDeliver">
             <div class="not deliver">
               {{ methodMessage }}
             </div>
-            <button
-              data-v-469979b9=""
-              type="button"
-              data-testid="personalDetailsSubmit"
-              class="
-                cont-pay
-                no-outline
-                button-full
-                block
-                brdr-none
-                px10
-                py20
-                bg-cl-mine-shaft
-                :bg-cl-th-secondary
-                ripple
-                weight-400
-                h4
-                cl-white
-                sans-serif
-                fs-medium
-                button-disabled
-              "
-            >
-              Continue to payment
-            </button>
           </div>
 
           <div v-else-if="noMethodsFound">No Delivery Methods Found</div>
@@ -518,12 +493,15 @@
           </div>
           </div>
            <div
-          class="col-xs-12 col-sm-12 col-md-12 pl30 pr30"
+          class="col-xs-12 col-sm-12 col-md-12 not-delivery"
           v-if="$v.shipping.$invalid && !fromCart"
         >
-          <div class="mb8 cl-error" v-if="$v.shipping.$invalid">
+         <div class="mb8 cl-error" v-if="$v.shipping.$invalid">
             Please Enter All required fields*
           </div>
+        <button type="button" data-testid="personalDetailsSubmit" class="cont-pay no-outline button-full block brdr-none px10 
+         py20 bg-cl-mine-shaft :bg-cl-th-secondary  ripple weight-400 h4 cl-white sans-serif fs-medium button-disabled" >  Continue to payment </button>
+         
             <div
           class="delivery-btn"
           :class="
@@ -536,7 +514,7 @@
           "
         >
           <div class="row" v-if="!fromCart">
-            <div class="col-xs-12 col-md-6 my30 pl40 pr30">
+            <div class="col-xs-12 col-md-6 my30 pl40 pr30 button-extra">
               <button-full
                 data-testid="shippingSubmit"
                 ref="referenceShippingSubmit"
@@ -1820,9 +1798,9 @@ button.find-address {
   }
   .cl-error {
     font-size: 12px;
-    margin-top: 0px;
+    margin-top: 30px;
     position: relative;
-    top: -10px;
+    top: -15px;
   }
 
   .calendar {
@@ -1838,7 +1816,7 @@ button.find-address {
 }
 
 .delivery-btn {
-  border-top: 1px solid #bdbdbd;
+  // border-top: 1px solid #bdbdbd;
 
   button {
     background: #57c9c0;
@@ -2181,8 +2159,16 @@ button.find-address {
   .cal-checkbox label {
     font-size: 12px;
   }
+  .not.deliver {
+    margin: 30px 15px 30px 15px !important;
 }
-
+.not-delivery {
+    // padding-left: 15px !important;
+}
+.mb8.cl-error {
+    margin-left: 5px;
+}
+}
 /*Phone NUmber Text box */
 p.phone-text {
   margin: 0;
@@ -2298,8 +2284,8 @@ span.checkmark.black-border-checkmark.no-checked:after {
   display: none !important;
 }
 @media (min-width: 320px) and (max-width: 480px) {
-  #checkout .delivery-methods-detail .radioStyled span[data-v-0267c926] {
-    padding-left: 0px;
+  #checkout .delivery-methods-detail .radioStyled span{
+    // padding-left: 0px;
   }
 }
 </style>
@@ -2498,6 +2484,9 @@ span.checkmark.black-border-checkmark.no-checked:after {
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
+  .free-des {
+    margin: 30px 15px 30px 15px !important;
+}
   .shiping-edit {
     float: right;
     padding: 15px;
@@ -2704,13 +2693,70 @@ p.free-del-p {
 span.free-del {
     padding-left: 40px;
       @media (min-width: 480px) and (max-width: 767px){
-padding-left: 20px;
+padding-left: 45px;
+      }
+            @media (min-width: 320px) and (max-width: 479px){
+padding-left: 22px !important;
       }
 }
 span.delivery-date {
     padding-left: 50px;
       @media (min-width: 480px) and (max-width: 767px){
-padding-left: 10px;
+padding-left: 35px;
       }
+       @media (min-width: 320px) and (max-width: 479px){
+padding-left: 15px !important;
+      }
+}
+.free-des {
+    border: 1px solid #858585;
+    background: #F2F2F2;
+    margin: 30px;
+    padding: 15px 15px 30px 15px;
+    line-height: 20px;
+    border-radius: 5px;
+}
+.free-des span {
+    color: #333333;
+}
+.not.deliver {
+    border: 1px solid #858585;
+    background: #F2F2F2;
+    margin: 30px;
+    padding: 30px 15px 30px 15px;
+    line-height: 25px;
+    border-radius: 5px;
+}
+.home-delivery-box button {
+    background: #57c9c0;
+    color: #fff;
+    padding: 15px;
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.not-delivery {
+    border-top: 1px solid #bdbdbd;
+    // margin-top: 35px;
+        // padding-left: 30px;
+}
+.button-extra {
+    display: none;
+}
+.mb8.cl-error {
+    display: none;
+}
+ @media (min-width: 480px){
+  .home-delivery-box {
+    padding: 0 30px 0 30px;
+}
+}
+ @media (max-width: 479px){
+  .home-delivery-box {
+    padding: 0 15px 0 15px;
+}
 }
 </style>
