@@ -197,7 +197,7 @@ export default {
     };
   },
   async beforeRouteEnter(to, from, next) {
-    console.log("789456  header", this.productsInCart.length);
+    // console.log("789456  header", this.productsInCart.length);
   },
   watch: {
     "$route.name": function (to, from) {
@@ -213,9 +213,9 @@ export default {
     $route(to, from) {
       // console.log("789456 In Header",this.$route,to,from);
       if (to.name === "cart") {
-        console.log("789456 Header ", this.productsInCart.length);
+        // console.log("789456 Header ", this.productsInCart.length);
         if (this.productsInCart.length === 0) {
-          console.log("789456 Cart is Empty ");
+          // console.log("789456 Cart is Empty ");
           this.$router.push(this.localizedRoute("/"));
         }
       }
@@ -243,11 +243,11 @@ export default {
   beforeMount() {
     history.scrollRestoration = "auto";
 
-    console.log("789456 In Header ", this.$route);
+    // console.log("789456 In Header ", this.$route);
     if (this.$route.name === "cart") {
-      console.log("789456 Header ", this.productsInCart.length);
+      // console.log("789456 Header ", this.productsInCart.length);
       if (this.productsInCart.length === 0) {
-        console.log("789456 Cart is Empty ");
+        // console.log("789456 Cart is Empty ");
         this.$router.push(this.localizedRoute("/"));
       }
     }
@@ -698,13 +698,12 @@ span.scrollimg:after {
   }
 }
 a.cl-tertiary.links img {
-    position: relative;
-    top: 5px;
+  position: relative;
+  top: 5px;
 }
-@media (max-width: 336px)
-{
-.phone-no{
+@media (max-width: 336px) {
+  .phone-no {
     margin-right: 0px !important;
-}
+  }
 }
 </style>

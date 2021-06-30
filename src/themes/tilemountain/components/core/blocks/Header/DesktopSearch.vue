@@ -213,14 +213,14 @@ export default {
         document.getElementsByClassName('back-layout')[0].style.display = 'none'
       }
       this.formSubmitUrl = '/catalog-search/?s=' + this.search
-      let savedRedirects = this.$store.state.searchredirect
-      if (savedRedirects.searchRedirectState) {
-        savedRedirects.searchRedirectState.forEach(element => {
-          if (element.query_text == this.search) {
-            this.formSubmitUrl = element.redirect
-          }
-        })
-      }
+      // let savedRedirects = this.$store.state.searchredirect
+      // if (savedRedirects.searchRedirectState) {
+      //   savedRedirects.searchRedirectState.forEach(element => {
+      //     if (element.query_text == this.search) {
+      //       this.formSubmitUrl = element.redirect
+      //     }
+      //   })
+      // }
     },
     searchClick () {
       if (document.getElementById("search-mainmain") != null) {
@@ -367,7 +367,7 @@ export default {
     //this.$refs.search.focus();
     this.search = ""
     // disableBodyScroll(this.$el);
-    this.searchRedirectMethodCall()
+    // this.searchRedirectMethodCall()
   },
   destroyed () {
     // clearAllBodyScrollLocks();
