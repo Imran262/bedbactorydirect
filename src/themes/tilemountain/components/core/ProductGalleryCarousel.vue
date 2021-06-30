@@ -638,8 +638,12 @@ figure img {
     width: 100%;
     object-fit: cover;
 }
-.pswp__img {
+img.pswp__img {
     height: auto !important;
-    // transform: translateY(-70px);
+}
+@media (min-width: 480px) {
+img.pswp__img {
+    transform: translateY(80px);
+}
 }
 </style>
