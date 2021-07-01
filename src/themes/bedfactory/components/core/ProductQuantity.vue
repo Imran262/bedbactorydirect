@@ -84,9 +84,9 @@ export default {
       if (!this.isOnline) {
         return false;
       }
-      console.log("112233 Checking If Disabled",!this.maxQuantity &&
-        this.checkMaxQuantity &&
-        this.isSimpleOrConfigurable , this.maxQuantity , this.checkMaxQuantity , this.isSimpleOrConfigurable);
+      // console.log("112233 Checking If Disabled",!this.maxQuantity &&
+        // this.checkMaxQuantity &&
+        // this.isSimpleOrConfigurable , this.maxQuantity , this.checkMaxQuantity , this.isSimpleOrConfigurable);
       return (
         !this.maxQuantity &&
         this.checkMaxQuantity &&

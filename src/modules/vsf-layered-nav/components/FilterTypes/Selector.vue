@@ -39,7 +39,7 @@ export default {
   },
   mixins: [filterMixin],
   mounted() {
-    console.log("I have it here", this.position);
+   // console.log("I have it here", this.position);
   },
   methods: {
     setComfortColor(variant) {

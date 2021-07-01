@@ -206,10 +206,10 @@ export default {
       let productReviewsUrl = this.configsData.api.url + this.configsData.reviewPath.product + this.productId
       productReviewsUrl = 'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id=454';
       // let productReviewsUrl = this.configsData.api.url + this.configsData.reviewPath.product + 1931
-      console.log("112233 ",productReviewsUrl);
+      // console.log("112233 ",productReviewsUrl);
       await axios.get(productReviewsUrl)
         .then(({ data }) => {
-          console.log("112233 Data is ", data);
+          // console.log("112233 Data is ", data);
           if (data.result) {
             this.reviews = data.result;
           }

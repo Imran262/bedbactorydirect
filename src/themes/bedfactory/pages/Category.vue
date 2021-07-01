@@ -728,7 +728,7 @@ export default {
   methods: {
     getAvailableFiltersCustom(){
       let catFilters = {...this.getAvailableFilters};
-      console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+    //  console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
       if(catFilters.filter_size && catFilters.filter_size.length >0){
         catFilters.filter_size.sort(function (a, b) {
           // if (a.id>b.id){
@@ -736,7 +736,7 @@ export default {
           // }
          return a.id -b.id
         })
-        console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+    //    console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
       }
       this.categoryFilters= catFilters;
       return catFilters
