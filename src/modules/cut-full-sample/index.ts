@@ -83,6 +83,6 @@ export const sampleQuote: StorefrontModule = function ({
 }) {
   store.registerModule('sample-quote', sampleQuoteModuleStore);
   coreHooks.afterAppInit(async () => {
-    console.log('App HAVE BEEN initialized');
+    console.log('cut sample initialized');
   });
 };
