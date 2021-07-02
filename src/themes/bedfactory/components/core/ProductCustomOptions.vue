@@ -73,7 +73,7 @@
                     "
                     class="selctedImage"
                     :src="
-                      'https://admin.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                      backEnd+'/pub/media/catalog/layer' +
                       value.layer
                     "
                     alt="Image"
@@ -88,7 +88,7 @@
                   <img
                     class="allImages"
                     :src="
-                      'https://admin.bedfactorydirect.co.uk/pub/media/catalog/layer' +
+                      backEnd+'/pub/media/catalog/layer' +
                       value.layer
                     "
                     alt="Image"
@@ -230,11 +230,13 @@
 import { ProductCustomOptions } from "@vue-storefront/core/modules/catalog/components/ProductCustomOptions.ts";
 import { changeFilterQuery } from "@vue-storefront/core/modules/catalog-next/helpers/filterHelpers";
 import { mapGetters } from "vuex";
+import config from 'config'
 export default {
   mixins: [ProductCustomOptions],
   components: {},
   data() {
     return {
+      backEnd: config.backEnd,
       options: [],
       imageSrc: "",
       currentOption: null,

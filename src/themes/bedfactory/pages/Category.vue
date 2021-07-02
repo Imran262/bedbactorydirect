@@ -93,7 +93,7 @@
 <!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
             <img
-              :src="'http://devadmin.bedfactorydirect.co.uk'+ getCurrentCategory.banner_image
+              :src="backEnd + getCurrentCategory.banner_image
               "
               :alt="getCurrentCategory.name"
               class="headerimg"
@@ -479,6 +479,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      backEnd: config.backEnd,
       categoryFilters: {},
       bottompagination: false,
       product_link: '',
@@ -728,7 +729,7 @@ export default {
   methods: {
     getAvailableFiltersCustom(){
       let catFilters = {...this.getAvailableFilters};
-      console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+    //  console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
       if(catFilters.filter_size && catFilters.filter_size.length >0){
         catFilters.filter_size.sort(function (a, b) {
           // if (a.id>b.id){
@@ -736,7 +737,7 @@ export default {
           // }
          return a.id -b.id
         })
-        console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+    //    console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
       }
       this.categoryFilters= catFilters;
       return catFilters
