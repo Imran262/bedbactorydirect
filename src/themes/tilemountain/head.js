@@ -1,5 +1,5 @@
 export default {
-  title: 'Tile Mountain',
+  title: 'Bed Factory Direct',
   titleTemplate: '%s',
   htmlAttrs: {
     lang: 'en'
@@ -14,10 +14,12 @@ export default {
     { name: 'apple-mobile-web-app-status-bar-style', content: '#ffffff' }
   ],
   link: [
-    { rel: 'icon', type: 'image/png', href: '/assets/favicon-180x180.png', sizes: '180x180' },
-    { rel: 'icon', type: 'image/png', href: '/assets/favicon-192x192.png', sizes: '192x192' },
-    { rel: 'apple-touch-icon', href: '/assets/favicon-180x180.png' },
-    { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_2048.png', sizes: '2048x2732' },
+    // { rel: 'icon', type: 'image/png', href: '/assets/favicon-180x180.png', sizes: '180x180' },
+    // { rel: 'icon', type: 'image/png', href: '/assets/favicon-192x192.png', sizes: '192x192' },
+    { rel: 'icon', type: 'image/png', href: '/assets/favicon-16x16.png', sizes: '16x16' },
+    { rel: 'icon', type: 'image/png', href: '/assets/favicon-32x32.png', sizes: '32x32' },
+    { rel: 'apple-touch-icon', href: '/assets/favicon-16x16.png' },
+    { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_2048.png', sizes: '2048x2716' },
     { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_1668.png', sizes: '1668x2224' },
     { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_1536.png', sizes: '1536x2048' },
     { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_1125.png', sizes: '1125x2436' },
