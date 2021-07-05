@@ -7,7 +7,7 @@
   </div>
   <div v-else class="" style="display: inline-block">
     <a href="tel:01782 223822" class="phone-no">
-      <img src="/assets/checkout-phone.png" alt="checkout phone"/>
+      <img src="/assets/phone.svg" alt="checkout phone" class="checkout-contact"/>
       <span>{{ callText || subtitle }}</span>
     </a>
   </div>
@@ -75,7 +75,7 @@ export default {
 
   span {
     font-family: Arial, Helvetica, sans-serif;
-    color: #ffffff;
+    color: #071a44;
     font-size: 14px;
     font-weight: 700;
   }
@@ -198,4 +198,7 @@ a:not(.no-underline):hover:after {
 //     }
 //   }
 // }
+img.checkout-contact {
+    width: 29px;
+}
 </style>

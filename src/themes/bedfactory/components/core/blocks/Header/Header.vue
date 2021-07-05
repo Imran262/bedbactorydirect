@@ -101,8 +101,8 @@
                   href="#"
                   @click.prevent="gotoAccount"
                   class="cl-tertiary links"
-                  ><img src="/assets/checkout-user.png" alt="checkout user"
-                /></a>
+                  ><img src="/assets/icons/user.svg" alt="checkout user"
+              class="checkout-user"  /></a>
                 <span v-else>{{
                   $t("You are logged in as {firstname}", currentUser)
                 }}</span>
@@ -706,5 +706,8 @@ a.cl-tertiary.links img {
 .phone-no{
     margin-right: 0px !important;
 }
+}
+img.checkout-user {
+    width: 22px;
 }
 </style>
