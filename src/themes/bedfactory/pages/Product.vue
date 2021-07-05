@@ -516,6 +516,7 @@
                   :product="getCurrentProduct"
                   @option-added="addCustomOption($event)"
                   :color="false"
+                  :key="reRender"
                 />
                 <div class="fabric-btn-responsive">
                   <div
@@ -1397,8 +1398,6 @@ export default {
       this.cartItems = value;
     });
     this.tileSqmQuantity = "";
-    this.calculateTenPercentwaste();
-    await this.getVinylProductItem();
     await this.$store.dispatch(
       "recently-viewed/addItem",
       this.getCurrentProduct
@@ -1407,7 +1406,7 @@ export default {
     this.$bus.$on("cartUpdated", (payload) => {
       // TODO: Update the Samples Button from here.
       if (this.getCartToken) {
-        this.updateSampleButtons();
+        // this.updateSampleButtons();
       }
     });
     if (
@@ -1463,6 +1462,7 @@ export default {
     },
     "$route.name": function () {
       this.reRender++;
+      this.setReviews();
       console.log(
         "routeGotUpdated",
         this.sendProductCustomOptions,
@@ -1479,7 +1479,7 @@ export default {
       ) {
         this.getCurrentProduct.custom_options.forEach((option) => {
           if (
-            option.iscolor == 1 ||
+            option.iscolor == 1 || 
             option.iscolor == "1" ||
             option.iscolor == true
           ) {
@@ -1487,6 +1487,7 @@ export default {
           }
         });
       }
+      this.checkRoute();
       // console.log("114455",this.getColorName(), this.colorName);
     },
     getCurrentCustomOptions: {
@@ -1533,6 +1534,21 @@ export default {
     },
   },
   methods: {
+    checkRoute() {
+      console.log(
+        "11226677 Route changes in check route function",
+        this.$route,
+        "\nSTATE is \n\n",
+        this.$store.state.product
+      );
+     this.getCurrentProductCustomOptions();
+      this.$store.state.product.current_custom_options=this.getCurrentProductCustomOptionsRedo;
+      console.log(
+        "\n112266 After STATE is \n\n",
+        this.$store.state.product
+      );
+      //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
+    },
     getCurrentProductCustomOptions() {
       // let cOptions = this.$store.state.product;
       let currentOptions = {};
@@ -1863,7 +1879,7 @@ export default {
           product_Id = this.getCurrentProduct.id;
         }
         const URL =
-          config.baseUrl.url + config.reviews.getReviews_endpoint + product_Id;
+          config.api.url + config.reviews.getReviews_endpoint + product_Id;
         // const URL = 'http://46.101.17.57/' + config.reviews.getReviews_endpoint + product_Id;
         // console.log("1234654321 URL in products is ",URL);
         // const URL =
