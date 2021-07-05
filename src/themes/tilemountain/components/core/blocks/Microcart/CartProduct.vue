@@ -22,10 +22,10 @@
         <span class="sku-text">SKU:</span>
         <span class="sku-p-text">{{ product.sku }}</span>
       </div>
-      <div class="size" v-if="fullCart && product && product.size">
+      <!-- <div class="size" v-if="fullCart && product && product.size">
         <span class="size-text">Size:</span>
         <span class="size-p-text">{{ product.size }}</span>
-      </div>
+      </div> -->
       <!-- <div class="area" v-if="fullCart && productArea && !optionCheck">
         <template v-if="productArea !== 'Infinity'">
         <span class="area-text">Area:</span>
