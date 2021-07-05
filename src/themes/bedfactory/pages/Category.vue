@@ -323,13 +323,6 @@ getCategoryProducts {{getCategoryProducts}} -->
               getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
-          <product-listing
-              @showPagination="showbottompage"
-              :columns="defaultColumn"
-              :products="pagination.currentPageItems || getCategoryProducts"
-              :filters="getAvailableFilters"
-              :isCategory="true"
-            />
             <lazy-hydrate
               :trigger-hydration="!loading"
               v-if="
