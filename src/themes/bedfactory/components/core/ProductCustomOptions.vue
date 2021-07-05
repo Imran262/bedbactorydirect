@@ -319,8 +319,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chevron-down{
-background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
-background-size: 30px !important ;
+background: url(/assets/icons/downarrow.png) no-repeat 99% 46% !important;
+background-size: 17px !important ;
 }
 .height-adjust {
   height: calc(100vh - 212px);
