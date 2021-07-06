@@ -8,7 +8,7 @@
       <ul>
         <li>
           <a href>
-            <img :src="singleblock.img" :alt="singleblock.img" />
+            <img :src="singleblock.img"/>
           </a>
         </li>
       </ul>
