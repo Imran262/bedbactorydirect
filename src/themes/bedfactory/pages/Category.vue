@@ -188,16 +188,14 @@
       <div class="row pt10">
         <!-- Desktop Filters -->
         <div
-          v-if="pageLayout !== '1column' && reRender>=0"
+          v-if="pageLayout !== '1column'"
           class="col-md-2 start-xs category-filters p0 pr0"
         >
           <sidebar
-          v-if="filtersUpdated >=0"
             :value="
               getCurrentSearchQuery.sort ? getCurrentSearchQuery.sort : ''
             "
-            :filters="getAvailableFilters"
-            :key="filtersUpdated"
+            :filters="categoryFilters"
             @changeFilter="changeFilter"
             :prodlisting="
               isListingProducts ||
@@ -511,6 +509,11 @@ export default {
     }
   },
   watch: {
+    getAvailableFilters : {
+      handler(){
+        this.getAvailableFiltersCustom();
+      }
+    },
     async getCurrentCategoryId (to, from) {
       if (to !== from) {
         this.children = await this.fetchCategoriesAndSubCategories()
