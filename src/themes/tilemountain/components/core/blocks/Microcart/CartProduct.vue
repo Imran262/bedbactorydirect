@@ -83,7 +83,7 @@
               <span class="firstprice-cross">x</span>
               <!-- <br /> product.totals 001 {{ product.totals}} <br /> -->
               <!-- {{ product.totals.price_incl_tax.toFixed(2) | price(storeView) }} -->
-              {{ product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price | price(storeView) }}
+              {{ product.totals?product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price : product.price | price(storeView) }}
             </div>
           </div>
         </template>
