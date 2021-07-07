@@ -2167,7 +2167,7 @@ export default {
       return false;
     },
     openFigureGallery() {
-      this.$refs.getProductGallery.$refs.carousel.stopVideo();
+      // this.$refs.getProductGallery.$refs.carousel.stopVideo();
       document.getElementsByTagName("figure")[0].click();
     },
     openGallery() {
@@ -2809,8 +2809,8 @@ $bg-secondary: color(secondary, $colors-background);
     background-size: 17px!important;
 }
 .chevron-down-icon {
-  background: url(/assets/icons/downarrow.png) no-repeat 100% 53% !important;
-  background-size: 30px !important;
+  background: url(/assets/icons/downarrow.png) no-repeat 99% 53% !important;
+  background-size: 17px !important;
   appearance: none;
 }
 .bt-new-description-main {
