@@ -1,6 +1,9 @@
 <template>
   <div class="row row-sb-left-padding">
     <div class="col-xs-3 col-md-3 col-lg-3 sb-product-img">
+      <!-- product {{product}} -->
+     <!-- {{ product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price}}
+     {{product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price}} -->
       <ProductImageCart :image="image" />
     </div>
     <div class="col-md-3 col-lg-3 sb-product-detail">
@@ -78,7 +81,9 @@
             </div>
             <div class="firstprice">
               <span class="firstprice-cross">x</span>
-              {{ product.totals.price_incl_tax.toFixed(2) | price(storeView) }}
+              <!-- <br /> product.totals 001 {{ product.totals}} <br /> -->
+              <!-- {{ product.totals.price_incl_tax.toFixed(2) | price(storeView) }} -->
+              {{ product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price | price(storeView) }}
             </div>
           </div>
         </template>
@@ -88,13 +93,14 @@
             <span
               class="h4 serif cl-error price-special"
               v-if="product.special_price"
-            >{{
-              (product.price_incl_tax * product.qty) | price(storeView)
+            > <br /> product 002  {{ product}} <br />{{
+              (product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price * product.qty) | price(storeView)
             }}</span>
             <span
               class="h6 serif price-original"
               v-if="product.special_price"
-            >{{
+            ><br />product 003  {{ product}}<br />
+            {{
               (product.original_price_incl_tax * product.qty)
                 | price(storeView)
             }}</span>
@@ -103,10 +109,12 @@
               class="h4 serif price-regular"
               v-else
               data-testid="productPrice"
-            >{{
+            >
+<br />            product 004  {{ product}} <br />
+            {{
               ((product.original_price_incl_tax
                 ? product.original_price_incl_tax
-                : product.price_incl_tax) *
+                : product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price) *
                 product.qty)
                 | price(storeView)
             }}</span>
@@ -129,19 +137,14 @@
             >{{ product.totals.row_total_incl_tax | price(storeView) }}</span>
           </div>
           <div class="prices" v-else>
-            <span class="h4 serif price-regular">{{
-              ((product.regular_price || product.price_incl_tax) * product.qty)
+            <span class="h4 serif price-regular"> product 000 {{ product}} {{
+              ((product.regular_price || product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price) * product.qty)
                 | price(storeView)
             }}</span>
           </div>
         </div>
       </div>
     </div>
-    <template v-if="adhesiveGroutItems.length > 0">
-      <template v-for="(agItem, index) in adhesiveGroutItems">
-        <AddedAdhesiveGroutItem :item="agItem" :key="index" :products-in-cart="productsInCart" />
-      </template>
-    </template>
   </div>
 </template>
 
