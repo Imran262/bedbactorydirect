@@ -188,14 +188,16 @@
       <div class="row pt10">
         <!-- Desktop Filters -->
         <div
-          v-if="pageLayout !== '1column'"
+          v-if="pageLayout !== '1column' && reRender>=0"
           class="col-md-2 start-xs category-filters p0 pr0"
         >
           <sidebar
+          v-if="filtersUpdated >=0"
             :value="
               getCurrentSearchQuery.sort ? getCurrentSearchQuery.sort : ''
             "
-            :filters="categoryFilters"
+            :filters="getAvailableFilters"
+            :key="filtersUpdated"
             @changeFilter="changeFilter"
             :prodlisting="
               isListingProducts ||
@@ -472,6 +474,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      reRender : 0,
       backEnd: config.backEnd,
       categoryFilters: {},
       bottompagination: false,
@@ -608,6 +611,9 @@ export default {
       getBreadcrumbsRoutes: 'breadcrumbs/getBreadcrumbsRoutes',
       getBreadcrumbsCurrent: 'breadcrumbs/getBreadcrumbsCurrent'
     }),
+    filtersUpdated(){
+      return this.reRender;
+    },
     socialLinksSchema () {
       return config.socialUrlsForSchema ? config.socialUrlsForSchema : ''
     },
@@ -865,13 +871,15 @@ export default {
       scrollOff.style.overflow = 'scroll'
     },
     async changeFilter (filterVariant) {
+      console.log("Filter changed in category page",filterVariant);
       if (filterVariant && filterVariant.type && this.sorted === false) {
         this.sorted = true
       }
-
-      this.$store.dispatch('category-next/switchSearchFilters', [
+      await this.$store.dispatch('category-next/switchSearchFilters', [
         filterVariant
       ])
+      this.getAvailableFiltersCustom();
+      this.reRender++;
     },
     async changeFilterSort (filterVariant) {
       if (filterVariant && filterVariant.type && this.sorted === false) {
