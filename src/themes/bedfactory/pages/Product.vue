@@ -669,14 +669,15 @@
           class="col-lg-6 col-md-7 col-sm-12 col-xs-12 product-description-left"
         >
           <h2
-            class="h3 m0 mb10 serif lh20 details-dimension"
+            id="product-dimension-icon-id"
+            class="h3 m0 mb10 serif lh20 details-dimension Icon-update icon-rotate"
             @click="ProDimensionShowFn"
           >
             {{ $t("Description") }}
-            <span
+            <!-- <span
               id="product-dimension-icon-id"
               class="Icon-update delivery-info-icon2"
-            ></span>
+            ></span> -->
           </h2>
           <div
             v-if="ProDimensionShow"
@@ -721,14 +722,15 @@
             </div>
           </div>
           <h2
-            class="h3 m0 mb10 serif lh20 details-Delivery"
+          id="product-Specifications-icon-id"
+            class="h3 m0 mb10 serif lh20 details-Delivery Icon-update"
             @click="ProSpecificationsShowFn"
           >
             {{ $t("Specifications") }}
-            <span
+            <!-- <span
               id="product-Specifications-icon-id"
               class="Icon-update icon-rotate delivery-info-icon1"
-            ></span>
+            ></span> -->
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -743,14 +745,15 @@
             </div>
           </div>
           <h2
-            class="h3 m0 mb10 serif lh20 details-Delivery"
+            id="product-Delivery-icon-id"
+            class="h3 m0 mb10 serif lh20 details-Delivery Icon-update"
             @click="ProDeliveryShowFn"
           >
             {{ $t("Delivery Information") }}
-            <span
+            <!-- <span
               id="product-Delivery-icon-id"
               class="Icon-update icon-rotate delivery-info-icon"
-            ></span>
+            ></span> -->
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -1760,6 +1763,7 @@ export default {
         .classList.toggle("icon-rotate");
     },
     ProDimensionShowFn() {
+      // document.getElementById('product-dimension-icon-id').classList.toggle('icon-rotate')
       var details_element = document.getElementsByClassName(
         "bt-dimension-wrapper-show-close"
       )[0];
@@ -2868,41 +2872,38 @@ h2.h3:after {
 .bt-dimension-wrapper-show-close.dimension-wrapper-show {
   display: block;
 }
-span.Icon-update {
-  background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
-  background-size: 30px !important;
-  position: relative;
-  float: right;
-  height: 10px;
-  width: 300px;
+.Icon-update{
+  background: url(/assets/icons/rightarrow.png) no-repeat 100% 46% !important;
+  background-size: 17px !important;
+  // position: relative;
+  // float: right;
+  // height: 10px;
+  // width: 300px;
 }
 .icon-rotate {
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(272deg);
-  top: 140px;
-  left: 129px;
+    background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
+    background-size: 17px !important;
 }
-@media (max-width: 991px) and (min-width: 768px) {
-  .delivery-info-icon {
-    margin-top: -18px;
-  }
-}
-@media (max-width: 504px) {
-  .delivery-info-icon {
-    margin-top: -14px;
-  }
-}
-@media (max-width: 452px) {
-  .delivery-info-icon1 {
-    margin-top: -14px;
-  }
-}
-@media (max-width: 429px) {
-  .delivery-info-icon2 {
-    margin-top: -14px;
-  }
-}
+// @media (max-width: 991px) and (min-width: 768px) {
+//   .delivery-info-icon {
+//     margin-top: -18px;
+//   }
+// }
+// @media (max-width: 504px) {
+//   .delivery-info-icon {
+//     margin-top: -14px;
+//   }
+// }
+// @media (max-width: 452px) {
+//   .delivery-info-icon1 {
+//     margin-top: -14px;
+//   }
+// }
+// @media (max-width: 429px) {
+//   .delivery-info-icon2 {
+//     margin-top: -14px;
+//   }
+// }
 i.icon-rotate {
   transform: rotate(90deg);
 }
@@ -4922,3 +4923,4 @@ h4.variants-label.basin-head {
   width: 95%;
 }
 </style>
+
