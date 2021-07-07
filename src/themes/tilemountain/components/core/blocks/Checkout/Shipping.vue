@@ -637,7 +637,7 @@ export default {
   methods: {
     showMethods(){
       let methodCheckFlag = false;
-      console.log("3216 In Available Method Function", this.getShippingMethods);
+      // console.log("3216 In Available Method Function", this.getShippingMethods);
       if (this.getShippingMethods && this.getShippingMethods.length>0){
         }
       else{
@@ -646,17 +646,17 @@ export default {
     },
      showAvailableMethod() {
       let methodCheckFlag = false;
-      console.log("3216 In Available Method Function", this.getShippingMethods);
+     // console.log("3216 In Available Method Function", this.getShippingMethods);
       this.getShippingMethods.forEach((method, index) => {
-        console.log("3216 Methods code ", method.method_code, method);
-        console.log(
-          "3216 total length : ",
-          this.getShippingMethods.length,
-          "\t Current iteration :",
-          index
-        );
+        // console.log("3216 Methods code ", method.method_code, method);
+        // console.log(
+        //   "3216 total length : ",
+        //   this.getShippingMethods.length,
+        //   "\t Current iteration :",
+        //   index
+        // );
         if (method.method_code === "is_bfd_contact") {
-          console.log("3216 is_bfd_contact");
+          // console.log("3216 is_bfd_contact");
           methodCheckFlag = true;
           this.isBFDContact = true;
           this.canNotDeliver = false;
@@ -670,7 +670,7 @@ export default {
           }, 100);
         } 
         else if (method.method_code === "cannot_deliver") {
-          console.log("3216 cannot_deliver");
+          // console.log("3216 cannot_deliver");
           methodCheckFlag = true;
           this.isBFDContact = false;
           this.canNotDeliver = true;
@@ -679,17 +679,17 @@ export default {
           this.methodMessage = method.carrier_title;
         }
         if (methodCheckFlag) {
-          console.log("3216 Yes the flag is ", methodCheckFlag);
+          // console.log("3216 Yes the flag is ", methodCheckFlag);
         } else {
           if (this.getShippingMethods.length === index + 1) {
             if (this.getShippingMethods.length > 2) {
-              console.log("3216 we ll show the dates");
+              // console.log("3216 we ll show the dates");
               this.isBFDContact = false;
               this.canNotDeliver = false;
               this.showCalender = true;
               this.noMethodsFound = false;
             } else {
-              console.log("3216 No delivery methods found");
+              // console.log("3216 No delivery methods found");
               this.isBFDContact = false;
               this.canNotDeliver = false;
               this.showCalender = false;

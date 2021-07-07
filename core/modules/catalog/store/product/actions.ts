@@ -276,7 +276,7 @@ const actions: ActionTree<ProductState, RootState> = {
     context.commit(types.PRODUCT_SET_GALLERY, productGallery)
   },
   async loadProductBreadcrumbs ({ dispatch, rootGetters }, { product } = {}) {
-    console.log('loadProductBreadcrumbs', product)
+    // console.log('loadProductBreadcrumbs', product)
     if (product && product.category_ids) {
       const currentCategory = rootGetters['category-next/getCurrentCategory']
       let breadcrumbCategory

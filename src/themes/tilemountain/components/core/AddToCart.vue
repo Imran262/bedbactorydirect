@@ -122,7 +122,7 @@ return this.disableProduct;
         this.cFlag ||
         this.isAddingToCart
       ));
-      console.log("1122334455 product is ",this.product);
+    //  console.log("1122334455 product is ",this.product);
       return (
         this.disabled ||
         this.cFlag ||
@@ -132,12 +132,12 @@ return this.disableProduct;
     },
     cOptionCheck(){
       let cOPtions= this.customOptions;
-      console.log("112233-----> ",cOPtions);
+     // console.log("112233-----> ",cOPtions);
       this.isProductDisabledcList = []
       this.cList=[]
       this.cFlag = true;
       for (let opt in this.customOptions){
-          console.log("Option is ",opt);
+        //  console.log("Option is ",opt);
         console.log(this.customOptions[opt].option_id);
         console.log(this.customOptions[opt].option_value , );
         // flag true
@@ -159,7 +159,7 @@ return this.disableProduct;
         this.cList.push(newFlag)
          // this.cFlag = false
         }
-        console.log("this.customOptions",this.customOptions);
+      //  console.log("this.customOptions",this.customOptions);
         
       }
     },
@@ -169,7 +169,7 @@ return this.disableProduct;
       // })
       this.cFlag=true
       for (let opt in this.cList){
-        console.log("2255 ",this.cList[opt]);
+      //  console.log("2255 ",this.cList[opt]);
         if(this.cList[opt].value !== true){
           this.cFlag =false;
         }
@@ -186,16 +186,16 @@ return this.disableProduct;
       // }
       this.optionsFlag =[];
       if (this.product.custom_options) {
-        console.log("112233445577 product has custom options");
+     //   console.log("112233445577 product has custom options");
         if (this.product.custom_options.length > 0) {
-          console.log("112233445577 length of custom options : ",this.product.custom_options.length);
+      //    console.log("112233445577 length of custom options : ",this.product.custom_options.length);
          this.product.custom_options.forEach((option, index) => {
             // this.customOptions[
             //       option.option_id
             //     ].option_value
-            console.log("112233445577 in loop First option is ",index,option.option_id, this.customOptions[option.option_id]);
+        //    console.log("112233445577 in loop First option is ",index,option.option_id, this.customOptions[option.option_id]);
             if(this.customOptions[option.option_id]){
-             console.log("112233445577",this.customOptions[option.option_id].option_value ,this.customOptions[option.option_id].option_value, this.customOptions[option.option_id].option_value && this.customOptions[option.option_id].option_value==null);
+         //    console.log("112233445577",this.customOptions[option.option_id].option_value ,this.customOptions[option.option_id].option_value, this.customOptions[option.option_id].option_value && this.customOptions[option.option_id].option_value==null);
               if(this.customOptions[option.option_id].option_value && this.customOptions[option.option_id].option_value!==null){
               let newFlag ={
                     option_id: option.option_id,
@@ -203,21 +203,21 @@ return this.disableProduct;
                   }
                   this.optionsFlag.push(newFlag)
               //  console.log("112233445577 options is ",option.option_id , this.customOptions["13"],this.customOptions[option.option_id],this.customOptions[option.option_id].option_value);
-                console.log("112233445577 options is ",this.product.custom_options.length ,index);
+            //    console.log("112233445577 options is ",this.product.custom_options.length ,index);
                 if (this.product.custom_options.length == index+1) {
 
-                  console.log("112233445577 All options complete returning true",this.customOptions);
+           //       console.log("112233445577 All options complete returning true",this.customOptions);
                   this.cusOptionChecked =true;
                   // return true
                   this.optionsFlag.forEach((cOption,cIndex)=>{
-                    console.log("112233445577 NEW option is ",option);
+            //        console.log("112233445577 NEW option is ",option);
                     if(option.value !== true){
-                      console.log("Value is not true",option.value);
+               //       console.log("Value is not true",option.value);
                         this.customOptionFlag = false
                       return false
                       }
                     else{
-                        console.log("Value is true",option.value);
+                 //       console.log("Value is true",option.value);
                         }
                         if (this.optionsFlag.length == cIndex+1) {
                           if (this.customOptionFlag !== true){
@@ -231,7 +231,7 @@ return this.disableProduct;
                 }
                 }
                 else {
-                  console.log("112233445577 check failed 1 ");
+           //       console.log("112233445577 check failed 1 ");
                   this.flag =false
                  let newFlag ={
                     option_id: option.option_id,
@@ -243,7 +243,7 @@ return this.disableProduct;
                 }
                 }
                 else {
-                  console.log("112233445577 check failed 2");
+        //          console.log("112233445577 check failed 2");
                    let newFlag ={
                     option_id: option.option_id,
                     value : false
@@ -263,14 +263,14 @@ return this.disableProduct;
     },
     customOptionsChecking(){
       this.optionsFlag.forEach((option,index)=>{
-        console.log("112233445577 NEW option is ",option);
+    //    console.log("112233445577 NEW option is ",option);
         if(option.value != true){
-          console.log("Value is not true",option.value);
+     //     console.log("Value is not true",option.value);
         //  this.customOptionFlag = false
           return false
         }
         else{
-          console.log("Value is true",option.value);
+     //     console.log("Value is true",option.value);
         }
       });
     }

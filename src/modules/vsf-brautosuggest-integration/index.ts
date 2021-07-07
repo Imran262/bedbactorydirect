@@ -70,7 +70,7 @@ const brAutosuggestModuleStore = {
       let keyOffiltersArrayManage = [];
       if (filtersArrayManage) {
         keyOffiltersArrayManage = Object.keys(filtersArrayManage);
-        console.log("I have it here keyOffiltersArrayManage",keyOffiltersArrayManage)
+      //  console.log("I have it here keyOffiltersArrayManage",keyOffiltersArrayManage)
       }
       if (keyOffiltersArrayManage.length > 0) {
         for (var key in filtersArrayManage) {

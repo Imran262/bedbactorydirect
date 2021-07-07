@@ -60,9 +60,9 @@ export const Search = {
               prefetchGroupProducts: false
             }
           })
-          console.log('112233 ',items);
+          // console.log('112233 ',items);
           this.products = items
-          console.log('112233 produts are',items);
+          // console.log('112233 produts are',items);
           this.start = startValue + this.size
           this.emptyResults = items.length < 1
         } catch (err) {

@@ -72,6 +72,6 @@ export const QuoteSystem: StorefrontModule = function({
   console.log('QuoteSystem Module Registered');
   store.registerModule('quotesystem', quoteSystemModuleStore);
   coreHooks.afterAppInit(async () => {
-    console.log('App HAVE BEEN initialized');
+    console.log('Qoute system module initialized');
   });
 };

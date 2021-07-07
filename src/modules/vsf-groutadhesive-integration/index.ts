@@ -95,6 +95,6 @@ export const GroutAdhesive: StorefrontModule = function ({ store}) {
   console.log('GroutAdhesive Module Registered');
   store.registerModule('groutadhesive', groutAdhesiveModuleStore);
   coreHooks.afterAppInit(async () => {
-    console.log('App HAVE BEEN initialized');
+    console.log('App HAVE BEEN initialized grout');
   });
 };

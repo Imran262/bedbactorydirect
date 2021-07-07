@@ -26,12 +26,12 @@ import { LayeredNavigationModule } from './vsf-layered-nav'
 import { PaymentPaypalModule } from './vsf-paypal-method';
 import { QuoteSystem } from './vsf-quotesystem-integration';
 import { CustomerPhotos } from './vsf-customerphotos-integration';
-import { GroutAdhesive } from './vsf-groutadhesive-integration';
+// import { GroutAdhesive } from './vsf-groutadhesive-integration';
 // @ts-ignore
-import { Vinyl } from './vsf-vinyl-integration';
+// import { Vinyl } from './vsf-vinyl-integration';
 import { CheckoutcomPayments } from './vsf-payment-checkout-com';
-import { SearchRedirect } from './vsf-searchredirect-integration';
-import { BrAutosuggest } from './vsf-brautosuggest-integration';
+// import { SearchRedirect } from './vsf-searchredirect-integration';
+// import { BrAutosuggest } from './vsf-brautosuggest-integration';
 // TODO:distributed across proper pages BEFORE 1.11
 export function registerClientModules () {
   registerModule(UrlModule)
@@ -59,11 +59,11 @@ export function registerClientModules () {
   registerModule(PaymentPaypalModule)
   registerModule(QuoteSystem)
   registerModule(CustomerPhotos)
-  registerModule(GroutAdhesive)
-  registerModule(Vinyl)
+  // registerModule(GroutAdhesive)
+  // registerModule(Vinyl)
   registerModule(CheckoutcomPayments)
-  registerModule(SearchRedirect)
-  registerModule(BrAutosuggest)
+  // registerModule(SearchRedirect)
+  // registerModule(BrAutosuggest)
 }
 
 // Deprecated API, will be removed in 2.0
