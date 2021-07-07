@@ -472,6 +472,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      reRender : 0,
       backEnd: config.backEnd,
       categoryFilters: {},
       bottompagination: false,
@@ -508,6 +509,11 @@ export default {
     }
   },
   watch: {
+    getAvailableFilters : {
+      handler(){
+        this.getAvailableFiltersCustom();
+      }
+    },
     async getCurrentCategoryId (to, from) {
       if (to !== from) {
         this.children = await this.fetchCategoriesAndSubCategories()
@@ -608,6 +614,9 @@ export default {
       getBreadcrumbsRoutes: 'breadcrumbs/getBreadcrumbsRoutes',
       getBreadcrumbsCurrent: 'breadcrumbs/getBreadcrumbsCurrent'
     }),
+    filtersUpdated(){
+      return this.reRender;
+    },
     socialLinksSchema () {
       return config.socialUrlsForSchema ? config.socialUrlsForSchema : ''
     },
@@ -865,13 +874,15 @@ export default {
       scrollOff.style.overflow = 'scroll'
     },
     async changeFilter (filterVariant) {
+      console.log("Filter changed in category page",filterVariant);
       if (filterVariant && filterVariant.type && this.sorted === false) {
         this.sorted = true
       }
-
-      this.$store.dispatch('category-next/switchSearchFilters', [
+      await this.$store.dispatch('category-next/switchSearchFilters', [
         filterVariant
       ])
+      this.getAvailableFiltersCustom();
+      this.reRender++;
     },
     async changeFilterSort (filterVariant) {
       if (filterVariant && filterVariant.type && this.sorted === false) {

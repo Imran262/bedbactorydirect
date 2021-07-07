@@ -216,6 +216,7 @@ export default {
       this.$store.dispatch("category-next/resetSearchFilters");
     },
     changeFilter(variant) {
+     console.log("Filter changed in Sidebar",variant);
       this.$emit("changeFilter", variant);
     },
     sortById(filters) {
