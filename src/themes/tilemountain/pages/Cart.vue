@@ -369,9 +369,9 @@ export default {
   },
   async beforeMount() {
     await this.checkCart();
-    console.log("789456  ", this.productsInCart.length);
+    // console.log("789456  ", this.productsInCart.length);
     if (this.productsInCart.length === 0) {
-      console.log("Cart is Empty ");
+      // console.log("Cart is Empty ");
       this.$router.push(this.localizedRoute("/"));
     }
     this.$bus.$on("carPageUpdate", ({ productId }) => {
@@ -465,10 +465,10 @@ export default {
       }
     },
     checkCart() {
-      console.log(
-        "789456 Checking cart ",
-        this.$store.state.cart.cartItems.length
-      );
+      // console.log(
+      //   "789456 Checking cart ",
+      //   this.$store.state.cart.cartItems.length
+      // );
       if (this.$store.state.cart.cartItems.length === 0) {
         this.notifyEmptyCart();
         this.$router.push(this.localizedRoute("/"));

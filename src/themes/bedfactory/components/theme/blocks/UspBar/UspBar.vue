@@ -49,7 +49,7 @@ export default {
           let anchortext = data.querySelector('a') ? data.querySelector('a').innerHTML : '';
           let anchorlink = data.querySelector('a') ? data.querySelector('a').getAttribute('href') : '';
           let imgicon = data.querySelector('img') ? data.querySelector('img').getAttribute('src') : ' ';
-          console.log('this is img' , imgicon)
+          // console.log('this is img' , imgicon)
           let dataObject = {
             linktext: anchortext.toString(),
             actuallink: anchorlink.toString(),

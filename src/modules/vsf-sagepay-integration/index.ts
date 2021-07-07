@@ -127,6 +127,6 @@ export const SagePay: StorefrontModule = function ({app, store, router, moduleCo
   coreHooks.afterAppInit(async () => {
     // const merchantSessionKey = await store.dispatch('sagepay/getIdentifierAndSessionKey')
     // await store.commit(`sagepay/${types.UPDATE_MERCHANT_SESSION_KEY}`, merchantSessionKey)
-    console.log('App HAVE BEEN initialized bro')
+    console.log('Sage pay initialized ')
   })
 }

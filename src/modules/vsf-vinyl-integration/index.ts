@@ -46,6 +46,6 @@ export const Vinyl: StorefrontModule = function ({ store}) {
   console.log('vinyl Module Registered');
   store.registerModule('vinyl', vinylModuleStore);
   coreHooks.afterAppInit(async () => {
-    console.log('App HAVE BEEN initialized');
+    console.log('App HAVE BEEN initialized vinyl');
   });
 };

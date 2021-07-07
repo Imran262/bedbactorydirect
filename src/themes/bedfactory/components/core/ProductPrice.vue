@@ -68,8 +68,7 @@ export default {
       return price;
     },
     customOptionsPriceDelta() {
-      console.log("1122== Price Value are",this.customOptions,Object.values(this.customOptions),
-          this.product.custom_options);
+      // console.log("1122== Price Value are",this.customOptions,Object.values(this.customOptions),this.product.custom_options);
       const priceDelta = getCustomOptionPriceDelta(
         getCustomOptionValues(
           Object.values(this.customOptions),

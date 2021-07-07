@@ -91,7 +91,7 @@ export function formatProductLink (
 ): string | LocalizedRoute {
   if (config.seo.useUrlDispatcher && product.url_path) {
     let routeData: LocalizedRoute;
-    console.log("114455 formatProductLink", routeData ,product.url_path,"Configurable children", product.sku,(product.configurable_children && product.configurable_children.length > 0));
+    // console.log("114455 formatProductLink", routeData ,product.url_path,"Configurable children", product.sku,(product.configurable_children && product.configurable_children.length > 0));
     if ((product.options && product.options.length > 0) || (product.configurable_children && product.configurable_children.length > 0)) {
       
       routeData = { path: product.url_path }
@@ -99,10 +99,10 @@ export function formatProductLink (
       //   path: product.url_path,
       //   params: { childSku: product.sku }
       // }
-      console.log("114455 if",routeData);
+      // console.log("114455 if",routeData);
     } else {
       routeData = { path: product.url_path }
-      console.log("114455 else",routeData);
+      // console.log("114455 else",routeData);
     }
     return localizedDispatcherRoute(routeData, storeCode)
   } else {
