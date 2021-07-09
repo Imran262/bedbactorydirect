@@ -699,7 +699,7 @@ span.scrollimg:after {
 }
 a.cl-tertiary.links img {
   position: relative;
-  top: 5px;
+  /* top: 5px; */
 }
 @media (max-width: 336px) {
   .phone-no {
