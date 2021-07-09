@@ -93,13 +93,16 @@
             <span
               class="h4 serif cl-error price-special"
               v-if="product.special_price"
-            > <br /> product 002  {{ product}} <br />{{
+            > 
+            <!-- <br /> product 002  {{ product}} <br /> -->
+            {{
               (product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price * product.qty) | price(storeView)
             }}</span>
             <span
               class="h6 serif price-original"
               v-if="product.special_price"
-            ><br />product 003  {{ product}}<br />
+            ><br />
+            <!-- product 003  {{ product}}<br /> -->
             {{
               (product.original_price_incl_tax * product.qty)
                 | price(storeView)
@@ -110,7 +113,7 @@
               v-else
               data-testid="productPrice"
             >
-<br />            product 004  {{ product}} <br />
+<!-- <br />            product 004  {{ product}} <br /> -->
             {{
               ((product.original_price_incl_tax
                 ? product.original_price_incl_tax
@@ -137,7 +140,9 @@
             >{{ product.totals.row_total_incl_tax | price(storeView) }}</span>
           </div>
           <div class="prices" v-else>
-            <span class="h4 serif price-regular"> product 000 {{ product}} {{
+            <span class="h4 serif price-regular"> 
+              <!-- product 000 {{ product}}  -->
+              {{
               ((product.regular_price || product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price) * product.qty)
                 | price(storeView)
             }}</span>
