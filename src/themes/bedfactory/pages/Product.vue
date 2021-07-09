@@ -539,6 +539,7 @@
                       >keyboard_arrow_right</i
                     > -->
                     </button>
+                    <span class="error" v-if="isFabrics">Field is required</span>
                     <div
                       id="overlay"
                       @click="hideColorPicker"
@@ -551,8 +552,8 @@
                       @closeColorPickerModal="hideColorPicker"
                       @selectedColor="setColorName($event)"
                     />
+                    </div>
                   </div>
-                </div>
               </div>
               <div class="add-to-cart row m0">
                 <div class="cart-items">
@@ -966,6 +967,7 @@ export default {
   },
   data() {
     return {
+      isFabrics:true,
       detailsOpen: false,
       ProDeliveryShow: true,
       ProReviewShow: true,
@@ -1843,6 +1845,7 @@ export default {
     },
     setColorName(name) {
       this.colorName = name;
+      this.isFabrics=false;
     },
     getColorName() {
       // console.log("741258 in get color name",this.colorName);
@@ -1854,7 +1857,7 @@ export default {
             option.iscolor == "1" ||
             option.iscolor == true
           ) {
-            this.colorName = "Please Select " + option.title;
+            this.colorName = "Please Select ";
           }
         });
       } else {
@@ -3097,10 +3100,10 @@ i.product-detail-icon {
 }
 
 .error {
-  color: red;
-  font-weight: bold;
-  padding-bottom: 15px;
-  display: none;
+     color: #eb5757;
+    padding-top: 10px;
+    display: block;
+    width: auto;
 }
 
 .image {
