@@ -286,7 +286,6 @@
                   <base-input
                     type="text"
                     name="address_line2"
-                    
                     v-model="user.addressLine2"
                   />
                 </div>
@@ -338,13 +337,15 @@
                 </div>
               </div>
             </div>
-             <p>
+            <p class="swatches-term-condition">
               Read our full
               <a href="/terms" class="ui-link" data-ajax="false"
                 >terms and conditions</a
               >
               and
-              <a href="/privacy-policy" class="ui-link" data-ajax="false">privacy policy</a>
+              <a href="/privacy-policy" class="ui-link" data-ajax="false"
+                >privacy policy</a
+              >
             </p>
             <button
               type="submit"
@@ -361,7 +362,7 @@
 <script>
 import Breadcrumbs from "../components/core/Breadcrumbs.vue";
 //import BaseInput from "src/theme/components/core/blocks/Form/BaseInput.vue";
-import BaseInput from  "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue"
+import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
 import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import axios from "axios";
@@ -418,9 +419,9 @@ export default {
   },
   methods: {
     retrunFullName() {
- //     console.log("2211 in return full name function", this);
+      //     console.log("2211 in return full name function", this);
       const fullName = this.user.firstName + this.user.lastName;
-   //   console.log("Full name is ", fullName);
+      //   console.log("Full name is ", fullName);
       return fullName;
     },
     submitForm(event) {
@@ -464,7 +465,7 @@ export default {
             // country: "US",
           },
         };
-        const URL = config.api.url + config.swatches.endpoint  + "/placeorder";
+        const URL = config.api.url + config.swatches.endpoint + "/placeorder";
         axios
           .post(URL, payload)
           .then((res) => {
@@ -504,7 +505,7 @@ export default {
             }
           })
           .catch((err) => {
-          //  console.log("2211 in catch", err);
+            //  console.log("2211 in catch", err);
             this.$bus.$emit("notification-progress-stop", {});
             this.$store.dispatch(
               "notification/spawnNotification",
@@ -560,7 +561,7 @@ export default {
   },
   mounted() {
     const URL = config.api.url + config.swatches.endpoint + "/getSwatches";
-//   const URL =  "https:/bfd.tilemountain.co.uk/api/ext/swatches/getSwatches"
+    //   const URL =  "https:/bfd.tilemountain.co.uk/api/ext/swatches/getSwatches"
     axios
       .get(URL)
       .then((resp) => {
@@ -733,7 +734,7 @@ export default {
 img.home-breadcrumb-icon-img {
   width: 15px;
   float: left;
-  margin: 3px 2.5px 0 0;
+  margin: 1px 2.5px 0 0;
 }
 .swatch-basket {
   background: #eee;
@@ -793,7 +794,7 @@ img.home-breadcrumb-icon-img {
 }
 .swatch-basket form .field.required label > span {
   display: inline;
-  color: #e92171;
+  color: #ef0b0b;
 }
 .swatch-basket form .field input {
   display: block;
@@ -833,20 +834,26 @@ img.home-breadcrumb-icon-img {
   padding: 0;
 }
 .swatch-basket form p {
-  color: #747474;
-  font-size: 16px;
-  text-align: left;
+  text-align: center;
+    font-size: 14px;
+    margin: 5px 20px 20px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #5e5e61;
+    line-height: 17px;
+}
+a.ui-link {
+    color: #ed008c;
 }
 .swatch-basket form .btn-order {
   display: block;
-  width: 100%;
+  /* width: 100%; */
   outline: 0;
   border: none !important;
   white-space: nowrap;
   vertical-align: baseline;
   font-size: 14px;
   letter-spacing: 0.05em;
-  background: #fbbe63;
+  background: #071a44;
   color: #fff;
   line-height: normal;
   box-shadow: none;
@@ -859,7 +866,9 @@ img.home-breadcrumb-icon-img {
   margin-bottom: 10px;
   cursor: pointer;
   font-weight: 800;
-  height: 32px;
+  /* height: 32px; */
+  padding: 1em 3em;
+  margin: 0px auto;
 }
 .swatch-basket .selected-boxes .not-selected {
   border: 1px dashed #c6c6c6;
