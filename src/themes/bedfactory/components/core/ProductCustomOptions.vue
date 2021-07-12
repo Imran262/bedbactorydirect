@@ -56,6 +56,16 @@
                   </option>
                 </template>
               </select>
+               <span
+              class="error"
+              v-if="
+                validation.results['customOption_' + option.option_id] &&
+                validation.results['customOption_' + option.option_id].error
+              "
+              >{{
+                validation.results["customOption_" + option.option_id].message
+              }}</span
+            >
               <div
                 class="select-img-display"
                 v-for="(value, vIndex) in option.values"
