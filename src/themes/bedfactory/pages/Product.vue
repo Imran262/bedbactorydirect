@@ -669,6 +669,7 @@
           class="col-lg-6 col-md-7 col-sm-12 col-xs-12 product-description-left"
         >
           <h2
+            v-if="getCurrentProduct.description && getCurrentProduct.description.length>0"
             id="product-dimension-icon-id"
             class="h3 m0 mb10 serif lh20 details-dimension Icon-update icon-rotate"
             @click="ProDimensionShowFn"
@@ -722,6 +723,7 @@
             </div>
           </div>
           <h2
+          v-if="getCurrentProduct.specs && getCurrentProduct.specs.length>0"
           id="product-Specifications-icon-id"
             class="h3 m0 mb10 serif lh20 details-Delivery Icon-update"
             @click="ProSpecificationsShowFn"

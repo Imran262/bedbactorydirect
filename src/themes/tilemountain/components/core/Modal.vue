@@ -78,6 +78,8 @@ export default {
       state ? this.setOverlay(state) : setTimeout(() => this.setOverlay(state), this.delay)
     },
     close () {
+       document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+       document.getElementsByTagName("BODY")[0].style.position='unset';
       this.toggle(false);
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
@@ -130,7 +132,7 @@ $z-index-modal: map-get($z-index, modal);
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: -1px;
   overflow: auto;
   z-index: $z-index-modal;
 
@@ -187,4 +189,16 @@ $z-index-modal: map-get($z-index, modal);
     background-color: rgba(0,0,0,0.4);
   }
 }
+    @media (max-width: 767px){
+.modal-container.bg-cl-primary {
+    top: 67%;
+}
+.modal-container .modal-content {
+    padding: 30px 8px 185px 8px !important;
+}
+.mobile-bottom-row-popup .footer-btns-links {
+    display: flex !important;
+    justify-content: space-around !important;
+}
+    }
 </style>
