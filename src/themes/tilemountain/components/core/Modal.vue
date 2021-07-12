@@ -79,7 +79,6 @@ export default {
     },
     close () {
        document.getElementsByTagName("BODY")[0].style.overflow='scroll';
-       document.getElementsByTagName("BODY")[0].style.position='unset';
       this.toggle(false);
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);

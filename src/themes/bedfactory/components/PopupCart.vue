@@ -747,7 +747,6 @@ export default {
     },
     popupclose() {
       document.getElementsByTagName("BODY")[0].style.overflow='scroll';
-       document.getElementsByTagName("BODY")[0].style.position='unset';
       // document.getElementsByClassName("vue-back-to-top")[0].classList.remove("removeButton");
       // console.log("1122 class removed",document.getElementsByClassName("vue-back-to-top")[0].classList);
       // var x = document.getElementsByTagName("BODY")[0];
