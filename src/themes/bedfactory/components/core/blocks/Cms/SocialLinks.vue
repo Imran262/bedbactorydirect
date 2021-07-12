@@ -108,18 +108,6 @@ export default {
     color: #434243;
     font-size: 30px !important;
 }
-@media only screen and (min-width: 320px) and (max-width: 500px){
-.circle {
-    height: 25px;
-    width: 25px;
-    padding: 3px;
-    margin-left: 2px;
-    margin-right: 5px !important;
-}
-.fa{
-  font-size: 16px !important;
-}
-}
 @media only screen and (min-width: 499px) and (max-width: 768px){
 .circle {
     height: 44px;
@@ -130,6 +118,18 @@ export default {
 }
 .fa{
   font-size: 22px !important;
+}
+}
+@media only screen and (min-width: 320px) and (max-width: 500px){
+.circle {
+    height: 25px;
+    width: 25px;
+    padding: 3px;
+    margin-left: 2px;
+    margin-right: 5px !important;
+}
+.fa{
+  font-size: 16px !important;
 }
 }
 input#input_370 {
