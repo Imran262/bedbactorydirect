@@ -92,6 +92,8 @@ export default {
     },
     async addToCart (product) {
       try {
+       document.getElementsByTagName("BODY")[0].style.overflow='hidden';
+       document.getElementsByTagName("BODY")[0].style.position='fixed';
         const diffLog = await this.$store.dispatch('cart/addItem', { productToAdd: product })
         diffLog.clientNotifications.forEach(notificationData => {
           // this.notifyUser(notificationData)
