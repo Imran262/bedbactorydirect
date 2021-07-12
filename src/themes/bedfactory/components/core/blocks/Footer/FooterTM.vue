@@ -1,5 +1,6 @@
 <template>
   <footer :class="{ 'brdr-top-1 brdr-cl-secondary': isCheckoutPage }">
+     <trustPoilet :identifier="'trust_pilot'" />
     <div class="footer-main" id="footer-main-desktop" v-if="windowWidth >= 768">
       <div class="container">
         <div class="row">
@@ -84,8 +85,8 @@ import FooterBottom from 'src/themes/bedfactory/components/core/blocks/Footer/Fo
 import FooterLink from 'src/themes/bedfactory/components/core/blocks/Footer/FooterLink';
 import FollowUsLik from 'src/themes/bedfactory/components/core/blocks/Footer/FollowUsLink';
 
-
-import footerlink from 'theme/components/core/blocks/Cms/FooterLinks'
+import trustPoilet from 'src/themes/bedfactory/components/core/blocks/Trustpilot';
+import footerlink from 'theme/components/core/blocks/Cms/FooterLinks';
 import footerlinkmobile from 'src/themes/bedfactory/components/core/blocks/Cms/FooterLinkMobile'
 import BlockTitle from 'theme/components/core/blocks/Cms/BlockTitle';
 import { getPathForStaticPage } from 'theme/helpers';
@@ -141,6 +142,7 @@ export default {
     // CustomerServiceBlock,
     BlockTitle,
     FollowUsLik,
+    trustPoilet,
     sociallinks
   }
 };
