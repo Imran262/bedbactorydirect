@@ -3098,12 +3098,6 @@ i.product-detail-icon {
     display: none;
   }
 }
-
-.error {
-  color: $color-error;
-  padding-top: 5px;
-  display: block;
-}
 .error1 {
      color: #eb5757;
     padding-top: 10px;
