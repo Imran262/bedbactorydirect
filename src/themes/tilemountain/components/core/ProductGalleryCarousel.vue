@@ -523,9 +523,6 @@ export default {
   border: 0;
   outline: 0;
 }
-.media-gallery-carousel .VueCarousel-pagination {
-  display: none;
-}
 .media-gallery-carousel {
   .sale {
     position: absolute;
@@ -620,7 +617,7 @@ export default {
         height: 12px !important;
       }
       .VueCarousel-dot.VueCarousel-dot--active {
-        background-color: #2a275c !important;
+        background-color: #EE4C56  !important;
         height: 12px !important;
         width: 12px !important;
       }
@@ -644,6 +641,11 @@ img.pswp__img {
 @media (min-width: 480px) {
 img.pswp__img {
     transform: translateY(80px);
+}
+}
+@media (min-width: 768px){
+.media-gallery-carousel .VueCarousel-pagination {
+    display: none !important;
 }
 }
 </style>
