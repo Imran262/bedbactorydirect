@@ -539,7 +539,7 @@
                       >keyboard_arrow_right</i
                     > -->
                     </button>
-                    <span class="error" v-if="isFabrics">Field is required</span>
+                    <span class="error1" v-if="isFabrics">Field is required</span>
                     <div
                       id="overlay"
                       @click="hideColorPicker"
@@ -3100,6 +3100,11 @@ i.product-detail-icon {
 }
 
 .error {
+  color: $color-error;
+  padding-top: 5px;
+  display: block;
+}
+.error1 {
      color: #eb5757;
     padding-top: 10px;
     display: block;
