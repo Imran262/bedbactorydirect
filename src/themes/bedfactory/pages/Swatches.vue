@@ -436,8 +436,7 @@ export default {
             type: "error",
             message: i18n.t("Swatch basket is empty."),
             action1: { label: i18n.t("OK") },
-          },
-          { root: true }
+          }
         );
       } else {
         this.$bus.$emit(
@@ -477,8 +476,7 @@ export default {
                   type: "error",
                   message: i18n.t(`${res.result}`),
                   action1: { label: i18n.t("OK") },
-                },
-                { root: true }
+                }
               );
               throw new Error(res.result);
             } else {
@@ -490,8 +488,7 @@ export default {
                   type: "success",
                   message: i18n.t(`Order placed successfully`),
                   action1: { label: i18n.t("OK") },
-                },
-                { root: true }
+                }
               );
               // console.log(
               //   "2211 success for swatch place order",
@@ -548,8 +545,7 @@ export default {
             type: "error",
             message: i18n.t("You have already added six items  in cart."),
             action1: { label: i18n.t("OK") },
-          },
-          { root: true }
+          }
         );
       }
     },
