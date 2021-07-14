@@ -331,10 +331,7 @@
     </div>
     <div class="pt20 delivery-methods-detail">
       <div class="delivery-method-boxes pl30 pr30">
-        <h3>Delivery Method</h3>
-        <div v-if="getShippingMethods.length === 0">
-          No Delivery Methods Found
-        </div>
+        
         <div class="row delivery-method">
           <div class="col-md-6 col-xs-12">
             <label class="radioStyled">
@@ -356,14 +353,6 @@
         </div>
       </div>
       <div class="home-delivery-box">
-        selectedDeliveryMethod {{ selectedDeliveryMethod }}
-        {{
-          getShippingMethodsWithRoyalMail.length !== 0 &&
-          getShippingMethodsWithOOS.length == 0
-        }}
-        {{ getShippingMethodsWithRoyalMail.length !== 0 }}
-        {{ getShippingMethodsWithOOS.length == 0 }}
-
         {{ showAvailableMethod() }}
         <h3 class="pl30 pr30">Delivery Date/Method</h3>
         <div class="free-des" v-if="isBFDContact">
@@ -462,7 +451,7 @@
                 getSortedDates.length !== 1
               "
             >
-              Delivery Date 3
+              Select your prefered delivery day
             </h3>
           </template>
           <!-- <template v-else>
@@ -773,7 +762,7 @@
                             selectedMethod == slotData.customData.method_code
                           "
                         >
-                        slotData.customdata {{slotData.customData}}
+                        <!-- slotData.customdata {{slotData.customData}} -->
                           {{
                             slotData.customData.amount === 0
                               ? "Free Delivery"
@@ -861,11 +850,11 @@
             </div>
           </div>
         </div>
-        //button start
+        <!-- //button start
         {{ getSortedDates.length > 1 }}
         selectedDeliveryMethod === 'homedelivery'
         {{ selectedDeliveryMethod === "homedelivery" }} homeDeliverySelected
-        {{ homeDeliverySelected }} deliveryBtnClicked{{ deliveryBtnClicked }}
+        {{ homeDeliverySelected }} deliveryBtnClicked{{ deliveryBtnClicked }} -->
         <template v-if="!canNotDeliver && !noMethodsFound && isBFDContact">
           <div
             class="delivery-btn"
@@ -974,7 +963,6 @@
             </div>
           </div>
         </template>
-        //button end
         <NarrowModal :date-prop="narrowDateProp" />
       </div>
     </div>
