@@ -301,6 +301,7 @@
                   class="cl-primary variants sizes basin_size"
                   v-if="getCurrentProduct.type_id == 'configurable'"
                 >
+                <!-- It is a configurable product -->
                   <div
                     class="error"
                     v-if="
@@ -310,6 +311,7 @@
                   >
                     <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
                   </div>
+                  <!-- getProductOptions {{getProductOptions}} -->
                   <div
                     class="h5"
                     v-for="option in getProductOptions"
@@ -356,6 +358,7 @@
                         class="sizes basin_size"
                         v-else-if="option.label == 'Size'"
                       >
+                      <!-- Here we are -->
                         <select
                           class="chevron-down-icon "
                           @change="changeFilterCustom($event)"
@@ -1666,75 +1669,56 @@ export default {
       this.configurableChildren = newObjList;
     },
     changeFilterCustom(event) {
-      this.cartFlag = true;
-      let variant = JSON.parse(event.target.value);
-      let filterOption = Object.assign(
-        { attribute_code: variant.type },
-        variant
-      );
+      console.log("112233 change filter custom", event);
+      this.cartFlag=true;
+      let variant = JSON.parse(event.target.value)
+      let filterOption = Object.assign({ attribute_code: variant.type }, variant);
       delete filterOption.type;
-      // console.log(
-      //   "VariantIS",
-      //   variant,
-      //   "filter option is ",
-      //   filterOption,
-      //   "variant.type",
-      //   variant.type
-      // );
+console.log("VariantIS",variant , "filter option is ",filterOption, "variant.type" ,variant.type);
       let configuration = this.getCurrentProductConfiguration;
-      // console.log("currentProductConfiguration", configuration);
-      // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
-      let changedConfig = Object.assign({}, configuration);
-      changedConfig[variant.type].id = variant.id;
-      changedConfig[variant.type].label = variant.id;
-      // console.log(
-      //   "changedConfig",
-      //   changedConfig[variant.type].id,
-      //   changedConfig
-      // );
-      for (let i in configuration) {
-        configuration[i].id = parseInt(configuration[i].id);
-        configuration[i].label = parseInt(configuration[i].label);
+      console.log('currentProductConfiguration', configuration);
+  // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
+    let changedConfig = Object.assign({}, configuration);
+    changedConfig[variant.type].id = variant.id; 
+    changedConfig[variant.type].label = variant.id; 
+  console.log('changedConfig',changedConfig[variant.type].id, changedConfig);
+      for (let i in configuration )
+      {
+        configuration[i].id=parseInt(configuration[i].id)
+        configuration[i].label=parseInt(configuration[i].label)
       }
       // for (let childIndex=0 ;childIndex<=this.configurableChildren.length;childIndex++){
       //   let child = this.configurableChildren[0];
-      // console.log("child is ",child);
+       // console.log("child is ",child);
       // }
       let flag = false;
       delete changedConfig.label;
-      // console.log(" this.configurableChildren", this.configurableChildren);
-      this.configurableChildren.forEach((child, childIndex) => {
-        // console.log("7788");
-        // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
-        // console.log(
-        //   "7788 Child is ",
-        //   "\n",
-        //   JSON.stringify(child) == JSON.stringify(changedConfig),
-        //   "\n",
-        //   child,
-        //   changedConfig
-        // );
-        // if()
-        if (JSON.stringify(child) == JSON.stringify(changedConfig)) {
-          //  let variant = JSON.parse(event.target.value)
-          // console.log("774455", "child matched will emit ");
-          // this.$bus.$emit(
-          //   "filter-changed-product",
-          //   Object.assign({ attribute_code: variant.type }, variant)
-          // );
+       this.configurableChildren.forEach((child,childIndex)=>{
+       // console.log("7788");
+       // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       // if()
+        if (JSON.stringify(child)==JSON.stringify(changedConfig)){
+        //  let variant = JSON.parse(event.target.value)
+        console.log("774455", "child matched will emit " ,  );
+          this.$bus.$emit("filter-changed-product",Object.assign({ attribute_code: variant.type }, variant));
           this.getQuantity();
-          flag = true;
-        } else {
-          if (childIndex + 1 == this.configurableChildren.length) {
-            // console.log("At the end of children");
-            if (flag) {
-            } else {
-              // disable cart
-              this.cartFlag = false;
+          flag =true;
+        }
+        else{
+          if(childIndex+1 == this.configurableChildren.length){
+            console.log("At the end of children");
+            if(flag){
+
+            }else{
+           // disable cart
+           this.cartFlag =false;
             }
+
           }
         }
-      });
+       });
+      
     },
     setPrice(data) {
       //  console.log(data);
