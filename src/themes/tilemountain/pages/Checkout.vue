@@ -456,7 +456,7 @@ $color-black: color(black);
       width: 25px;
       border-radius: 50%;
       border: 1px solid $bg-secondary;
-      margin-left: 15px;
+      margin-left: -30px;
 
       &:after {
         content: '';
@@ -616,7 +616,7 @@ $color-black: color(black);
 @media (max-width: 480px) {
   #checkout .radioStyled .checkmark {
     // top: 4px !important;
-    left: -18px;
+    // left: -18px;
   }
 }
 @media (min-width: 480px) and (max-width: 580px) {
@@ -669,12 +669,12 @@ $color-black: color(black);
       margin-left: 18px !important;
     }
         label.radioStyled.pre-del span {
-      margin-left: 9px !important;
+      // margin-left: 9px !important;
     }
 }
 @media (min-width: 320px) and (max-width: 480px) {
   #checkout .radioStyled {
-    font-size: 2.35vw;
+    // font-size: 2.35vw;
     // padding-left: 20px !important;
   }
   .bank-card ul li img {
@@ -683,7 +683,10 @@ $color-black: color(black);
     display: block;
   }
    label.radioStyled.pre-del span {
-      margin-left: 30px !important;
+      // margin-left: 30px !important;
     }
+}
+label.radioStyled.sb-payment-method-label {
+    margin-left: 25px;
 }
 </style>

@@ -293,7 +293,7 @@ export default {
   methods: {
     updateScroll () {
       if (this.$route.name === 'checkout') {
-        document.getElementById('app').style.overflowX  = "unset";
+        // document.getElementById('app').style.overflowX  = "unset";
         document.getElementById('viewport').style.overflow = "unset";
       }
     },

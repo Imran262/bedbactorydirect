@@ -36,7 +36,7 @@ export default {
 <style scoped>
 #payment-form {
     max-width: 700px;
-    min-width: 280px;
+    min-width: 270px;
     margin-left: auto;
     margin-right: auto;
     width: 90%;

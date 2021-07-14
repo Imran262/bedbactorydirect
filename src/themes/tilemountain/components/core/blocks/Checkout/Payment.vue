@@ -434,7 +434,7 @@
                 v-if="payment.paymentMethod === 'checkoutcom_card_payment'"
               />
             </div>
-            <p
+            <p class="paypal-payment-para"
               v-if="
                 payment.paymentMethod === 'paypal_express' &&
                 payment.paymentMethod === method.code &&
@@ -1113,8 +1113,8 @@ span.postcodelookup-required {
 
 @media (min-width: 575px) and (max-width: 767px) {
   .radioStyled.sb-payment-method-label {
-    font-size: 10px !important;
-    line-height: 20px !important;
+    // font-size: 10px !important;
+    // line-height: 20px !important;
   }
   .bank-card ul li img {
     width: 22px;
@@ -1320,5 +1320,10 @@ span.postcodelookup-required {
     left: 50%;
     max-width: 164px;
   }
+}
+p.paypal-payment-para {
+    color: #4a4a4a;
+    font-size: 14px;
+    line-height: 20px;
 }
 </style>

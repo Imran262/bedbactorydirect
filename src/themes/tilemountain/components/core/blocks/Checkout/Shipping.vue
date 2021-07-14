@@ -694,7 +694,7 @@
                 />
               </label>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 calendar-box">
+            <div class="col-xs-12 col-sm-12 col-md-12 calendar-box">
               <no-ssr>
                 <v-calendar
                   v-if="
@@ -704,7 +704,7 @@
                     attributes &&
                     isCalendarSelected
                   "
-                  class="calendar"
+                  class="calendar col-md-6"
                   v-model="date"
                   is-required
                   color="blue"
@@ -720,7 +720,7 @@
                 />
               </no-ssr>
               <div
-                class="calendar-right col-lg-6 col-md-12 col-xs-12"
+                class="calendar-right col-lg-6 col-md-6 col-xs-12"
                 v-if="
                   shippingSlotsData &&
                   shippingSlotsData.length > 0 &&
@@ -945,7 +945,7 @@
                   </span>
                 </span> -->
                   <span v-if="!(deliveryBtnClicked == true)">
-                    {{ $t("Continue to Payment here") }}
+                    {{ $t("Continue to Payment") }}
                     <span class="date-span" v-if="deliveryTimeDate"
                       >{{ deliveryTimeDate }}
                     </span>
@@ -2678,6 +2678,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
 
 #checkout .delivery-methods-detail .radioStyled span {
   /* padding-left: 30px; */
+      margin-left: 30px;
 }
 
 #checkout
@@ -3012,6 +3013,9 @@ span.checkmark.black-border-checkmark.no-checked:after {
     padding-right: 0px;
     padding-left: 0px;
   }
+label.radioStyled.pre-del span{
+    margin-left: 50px !important;
+}
 }
 
 .black-border-checkmark {
@@ -3106,6 +3110,8 @@ p.free-del-p {
   padding: 40px 15px 40px 15px;
   line-height: 30px;
   border-radius: 5px;
+    width: 100%;
+    max-width: 230px;
 }
 span.free-del {
   padding-left: 40px;
@@ -3175,5 +3181,11 @@ span.delivery-date {
   .home-delivery-box {
     padding: 0 15px 0 15px;
   }
+}
+@media (min-width: 768px){
+.calendar-box {
+    display: flex;
+    justify-content: space-between;
+}
 }
 </style>

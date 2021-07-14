@@ -123,7 +123,7 @@ $screen-l: 1170px;
 
 .compare {
   &__products-wrapper {
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     border-style: solid;
     border-color: $border;
