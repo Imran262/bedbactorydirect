@@ -830,12 +830,10 @@ export default {
     }
 
     .cartinfo {
-      border: 1px solid #e6ebee;
-
+      border: 1px solid #bfc3cb;
       width: 100%;
-
       background: #fff;
-
+      padding: 15px 0 30px 0px;
       .headingtop {
         padding: 0;
 
@@ -1004,7 +1002,7 @@ export default {
   }
 
   .check-btn-outer {
-       padding: 30px 20px 15px 20px;
+    padding: 30px 20px 15px 20px;
   }
 
   .checkoutbutton {
