@@ -885,6 +885,64 @@
 
         </div>
 //button start
+{{getSortedDates.length > 1}}
+selectedDeliveryMethod === 'homedelivery' {{selectedDeliveryMethod === 'homedelivery'}}
+homeDeliverySelected {{homeDeliverySelected}}
+deliveryBtnClicked{{deliveryBtnClicked}}
+      <template v-if="(!canNotDeliver && !noMethodsFound) && isBFDContact">
+        <div
+          class="delivery-btn"
+          :class="
+            getShippingMethodsWithRoyalMail.length === 0
+              ? 'showDeliBtnSection'
+              : 'hideDeliBtnSection'
+          "
+        >
+          <div class="row" v-if="!fromCart">
+            <div class="col-xs-12 col-md-6 my30 pl40 pr30">
+              <button-full
+                data-testid="shippingSubmit"
+                ref="referenceShippingSubmit"
+                id="shippingSubmitBtnId"
+                v-if="homeDeliverySelected && !(deliveryBtnClicked == true)"
+                :class="
+                  deliveryBtnClicked ? 'newdateSelected' : 'noNewdateSelected'
+                "
+                @click.native="
+                  sendDataToCheckout();
+                  dateSelected();
+                "
+                :disabled="
+                      $v.shipping.$invalid"
+              >
+                <!-- <span v-if="deliveryBtnClicked == true">
+                  {{ $t('Delivery: ') }}
+                  <span class="date-span" v-if="deliveryTimeDate"
+                    >{{ deliveryTimeDate }}
+                  </span>
+                </span> -->
+                <span v-if="!(deliveryBtnClicked == true)">
+                  {{ $t('Continue to Payment here') }}
+                  <span class="date-span" v-if="deliveryTimeDate"
+                    >{{ deliveryTimeDate }}
+                  </span>
+                </span>
+              </button-full>
+            </div>
+            <!-- <div class="col-xs-12 col-md-6">
+              <div
+                class="editdate"
+                v-if="displayEditButton && homeDeliverySelected"
+              >
+                <span @click="resetForm">Edit Delivery Date</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </template>
+      <template v-else>
+
+      
         <div
           class="delivery-btn"
           :class="
@@ -941,6 +999,7 @@
             </div> -->
           </div>
         </div>
+        </template>
         //button end
         <NarrowModal :date-prop="narrowDateProp" />
       </div>
@@ -993,7 +1052,7 @@ export default {
       calendarPriceCurrency: '£',
       selectedDeliveryMethod: 'homedelivery',
       displayEditButton: false,
-      isDateSelected: false,
+      isDateSelected: true,
       homeDeliverySelected: true,
       deliveryBtnClicked: false,
       deliveryTimeDate: '',
@@ -1527,7 +1586,7 @@ export default {
       await this.checkIfFieldsAreFilled()
     },
     dateSelected: function () {
-      this.$emit('date-selected',this.isDateSelected)
+      this.$emit('date-selected',true)
       this.deliveryBtnClicked=true
       this.displayEditButton=false
     },
