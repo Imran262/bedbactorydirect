@@ -542,6 +542,7 @@
                       >keyboard_arrow_right</i
                     > -->
                     </button>
+                    <span class="error1" v-if="isFabrics">Field is required</span>
                     <div
                       id="overlay"
                       @click="hideColorPicker"
@@ -554,8 +555,8 @@
                       @closeColorPickerModal="hideColorPicker"
                       @selectedColor="setColorName($event)"
                     />
+                    </div>
                   </div>
-                </div>
               </div>
               <div class="add-to-cart row m0">
                 <div class="cart-items">
@@ -672,6 +673,7 @@
           class="col-lg-6 col-md-7 col-sm-12 col-xs-12 product-description-left"
         >
           <h2
+            v-if="getCurrentProduct.description && getCurrentProduct.description.length>0"
             id="product-dimension-icon-id"
             class="h3 m0 mb10 serif lh20 details-dimension Icon-update icon-rotate"
             @click="ProDimensionShowFn"
@@ -725,6 +727,7 @@
             </div>
           </div>
           <h2
+          v-if="getCurrentProduct.specs && getCurrentProduct.specs.length>0"
           id="product-Specifications-icon-id"
             class="h3 m0 mb10 serif lh20 details-Delivery Icon-update"
             @click="ProSpecificationsShowFn"
@@ -969,6 +972,7 @@ export default {
   },
   data() {
     return {
+      isFabrics:true,
       detailsOpen: false,
       ProDeliveryShow: true,
       ProReviewShow: true,
@@ -1827,6 +1831,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
     },
     setColorName(name) {
       this.colorName = name;
+      this.isFabrics=false;
     },
     getColorName() {
       // console.log("741258 in get color name",this.colorName);
@@ -1838,7 +1843,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
             option.iscolor == "1" ||
             option.iscolor == true
           ) {
-            this.colorName = "Please Select " + option.title;
+            this.colorName = "Please Select ";
           }
         });
       } else {
@@ -3079,12 +3084,11 @@ i.product-detail-icon {
     display: none;
   }
 }
-
-.error {
-  color: red;
-  font-weight: bold;
-  padding-bottom: 15px;
-  display: none;
+.error1 {
+     color: #eb5757;
+    padding-top: 10px;
+    display: block;
+    width: auto;
 }
 
 .image {

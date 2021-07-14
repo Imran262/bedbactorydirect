@@ -140,9 +140,7 @@ if (product.custom_options && product.custom_options.length > 0) {
       }
     },
     notifyUser(notificationData) {
-      this.$store.dispatch("notification/spawnNotification", notificationData, {
-        root: true,
-      });
+      this.$store.dispatch("notification/spawnNotification", notificationData);
     },
     showAdding(event) {
       // console.log('eventevent', event);

@@ -1,5 +1,10 @@
 <template>
   <div class="search-page-main container">
+    <div ref="closeiconref" class="search-cross">
+      <i class="material-icons p15 close cl-accent" @click="closeFilters"
+        >close</i
+      >
+    </div>
     <div class="breadcrumbs mt10 h5 cl-gray" v-if="search !== ''">
       <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
         <router-link :to="localizedRoute('/')" class="cl-tertiary links">
@@ -24,7 +29,7 @@
       </p>
     </div>
 
-<div class="container">
+    <div class="container">
       <div class="row upper-row desktop-upper-row">
         <div class="col-xs-6 filter-mobile-div">
           <button class="mobile-filters-button" @click="openFilters">
@@ -48,37 +53,36 @@
       </div>
     </div>
 
-
-
-
-
     <div class="container">
       <div class="row pt15">
         <div
           class="col-md-3 search-SideBar start-xs mobile-filters"
           ref="mobileFiltersRef"
         >
-          <div class="close-px15 absolute w-100">
-            <i class="material-icons p15 close cl-accent" @click="closeFilters"
-            >close</i
-            >
-          </div>
+          <div class="close-px15 absolute w-100"></div>
           <h4
             class="sidebar__header relative mt35 mb0 flex"
             v-if="
               products.length &&
-                (selectedCategoryIds.length > 0 ||
-                  (minPriceVal !== minPriceValOri ||
-                    maxPriceVal !== maxPriceValOri))
+              (selectedCategoryIds.length > 0 ||
+                minPriceVal !== minPriceValOri ||
+                maxPriceVal !== maxPriceValOri)
             "
           >
             <!-- <span> {{ $t('Filter') }} </span> -->
             <span
-              class="weight-400 sidebar__header__clear pointer sans-serif flex lh25"
+              class="
+                weight-400
+                sidebar__header__clear
+                pointer
+                sans-serif
+                flex
+                lh25
+              "
               @click="resetAllFilters"
             >
               <i class="material-icons cl-accent mr5">cancel</i>
-              {{ $t('Clear filters') }}
+              {{ $t("Clear filters") }}
             </span>
           </h4>
 
@@ -96,14 +100,13 @@
               :class="[
                 {
                   'filter-options': showFilterExpander(),
-                  'filter-expanded': filterExpand
-                }
+                  'filter-expanded': filterExpand,
+                },
               ]"
               :style="{ 'max-height': setMaxHeight }"
             >
               <div
                 context="category"
-                
                 v-for="(single, indexSingle) in categories"
                 :key="indexSingle"
               >
@@ -114,7 +117,7 @@
                   <span
                     :code="single.category_id"
                     :codeSingle="single.category_id"
-                  >{{ single.name }}</span
+                    >{{ single.name }}</span
                   >
                 </span>
               </div>
@@ -162,7 +165,7 @@
               <div class="brdr-top-1 brdr-cl-primary absolute divider w-100" />
             </div>
             <button-full class="mb20 btn__filter" @click.native="closeFilters">
-              {{ $t('Apply and Close') }}
+              {{ $t("Apply and Close") }}
             </button-full>
           </div>
         </div>
@@ -171,18 +174,25 @@
             class="sidebar__header relative mt35 mb20 flex"
             v-if="
               products.length &&
-                (selectedCategoryIds.length > 0 ||
-                  (minPriceVal !== minPriceValOri ||
-                    maxPriceVal !== maxPriceValOri))
+              (selectedCategoryIds.length > 0 ||
+                minPriceVal !== minPriceValOri ||
+                maxPriceVal !== maxPriceValOri)
             "
           >
             <!-- <span> {{ $t('Filter') }} </span> -->
             <span
-              class="weight-400 sidebar__header__clear pointer sans-serif flex lh25"
+              class="
+                weight-400
+                sidebar__header__clear
+                pointer
+                sans-serif
+                flex
+                lh25
+              "
               @click="resetAllFilters"
             >
               <i class="material-icons cl-accent mr5">cancel</i>
-              {{ $t('Clear filters') }}
+              {{ $t("Clear filters") }}
             </span>
           </h4>
           <div class="filter-section-main">
@@ -199,8 +209,8 @@
               :class="[
                 {
                   'filter-options': showFilterExpander(),
-                  'filter-expanded': filterExpand
-                }
+                  'filter-expanded': filterExpand,
+                },
               ]"
               :style="{ 'max-height': setMaxHeight }"
             >
@@ -216,7 +226,7 @@
                   <span
                     :code="single.category_id"
                     :codeSingle="single.category_id"
-                  >{{ single.name }}</span
+                    >{{ single.name }}</span
                   >
                 </span>
               </div>
@@ -265,7 +275,12 @@
           </div>
         </div>
         <div class="col-md-10 search-listing">
-          <product-listing :columns="defaultColumn" :isCategory="true" :products="products" :filters="{}"/>
+          <product-listing
+            :columns="defaultColumn"
+            :isCategory="true"
+            :products="products"
+            :filters="{}"
+          />
           <!-- <product-listing
               :columns="4"
               :products="pagination.currentPageItems || getCategoryProducts"
@@ -290,23 +305,33 @@
       <button
         @click="seeMore"
         v-if="readMore"
-        class="no-outline brdr-none py15 px20 bg-cl-mine-shaft :bg-cl-th-secondary cl-white fs-medium-small seemore-search"
+        class="
+          no-outline
+          brdr-none
+          py15
+          px20
+          bg-cl-mine-shaft
+          :bg-cl-th-secondary
+          cl-white
+          fs-medium-small
+          seemore-search
+        "
         type="button"
       >
-        {{ $t('Load more') }}
+        {{ $t("Load more") }}
       </button>
     </div>
   </div>
 </template>
 <script>
-import ProductListing from 'src/themes/bedfactory/components/core/ProductListingCustom';
-import { Logger } from '@vue-storefront/core/lib/logger';
-import PriceSlider from 'src/modules/vsf-layered-nav/components/FilterTypes/PriceSlider';
-import { SearchQuery } from 'storefront-query-builder'
-import i18n from '@vue-storefront/i18n';
-import ButtonFull from 'theme/components/theme/ButtonFull.vue';
+import ProductListing from "src/themes/bedfactory/components/core/ProductListingCustom";
+import { Logger } from "@vue-storefront/core/lib/logger";
+import PriceSlider from "src/modules/vsf-layered-nav/components/FilterTypes/PriceSlider";
+import { SearchQuery } from "storefront-query-builder";
+import i18n from "@vue-storefront/i18n";
+import ButtonFull from "theme/components/theme/ButtonFull.vue";
 export default {
-  name: 'SearchResultPage',
+  name: "SearchResultPage",
   data() {
     return {
       defaultColumn: 3,
@@ -317,7 +342,7 @@ export default {
       categories: [],
       limit: 10,
       filterProducts: [],
-      search: '',
+      search: "",
       size: 52,
       start: 0,
       emptyResults: false,
@@ -325,7 +350,7 @@ export default {
       componentLoaded: false,
       totalResults: 0,
       urlQuery: null,
-      selectSortBy: '',
+      selectSortBy: "",
       minPriceVal: 0,
       maxPriceVal: 0,
       styleArray: [],
@@ -340,13 +365,13 @@ export default {
       minPriceValOri: 0,
       maxPriceValOri: 0,
       allFiterFinalArray: [],
-      filterExpand: false
+      filterExpand: false,
     };
   },
   components: {
     ProductListing,
     PriceSlider,
-    ButtonFull
+    ButtonFull,
   },
   computed: {
     searchUrl() {
@@ -354,12 +379,12 @@ export default {
       return urlQueryConst;
     },
     getNoResultsMessage() {
-      let msg = '';
+      let msg = "";
       if (this.emptyResults) {
-        msg = 'No results were found.';
+        msg = "No results were found.";
       }
-      if (this.search === '') {
-        msg = 'Please enter the search text.';
+      if (this.search === "") {
+        msg = "Please enter the search text.";
       }
       return msg;
     },
@@ -368,16 +393,16 @@ export default {
     },
     filterExpanderMessage() {
       return this.filterExpand
-        ? i18n.t('Show less filter options')
-        : i18n.t('Show more filter options', {
-          remainingFilterOptions: this.remainingFilterOptions
-        });
+        ? i18n.t("Show less filter options")
+        : i18n.t("Show more filter options", {
+            remainingFilterOptions: this.remainingFilterOptions,
+          });
     },
     setMaxHeight() {
       return !this.filterExpand
-        ? 30 * this.limit + 'px'
-        : 30 * this.categories.length + 'px';
-    }
+        ? 30 * this.limit + "px"
+        : 30 * this.categories.length + "px";
+    },
   },
   methods: {
     showFilterExpander() {
@@ -387,37 +412,39 @@ export default {
       this.filterExpand = !this.filterExpand;
     },
     filterRef(event) {
-      event.target.classList.toggle('toggleIcon');
-      event.target.nextElementSibling.classList.toggle('filter-open');
+      event.target.classList.toggle("toggleIcon");
+      event.target.nextElementSibling.classList.toggle("filter-open");
     },
     priceRef() {
-      event.target.classList.toggle('toggleIcon');
-      this.$refs.priceMain.classList.toggle('filter-open');
+      event.target.classList.toggle("toggleIcon");
+      this.$refs.priceMain.classList.toggle("filter-open");
     },
     priceRefMobile() {
-      event.target.classList.toggle('toggleIcon');
-      this.$refs.priceMainMobile.classList.toggle('filter-open');
+      event.target.classList.toggle("toggleIcon");
+      this.$refs.priceMainMobile.classList.toggle("filter-open");
     },
     filter_array_values(arr) {
       arr = arr.filter(this.isEligible);
       return arr;
     },
     openFilters() {
-      document.getElementsByTagName("BODY")[0].style.overflow = 'hidden'
-      document.getElementsByTagName("BODY")[0].style.position = 'fixed'
-      this.$refs.mobileFiltersRef.classList.add('openMobileFilters');
+      document.getElementsByTagName("BODY")[0].style.overflow = "hidden";
+      document.getElementsByTagName("BODY")[0].style.position = "fixed";
+      this.$refs.mobileFiltersRef.classList.add("openMobileFilters");
+      this.$refs.closeiconref.classList.add("openCloseButton");
       this.updateFilter = false;
       setTimeout(() => {
         this.updateFilter = true;
       }, 100);
     },
     closeFilters() {
-      document.getElementsByTagName("BODY")[0].style.overflow = 'scroll'
-      document.getElementsByTagName("BODY")[0].style.position = 'unset'
-      this.$refs.mobileFiltersRef.classList.remove('openMobileFilters');
+      document.getElementsByTagName("BODY")[0].style.overflow = "scroll";
+      document.getElementsByTagName("BODY")[0].style.position = "unset";
+      this.$refs.mobileFiltersRef.classList.remove("openMobileFilters");
+      this.$refs.closeiconref.classList.remove("openCloseButton");
     },
     resetAllFilters() {
-      console.log('resetAllFilters');
+      console.log("resetAllFilters");
       this.selectedCategoryIds = [];
       this.styleArray = [];
       this.colorArray = [];
@@ -425,11 +452,11 @@ export default {
       this.maxPriceVal = this.maxPriceValOri;
       this.updateFilter = false;
       this.customSearch();
-      var activeFilters = document.querySelectorAll('.active-filter');
+      var activeFilters = document.querySelectorAll(".active-filter");
       if (activeFilters.length > 0) {
-        [].forEach.call(activeFilters, activeFilter => {
-          activeFilter.classList.remove('active-filter');
-          console.log('activeFilter', activeFilter.classList);
+        [].forEach.call(activeFilters, (activeFilter) => {
+          activeFilter.classList.remove("active-filter");
+          console.log("activeFilter", activeFilter.classList);
         });
       }
       setTimeout(() => {
@@ -449,124 +476,142 @@ export default {
       selectedCategoryIds = []
     ) {
       if (maxPriceAvailable > 0) {
-        console.log('Inside buildSearchQuery', selectedCategoryIds);
+        console.log("Inside buildSearchQuery", selectedCategoryIds);
         const rangeqr = {};
-        rangeqr['gte'] = minPriceAvailable - 1;
-        rangeqr['lte'] = maxPriceAvailable + 1;
+        rangeqr["gte"] = minPriceAvailable - 1;
+        rangeqr["lte"] = maxPriceAvailable + 1;
         let searchQuery = new SearchQuery();
         searchQuery = searchQuery
           .setSearchText(queryText)
-          .applyFilter({ key: 'visibility', value: { in: [3, 4] } })
+          .applyFilter({ key: "visibility", value: { in: [3, 4] } })
           .applyFilter({
-            key: 'status',
-            value: { in: [0, 1] }
+            key: "status",
+            value: { in: [0, 1] },
           });
         if (styleFilterArray.length > 0) {
-          console.log('Ifi');
-          const newStyleArray = styleFilterArray.filter(item => item);
+          console.log("Ifi");
+          const newStyleArray = styleFilterArray.filter((item) => item);
           this.newStyleInsideBuild = newStyleArray;
           searchQuery = searchQuery.applyFilter({
-            key: 'style',
-            value: { in: this.newStyleInsideBuild }
+            key: "style",
+            value: { in: this.newStyleInsideBuild },
           });
         }
         if (colorFilterArray.length > 0) {
-          const newColorArray = colorFilterArray.filter(item => item);
+          const newColorArray = colorFilterArray.filter((item) => item);
           this.newColorInsideBuild = newColorArray;
           searchQuery = searchQuery.applyFilter({
-            key: 'color',
-            value: { in: this.newColorInsideBuild }
+            key: "color",
+            value: { in: this.newColorInsideBuild },
           });
         }
         if (selectedCategoryIds.length > 0) {
-          const newCategoriesArray = selectedCategoryIds.filter(item => item);
+          const newCategoriesArray = selectedCategoryIds.filter((item) => item);
           this.newCategoryInsideBuild = newCategoriesArray;
           searchQuery = searchQuery.applyFilter({
-            key: 'category_ids',
-            value: { in: this.newCategoryInsideBuild }
+            key: "category_ids",
+            value: { in: this.newCategoryInsideBuild },
           });
         }
 
         searchQuery = searchQuery.applyFilter({
-          key: 'price',
+          key: "price",
           value: rangeqr,
-          scope: 'catalog'
+          scope: "catalog",
         });
         return searchQuery;
       } else {
-        console.log('buildSearchQuery', selectedCategoryIds);
+        console.log("buildSearchQuery", selectedCategoryIds);
         let searchQuery = new SearchQuery();
         searchQuery = searchQuery
           .setSearchText(queryText)
-          .applyFilter({ key: 'visibility', value: { in: [3, 4] } })
+          .applyFilter({ key: "visibility", value: { in: [3, 4] } })
           .applyFilter({
-            key: 'status',
-            value: { in: [0, 1] }
+            key: "status",
+            value: { in: [0, 1] },
           });
         return searchQuery;
       }
     },
     searchFilterQuery() {
-      if (this.search !== '' && this.search !== undefined) {
-         console.log("145698 OLD Search");
+      if (this.search !== "" && this.search !== undefined) {
+        console.log("145698 OLD Search");
         let query = this.buildSearchQuery(this.search);
         let startValue = 0;
         let priceArray = [];
         this.start = startValue;
         this.readMore = true;
         this.$store
-          .dispatch('product/findProducts', {
+          .dispatch("product/findProducts", {
             query,
             start: 0,
             configuration: {},
             size: 10000,
-            updateState: false
+            updateState: false,
           })
-          .then(resp => {
+          .then((resp) => {
             this.allProducts = resp.items;
-            this.totalResults = resp.items.length
-            console.log("145698 all products are",resp.items);
+            this.totalResults = resp.items.length;
+            console.log("145698 all products are", resp.items);
             const categories = resp.items
-              .filter(p => p.category)
-              .map(p => p.category)
+              .filter((p) => p.category)
+              .map((p) => p.category)
               .flat();
-              console.log("145698 Categories are ",categories);
+            console.log("145698 Categories are ", categories);
             const discinctCategories = Array.from(
-              new Set(categories.map(c => c.category_id))
-            ).map(catId => categories.find(c => c.category_id === catId));
-             console.log("145698 Distinct Categories are ",discinctCategories);
+              new Set(categories.map((c) => c.category_id))
+            ).map((catId) => categories.find((c) => c.category_id === catId));
+            console.log("145698 Distinct Categories are ", discinctCategories);
 
             this.categories = discinctCategories;
-            const priceArray = resp.items.map(priceItem => {
+            const priceArray = resp.items.map((priceItem) => {
               return priceItem.final_price_incl_tax;
             });
-            const priceArrayFinal = priceArray.filter(priceActual => {
+            const priceArrayFinal = priceArray.filter((priceActual) => {
               return priceActual !== undefined;
             });
-            const styleArrayConst = resp.items.map(styleItem => {
+            const styleArrayConst = resp.items.map((styleItem) => {
               return styleItem.style;
             });
             const uniqueStyle = styleArrayConst.filter(
               (v, i, a) => a.indexOf(v) === i
             );
-            const uniqueStyleFinal = uniqueStyle.filter(style => {
+            const uniqueStyleFinal = uniqueStyle.filter((style) => {
               return style !== undefined;
             });
-            const colorArrayConst = resp.items.map(colorItem => {
+            const colorArrayConst = resp.items.map((colorItem) => {
               return colorItem.color;
             });
             const uniqueColor = colorArrayConst.filter(
               (v, i, a) => a.indexOf(v) === i
             );
-            const uniqueColorFinal = uniqueColor.filter(color => {
+            const uniqueColorFinal = uniqueColor.filter((color) => {
               return color !== undefined;
             });
             priceArrayFinal.sort((priceA, priceB) => {
               return priceA - priceB;
             });
-            console.log("145698 ","\n priceArrayFinal",priceArrayFinal,"\n uniqueColorFinal",uniqueColorFinal,
-            "\n uniqueColor",uniqueColor,"\n colorArrayConst",colorArrayConst,"\n uniqueStyleFinal",uniqueStyleFinal,"\n uniqueStyle",uniqueStyle,
-            "\n styleArrayConst",styleArrayConst,"\n priceArrayFinal",priceArrayFinal,"\n priceArray",priceArray        );
+            console.log(
+              "145698 ",
+              "\n priceArrayFinal",
+              priceArrayFinal,
+              "\n uniqueColorFinal",
+              uniqueColorFinal,
+              "\n uniqueColor",
+              uniqueColor,
+              "\n colorArrayConst",
+              colorArrayConst,
+              "\n uniqueStyleFinal",
+              uniqueStyleFinal,
+              "\n uniqueStyle",
+              uniqueStyle,
+              "\n styleArrayConst",
+              styleArrayConst,
+              "\n priceArrayFinal",
+              priceArrayFinal,
+              "\n priceArray",
+              priceArray
+            );
             this.minPriceVal = parseInt(priceArrayFinal[0].toFixed());
             this.maxPriceVal = parseInt(
               priceArrayFinal[priceArrayFinal.length - 1].toFixed()
@@ -583,12 +628,12 @@ export default {
             this.colorArray = uniqueColorFinal;
             this.colorArrayOri = uniqueColorFinal;
             this.filterProducts = resp.items;
-            
-            console.log("145698 Products to be filtered" , this.filterProducts);
+
+            console.log("145698 Products to be filtered", this.filterProducts);
             const allFiterFinalArrayConst = {};
             let uniqueStyleFullFinal = [];
             var i = 0;
-            [].forEach.call(uniqueStyleFinal, uniqueStyleFinalSingle => {
+            [].forEach.call(uniqueStyleFinal, (uniqueStyleFinalSingle) => {
               if (
                 uniqueStyleFinalSingle != null &&
                 uniqueStyleFinalSingle != undefined &&
@@ -598,23 +643,23 @@ export default {
               }
               i++;
             });
-            allFiterFinalArrayConst['style'] = uniqueStyleFullFinal;
-            allFiterFinalArrayConst['color'] = uniqueColorFinal;
+            allFiterFinalArrayConst["style"] = uniqueStyleFullFinal;
+            allFiterFinalArrayConst["color"] = uniqueColorFinal;
 
             this.allFiterFinalArray = allFiterFinalArrayConst;
           })
-          .catch(err => {
-            Logger.error(err, 'components-search')();
+          .catch((err) => {
+            Logger.error(err, "components-search")();
           });
-          console.log("741258 Total products",this.filterProducts ) ;
-      //  return this.filterProducts;
-      }else {
+        console.log("741258 Total products", this.filterProducts);
+        //  return this.filterProducts;
+      } else {
         this.filterProducts = [];
         return this.filterProducts;
       }
     },
     customSearch() {
-      if (this.search !== '' && this.search !== undefined) {
+      if (this.search !== "" && this.search !== undefined) {
         let query = this.buildSearchQuery(
           this.search.toUpperCase(),
           this.styleArray,
@@ -623,27 +668,27 @@ export default {
           this.maxPriceVal,
           this.selectedCategoryIds
         );
-        console.log('queryquery', query);
+        console.log("queryquery", query);
         let startValue = 0;
         this.start = startValue;
         this.readMore = true;
         this.$store
-          .dispatch('product/list', {
+          .dispatch("product/list", {
             query,
             start: this.start,
             configuration: {},
             size: this.size,
             sort: this.selectSortBy,
-            updateState: false
+            updateState: false,
           })
-          .then(resp => {
+          .then((resp) => {
             this.products = resp.items;
             this.start = startValue + this.size;
             this.emptyResults = resp.items.length < 1;
             this.totalResults = resp.total;
           })
-          .catch(err => {
-            Logger.error(err, 'components-search')();
+          .catch((err) => {
+            Logger.error(err, "components-search")();
           });
       } else {
         this.products = [];
@@ -651,8 +696,8 @@ export default {
       }
     },
     seeMore() {
-      if (this.search !== '' && this.search !== undefined) {
-        const loadedState = document.querySelectorAll('.active-filter');
+      if (this.search !== "" && this.search !== undefined) {
+        const loadedState = document.querySelectorAll(".active-filter");
 
         if (loadedState.length === 0) {
           this.styleArray = [];
@@ -669,14 +714,14 @@ export default {
 
         let startValue = this.start;
         this.$store
-          .dispatch('product/list', {
+          .dispatch("product/list", {
             query,
             start: startValue,
             size: this.size,
             sort: this.selectSortBy,
-            updateState: false
+            updateState: false,
           })
-          .then(resp => {
+          .then((resp) => {
             let page = Math.floor(resp.total / this.size);
             let exceeed = resp.total - this.size * page;
             if (resp.start === resp.total - exceeed) {
@@ -686,8 +731,8 @@ export default {
             this.start = startValue + this.size;
             this.emptyResults = this.products.length < 1;
           })
-          .catch(err => {
-            Logger.error(err, 'components-search')();
+          .catch((err) => {
+            Logger.error(err, "components-search")();
           });
       } else {
         this.products = [];
@@ -695,7 +740,7 @@ export default {
       }
     },
     sortOnChange(event) {
-      const loadedState = document.querySelectorAll('.active-filter');
+      const loadedState = document.querySelectorAll(".active-filter");
 
       if (loadedState.length === 0) {
         this.styleArray = [];
@@ -704,23 +749,23 @@ export default {
       this.customSearch();
     },
     filterLabel() {
-      event.target.classList.toggle('active-filter');
+      event.target.classList.toggle("active-filter");
       const appliedStyleArray = [];
       const appliedColorArray = [];
       const allFilterArray = [];
-      var activeFilters = document.querySelectorAll('.active-filter');
+      var activeFilters = document.querySelectorAll(".active-filter");
 
       if (activeFilters.length > 0) {
-        [].forEach.call(activeFilters, activeFilter => {
-          const fiterCode = activeFilter.getAttribute('code');
+        [].forEach.call(activeFilters, (activeFilter) => {
+          const fiterCode = activeFilter.getAttribute("code");
 
-          if (fiterCode === 'style') {
+          if (fiterCode === "style") {
             appliedStyleArray.push(
-              parseInt(activeFilter.getAttribute('codesingle'))
+              parseInt(activeFilter.getAttribute("codesingle"))
             );
-          } else if (fiterCode === 'color') {
+          } else if (fiterCode === "color") {
             appliedColorArray.push(
-              parseInt(activeFilter.getAttribute('codesingle'))
+              parseInt(activeFilter.getAttribute("codesingle"))
             );
           }
         });
@@ -733,11 +778,11 @@ export default {
       this.customSearch();
     },
     toggleCategory(category) {
-      event.target.classList.toggle('active-filter');
+      event.target.classList.toggle("active-filter");
       const isCatInArray = this.selectedCategoryIds.includes(category);
       if (isCatInArray) {
         this.selectedCategoryIds = this.selectedCategoryIds.filter(
-          item => item !== category
+          (item) => item !== category
         );
       } else {
         this.selectedCategoryIds.push(category);
@@ -758,11 +803,11 @@ export default {
       this.minPriceVal = priceGte;
       this.maxPriceVal = priceLte;
       this.customSearch();
-    }
+    },
   },
   mounted() {
     this.search = this.$route.query.s;
-    this.selectSortBy= "final_price"
+    this.selectSortBy = "final_price";
     if (this.search) {
       this.customSearch();
       this.searchFilterQuery();
@@ -779,20 +824,19 @@ export default {
       this.updateFilter = false;
       this.customSearch();
       this.searchFilterQuery();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
-
 .search-page-main.container .row.upper-row {
-    justify-content: flex-end;
-    border-bottom: 1px solid #c7c7c7;
-    margin-bottom: 0px;
-    padding-top: 0px;
-    align-items: center;
-    padding: 10px 0px;
-  }
+  justify-content: flex-end;
+  border-bottom: 1px solid #c7c7c7;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  align-items: center;
+  padding: 10px 0px;
+}
 /* .search-page-main.container .row {
   padding: 5px 0px;
 }
@@ -831,23 +875,23 @@ export default {
   // padding-left: 0.55rem;
   // height: 100%;
   // line-height: 2;
-      font-size: 14px;
-    width: 150px;
-    color: #333333;
-    font-family: "Arial";
-    font-weight: 400;
-    background-color: transparent;
-    margin-right: 0;
-    border-radius: 4px;
-    border: 1px solid #7d7d7d;
-    height: 33px;
-    background: url(/assets/arrows.svg) no-repeat right;
-    background-position-x: 125px;
-    background-position-y: 8px;
-    -webkit-appearance: none;
-    line-height: 33px;
-    padding-left: 5px;
-    outline: none;
+  font-size: 14px;
+  width: 150px;
+  color: #333333;
+  font-family: "Arial";
+  font-weight: 400;
+  background-color: transparent;
+  margin-right: 0;
+  border-radius: 4px;
+  border: 1px solid #7d7d7d;
+  height: 33px;
+  background: url(/assets/arrows.svg) no-repeat right;
+  background-position-x: 125px;
+  background-position-y: 8px;
+  -webkit-appearance: none;
+  line-height: 33px;
+  padding-left: 5px;
+  outline: none;
 }
 img.home-breadcrumb-icon-img {
   width: 15px;
@@ -857,7 +901,7 @@ img.home-breadcrumb-icon-img {
 .totalItems {
   color: #333333;
   font-size: 0.9325rem;
-  font-family: 'open sans';
+  font-family: "open sans";
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -895,14 +939,14 @@ img.home-breadcrumb-icon-img {
 h4.filter-heading {
   user-select: none;
   font-size: 14px;
-  color: #071A44;
-   font-family: "Arial";
+  color: #071a44;
+  font-family: "Arial";
   font-weight: bold;
   background: url(/assets/category-images/add.png) no-repeat 96% 75%;
-  height: 25px;
-  // border-top: 1px solid #e7e7e7;
-   padding-top: 20px;
-    margin-bottom: 0;
+  height: 17px;
+  padding-top: 20px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 span.filter-label {
@@ -918,7 +962,7 @@ span.filter-label {
 }
 
 span.filter-label span:before {
-  content: '';
+  content: "";
   position: relative;
   top: 2px;
   margin-right: 10px;
@@ -952,7 +996,7 @@ span.filter-label span.active-filter:before {
 }
 
 span.filter-label span.active-filter:after {
-  content: '';
+  content: "";
   position: absolute;
   left: 3px;
   top: 9px;
@@ -960,15 +1004,15 @@ span.filter-label span.active-filter:after {
   width: 2px;
   height: 2px;
   -webkit-box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white,
-  4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+    4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
   box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white,
-  4px -6px 0 white, 4px -8px 0 white;
+    4px -6px 0 white, 4px -8px 0 white;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 h4.toggleIcon {
-      background: url(/assets/category-images/minus.png) no-repeat 96% 75%;
+  background: url(/assets/category-images/minus.png) no-repeat 96% 75%;
 }
 @media (min-width: 768px) {
   .col-xs-6.filter-mobile-div {
@@ -982,8 +1026,7 @@ h4.toggleIcon {
     margin-top: 1%;
     padding-left: 46px;
     padding-right: 0;
-}
-
+  }
 }
 @media (max-width: 767px) {
   .col-md-3.search-SideBar {
@@ -1039,10 +1082,10 @@ h4.toggleIcon {
   }
   .filter-section-main {
     // border-top: 2px solid #dfdfdf !important;
-}
-.filter-section-main.filter-price-main {
+  }
+  .filter-section-main.filter-price-main {
     border-bottom: 2px solid #dfdfdf !important;
-}
+  }
   h4.filter-heading {
     // border-top: 2px solid #dfdfdf !important;
   }
@@ -1053,10 +1096,10 @@ h4.toggleIcon {
     border-radius: 5px;
     color: #54575b;
     font-size: 0.8rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background: #f5f7fa
-    url('/assets/category-images/category-filer-mobile-icon.png') no-repeat
-    95% 55%;
+      url("/assets/category-images/category-filer-mobile-icon.png") no-repeat
+      95% 55%;
     text-align: left;
     width: 95%;
     float: right;
@@ -1079,12 +1122,15 @@ h4.toggleIcon {
     box-sizing: border-box;
     display: none;
     overflow: auto;
-     @media (max-width: 480px){
-        top: 67px;
-     }
+    @media (max-width: 480px) {
+      top: 67px;
+    }
   }
 
   .mobile-filters.openMobileFilters {
+    display: block !important;
+  }
+  .openCloseButton {
     display: block !important;
   }
 
@@ -1136,50 +1182,50 @@ h4.toggleIcon {
     position: relative;
     background: none;
     border-radius: unset;
-}
-.dropd1 .sortp-search p{
+  }
+  .dropd1 .sortp-search p {
     display: none;
-}
-.dropd1 select.selectSortBy.cl-secondary {
+  }
+  .dropd1 select.selectSortBy.cl-secondary {
     border: none;
     font-size: 12px;
     font-weight: bold;
     color: #434343;
-     width: 100%;
-}
-// .sort-by .dropd1 {
-//     display: inline-grid;
-//     justify-content: center;
-//     align-items: center;
-// }
-.desktop-SideBar-col {
+    width: 100%;
+  }
+  // .sort-by .dropd1 {
+  //     display: inline-grid;
+  //     justify-content: center;
+  //     align-items: center;
+  // }
+  .desktop-SideBar-col {
     display: none;
-}
-.start-xs.mobile-filters.openMobileFilters {
+  }
+  .start-xs.mobile-filters.openMobileFilters {
     width: 90%;
     background-color: #ffffff;
     z-index: 999;
-}
-.sticky .brdr-cl-primary {
+  }
+  .sticky .brdr-cl-primary {
     border: none;
-}
-.close-px15.absolute {
+  }
+  .close-px15.absolute {
     // height: 40px;
     // width: 95%;
     position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-   border-bottom: 2px solid #dfdfdf !important;
-}
-// .close-px15.absolute {
-//     height: 52px;
-//     width: 97%;
-//     position: relative;
-//     display: flex;
-//     justify-content: flex-end;
-// }
-.sticky button {
+    //  border-bottom: 2px solid #dfdfdf !important;
+  }
+  // .close-px15.absolute {
+  //     height: 52px;
+  //     width: 97%;
+  //     position: relative;
+  //     display: flex;
+  //     justify-content: flex-end;
+  // }
+  .sticky button {
     left: 15%;
     top: -4px;
     width: 70%;
@@ -1192,21 +1238,35 @@ h4.toggleIcon {
     font-weight: bold;
     background-color: #29275b;
     border-radius: 10px;
-}
-h4.filter-heading{
+  }
+  h4.filter-heading {
     padding-top: 10px;
     margin-bottom: 5px;
     margin-top: 5px;
-}
-i.material-icons.p15.close.cl-accent {
-    background: #071a44;
+  }
+  i.material-icons.p15.close.cl-accent {
     font-weight: bold;
     color: #ffff;
-    padding: 6px !important;
-}
-.filter-section-main{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+  }
+  .filter-section-main {
     border-top: none;
-}
+  }
+  .search-cross {
+    position: fixed;
+    right: 0px;
+    top: 95px;
+    width: 10%;
+    height: 53px;
+    background-color: #29275b;
+    z-index: 10;
+    @media (max-width: 480px) {
+      top: 66px;
+    }
+  }
 }
 
 .filter-options {
@@ -1217,7 +1277,7 @@ i.material-icons.p15.close.cl-accent {
   overflow: hidden;
   padding-bottom: 30px;
   position: relative;
-   display: none;
+  display: none;
 }
 
 .filter-options .filter-expander {
@@ -1246,11 +1306,11 @@ i.material-icons.p15.close.cl-accent {
   text-decoration: underline;
   font-weight: 700;
   font-size: 14px;
- color: #071A44;
+  color: #071a44;
 }
 .plus-minus .horizontal {
   position: absolute;
-  background-color: #071A44;
+  background-color: #071a44;
   width: 10px;
   height: 2px;
   left: 50%;
@@ -1261,7 +1321,7 @@ i.material-icons.p15.close.cl-accent {
 
 .plus-minus .vertical {
   position: absolute;
-  background-color: #071A44;
+  background-color: #071a44;
   width: 2px;
   height: 10px;
   left: 50%;
@@ -1315,58 +1375,64 @@ i.material-icons.p15.close.cl-accent {
   min-width: 102px;
 }
 .sort-by {
-    display: flex;
-    @media (max-width: 767px){
+  display: flex;
+  @media (max-width: 767px) {
     display: grid;
     justify-content: center;
     align-items: center;
-    }
+  }
 }
 .sortp-search p {
-    color: #071a44;
-    font-weight: bold;
-    padding-right: 6px;
-    margin: 9px 0 0 5px;
-    font-family: 'Arial', serif;
-    font-size: 17px;
-     @media (max-width: 767px){
-       display: none;
-     }
-
+  color: #071a44;
+  font-weight: bold;
+  padding-right: 6px;
+  margin: 9px 0 0 5px;
+  font-family: "Arial", serif;
+  font-size: 17px;
+  @media (max-width: 767px) {
+    display: none;
+  }
 }
 .SearchText .cl-mine-shaft {
-    color: #071A44;
-    font-size: 41px;
-    font-family: oblik;
-    margin-top: 70px;
-    margin-bottom: 30px;
-    @media (max-width: 767px){
+  color: #071a44;
+  font-size: 41px;
+  font-family: oblik;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  @media (max-width: 767px) {
     font-size: 5.067vw;
     margin-top: 23px;
     margin-bottom: 16px;
     padding: 0 20px 0 20px;
-    }
+  }
 }
 h4.sidebar__header {
-    display: none;
+  display: none;
 }
 span.filter-label span {
-    color: #333333;
+  color: #333333;
 }
 h4.filter-heading.price-filter-heading {
-    background: url(/assets/category-images/add.png) no-repeat 96% 75%;
+  background: url(/assets/category-images/add.png) no-repeat 96% 75%;
 }
 h4.filter-heading.price-filter-heading.toggleIcon {
-    background: url(/assets/category-images/minus.png) no-repeat 96% 75%;
+  background: url(/assets/category-images/minus.png) no-repeat 96% 75%;
 }
 .filter-section-main {
-  
 }
 .filter-section-main:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 .filter-section-main {
-    border-bottom: 2px solid #dfdfdf !important;
-    padding-bottom: 18px;
+  border-bottom: 2px solid #dfdfdf !important;
+  padding-bottom: 18px;
+}
+.search-cross {
+  display: none;
+}
+@media (max-width: 400px) {
+  .sticky .button-full {
+    padding-left: 0px !important;
+  }
 }
 </style>
