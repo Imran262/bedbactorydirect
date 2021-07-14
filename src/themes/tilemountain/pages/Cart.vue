@@ -460,7 +460,7 @@ export default {
     }),
     updateScroll() {
       if (this.$route.name === "cart") {
-        // document.getElementById("app").style.overflowX = "unset";
+        document.getElementById("app").style.overflowX = "unset";
         document.getElementById("viewport").style.overflow = "unset";
       }
     },
