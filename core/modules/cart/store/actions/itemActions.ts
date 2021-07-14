@@ -1,4 +1,5 @@
 import * as types from '@vue-storefront/core/modules/cart/store/mutation-types'
+import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
 import { Logger } from '@vue-storefront/core/lib/logger'
 import {
   prepareProductsToAdd,
@@ -103,6 +104,7 @@ const itemActions = {
     return diffLog
   },
   async removeItem ({ commit, dispatch, getters }, payload) {
+    EventBus.$emit('notification-progress-start','Removing....')
     console.log('thisMethodWillRemoveItemFromCart', payload);
     const cartItemId = (payload && payload.itemId) ? payload.itemId : false;
     const removeByParentSku = payload.product ? !!payload.removeByParentSku && payload.product.type_id !== 'bundle' : true
@@ -118,12 +120,14 @@ const itemActions = {
       const diffLog = await dispatch('sync', { forceClientState: true })
       console.log('diffLogAfterRemovalShouldBe', diffLog);
       cartHooksExecutors.afterRemoveFromCart(diffLog)
+      EventBus.$bus.$emit('notification-progress-stop')
       return diffLog
     }
 
     const diffLog = createDiffLog()
       .pushClientParty({ status: 'no-item', sku: product.sku })
     cartHooksExecutors.afterRemoveFromCart(diffLog)
+    EventBus.$bus.$emit('notification-progress-stop')
     return diffLog
   }
 }
