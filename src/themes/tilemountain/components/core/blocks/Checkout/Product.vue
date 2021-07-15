@@ -21,7 +21,7 @@
               class="error"
               v-if="product.errors && Object.keys(product.errors).length > 0"
             >
-              {{ product.errors | formatProductMessages }}
+              <!-- {{ product.errors | formatProductMessages }} -->
             </div>
             <div class="h5 cl-tertiary pt5">
               <!-- <p class="sku" v-if="product.qty_per_sqm"> -->
