@@ -48,20 +48,20 @@
 </template>
 
 <script>
-import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock"
+import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
 export default {
   name: "TrustPoilet",
   mixins: [cmsBlock],
   computed: {
-    titleh5 () {
-        console.log("its bangash")
+    titleh5() {
+      console.log("its bangash");
       if (this.parsedContent.querySelector("h5")) {
-        return this.parsedContent.querySelector("h5").rawText
+        return this.parsedContent.querySelector("h5").rawText;
       }
     },
-    subtitle () {
+    subtitle() {
       if (this.parsedContent.querySelector("p")) {
-        return this.parsedContent.querySelector("p").rawText
+        return this.parsedContent.querySelector("p").rawText;
       }
     },
     // image() {
@@ -71,42 +71,43 @@ export default {
     //   ];
     // }
     // },
-    trustPilotLogoText () {
+    trustPilotLogoText() {
       if (this.parsedContent.querySelector("h5.trustpilot-mobile-logo-text")) {
-        return this.parsedContent.querySelector("h5.trustpilot-mobile-logo-text")
-          .rawText
+        return this.parsedContent.querySelector(
+          "h5.trustpilot-mobile-logo-text"
+        ).rawText;
       }
     },
-    trustPilotMobileLogo () {
+    trustPilotMobileLogo() {
       if (this.parsedContent.querySelector("img.trustpilot-mobile-logo")) {
         return this.parsedContent.querySelector("img.trustpilot-mobile-logo")
-          .attributes["src"]
+          .attributes["src"];
       }
     },
-    trustPilotCustomerImg () {
-      if (this.parsedContent.querySelector(
-        "img.trustpilot-mobile-customer-img"
-      )) {
+    trustPilotCustomerImg() {
+      if (
+        this.parsedContent.querySelector("img.trustpilot-mobile-customer-img")
+      ) {
         return this.parsedContent.querySelector(
           "img.trustpilot-mobile-customer-img"
-        ).attributes["src"]
+        ).attributes["src"];
       }
     },
-    singleblockImage () {
-      var images = []
+    singleblockImage() {
+      var images = [];
       if (this.data) {
         var allImages = this.parsedContent.querySelectorAll(
           ".trustpilot-images li"
-        )
+        );
         var i = 0;
         [].forEach.call(allImages, (image) => {
-          var singleImage = ""
-          singleImage = image.querySelector("img").attributes["src"]
-          images[i] = singleImage
-          i++
-        })
+          var singleImage = "";
+          singleImage = image.querySelector("img").attributes["src"];
+          images[i] = singleImage;
+          i++;
+        });
       }
-      return images
+      return images;
     },
   },
 };
@@ -116,39 +117,39 @@ export default {
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  width: 85%;
-  justify-content: center;
-  margin-bottom: -10px;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  align-items: center;
+  max-width: 1270px;
+  padding: 0 10px;
 }
 .trustpilot_one {
   float: left;
-  font-size: 32px;
+  font-size: 28px;
   font-family: oblik;
-  color: #29275b;
+  color: #071a44;
   margin: 12px;
-  margin-left: 55px;
 }
 .related-excellent {
   float: left;
-  color: #29275b;
-  font-size: 32px;
-  font-family: 'Oblik';
-  margin-top: -21px;
+  color: #071a44;
+  font-size: 28px;
+  font-family: "Oblik";
   margin-left: 35px;
 }
 .top-blue-line {
   padding: 41px 0px 0px 0px;
 }
 .sb-star {
-  width: 267px;
-  height: 58px;
-  margin: 4px 0px 0px 21px;
+  width: 250px;
+  height: 50px;
+  margin: 0px 0px 0px 21px;
   float: left;
   background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
 }
 .trustpilot-img {
-  width: 267px;
-  height: 58px;
+  width: 200px;
+  height: 50px;
   margin-left: 38px;
   float: left;
   background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat scroll;
@@ -165,7 +166,7 @@ ul li {
 .top-blue-line-mobile {
   display: none;
   padding: 16px 0 18px;
-  border-top: 1px solid #C2C2C5;
+  border-top: 1px solid #c2c2c5;
 }
 .trustpilot-footer-customer {
   margin-top: 11px;
@@ -175,8 +176,7 @@ ul li {
   height: 32px;
   margin-top: -4px;
   float: left;
-  background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-    scroll;
+  background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat scroll;
 }
 .trustpilot-mobile-customer-img {
   width: 110px;
@@ -189,31 +189,26 @@ ul li {
 }
 
 @media only screen and (min-device-width: 992px) and (max-device-width: 1199px) {
+  .trustpilot-main{
+   max-width: 960px;
+  }
   .sb-star {
-    width: 116px;
-    height: 35px;
-    margin: 9px 0px 0px 17px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
+    width: 210px;
+    height: 44px;
   }
   .trustpilot-img {
-    width: 116px;
+    width: 180px;
     height: 35px;
-    margin-top: 0px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-      scroll;
   }
   .trustpilot_one {
-    font-size: 17px;
+    font-size: 18px;
   }
   ul li img {
     height: 32px;
     width: 32px;
   }
   .related-excellent {
-    font-size: 16px;
-    margin-top: -3px;
+    font-size: 18px;
   }
   .trustpilot_image {
     margin-top: -7px;
@@ -221,25 +216,22 @@ ul li {
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
+   .trustpilot-main{
+   max-width: 740px;
+   justify-content: space-evenly;
+  }
   .sb-star {
-    width: 116px;
-    height: 35px;
-    margin: 4px 0px 0px 3px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
-    margin-left: 8px;
+    width: 138px;
+    height: 31px;
+    margin: 0;
   }
   .trustpilot-img {
-    width: 116px;
+    width: 134px;
     height: 35px;
-    margin-top: -4px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-      scroll;
+    margin-left: 0px;
   }
   .trustpilot_one {
-    font-size: 12px;
-    margin: 6px;
+    font-size: 16px;
     margin-left: 0;
   }
   ul li img {
@@ -247,9 +239,8 @@ ul li {
     width: 22px;
   }
   .related-excellent {
-    font-size: 12px;
-    margin-top: -4px;
-    margin-left: 26px;
+    font-size: 16px;
+    margin-left: 0;
   }
   .trustpilot_image {
     margin-top: -7px;
@@ -288,7 +279,7 @@ ul li {
     display: inline-block;
     font-size: 15px;
     color: #29275b;
-    font-family: 'ArcaMajora3';
+    font-family: "ArcaMajora3";
     margin: 0;
     padding-right: 0;
   }
@@ -313,59 +304,17 @@ ul li {
   .trustpilot-footer-customer {
     margin-top: 11px;
   }
-
 }
 @media only screen and (min-device-width: 1200px) and (max-device-width: 1500px) {
   .trustpilot_one {
-    float: left;
     font-size: 25px;
-    font-family: oblik;
-    color: #29275b;
-    margin: 12px;
-    margin-left: 47px;
-  }
-  .sb-star {
-    width: 267px;
-    height: 45px;
-    margin: 4px 0px 0px 0px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
   }
   .related-excellent {
-    float: left;
-    color: #29275b;
-    font-size: 22px;
-    font-family: 'Oblik';
-    margin-top: -8px;
-    margin-left: -30px;
-  }
-  .trustpilot-img {
-    width: 267px;
-    height: 47px;
-    margin-left: 0px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-      scroll;
-    margin-top: -3px;
-    margin-left: 22px;
+    font-size: 25px;
   }
   .trustpilot-main {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
     width: 100%;
     justify-content: center;
-  }
-}
-@media only screen and (min-device-width: 1501px) and (max-device-width: 1795px) {
-  .related-excellent {
-    font-size: 31px;
-  }
-  .trustpilot_one {
-    font-size: 31px;
-  }
-  .trustpilot-main[data-v-4260ccce] {
-    width: 100%;
   }
 }
 @media (max-width: 360px) {
