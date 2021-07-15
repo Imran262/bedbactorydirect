@@ -331,7 +331,6 @@
     </div>
     <div class="pt20 delivery-methods-detail">
       <div class="delivery-method-boxes pl30 pr30">
-        
         <div class="row delivery-method">
           <div class="col-md-6 col-xs-12">
             <label class="radioStyled">
@@ -762,7 +761,7 @@
                             selectedMethod == slotData.customData.method_code
                           "
                         >
-                        <!-- slotData.customdata {{slotData.customData}} -->
+                          <!-- slotData.customdata {{slotData.customData}} -->
                           {{
                             slotData.customData.amount === 0
                               ? "Free Delivery"
@@ -817,7 +816,7 @@
                 >
               </div>
             </div>
-            
+
             <template v-if="getShippingMethodsWithoutDates.length > 0">
               <div
                 class="col-md-12 col-xs-12"
@@ -970,37 +969,37 @@
 </template>
 
 <script>
-import {required,minLength,maxLength} from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
-  unicodeAlphaNum
-} from '@vue-storefront/core/helpers/validators'
-import {Shipping} from '@vue-storefront/core/modules/checkout/components/Shipping'
-import DeliveryMethods from 'theme/components/core/blocks/Checkout/DeliveryMethods'
-import StoreLocation from 'theme/components/core/blocks/Checkout/StoreLocation'
-import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
-import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
-import BaseSelect from 'theme/components/core/blocks/Form/BaseSelect'
-import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea'
-import ShippingMethod from 'theme/components/theme/blocks/ShippingMethod/ShippingMethodBlock'
-import ButtonFull from 'theme/components/theme/ButtonFull'
-import Tooltip from 'theme/components/core/Tooltip'
-import NoSSR from 'vue-no-ssr'
-import {mapGetters,mapActions} from 'vuex'
-import {CartService} from '@vue-storefront/core/data-resolver'
-import NarrowModal from 'theme/components/core/blocks/Checkout/NarrowModal'
-import config from 'config'
+  unicodeAlphaNum,
+} from "@vue-storefront/core/helpers/validators";
+import { Shipping } from "@vue-storefront/core/modules/checkout/components/Shipping";
+import DeliveryMethods from "theme/components/core/blocks/Checkout/DeliveryMethods";
+import StoreLocation from "theme/components/core/blocks/Checkout/StoreLocation";
+import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
+import BaseInput from "theme/components/core/blocks/Form/BaseInput";
+import BaseSelect from "theme/components/core/blocks/Form/BaseSelect";
+import BaseTextarea from "theme/components/core/blocks/Form/BaseTextarea";
+import ShippingMethod from "theme/components/theme/blocks/ShippingMethod/ShippingMethodBlock";
+import ButtonFull from "theme/components/theme/ButtonFull";
+import Tooltip from "theme/components/core/Tooltip";
+import NoSSR from "vue-no-ssr";
+import { mapGetters, mapActions } from "vuex";
+import { CartService } from "@vue-storefront/core/data-resolver";
+import NarrowModal from "theme/components/core/blocks/Checkout/NarrowModal";
+import config from "config";
 import {
   addDays,
   addMonths,
   differenceInDays,
   differenceInMonths,
-  parseISO
-} from 'date-fns'
+  parseISO,
+} from "date-fns";
 
 export default {
   inheritAttrs: false,
-  data () {
+  data() {
     return {
       date: this.getMinDate,
       radioCheckedFlag: false,
@@ -1011,26 +1010,26 @@ export default {
       shouldShowChooseDate: true,
       selectedMethod: null,
       isDaySelected: null,
-      calendarPriceCurrency: '£',
-      selectedDeliveryMethod: 'homedelivery',
+      calendarPriceCurrency: "£",
+      selectedDeliveryMethod: "homedelivery",
       displayEditButton: false,
       isDateSelected: true,
       homeDeliverySelected: true,
       deliveryBtnClicked: false,
-      deliveryTimeDate: '',
+      deliveryTimeDate: "",
       deliveryBtnEnable: false,
       narrowChecked: false,
-      narrowDateProp: '',
-      narrowDateMatch: '',
+      narrowDateProp: "",
+      narrowDateMatch: "",
       noOneField: config.checkoutNoOneField,
       getProductFromCart: this.productsInCart,
-      masksObj: {weekdays: 'WW'},
-      isBFDContact : false,
-      canNotDeliver : false,
-      showCalender : false,
-      noMethodsFound : false,
-      methodMessage : ""
-    }
+      masksObj: { weekdays: "WW" },
+      isBFDContact: false,
+      canNotDeliver: false,
+      showCalender: false,
+      noMethodsFound: false,
+      methodMessage: "",
+    };
   },
   components: {
     ButtonFull,
@@ -1039,12 +1038,12 @@ export default {
     BaseInput,
     BaseSelect,
     BaseTextarea,
-    'no-ssr': NoSSR,
-    'v-calendar': () => import('v-calendar/lib/components/date-picker.umd'),
+    "no-ssr": NoSSR,
+    "v-calendar": () => import("v-calendar/lib/components/date-picker.umd"),
     ShippingMethod,
     DeliveryMethods,
     StoreLocation,
-    NarrowModal
+    NarrowModal,
   },
   props: {
     shippingData: {
@@ -1055,8 +1054,8 @@ export default {
   methods: {
     showAvailableMethod() {
       let methodCheckFlag = false;
-      this.isDateSelected =false
-     // console.log("3216 In Available Method Function", this.getShippingMethods);
+      this.isDateSelected = false;
+      // console.log("3216 In Available Method Function", this.getShippingMethods);
       this.getShippingMethods.forEach((method, index) => {
         // console.log("3216 Methods code ", method.method_code, method);
         // console.log(
@@ -1073,14 +1072,13 @@ export default {
           this.showCalender = false;
           this.noMethodsFound = false;
           this.methodMessage = method.carrier_title;
-          this.isDateSelected =false;
+          this.isDateSelected = false;
           // console.log("3216", this.$refs['shippingMethodRef'],this.$refs);
           setTimeout(() => {
             this.$refs["shippingMethodRef"].click();
             // console.log("3216 After", this.$refs['shippingMethodRef'].click(),this.$refs);
           }, 100);
-        } 
-        else if (method.method_code === "cannot_deliver") {
+        } else if (method.method_code === "cannot_deliver") {
           // console.log("3216 cannot_deliver");
           methodCheckFlag = true;
           this.isBFDContact = false;
@@ -1088,7 +1086,7 @@ export default {
           this.showCalender = false;
           this.noMethodsFound = false;
           this.methodMessage = method.carrier_title;
-          this.isDateSelected =false;
+          this.isDateSelected = false;
         }
         if (methodCheckFlag) {
           // console.log("3216 Yes the flag is ", methodCheckFlag);
@@ -1106,361 +1104,386 @@ export default {
               this.canNotDeliver = false;
               this.showCalender = false;
               this.noMethodsFound = true;
-              this.isDateSelected =false
+              this.isDateSelected = false;
             }
           }
         }
       });
     },
-    editShipping () {
-      let token=this.$route.query.token
-      if (config.paypalManual.mode==="sandbox") {
-        window.location.href=`https://${config.paypalManual.approvalUrl.sandbox}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`
+    editShipping() {
+      let token = this.$route.query.token;
+      if (config.paypalManual.mode === "sandbox") {
+        window.location.href = `https://${config.paypalManual.approvalUrl.sandbox}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`;
       } else {
-        window.location.href=`https://${config.paypalManual.approvalUrl.live}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`
+        window.location.href = `https://${config.paypalManual.approvalUrl.live}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`;
       }
     },
-    async checkOutOfStockClass () {
-      const outOfStockText=await document.getElementsByClassName('table.cart-summary-product-table.product_out_of_stock')
-      if (outOfStockText&&outOfStockText.length>0) {
-        return true
+    async checkOutOfStockClass() {
+      const outOfStockText = await document.getElementsByClassName(
+        "table.cart-summary-product-table.product_out_of_stock"
+      );
+      if (outOfStockText && outOfStockText.length > 0) {
+        return true;
       } else {
-        return false
+        return false;
       }
     },
-    outOfStockCode () {
-      if (this.productsInCart&&this.productsInCart[0].custom_stock_status) {
-        let getAllStockStatus=config.customStockStatus
-        let convertStockCodeToArray=Object.keys(getAllStockStatus).map((key) => getAllStockStatus[key])
-        const comapreCustomStockCode=this.productsInCart[0].custom_stock_status
-        let checkAllStockCode=convertStockCodeToArray.includes(String(comapreCustomStockCode))
+    outOfStockCode() {
+      if (this.productsInCart && this.productsInCart[0].custom_stock_status) {
+        let getAllStockStatus = config.customStockStatus;
+        let convertStockCodeToArray = Object.keys(getAllStockStatus).map(
+          (key) => getAllStockStatus[key]
+        );
+        const comapreCustomStockCode =
+          this.productsInCart[0].custom_stock_status;
+        let checkAllStockCode = convertStockCodeToArray.includes(
+          String(comapreCustomStockCode)
+        );
         if (checkAllStockCode) {
-          let kerbsidePalletDeliveryClass=document.getElementsByClassName("showDelSection")[0]
+          let kerbsidePalletDeliveryClass =
+            document.getElementsByClassName("showDelSection")[0];
           if (kerbsidePalletDeliveryClass) {
-            kerbsidePalletDeliveryClass.style.display="none"
+            kerbsidePalletDeliveryClass.style.display = "none";
           }
-          this.handleShippingMethodAll()
-          return checkAllStockCode
+          this.handleShippingMethodAll();
+          return checkAllStockCode;
         } else {
-          return false
+          return false;
         }
       }
-
     },
-    narrowCheckedFn () {
+    narrowCheckedFn() {
       if (!this.narrowChecked) {
-        const resultArr=this.getSortedDates.filter((data,index) => {
-          return this.getSortedDates.indexOf(data)===index
-        })
-        let narrowDate=new Date(resultArr[1])
-        this.narrowDateMatch=narrowDate
-        if (!(this.convertDateToMatch(narrowDate)<=this.convertDateToMatch(this.date))) {
-          this.$bus.$emit('modal-show','modal-narrowroad')
-          this.date=narrowDate
-          this.narrowCheckedAction(narrowDate)
+        const resultArr = this.getSortedDates.filter((data, index) => {
+          return this.getSortedDates.indexOf(data) === index;
+        });
+        let narrowDate = new Date(resultArr[1]);
+        this.narrowDateMatch = narrowDate;
+        if (
+          !(
+            this.convertDateToMatch(narrowDate) <=
+            this.convertDateToMatch(this.date)
+          )
+        ) {
+          this.$bus.$emit("modal-show", "modal-narrowroad");
+          this.date = narrowDate;
+          this.narrowCheckedAction(narrowDate);
         } else {
-          this.narrowCheckedAction(this.date)
+          this.narrowCheckedAction(this.date);
         }
-        this.shipping.deliveryNoteHidden=config.narrowRoad&&config.narrowRoad.text? config.narrowRoad.text:'Narrow Lane - Smaller 7.5 toned lorry advisable'
+        this.shipping.deliveryNoteHidden =
+          config.narrowRoad && config.narrowRoad.text
+            ? config.narrowRoad.text
+            : "Narrow Lane - Smaller 7.5 toned lorry advisable";
         if (this.$refs.referenceShippingSubmit) {
           setTimeout(() => {
-            this.$refs.referenceShippingSubmit.$el.click()
-          },500)
+            this.$refs.referenceShippingSubmit.$el.click();
+          }, 500);
         }
       } else {
-        const resultArr=this.getSortedDates.filter((data,index) => {
-          return this.getSortedDates.indexOf(data)===index
-        })
-        let narrowDate=new Date(resultArr[0])
-        this.date=narrowDate
-        this.narrowCheckedAction(narrowDate)
-        this.shipping.deliveryNote=''
-        this.shipping.deliveryNoteHidden=''
+        const resultArr = this.getSortedDates.filter((data, index) => {
+          return this.getSortedDates.indexOf(data) === index;
+        });
+        let narrowDate = new Date(resultArr[0]);
+        this.date = narrowDate;
+        this.narrowCheckedAction(narrowDate);
+        this.shipping.deliveryNote = "";
+        this.shipping.deliveryNoteHidden = "";
         if (this.$refs.referenceShippingSubmit) {
           setTimeout(() => {
-            this.$refs.referenceShippingSubmit.$el.click()
-          },500)
+            this.$refs.referenceShippingSubmit.$el.click();
+          }, 500);
         }
       }
-      this.narrowChecked=!this.narrowChecked
+      this.narrowChecked = !this.narrowChecked;
     },
-    narrowCheckedAction (narrowDate) {
-      let narrowDateFormat=this.convertDateToMatch(narrowDate)
-      let narrowDate4mat=narrowDateFormat.split('-')
-      let newnarrowDateFormat=narrowDate4mat[2]+'-'+narrowDate4mat[1]+'-'+narrowDate4mat[0]
-      this.narrowDateProp=newnarrowDateFormat
-      const thirdDateData=[
-        ...this.getShippingMethods.map((shippingMethod,index) => ({
+    narrowCheckedAction(narrowDate) {
+      let narrowDateFormat = this.convertDateToMatch(narrowDate);
+      let narrowDate4mat = narrowDateFormat.split("-");
+      let newnarrowDateFormat =
+        narrowDate4mat[2] + "-" + narrowDate4mat[1] + "-" + narrowDate4mat[0];
+      this.narrowDateProp = newnarrowDateFormat;
+      const thirdDateData = [
+        ...this.getShippingMethods.map((shippingMethod, index) => ({
           dates: new Date(
             this.changeDateOrder(
               this.getDateFromMethodCode(shippingMethod.method_code)
             )
           ),
-          customData: shippingMethod
-        }))
-      ]
-      const thirdDateDataArrayPush=[]
-      const thirdDateDataArray=thirdDateData.find(date => {
-        let thirdDateFormat=this.convertDateToMatch(date.dates)
-        if (narrowDateFormat===thirdDateFormat) {
-          thirdDateDataArrayPush.push({customData: date.customData})
-        }
-      })||{}
-      const attributes=thirdDateDataArrayPush.sort((a,b) => {
-        const first=a.customData.method_code.charAt(
-          a.customData.method_code.length-1
-        )
-        const second=b.customData.method_code.charAt(
-          b.customData.method_code.length-1
-        )
-        return first-second
-      })
-      this.isDateSelected=true
-      this.shippingSlotsData=attributes
-      this.selectedMethod=thirdDateDataArrayPush[0].customData.method_code
-      this.shipping.methodCode=thirdDateDataArrayPush[0].customData.method_code
-      this.manuallySetDateShippingMethod()
-      this.changeShippingMethod('handleOnClick')
-      this.calendarPriceCurrency=config.i18n.currencySign
+          customData: shippingMethod,
+        })),
+      ];
+      const thirdDateDataArrayPush = [];
+      const thirdDateDataArray =
+        thirdDateData.find((date) => {
+          let thirdDateFormat = this.convertDateToMatch(date.dates);
+          if (narrowDateFormat === thirdDateFormat) {
+            thirdDateDataArrayPush.push({ customData: date.customData });
+          }
+        }) || {};
+      const attributes = thirdDateDataArrayPush.sort((a, b) => {
+        const first = a.customData.method_code.charAt(
+          a.customData.method_code.length - 1
+        );
+        const second = b.customData.method_code.charAt(
+          b.customData.method_code.length - 1
+        );
+        return first - second;
+      });
+      this.isDateSelected = true;
+      this.shippingSlotsData = attributes;
+      this.selectedMethod = thirdDateDataArrayPush[0].customData.method_code;
+      this.shipping.methodCode =
+        thirdDateDataArrayPush[0].customData.method_code;
+      this.manuallySetDateShippingMethod();
+      this.changeShippingMethod("handleOnClick");
+      this.calendarPriceCurrency = config.i18n.currencySign;
     },
-    dateAndTimeUpdate (dateTime) {
-      const regexDate=/(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g
-      const regexTime=/((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g
-      let DateFormat=''
-      if (dateTime&&dateTime.match(regexDate)) {
-        DateFormat=dateTime.match(regexDate)[0]
+    dateAndTimeUpdate(dateTime) {
+      const regexDate = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
+      const regexTime =
+        /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
+      let DateFormat = "";
+      if (dateTime && dateTime.match(regexDate)) {
+        DateFormat = dateTime.match(regexDate)[0];
       }
-      let date=DateFormat.split('-')
-      let newDateFormat=date[0]+'/'+date[1]+'/'+date[2]
-      let timeFormat=''
-      let timeFormat1=''
-      let timeFormat2=''
-      if (dateTime&&dateTime.match(regexTime)) {
-        timeFormat1=dateTime.match(regexTime).slice(-2)[0]
-        timeFormat2=dateTime.match(regexTime).slice(-2)[1]
+      let date = DateFormat.split("-");
+      let newDateFormat = date[0] + "/" + date[1] + "/" + date[2];
+      let timeFormat = "";
+      let timeFormat1 = "";
+      let timeFormat2 = "";
+      if (dateTime && dateTime.match(regexTime)) {
+        timeFormat1 = dateTime.match(regexTime).slice(-2)[0];
+        timeFormat2 = dateTime.match(regexTime).slice(-2)[1];
       }
-      timeFormat=timeFormat1+'-'+timeFormat2
+      timeFormat = timeFormat1 + "-" + timeFormat2;
       // this.deliveryTimeDate = timeFormat + ' ' + newDateFormat;
-      this.deliveryTimeDate=newDateFormat
-      this.deliveryBtnEnable=true
+      this.deliveryTimeDate = newDateFormat;
+      this.deliveryBtnEnable = true;
     },
-    parseTitle (data,price) {
-      let priceWithCurrency=price
-      if (priceWithCurrency-Math.floor(priceWithCurrency)!==0) {
-        priceWithCurrency='£'+priceWithCurrency
+    parseTitle(data, price) {
+      let priceWithCurrency = price;
+      if (priceWithCurrency - Math.floor(priceWithCurrency) !== 0) {
+        priceWithCurrency = "£" + priceWithCurrency;
       } else {
-        priceWithCurrency='£'+priceWithCurrency+'.00'
+        priceWithCurrency = "£" + priceWithCurrency + ".00";
       }
-      const regexDate=/(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g
-      const regexTime=/((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g
-      let DateFormat=''
-      if (data&&data.match(regexDate)) {
-        DateFormat=data.match(regexDate)[0]
+      const regexDate = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
+      const regexTime =
+        /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
+      let DateFormat = "";
+      if (data && data.match(regexDate)) {
+        DateFormat = data.match(regexDate)[0];
       }
-      let date=DateFormat.split('-')
-      let newDateFormat=date[0]+'/'+date[1]+'/'+date[2]
-      let timeFormat=''
-      let timeFormat1=''
-      let timeFormat2=''
-      if (data&&data.match(regexTime)) {
-        timeFormat1=data.match(regexTime).slice(-2)[0]
-        timeFormat2=data.match(regexTime).slice(-2)[1]
+      let date = DateFormat.split("-");
+      let newDateFormat = date[0] + "/" + date[1] + "/" + date[2];
+      let timeFormat = "";
+      let timeFormat1 = "";
+      let timeFormat2 = "";
+      if (data && data.match(regexTime)) {
+        timeFormat1 = data.match(regexTime).slice(-2)[0];
+        timeFormat2 = data.match(regexTime).slice(-2)[1];
       }
-      timeFormat=timeFormat1+' - '+timeFormat2
-      let newTitle='<span class="timeClass">'+timeFormat+'</span><span class="dateClass"> '+priceWithCurrency+'</span>'
-      return newTitle
+      timeFormat = timeFormat1 + " - " + timeFormat2;
+      let newTitle =
+        '<span class="timeClass">' +
+        timeFormat +
+        '</span><span class="dateClass"> ' +
+        priceWithCurrency +
+        "</span>";
+      return newTitle;
     },
-    resetForm () {
+    resetForm() {
       if (this.date) {
         this.$refs.shippingMethodRef.forEach((single) => {
           if (single.checked) {
-            single.checked=!single.checked
-            single.checked=false
+            single.checked = !single.checked;
+            single.checked = false;
           }
-        })
-        this.shippingSlotsData=[]
-        this.date=''
-        this.dateSelectButtonText='Confirm Delivery'
-        this.isDateSelected=false
-        this.displayEditButton=false
-        this.deliveryBtnClicked=false
-        this.deliveryTimeDate=''
-        this.$emit('date-selected',this.isDateSelected)
+        });
+        this.shippingSlotsData = [];
+        this.date = "";
+        this.dateSelectButtonText = "Confirm Delivery";
+        this.isDateSelected = false;
+        this.displayEditButton = false;
+        this.deliveryBtnClicked = false;
+        this.deliveryTimeDate = "";
+        this.$emit("date-selected", this.isDateSelected);
       }
     },
-    checkIfFieldsAreFilled () {
+    checkIfFieldsAreFilled() {
       if (!this.$v.shipping.$invalid) {
-        this.sendDataToCheckout()
+        this.sendDataToCheckout();
       }
     },
-    handleShippingMethodWithoutDateClick () {
+    handleShippingMethodWithoutDateClick() {
       if (this.isCalendarSelected) {
-        this.isCalendarSelected=false
-        this.$refs.chooseDate.checked=false
+        this.isCalendarSelected = false;
+        this.$refs.chooseDate.checked = false;
       }
-      this.selectedDeliveryMethod='warehouse'
-      this.homeDeliverySelected=false
-      this.isDateSelected=true
-      this.$emit('date-selected',this.isDateSelected)
-      this.checkIfFieldsAreFilled()
-      var wareHuuseSelected=document.getElementById('noChecked')
-      wareHuuseSelected.classList.remove('no-checked')
+      this.selectedDeliveryMethod = "warehouse";
+      this.homeDeliverySelected = false;
+      this.isDateSelected = true;
+      this.$emit("date-selected", this.isDateSelected);
+      this.checkIfFieldsAreFilled();
+      var wareHuuseSelected = document.getElementById("noChecked");
+      wareHuuseSelected.classList.remove("no-checked");
     },
-    handleShippingMethodAll () {
-      this.radioCheckedFlag=true
-      this.isDateSelected=true
-      this.isCalendarSelected=true
-      this.$emit('date-selected',this.isDateSelected)
-      this.checkIfFieldsAreFilled()
+    handleShippingMethodAll() {
+      this.radioCheckedFlag = true;
+      this.isDateSelected = true;
+      this.isCalendarSelected = true;
+      this.$emit("date-selected", this.isDateSelected);
+      this.checkIfFieldsAreFilled();
     },
-    async handleChooseDateClick () {
+    async handleChooseDateClick() {
       if (
-        this.$refs.shippingMethodWithoutDate&&
-        this.$refs.shippingMethodWithoutDate.length>0
+        this.$refs.shippingMethodWithoutDate &&
+        this.$refs.shippingMethodWithoutDate.length > 0
       ) {
-        this.$refs.shippingMethodWithoutDate.forEach(option => {
-          if (option) option.checked=false
-        })
+        this.$refs.shippingMethodWithoutDate.forEach((option) => {
+          if (option) option.checked = false;
+        });
       }
-      this.homeDeliverySelected=true
-      this.isCalendarSelected=true
+      this.homeDeliverySelected = true;
+      this.isCalendarSelected = true;
       // const methodChecked = this.$refs.shippingMethodRef;
-      this.manuallySetDateShippingMethod()
-      this.selectedDeliveryMethod='homedelivery'
-      if (this.isDateSelected&&!this.$v.shipping.$invalid) {
-        this.$emit('date-selected',this.isDateSelected)
+      this.manuallySetDateShippingMethod();
+      this.selectedDeliveryMethod = "homedelivery";
+      if (this.isDateSelected && !this.$v.shipping.$invalid) {
+        this.$emit("date-selected", this.isDateSelected);
       } else {
-        this.$emit('date-selected',false)
+        this.$emit("date-selected", false);
       }
-      var wareHuuseSelected=document.getElementById('noChecked')
-      wareHuuseSelected.classList.add('no-checked')
+      var wareHuuseSelected = document.getElementById("noChecked");
+      wareHuuseSelected.classList.add("no-checked");
     },
-    handleOnClick (e) {
-      if (this.narrowDateMatch&&e.attributes[0].dates[0].date) {
-        if (this.narrowDateMatch>e.attributes[0].dates[0].date) {
-          document.getElementById('vehicle').click()
+    handleOnClick(e) {
+      if (this.narrowDateMatch && e.attributes[0].dates[0].date) {
+        if (this.narrowDateMatch > e.attributes[0].dates[0].date) {
+          document.getElementById("vehicle").click();
         }
       }
       if (
-        e.attributes&&
-        e.attributes[0]&&
-        e.attributes[0].customData&&
+        e.attributes &&
+        e.attributes[0] &&
+        e.attributes[0].customData &&
         e.attributes[0].customData.method_code
       ) {
-        const attributes=e.attributes.sort((a,b) => {
-          const first=a.customData.method_code.charAt(
-            a.customData.method_code.length-1
-          )
-          const second=b.customData.method_code.charAt(
-            b.customData.method_code.length-1
-          )
-          return first-second
-        })
-        this.isDateSelected=true
-        this.shippingSlotsData=attributes
-        this.selectedMethod=e.attributes[0].customData.method_code
-        this.shipping.methodCode=e.attributes[0].customData.method_code
-        this.manuallySetDateShippingMethod()
-        this.changeShippingMethod('handleOnClick')
-        this.calendarPriceCurrency=config.i18n.currencySign
+        const attributes = e.attributes.sort((a, b) => {
+          const first = a.customData.method_code.charAt(
+            a.customData.method_code.length - 1
+          );
+          const second = b.customData.method_code.charAt(
+            b.customData.method_code.length - 1
+          );
+          return first - second;
+        });
+        this.isDateSelected = true;
+        this.shippingSlotsData = attributes;
+        this.selectedMethod = e.attributes[0].customData.method_code;
+        this.shipping.methodCode = e.attributes[0].customData.method_code;
+        this.manuallySetDateShippingMethod();
+        this.changeShippingMethod("handleOnClick");
+        this.calendarPriceCurrency = config.i18n.currencySign;
         // this.checkIfFieldsAreFilled();
       }
     },
-    manuallySetDateShippingMethod () {
+    manuallySetDateShippingMethod() {
       setTimeout(() => {
-        let methodChecked=this.$refs.shippingMethodRef
-        if (methodChecked&&methodChecked[0]) {
-          methodChecked[0].click()
+        let methodChecked = this.$refs.shippingMethodRef;
+        if (methodChecked && methodChecked[0]) {
+          methodChecked[0].click();
         }
-      },500)
+      }, 500);
     },
-    async updateShippingOptions (setDefault=false) {
-      this.postcodelookup_blur=1
+    async updateShippingOptions(setDefault = false) {
+      this.postcodelookup_blur = 1;
       try {
-        await this.changeCountry()
-        const address={
+        await this.changeCountry();
+        const address = {
           country_id: this.shipping.country,
-          postcode: this.shipping.zipCode
-        }
-        this.date=''
-        this.shippingSlotsData=[]
-        const {result}=await CartService.getShippingMethods(address)
+          postcode: this.shipping.zipCode,
+        };
+        this.date = "";
+        this.shippingSlotsData = [];
+        const { result } = await CartService.getShippingMethods(address);
         await this.$store.commit(
-          'checkout/checkout/SET_SHIPPING_METHOD',
+          "checkout/checkout/SET_SHIPPING_METHOD",
           result
-        )
+        );
         if (
-          this.getShippingMethodsWithDates.length>0&&
-          this.getShippingMethodsWithoutDates.length>=0
+          this.getShippingMethodsWithDates.length > 0 &&
+          this.getShippingMethodsWithoutDates.length >= 0
         ) {
           // this.selectFirstShippingMethod();
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
-    selectFirstShippingMethod () {
-      if (this.isCalendarSelected&&this.getSortedDates[0]) {
+    selectFirstShippingMethod() {
+      if (this.isCalendarSelected && this.getSortedDates[0]) {
         setTimeout(async () => {
-          const selectionDate=this.getSortedDates[0].split('/')
-          const month=selectionDate[0]
-          const day=selectionDate[1]
-          const year=selectionDate[2]
-          const finalDate=[year,month,day].join('-')
-          const dayObject=await document.querySelector(`.id-${finalDate}`)
-            .firstChild.firstChild
-          await dayObject.click()
-        },200)
+          const selectionDate = this.getSortedDates[0].split("/");
+          const month = selectionDate[0];
+          const day = selectionDate[1];
+          const year = selectionDate[2];
+          const finalDate = [year, month, day].join("-");
+          const dayObject = await document.querySelector(`.id-${finalDate}`)
+            .firstChild.firstChild;
+          await dayObject.click();
+        }, 200);
       }
     },
-    changeDateOrder (date) {
+    changeDateOrder(date) {
       if (date) {
-        const dateArray=date.split('/')
-        const month=dateArray[0]
-        const day=dateArray[1]
-        const year=dateArray[2]
+        const dateArray = date.split("/");
+        const month = dateArray[0];
+        const day = dateArray[1];
+        const year = dateArray[2];
 
-        const changedArray=[year,month,day]
-        return changedArray.join('-')
+        const changedArray = [year, month, day];
+        return changedArray.join("-");
       } else {
         // To make sure it doesnt return undefined values. In reference to FLOR-253
-        return false
+        return false;
       }
     },
-    getDateFromMethodCode (shippingMethod) {
-      const regex=/(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g
-      if (shippingMethod&&shippingMethod.match(regex)) {
-        return shippingMethod.match(regex)[0]
+    getDateFromMethodCode(shippingMethod) {
+      const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
+      if (shippingMethod && shippingMethod.match(regex)) {
+        return shippingMethod.match(regex)[0];
       } else {
         // console.log('Else', shippingMethod);
       }
     },
-    getAllDates (startDate,endDate,interval='DAY') {
-      if (interval==='DAY') {
-        const days=differenceInDays(endDate,startDate)
+    getAllDates(startDate, endDate, interval = "DAY") {
+      if (interval === "DAY") {
+        const days = differenceInDays(endDate, startDate);
 
-        return [...Array(days+1).keys()]
-          .map(i => addDays(startDate,i))
-          .map(item => {
-            return item.toISOString().slice(0,10)
-          })
+        return [...Array(days + 1).keys()]
+          .map((i) => addDays(startDate, i))
+          .map((item) => {
+            return item.toISOString().slice(0, 10);
+          });
       }
 
-      if (interval==='MONTH') {
-        const months=differenceInMonths(endDate,startDate)
+      if (interval === "MONTH") {
+        const months = differenceInMonths(endDate, startDate);
 
-        return [...Array(months+1).keys()]
-          .map(i => addMonths(startDate,i))
-          .map(item => item.toISOString().slice(0,10))
+        return [...Array(months + 1).keys()]
+          .map((i) => addMonths(startDate, i))
+          .map((item) => item.toISOString().slice(0, 10));
       }
     },
-    activateFindAddress () {
-      this.postalcodelookup()
+    activateFindAddress() {
+      this.postalcodelookup();
     },
-    async postalcodelookup () {
-      if (this.count++<1) {
-        const craftyplugin_args=document.createElement('script')
-        craftyplugin_args.innerHTML=`var cp_access_token = "0408b-db3a6-cc0af-02842";
+    async postalcodelookup() {
+      if (this.count++ < 1) {
+        const craftyplugin_args = document.createElement("script");
+        craftyplugin_args.innerHTML = `var cp_access_token = "0408b-db3a6-cc0af-02842";
           var cp_obj_1 = CraftyPostcodeCreate();
           cp_obj_1.set("access_token", cp_access_token);
           cp_obj_1.set("result_elem_id", "crafty_postcode_result_display_1");
@@ -1518,258 +1541,292 @@ export default {
                 ele6.classList.remove('empty');
            }
            document.getElementById('search-bar').click();
-           });`
-        document.head.appendChild(craftyplugin_args)
+           });`;
+        document.head.appendChild(craftyplugin_args);
       }
-      var ele1=document.getElementsByName('street-address')[0].value
-      this.shipping.streetAddress=ele1
-      var ele2=document.getElementsByName('apartment-number')[0].value
-      this.shipping.apartmentNumber=ele2
-      var ele3=document.getElementsByName('city')[0].value
-      this.shipping.city=ele3
-      if (this.shipping.city==='JERSEY'||this.shipping.city==='Jersey'||this.shipping.city==='jersey') {
-        this.shipping.country='JE'
-      } else if (this.shipping.city==='GUERNSEY'||this.shipping.city==='Guernsey'||this.shipping.city==='guernsey') {
-        this.shipping.country='GG'
+      var ele1 = document.getElementsByName("street-address")[0].value;
+      this.shipping.streetAddress = ele1;
+      var ele2 = document.getElementsByName("apartment-number")[0].value;
+      this.shipping.apartmentNumber = ele2;
+      var ele3 = document.getElementsByName("city")[0].value;
+      this.shipping.city = ele3;
+      if (
+        this.shipping.city === "JERSEY" ||
+        this.shipping.city === "Jersey" ||
+        this.shipping.city === "jersey"
+      ) {
+        this.shipping.country = "JE";
+      } else if (
+        this.shipping.city === "GUERNSEY" ||
+        this.shipping.city === "Guernsey" ||
+        this.shipping.city === "guernsey"
+      ) {
+        this.shipping.country = "GG";
       } else {
-        this.shipping.country='GB'
+        this.shipping.country = "GB";
       }
-      var ele4=document.getElementsByName('state')[0].value
-      this.shipping.state=ele4
-      var ele5=document.getElementsByName('postcode')[0].value
-      this.shipping.zipCode=ele5
-      var ele6=document.getElementsByName('company-name')[0].value
-      this.shipping.company=ele6
-      await this.$store.commit('checkout/checkout/SAVE_SHIPPING_DETAILS',{
+      var ele4 = document.getElementsByName("state")[0].value;
+      this.shipping.state = ele4;
+      var ele5 = document.getElementsByName("postcode")[0].value;
+      this.shipping.zipCode = ele5;
+      var ele6 = document.getElementsByName("company-name")[0].value;
+      this.shipping.company = ele6;
+      await this.$store.commit("checkout/checkout/SAVE_SHIPPING_DETAILS", {
         apartmentNumber: ele2,
         city: ele3,
         streetAddress: ele1,
         company: ele6,
         state: ele4,
-        zipCode: ele5
-      })
-      await this.updateShippingOptions()
-      await this.checkIfFieldsAreFilled()
+        zipCode: ele5,
+      });
+      await this.updateShippingOptions();
+      await this.checkIfFieldsAreFilled();
     },
     dateSelected: function () {
-      this.$emit('date-selected',true)
-      this.deliveryBtnClicked=true
-      this.displayEditButton=false
+      this.$emit("date-selected", true);
+      this.deliveryBtnClicked = true;
+      this.displayEditButton = false;
     },
-    selectRenderedDate () {
+    selectRenderedDate() {
       setTimeout(() => {
-        const singleShippingMethod=this.$refs.singleShippingMethodRef
+        const singleShippingMethod = this.$refs.singleShippingMethodRef;
         if (singleShippingMethod[0]) {
-          singleShippingMethod[0].click()
+          singleShippingMethod[0].click();
         }
-      },2000)
+      }, 2000);
     },
-    convertDateToMatch (d) {
-      let dateParts=d.toString().split(' ')
-      let dateMonths={
-        Jan: '01',
-        Feb: '02',
-        Mar: '03',
-        Apr: '04',
-        May: '05',
-        Jun: '06',
-        Jul: '07',
-        Aug: '08',
-        Sep: '09',
-        Oct: '10',
-        Nov: '11',
-        Dec: '12'
-      }
-      return dateParts[3]+'-'+dateMonths[dateParts[1]]+'-'+dateParts[2]
-    }
+    convertDateToMatch(d) {
+      let dateParts = d.toString().split(" ");
+      let dateMonths = {
+        Jan: "01",
+        Feb: "02",
+        Mar: "03",
+        Apr: "04",
+        May: "05",
+        Jun: "06",
+        Jul: "07",
+        Aug: "08",
+        Sep: "09",
+        Oct: "10",
+        Nov: "11",
+        Dec: "12",
+      };
+      return dateParts[3] + "-" + dateMonths[dateParts[1]] + "-" + dateParts[2];
+    },
   },
-  mounted () {
+  mounted() {
     // For Crafty Plugin
     // const craftyPlugin = document.createElement('script')
     // craftyPlugin.setAttribute('src', '/assets/js/crafty_postcode.class.js')
     // document.head.appendChild(craftyPlugin)
 
     setTimeout(() => {
-      this.useMyAddress()
-      let minimumDateSort=[]
+      this.useMyAddress();
+      let minimumDateSort = [];
       if (this.getShippingMethods) {
-        minimumDateSort=this.getShippingMethods
+        minimumDateSort = this.getShippingMethods
           .map((shippingMethod) =>
             this.getDateFromMethodCode(shippingMethod.method_code)
           )
-          .filter((dateStr) => dateStr!==undefined)
-          .sort((a,b) => {
-            var c=new Date(a)
-            var d=new Date(b)
-            return c-d
-          })
+          .filter((dateStr) => dateStr !== undefined)
+          .sort((a, b) => {
+            var c = new Date(a);
+            var d = new Date(b);
+            return c - d;
+          });
       }
-      if (minimumDateSort[0]&&!this.shipping.narrowRoad) {
-        const minDateMount=this.getSortedDates[0].split('/')
-        const monthMount=minDateMount[0]
-        const dayMount=minDateMount[1]
-        const yearMount=minDateMount[2]
-        const finalDate=[yearMount,monthMount,dayMount].join('-')
-        this.date=new Date(finalDate)
-        this.narrowCheckedAction(this.date)
-        this.manuallySetDateShippingMethod()
+      if (minimumDateSort[0] && !this.shipping.narrowRoad) {
+        const minDateMount = this.getSortedDates[0].split("/");
+        const monthMount = minDateMount[0];
+        const dayMount = minDateMount[1];
+        const yearMount = minDateMount[2];
+        const finalDate = [yearMount, monthMount, dayMount].join("-");
+        this.date = new Date(finalDate);
+        this.narrowCheckedAction(this.date);
+        this.manuallySetDateShippingMethod();
       }
-      if (minimumDateSort[3]&&this.shipping.narrowRoad) {
-        const minDateMount=this.getDateFromMethodCode(this.shipping.shippingMethod).split('/')
-        const monthMount=minDateMount[0]
-        const dayMount=minDateMount[1]
-        const yearMount=minDateMount[2]
-        const finalDate=[yearMount,monthMount,dayMount].join('-')
-        this.date=new Date(finalDate)
-        this.narrowCheckedAction(this.date)
-        this.manuallySetDateShippingMethod()
-        this.narrowChecked=true
+      if (minimumDateSort[3] && this.shipping.narrowRoad) {
+        const minDateMount = this.getDateFromMethodCode(
+          this.shipping.shippingMethod
+        ).split("/");
+        const monthMount = minDateMount[0];
+        const dayMount = minDateMount[1];
+        const yearMount = minDateMount[2];
+        const finalDate = [yearMount, monthMount, dayMount].join("-");
+        this.date = new Date(finalDate);
+        this.narrowCheckedAction(this.date);
+        this.manuallySetDateShippingMethod();
+        this.narrowChecked = true;
       }
-      if (this.getSortedDates&&this.getSortedDates.length===1) {
-        this.shipping.deliveryNote=''
-        this.shipping.deliveryNoteHidden=''
-        this.shipping.narrowRoad=false
+      if (this.getSortedDates && this.getSortedDates.length === 1) {
+        this.shipping.deliveryNote = "";
+        this.shipping.deliveryNoteHidden = "";
+        this.shipping.narrowRoad = false;
       }
-      this.shipping.noOneField=''
+      this.shipping.noOneField = "";
       if (!this.shipping.narrowRoad) {
-        this.shipping.deliveryNote=''
-        this.shipping.deliveryNoteHidden=''
+        this.shipping.deliveryNote = "";
+        this.shipping.deliveryNoteHidden = "";
       }
-    },1000)
+    }, 1000);
   },
-  created () {
+  created() {
     // this.shipping.country = 'GB';
-    this.shipping.noOneField=''
-    if (this.shipping.narrowRoad&&!this.shipping.narrowRoad) {
-      this.shipping.deliveryNote=''
-      this.shipping.deliveryNoteHidden=''
+    this.shipping.noOneField = "";
+    if (this.shipping.narrowRoad && !this.shipping.narrowRoad) {
+      this.shipping.deliveryNote = "";
+      this.shipping.deliveryNoteHidden = "";
     }
   },
   mixins: [Shipping],
   computed: {
     ...mapGetters({
-      getShippingMethods: 'shipping/getShippingMethods',
-      getPersonalDetails: 'checkout/getPersonalDetails',
-      getShippingDetails: 'checkout/getShippingDetails',
-      getCartToken: 'cart/getCartToken',
-      productsInCart: 'cart/getCartItems'
+      getShippingMethods: "shipping/getShippingMethods",
+      getPersonalDetails: "checkout/getPersonalDetails",
+      getShippingDetails: "checkout/getShippingDetails",
+      getCartToken: "cart/getCartToken",
+      productsInCart: "cart/getCartItems",
     }),
-    fromCart () {
-      return this.fullPath.includes('PayerID')? true:false
-
+    fromCart() {
+      return this.fullPath.includes("PayerID") ? true : false;
     },
-    fullPath () {
-      return this.$route.fullPath
+    fullPath() {
+      return this.$route.fullPath;
     },
-    calenderHasSingleDate () {
-      if (this.getSortedDates.length===1) {
-        let date=this.getSortedDates
-        this.isDateSelected=true
-        this.shippingSlotsData=this.filterSingleMethodAttribute
-        let shippingSlot=this.filterSingleMethodAttribute
-        this.selectedMethod=shippingSlot[0].customData.method_code
-        this.shipping.methodCode=shippingSlot[0].customData.method_code
-        this.selectRenderedDate()
-        this.checkIfFieldsAreFilled()
-        this.dateSelected()
-        this.deliveryBtnEnable=true
-        this.isCalendarSelected=true
-        const singleDate=date[0].split('/')
-        const sngmonth=singleDate[0]
-        const sngday=singleDate[1]
-        const sngyear=singleDate[2]
-        return [sngday,sngmonth,sngyear].join('-')
+    calenderHasSingleDate() {
+      if (this.getSortedDates.length === 1) {
+        let date = this.getSortedDates;
+        this.isDateSelected = true;
+        this.shippingSlotsData = this.filterSingleMethodAttribute;
+        let shippingSlot = this.filterSingleMethodAttribute;
+        this.selectedMethod = shippingSlot[0].customData.method_code;
+        this.shipping.methodCode = shippingSlot[0].customData.method_code;
+        this.selectRenderedDate();
+        this.checkIfFieldsAreFilled();
+        this.dateSelected();
+        this.deliveryBtnEnable = true;
+        this.isCalendarSelected = true;
+        const singleDate = date[0].split("/");
+        const sngmonth = singleDate[0];
+        const sngday = singleDate[1];
+        const sngyear = singleDate[2];
+        return [sngday, sngmonth, sngyear].join("-");
       }
     },
-    filterSingleMethodAttribute () {
-      if (this.attributes&&this.attributes.length>0) {
-        return this.attributes.filter((attribute,index) => {
-          return attribute.customData&&attribute.customData.carrier_code==='customshipping'
-        })
+    filterSingleMethodAttribute() {
+      if (this.attributes && this.attributes.length > 0) {
+        return this.attributes.filter((attribute, index) => {
+          return (
+            attribute.customData &&
+            attribute.customData.carrier_code === "customshipping"
+          );
+        });
       }
     },
-    returnShippingMethod () {
-      let selectedMethod=null
-      this.$bus.$on('delivery-method',data => {
-        this.selectedDeliveryMethod=data
+    returnShippingMethod() {
+      let selectedMethod = null;
+      this.$bus.$on("delivery-method", (data) => {
+        this.selectedDeliveryMethod = data;
         // console.log(this.selectedDeliveryMethod);
-      })
+      });
     },
-    getShippingMethodsWithoutDates () {
-      const regex=/(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g
-      const regexString=/^collection/g
-      let shippingArrayWithoutDate=this.getShippingMethods.filter(
-        shippingMethod =>
-          regex.test(shippingMethod.method_code)!==
+    getShippingMethodsWithoutDates() {
+      const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
+      const regexString = /^collection/g;
+      let shippingArrayWithoutDate = this.getShippingMethods.filter(
+        (shippingMethod) =>
+          regex.test(shippingMethod.method_code) !==
           !regex.test(shippingMethod.method_code)
-      )
-      const shippingArrayWithoutDates=shippingArrayWithoutDate.filter(
-        shippingMethod =>
-          regexString.test(shippingMethod.carrier_title)===
+      );
+      const shippingArrayWithoutDates = shippingArrayWithoutDate.filter(
+        (shippingMethod) =>
+          regexString.test(shippingMethod.carrier_title) ===
           !regexString.test(shippingMethod.carrier_title)
-      )
-      return shippingArrayWithoutDates
+      );
+      return shippingArrayWithoutDates;
     },
-    getShippingMethodsWithRoyalMail () {
-      const regexStringRoyal=/^Royal/g
-      let shippingArrayWithRoyal=this.getShippingMethods.filter(
-        shippingMethod =>
-          regexStringRoyal.test(shippingMethod.method_title)===
+    getShippingMethodsWithRoyalMail() {
+      const regexStringRoyal = /^Royal/g;
+      let shippingArrayWithRoyal = this.getShippingMethods.filter(
+        (shippingMethod) =>
+          regexStringRoyal.test(shippingMethod.method_title) ===
           !regexStringRoyal.test(shippingMethod.method_title)
-      )
-      if (shippingArrayWithRoyal.length>0) {
-        if (document.getElementsByClassName('hideDelSection')&&document.getElementsByClassName('hideDelSection').length>0&&document.getElementsByClassName('hideDelSection')!==null&&document.getElementsByClassName('hideDelSection')!=='') {
-          document.getElementsByClassName('hideDelSection')[0].style.display='none'
+      );
+      if (shippingArrayWithRoyal.length > 0) {
+        if (
+          document.getElementsByClassName("hideDelSection") &&
+          document.getElementsByClassName("hideDelSection").length > 0 &&
+          document.getElementsByClassName("hideDelSection") !== null &&
+          document.getElementsByClassName("hideDelSection") !== ""
+        ) {
+          document.getElementsByClassName("hideDelSection")[0].style.display =
+            "none";
         }
-        if (!this.fromCart&&this.$refs.shippingMethodWithoutDateAll&&this.$refs.shippingMethodWithoutDateAll[0]) {
-          this.$refs.shippingMethodWithoutDateAll[0].click()
+        if (
+          !this.fromCart &&
+          this.$refs.shippingMethodWithoutDateAll &&
+          this.$refs.shippingMethodWithoutDateAll[0]
+        ) {
+          this.$refs.shippingMethodWithoutDateAll[0].click();
         }
-        this.manuallySetDateShippingMethod()
-        if (this.$refs.referenceShippingSubmit&&document.getElementsByClassName('hideDeliBtnSection')[0]&&!this.fromCart) {
-          document.getElementsByClassName('hideDeliBtnSection')[0].style.display='none'
-          this.$refs.referenceShippingSubmit.$el.click()
+        this.manuallySetDateShippingMethod();
+        if (
+          this.$refs.referenceShippingSubmit &&
+          document.getElementsByClassName("hideDeliBtnSection")[0] &&
+          !this.fromCart
+        ) {
+          document.getElementsByClassName(
+            "hideDeliBtnSection"
+          )[0].style.display = "none";
+          this.$refs.referenceShippingSubmit.$el.click();
         }
       }
-      return shippingArrayWithRoyal
+      return shippingArrayWithRoyal;
     },
-    getShippingMethodsWithOOS () {
-      const regexStringOOS=/^Back/g
-      let shippingArrayWithOOS=this.getShippingMethods.filter(
-        shippingMethod =>
-          regexStringOOS.test(shippingMethod.carrier_title)===
+    getShippingMethodsWithOOS() {
+      const regexStringOOS = /^Back/g;
+      let shippingArrayWithOOS = this.getShippingMethods.filter(
+        (shippingMethod) =>
+          regexStringOOS.test(shippingMethod.carrier_title) ===
           !regexStringOOS.test(shippingMethod.carrier_title)
-      )
-      return shippingArrayWithOOS
+      );
+      return shippingArrayWithOOS;
     },
-    getShippingMethodsWithDates () {
-      const regex=/(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g
-      const shippingArrayWithDates=this.getShippingMethods.filter(
-        shippingMethod => regex.test(shippingMethod.method_title)
-      )
-      return shippingArrayWithDates
+    getShippingMethodsWithDates() {
+      const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
+      const shippingArrayWithDates = this.getShippingMethods.filter(
+        (shippingMethod) => regex.test(shippingMethod.method_title)
+      );
+      return shippingArrayWithDates;
     },
-    countryOptions () {
-      this.shipping.firstName=this.getPersonalDetails&&this.getPersonalDetails.firstName? this.getPersonalDetails.firstName.trim():''
-      this.shipping.lastName=this.getPersonalDetails&&this.getPersonalDetails.lastName? this.getPersonalDetails.lastName.trim():''
-      return this.countries.map(item => {
+    countryOptions() {
+      this.shipping.firstName =
+        this.getPersonalDetails && this.getPersonalDetails.firstName
+          ? this.getPersonalDetails.firstName.trim()
+          : "";
+      this.shipping.lastName =
+        this.getPersonalDetails && this.getPersonalDetails.lastName
+          ? this.getPersonalDetails.lastName.trim()
+          : "";
+      return this.countries.map((item) => {
         return {
           value: item.code,
-          label: item.name
-        }
-      })
+          label: item.name,
+        };
+      });
     },
-    getKerbsideShppingMethods () {
-      const regexNewString=/^Kerbside/g
-      let shippingArrayWithKerbside=[]
-      shippingArrayWithKerbside=this.getShippingMethods.filter(
-        shippingMethod => shippingMethod.method_code.match(regexNewString)
-      )
-      return shippingArrayWithKerbside
+    getKerbsideShppingMethods() {
+      const regexNewString = /^Kerbside/g;
+      let shippingArrayWithKerbside = [];
+      shippingArrayWithKerbside = this.getShippingMethods.filter(
+        (shippingMethod) => shippingMethod.method_code.match(regexNewString)
+      );
+      return shippingArrayWithKerbside;
     },
-    attributes () {
+    attributes() {
       return [
         // Attributes for dates
-        ...this.getShippingMethods.map((shippingMethod,index) => ({
+        ...this.getShippingMethods.map((shippingMethod, index) => ({
           dates: new Date(
             this.changeDateOrder(
               this.getDateFromMethodCode(shippingMethod.method_code)
@@ -1779,127 +1836,126 @@ export default {
           //   label: `The price is ${shippingMethod.price_incl_tax}`,
           //   hideIndicator: true
           // },
-          customData: shippingMethod
-        }))
-      ]
+          customData: shippingMethod,
+        })),
+      ];
     },
-    disabledDateFn () {
-      const dotteddates=this.getSortedDates.map(item =>
+    disabledDateFn() {
+      const dotteddates = this.getSortedDates.map((item) =>
         this.changeDateOrder(item)
-      )
-      const allDatesArr=this.getAllDates(this.getMinDate,this.getMaxDate)
-      const finalDateArray=allDatesArr.filter(
-        singleDate => !dotteddates.includes(singleDate)
-      )
-      return finalDateArray
+      );
+      const allDatesArr = this.getAllDates(this.getMinDate, this.getMaxDate);
+      const finalDateArray = allDatesArr.filter(
+        (singleDate) => !dotteddates.includes(singleDate)
+      );
+      return finalDateArray;
     },
-    getMinDate () {
+    getMinDate() {
       if (this.getSortedDates[0]) {
-        const minDate=this.getSortedDates[0].split('/')
-        const month=minDate[0]
-        const day=minDate[1]
-        const year=minDate[2]
-        const finalDate=[year,month,day].join('-')
-        return new Date(finalDate)
+        const minDate = this.getSortedDates[0].split("/");
+        const month = minDate[0];
+        const day = minDate[1];
+        const year = minDate[2];
+        const finalDate = [year, month, day].join("-");
+        return new Date(finalDate);
       }
     },
-    getMaxDate () {
+    getMaxDate() {
       if (this.getSortedDates[0]) {
-        const maxDate=this.getSortedDates[
-          this.getSortedDates.length-1
-        ].split('/')
-        const month=maxDate[0]
-        const day=maxDate[1]
-        const year=maxDate[2]
-        const finalDate=[year,month,day].join('-')
-        return new Date(finalDate)
+        const maxDate =
+          this.getSortedDates[this.getSortedDates.length - 1].split("/");
+        const month = maxDate[0];
+        const day = maxDate[1];
+        const year = maxDate[2];
+        const finalDate = [year, month, day].join("-");
+        return new Date(finalDate);
       }
     },
-    getSortedDates () {
+    getSortedDates() {
       return this.getShippingMethods
         .map((shippingMethod) =>
           this.getDateFromMethodCode(shippingMethod.method_code)
         )
-        .filter((dateStr) => dateStr!==undefined)
-        .sort((a,b) => {
-          var c=new Date(a)
-          var d=new Date(b)
-          return c-d
+        .filter((dateStr) => dateStr !== undefined)
+        .sort((a, b) => {
+          var c = new Date(a);
+          var d = new Date(b);
+          return c - d;
           // return a > b ? 1 : a < b ? -1 : 0;
-        })
-    }
+        });
+    },
   },
   watch: {
-    getShippingMethodsWithoutDates () {
+    getShippingMethodsWithoutDates() {
       if (
-        this.getShippingMethodsWithDates.length>0&&
-        this.getShippingMethodsWithoutDates.length===0
+        this.getShippingMethodsWithDates.length > 0 &&
+        this.getShippingMethodsWithoutDates.length === 0
       ) {
-        this.isCalendarSelected=true
-        this.shouldShowChooseDate=false
+        this.isCalendarSelected = true;
+        this.shouldShowChooseDate = false;
       }
     },
-    isCalendarSelected () {
+    isCalendarSelected() {
       // this.selectFirstShippingMethod();
     },
-    getShippingMethodsWithRoyalMail (value) {
-      if (value.length!==0) {
-        this.dateSelected()
-        this.sendDataToCheckout()
+    getShippingMethodsWithRoyalMail(value) {
+      if (value.length !== 0) {
+        this.dateSelected();
+        this.sendDataToCheckout();
       }
     },
-    returnShippingMethod (value) {
-      let selectedMethod=null
-      this.$bus.$on('delivery-method',data => {
-        this.selectedDeliveryMethod=data
-      })
-    }
+    returnShippingMethod(value) {
+      let selectedMethod = null;
+      this.$bus.$on("delivery-method", (data) => {
+        this.selectedDeliveryMethod = data;
+      });
+    },
   },
-  destroyed () {
-    this.radioCheckedFlag=false
+  destroyed() {
+    this.radioCheckedFlag = false;
   },
   validations: {
     shipping: {
       firstName: {
         required,
         minLength: minLength(2),
-        unicodeAlpha
+        unicodeAlpha,
       },
       lastName: {
         required,
-        unicodeAlpha
+        unicodeAlpha,
       },
       country: {
-        required
+        required,
       },
       streetAddress: {
         required,
-        unicodeAlphaNum
+        unicodeAlphaNum,
       },
       shippingMethod: {
-        required
+        required,
       },
       zipCode: {
         required,
         minLength: minLength(3),
-        unicodeAlphaNum
+        unicodeAlphaNum,
       },
       city: {
         required,
-        unicodeAlpha
+        unicodeAlpha,
       },
       phoneNumber: {
         required,
-        maxLength: maxLength(11)
+        maxLength: maxLength(11),
       },
       mobile: {
-        maxLength: maxLength(11)
+        maxLength: maxLength(11),
       },
       newsLetter: {
-        maxLength: maxLength(11)
-      }
-    }
-  }
+        maxLength: maxLength(11),
+      },
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -2678,7 +2734,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
 
 #checkout .delivery-methods-detail .radioStyled span {
   /* padding-left: 30px; */
-      margin-left: 30px;
+  margin-left: 30px;
 }
 
 #checkout
@@ -2902,7 +2958,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
-   .free-des {
+  .free-des {
     margin: 30px 15px 30px 15px !important;
   }
   .shiping-edit {
@@ -3013,9 +3069,9 @@ span.checkmark.black-border-checkmark.no-checked:after {
     padding-right: 0px;
     padding-left: 0px;
   }
-label.radioStyled.pre-del span{
+  label.radioStyled.pre-del span {
     margin-left: 50px !important;
-}
+  }
 }
 
 .black-border-checkmark {
@@ -3107,11 +3163,14 @@ p.free-del-p {
   border: 1px solid #858585;
   background: #f2f2f2;
   margin-right: 10px;
-  padding: 40px 15px 40px 15px;
-  line-height: 30px;
+  padding: 30px 15px 30px 15px;
+  line-height: 25px;
   border-radius: 5px;
-    width: 100%;
-    max-width: 230px;
+  width: 100%;
+  max-width: 230px;
+  font-weight: normal;
+  color: #000000;
+  font-size: 16px;
 }
 span.free-del {
   padding-left: 40px;
@@ -3182,10 +3241,10 @@ span.delivery-date {
     padding: 0 15px 0 15px;
   }
 }
-@media (min-width: 768px){
-.calendar-box {
+@media (min-width: 768px) {
+  .calendar-box {
     display: flex;
     justify-content: space-between;
-}
+  }
 }
 </style>
