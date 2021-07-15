@@ -60,7 +60,7 @@
         <template v-else>
           <div class="product-qty-input sb-product-qty-input">
             <span v-if="product.qty_per_sqm" class="TotalQP" :class="title !== 'Tile Mountain' ? 'flooring' : ''"> {{ title === 'Tile Mountain' ? 'Total Pieces:' : 'Packs'}}</span>
-            <span v-else class="TotalQP">Total Qty:</span>
+            <span v-else class="TotalQP">Qty:</span>
             <div class="sb-prodcut-qty-on-cart-">
               <product-quantity-on-cart-page
                 class="qty"
@@ -626,7 +626,8 @@ export default {
   font-size: 12px;
   font-weight: normal;
   padding-right: 15px;
-  margin-top: 10px;
+  margin-top: 25px;
+  width: 1280px;
 
   .opn {
     color: #4a4a4a;
@@ -636,17 +637,17 @@ export default {
     padding-right: 0px;
     display: block;
     margin-bottom: 5px;
-    width: 175px;
+    // width: 175px;
   }
 
   .opv {
-    color: #aaa;
+    color: #4a4a4a;
     font-family: Arial;
     font-size: 12px;
     font-weight: normal;
     padding-right: 15px;
     display: block;
-    margin-left: 15px;
+    margin-left: 5px;
     margin-bottom: 10px;
   }
 }
@@ -755,7 +756,7 @@ input {
     // padding-right: 0px;
     // width: 10%;
     // text-align: center;
-    padding-left: 20px;
+    padding-left: 10px;
     color: #878382;
     font-size: 16px;
     font-weight: bold;
@@ -783,7 +784,7 @@ input {
     .product-qty-input {
       span {
         font-size: 13px;
-        padding-right: 12px;
+        // padding-right: 12px;
       }
     }
     .firstprice {
@@ -881,7 +882,7 @@ input {
       justify-content: center;
     }
     .sku {
-      margin-top: 0;
+      // margin-top: 0;
     }
     .sku-text {
       font-size: 2.319vw;
@@ -953,17 +954,18 @@ input {
   font-weight: normal;
   font-size: 14px;
   margin-top: 15px;
+  width: 1280px;
 }
 
 .sku-text {
   color: #4a4a4a;
   font-family: Arial;
   font-size: 14px;
-  // font-weight: bold;
-  padding-right: 15px;
+  // // font-weight: bold;
+  // padding-right: 15px;
 }
 .sku-p-text {
-  font-weight: bold;
+  // font-weight: bold;
 }
 .size {
   color: #4a4a4a;
@@ -1005,9 +1007,9 @@ input {
   font-family: Arial;
   font-size: 16px;
   font-weight: normal;
-  padding-right: 20px;
+  padding-right: 10px;
   margin-top: 35px;
-  min-width: 92px;
+  // min-width: 92px;
   @media screen and (max-width: 576px) {
     margin-top: 0px !important;
 }
@@ -1056,7 +1058,7 @@ input {
 }
 
 .update-link {
-  color: #ea429d;
+  color: #ee4c56;
   text-decoration: underline;
   font-size: 11px;
   text-align: center;
@@ -1065,7 +1067,7 @@ input {
   padding-top: 5px;
   border: 0;
   background: none;
-  margin: 0 0 0 -2px;
+  // margin: 0 0 0 -2px;
 }
 
 .sb-product-img {
@@ -1108,7 +1110,7 @@ input {
 }
 @media(max-width:767px){
   .product-qty-input span {
-    min-width: 76px;
+    // min-width: 76px;
     font-size: 2.853vw;
     margin-top: 0;
   }
@@ -1118,24 +1120,29 @@ input {
   }
   .options .opn{
     font-size: 2.397vw !important;
-    width: 100%;
+    width: auto;
   }
   .options .opv {
-    font-size: 2.1vw;
+    font-size: 2.6vw;
   }
   .product-name a {
     width: 100%;
     display: block;
     white-space: normal;
   }
+  .sku{
+    margin-top: 10px;
+  }
+  .options{
+    margin-top: 10px;
 }
-
+}
 @media (min-width: 767px) and (max-width: 991px) {
   .mainprice .prices span {
-    margin-top: 45px;
+    // margin-top: 45px;
   }
   .product-qty-input span {
-    margin-top: 45px;
+    // margin-top: 45px;
   }
   .update-link {
     margin: 0 0 0 -5px;
@@ -1147,9 +1154,9 @@ input {
     font-size: 14px !important;
   }
   .product-qty-input span {
-    margin-top: 60px;
-    min-width: 74px;
-    padding-left: 0px !important;
+    // margin-top: 60px;
+    // min-width: 74px;
+    // padding-left: 0px !important;
     font-size: 12px !important;
   }
   .maincart .firstprice{
@@ -1194,4 +1201,16 @@ input {
     font-weight: bold;
   }
 }
+  .options>div {
+    display: flex;
+}
+@media (min-width: 768px){
+.sb-product-qty-input {
+  margin-left: 30px !important;
+}
+.row.row-sb-left-padding {
+    justify-content: space-between;
+}
+}
+
 </style>
