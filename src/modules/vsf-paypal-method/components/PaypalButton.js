@@ -32,7 +32,7 @@ export const PaypalButton = {
         const storeView = currentStoreView()
         const { currencyCode } = storeView.i18n
         const clientId = config.paypal.hasOwnProperty('clientId') ? config.paypal.clientId : ''
-        const sdkUrl = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=${currencyCode}&disable-funding=card,credit`
+        const sdkUrl = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=${currencyCode}&disable-funding=card,credit,sofort`
         let paypalScript = document.createElement('script')
         paypalScript.setAttribute('src', sdkUrl)
         paypalScript.setAttribute('data-info', 'paypalLibTM951357')
