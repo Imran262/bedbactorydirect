@@ -374,6 +374,100 @@ export default {
 .contact-cms p {
   font-size: 14px !important;
 }
+.covid-cms h1 {
+    font-size: 24px !important;
+}
+.covid-cms h2 {
+    font-size: 20px !important;
+}
+.covid-cms p {
+  font-size: 14px !important;
+}
+.bed-size-cms h1 {
+  font-size: 24px !important;
+}
+.bed-size-cms h2 {
+   font-size: 20px !important;
+}
+.bed-size-cms p {
+font-size: 14px !important;
+}
+.mattress-buy-cms h1 {
+    font-size: 24px !important;
+}
+.mattress-buy-cms h2 {
+  font-size: 20px !important;
+}
+.mattress-buy-cms h3 {
+  font-size: 18px !important;
+}
+.mattress-buy-cms h4 {
+   font-size: 16px !important;
+}
+.mattress-buy-cms p {
+ font-size: 14px !important;
+}
+.mattress-buy-cms ul {
+   font-size: 14px !important;
+}
+.mattress-buy-cms a {
+  font-size: 14px !important;
+}
+.headboard-buy-cms h1 {
+    font-size: 24px !important;
+}
+.headboard-buy-cms h2 {
+  font-size: 20px !important;
+}
+.headboard-buy-cms h3 {
+  font-size: 18px !important;
+}
+.headboard-buy-cms p {
+ font-size: 14px !important;
+}
+.headboard-buy-cms a {
+  font-size: 14px !important;
+}
+.product-guarantees-cms h2 {
+ font-size: 20px !important;
+}
+.product-guarantees-cms p {
+ font-size: 14px !important;
+}
+.term-condition-cms h2 {
+   font-size: 20px !important;
+
+}
+.term-condition-cms p {
+   font-size: 14px !important;
+}
+.term-condition-cms strong {
+ font-size: 14px !important;
+}
+.privacy-policy-cms h2 {
+     font-size: 20px !important;
+}
+.privacy-policy-cms p {
+  font-size: 14px !important;
+}
+.privacy-policy-cms ul {
+ font-size: 14px !important;
+}
+.privacy-policy-cms strong {
+ font-size: 14px !important;
+}
+ .privacy-policy-cms  tr {
+  font-size: 12px !important;
+}
+.return-refunds-cms h2 {
+   font-size: 20px !important;
+}
+.return-refunds-cms h3 {
+ font-size: 18px !important;
+}
+.return-refunds-cms p {
+   font-size: 14px !important;
+}
 }
 .contact-us-page .contact-visit-us .address-detail .get-direction > a {
   background-image: url(/assets/map-pin.png);
@@ -2803,6 +2897,7 @@ h2.intro-heading {
 }
 .about-us-cms ul {
   padding-left: 0px;
+  line-height: 30px;
 }
 a.about-cms-btn {
     background: #071a44 !important;
@@ -2886,4 +2981,148 @@ a.delivery-link {
 .contact-cms ul {
    padding-left: 0;
 }
+.covid-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.covid-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.covid-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.bed-size-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.bed-size-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.bed-size-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.mattress-buy-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.mattress-buy-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.mattress-buy-cms h3 {
+   color: #071a44 !important;
+    font-size: 24px !important;
+}
+.mattress-buy-cms h4 {
+   color: #071a44 !important;
+    font-size: 20px !important;
+}
+.mattress-buy-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.mattress-buy-cms ul {
+    color: #333333;
+   line-height: 30px;
+   list-style: disc;
+   padding-left: 20px;
+}
+.mattress-buy-cms a {
+    color: #333333 !important;
+    text-decoration: none !important;
+}
+a.buy-guide-btn {
+    background: #071a44 !important;
+    color: #ffff !important;
+    margin: -15px 0 15px 0 !important;
+}
+.headboard-buy-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.headboard-buy-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.headboard-buy-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.headboard-buy-cms h3 {
+   color: #071a44 !important;
+    font-size: 24px !important;
+}
+.headboard-buy-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.headboard-buy-cms a {
+    color: #333333 !important;
+    text-decoration: none !important;
+}
+a.headboard-cms-btn {
+    background: #071a44 !important;
+    color: #ffff !important;
+    margin: -15px 0 15px 0 !important;
+}
+.product-guarantees-cms h2 {
+  color: #071a44;
+    font-size: 32px;
+}
+.product-guarantees-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.term-condition-cms h2 {
+    color: #071a44;
+    font-size: 32px;
+}
+.term-condition-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.term-condition-cms strong {
+    color: #333333;
+    line-height: 30px;
+}
+.privacy-policy-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.privacy-policy-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.privacy-policy-cms ul {
+    color: #333333;
+   line-height: 30px;
+   list-style: disc;
+   padding-left: 20px;
+}
+.privacy-policy-cms strong {
+    color: #333333;
+    line-height: 30px;
+}
+ .privacy-policy-cms  tr {
+    color: #333333;
+    line-height: 30px;
+   text-align: left;
+}
+.return-refunds-cms h2 {
+      color: #071a44;
+    font-size: 28px;
+}
+.return-refunds-cms h3 {
+   color: #071a44 !important;
+    font-size: 24px !important;
+}
+.return-refunds-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+
 </style>
