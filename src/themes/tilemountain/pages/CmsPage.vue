@@ -329,6 +329,145 @@ export default {
   .contact-us-page .contact-top-detail .contact-top-detail-box .img img {
     margin-left: 0 !important;
   }
+  .about-us-cms p {
+    font-size: 14px;
+}
+.about-us-cms h2 {
+    font-size: 20px !important;
+}
+.about-us-cms h1 {
+    font-size: 24px !important;
+}
+.showroom h1 {
+    font-size: 24px !important;
+}
+.delivery-info h1 {
+    font-size: 24px !important;
+}
+.delivery-info h2 {
+    font-size: 20px !important;
+}
+.delivery-info h3 {
+    font-size: 18px !important;
+}
+.delivery-info p {
+    font-size: 14px !important;
+}
+ .showroom p{
+    font-size: 14px;
+}
+.faqs-cms h1 {
+    font-size: 24px !important;
+}
+.faqs-cms h2 {
+  font-size: 20px !important;
+}
+.faqs-cms p {
+    font-size: 14px !important;
+}
+.contact-cms h1{
+     font-size: 24px !important;
+}
+.contact-cms h2 {
+    font-size: 20px !important;
+}
+.contact-cms p {
+  font-size: 14px !important;
+}
+.covid-cms h1 {
+    font-size: 24px !important;
+}
+.covid-cms h2 {
+    font-size: 20px !important;
+}
+.covid-cms p {
+  font-size: 14px !important;
+}
+.bed-size-cms h1 {
+  font-size: 24px !important;
+}
+.bed-size-cms h2 {
+   font-size: 20px !important;
+}
+.bed-size-cms p {
+font-size: 14px !important;
+}
+.mattress-buy-cms h1 {
+    font-size: 24px !important;
+}
+.mattress-buy-cms h2 {
+  font-size: 20px !important;
+}
+.mattress-buy-cms h3 {
+  font-size: 18px !important;
+}
+.mattress-buy-cms h4 {
+   font-size: 16px !important;
+}
+.mattress-buy-cms p {
+ font-size: 14px !important;
+}
+.mattress-buy-cms ul {
+   font-size: 14px !important;
+}
+.mattress-buy-cms a {
+  font-size: 14px !important;
+}
+.headboard-buy-cms h1 {
+    font-size: 24px !important;
+}
+.headboard-buy-cms h2 {
+  font-size: 20px !important;
+}
+.headboard-buy-cms h3 {
+  font-size: 18px !important;
+}
+.headboard-buy-cms p {
+ font-size: 14px !important;
+}
+.headboard-buy-cms a {
+  font-size: 14px !important;
+}
+.product-guarantees-cms h2 {
+ font-size: 20px !important;
+}
+.product-guarantees-cms p {
+ font-size: 14px !important;
+}
+.term-condition-cms h2 {
+   font-size: 20px !important;
+
+}
+.term-condition-cms p {
+   font-size: 14px !important;
+}
+.term-condition-cms strong {
+ font-size: 14px !important;
+}
+.privacy-policy-cms h2 {
+     font-size: 20px !important;
+}
+.privacy-policy-cms p {
+  font-size: 14px !important;
+}
+.privacy-policy-cms ul {
+ font-size: 14px !important;
+}
+.privacy-policy-cms strong {
+ font-size: 14px !important;
+}
+ .privacy-policy-cms  tr {
+  font-size: 12px !important;
+}
+.return-refunds-cms h2 {
+   font-size: 20px !important;
+}
+.return-refunds-cms h3 {
+ font-size: 18px !important;
+}
+.return-refunds-cms p {
+   font-size: 14px !important;
+}
 }
 .contact-us-page .contact-visit-us .address-detail .get-direction > a {
   background-image: url(/assets/map-pin.png);
@@ -669,11 +808,11 @@ tr.heading {
   font-weight: 700 !important;
 }
 .sb-delivery-left h3 {
-  font-size: 26px !important;
+  /* font-size: 26px !important;
   color: #29265a !important;
   font-family: Oblik !important;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 10px; */
 }
 @media (max-width: 767px) and (min-width: 294px) {
   .sb-color-right {
@@ -2741,4 +2880,249 @@ h2.intro-heading {
   overflow-y: visible !important;
   overflow-x: visible !important;
 }
+.about-us-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.about-us-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.about-us-cms p {
+    color: #333333;
+    line-height: 30px;
+}
+.about-us-cms li {
+    color: #333333;
+}
+.about-us-cms ul {
+  padding-left: 0px;
+  line-height: 30px;
+}
+a.about-cms-btn {
+    background: #071a44 !important;
+    max-width: 126px;
+    width: 100%;
+}
+.showroom h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.showroom h2 {
+    color: #071a44;
+    font-size: 28px;
+     margin: 0px;
+}
+.showroom p {
+  color: #333333;
+   line-height: 30px;
+}
+.showroom a {
+    color: #57c9c0;
+}
+.showroom address {
+    color: #333333;
+}
+span.shoroom-open {
+    color: #071a44;
+}
+span.shoroom-btn {
+    background: #071a44;
+}
+.showroom span.material-icons {
+    color: #071a44;
+}
+.delivery-info h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.delivery-info h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.delivery-info h3 {
+    color: #071a44 !important;
+    font-size: 24px !important;
+}
+.delivery-info p {
+  color: #333333;
+   line-height: 30px;
+}
+a.delivery-link {
+    color: #57c9c0;
+}
+.faqs-cms h1 {
+      color: #071a44;
+    font-size: 32px;
+}
+.faqs-cms h2 {
+      color: #071a44;
+    font-size: 28px;
+}
+.faqs-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.contact-cms h1{
+      color: #071a44;
+    font-size: 32px;
+}
+.contact-cms h2 {
+      color: #071a44;
+    font-size: 28px;
+}
+.contact-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.contact-cms strong {
+    color: #333333;
+}
+.contact-cms ul {
+   padding-left: 0;
+}
+.covid-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.covid-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.covid-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.bed-size-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.bed-size-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.bed-size-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.mattress-buy-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.mattress-buy-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.mattress-buy-cms h3 {
+   color: #071a44 !important;
+    font-size: 24px !important;
+}
+.mattress-buy-cms h4 {
+   color: #071a44 !important;
+    font-size: 20px !important;
+}
+.mattress-buy-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.mattress-buy-cms ul {
+    color: #333333;
+   line-height: 30px;
+   list-style: disc;
+   padding-left: 20px;
+}
+.mattress-buy-cms a {
+    color: #333333 !important;
+    text-decoration: none !important;
+}
+a.buy-guide-btn {
+    background: #071a44 !important;
+    color: #ffff !important;
+    margin: -15px 0 15px 0 !important;
+}
+.headboard-buy-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.headboard-buy-cms h1 {
+    color: #071a44;
+    font-size: 32px;
+}
+.headboard-buy-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.headboard-buy-cms h3 {
+   color: #071a44 !important;
+    font-size: 24px !important;
+}
+.headboard-buy-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.headboard-buy-cms a {
+    color: #333333 !important;
+    text-decoration: none !important;
+}
+a.headboard-cms-btn {
+    background: #071a44 !important;
+    color: #ffff !important;
+    margin: -15px 0 15px 0 !important;
+}
+.product-guarantees-cms h2 {
+  color: #071a44;
+    font-size: 32px;
+}
+.product-guarantees-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.term-condition-cms h2 {
+    color: #071a44;
+    font-size: 32px;
+}
+.term-condition-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.term-condition-cms strong {
+    color: #333333;
+    line-height: 30px;
+}
+.privacy-policy-cms h2 {
+    color: #071a44;
+    font-size: 28px;
+}
+.privacy-policy-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+.privacy-policy-cms ul {
+    color: #333333;
+   line-height: 30px;
+   list-style: disc;
+   padding-left: 20px;
+}
+.privacy-policy-cms strong {
+    color: #333333;
+    line-height: 30px;
+}
+ .privacy-policy-cms  tr {
+    color: #333333;
+    line-height: 30px;
+   text-align: left;
+}
+.return-refunds-cms h2 {
+      color: #071a44;
+    font-size: 28px;
+}
+.return-refunds-cms h3 {
+   color: #071a44 !important;
+    font-size: 24px !important;
+}
+.return-refunds-cms p {
+    color: #333333;
+   line-height: 30px;
+}
+
 </style>
