@@ -5,7 +5,7 @@
      <FamiliarProducts />
      <swatches :identifier="'swatches-TM'"/>
      <Brands />
-   
+     <HomeBottomContent />
     <!-- <HomeBottomContent /> -->
     <!-- <homeDelivery :identifier="'home-Delivery'" />
     <FamiliarProducts />
