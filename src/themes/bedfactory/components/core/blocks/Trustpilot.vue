@@ -54,7 +54,6 @@ export default {
   mixins: [cmsBlock],
   computed: {
     titleh5() {
-      console.log("its bangash");
       if (this.parsedContent.querySelector("h5")) {
         return this.parsedContent.querySelector("h5").rawText;
       }

@@ -19,15 +19,30 @@ export default {
   background-color: #f8f8f8;
 }
 .HomeBottomContent-inner {
-  padding-top: 50px;
-  padding-bottom: 50px;
+   padding: 50px 10px 50px 10px;
 }
 .HomeBottomContent-inner h1 {
   font-size: 20px;
   color: #707070;
 }
 .HomeBottomContent-inner p {
-  font-size: 14px;
-  color: #707070;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333333;
+    text-align: justify;
+}
+.HomeBottomContent-inner h1 {
+    font-size: 25px;
+    color: #071A44;
+    font-weight: bold;
+    font-family: oblik;
+}
+.HomeBottomContent-inner strong {
+    color: #071A44;
+}
+@media screen and (max-width: 767px){
+.HomeBottomContent-inner p {
+    font-size: 16px;
+}
 }
 </style>
