@@ -387,7 +387,7 @@ export default {
 
 @media screen and (max-width: 767px) {
   .leftborder {
-    border-left: 2px solid #29a795 !important;
+    // border-left: 2px solid #29a795 !important;
     top: 0 !important;
     border-top: 2px solid #e3e3e5;
   }
@@ -430,17 +430,13 @@ export default {
 
 @media screen and (min-width: 768px) {
   .addborders {
-    border-top: 3px solid #29a795 !important;
-    border-left: 3px solid #29a795 !important;
-    border-right: 3px solid #29a795 !important;
-    border-bottom: 3px solid #29a795 !important;
+    border: 1px solid #29a795 !important;
   }
 }
 
 @media screen and (max-width: 767px) {
   .addborders {
-    border-top: 2px solid #29a795 !important;
-    border-bottom: 2px solid #29a795 !important;
+//  border: 1px solid #29a795 !important;
   }
 }
 

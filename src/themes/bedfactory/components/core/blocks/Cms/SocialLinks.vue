@@ -70,7 +70,7 @@ export default {
 }
 .fa {
   color: #434243;
-  font-size: 40px !important;
+  // font-size: 40px !important;
 }
  .social .instagram:hover {
   background: #e1306c;
@@ -106,7 +106,7 @@ export default {
 }
 .fa {
     color: #434243;
-    font-size: 30px !important;
+    // font-size: 30px !important;
 }
 @media only screen and (min-width: 499px) and (max-width: 768px){
 .circle {

@@ -427,7 +427,7 @@ $color-white: color(white);
   margin-top: 2px;
 }
 .name-size {
-  height: 55px;
+ min-height: 60px;
 }
 .comfort-size {
   height: 30px;
