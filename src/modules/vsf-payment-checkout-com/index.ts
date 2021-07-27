@@ -41,7 +41,8 @@ export const CheckoutcomPayments: StorefrontModule = function ({ app, store, rou
 
       const invokePlaceOrder = () => {
         if (isCurrentPaymentMethod && window.Frames.isCardValid()) {
-          store.commit('ui/setLoader', true)
+          // store.commit('ui/setLoader', true)
+          EventBus.$emit('notification-progress-start', 'Processing... ')
           const addressInfo = createOrderData(store)
           const shippingAddress = store.getters['checkout/getShippingDetails']
 
@@ -81,6 +82,7 @@ export const CheckoutcomPayments: StorefrontModule = function ({ app, store, rou
                       action1: { label: i18n.t('OK') }
                     })
                   }
+                  EventBus.$emit('notification-progress-stop')
                   store.commit('ui/setLoader', false)
                   window.Frames.removeAllEventHandlers(window.Frames.Events.CARD_TOKENIZED)
                 })
