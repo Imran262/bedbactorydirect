@@ -62,6 +62,7 @@ import VueOfflineMixin from "vue-offline/mixin";
 import Composite from "@vue-storefront/core/mixins/composite";
 import { isServer } from "@vue-storefront/core/helpers";
 import _ from "lodash";
+import { mapGetters } from 'vuex'
 // import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList';
 // /home/ejaz/vsf/BEDFACTORY/BFD/bfdvuestore/src/themes/bedandfactory/components/theme/blocks/Reviews/ReviewsList.vue
 // import OrderReviewList from 'theme/components/theme/blocks/Reviews/ReviewsList';
@@ -89,6 +90,12 @@ export default {
     // ThingsToRememberSuccess
   },
   computed: {
+    ...mapGetters({
+      productsInCart: 'cart/getCartItems',
+      getCartToken: 'cart/getCartToken',
+      isCartEmpty: 'cart/isCartEmpty',
+      totals: 'cart/getTotals'
+    }),
     backendOrderId() {
       if (this.lastOrderItem) {
         return this.lastOrderItem.confirmation.backendOrderId;
@@ -222,6 +229,21 @@ finalItems.push(item);
     },
   },
   async mounted() {
+     console.log("11223344 in mounted ");
+    if ((this.productsInCart.length > 0 || this.getCartToken) ) {
+// if ((this.productsInCart.length > 0 || this.getCartToken) && (this.$route.fullPath.includes("orderId") || this.$route.fullPath.includes("cko-session-id"))) {
+      
+      console.log("11223344 in if ");
+      await this.$store.dispatch('cart/clear', {
+        recreateAndSyncCart: true
+      }) // just clear the items without sync
+      await this.$store.dispatch('cart/sync', {
+        forceClientState: true,
+      })
+    }
+    else{
+       console.log("11223344 in else ");
+    }
     if (!isServer) {
       try {
         if (performance.navigation.type === 1) {
