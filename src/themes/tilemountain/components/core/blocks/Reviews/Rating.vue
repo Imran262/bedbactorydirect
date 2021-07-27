@@ -68,7 +68,7 @@ export default {
 
 .rating ul li .fa {
   color: #f5da00;
-  font-size: 18px;
+  font-size: 18px !important;
 }
   @media (min-width: 320px) and (max-width: 440px){
    .rating ul li .fa {
@@ -88,7 +88,7 @@ export default {
 
 .rating1 ul li .fa {
   color: #f5da00;
-  font-size: 18px;
+  font-size: 18px !important;
 }
 .slider-rating {
   display: inline-block;

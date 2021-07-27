@@ -298,9 +298,7 @@ export default {
     float: left;
   }
 }
-/* @media(min-width: 1201px){
-  .blue{
-    margin-left: -35px;
-  }
-} */
+i.fa.fa-star {
+    font-size: 18px !important;
+}
 </style>

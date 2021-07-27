@@ -492,9 +492,12 @@ background-color: #F2F2F2;
 .qaArea-close textarea {
   width: 100%;
   border-radius: 0px;
-  padding: 0px;
+  padding: 10px;
   margin: 0;
   border: 1px solid #acacac;
+  font-family: 'Roboto', sans-serif;
+    color: #333333;
+    font-size: 14px;
 }
 
 .qaArea-close textarea:active,
@@ -539,6 +542,11 @@ background-color: #F2F2F2;
 .username-box input {
   width: 100%;
   height: 34px;
+  border: 1px solid #acacac;
+  font-family: 'Roboto', sans-serif;
+  color: #333333;
+  font-size: 14px;
+  padding: 0 5px 0 5px;
 }
 
 .username-box input:active,
@@ -558,6 +566,11 @@ background-color: #F2F2F2;
 .email-box input {
   width: 100%;
   height: 34px;
+  border: 1px solid #acacac;
+  font-family: 'Roboto', sans-serif;
+  color: #333333;
+  font-size: 14px;
+  padding: 0 5px 0 5px;
 }
 
 .email-box input:active,
