@@ -185,6 +185,7 @@ export default {
       'quotesystem/quoteSystemFunction',
       { customerId: this.currentUser.id }
     ).then((resp) => {
+      console.log("1122 response is ",resp);
       const firstQuote = resp[Object.keys(resp)[0]]
       this.firstQuoteId = firstQuote.entity_id
       this.quoteData = resp

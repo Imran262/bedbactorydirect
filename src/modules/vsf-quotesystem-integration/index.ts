@@ -14,6 +14,8 @@ const quoteSystemModuleStore = {
   actions: {
     async quoteSystemFunction({}, systemData) {
       try {
+        console.log("URl is ",QUOTE_URL,JSON.stringify(systemData));
+        
         const response = await fetch(
           `${QUOTE_URL}`,
           {
@@ -26,6 +28,8 @@ const quoteSystemModuleStore = {
             body: JSON.stringify(systemData)
           }
         );
+        console.log("\nquote system", systemData , "\nresponse",response,"\njson ",response.json());
+        
         const jsonRes = await response.json();
         if (jsonRes.code === 200) {
           return jsonRes.result;
