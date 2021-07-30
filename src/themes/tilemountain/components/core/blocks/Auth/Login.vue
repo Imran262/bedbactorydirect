@@ -336,8 +336,6 @@ $white: color(white);
   }
   @media (max-width: 1199px) and(min-width: 992px) {
     .modal-content {
-      // padding: 13px;
-      // max-width: 440px;
       .rem-group {
         padding-left: 8px;
       }
@@ -350,13 +348,7 @@ $white: color(white);
     }
   }
   @media (max-width: 991px) and (min-width: 768px) {
-    .modal-header {
-      // font-size: 20px;
-      // width: 86.2%;
-    }
     .modal-content {
-      // padding: 8px;
-      // max-width: 341px;
       .rem-group {
         padding-left: 11px;
       }
@@ -599,8 +591,8 @@ $white: color(white);
       height: 15px;
     }
     input:checked + label:after {
-      top: 6px;
-      left: 2px;
+      top: 8px;
+      left: 3px;
       width: 10px;
       height: 4px;
     }
