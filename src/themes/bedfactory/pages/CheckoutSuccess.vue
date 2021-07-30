@@ -73,9 +73,7 @@ import _ from 'lodash'
 import config from 'config'
 import axios from 'axios'
 import i18n from '@vue-storefront/i18n'
-// /home/ejaz/vsf/BEDFACTORY/vue2/bfdvuestore/src/themes/bedfactory/components/theme/blocks/Reviews/list/OrderReviewListImage.vue
-// /home/ejaz/vsf/BEDFACTORY/vue2/bfdvuestore/src/themes/bedfactory/components/theme/blocks/Reviews/list/OrderReviewList.vue
-import OrderReviewList from '/src/themes/bedfactory/components/theme/blocks/Reviews/list/OrderReviewList'
+import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList'
 import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess'
 import RegisterAccountSuccess from 'theme/components/theme/blocks/RegisterAccountSuccess/RegisterAccountSuccess'
 import ThingsToRememberSuccess from 'theme/components/theme/blocks/ThingsToRememberSuccess/ThingsToRememberSuccess'
