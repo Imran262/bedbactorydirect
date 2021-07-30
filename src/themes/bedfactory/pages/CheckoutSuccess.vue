@@ -467,8 +467,8 @@ console.log("987654321 OrderDetailsUrl is ",this.$route,OrderDetailsUrl,localSto
     //     ? this.getParameterByName('utm_nooverride')
     //     : this.$route.params.utm_nooverride
     // }
-    console.log('987654321 full' ,await axios.get(OrderDetailsUrl + localStorage.getItem('checkout_3dSecure_orderId' )));
-    let { data } = await axios.get(OrderDetailsUrl + localStorage.getItem('checkout_3dSecure_orderId' ))
+    console.log('987654321 full' ,await axios.get(OrderDetailsUrl + orderId));
+    let { data } = await axios.get(OrderDetailsUrl + orderId)
     console.log('987654321 data',data , 'full' ,await axios.get(OrderDetailsUrl + orderId));
     this.$bus.$emit('notification-progress-stop')
     if (data && data.result && !data.result.orderData.errors) {
