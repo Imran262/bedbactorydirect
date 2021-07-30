@@ -73,7 +73,9 @@ import _ from 'lodash'
 import config from 'config'
 import axios from 'axios'
 import i18n from '@vue-storefront/i18n'
-import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList'
+// /home/ejaz/vsf/BEDFACTORY/vue2/bfdvuestore/src/themes/bedfactory/components/theme/blocks/Reviews/list/OrderReviewListImage.vue
+// /home/ejaz/vsf/BEDFACTORY/vue2/bfdvuestore/src/themes/bedfactory/components/theme/blocks/Reviews/list/OrderReviewList.vue
+import OrderReviewList from '/src/themes/bedfactory/components/theme/blocks/Reviews/list/OrderReviewList'
 import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess'
 import RegisterAccountSuccess from 'theme/components/theme/blocks/RegisterAccountSuccess/RegisterAccountSuccess'
 import ThingsToRememberSuccess from 'theme/components/theme/blocks/ThingsToRememberSuccess/ThingsToRememberSuccess'
@@ -285,25 +287,28 @@ export default {
         if (performance.navigation.type === 1) {
           await this.removeLastOrderItem()
         }
-        if (localStorage.getItem('checkout_3dSecure_orderId')) {
+        // if (localStorage.getItem('checkout_3dSecure_orderId')) {
           this.$store.dispatch("cart/clear", { recreateAndSyncCart: true }) // just clear the items without sync
           this.$store.dispatch("cart/sync", { forceClientState: true })
           this.$bus.$emit('notification-progress-start', i18n.t('Loading'))
           let plateformTotals = localStorage.getItem('plateFormTotals')
           plateformTotals = JSON.parse(plateformTotals)
           this.plateFormTotals = plateformTotals
+          console.log("741258   plateformTotals",this.plateformTotals , plateformTotals);
           let OrderDetailsUrl =
             config.orderDetails
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
+          console.log(" 741258   orderId  ",orderId,OrderDetailsUrl,axios.get(OrderDetailsUrl + orderId));
           let { data } = await axios.get(OrderDetailsUrl + orderId)
           this.lastOrderItem = data.result.orderData
+          console.log(" 741258       last order",this.lastOrderItem );
           this.$bus.$emit('notification-progress-stop')
           this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals })
           localStorage.removeItem('checkout_3dSecure_orderId')
           localStorage.removeItem('plateFormTotals')
-        } else {
-          this.$router.push({ name: 'home' })
-        }
+        // } else {
+        //   this.$router.push({ name: 'home' })
+        // }
       } catch (error) {
         console.log(error)
       }
@@ -319,7 +324,7 @@ export default {
         }
         this.item.items.push(prod)
       })
-      this.addBloom()
+      // this.addBloom()
     
   },
   beforeDestroy () {
