@@ -160,8 +160,8 @@ export default {
     },
     orderElements () {
       console.log('orderElementsOrderCheck ', this.$store.state.order)
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
-        return this.$store.state.order.last_order_confirmation
+      if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+        return his.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       } else {
         return {}
       }
@@ -195,11 +195,11 @@ export default {
       console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
       if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
         console.log("741258 in if")
-        return this.$store.state.order.last_order_confirmation.order.products
+        return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       } 
       else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
         console.log("741258 in if else")
-        return this.$store.state.order.last_order_confirmation.order.products
+        return his.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }else {
         console.log("741258 in else")
         if (this.lastOrderItem && this.lastOrderItem.order.products !== null) {
@@ -311,7 +311,7 @@ export default {
           this.lastOrderItem = data.result.orderData
           console.log(" 741258       last order",this.lastOrderItem , "\twhole data" ,data);
           this.$bus.$emit('notification-progress-stop')
-          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals })
+          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals ? plateformTotals.platformTotals : [] })
           localStorage.removeItem('checkout_3dSecure_orderId')
           localStorage.removeItem('plateFormTotals')
         // } else {

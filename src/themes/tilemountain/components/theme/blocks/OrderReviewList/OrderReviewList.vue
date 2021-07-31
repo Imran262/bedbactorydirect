@@ -2,20 +2,13 @@
   <div class="succes-order-review">
     <div class="header">Order Review</div>
     <div class="summary">
-    
-      <br/>totals{{totals}}
       <div class="card" v-for="product in products" :key="product.sku">
-      //  current product is product {{product}}
         <div class="card-row">
           <div class="card-img-container col-xs-12">
             <div class="imginfo col-xs-6">
               <label class="product-img">Product</label>
-              hello
               <OrderReviewListImage :sku="product.sku" />
               <p id="product-name">{{ product.name }}</p>
-              <p v-if="product.area" class="area">
-                Area {{ product.area }} m<sup>2</sup>
-              </p>
               <!-- <p class="sku">Sku: {{ product.sku }}</p> -->
             </div>
             <div class="card-price col-xs-3">
@@ -27,8 +20,7 @@
               <p class="final-price">
                 £{{ parseFloat(product.price).toFixed(2) }}
               </p>
-              <p id="subtotal">{{ totals.subtotal_incl_tax | price }}</p>
-                {{ product.row_total | price }}
+              <p id="subtotal">{{ (parseFloat(product.price*Math.trunc(product.qty)).toFixed(2)) | price }}
               </p>
             </div>
           </div>

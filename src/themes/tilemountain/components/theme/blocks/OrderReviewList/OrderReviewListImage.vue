@@ -1,6 +1,5 @@
 <template>
   <div v-if="getProductImage.src !== ''" v-lazy-container="{ selector: 'img' }">
-   getProductImage {{getProductImage}}
     <img
       :data-src="getProductImage.src"
       class="card-img"
