@@ -2,15 +2,18 @@
   <div class="succes-order-review">
     <div class="header">Order Review</div>
     <div class="summary">
+      {{products}}
       <div class="card" v-for="product in products" :key="product.sku">
+        current product is product {{product}}
         <div class="card-row">
           <div class="card-img-container col-xs-12">
             <div class="imginfo col-xs-6">
               <label class="product-img">Product</label>
+              hello
               <OrderReviewListImage :sku="product.sku" />
               <p id="product-name">{{ product.name }}</p>
               <p v-if="product.area" class="area">
-                Area {{ product.area }} Sqm
+                Area {{ product.area }} m<sup>2</sup>
               </p>
               <!-- <p class="sku">Sku: {{ product.sku }}</p> -->
             </div>
@@ -66,18 +69,14 @@ export default {
 };
 </script>
 <style scoped>
-@font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
-}
-
 .header {
   /* margin-top: 25px; */
   background-color: #2a275c;
   color: #ffffff;
   font-weight: 700;
   padding: 15px 25px;
-  font-family: 'oblik';
+  font-family: Arial;
+  font-weight: bold;
   font-size: 18px;
 }
 

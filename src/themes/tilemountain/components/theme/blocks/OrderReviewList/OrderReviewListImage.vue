@@ -1,5 +1,6 @@
 <template>
   <div v-if="getProductImage.src !== ''" v-lazy-container="{ selector: 'img' }">
+   getProductImage {{getProductImage}}
     <img
       :data-src="getProductImage.src"
       class="card-img"
@@ -48,6 +49,7 @@ export default {
         setCurrentCategoryPath: false,
         selectDefaultVariant: false
       });
+      console.log("741258 Image product",this.product);
       if (this.product && this.product.thumbnail) {
         this.img = this.product.thumbnail;
       }
