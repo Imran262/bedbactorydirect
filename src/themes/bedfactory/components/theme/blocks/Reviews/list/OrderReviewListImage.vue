@@ -48,6 +48,7 @@ export default {
         setCurrentCategoryPath: false,
         selectDefaultVariant: false
       });
+      console.log("741258 Image product",this.product);
       if (this.product && this.product.thumbnail) {
         this.img = this.product.thumbnail;
       }
