@@ -2,9 +2,10 @@
   <div class="succes-order-review">
     <div class="header">Order Review</div>
     <div class="summary">
-      {{products}}
+    
+      <br/>totals{{totals}}
       <div class="card" v-for="product in products" :key="product.sku">
-        current product is product {{product}}
+      //  current product is product {{product}}
         <div class="card-row">
           <div class="card-img-container col-xs-12">
             <div class="imginfo col-xs-6">
@@ -27,7 +28,6 @@
                 £{{ parseFloat(product.price).toFixed(2) }}
               </p>
               <p id="subtotal">{{ totals.subtotal_incl_tax | price }}</p>
-              <p id="multiply-qty1" :class="product.area ? 'total' : ''">
                 {{ product.row_total | price }}
               </p>
             </div>
@@ -38,21 +38,21 @@
     <div class="summary-totals">
       <div class="summary-totals-inner">
         <p>Subtotal</p>
-        <p>{{ totals.sub_total | price }}</p>
+        <p>{{ totals.subtotal_incl_tax | price }}</p>
       </div>
       <div class="summary-totals-inner">
         <p>Delivery</p>
         <p>
           {{
-            totals.shipping_total == 0 || totals.shipping_total == 0.0
+            totals.shipping_incl_tax === 0 || totals.shipping_total === 0.0
               ? 'Free Delivery'
-              : totals.shipping_total | price
+              : totals.shipping_incl_tax | price
           }}
         </p>
       </div>
       <div class="summary-totals-inner grand-total-box">
         <p class="total-price-text">Grand Total</p>
-        <p id="subtotalprice">{{ totals.grand_total | price }}</p>
+        <p id="subtotalprice">{{ totals.base_grand_total | price }}</p>
       </div>
     </div>
   </div>

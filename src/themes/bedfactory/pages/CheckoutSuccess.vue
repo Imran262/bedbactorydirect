@@ -41,7 +41,7 @@
               :address-information="getAddressInformation"
             />
           </div>
-          <ThingsToRememberSuccess />
+          <!-- <ThingsToRememberSuccess /> -->
         </div>
         <div
           class="col-lg-4 col-md-12 col-padding"
@@ -96,7 +96,8 @@ export default {
   beforeRouteEnter (to, from, next) {
     let toQuery = to.fullPath
     console.log(to.fullPath)
-    if (!from.name && !toQuery.includes('utm_nooverrid')) {
+    //next()
+    if (!from.name && !toQuery.includes('utm_nooverride')) {
       next({ name: 'home' })
     } else {
       next()
@@ -104,7 +105,7 @@ export default {
   },
   computed: {
     getAddressInformation () {
-      if (!this.$route.fullPath.includes('utm_nooverrid') && this.orderElements && this.orderElements.order) {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.orderElements && this.orderElements.order) {
         return this.orderElements.order.addressInformation
       } else {
         if (this.lastOrderItem) {
@@ -159,14 +160,14 @@ export default {
     },
     orderElements () {
       console.log('orderElementsOrderCheck ', this.$store.state.order)
-      if (!this.$route.fullPath.includes('utm_nooverrid') && this.$store.state.order.last_order_confirmation !== null) {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
         return this.$store.state.order.last_order_confirmation
       } else {
         return {}
       }
     },
     backendOrderId () {
-      if (!this.$route.fullPath.includes('utm_nooverrid') && this.$store.state.order && this.orderElements) {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order && this.orderElements) {
         return this.orderElements.confirmation.orderNumber
       } else {
         if (this.lastOrderItem) {
@@ -177,7 +178,7 @@ export default {
       }
     },
     orderPriceElements () {
-      if (!this.$route.fullPath.includes('utm_nooverrid')) {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals) {
         return this.$store.state.cart.platformTotals
       } else {
         if (this.lastOrderItem && this.lastOrderItem.order) {
@@ -191,9 +192,16 @@ export default {
       }
     },
     getOrderItems () {
-      if (!this.$route.fullPath.includes('utm_nooverrid') && this.$store.state.order.last_order_confirmation !== null) {
+      console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
+        console.log("741258 in if")
         return this.$store.state.order.last_order_confirmation.order.products
-      } else {
+      } 
+      else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
+        console.log("741258 in if else")
+        return this.$store.state.order.last_order_confirmation.order.products
+      }else {
+        console.log("741258 in else")
         if (this.lastOrderItem && this.lastOrderItem.order.products !== null) {
           return _.values(this.lastOrderItem.order.products)
         } else {
@@ -206,7 +214,7 @@ export default {
         'getCartItemsOrderCheck ',
         this.$store.state.cart.platformTotals
       )
-      if (!this.$route.fullPath.includes('utm_nooverrid') && this.$store.state.cart.platformTotals !== null) {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals !== null) {
         console.log("this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
         return this.$store.state.cart.platformTotals.items
       } else {
@@ -219,7 +227,9 @@ export default {
     },
     getFinalItems () {
       const merged = _.merge(_.keyBy(this.getCartItems, 'name'), _.keyBy(this.getOrderItems, 'name'))
+      
       const values = _.values(merged)
+      console.log("741258 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
       const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
       const simpleProducts = values.filter(value => !(value.extension_attributes && value.extension_attributes.original_item_sku))
       let finalItems = []
@@ -299,7 +309,7 @@ export default {
           console.log(" 741258   orderId  ",orderId,OrderDetailsUrl,axios.get(OrderDetailsUrl + orderId));
           let { data } = await axios.get(OrderDetailsUrl + orderId)
           this.lastOrderItem = data.result.orderData
-          console.log(" 741258       last order",this.lastOrderItem );
+          console.log(" 741258       last order",this.lastOrderItem , "\twhole data" ,data);
           this.$bus.$emit('notification-progress-stop')
           this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals })
           localStorage.removeItem('checkout_3dSecure_orderId')
