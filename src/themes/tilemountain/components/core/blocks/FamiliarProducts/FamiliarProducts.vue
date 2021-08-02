@@ -78,7 +78,6 @@ export default {
 
           h3 {
             font-family: oblik;
-            font-size: 24px;
             color: #071A44;
             text-align: center
           }
@@ -230,4 +229,15 @@ export default {
     padding: 0 14px 0 14px
   }
 }
+@media (min-width: 992px) {
+.familiar-brands .brand-detail .brand-detail-inner .overlay h3 {
+    font-size: 24px;
+}
+}
+@media (min-width: 768px) and (max-width: 991px){
+.familiar-brands .brand-detail .brand-detail-inner .overlay h3 {
+    font-size: 19px;
+}
+}
+
 </style>
