@@ -107,7 +107,7 @@ export default {
     notifyUser (notificationData) {
       console.log("789456 ",notificationData);
       console.log("About to  notify user")
-      this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
+    //  this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
     }
   },
   computed: {

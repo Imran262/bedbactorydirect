@@ -102,6 +102,8 @@
           </div>
           <FullToCutConverter :cart-items="productsInCart" v-if="$route.name !== 'confirmorder'" />
         </div>
+        activatePaymentBtnTitle
+            {{activatePaymentBtnTitle}}
         <div
           class="cart-bottom-detail paypal-btn"
           v-if="$route.name === 'confirmorder'"
@@ -156,6 +158,7 @@
               class="btn"
               v-if="activatePaymentBtn && activePaymentSection"
             >
+            
               {{ activatePaymentBtnTitle }}
             </button>
           </div>
