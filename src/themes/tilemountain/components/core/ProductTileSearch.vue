@@ -571,6 +571,9 @@ $color-white: color(white);
     padding-left: 9px;
   }
 }
+a.block.no-underline.product-link {
+    height: 100%;
+}
 </style>
 <style lang="scss">
 .maxwith .product-image__thumb {
