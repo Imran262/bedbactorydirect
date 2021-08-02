@@ -159,10 +159,12 @@ export default {
       }
     },
     orderElements () {
-      console.log('orderElementsOrderCheck ', this.$store.state.order)
+      console.log('741258orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('utm_nooverride'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
       if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
-        return his.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
+        console.log("741258 in if ");
+        return this.$store.state.order.last_order_confirmation.order
       } else {
+        console.log("741258 in else ");
         return {}
       }
     },
@@ -199,7 +201,7 @@ export default {
       } 
       else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
         console.log("741258 in if else")
-        return his.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
+        return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }else {
         console.log("741258 in else")
         if (this.lastOrderItem && this.lastOrderItem.order.products !== null) {
@@ -219,6 +221,7 @@ export default {
         return this.$store.state.cart.platformTotals.items
       } else {
         if (this.plateFormTotals) {
+          console.log("here we are ",this.plateFormTotals);
           return this.plateFormTotals.platformTotals.items
         } else {
           return []
