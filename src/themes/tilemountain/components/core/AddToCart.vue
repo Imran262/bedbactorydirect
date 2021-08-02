@@ -94,14 +94,19 @@ export default {
       try {
        document.getElementsByTagName("BODY")[0].style.overflow='hidden';
         const diffLog = await this.$store.dispatch('cart/addItem', { productToAdd: product })
+        console.log("789456 Product adding to cart")
         diffLog.clientNotifications.forEach(notificationData => {
+          console.log("789456 Successfully added",notificationData);
           // this.notifyUser(notificationData)
         })
       } catch (message) {
+        console.log("789456 Error occured ",message);
         this.notifyUser(notifications.createNotification({ type: 'error', message }))
       }
     },
     notifyUser (notificationData) {
+      console.log("789456 ",notificationData);
+      console.log("About to  notify user")
       this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
     }
   },
