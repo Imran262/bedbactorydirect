@@ -1633,7 +1633,9 @@ export default {
       let sampleObject = this.getCurrentProductConfiguration;
       let sampleObject2 = _.clone(sampleObject);
     //  console.log("Current Configuration", sampleObject);
-      products.forEach((product, productIndex) => {
+      if (products && products.length>0){
+        console.log("Length of Children is greater than zero");
+        products.forEach((product, productIndex) => {
      //   console.log("product is ", product);
         var currentVariant = Object.create(sampleObject);
         var newVariant = Object.assign({}, sampleObject);
@@ -1666,11 +1668,17 @@ export default {
           //   sampleObject2[i].id
           // );
         }
+        
         // console.log("newObj",newObj['size'].id);
         newObjList.push(newObj);
       });
+      }
+      else{
+          console.log("Length of Children is greater than zero");
+        }
     //  console.log("After All", newObjList);
       this.configurableChildren = newObjList;
+    
     },
     changeFilterCustom(event) {
       console.log("112233 change filter custom", event);
