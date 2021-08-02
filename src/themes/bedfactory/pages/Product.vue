@@ -2370,6 +2370,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
       this.boxSqm = this.getCurrentProduct.qty;
     },
     notifyOutStock() {
+      console.log("7894562 notificationData",notificationData);
       this.$store.dispatch("notification/spawnNotification", {
         type: "error",
         message: this.$t(
@@ -2582,6 +2583,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
       return n;
     },
     notifyWrongAttributes() {
+      console.log("7894567 notificationData",notificationData);
       this.$store.dispatch("notification/spawnNotification", {
         type: "warning",
         message: this.$t(

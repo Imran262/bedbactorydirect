@@ -43,7 +43,8 @@ export default {
       }
     },
     notifyUser (notificationData) {
-      this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
+      console.log("7894567 notificationData ",notificationData);
+     // this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
     }
   },
   computed: {

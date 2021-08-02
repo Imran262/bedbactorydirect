@@ -140,6 +140,7 @@ if (product.custom_options && product.custom_options.length > 0) {
       }
     },
     notifyUser(notificationData) {
+      console.log("789456 notificationData",notificationData);
       this.$store.dispatch("notification/spawnNotification", notificationData);
     },
     showAdding(event) {

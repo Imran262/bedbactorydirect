@@ -136,6 +136,7 @@ export default {
           });
 
           if (this.$store.state.config.users.loginAfterCreatePassword) {
+            console.log("7894567674 notificationData",changingNotificationId);
             const { id: authNotificationId } = this.$store.dispatch('notification/spawnNotification', {
               action1: { label: i18n.t('OK') },
               message: i18n.t('Authorization in progress ...'),
@@ -152,6 +153,7 @@ export default {
               this.$store.dispatch('notification/removeNotificationById', authNotificationId);
 
               if (loginResult.code !== 200) {
+                console.log("789456769 notificationData",changingNotificationId);
                 this.$store.dispatch('notification/spawnNotification', {
                   action1: { label: i18n.t('OK') },
                   message: i18n.t('Something went wrong, sorry'),
@@ -175,7 +177,13 @@ export default {
         }
       } catch (err) {
         // Never invoked (?)
+        console.log("78945676 notificationData",changingNotificationId);
         await this.$store.dispatch('notification/removeNotificationById', changingNotificationId);
+        console.log("78945678 notificationData",{
+          action1: { label: i18n.t('OK') },
+          message: i18n.t('Something went wrong, sorry'),
+          type: 'error'
+        });
         await this.$store.dispatch('notification/spawnNotification', {
           action1: { label: i18n.t('OK') },
           message: i18n.t('Something went wrong, sorry'),

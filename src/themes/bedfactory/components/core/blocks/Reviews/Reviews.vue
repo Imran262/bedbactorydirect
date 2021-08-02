@@ -218,6 +218,7 @@ export default {
     },
     notifyUser (notificationData) {
       this.$emit('sampleRes', notificationData);
+      console.log("7894561 notificationData",notificationData);
       this.$store.dispatch('notification/spawnNotification', notificationData, {
         root: true
       });
