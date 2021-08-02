@@ -387,7 +387,6 @@ export default {
 
 @media screen and (max-width: 767px) {
   .leftborder {
-    // border-left: 2px solid #29a795 !important;
     top: 0 !important;
     border-top: 2px solid #e3e3e5;
   }
@@ -405,12 +404,6 @@ export default {
 .sb-filters.dontshow {
   display: none;
 }
-
-.fixedbut {
-  // height: 500px;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
-}
 .fixedbut::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
@@ -422,24 +415,15 @@ export default {
   background-color: #f5f5f5;
   border-radius: 5px;
 }
-
 .fixedbut::-webkit-scrollbar-thumb {
   background-color: #676566;
   border-radius: 5px;
 }
-
 @media screen and (min-width: 768px) {
   .addborders {
     border: 1px solid #29a795 !important;
   }
 }
-
-@media screen and (max-width: 767px) {
-  .addborders {
-//  border: 1px solid #29a795 !important;
-  }
-}
-
 @media screen and (min-width: 768px) {
   .categories {
     padding-left: 15px;
@@ -480,12 +464,12 @@ export default {
       position: absolute;
       background-color: #ffffff;
       z-index: 9;
-      padding: 0px 10px 10px 10px;
-      top: 45px;
+      padding: 0px 9px 10px 9px;
+      top: 47px;
       right: 59px;
       width: 100%;
       max-width: 396px;
-      border: 3px solid #29a795;
+      border: 2px solid #29a795;
       border-top: none;
       @media screen and (max-width: 767px) {
         border: 3px solid #168ae5;
@@ -501,7 +485,7 @@ export default {
         border-top: none;
       }
       @media (max-width: 1199px) and (min-width: 991px) {
-        top: 48px;
+        top: 47px;
         right: auto;
         width: 100%;
         max-width: 343px;
@@ -512,22 +496,8 @@ export default {
         width: 100%;
         max-width: 249px;
         left: 25px;
-        top: 48px;
+        top: 47px;
       }
-      //   @media screen and (min-width: 1201px) and (max-width: 1230px) {
-      //     right: 49px;
-      //     width: 100%;
-      //     max-width: 406px;
-      //   }
-      //   @media screen and (min-width: 1200px) and (max-width: 1200px) {
-      //     right: 0;
-      //   }
-      //   @media screen and (min-width: 1201px) and (max-width: 1208px) {
-      //     right: 48px;
-      //   }
-      //   @media screen and (min-width: 1201px) and (max-width: 1203px) {
-      //     right: 47px;
-      //   }
     }
 
     @media #{$media-xs} {
@@ -579,21 +549,11 @@ export default {
   }
 
   .col-md-12 {
-    // padding-left: map-get($grid-gutter-widths, lg) / 2;
-    // padding-right: map-get($grid-gutter-widths, lg) / 2;
     @media #{$media-xs} {
       padding-left: map-get($grid-gutter-widths, xs) / 2;
       padding-right: map-get($grid-gutter-widths, xs) / 2;
     }
   }
-
-  .product-listing {
-    // padding-top: 30px;
-    // overflow-y: auto;
-    // height: 510px;
-    // border-top: 2px solid #b3b6b4;
-  }
-
   .product {
     box-sizing: border-box;
     width: 33.33%;
@@ -678,12 +638,6 @@ export default {
   width: 100%;
   position: relative;
 }
-
-.buttons-set {
-  // margin-top: 15px;
-  // border-top: 2px solid #b3b6b4;
-}
-
 @media (max-width: 767px) {
   .searchbar-show {
     width: 100%;
@@ -702,8 +656,6 @@ export default {
     height: 35px;
     width: 35px;
     background-color: #ffffff;
-    /* border-top: 2px solid #e3e3e5; */
-    // border-right: 2px solid #e3e3e5;
     border-bottom: 2px solid #e3e3e5;
     border-left: 2px solid #e3e3e5;
     z-index: 99;
@@ -783,21 +735,11 @@ export default {
     right: 40px;
   }
 }
-
-@media screen and (max-width: 767px) {
-  .addborders {
-    // border-top: 3px solid #29a795 !important;
-    // border-left: 3px solid #29a795 !important;
-    // border-right: 3px solid #29a795 !important;
-  }
-}
-
 @media (min-width: 768px) and (max-width: 991px) {
   .searchbar-show {
     margin-left: 1px;
   }
 }
-
 @media (min-width: 768px) and (max-width: 1200px) {
   .searchpanel .product {
     width: 50%;
@@ -818,12 +760,6 @@ export default {
 .container.show {
   display: block !important;
 }
-
-// @media (min-width: 767px){
-//   .search-bar .searchpanel .container .sb-filters {
-//     padding: 9px 0px 0px 0px;
-//   }
-// }
 .search-icon {
   display: none !important;
 }
