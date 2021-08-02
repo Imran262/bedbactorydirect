@@ -224,6 +224,7 @@ export default {
     login() {
       if (this.$v.$invalid) {
         this.$v.$touch();
+        console.log("78945676 notificationData fix validation errors");
         this.$store.dispatch("notification/spawnNotification", {
           type: "error",
           message: this.$t("Please fix the validation errors"),

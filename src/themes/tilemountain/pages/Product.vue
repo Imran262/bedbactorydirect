@@ -1960,6 +1960,7 @@ export default {
       )
     },
     notifyOutStock () {
+      console.log("78945676 notificationData product out of stock");
       this.$store.dispatch('notification/spawnNotification', {
         type: 'error',
         message: this.$t(
@@ -2150,6 +2151,7 @@ export default {
       return n
     },
     notifyWrongAttributes () {
+      console.log("78945676 notificationData product not available");
       this.$store.dispatch('notification/spawnNotification', {
         type: 'warning',
         message: this.$t(

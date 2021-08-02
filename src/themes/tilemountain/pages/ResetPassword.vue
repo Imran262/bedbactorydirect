@@ -129,6 +129,7 @@ export default {
             type: 'error'
           });
         } else if (response.code === 200) {
+          console.log("78945676 notificationData");
           this.$store.dispatch('notification/spawnNotification', {
             action1: { label: i18n.t('OK') },
             message: i18n.t('Sucessfully changed password'),

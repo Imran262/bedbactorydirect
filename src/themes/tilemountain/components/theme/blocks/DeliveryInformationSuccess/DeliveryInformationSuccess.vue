@@ -26,7 +26,7 @@
           </div>
           <template v-if="getAddressInformation.shipping_method_code">
             <template v-if="getAddressInformation.shipping_date">
-              <span class="arrive">Arriving:</span>
+              <span class="arrive">prefered delivery date</span>
               <p>{{ getShippingMethodDate }}</p>
             </template>
           </template>
