@@ -746,12 +746,19 @@ export default {
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
-      document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      if (this.$device.isMobile)
+      {
+ clearAllBodyScrollLocks();
+      }
+      else{
+document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      }
+      
       // document.getElementsByClassName("vue-back-to-top")[0].classList.remove("removeButton");
       // console.log("1122 class removed",document.getElementsByClassName("vue-back-to-top")[0].classList);
       // var x = document.getElementsByTagName("BODY")[0];
       // x.style.overflow = "scroll";
-     // clearAllBodyScrollLocks();
+    
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     },

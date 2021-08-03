@@ -80,6 +80,13 @@ export default {
     close () {
        document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       this.toggle(false);
+       if (this.$device.isMobile)
+      {
+ clearAllBodyScrollLocks();
+      }
+      else{
+document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      }
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     }

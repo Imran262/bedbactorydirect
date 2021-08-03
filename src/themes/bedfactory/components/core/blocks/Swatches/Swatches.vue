@@ -136,7 +136,6 @@ export default {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 61%;
     margin-bottom: 8px;
     margin-top: 6px;
   }
@@ -152,7 +151,7 @@ export default {
     margin-top: 0px !important;
   }
   .hm-watch-vid-mobile {
-    padding: 15px 27px;
+    padding: 15px 22px;
     font-size: 14px;
   }
   .hm-watch-vid-one {
