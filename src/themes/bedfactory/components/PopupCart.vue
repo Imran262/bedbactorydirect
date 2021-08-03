@@ -746,7 +746,9 @@ export default {
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
-      if (this.$device.isMobile)
+      console.log("11223344556677", window.innerWidth);
+      // console.log("11223344556677 ",this.$device.isMobile);
+      if (window.innerWidth <= 768)
       {
  clearAllBodyScrollLocks();
       }
