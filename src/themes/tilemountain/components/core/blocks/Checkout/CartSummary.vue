@@ -102,7 +102,6 @@
           </div>
           <FullToCutConverter :cart-items="productsInCart" v-if="$route.name !== 'confirmorder'" />
         </div>
-        activatePaymentBtnTitle
             {{activatePaymentBtnTitle}}
         <div
           class="cart-bottom-detail paypal-btn"
@@ -296,6 +295,10 @@ export default {
   methods: {
     updateScroll () {
       if (this.$route.name === 'checkout') {
+        if (window.innerWidth > 768)
+      {
+        document.getElementById('app').style.overflowX  = "unset";
+      }
         // document.getElementById('app').style.overflowX  = "unset";
         document.getElementById('viewport').style.overflow = "unset";
       }
