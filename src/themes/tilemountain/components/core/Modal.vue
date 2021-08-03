@@ -80,12 +80,15 @@ export default {
     close () {
        document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       this.toggle(false);
-       if (this.$device.isMobile)
+      console.log("11223344556677", window.innerWidth);
+      // console.log("11223344556677 ",$device.isMobile);
+      // console.log("11223344556677 ",this.$device.isMobile);
+       if (window.innerWidth <= 768)
       {
- clearAllBodyScrollLocks();
+        clearAllBodyScrollLocks();
       }
       else{
-document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+        document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       }
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
