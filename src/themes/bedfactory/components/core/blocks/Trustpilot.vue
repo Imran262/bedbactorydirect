@@ -115,41 +115,36 @@ export default {
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  width: 85%;
-  justify-content: center;
-  margin-bottom: -10px;
+  justify-content: space-between;
+  max-width: 1270px;
+  padding: 0 10px;
+  align-items: center;
 }
 .trustpilot_one {
-  float: left;
-  font-size: 32px;
-  font-family: oblik;
-  color: #29275b;
-  margin: 12px;
-  margin-left: 55px;
+     float: left;
+    font-size: 28px;
+    font-family: oblik;
+    color: #071a44;
 }
 .related-excellent {
   float: left;
-  color: #29275b;
-  font-size: 32px;
+  color: #071a44;
+  font-size: 28px;
   font-family: 'Oblik';
-  margin-top: -21px;
-  margin-left: 35px;
+  font-weight: bold;
 }
 .top-blue-line {
-  padding: 41px 0px 0px 0px;
+  padding: 10px 0;
 }
 .sb-star {
-  width: 267px;
-  height: 58px;
-  margin: 4px 0px 0px 21px;
+  width: 250px;
+  height: 50px;
   float: left;
   background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
 }
 .trustpilot-img {
-  width: 267px;
-  height: 58px;
-  margin-left: 38px;
-  float: left;
+  width: 200px;
+  height: 50px;
   background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat scroll;
   margin-top: -7px;
 }
@@ -182,73 +177,90 @@ ul li {
   background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
 }
 
-@media only screen and (min-device-width: 992px) and (max-device-width: 1199px) {
-  .sb-star {
-    width: 116px;
-    height: 35px;
-    margin: 9px 0px 0px 17px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
-  }
-  .trustpilot-img {
-    width: 116px;
-    height: 35px;
-    margin-top: 0px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-      scroll;
-  }
-  .trustpilot_one {
-    font-size: 17px;
-  }
-  ul li img {
-    height: 32px;
-    width: 32px;
-  }
-  .related-excellent {
-    font-size: 16px;
-    margin-top: -3px;
-  }
-  .trustpilot_image {
-    margin-top: -7px;
-    height: 42px;
-  }
-}
+// @media only screen and (min-device-width: 992px) and (max-device-width: 1199px) {
+//   .sb-star {
+//     width: 116px;
+//     height: 35px;
+//     margin: 9px 0px 0px 17px;
+//     float: left;
+//     background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
+//   }
+//   .trustpilot-img {
+//     width: 116px;
+//     height: 35px;
+//     margin-top: 0px;
+//     float: left;
+//     background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
+//       scroll;
+//   }
+//   .trustpilot_one {
+//     font-size: 17px;
+//   }
+//   ul li img {
+//     height: 32px;
+//     width: 32px;
+//   }
+//   .related-excellent {
+//     font-size: 16px;
+//     margin-top: -3px;
+//   }
+//   .trustpilot_image {
+//     margin-top: -7px;
+//     height: 42px;
+//   }
+// }
 @media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
-  .sb-star {
-    width: 116px;
-    height: 35px;
-    margin: 4px 0px 0px 3px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
-    margin-left: 8px;
-  }
-  .trustpilot-img {
-    width: 116px;
-    height: 35px;
-    margin-top: -4px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-      scroll;
-  }
-  .trustpilot_one {
-    font-size: 12px;
-    margin: 6px;
-    margin-left: 0;
-  }
-  ul li img {
-    height: 22px;
-    width: 22px;
-  }
-  .related-excellent {
-    font-size: 12px;
-    margin-top: -4px;
-    margin-left: 26px;
-  }
-  .trustpilot_image {
-    margin-top: -7px;
-    height: 30px;
-  }
+  .trustpilot-main{
+    max-width: 740px !important;
+}
+ .related-excellent {
+  font-size: 16px !important;
+ }
+ .trustpilot_one {
+   font-size: 16px !important;
+ }
+ .sb-star{
+    width: 150px !important;
+    height: 31px !important;
+}
+.trustpilot-img {
+    width: 134px !important;
+    height: 31px !important;
+}
+  // .sb-star {
+  //   width: 116px;
+  //   height: 35px;
+  //   margin: 4px 0px 0px 3px;
+  //   float: left;
+  //   background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
+  //   margin-left: 8px;
+  // }
+  // .trustpilot-img {
+  //   width: 116px;
+  //   height: 35px;
+  //   margin-top: -4px;
+  //   float: left;
+  //   background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
+  //     scroll;
+  // }
+  // .trustpilot_one {
+  //   font-size: 12px;
+  //   margin: 6px;
+  //   margin-left: 0;
+  // }
+  // ul li img {
+  //   height: 22px;
+  //   width: 22px;
+  // }
+  // .related-excellent {
+  //   font-size: 12px;
+  //   margin-top: -4px;
+  //   margin-left: 26px;
+  // }
+  // .trustpilot_image {
+  //   margin-top: -7px;
+  //   height: 30px;
+  // }
 }
 @media (max-device-width: 767px) {
   .mbl-hide {
@@ -280,8 +292,8 @@ ul li {
   }
   .trustpilot-footer-logo h5 {
     display: inline-block;
-    font-size: 11.09px;
-    color: #29275b;
+    font-size: 12.07px;
+    color: #071a44;
     font-family: oblik;
     margin: 0;
     padding-left: 14px;
@@ -296,7 +308,7 @@ ul li {
     align-items: flex-end;
   }
   .our-customer {
-    font-size: 15px !important;
+    font-size: 14px !important;
     padding-right: 15px;
   }
   .top-blue-line-mobile {
@@ -322,57 +334,75 @@ ul li {
       scroll;
   }
 }
-@media only screen and (min-device-width: 1200px) and (max-device-width: 1500px) {
-  .trustpilot_one {
-    float: left;
-    font-size: 25px;
-    font-family: oblik;
-    color: #29275b;
-    margin: 12px;
-    margin-left: 47px;
-  }
-  .sb-star {
-    width: 267px;
-    height: 45px;
-    margin: 4px 0px 0px 0px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
-  }
-  .related-excellent {
-    float: left;
-    color: #29275b;
-    font-size: 22px;
-    font-family: 'Oblik';
-    margin-top: -8px;
-    margin-left: -30px;
-  }
-  .trustpilot-img {
-    width: 267px;
-    height: 47px;
-    margin-left: 0px;
-    float: left;
-    background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
-      scroll;
-    margin-top: -3px;
-    margin-left: 22px;
-  }
-  .trustpilot-main {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    justify-content: center;
-  }
+// @media only screen and (min-device-width: 1200px) and (max-device-width: 1500px) {
+//   .trustpilot_one {
+//     float: left;
+//     font-size: 25px;
+//     font-family: oblik;
+//     color: #29275b;
+//     margin: 12px;
+//     margin-left: 47px;
+//   }
+//   .sb-star {
+//     width: 267px;
+//     height: 45px;
+//     margin: 4px 0px 0px 0px;
+//     float: left;
+//     background: rgba(0, 0, 0, 0) url(/assets/stars.svg) no-repeat scroll;
+//   }
+//   .related-excellent {
+//     float: left;
+//     color: #29275b;
+//     font-size: 22px;
+//     font-family: 'Oblik';
+//     margin-top: -8px;
+//     margin-left: -30px;
+//   }
+//   .trustpilot-img {
+//     width: 267px;
+//     height: 47px;
+//     margin-left: 0px;
+//     float: left;
+//     background: rgba(0, 0, 0, 0) url(/assets/trustpilot-logo.svg) no-repeat
+//       scroll;
+//     margin-top: -3px;
+//     margin-left: 22px;
+//   }
+//   .trustpilot-main {
+//     display: flex;
+//     margin-left: auto;
+//     margin-right: auto;
+//     width: 100%;
+//     justify-content: center;
+//   }
+// }
+// @media only screen and (min-device-width: 1501px) and (max-device-width: 1795px) {
+//   // .related-excellent {
+//   //   font-size: 31px;
+//   // }
+//   // .trustpilot_one {
+//   //   font-size: 31px;
+//   // }
+//   .trustpilot-main{
+//     width: 100%;
+//   }
+// }
+@media (max-width: 1199px){
+.trustpilot-main{
+    max-width: 960px;
 }
-@media only screen and (min-device-width: 1501px) and (max-device-width: 1795px) {
-  .related-excellent {
-    font-size: 31px;
-  }
-  .trustpilot_one {
-    font-size: 31px;
-  }
-  .trustpilot-main[data-v-4260ccce] {
-    width: 100%;
-  }
+ .related-excellent {
+  font-size: 20px;
+ }
+ .trustpilot_one {
+   font-size: 20px;
+ }
+ .sb-star{
+    width: 210px;
+    height: 44px;
+}
+.trustpilot-img {
+    width: 180px;
+}
 }
 </style>

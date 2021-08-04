@@ -1,10 +1,10 @@
 <template>
-  <div class="link_button" @click="colorChange(), toggleMenu()">
+  <div class="link_button" @click="colorChange(), toggleMenu()"   @click.stop="next()">
     <template v-if="type === 'next'">
       <template v-if="link">
         <router-link
           class="menuLinkTag inline-flex between-xs w-100 px25 py20 pr15 serif cl-accent"
-          :to="localizedRoute(link)"
+          :to="localizedRoute('')"
         >
           {{ name }}
         </router-link>
@@ -25,8 +25,8 @@
       </button>
     </template>
     <template v-else>
-      <div class="sub-category-mobile-main-back">
-        <div class="d-flex align-center">
+      <div class="sub-category-mobile-main-back" >
+        <div class="d-flex align-center"  @click.stop="back(false)">
           <button
             class="arrow-back"
             type="button"
@@ -36,7 +36,7 @@
             <i class="material-icons"> </i>
           </button>
           <template v-if="submenu.depth == 1">
-            <div id="backBtnRef" @click="redirectTo">
+            <div id="backBtnRef" @click.stop="back(false)">
               {{ menuName }}
             </div>
           </template>
