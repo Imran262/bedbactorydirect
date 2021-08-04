@@ -3806,9 +3806,9 @@ a:not(.no-underline):hover:after {
           font-size: 1.6rem;
         }
 
-        .rating {
+        /* .rating {
           display: none;
-        }
+        } */
 
         .sku-value-top {
           display: none;
