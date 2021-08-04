@@ -8,7 +8,8 @@
       :key="key"
       class="col-sm-6 col-md-4 flex col-xs-6 pading"
     >
-      <product-tile-custom-cat :product="product" :filters="filters"/>
+      <!-- <product-tile-custom-cat  :index="key" :product="product" :filters="filters"/> -->
+       <product-tile-custom-cat :key="product.sku" :index="key" :product="product" :filters="filters"/>
     </div>
   </template>
   <template v-else>
