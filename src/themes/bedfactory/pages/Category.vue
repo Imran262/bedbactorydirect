@@ -1396,6 +1396,7 @@ $border-radius: 5px;
       font-weight: bold;
       background-color: #29275b;
       border-radius: 10px;
+      float: none !important;
     }
   }
   #subcategory-list {
