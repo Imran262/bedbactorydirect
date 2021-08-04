@@ -1739,7 +1739,7 @@ p {
     // margin-top: 4px;
     p {
       // font-size: 11px;
-      z-index: 9999;
+      // z-index: 9999;
     }
     img {
       width: 25px;
@@ -1805,7 +1805,7 @@ p {
 @media (max-width: 440px) and (min-width: 320px) {
   .mobile-filters-button {
     p {
-      z-index: 9999;
+      // z-index: 9999;
     }
   }
 }
