@@ -243,8 +243,9 @@ export default {
   font-family: "Oblik";
   line-height: 1.5;
 }
-
-/* #sidebarmenucontainer {
-    overflow: hidden;
-} */
+ul.sidebar-submenu.level2.absolute.w-100.p0.bg-cl-primary.newCLass.className.active {
+    height: 50vh;
+    overflow-y: auto;
+    background: transparent;
+}
 </style>
