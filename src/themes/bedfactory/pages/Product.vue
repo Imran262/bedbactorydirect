@@ -1720,7 +1720,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
        this.configurableChildren.forEach((child,childIndex)=>{
        // console.log("7788");
        // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
-       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",configurableChildren,child ,changedConfig);
+       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",this.configurableChildren,child ,changedConfig);
        // if()
         if (JSON.stringify(child)==JSON.stringify(changedConfig)){
         //  let variant = JSON.parse(event.target.value)
