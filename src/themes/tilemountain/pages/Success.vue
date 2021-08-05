@@ -54,7 +54,6 @@
           "
         >
           <RegisterAccountSuccess :personal-details="getPersonalDetails" />
-          products are {{getFinalItems}}
           <OrderReviewList
             :products="getFinalItems"
             :totals="orderPriceElements"
