@@ -358,6 +358,7 @@
                         class="sizes basin_size"
                         v-else-if="option.label == 'Size'"
                       >
+                      <!-- Size -->
                       <!-- Here we are -->
                         <select
                           class="chevron-down-icon "
@@ -394,6 +395,8 @@
                         :class="option.attribute_code"
                         v-else
                       >
+                      <!-- {{option.attribute_code}}
+                      <br/> else -->
                         <select   class="chevron-down-icon " @change="changeFilterCustom($event)">
                           <option :value="null" :key="2378695843" selected>
                             Please select
@@ -561,6 +564,7 @@
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
+                    <!-- maxQuantity {{maxQuantity}} -->
                     <product-quantity
                       class="product-quantity bt-product-qty row m0"
                       v-if="
@@ -1692,7 +1696,15 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
   // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
     let changedConfig = Object.assign({}, configuration);
     changedConfig[variant.type].id = variant.id; 
-    changedConfig[variant.type].label = variant.id; 
+    changedConfig[variant.type].label = variant.id;
+    let i = 0;
+    for (let i in changedConfig)
+    {
+      console.log("Current is ",changedConfig[i]);
+      changedConfig[i].id=parseInt(changedConfig[i].id)
+        changedConfig[i].label=parseInt(changedConfig[i].id)
+     
+    }
   console.log('changedConfig',changedConfig[variant.type].id, changedConfig);
       for (let i in configuration )
       {
@@ -1708,20 +1720,23 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
        this.configurableChildren.forEach((child,childIndex)=>{
        // console.log("7788");
        // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
-       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",configurableChildren,child ,changedConfig);
        // if()
         if (JSON.stringify(child)==JSON.stringify(changedConfig)){
         //  let variant = JSON.parse(event.target.value)
-        console.log("774455", "child matched will emit " ,  );
+        console.log("774455", "child matched will emit " , child.stock );
           this.$bus.$emit("filter-changed-product",Object.assign({ attribute_code: variant.type }, variant));
+        //   this.manageQuantity = false;
+        // this.maxQuantity = child.stock.qty;
+        // this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
           this.getQuantity();
           flag =true;
         }
         else{
           if(childIndex+1 == this.configurableChildren.length){
-            console.log("At the end of children");
+            console.log("At the end of children",flag);
             if(flag){
-
+              this.getQuantity();
             }else{
            // disable cart
            this.cartFlag =false;
@@ -2661,14 +2676,27 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
         if (config.products.alwaysSyncPricesClientSide) {
           doPlatformPricesSync([this.getCurrentProduct]);
         }
+        if (this.getCurrentProduct.configurable_options.length > 0)
+        {
+          this.getCurrentProduct.configurable_children.forEach((child,index)=>{
+            console.log("child ",child);
+          });
+        // console.log("12345654321 current product is configurable ",this.getCurrentProduct.stock.qty,JSON.stringify(this.getCurrentProduct),this.getCurrentProduct.colour,"       ",this.getCurrentProduct.size);
+        // this.manageQuantity = false;
+        // this.maxQuantity = this.getCurrentProduct.stock.qty;
+        // this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
+        // console.log("max is ",this.maxQuantity , this.getCurrentProduct.stock.qty);
+        }
+        else{
         const res = await this.$store.dispatch("stock/check", {
           product: this.getCurrentProduct,
           qty: this.getCurrentProduct.qty,
         });
-
+        console.log("12345654321 current product is ",JSON.stringify(this.getCurrentProduct),this.getCurrentProduct.colour,"       ",this.getCurrentProduct.size," stock is ",res);
         this.manageQuantity = res.isManageStock;
         this.maxQuantity = res.qty;
         this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
+      }
       } finally {
         this.isStockInfoLoading = false;
       }
