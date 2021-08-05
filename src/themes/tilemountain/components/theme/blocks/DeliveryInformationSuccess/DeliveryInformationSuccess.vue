@@ -26,8 +26,9 @@
           </div>
           <template v-if="getAddressInformation.shipping_method_code">
             <template v-if="getAddressInformation.shipping_date">
-              <span class="arrive">prefered delivery date</span>
-              <p>{{ getShippingMethodDate }}</p>
+              <span class="arrive">Prefered Delivery Day</span>
+              <p v-if="getShippingMethodDate && getShippingMethodDate !=='Invalid Date'">{{ getShippingMethodDate }}</p>
+              <p v-else>Date to be Arranged</p>
             </template>
           </template>
         </div>
@@ -76,6 +77,7 @@ export default {
         } else {
           newDate = new Date(date)
         }
+        console.log(" 789632145 New date",newDate,"Formated",format(newDate, "Do MMMM YYYY"));
         return format(newDate, "Do MMMM YYYY")
       }
     },
@@ -85,6 +87,7 @@ export default {
         this.getAddressInformation &&
         this.getAddressInformation.shipping_method_code
       ) {
+        console.log("789654 Before ",this.getAddressInformation.shipping_method_code);
         let deliveryName = this.getAddressInformation.shipping_method_code.split(
           "__"
         )
@@ -102,7 +105,12 @@ export default {
           }
         }
       }
-      return nameOfService
+      console.log("789654 After ",nameOfService);
+     let newName = this.getAddressInformation.shipping_method_code.split(
+          "-"
+        )
+        console.log("789654 new ",newName);
+      return newName[0]
     }
   }
 };
