@@ -564,7 +564,7 @@
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
-                    <!-- maxQuantity {{maxQuantity}} -->
+                    maxQuantity {{maxQuantity}}
                     <product-quantity
                       class="product-quantity bt-product-qty row m0"
                       v-if="
@@ -976,6 +976,7 @@ export default {
   },
   data() {
     return {
+      currentConfiguration : {},
       isFabrics:true,
       detailsOpen: false,
       ProDeliveryShow: true,
@@ -1722,6 +1723,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
        // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
        console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",this.configurableChildren,child ,changedConfig);
        // if()
+       this.currentConfiguration = changedConfig
         if (JSON.stringify(child)==JSON.stringify(changedConfig)){
         //  let variant = JSON.parse(event.target.value)
         console.log("774455", "child matched will emit " , child.stock );
@@ -1736,7 +1738,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
           if(childIndex+1 == this.configurableChildren.length){
             console.log("At the end of children",flag);
             if(flag){
-              this.getQuantity();
+              // this.getQuantity();
             }else{
            // disable cart
            this.cartFlag =false;
@@ -2678,8 +2680,42 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
         }
         if (this.getCurrentProduct.configurable_options.length > 0)
         {
+          let flag = true
+          let count = 0;
+          let totalOption = 0 ;
+          console.log("74132",this.currentConfiguration);
+          for (let i in this.currentConfiguration){
+              totalOption++;
+              console.log("74132 total option ",totalOption);
+              //console.log("i = ",i , this.currentConfiguration[i],"\n\n\n",this.currentConfiguration[i].id === child[i],this.currentConfiguration[i].id , child[i]);
+            }
           this.getCurrentProduct.configurable_children.forEach((child,index)=>{
-            console.log("child ",child);
+            console.log("child ",child,this.currentConfiguration,this.getCurrentProduct.configurable_children.length,index+1);
+            for (let i in this.currentConfiguration){
+              console.log("i = ",i , this.currentConfiguration[i],"\n\n\n",this.currentConfiguration[i].id === child[i],this.currentConfiguration[i].id , child[i]);
+              if (this.currentConfiguration[i].id === child[i])
+              {
+                console.log(i," matched");
+                count++;
+              }
+              else{
+                flag = false
+              }
+            }
+            console.log("count is ",count , totalOption);
+            if (count === totalOption){
+              console.log("Options matched ");
+              this.manageQuantity = false;
+                this.maxQuantity = child.stock.qty;
+
+            }
+            count = 0;
+            if (this.getCurrentProduct.configurable_children.length === index+1){
+              if (flag){
+                this.manageQuantity = false;
+                this.maxQuantity = child.stock.qty;
+              }
+            }
           });
         // console.log("12345654321 current product is configurable ",this.getCurrentProduct.stock.qty,JSON.stringify(this.getCurrentProduct),this.getCurrentProduct.colour,"       ",this.getCurrentProduct.size);
         // this.manageQuantity = false;
