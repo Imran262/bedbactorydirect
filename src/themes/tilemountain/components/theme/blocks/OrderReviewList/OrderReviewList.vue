@@ -2,7 +2,7 @@
   <div class="succes-order-review">
     <div class="header">Order Review</div>
     <div class="summary">
-      
+    <!-- products  {{products}} -->
       <div class="card" v-for="product in products" :key="product.sku">
         <div class="card-row">
           <div class="card-img-container col-xs-12">

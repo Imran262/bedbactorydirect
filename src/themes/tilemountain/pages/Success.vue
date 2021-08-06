@@ -229,24 +229,27 @@ export default {
       }
     },
     getFinalItems () {
-      const merged = _.merge(_.keyBy(this.getCartItems, 'name'), _.keyBy(this.getOrderItems, 'name'))
+      const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
       
       const values = _.values(merged)
-      console.log("741258 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
+      console.log("663322 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
       const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
       const simpleProducts = values.filter(value => !(value.extension_attributes && value.extension_attributes.original_item_sku))
+      console.log("663322 Simple ",simpleProducts , "\n\n\nextension attributes" , extensionAttributes);
       let finalItems = []
       if (extensionAttributes.length > 0) {
+        console.log("663322 in extensionAttributes ",extensionAttributes);
         const reducedProducts = extensionAttributes.reduce((acc, current) => {
           const skuKey = current[ 'extension_attributes' ][ 'original_item_sku' ]
           if (!(skuKey in acc) && !acc[ skuKey ]) {
             return { ...acc, [ skuKey ]: [ current ] }
           }
           return { ...acc, [ skuKey ]: [ ...acc[ skuKey ], current ] }
-        }, {})
+        }, {}) 
+        console.log("663322 Reduced products ",reducedProducts);
         for (const item of _.values(reducedProducts)) {
           const reducedItem = item.reduce((acc, current) => {
-            console.log("getcaritems", current.extension_attributes)
+            console.log("663322 getcaritems", current.extension_attributes)
             const price = acc.price_incl_tax
             return {
               price_incl_tax: price + current.price_incl_tax,
@@ -255,12 +258,20 @@ export default {
               qty: current.qty
             }
           }, { price_incl_tax: 0 })
+          console.log("663322 Reduced Item ",reducedItem);
           finalItems.push(reducedItem)
         }
       }
       if (simpleProducts.length > 0) {
+        console.log("663322 in Simple Product",finalItems);
         finalItems = [ ...finalItems, ...simpleProducts ]
+        console.log("663322 After ",finalItems);
       }
+      console.log("663322  Final Items are",finalItems);
+      finalItems = finalItems.filter(function(item){
+        return item.price >0
+      })
+      console.log("663322  After Final Items are",finalItems);
       return finalItems
     },
   },
