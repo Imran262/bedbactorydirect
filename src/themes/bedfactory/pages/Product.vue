@@ -1738,7 +1738,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
           if(childIndex+1 == this.configurableChildren.length){
             console.log("At the end of children",flag);
             if(flag){
-              this.getQuantity();
+              // this.getQuantity();
             }else{
            // disable cart
            this.cartFlag =false;
