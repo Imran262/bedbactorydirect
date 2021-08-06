@@ -330,7 +330,7 @@
                         v-if="option.label == 'Color'"
                       >
                         <select @change="changeFilterCustom($event)">
-                          <option :value="null" :key="2378695843" selected>
+                          <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
                           <template
@@ -364,7 +364,7 @@
                           class="chevron-down-icon "
                           @change="changeFilterCustom($event)"
                         >
-                          <option :value="null" :key="2378695843" selected>
+                          <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
                           <template
@@ -398,7 +398,7 @@
                       <!-- {{option.attribute_code}}
                       <br/> else -->
                         <select   class="chevron-down-icon " @change="changeFilterCustom($event)">
-                          <option :value="null" :key="2378695843" selected>
+                          <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
                           <template
@@ -564,7 +564,7 @@
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
-                    maxQuantity {{maxQuantity}}
+                    <!-- maxQuantity {{maxQuantity}}  -->
                     <product-quantity
                       class="product-quantity bt-product-qty row m0"
                       v-if="
@@ -622,6 +622,8 @@
                     @Modal="modalshow"
                     :sqm-val-updated="'0'"
                   /> -->
+                  <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
+                  <template v-if="getCurrentProduct.custom_options && getCurrentProduct.custom_options.length>0" >
                     <add-to-cart
                       :product-options="sendProductCustomOptions"
                       :product="getCurrentProduct"
@@ -631,6 +633,19 @@
                       :disableProduct="false"
                       :disableProductFlag="false"
                     />
+                  </template>
+                   <template v-else>
+                     <add-to-cart
+                      :product-options="sendProductCustomOptions"
+                      :product="getCurrentProduct"
+                      :custom-options="getCurrentProductCustomOptionsRedo"
+                      class="col-xs-12 col-sm-4 col-md-6 float-right"
+                      :product-calculated-price="calculatedProductPrice"
+                      :disableProduct="cartFlag"
+                      :disableProductFlag="cartFlag"
+                    />
+                    </template>
+                    
 
                     <!-- <add-to-cart
                     :product="getCurrentProduct"
@@ -976,6 +991,7 @@ export default {
   },
   data() {
     return {
+      cartFlag : false,
       currentConfiguration : {},
       isFabrics:true,
       detailsOpen: false,
@@ -1687,7 +1703,7 @@ export default {
     },
     changeFilterCustom(event) {
       console.log("112233 change filter custom", event);
-      this.cartFlag=true;
+      this.cartFlag= false;
       let variant = JSON.parse(event.target.value)
       let filterOption = Object.assign({ attribute_code: variant.type }, variant);
       delete filterOption.type;
@@ -1741,7 +1757,9 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
               // this.getQuantity();
             }else{
            // disable cart
-           this.cartFlag =false;
+           console.log("this variant was not found",this.currentConfiguration);
+           this.cartFlag = true;
+           console.log("cart flag is ", this.cartFlag );
             }
 
           }

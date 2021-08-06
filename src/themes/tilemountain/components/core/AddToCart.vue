@@ -116,8 +116,8 @@ export default {
     }),
     isProductDisabled() {
       console.log("112233445577 Answer is ",this.disableProduct,this.disableProductFlag,this.customOptions && this.customOptions.length > 0,this.customOptions , this.customOptions.length > 0,this.cOptionCheck , this.ccOptionCheck);
-       if (this.disableProductFlag) {
-return this.disableProduct;
+       if (this.disableProduct) {
+return false;
        }
        else{
          
