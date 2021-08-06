@@ -3248,4 +3248,7 @@ span.delivery-date {
     justify-content: space-between;
   }
 }
+#shippingSubmitBtnId {
+    background: #071a44;
+}
 </style>
