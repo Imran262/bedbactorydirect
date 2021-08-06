@@ -1006,7 +1006,7 @@ export default {
   }
 
   .check-btn-outer {
-    padding: 30px 20px 15px 20px;
+    padding: 30px 20px 70px 20px;
   }
 
   .checkoutbutton {
