@@ -218,6 +218,9 @@ export default {
       }
     },
     close(e) {
+      console.log("14589 Log in function Close" ,document.getElementsByTagName("BODY")[0],document.getElementsByTagName("BODY")[0].style);
+      document.getElementsByTagName("BODY")[0].style.overflow ="scroll"
+      console.log("14589 Log in function Close After" ,document.getElementsByTagName("BODY")[0],document.getElementsByTagName("BODY")[0].style);
       if (e) localStorage.removeItem("redirect");
       this.$bus.$emit("modal-hide", "modal-signup");
     },
