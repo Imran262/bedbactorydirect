@@ -135,7 +135,7 @@
             <div class="col-md-7">
               <div class="footer-btns-links">
                 <button class="shopping-button" @click="popupclose">
-                  Continue Shopping
+                  Continue Shopping Desktop
                 </button>
                 <router-link
                   :to="localizedRoute('/cart')"
@@ -155,7 +155,7 @@
       <div class="col-md-12">
         <div class="footer-btns-links">
           <button class="btn-shopping" @click="popupclose">
-            CONTINUE SHOPPING
+            CONTINUE SHOPPING Mobile
           </button>
           <router-link
             :to="localizedRoute('/cart')"
@@ -747,12 +747,17 @@ export default {
     },
     popupclose() {
       console.log("11223344556677", window.innerWidth);
+       console.log("fsfsfsfsfs", document.getElementsByTagName("BODY")[0]);
       // console.log("11223344556677 ",this.$device.isMobile);
+      document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       if (window.innerWidth <= 768)
       {
+        console.log('in if ');
  clearAllBodyScrollLocks();
       }
       else{
+
+        console.log('in else');
 document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       }
       

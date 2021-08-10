@@ -92,7 +92,14 @@ export default {
     },
     async addToCart (product) {
       try {
-       document.getElementsByTagName("BODY")[0].style.overflow='hidden';
+        if (window.innerWidth <= 768)
+      {
+        console.log('Add to cart for Mobile ');
+      }
+      else {
+        console.log('Add to cart for desktop ');
+      }
+      //  document.getElementsByTagName("BODY")[0].style.overflow='hidden';
         const diffLog = await this.$store.dispatch('cart/addItem', { productToAdd: product })
         console.log("789456 Product adding to cart")
         diffLog.clientNotifications.forEach(notificationData => {
