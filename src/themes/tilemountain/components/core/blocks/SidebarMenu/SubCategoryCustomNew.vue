@@ -183,6 +183,7 @@ export default {
         let bodyVar = document.getElementsByTagName('BODY')[0]
         let sidebarMenu = document.getElementById('sidebarmenucontainer')
         if (sidebarMenu != null) {
+          console.log("9512 In sub category custom new");
           return bodyVar.classList.remove('body-fixed')
         }
       }, 100)
