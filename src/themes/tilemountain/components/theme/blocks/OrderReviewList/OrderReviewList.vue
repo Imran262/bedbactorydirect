@@ -8,7 +8,7 @@
           <div class="card-img-container col-xs-12">
             <div class="imginfo col-xs-6">
               <label class="product-img">Product</label>
-              <OrderReviewListImage :sku="product.product_sku ? product.product_sku :product.sku" />
+              <OrderReviewListImage :sku="product.product_sku ? product.product_sku : product.sku" />
               <p id="product-name">{{ product.name }}</p>
               <!-- <p class="sku">Sku: {{ product.sku }}</p> -->
             </div>

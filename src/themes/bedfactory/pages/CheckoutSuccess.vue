@@ -54,11 +54,23 @@
           "
         >
           <RegisterAccountSuccess :personal-details="getPersonalDetails" />
+          <!-- getFinalItemsLive
+          <OrderReviewList
+            :products="getFinalItemsLive"
+            :totals="orderPriceElements"
+            :address-information="getAddressInformation"
+          /> -->
+
+
+
+
           <OrderReviewList
             :products="getFinalItems"
             :totals="orderPriceElements"
             :address-information="getAddressInformation"
           />
+
+
         </div>
       </div>
     </div>
@@ -228,11 +240,116 @@ export default {
         }
       }
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    getFinalItemsLive() {
+      const merged = _.merge(
+        _.keyBy(this.getCartItems, "name"),
+        _.keyBy(this.getOrderItems, "name")
+      );
+      const values = _.values(merged);
+      console.log('1235689 Values ',values);
+      const extensionAttributes = values.filter(
+        (value) =>
+          value.extension_attributes &&
+          value.extension_attributes.original_item_sku
+      );
+      const simpleProducts = values.filter(
+        (value) =>
+          !(
+            value.extension_attributes &&
+            value.extension_attributes.original_item_sku
+          )
+      );
+      // console.log("1235689");
+      console.log("1235689 extensionAttributes",extensionAttributes,"\n simpleProducts",simpleProducts);
+      let finalItems = [];
+      if (extensionAttributes.length > 0) {
+        console.log('1235689 in extensionAttributes condition');
+        const reducedProducts = extensionAttributes.reduce((acc, current) => {
+          const skuKey = current["extension_attributes"]["original_item_sku"];
+          if (!(skuKey in acc) && !acc[skuKey]) {
+            return { ...acc, [skuKey]: [current] };
+          }
+          return { ...acc, [skuKey]: [...acc[skuKey], current] };
+        }, {});
+        console.log("1235689 reducedProducts",reducedProducts);
+
+        for (const item of _.values(reducedProducts)) {
+          const reducedItem = item.reduce(
+            (acc, current) => {
+              const price = acc.price_incl_tax;
+
+              return {
+                price_incl_tax: price + current.price_incl_tax,
+                name: current.extension_attributes.product_name,
+                sku: current.extension_attributes.original_item_sku,
+                qty: current.qty,
+              };
+            },
+            { price_incl_tax: 0 }
+          );
+          console.log("1235689 reducedItem",reducedItem);
+          finalItems.push(reducedItem);
+        }
+      }
+      if (simpleProducts.length > 0) {
+        console.log("1235689 in condition for simpleProducts",simpleProducts,"\n final products are ",finalItems);
+        
+        finalItems = [];
+        simpleProducts.forEach((item,index)=>{
+      if(item.price>0){
+finalItems.push(item);
+      }
+    })
+       // finalItems = [...finalItems, ...simpleProducts];
+        console.log("1235689 finalItems",finalItems);
+      }
+      let newFinalItems=[];
+      console.log("1235689 Finally About to return final Items ",finalItems );
+      return finalItems;
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     getFinalItems () {
-      const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
+      // const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
+      const merged = this.getOrderItems
       
       const values = _.values(merged)
-      console.log("663322 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
+      const merged2 = _.merge(_.keyBy(this.getCartItems, 'name'), _.keyBy(this.getOrderItems, 'name'))
+      
+      const values2 = _.values(merged2)
+      console.log("663322 key by",_.keyBy(this.getOrderItems, 'sku'),"\t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values,"\n\t\t\tMerged",merged,"\n\n\n\n Second one \t values",values2,"\n\t\t\tMerged",merged2);
       const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
       const simpleProducts = values.filter(value => !(value.extension_attributes && value.extension_attributes.original_item_sku))
       console.log("663322 Simple ",simpleProducts , "\n\n\nextension attributes" , extensionAttributes);
