@@ -98,6 +98,7 @@ export default {
       }
       else {
         console.log('Add to cart for desktop ');
+        document.getElementsByTagName("BODY")[0].style.overflow='hidden';
       }
       //  document.getElementsByTagName("BODY")[0].style.overflow='hidden';
         const diffLog = await this.$store.dispatch('cart/addItem', { productToAdd: product })
