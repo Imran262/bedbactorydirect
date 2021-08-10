@@ -135,7 +135,7 @@
             <div class="col-md-7">
               <div class="footer-btns-links">
                 <button class="shopping-button" @click="popupclose">
-                  Continue Shopping Desktop
+                  Continue Shopping
                 </button>
                 <router-link
                   :to="localizedRoute('/cart')"
@@ -155,7 +155,7 @@
       <div class="col-md-12">
         <div class="footer-btns-links">
           <button class="btn-shopping" @click="popupclose">
-            CONTINUE SHOPPING Mobile
+            CONTINUE SHOPPING
           </button>
           <router-link
             :to="localizedRoute('/cart')"
