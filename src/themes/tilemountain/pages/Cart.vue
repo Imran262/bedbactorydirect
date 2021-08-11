@@ -136,7 +136,7 @@
                 />
               </div>
               <button-outline
-                color="dark"
+              :class="' Discount-Voucher'"
                 :disabled="!couponCode"
                 @click.native="setCoupon"
                 >{{ $t("Add discount code") }}
@@ -1548,5 +1548,20 @@ export default {
   .padding-right {
     padding-right: 0px;
   }
+}
+.hidden-xs {
+    display: inherit !important;
+}
+.Discount-Voucher {
+    border: 2px solid #071a44;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    min-height: auto;
+    font-family: Arial;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #071a44;
 }
 </style>
