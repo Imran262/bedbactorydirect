@@ -30,9 +30,11 @@ export default {
         let bodyVar = document.getElementsByTagName('BODY')[0]
         let sidebarMenu = document.getElementById('sidebarmenucontainer')
         if (sidebarMenu != null) {
-          console.log('9512 vissible in hamberger',bodyVar.classList)
+          console.log('9512 BEFORE vissible in hamberger',bodyVar.classList)
+          bodyVar.classList.toggle('body-fixed');
+          console.log('9512 AFTER vissible in hamberger',bodyVar.classList)
           // return bodyVar.classList.toggle('body-fixed')
-       return true
+      return ;
        }
       }, 100)
     }
