@@ -358,6 +358,6 @@ button {
   padding-left: 0;
 }
 .body-fixed {
-  position: fixed;
+  position: fixed !important;
 }
 </style>
