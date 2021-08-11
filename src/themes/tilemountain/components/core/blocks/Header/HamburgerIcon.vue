@@ -73,7 +73,7 @@ button i {
 </style>
 <style>
 .body-fixed {
-  /* position: fixed; */
+  position: fixed !important;
   width: 100%;
 }
 @media screen and (max-width: 767px) {
