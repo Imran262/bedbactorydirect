@@ -16,8 +16,8 @@ import HamburgerIcon from "@vue-storefront/core/compatibility/components/blocks/
 export default {
   mixins: [HamburgerIcon],
   beforeMount(){
-      this.$bus.$on('hidecolor', this.colorChange , this.toggleMenu)
-      this.$bus.$on('SubItemHideColor', this.colorChange , this.toggleMenu)
+      // this.$bus.$on('hidecolor', this.colorChange , this.toggleMenu)
+      // this.$bus.$on('SubItemHideColor', this.colorChange , this.toggleMenu)
   },
   methods: {
     colorChange () {
@@ -30,9 +30,12 @@ export default {
         let bodyVar = document.getElementsByTagName('BODY')[0]
         let sidebarMenu = document.getElementById('sidebarmenucontainer')
         if (sidebarMenu != null) {
-          console.log('vissible')
-          return bodyVar.classList.toggle('body-fixed')
-        }
+          console.log('9512 BEFORE vissible in hamberger',bodyVar.classList)
+          bodyVar.classList.toggle('body-fixed');
+          console.log('9512 AFTER vissible in hamberger',bodyVar.classList)
+          // return bodyVar.classList.toggle('body-fixed')
+      return ;
+       }
       }, 100)
     }
   }
@@ -70,7 +73,7 @@ button i {
 </style>
 <style>
 .body-fixed {
-  position: fixed;
+  position: fixed !important;
   width: 100%;
 }
 @media screen and (max-width: 767px) {

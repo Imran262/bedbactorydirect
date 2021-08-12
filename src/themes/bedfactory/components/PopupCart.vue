@@ -747,12 +747,17 @@ export default {
     },
     popupclose() {
       console.log("11223344556677", window.innerWidth);
+       console.log("fsfsfsfsfs", document.getElementsByTagName("BODY")[0]);
       // console.log("11223344556677 ",this.$device.isMobile);
+      document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       if (window.innerWidth <= 768)
       {
+        console.log('in if ');
  clearAllBodyScrollLocks();
       }
       else{
+
+        console.log('in else');
 document.getElementsByTagName("BODY")[0].style.overflow='scroll';
       }
       

@@ -300,6 +300,8 @@ export default {
       this.rightborder = border;
     },
     gotoAccount() {
+      // document.body.style.overflow = "hidden";
+      console.log("In Go to Account Function");
       this.$bus.$emit("modal-toggle", "modal-signup");
     },
     updateScroll() {
