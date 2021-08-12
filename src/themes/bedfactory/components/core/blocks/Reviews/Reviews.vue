@@ -224,9 +224,24 @@ export default {
       });
     },
     async fetchQA () {
+      let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + this.productId
+      // let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + 1931
+      console.log("145214 QA url is ",productQAUrl);
+      await axios.get(productQAUrl)
+        .then(({ data }) => {
+          let
+          console.log("145214 Data received is ",data);
+          if (data.result) {
+            this.qas = data.result;
+            this.$emit('hasTotalQA', { 'qas': this.qas });
+          }
+          
+        })
+        .catch(err =>{ console.log('145214 qas hasError', err)
+        this.$emit('hasTotalQA', { 'qas': [] });})
       // let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + this.productId
       // let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + 1931
-      this.$emit('hasTotalQA', { 'qas': [] });
+      // this.$emit('hasTotalQA', { 'qas': [] });
       // await axios.get(productQAUrl)
       //   .then(({ data }) => {
       //     if (data.result) {
@@ -240,18 +255,19 @@ export default {
     async createQuestion () {
       if (!this.question.review_content || !this.question.display_name || !this.question.email) {
       } else {
-        let qaCreate = '/api/ext/yopto/qa/create';
+        let qaCreate = '/vueapi2/ext/yopto/qa/create';
 
         if (config.yopto && config.yopto.qa.create) {
           qaCreate = config.yopto.qa.create;
         }
+        console.log("4563214 parameters are",config.api.url + qaCreate, this.question);
         axios.post(config.api.url + qaCreate, this.question, {
           headers: {
             'Content-type': 'application/json'
           }
         })
           .then(r => {
-            console.log('responseIs', r);
+            console.log('4563214 responseIs', r);
             this.question.review_content = '';
             this.question.display_name = '';
             this.question.email = '';
@@ -261,7 +277,7 @@ export default {
             this.formSubmitted = false;
           })
           .catch(error => {
-            console.log('qaCreateError', error);
+            console.log('14563214 qaCreateError', error);
             this.notifyUser(
               notifications.createNotification({
                 type: 'error',
