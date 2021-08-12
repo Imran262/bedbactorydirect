@@ -229,7 +229,6 @@ export default {
       console.log("145214 QA url is ",productQAUrl);
       await axios.get(productQAUrl)
         .then(({ data }) => {
-          let
           console.log("145214 Data received is ",data);
           if (data.result) {
             this.qas = data.result;
