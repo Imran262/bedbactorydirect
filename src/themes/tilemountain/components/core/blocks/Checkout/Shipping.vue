@@ -886,7 +886,7 @@
                   </span>
                 </span> -->
                   <span v-if="!(deliveryBtnClicked == true)">
-                    {{ $t("Continue to Payment Without Calender") }}
+                    {{ $t("Continue to Payment") }}
                     <span class="date-span" v-if="deliveryTimeDate"
                       >{{ deliveryTimeDate }}
                     </span>
