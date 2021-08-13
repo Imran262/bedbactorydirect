@@ -36,7 +36,7 @@
           <!-- {{ popItem.original_price_incl_tax | price }} -->
           {{ originalPrice | price }}
         </span>
-        Save:
+        <span >Save:
         <!-- {{
           (popItem.original_price_incl_tax - popItem.special_price_incl_tax)
             | price
@@ -45,7 +45,7 @@
           (popItem.original_price_incl_tax - popItem.final_price_incl_tax)
             | price
         }} -->
-        {{ parseFloat(originalPrice - calPrice).toFixed(2)| price }}
+        {{ parseFloat(originalPrice - calPrice).toFixed(2)| price }}</span>
         <!-- <br />popItem.original_price_incl_tax {{ popItem.original_price_incl_tax }} 
         <br />popItem.special_price_incl_tax{{
           popItem.special_price_incl_tax}}
@@ -287,5 +287,14 @@ p.product-amount {
   p.popup_item_name {
     min-height: auto;
   }
+}
+p.product-save-amount {
+    display: flex;
+    flex-direction: column;
+}
+.right-side.popup_item-detail {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 </style>
