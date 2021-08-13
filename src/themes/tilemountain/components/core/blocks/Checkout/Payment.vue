@@ -13,9 +13,9 @@
             </h3>
           </div>
           <div class="col-xs-6 col-md-6 promo-code">
-            <span @click="addDiscountCoupon"
+            <!-- <span @click="addDiscountCoupon"
               >Have a promotional / gift code?</span
-            >
+            > -->
           </div>
         </div>
       </div>
@@ -1304,8 +1304,8 @@ span.postcodelookup-required {
 }
 @media (max-width: 374px) {
   .payment .payment-heading {
-    flex-basis: 38% !important;
-    max-width: 38% !important;
+    flex-basis: 63% !important;
+    max-width: 63% !important;
   }
   .payment .promo-code {
     flex-basis: 62% !important;
