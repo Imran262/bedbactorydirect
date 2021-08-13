@@ -49,6 +49,6 @@ export const SearchRedirect: StorefrontModule = function ({
 }) {
   store.registerModule('searchredirect', searchRedirectModuleStore);
   coreHooks.afterAppInit(async () => {
-    console.log('App HAVE BEEN initialized search');
+    console.log('Search Redirect Initialized');
   });
 };
