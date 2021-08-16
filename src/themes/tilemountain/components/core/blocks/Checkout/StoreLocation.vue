@@ -12,7 +12,7 @@
               <span>Get Direction</span>
             </div>
             <div class="store-address">
-              <span class="companyName">Tile Mountain</span>
+              <span class="companyName">Bed Factory Direct</span>
               <span class="Street">Harewood Street</span>
               <span class="Origin">Tunstall</span>
               <span class="Address">Stoke on Trent</span>

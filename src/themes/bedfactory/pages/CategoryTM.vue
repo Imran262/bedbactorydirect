@@ -117,8 +117,8 @@
     </header>
     <!-- <header v-else> </header> -->
     <div itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tile Mountain" />
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
+      <meta itemprop="name" content="Bed Factory Direct" />
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
       <meta
         v-for="socialLink in socialLinksSchema"
         :key="socialLink"
@@ -127,7 +127,7 @@
       />
     </div>
     <div itemscope itemtype="http://schema.org/WebSite">
-      <meta itemprop="name" content="Tile Mountain" />
+      <meta itemprop="name" content="Bed Factory Direct" />
       <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
     </div>
     <div class="container pb60">
