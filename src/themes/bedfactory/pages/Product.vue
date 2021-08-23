@@ -882,7 +882,6 @@ import addtobasket from "theme/components/core/AddTobasketModal";
 import clearancemodal from "theme/components/core/ClearanceModal";
 import OutOfStockModal from "theme/components/core/OutOfStockModal";
 import ProductQuantitySqm from "theme/components/core/ProductQuantitySqm.vue";
-// import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/tilemountain/components/core/productQuantitySqm.vue"
 import ProductLinks from "theme/components/core/ProductLinks.vue";
 // import ProductCustomOptions from '/home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactory/components/core/ProductCustomOptions.vue';
 import ProductCustomOptions from "../components/core/ProductCustomOptions";
@@ -1150,20 +1149,20 @@ export default {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             this.getImageUrl(this.getCurrentProduct.thumbnail)
-        : "http://tilemountain.co.uk/" +
+        : config.baseUrl.live +
             this.getImageUrl(this.getCurrentProduct.thumbnail);
     },
     getProductUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl + this.getCurrentProduct.url_path
-        : "http://tilemountain.co.uk/" + this.getCurrentProduct.url_path;
+        : config.baseUrl.live + this.getCurrentProduct.url_path;
     },
     getSchemaImageUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             "img/600/744/resize/catalog/product" +
             this.getCurrentProduct.image
-        : "http://tilemountain.co.uk/" +
+        : config.baseUrl.live +
             "img/600/744/resize/catalog/product" +
             this.getCurrentProduct.image;
     },
@@ -1178,7 +1177,7 @@ export default {
             thumbnailUrl: config.schemaUrl.baseUrl
               ? config.schemaUrl.baseUrl +
                 this.getImageUrl(videoElement[0].image)
-              : "http://tilemountain.co.uk/" +
+              : config.baseUrl.live +
                 this.getImageUrl(videoElement[0].image),
             contentUrl: videoElement[0].vid.url,
           };
@@ -1191,7 +1190,7 @@ export default {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             this.getImageUrl(this.getCurrentProduct.image)
-        : "http://tilemountain.co.uk/" +
+        : config.baseUrl.live +
             this.getImageUrl(this.getCurrentProduct.image);
     },
     getProductGalleryCustom() {
