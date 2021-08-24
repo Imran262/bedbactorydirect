@@ -6,7 +6,7 @@
       </div>
     </div> -->
     <div
-      :class="['tilemountain', 'row']"
+      :class="['bedfactorydirect', 'row']"
       v-if="data"
     >
 
@@ -102,7 +102,7 @@ a.usp-a {
     font-size: 12px;
 }
 }
-.tilemountain {
+.bedfactorydirect {
     text-align: center;
 }
 </style>
