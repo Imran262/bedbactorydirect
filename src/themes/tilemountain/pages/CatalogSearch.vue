@@ -535,7 +535,10 @@ export default {
     },
     searchFilterQuery() {
       if (this.search !== "" && this.search !== undefined) {
-        console.log("145698 OLD Search");
+        this.$bus.$emit('notification-progress-start', i18n.t('Loading'))
+        console.log("145698 OLD Search",this.search);
+        this.search = this.search.toLowerCase();
+        console.log("145698 Search lower case",this.search);
         let query = this.buildSearchQuery(this.search);
         let startValue = 0;
         let priceArray = [];
@@ -552,6 +555,10 @@ export default {
           .then((resp) => {
             this.allProducts = resp.items;
             this.totalResults = resp.items.length;
+            if (resp.items && resp.items.length < 1){
+              this.$bus.$emit('notification-progress-stop')
+            }
+            console.log("145698 length of products",resp.items.length);
             console.log("145698 all products are", resp.items);
             const categories = resp.items
               .filter((p) => p.category)
@@ -630,6 +637,7 @@ export default {
             this.filterProducts = resp.items;
 
             console.log("145698 Products to be filtered", this.filterProducts);
+            this.$bus.$emit('notification-progress-stop')
             const allFiterFinalArrayConst = {};
             let uniqueStyleFullFinal = [];
             var i = 0;
@@ -655,6 +663,7 @@ export default {
         //  return this.filterProducts;
       } else {
         this.filterProducts = [];
+        this.$bus.$emit('notification-progress-stop')
         return this.filterProducts;
       }
     },
