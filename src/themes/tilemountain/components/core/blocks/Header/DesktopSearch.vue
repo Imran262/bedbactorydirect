@@ -212,6 +212,7 @@ export default {
       } else {
         document.getElementsByClassName('back-layout')[0].style.display = 'none'
       }
+      this.search = this.search.toLowerCase();
       this.formSubmitUrl = '/catalog-search/?s=' + this.search
       let savedRedirects = this.$store.state.searchredirect
       if (savedRedirects.searchRedirectState) {
