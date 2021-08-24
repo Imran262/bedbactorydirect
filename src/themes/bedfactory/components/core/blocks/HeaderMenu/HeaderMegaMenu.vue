@@ -93,11 +93,13 @@ export default {
               border-right: 3px solid #c1c1c1;
               padding-left: 19px;
               padding-right: 19px;
-              padding-top: 28px;
+              padding-top: 21px;
               height: 100%;
-              min-height: 256px;
+              min-height: 315px;
               @media (min-width: 1025px) and (max-width: 1199px) {
                 padding-top: 15px;
+                padding-left: 12px;
+                padding-right: 12px;
               }
               @media (min-width: 768px) and (max-width: 991px) {
                 min-height: 277px;
@@ -394,12 +396,12 @@ export default {
 @media (min-width: 1025px) and (max-width: 1199px) {
   .menu-frame {
     flex-basis: 0%;
-    max-width: 47%;
+    // max-width: 47%;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .menu-frame {
-    max-width: 55%;
+    // max-width: 55%;
   }
 }
 </style>

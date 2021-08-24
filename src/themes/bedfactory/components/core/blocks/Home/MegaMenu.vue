@@ -24,7 +24,7 @@
               <div class="nav-block">
                 <div
                   v-for="sublink in links.submenu"
-                  :class="sublink.sub_links.length>=10 ? 'sb-height-dropdown-menu col-lg-4 col-md-4':'sb-height-dropdown-menu col-lg-2 col-md-2'"
+                  :class="sublink.sub_links.length>=10 ? 'sb-height-dropdown-menu col-lg-2 col-md-3':'sb-height-dropdown-menu col-lg-2 col-md-2'"
                 >
                   <span class="subcag-title">{{ sublink.main_title }}</span>
                  <ul :class="sublink.sub_links.length>=10 ? 'bullet menu-frame':'bullet'">
@@ -40,9 +40,9 @@
                   </ul>
                 </div>
               </div>
-              <div class="sb-price-match">
+              <!-- <div class="sb-price-match">
                 <div class="menu-dropdown-logo-img">&nbsp;</div>
-              </div>
+              </div> -->
               <div v-if="links.submenuimg" class="dropdown-menu-right-img">
                 <router-link
                   v-if="links.imglink != '#'"
@@ -260,7 +260,7 @@ export default {
   font-weight: bold;
 }
 .menu-frame {
-    max-height: 200px;
+    /* max-height: 200px; */
     -ms-flex-flow: wrap column;
     flex-flow: wrap column;
     display: -ms-flexbox;
