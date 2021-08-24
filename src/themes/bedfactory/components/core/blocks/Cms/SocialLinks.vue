@@ -1,6 +1,36 @@
 <template>
  <div class="social">
-        <a v-for="(linkblock, index) in socialLinks" :key="index"
+        <a class="fb" href="https://www.facebook.com/bedfactorydirect" target="_blank">
+            <div class="circle facebook">
+                <i class="fa fa-facebook" />
+            </div>
+        </a>
+        <a class="fb" href="https://twitter.com/bedfactoryuk" target="_blank">
+            <div class="circle twitter">
+                <i class="fa fa-twitter" />
+            </div>
+        </a>
+        <a class="fb" href="https://www.pinterest.co.uk/bfdbeds" target="_blank">
+            <div class="circle pinterest">
+                <i class="fa fa-pinterest-p" />
+            </div>
+        </a>
+        <a class="fb" href="https://www.youtube.com/channel/UCCSWNWPxZ2PXm_24oe5rpkg" target="_blank">
+            <div class="circle youtube">
+                <i class="fa fa-play" aria-hidden="true" />
+            </div>
+        </a>
+        <a class="fb" href="https://uk.linkedin.com/in/bed-factory-direct-47520a116" target="_blank">
+            <div class="circle linkedin">
+                <i class="fa fa-linkedin" />
+            </div>
+        </a>
+        <a class="fb" href="https://www.instagram.com/bedfactorydirect" target="_blank">
+            <div class="circle instagram">
+                <i class="fa fa-instagram" />
+            </div>
+        </a>
+        <!-- <a v-for="(linkblock, index) in socialLinks" :key="index"
            title="Social Page link"
            class="fb"
            :href="linkblock.links"
@@ -8,7 +38,7 @@
             rel="noopener"
             v-html="linkblock.socialicons"
          >
-        </a>
+        </a> -->
         </div>
 </template>
 
@@ -23,6 +53,7 @@ export default {
            var homeSmallBlocks = [];
            let sociallinks = ''
            let icons = ''
+           let vari=''
       if (this.data) {
         var mbclasses = this.parsedContent.querySelectorAll(
           ".sb-white-background"
