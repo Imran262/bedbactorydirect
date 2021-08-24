@@ -863,7 +863,7 @@
     </lazy-hydrate>
     <div itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tile Mountain"/>
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/"/>
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/"/>
       <meta
         v-for="socialLink in socialLinksSchema"
         :key="socialLink"
@@ -873,7 +873,7 @@
     </div>
     <div itemscope itemtype="http://schema.org/WebSite">
       <meta itemprop="name" content="Tile Mountain"/>
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/"/>
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/"/>
     </div>
 
     <!-- <lazy-hydrate when-idle>
@@ -935,7 +935,7 @@ import addtobasket from 'theme/components/core/AddTobasketModal'
 import clearancemodal from 'theme/components/core/ClearanceModal'
 import OutOfStockModal from 'theme/components/core/OutOfStockModal'
 import ProductQuantitySqm from 'theme/components/core/ProductQuantitySqm.vue'
-// import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/tilemountain/components/core/productQuantitySqm.vue"
+// import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/bedfactorydirect/components/core/productQuantitySqm.vue"
 import ProductLinks from 'theme/components/core/ProductLinks.vue'
 import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue'
 import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue'
@@ -1132,13 +1132,13 @@ export default {
       return config.socialUrlsForSchema ? config.socialUrlsForSchema : ''
     },
     getImageObjJsonLd () {
-      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getImageUrl(this.getCurrentProduct.thumbnail) : 'http://tilemountain.co.uk/' + this.getImageUrl(this.getCurrentProduct.thumbnail)
+      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getImageUrl(this.getCurrentProduct.thumbnail) : 'http://bedfactorydirect.co.uk/' + this.getImageUrl(this.getCurrentProduct.thumbnail)
     },
     getProductUrl () {
-      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getCurrentProduct.url_path : 'http://tilemountain.co.uk/' + this.getCurrentProduct.url_path
+      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getCurrentProduct.url_path : 'http://bedfactorydirect.co.uk/' + this.getCurrentProduct.url_path
     },
     getSchemaImageUrl () {
-      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + 'img/600/744/resize/catalog/product' + this.getCurrentProduct.image : 'http://tilemountain.co.uk/' + 'img/600/744/resize/catalog/product' + this.getCurrentProduct.image
+      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + 'img/600/744/resize/catalog/product' + this.getCurrentProduct.image : 'http://bedfactorydirect.co.uk/' + 'img/600/744/resize/catalog/product' + this.getCurrentProduct.image
     },
     getVideoObjJsonLd () {
       let videoElement = []
@@ -1148,7 +1148,7 @@ export default {
         })
         if(videoElement.length > 0) {
           return {
-            'thumbnailUrl': config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getImageUrl(videoElement[ 0 ].image) : 'http://tilemountain.co.uk/' + this.getImageUrl(videoElement[ 0 ].image),
+            'thumbnailUrl': config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getImageUrl(videoElement[ 0 ].image) : 'http://bedfactorydirect.co.uk/' + this.getImageUrl(videoElement[ 0 ].image),
             'contentUrl': videoElement[ 0 ].vid.url
           }
         } else {
@@ -1157,7 +1157,7 @@ export default {
       }
     },
     getWebPageObjJsonLd () {
-      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getImageUrl(this.getCurrentProduct.image) : 'http://tilemountain.co.uk/' + this.getImageUrl(this.getCurrentProduct.image)
+      return config.schemaUrl.baseUrl ? config.schemaUrl.baseUrl + this.getImageUrl(this.getCurrentProduct.image) : 'http://bedfactorydirect.co.uk/' + this.getImageUrl(this.getCurrentProduct.image)
     },
     getProductGalleryCustom () {
       let mediaGallery = []
