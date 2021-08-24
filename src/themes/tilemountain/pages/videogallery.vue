@@ -29,13 +29,13 @@
           </div>
           <img
             class="banner-img-1"
-            src="https://www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/video-banner-img.1524601844.jpg"
+            src="https://www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/video-banner-img.1524601844.jpg"
             alt="banner_1"
           />
           <img
             class="banner-img-2"
             style="display: none"
-            src="https://www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/video-banner-img2.1524601844.jpg"
+            src="https://www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/video-banner-img2.1524601844.jpg"
             alt="banner_2"
           />
           <div class="sb-right-shape-img">
@@ -47,7 +47,7 @@
               href="https://www.youtube.com/channel/UCCkGBpvAdflgqVvfV8zZYMw"
             >
               <img
-                src="https://www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/watch_video_here_img.1524601845.png"
+                src="https://www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/watch_video_here_img.1524601845.png"
                 alt="videoskin"
             /></a>
           </div>
@@ -80,7 +80,7 @@
         <div class="grid12-2 yt_logo_img">
           <img
             class="imgtohide"
-            src="https://www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/youtube-logo.svg"
+            src="https://www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/youtube-logo.svg"
             alt="youtube logo"
           />
 
@@ -105,7 +105,7 @@
             our channel...
           </p>
           <img
-            src="https://www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/blue-arrow.svg"
+            src="https://www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/blue-arrow.svg"
             alt="youtube blue arrow"
           />
         </div>
@@ -113,7 +113,7 @@
         <div class="grid12-3 youtube_subcribe_grid_div">
           <div class="imgtoshow" style="width: 40%; display: none">
             <img
-              src="https://www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/youtube-logo.svg"
+              src="https://www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/youtube-logo.svg"
               alt="youtube logo"
             />
           </div>
@@ -151,7 +151,7 @@
             <a href="javascript:void(0);">
               <img
                 class="yt_play_bt_img"
-                src="//www.tilemountain.co.uk//skin/frontend/base/default/youtube/images/youtube-play-icon.svg"
+                src="//www.bedfactorydirect.co.uk//skin/frontend/base/default/youtube/images/youtube-play-icon.svg"
                 alt="youtube icon"
               />
             </a>
@@ -195,7 +195,7 @@
     </section>
     <div itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tile Mountain" />
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
       <meta
         v-for="socialLink in socialLinksSchema"
         :key="socialLink"
@@ -205,7 +205,7 @@
     </div>
     <div itemscope itemtype="http://schema.org/WebSite">
       <meta itemprop="name" content="Tile Mountain" />
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
     </div>
   </div>
 </template>

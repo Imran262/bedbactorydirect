@@ -362,12 +362,12 @@
 <script>
 import Breadcrumbs from "../components/core/Breadcrumbs.vue";
 //import BaseInput from "src/theme/components/core/blocks/Form/BaseInput.vue";
-import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
-import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
+import BaseInput from "src/themes/bedfactorydirect/components/core/blocks/Form/BaseInput.vue";
+import BaseSelect from "src/themes/bedfactorydirect/components/core/blocks/Form/BaseSelect.vue";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import axios from "axios";
 import SwatchProduct from "theme/components/core/blocks/swatches/SwatchProduct.vue";
-// /home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/tilemountain/components/core/blocks/swatches/SwatchProduct.vue
+// /home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactorydirect/components/core/blocks/swatches/SwatchProduct.vue
 import i18n from "@vue-storefront/i18n";
 import { htmlDecode } from "@vue-storefront/core/lib/store/filters";
 import config from "config";
@@ -558,7 +558,7 @@ export default {
   },
   mounted() {
     const URL = config.api.url + config.swatches.endpoint + "/getSwatches";
-    //   const URL =  "https:/bfd.tilemountain.co.uk/api/ext/swatches/getSwatches"
+    //   const URL =  "https:/bfd.bedfactorydirect.co.uk/api/ext/swatches/getSwatches"
     axios
       .get(URL)
       .then((resp) => {
