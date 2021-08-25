@@ -105,16 +105,16 @@ export default {
     RegisterAccountSuccess,
     ThingsToRememberSuccess
   },
-  beforeRouteEnter (to, from, next) {
-    let toQuery = to.fullPath
-    console.log("789654 Path received is ",to.fullPath)
-    next()
-    // if (!from.name && !toQuery.includes('utm_nooverride')) {
-    //   next({ name: 'home' })
-    // } else {
-    //   next()
-    // }
-  },
+  // beforeRouteEnter (to, from, next) {
+  //   let toQuery = to.fullPath
+  //   console.log("789654 Path received is ",to.fullPath)
+  //   next()
+  //   if (!from.name && !toQuery.includes('utm_nooverride')) {
+  //     next({ name: 'home' })
+  //   } else {
+  //     next()
+  //   }
+  // },
   computed: {
     getAddressInformation () {
       if (!this.$route.fullPath.includes('utm_nooverride') && this.orderElements && this.orderElements.order) {
@@ -207,11 +207,11 @@ export default {
     },
     getOrderItems () {
       console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
+      if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       } 
-      else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
+      else if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if else")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }else {
