@@ -108,7 +108,7 @@ export default {
   beforeRouteEnter (to, from, next) {
     let toQuery = to.fullPath
     console.log("789654 Path received is ",to.fullPath)
-    //next()
+    next()
     // if (!from.name && !toQuery.includes('utm_nooverride')) {
     //   next({ name: 'home' })
     // } else {
