@@ -421,7 +421,7 @@ finalItems.push(item);
         platformTotals: this.$store.state.cart.platformTotals
       })
     }
-    if (!isServer && this.$route.fullPath.includes('utm_nooverride')) {
+    // if (!isServer && this.$route.fullPath.includes('utm_nooverride')) {
       try {
         if (performance.navigation.type === 1) {
           await this.removeLastOrderItem()
@@ -474,7 +474,7 @@ finalItems.push(item);
       } catch (error) {
         console.log(error)
       }
-    }
+    // }
         await this.lastOrderItem
       this.getFinalItems.forEach(element => {
         let prod = {
