@@ -254,7 +254,7 @@ export default {
     async createQuestion () {
       if (!this.question.review_content || !this.question.display_name || !this.question.email) {
       } else {
-        let qaCreate = '/vueapi2/ext/yopto/qa/create';
+        let qaCreate = '/vueapi/ext/yopto/qa/create';
 
         if (config.yopto && config.yopto.qa.create) {
           qaCreate = config.yopto.qa.create;
