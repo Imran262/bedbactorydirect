@@ -92,9 +92,10 @@
           </div>
 <!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
+            <!-- https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg -->
+            <!-- . -->
             <img
-              :src="backEnd + getCurrentCategory.banner_image
-              "
+              :src="'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg'"
               :alt="getCurrentCategory.name"
               class="headerimg"
             />
