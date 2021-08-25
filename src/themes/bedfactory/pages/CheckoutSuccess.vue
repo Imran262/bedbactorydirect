@@ -437,14 +437,14 @@ finalItems.push(item);
           let OrderDetailsUrl =
             config.orderDetails
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
-          console.log("74125 current route is  ",this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
+          console.log("7412589 current route is  ",this.$route.query.utm_nooverride,'\n',this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
           if (orderId)
           {
             console.log("7412589 order Id  form local storage is ",orderId);
           }
           else{
             console.log("7412589 Getting the order id from url");
-            let newOrderID =this.$route.fullpath.split('%3F')
+            let newOrderID =this.$route.query.utm_nooverride.split('%3F')
             orderId = newOrderID[1];
             console.log("7412589 Getting the new order id is ",newOrderID, orderId);
             if (orderId){
