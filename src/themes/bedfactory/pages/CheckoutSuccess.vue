@@ -437,6 +437,29 @@ finalItems.push(item);
           let OrderDetailsUrl =
             config.orderDetails
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
+          console.log("74125 current route is  ",this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
+          if (orderId)
+          {
+            console.log("7412589 order Id  form local storage is ",orderId);
+          }
+          else{
+            console.log("7412589 Getting the order id from url");
+            let newOrderID =this.$route.fullpath.split('%3F')
+            orderId = newOrderID[1];
+            console.log("7412589 Getting the new order id is ",newOrderID, orderId);
+            if (orderId){
+              console.log("7412589 order Id  form URl with no over ride is ",orderId);
+            }
+            else{
+              console.log("7412589 could not get order id from url as there is no url override",orderId);
+              console.log("7412589 Getting the order id from url with no override");
+            let newOrderIDNew =this.$route.fullpath.split('checkout-success?')
+            orderId = newOrderIDNew[1];
+            console.log("7412589 Getting the new order id is ",newOrderIDNew, orderId);
+
+            }
+          }
+          console.log("74125 Finally ",orderId);
           console.log(" 741258   orderId  ",orderId,OrderDetailsUrl,axios.get(OrderDetailsUrl + orderId));
           let { data } = await axios.get(OrderDetailsUrl + orderId)
           this.lastOrderItem = data.result.orderData
