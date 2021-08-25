@@ -107,13 +107,13 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     let toQuery = to.fullPath
-    console.log(to.fullPath)
+    console.log("789654 Path received is ",to.fullPath)
     //next()
-    if (!from.name && !toQuery.includes('utm_nooverride')) {
-      next({ name: 'home' })
-    } else {
-      next()
-    }
+    // if (!from.name && !toQuery.includes('utm_nooverride')) {
+    //   next({ name: 'home' })
+    // } else {
+    //   next()
+    // }
   },
   computed: {
     getAddressInformation () {
