@@ -93,12 +93,17 @@
 <!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
             <!-- https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg -->
-            <!-- . -->
             <img
-              :src="'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg'"
+              :src="backEnd + getCurrentCategory.banner_image
+              "
               :alt="getCurrentCategory.name"
               class="headerimg"
             />
+            <!-- <img
+              :src="'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg'"
+              :alt="getCurrentCategory.name"
+              class="headerimg"
+            /> -->
           </div>
         </router-link>
       </div>
