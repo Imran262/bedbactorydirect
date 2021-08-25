@@ -2695,7 +2695,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
         if (config.products.alwaysSyncPricesClientSide) {
           doPlatformPricesSync([this.getCurrentProduct]);
         }
-        if (this.getCurrentProduct.configurable_options.length > 0)
+        if (this.getCurrentProduct.configurable_options && this.getCurrentProduct.configurable_options.length > 0)
         {
           let flag = true
           let count = 0;
