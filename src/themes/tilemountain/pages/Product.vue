@@ -1740,6 +1740,7 @@ export default {
     },
     setProductPage () {
       let primaryCategory = this.getProductPrimaryCategory()
+      console.log("741369 Product vatefory",primaryCategory);
       let productPayload = {
         product: this.getCurrentProduct
       }
@@ -1761,7 +1762,8 @@ export default {
         typeof this.getCurrentProduct !== 'undefined' &&
         this.getCurrentProduct.category &&
         typeof this.getCurrentProduct.category !== 'undefined' &&
-        this.getCurrentProduct.primary_category
+        this.getCurrentProduct.primary_category &&
+        this.getCurrentProduct.primary_category !== 'null'
       ) {
         if(typeof this.getCurrentProduct.category === 'object') {
           return Object.keys(this.getCurrentProduct.category).filter(c => {

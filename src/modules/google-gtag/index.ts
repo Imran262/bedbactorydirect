@@ -339,7 +339,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           productCat = payload.category?.[0]?.name || payload.category?.name
         }
 
-        if (!productCat && payload.product.primary_category) {
+        if (!productCat && payload.product.primary_category && payload.product.primary_category !== 'null') {
           let category = await getCategoryById(payload.product.primary_category)
           if (category && category.length > 0) {
             productCat = category[0]?.name
@@ -391,7 +391,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           productCat = payload.category?.[0]?.name || payload.category?.name
         }
 
-        if (!productCat && payload.product.primary_category) {
+        if (!productCat && payload.product.primary_category && payload.product.primary_category !== 'null') {
           let category = await getCategoryById(payload.product.primary_category)
           if (category && category.length > 0) {
             productCat = category[0]?.name
