@@ -1902,7 +1902,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
-      document.body.style.overflow = "scroll";
+      document.body.style.overflowY = "scroll";
     },
     setReviews() {
       try {
