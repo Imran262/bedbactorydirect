@@ -2182,7 +2182,8 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
         typeof this.getCurrentProduct !== "undefined" &&
         this.getCurrentProduct.category &&
         typeof this.getCurrentProduct.category !== "undefined" &&
-        this.getCurrentProduct.primary_category
+        this.getCurrentProduct.primary_category &&
+        this.getCurrentProduct.primary_category !== 'null'
       ) {
         if (typeof this.getCurrentProduct.category === "object") {
           return Object.keys(this.getCurrentProduct.category)
