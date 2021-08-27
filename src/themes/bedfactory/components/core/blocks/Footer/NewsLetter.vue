@@ -71,7 +71,7 @@ export default {
       }
     },
     inputEmailclick() {
-      console.log('fawad', this.email, this.$v.email.email, 'Event ', event);
+      console.log('Ali', this.email, this.$v.email.email, 'Event ', event);
       event.toElement.classList.add('invalidEmail');
     }
   },
