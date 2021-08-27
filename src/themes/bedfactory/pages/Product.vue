@@ -89,8 +89,8 @@
                       :min-swipe-distance="20"
                       :navigation-enabled="true"
                       :pagination-enabled="false"
-                      navigation-next-label="<i class='material-icons p15  pointer rightArrow'>keyboard_arrow_right</i>"
-                      navigation-prev-label="<i class='material-icons p15  pointer leftArrow'>keyboard_arrow_left</i>"
+                      navigation-next-label=""
+                      navigation-prev-label=""
                       ref="carousel"
                     >
                       <slide
@@ -5001,6 +5001,17 @@ h4.variants-label.basin-head {
 }
 .basin_size.colour {
   width: 95%;
+}
+button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
+    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+    background-size: 18px !important;
+    transform: rotate(180deg);
+    position: absolute;
+    left: -17px;
+}
+button.VueCarousel-navigation-button.VueCarousel-navigation-next {
+    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+    background-size: 17px !important;
 }
 </style>
 
