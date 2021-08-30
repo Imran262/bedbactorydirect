@@ -62,7 +62,7 @@ const getters: GetterTree<CategoryState, RootState> = {
     return mathchedUrlCat
   },
   getCurrentCategory: (state, getters, rootState, rootGetters) => {
-    // console.log('Hellowww Fawad', rootState.route.fullPath)
+    // console.log('Hellowww Ali', rootState.route.fullPath)
     return getters.getCategoryByParams(rootState.route.params)
   },
   getAvailableFiltersFrom: (state, getters, rootState) => (aggregations) => {
