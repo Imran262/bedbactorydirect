@@ -91,8 +91,8 @@ export default {
   methods: {
     setPrice: function (e) {
       let val = e.val
-      let from = parseInt(val[0])
-      let to = parseInt(val[1])
+      let from = typeof val[0] ==='string' ? ( parseFloat(val[0]) ? parseFloat(val[0]) : 0 ): val[0];
+      let to = typeof val[1] ==='string' ? ( parseFloat(val[1]) ? parseFloat(val[1]) : 0 ): val[1];
       let id = from.toFixed(1) + '-' + to.toFixed(1)
       this.remove = isEqual([from, to], this.priceRange)
       this.switchFilter({
