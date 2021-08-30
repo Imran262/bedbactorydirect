@@ -1548,7 +1548,7 @@ export default {
         this.$bus.$emit("modal-hide", "modal-cutsample");
         this.$bus.$emit("modal-hide", "modal-clearancemodal");
         // For Quote Sample Buttons
-        this.updateSampleButtons();
+        // this.updateSampleButtons();
         this.disabledQuoteAddtoCart();
         this.getCustomerPhotos();
         this.similar_products = {
