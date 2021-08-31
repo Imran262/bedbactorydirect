@@ -230,9 +230,7 @@
                       <meta
                         itemprop="price"
                         :content="
-                          parseFloat(
-                            getCurrentProduct.price
-                          ).toFixed(2)
+                         parseFloat(getCurrentProduct.price_incl_tax).toFixed(2)
                         "
                       />
                       <meta
@@ -1279,7 +1277,7 @@ export default {
         return this.roundTo(1 / this.getCurrentProduct.qty_per_sqm, 2);
       }
     },
-    structuredData() {
+    structuredDataTM() {
       const stockText = this.getCurrentProduct.stock_level_text
         ? this.getCurrentProduct.stock_level_text
         : "";
@@ -1298,13 +1296,64 @@ export default {
         stockTextString = "OutOfStock";
       }
       // console.log("stockTextString", stockTextString);
+      // return {
+      //   availability: stockTextString,
+      //   contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
+      //     ? this.getCurrentProduct.url_path
+      //     : this.attachBaseUrl(this.getCurrentProduct.url_path),
+      //   imageUrl: this.getImageUrl(this.getCurrentProduct.image),
+      // };
+      return true;
+    },
+    structuredData() {
+      let flag = false;
+      console.log("9878 structured data",this.getCurrentProduct.type_id,
+            this.getCurrentProduct.stock.is_in_stock,JSON.stringify (this.getCurrentProduct));
+      if (this.getCurrentProduct.type_id==="configurable"){
+        console.log("9878 yes this is a configurable product");
+        if (this.getCurrentProduct.configurable_children && this.getCurrentProduct.configurable_children.length>0){
+        this.getCurrentProduct.configurable_children.forEach((child,index)=>{
+          console.log("9878 stock status",child.stock.is_in_stock,child.stock);
+          if (child.stock.is_in_stock) {
+            console.log("9878 Its true");
+            flag = true ;
+          }
+        });
+        }else{
+          if(this.getCurrentProduct.stock && this.getCurrentProduct.stock.is_in_stock)
+          {
+            flag = true
+          }
+
+        }
+      }
+      else{
+          if(this.getCurrentProduct.stock && this.getCurrentProduct.stock.is_in_stock)
+          {
+            flag = true
+          }
+        }
+       console.log("9878 result is ",flag);
+      // return {
+      //   availability:
+      //     flag
+      //       ? "InStock"
+      //       : "OutOfStock",
+      //   contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
+      //     ? this.getCurrentProduct.url_path
+      //     : this.attachBaseUrl(this.getCurrentProduct.url_path),
+      //   imageUrl: this.getImageUrl(this.getCurrentProduct.image),
+      // }
       return {
-        availability: stockTextString,
+        availability:"InStock",
+          // flag
+          //   ? "InStock"
+          //   : "OutOfStock",
         contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
           ? this.getCurrentProduct.url_path
           : this.attachBaseUrl(this.getCurrentProduct.url_path),
         imageUrl: this.getImageUrl(this.getCurrentProduct.image),
-      };
+      }
     },
     getProductOptions() {
       if (
