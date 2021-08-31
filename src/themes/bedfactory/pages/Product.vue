@@ -231,7 +231,7 @@
                         itemprop="price"
                         :content="
                           parseFloat(
-                            getCurrentProduct.calculated_sqm_price
+                            getCurrentProduct.price
                           ).toFixed(2)
                         "
                       />
