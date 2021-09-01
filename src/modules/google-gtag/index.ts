@@ -325,7 +325,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
       // Add to cart
       if (type === 'google-gtag/SET_ADD_PRODUCT') {
-        // console.log('ShouldReachHere');
+        console.log('i am add to cart mutation');
         // console.log('payLoadIs', payload, payload.category?.[0].name);
         let product = state && state.cart && state.cart.cartItems ? state.cart.cartItems[state.cart.cartItems.length - 1] : []
 

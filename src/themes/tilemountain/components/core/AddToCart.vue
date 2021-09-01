@@ -28,7 +28,9 @@ import { notifications } from '@vue-storefront/core/modules/cart/helpers'
 import focusClean from 'theme/components/theme/directives/focusClean'
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 import { mapGetters } from 'vuex'
+import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
 import PopupCart from "src/themes/bedfactory/components/PopupCart";
+import { getProductPrimaryCategory, isServer } from '@vue-storefront/core/helpers';
 
 export default {
   directives: { focusClean },
@@ -74,6 +76,7 @@ export default {
       default: false
     }
   },
+  mixins: [MeasureProductClick],
   methods: {
     showPopUp(product) {
       this.cartpopupshow = true;
@@ -90,6 +93,16 @@ export default {
     onAfterRemovedVariant () {
       this.$forceUpdate()
     },
+    getProductOrCategoryPageMetaInfo (obj = this) {
+      // console.log('selectedObj', obj?.$options?.name);
+      if (obj && (!obj.$options || !obj.$options.name || obj.$options.name !== 'DefaultLayout') && obj.$parent) {
+        return this.getProductOrCategoryPageMetaInfo(obj.$parent);
+      }
+      if (obj?.$options?.name === 'DefaultLayout') {
+        let component = obj.$children.find(c => ['ProductPage', 'CategoryPage', 'HomePage'].includes(c?.$options?.name))
+        return { name: component?.$options?.name, meta: { ...component.$metaInfo } }
+      }
+    },
     async addToCart (product) {
       try {
         if (window.innerWidth <= 768)
@@ -98,14 +111,22 @@ export default {
       }
       else {
         console.log('Add to cart for desktop ');
-        document.getElementsByTagName("BODY")[0].style.overflow='hidden';
+        document.getElementsByTagName('BODY')[0].style.overflow='hidden';
       }
       //  document.getElementsByTagName("BODY")[0].style.overflow='hidden';
         const diffLog = await this.$store.dispatch('cart/addItem', { productToAdd: product })
-        console.log("789456 Product adding to cart")
+        console.log('789456 Product adding to cart')
         diffLog.clientNotifications.forEach(notificationData => {
-          console.log("789456 Successfully added",notificationData);
+          console.log('789456 Successfully added',notificationData);
           // this.notifyUser(notificationData)
+        })
+        let page = this.getProductOrCategoryPageMetaInfo();
+        let productCat = getProductPrimaryCategory(product)
+        await this.sendAddCartProdClick({
+          product: product,
+          page,
+          priceFromTotals: false,
+          category: productCat
         })
       } catch (message) {
         console.log("789456 Error occured ",message);
@@ -128,7 +149,7 @@ export default {
 return false;
        }
        else{
-         
+
          //      console.log("112233445577 Answer is ",this.customOptionsCheck,this.customOptionsChecking);
     //  console.log("112233445577 product options ",this.productOptions,"\n\nCustomOptions\n",this.customOptions,"\n\n\n",this.disabled,"\n\n\n",this.customOptionsCheck,"\n\n\n");
     console.log("1122334455 ",formatProductMessages(this.product.errors),this.product.errors,"\n is adding to cart",this.isAddingToCart,"\n\n",this.disabled,"\n\n",(
@@ -174,7 +195,7 @@ return false;
          // this.cFlag = false
         }
       //  console.log("this.customOptions",this.customOptions);
-        
+
       }
     },
     ccOptionCheck(){
