@@ -153,7 +153,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
     // This is for measuring purchases using checkout_com. This event is fired in Success.vue page and caught here.
     Vue.prototype.$bus.$on('checkout_com-order-placed', async (payload) => {
-      // console.log('payloadShouldBe', payload);
+      console.log('payloadShouldBe', payload);
       // TODO: Make this into separate actions and mutations if possible.
       const orderId = payload.confirmation.orderNumber
       const platformTotals = payload.platformTotals
@@ -169,7 +169,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       // 'affiliation': (payload.order && payload.order.store_code) ? payload.order.store_code : '',
       GTAG.purchase({
         'transaction_id': orderId,
-        'affiliation': appConfig.themeConfigurations.title ? appConfig.themeConfigurations.title : '',
+        'affiliation': 'Bed Factory Direct',
         'value': ((payload.order && payload.order.grandtotal) ? +(parseFloat(payload.order.grandtotal).toFixed(2)) : 0.00),
         'currency': 'GBP',
         'tax': order ? order.total_due : platformTotals && platformTotals.base_tax_amount ? platformTotals.base_tax_amount : '',
@@ -181,12 +181,19 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       // Measuring Purchase through success Page [New]
       // SET_SUCCESS_PURCHASE
       if (type === 'google-gtag/SET_SUCCESS_PURCHASE') {
-        console.log("afer mutation detect")
-        const orderId = payload.confirmation.orderNumber
+        console.log("afer mutation detect", payload)
+        console.log('state1', state)
+        const orderId = payload.order?.confirmation?.orderNumber
+        console.log('state2', state)
         const orderHistory = state.user.orders_history
+        console.log('state3', state, orderHistory)
         const order = orderHistory ? orderHistory.items.find((order) => order['entity_id'].toString() === orderId) : null
+        console.log('stat4', state)
         const platformTotals = state.cart.platformTotals
-        const products = await mapTransactionProductsToGtag(payload.order.products, store)
+        console.log('stat5', state)
+        const products = await mapTransactionProductsToGtag(payload.order.order.products, store)
+        console.log('state6', state, payload)
+        console.log('product', products)
         let productsAllPurchaseId = Object.keys(products).map(key => products[key].id)
         const productsAllNames = Object.keys(products).map(k => products[k].name)
         const productsAllVal = Object.keys(products).map(k => +(parseFloat(products[k].price).toFixed(2)))
@@ -198,7 +205,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           'ecomm_pname': productsAllNames,
           'ecomm_pvalue': productsAllVal,
           'transaction_id': orderId,
-          'affiliation': appConfig.themeConfigurations.title ? appConfig.themeConfigurations.title : '',
+          'affiliation': 'Bed Factory Direct',
           'value': ((payload.order && payload.order.grandtotal) ? +(parseFloat(payload.order.grandtotal).toFixed(2)) : 0.00),
           // 'value': order ? order.total_due : platformTotals && platformTotals.base_grand_total ? platformTotals.base_grand_total : '',
           'currency': 'GBP',

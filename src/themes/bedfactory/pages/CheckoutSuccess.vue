@@ -210,7 +210,7 @@ export default {
       if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
-      } 
+      }
       else if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if else")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
@@ -308,7 +308,7 @@ export default {
       }
       if (simpleProducts.length > 0) {
         console.log("1235689 in condition for simpleProducts",simpleProducts,"\n final products are ",finalItems);
-        
+
         finalItems = [];
         simpleProducts.forEach((item,index)=>{
       if(item.price>0){
@@ -344,10 +344,10 @@ finalItems.push(item);
     getFinalItems () {
       // const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
       const merged = this.getOrderItems
-      
+
       const values = _.values(merged)
       const merged2 = _.merge(_.keyBy(this.getCartItems, 'name'), _.keyBy(this.getOrderItems, 'name'))
-      
+
       const values2 = _.values(merged2)
       console.log("663322 key by",_.keyBy(this.getOrderItems, 'sku'),"\t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values,"\n\t\t\tMerged",merged,"\n\n\n\n Second one \t values",values2,"\n\t\t\tMerged",merged2);
       const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
@@ -362,7 +362,7 @@ finalItems.push(item);
             return { ...acc, [ skuKey ]: [ current ] }
           }
           return { ...acc, [ skuKey ]: [ ...acc[ skuKey ], current ] }
-        }, {}) 
+        }, {})
         console.log("663322 Reduced products ",reducedProducts);
         for (const item of _.values(reducedProducts)) {
           const reducedItem = item.reduce((acc, current) => {
@@ -434,8 +434,9 @@ finalItems.push(item);
           plateformTotals = JSON.parse(plateformTotals)
           this.plateFormTotals = plateformTotals
           console.log("741258   plateformTotals",this.plateformTotals , plateformTotals);
-          let OrderDetailsUrl =
+          let OrderDetailsUrl ='https://vue.bedfactorydirect.co.uk/' +
             config.orderDetails
+        console.log('OrderDetailsUrl', OrderDetailsUrl)
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
           console.log("7412589 current route is  ",this.$route.query.utm_nooverride.split('1?'),'\n',this.$route.query.utm_nooverride,'\n',this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
           if (orderId)
@@ -465,7 +466,7 @@ finalItems.push(item);
           this.lastOrderItem = data.result.orderData
           console.log(" 741258       last order",this.lastOrderItem , "\twhole data" ,data);
           this.$bus.$emit('notification-progress-stop')
-          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals ? plateformTotals.platformTotals : [] })
+          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals?.platformTotals ? plateformTotals.platformTotals : [] })
           localStorage.removeItem('checkout_3dSecure_orderId')
           localStorage.removeItem('plateFormTotals')
         // } else {
@@ -487,7 +488,7 @@ finalItems.push(item);
         this.item.items.push(prod)
       })
       // this.addBloom()
-    
+
   },
   beforeDestroy () {
     // this.removeLastOrderItem()
