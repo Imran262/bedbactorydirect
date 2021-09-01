@@ -3,7 +3,7 @@
     v-if="(!isCheckoutPage && $route.name !== 'confirmorder') || isThankYouPage"
     class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
   >
-    <MegaMenu :identifier="'megamenunew-new'" />
+    <MegaMenu :identifier="'megamenunew'" />
   </div>
 </template>
 <script>

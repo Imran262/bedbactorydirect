@@ -259,7 +259,7 @@ export default {
         if (config.yopto && config.yopto.qa.create) {
           qaCreate = config.yopto.qa.create;
         }
-        console.log("4563214 parameters are",config.api.url + qaCreate, this.question);
+        console.log("4563214 parameters are",config.api.url + qaCreate,config.yopto.qa.create, this.question);
         axios.post(config.api.url + qaCreate, this.question, {
           headers: {
             'Content-type': 'application/json'
