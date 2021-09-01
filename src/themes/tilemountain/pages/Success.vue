@@ -298,13 +298,11 @@ export default {
     }
   },
   async mounted () {
-    console.log('i am success mounted')
     if (this.$store.state.order && this.$store.state.order.last_order_confirmation) {
       this.$store.commit('google-gtag/SET_SUCCESS_PURCHASE', {
         order: this.$store.state.order.last_order_confirmation,
         platformTotals: this.$store.state.cart.platformTotals
       })
-      console.log('i am success mounted IF store')
     }
     if (!isServer && this.$route.fullPath.includes('utm_nooverride')) {
       try {
