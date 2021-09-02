@@ -17,6 +17,7 @@
     <span
       v-for="(link, index) in paths"
       :key="link.route_link"
+      v-if="link.name !== 'Default Category' && link.name !== 'New Default'"
       itemprop="itemListElement"
       itemscope
       itemtype="https://schema.org/ListItem"
