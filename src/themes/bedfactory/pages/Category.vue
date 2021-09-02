@@ -94,7 +94,7 @@
           <div class="secondcol img-box">
             <!-- https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg -->
             <img
-              :src="backEnd + getCurrentCategory.banner_image
+              :src="(getCurrentCategory.banner_image ? (backEnd +  getCurrentCategory.banner_image):'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg')
               "
               :alt="getCurrentCategory.name"
               class="headerimg"
@@ -458,7 +458,7 @@ const composeInitialPageState = async (store, route, forceLoad = false) => {
     if (isServer) await breadCrumbsLoader
     catalogHooksExecutors.categoryPageVisited(currentCategory)
   } catch (e) {
-    console.error('Problem with setting Category initial data!', e)
+    console.error('Problem with setting Category initial data! in bfd', e)
   }
 }
 
