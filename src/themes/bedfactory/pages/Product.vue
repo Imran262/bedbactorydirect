@@ -8,6 +8,10 @@
  <div >
  <!-- get reviews {{getReviews}} -->
  <meta itemprop="image" :content="getSchemaImageUrl" />
+ <div class itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <meta itemprop="ratingValue" :content="reviewData.bottomline.average_score" />
+    <meta itemprop="ratingCount" :content="reviewData.bottomline.total_review" />
+</div>
  <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
     <!-- Here we are {{reviewData.reviews[0]}} -->
     <div itemprop="review" itemscope itemtype="https://schema.org/Review"> 
