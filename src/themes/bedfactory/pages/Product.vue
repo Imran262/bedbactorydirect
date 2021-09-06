@@ -9,8 +9,8 @@
  <!-- get reviews {{getReviews}} -->
  <meta itemprop="image" :content="getSchemaImageUrl" />
  <div class itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-    <meta itemprop="ratingValue" :content="reviewData.bottomline.average_score" />
-    <meta itemprop="ratingCount" :content="reviewData.bottomline.total_review" />
+    <meta itemprop="ratingValue" :content="reviewData?reviewData.bottomline? reviewData.bottomline.average_score?reviewData.bottomline.average_score:0 :0 : 0" />
+    <meta itemprop="ratingCount" :content="reviewData?reviewData.bottomline? reviewData.bottomline.total_review?reviewData.bottomline.total_review:0 :0 : 0" />
 </div>
  <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
     <!-- Here we are {{reviewData.reviews[0]}} -->
