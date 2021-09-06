@@ -1,6 +1,6 @@
 <template>
     <span :class="`phone` + (callText?``:` phone-icon`)">
-        <a :title="callText || subtitle" :href="link" class="contact">
+        <a :title="callText || subtitle" href="tel:+441515481554" class="contact">
         <span class="call-us">{{ callText || subtitle }}</span>
         </a>
     </span>
