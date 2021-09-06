@@ -1,6 +1,6 @@
 <template>
   <div id="category" ref="categoryPage">
-    <header class="bg-cl-secondary py35 pl20 mobileheader">
+    <header v-if="windowWidth<768" class="bg-cl-secondary py35 pl20 mobileheader">
       <div class="container">
         <!-- <breadcrumbs  class="breadcrumb"/> -->
         <div class="category-info">
@@ -79,7 +79,7 @@
               </p>
             </span>
     </header>
-    <header class="desktopheader">
+    <header v-if="windowWidth>=768" class="desktopheader">
       <div class="container">
         <router-link
           :to="localizedRoute(product_link ? '/' + product_link : '')"
