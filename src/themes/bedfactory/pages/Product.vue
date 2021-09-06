@@ -7,6 +7,7 @@
   <!-- here we are in 2  -->
  <div >
  <!-- get reviews {{getReviews}} -->
+ <meta itemprop="image" :content="getSchemaImageUrl" />
  <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
     <!-- Here we are {{reviewData.reviews[0]}} -->
     <div itemprop="review" itemscope itemtype="https://schema.org/Review"> 
