@@ -8,54 +8,6 @@
  <div >
  <!-- get reviews {{getReviews}} -->
  <meta itemprop="image" :content="getSchemaImageUrl" />
- <!-- <div class itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-    <meta itemprop="ratingValue" :content="reviewData?reviewData.bottomline? reviewData.bottomline.average_score?reviewData.bottomline.average_score:0 :0 : 0" />
-    <meta itemprop="ratingCount" :content="reviewData?reviewData.bottomline? reviewData.bottomline.total_review?reviewData.bottomline.total_review:0 :0 : 0" />
-</div> -->
-<template v-if="reviewData">
-        <div v-for="(review, count) in reviewData.reviews" :key="count">
-          <div
-            class
-            itemprop="review"
-            itemscope
-            itemtype="http://schema.org/Review"
-          >
-            <meta itemprop="reviewBody" :content="review.content" />
-            <meta itemprop="datePublished" :content="review.created_at" />
-            <div
-              class
-              itemprop="reviewRating"
-              itemscope
-              itemtype="http://schema.org/Rating"
-            >
-              <meta itemprop="ratingValue" :content="review.score" />
-            </div>
-            <div
-              class
-              itemprop="author"
-              itemscope
-              itemtype="http://schema.org/Person"
-            >
-              <meta itemprop="name" :content="review.user.display_name" />
-            </div>
-          </div>
-        </div>
-        <div
-          class
-          itemprop="aggregateRating"
-          itemscope
-          itemtype="http://schema.org/AggregateRating"
-        >
-          <meta
-            itemprop="ratingValue"
-            :content="reviewData.bottomline.average_score"
-          />
-          <meta
-            itemprop="ratingCount"
-            :content="reviewData.bottomline.total_review"
-          />
-        </div>
-      </template>
  <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
     <!-- Here we are {{reviewData.reviews[0]}} -->
     <div itemprop="review" itemscope itemtype="https://schema.org/Review"> 
