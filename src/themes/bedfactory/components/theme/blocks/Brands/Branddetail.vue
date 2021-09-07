@@ -8,7 +8,7 @@
       <ul>
         <li>
           <a :href="localizedRoute(singleblock.atag)">
-            <img :src="singleblock.img" :alt="singleblock.alt"/>
+            <img :src="singleblock.img" :alt="singleblock.atag"/>
           </a>
         </li>
       </ul>
