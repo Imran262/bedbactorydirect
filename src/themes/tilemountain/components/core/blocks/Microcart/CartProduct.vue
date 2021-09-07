@@ -816,6 +816,12 @@ input {
     .maincart .firstprice{
       padding-left: 5px;
     }
+    .options > div {
+    display: block;
+}
+.options .opv{
+    width: auto;
+}
   }
   @media (max-width: 991px) and (min-width: 767px) {
     .details {
@@ -933,6 +939,7 @@ input {
       margin-top: 0;
     }
   }
+
 }
 
 .row-sb-left-padding {
@@ -1127,7 +1134,8 @@ input {
     width: auto;
   }
   .options .opv {
-    font-size: 2.6vw;
+    font-size: 2.5vw;
+    width: auto;
   }
   .product-name a {
     width: 100%;
