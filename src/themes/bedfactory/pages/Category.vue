@@ -1,11 +1,11 @@
 <template>
   <div id="category" ref="categoryPage">
-    <header v-if="windowWidth<768" class="bg-cl-secondary py35 pl20 mobileheader">
+    <header class="bg-cl-secondary py35 pl20 mobileheader">
       <div class="container">
         <!-- <breadcrumbs  class="breadcrumb"/> -->
         <div class="category-info">
           <div class="row middle-sm">
-            <h1 class="col-sm-12 category-title mb10">
+            <h1 class="col-sm-12 category-title mb10" v-if="$device.isMobile">
               {{ getCurrentCategory.name }}
             </h1>
             <!-- <div class="sorting col-sm-2 align-right mt50"></div> -->
@@ -79,13 +79,13 @@
               </p>
             </span>
     </header>
-    <header v-if="windowWidth>=768" class="desktopheader">
+    <header class="desktopheader">
       <div class="container">
         <router-link
           :to="localizedRoute(product_link ? '/' + product_link : '')"
         >
           <div class="firstcol title-box sb-category-tile-text">
-            <div class="sb-left-text">
+            <div class="sb-left-text" v-if="!$device.isMobile">
               <h1>{{ getCurrentCategory.name }}</h1>
               <p v-html="getCurrentCategory.banner_description" />
             </div>
