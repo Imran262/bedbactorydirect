@@ -688,13 +688,13 @@
               </div>-->
               </div> 
               <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12"/>
-              <div class="V-12-retail-Finance" @click="HandleOnClickV12">
+              <div class="V-12-retail-Finance">
                 <div class="retail-finance">
                   <div class="v-12-head">
                     <div class="v-12-logo">
                       <img src="/assets/Vector.svg" alt="v-12-logo" />
                     </div>
-                    <div class="v-12-more-info"><p>More Info</p></div>
+                    <div class="v-12-more-info"  @click="HandleOnClickV12"><p>More Info</p></div>
                   </div>
                   <div class="v-12-detail">
                     <p>
@@ -5188,6 +5188,7 @@ h4.variants-label.basin-head {
   justify-content: center;
   align-items: center;
   font-family: arial;
+  cursor: pointer;
 }
 .v-12-detail {
     background: #D6D6D6;
