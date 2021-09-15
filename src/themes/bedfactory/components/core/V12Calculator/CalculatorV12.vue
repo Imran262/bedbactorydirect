@@ -6,18 +6,17 @@
       @click="$emit('closeV12Calculator')"
       >close</i
     >
-    <div>
+    <div id="v12-modal-head">
       <img :src="calculatorData.widget_options.header_img" />
       <p>
         From £{{ minimumInstallment }} per month, subject to details, conditions
         apply
       </p>
-      <p>
+    </div>
+    <table id="calc-table">
+       <p>
         {{ calculatorData.widget_options.top_text }}
       </p>
-    </div>
-
-    <table id="calc-table">
       <tbody>
         <tr>
           <th>Finance Option</th>
@@ -116,22 +115,54 @@ export default {
 }
 </script>>
 <style lang="scss" scoped>
-.check-v12[data-v-fe00d904] {
-  width: 470px;
-  background: #f3f3f3;
-  position: fixed;
-  max-width: 95%;
-  margin: 5% auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  max-height: 80vh;
-  z-index: 2147483647;
-  transition: all 0.5s ease-in-out;
-  padding: 40px 30px 0 30px;
+.check-v12{
+    width: 470px;
+    background: #f3f3f3;
+    position: fixed;
+    max-width: 95%;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    max-height: 80vh;
+    z-index: 2147483647;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    border-radius: 15px;
+    padding: 22px 15px;
+    max-width: 95%;
+    max-height: 80vh;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    animation: flyin 300ms ease both;
+    overflow-y: auto;
 }
-.cl-merge {
-  color: #00315e !important;
-  cursor: pointer;
+   .cl-merge{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 28px;
+    background: #00315e;
+    color: white;
+    border-radius: 0 4px;
+}
+div#v12-modal-head {
+    background: #f3f3f3;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+div#v12-modal-head img {
+    display: block;
+    margin: 0 auto 10px;
+    height: 50px;
+    object-fit: cover;
+    max-width: 100%;
 }
 </style>
