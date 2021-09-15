@@ -714,26 +714,8 @@
                 </div>
               </div>-->
               </div> 
-              <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12" :calculatorData="v12Data" :minimumInstallment="minimumMonthlyPayment"/>
-              <div class="V-12-retail-Finance">
-                <div class="retail-finance">
-                  <div class="v-12-head">
-                    <div class="v-12-logo">
-                      <img src="/assets/Vector.svg" alt="v-12-logo" />
-                    </div>
-                    <div class="v-12-more-info" v-if="showCalculator"  @click="HandleOnClickV12"><p>More Info</p></div>
-                  </div>
-                  <div class="v-12-detail">
-                    <p v-if="showCalculator">
-                      From £{{minimumMonthlyPayment}} per month, subject to details, conditions
-                      apply
-                    </p>
-                    <p v-else>
-                      {{monthly_text}}
-                    </p>
-                  </div>
-                </div>
-              </div>
+    <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12" :calculatorData="v12Data" :minimumInstallment="minimumMonthlyPayment"/>
+    <Retailfinancev12/>
             </div>
           </div>
         </section>
@@ -935,6 +917,7 @@
 <script>
 // import i18n from '@vue-storefront/i18n';
 // import VueOfflineMixin from 'vue-offline/mixin';
+import Retailfinancev12 from "src/themes/bedfactory/components/core/V12Calculator/Retailfinancev12.vue";
 import V12calculator from "src/themes/bedfactory/components/core/V12Calculator/CalculatorV12.vue";
 import CmsBlock from "src/themes/bedfactory/components/core/blocks/Cms/DeliveryBlock";
 import config from "config";
@@ -1013,6 +996,7 @@ import dateFormat from 'dateformat';
 export default {
   name: "ProductPage",
   components: {
+    Retailfinancev12,
     V12calculator,
     ProductPrice,
     CmsBlock,
@@ -5267,57 +5251,6 @@ button.VueCarousel-navigation-button.VueCarousel-navigation-next {
     background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
     background-size: 17px !important;
 }
-.V-12-retail-Finance {
-  box-shadow: 0px 0px 8px rgb(0 0 0 / 25%);
-  width: 554px;
-  height: 115px;
-  margin-left: 40px;
-  width: 89%;
-  margin-bottom: 20px;
-}
-.retail-finance {
-  width: 100%;
-}
-.v-12-head {
-  display: flex;
-  justify-content: space-between;
-  padding: 13px;
-  align-items: center;
-}
-.v-12-more-info {
-  width: 88px;
-  height: 23px;
-  background: #071a44;
-  border-radius: 30px;
-  color: #fff;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: arial;
-  cursor: pointer;
-}
-.v-12-detail {
-    background: #D6D6D6;
-    margin: 13px;
-    height: 35px;
-    bottom: 12px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    font-size: 11px;
-    line-height: 12.65px;
-    font-family: arial;
-    padding-left: 12px;
-}
- @media (max-width: 375px){
-.V-12-retail-Finance {
-    width: 86% !important;
-}
-.v-12-detail {
-    font-size: 9px;
-    padding-left: 5px;
-}
-}
+
 </style>
 
