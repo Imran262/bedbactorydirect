@@ -1,24 +1,35 @@
 <template>
-    <div class="V-12-retail-Finance">
-      <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12" :calculatorData="v12Data" :minimumInstallment="minimumMonthlyPayment"/>
-                <div class="retail-finance">
-                  <div class="v-12-head">
-                    <div class="v-12-logo">
-                      <img src="/assets/Vector.svg" alt="v-12-logo" />
-                    </div>
-                    <div class="v-12-more-info" v-if="showCalculator"  @click="HandleOnClickV12"><p>More Info</p></div>
-                  </div>
-                  <div class="v-12-detail">
-                    <p v-if="showCalculator">
-                      From £{{minimumMonthlyPayment}} per month, subject to details, conditions
-                      apply
-                    </p>
-                    <p v-else>
-                      {{monthly_text}}
-                    </p>
-                  </div>
-                </div>
-              </div>
+  <div class="V-12-retail-Finance">
+    <V12calculator
+      v-if="ViewCalculatorCheck"
+      @closeV12Calculator="HandleOnCloseV12"
+      :calculatorData="v12Data"
+      :minimumInstallment="minimumMonthlyPayment"
+    />
+    <div class="retail-finance">
+      <div class="v-12-head">
+        <div class="v-12-logo">
+          <img src="/assets/Vector.svg" alt="v-12-logo" />
+        </div>
+        <div
+          class="v-12-more-info"
+          v-if="showCalculator"
+          @click="HandleOnClickV12"
+        >
+          <p>More Info</p>
+        </div>
+      </div>
+      <div class="v-12-detail">
+        <p v-if="showCalculator">
+          From £{{ minimumMonthlyPayment }} per month, subject to details,
+          conditions apply
+        </p>
+        <p v-else>
+          {{ monthly_text }}
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import V12calculator from "src/themes/bedfactory/components/core/V12Calculator/CalculatorV12.vue";
@@ -30,7 +41,7 @@ export default {
   },
   data() {
     return {
-       v12Data:{},
+      v12Data:{},
       minimumMonthlyPayment : 0,
       minProductPrice : 335,
       monthly_text : ' ',
@@ -39,9 +50,15 @@ export default {
       ViewCalculatorCheck: false,
     }
   },
+  props:{
+    currentPrice:{
+      type : [String,Number],
+      required: true
+    }
+  },
   methods:{
     retailcalculator (){
-            let price =350;
+            let price = this.currentPrice;
       // let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
       console.log("778855 current price is ",price);
       this.updatedPrice = price
@@ -76,7 +93,7 @@ export default {
         throw ("778855 Error occured while requesting for v12 api:", err);
         });
     },
-      HandleOnClickV12 () {
+    HandleOnClickV12 () {
       this.ViewCalculatorCheck = true
     },
     HandleOnCloseV12 () {
@@ -121,25 +138,25 @@ export default {
   cursor: pointer;
 }
 .v-12-detail {
-    background: #D6D6D6;
-    margin: 13px;
-    height: 35px;
-    bottom: 12px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    font-size: 11px;
-    line-height: 12.65px;
-    font-family: arial;
-    padding-left: 12px;
+  background: #d6d6d6;
+  margin: 13px;
+  height: 35px;
+  bottom: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  line-height: 12.65px;
+  font-family: arial;
+  padding-left: 12px;
 }
- @media (max-width: 375px){
-.V-12-retail-Finance {
+@media (max-width: 375px) {
+  .V-12-retail-Finance {
     width: 86% !important;
-}
-.v-12-detail {
+  }
+  .v-12-detail {
     font-size: 9px;
     padding-left: 5px;
-}
+  }
 }
 </style>
