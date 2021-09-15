@@ -714,7 +714,7 @@
                 </div>
               </div>-->
               </div> 
-              <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12"/>
+              <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12" :calculatorData="v12Data" :minimumInstallment="minimumMonthlyPayment"/>
               <div class="V-12-retail-Finance">
                 <div class="retail-finance">
                   <div class="v-12-head">
@@ -1061,6 +1061,7 @@ export default {
   },
   data() {
     return {
+      v12Data:{},
       minimumMonthlyPayment : 0,
       minProductPrice : 335,
       monthly_text : ' ',
@@ -1970,6 +1971,7 @@ export default {
             ("Error Occured while requesting for reviews:",response.data[0].message));
             } else {
               let responseV12 = response.data;
+              this.v12Data = responseV12;
               console.log("778855 Successfully called V12 API recieved data is new ",responseV12, responseV12.finance_available);
               this.showCalculator = responseV12.finance_available;
               this.minProductPrice = responseV12.min_max.min_order;
