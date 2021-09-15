@@ -714,8 +714,7 @@
                 </div>
               </div>-->
               </div> 
-    <V12calculator v-if="ViewCalculatorCheck" @closeV12Calculator="HandleOnCloseV12" :calculatorData="v12Data" :minimumInstallment="minimumMonthlyPayment"/>
-    <Retailfinancev12/>
+              <Retailfinancev12 :currentPrice="updatedPrice" :key="updatedPrice"/>
             </div>
           </div>
         </section>
@@ -1924,59 +1923,8 @@ export default {
     setPrice(data) {
       console.log("7778855 Current price is ",data);
       let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
-      console.log("778855 current price is ",price);
-      this.updatedPrice = price
-      const URL = "https://angus.finance-calculator.co.uk/api/public/finance-options?loan_amount="+price+"&api_key=79166ebc201070380f581a4a2dcc004a";
-      // axios.get(URL).then((res) => {
-      //   const response = res;
-      //   console.log("778855 response for v12 is ",res);
-      //   if (response.status !== 200 && !review.data.length) {
-      //     throw (
-      //       ("Error Occured while requesting for reviews:",response.data[0].message));
-      //       } else {
-      //         let responseV12 = response.data;
-      //         console.log("778855 Successfully called V12 API recieved data is ",responseV12);
-      //         this.showCalculator = responseV12.finance_available;
-      //         this.minProductPrice = responseV12.min_max.min_order;
-      //         this.monthly_text = responseV12.monthly_text
-      //         if(this.showCalculator){
-      //           this.minimumMonthlyPayment = 10.0
-      //           }
-      // }
-      // })
-      // .catch((err) => {
-      //   throw ("778855 Error occured while requesting for v12 api:", err);
-      //   });
-      axios.get(URL).then((res) => {
-        const response = res;
-        console.log("778855 response for v12 is ",res);
-        if (response.status !== 200 && !review.data.length) {
-          throw (
-            ("Error Occured while requesting for reviews:",response.data[0].message));
-            } else {
-              let responseV12 = response.data;
-              this.v12Data = responseV12;
-              console.log("778855 Successfully called V12 API recieved data is new ",responseV12, responseV12.finance_available);
-              this.showCalculator = responseV12.finance_available;
-              this.minProductPrice = responseV12.min_max.min_order;
-              this.monthly_text = responseV12.monthly_text
-              if(this.showCalculator){
-                let selectedOption =responseV12.finance_options[responseV12.finance_options.length-1];
-                let initialdeposit =  selectedOption.deposit_options[0].value * price;
-                let noOfMonths = selectedOption.imega_finance_rate.term;
-                this.minimumMonthlyPayment = (price - initialdeposit)/noOfMonths;
-                this.minimumMonthlyPayment = parseFloat(this.minimumMonthlyPayment).toFixed(
-                            2
-                          )
-                console.log("778855 selcted option",selectedOption , initialdeposit ,noOfMonths, this.minimumMonthlyPayment);
-                
-
-                }
-      }
-      })
-      .catch((err) => {
-        throw ("778855 Error occured while requesting for v12 api:", err);
-        });
+      console.log("778855 current calculated price is ",price);
+      this.updatedPrice = price;
       this.calculatedProductPrice = data;
     },
     showDetails(event) {
