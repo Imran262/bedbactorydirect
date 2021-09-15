@@ -1,11 +1,13 @@
 <template>
   <div class="V-12-retail-Finance">
-    <V12calculator
-      v-if="ViewCalculatorCheck"
+    <div v-if="ViewCalculatorCheck">
+      <div class="modal-backdrop"  @click="HandleOnCloseV12"/>
+    <V12calculator   
       @closeV12Calculator="HandleOnCloseV12"
       :calculatorData="v12Data"
       :minimumInstallment="minimumMonthlyPayment"
     />
+    </div>
     <div class="retail-finance">
       <div class="v-12-head">
         <div class="v-12-logo">
@@ -102,7 +104,7 @@ export default {
   },
    async mounted(){
      this.retailcalculator();
-   }
+   },
 }
   </script>
 
@@ -158,5 +160,16 @@ export default {
     font-size: 9px;
     padding-left: 5px;
   }
+}
+.modal-backdrop {
+  position: fixed; /* Stay in place */
+  z-index: 999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 </style>
