@@ -187,7 +187,7 @@ export default {
 </script>>
 <style lang="scss" scoped>
 .check-v12{
-    width: 470px;
+    width: 480px;
     background: #fff;
     position: fixed;
     max-width: 95%;
@@ -211,6 +211,12 @@ export default {
       width: 87%;
     }
 }
+div#v12-modal-head p {
+    font-size: 12px;
+    @media (max-width: 520px){
+      font-size: 11px;
+    }
+}
    .cl-merge{
     cursor: pointer;
     position: absolute;
@@ -230,6 +236,7 @@ div#v12-modal-head {
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 10px;
+    text-align: center;
 }
 div#v12-modal-head img {
     display: block;
@@ -250,6 +257,9 @@ div#v12-modal-head img {
     text-align: center;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     margin-top: 0;
+     @media (max-width: 520px){
+      font-size: 11px;
+    }
 }
 table#calc-table {
     display: table;
@@ -257,13 +267,12 @@ table#calc-table {
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 20px;
-    all: initial;
     font-size: 12px;
     box-sizing: border-box;
     font-family: arial;
 }
 table#calc-table tbody {
-    display: table-row-group;
+    // display: table-row-group;
     width: 100%;
     max-width: 100%;
 }
@@ -279,6 +288,10 @@ table#calc-table tbody {
     padding: 5px 15px;
     font-family: arial;
     text-align: inherit;
+    @media (max-width: 520px){
+       min-width: 110px;
+       padding: 5px 4px;
+    }
 }
 #calc-table tr td {
     font-weight: bold;
