@@ -5,6 +5,7 @@
       @closeV12Calculator="HandleOnCloseV12"
       :calculatorData="v12Data"
       :minimumInstallment="minimumMonthlyPayment"
+      :currentPrice="currentPrice"
     />
     <div class="retail-finance">
       <div class="v-12-head">

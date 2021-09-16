@@ -22,35 +22,41 @@
         <tr>
           <th>Finance Option</th>
           <td>
-            <select id="options-select">
-              <option
-                value="0"
-                data-fcode="27|244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e"
+            
+            <select  id="options-select" @change="setCurrentFinanceOption($event)">
+              Selected
+              <template
+                v-for="(option, count) in calculatorData.finance_options"
               >
-                Interest Free Finance (6 Months)
-              </option>
-              <option
-                value="1"
-                data-fcode="88|34ee414c-94d8-4cd2-8f62-fc5b8a2d2a7d"
-              >
-                Interest Free Finance (10 Months)
-              </option>
-              <option
-                value="2"
-                data-fcode="28|8e0bd3a9-657f-457c-b488-dbfab37fac39"
-              >
-                Interest Free Finance (12 Months)
-              </option>
+                <option
+                  :key="count"
+                  :value="option.order_id"
+                  :data-fcode="option.finance_code"
+                >
+                  {{ option.name }}
+                </option>
+              </template>
             </select>
+            
           </td>
         </tr>
         <tr>
           <th>Deposit Amount</th>
           <td id="imega-deposit-amount-td">
-            <select id="imega-deposit-amount-select">
-              <option value="0.3" selected="selected">30%</option>
-              <option value="0.2">20%</option>
-              <option value="0.1">10%</option>
+            <select id="imega-deposit-amount-select"  @change="setCurrentDepositOption($event)">
+              <template v-for="(option, count) in depositOptions">
+                <option
+                  v-if="count === 0"
+                  :key="count"
+                  :value="option.value"
+                  selected="selected"
+                >
+                  {{ option.name }}
+                </option>
+                <option v-else :key="count" :value="option.value">
+                  {{ option.name }}
+                </option>
+              </template>
             </select>
           </td>
         </tr>
@@ -58,39 +64,39 @@
       <tbody id="calc-table-data">
         <tr>
           <th>Monthly Payments</th>
-          <td data-imega-calculator-field="installment-amount">£34.93</td>
+          <td data-imega-calculator-field="installment-amount">£{{payment.monthlyPayment}}</td>
         </tr>
         <tr>
           <th>Purchase Price</th>
-          <td data-imega-calculator-field="purchase-price">£499.00</td>
+          <td data-imega-calculator-field="purchase-price">£{{payment.purchasePrice}}</td>
         </tr>
         <tr>
           <th>Deposit To Pay</th>
-          <td data-imega-calculator-field="deposit-amount">£149.70</td>
+          <td data-imega-calculator-field="deposit-amount">£{{payment.initialDeposit}}</td>
         </tr>
         <tr>
           <th>Amount Of Credit</th>
-          <td data-imega-calculator-field="credit-amount">£349.30</td>
+          <td data-imega-calculator-field="credit-amount">£{{payment.credit}}</td>
         </tr>
         <tr>
           <th>Amount Of Interest</th>
-          <td data-imega-calculator-field="interest-amount">£0.00</td>
+          <td data-imega-calculator-field="interest-amount">£{{payment.interest}}</td>
         </tr>
         <tr>
           <th>Number Of Monthly Payments</th>
-          <td data-imega-calculator-field="term">10</td>
+          <td data-imega-calculator-field="term">{{payment.noOfPayments}}</td>
         </tr>
         <tr>
           <th>Total Amount Payable</th>
-          <td data-imega-calculator-field="total-payable">£499.00</td>
+          <td data-imega-calculator-field="total-payable">£{{payment.totalAmount}}</td>
         </tr>
         <tr>
           <th>Rate Of Interest (Fixed)</th>
-          <td data-imega-calculator-field="interest-rate">0.00%</td>
+          <td data-imega-calculator-field="interest-rate">{{payment.rateOfInterestFixed}}</td>
         </tr>
         <tr>
           <th>APR Representative</th>
-          <td data-imega-calculator-field="apr">0%</td>
+          <td data-imega-calculator-field="apr">{{payment.APR}}</td>
         </tr>
       </tbody>
     </table>
@@ -103,6 +109,24 @@
 <script>
 export default {
   name : 'calculatorV12',
+  data(){
+    return {
+      depositOptions : this.calculatorData.finance_options[0].deposit_options,
+      despositOptionSelected : this.calculatorData.finance_options[0].deposit_options[0].value,
+      financeOptionSelected:this.calculatorData.finance_options[0].order_id,
+      payment:{
+        monthlyPayment:0,
+        purchasePrice:0,
+        initialDeposit:0,
+        credit:0,
+        interest:0,
+        noOfPayments:0,
+        totalAmount:0,
+        rateOfInterestFixed:'0.00%',
+        APR:'0%'
+      }
+    }
+  },
   props: {
     calculatorData: {
       type: Object,
@@ -111,8 +135,54 @@ export default {
     minimumInstallment:{
       type: [Number,String],
       required : true
+    },
+    currentPrice:{
+      type : [String,Number],
+      required: true
     }
   },
+  mounted(){
+    this.setCurrentData();
+  },
+  methods:{
+    setCurrentFinanceOption(option){
+      console.log("778855 selected Finance option is ",option);
+      this.financeOptionSelected = option.target.value;
+      this.setCurrentData();
+    },
+    setCurrentDepositOption(option){
+      console.log("778855 selected Deposit option is ",option);
+      this.despositOptionSelected = option.target.value;
+      this.setCurrentData();
+    },
+    setCurrentData(){
+      console.log("778855 deposit option is ",this.despositOptionSelected,"Finance option selected",this.financeOptionSelected);
+      console.log("778855 finance option found",this.calculatorData.finance_options.length);
+      this.calculatorData.finance_options.forEach( (financeOption,financeIndex) => {
+        console.log("778855 About to match",parseInt (financeOption.order_id) === parseInt(this.financeOptionSelected) ,financeOption.order_id , this.financeOptionSelected);
+        if(parseInt (financeOption.order_id) === parseInt(this.financeOptionSelected)){
+          console.log("778855 finance option found",financeOption);
+          parseFloat(this.originalPrice).toFixed(2);
+          let totalPrice = parseFloat(this.currentPrice).toFixed(2);
+          let initialDeposit = parseFloat(totalPrice - (totalPrice * this.despositOptionSelected)).toFixed(2);
+          let creditAmount = parseFloat(totalPrice- initialDeposit).toFixed(2);
+          let noOfPayments = parseFloat(financeOption.imega_finance_rate.term).toFixed(2);
+          let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
+          this.payment = {
+            monthlyPayment: monthlyPayment,
+            purchasePrice: totalPrice,
+            initialDeposit: initialDeposit,
+            credit: creditAmount,
+            interest: 0.00,
+            noOfPayments: noOfPayments,
+            totalAmount: totalPrice,
+            rateOfInterestFixed:'0.00%',
+            APR:'0%'
+            }
+        }
+      });
+    }
+  }
 }
 </script>>
 <style lang="scss" scoped>
