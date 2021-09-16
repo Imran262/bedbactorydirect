@@ -97,14 +97,19 @@ export default {
     },
     HandleOnClickV12 () {
       this.ViewCalculatorCheck = true
+       let x = document.getElementsByTagName('BODY')[ 0 ]
+      x.style.overflowY = 'hidden'
     },
     HandleOnCloseV12 () {
       this.ViewCalculatorCheck = false
+      let x = document.getElementsByTagName('BODY')[ 0 ]
+      x.style.overflowY = 'scroll'
     },
   },
    async mounted(){
      this.retailcalculator();
    },
+  
 }
   </script>
 
