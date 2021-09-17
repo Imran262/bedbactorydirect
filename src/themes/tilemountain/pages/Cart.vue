@@ -253,6 +253,7 @@
               />
             </div> -->
           </div>
+           <Retailfinancev12 :currentPrice="updatedPrice" :key="updatedPrice"/>
         </div>
       </div>
     </div>
@@ -260,6 +261,8 @@
 </template>
 
 <script>
+import Retailfinancev12 from "src/themes/bedfactory/components/core/V12Calculator/Retailfinancev12.vue";
+import V12calculator from "src/themes/bedfactory/components/core/V12Calculator/CalculatorV12.vue";
 import i18n from "@vue-storefront/i18n";
 import { CartSummary } from "@vue-storefront/core/modules/checkout/components/CartSummary";
 import EventBus from "@vue-storefront/core/compatibility/plugins/event-bus";
@@ -277,6 +280,7 @@ import _ from "lodash";
 export default {
   data() {
     return {
+       updatedPrice:0,
       regular: true,
       addCouponPressed: false,
       sorted: [],
@@ -306,6 +310,8 @@ export default {
   },
   mixins: [VueOfflineMixin, CartSummary, MeasureProductClick],
   components: {
+     Retailfinancev12,
+    V12calculator,
     ProductCartPage,
     ButtonFull,
     ButtonOutline,
@@ -455,6 +461,13 @@ export default {
     };
   },
   methods: {
+       setPrice(data) {
+      console.log("7778855 Current price is ",data);
+      let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
+      console.log("778855 current calculated price is ",price);
+      this.updatedPrice = price;
+      this.calculatedProductPrice = data;
+    },
     ...mapActions({
       applyCoupon: "cart/applyCoupon",
     }),
@@ -1054,7 +1067,6 @@ export default {
 
   @media (min-width: 767px) {
     .total-box-inner {
-      height: 556px;
       position: sticky;
       top: 70px;
     }
@@ -1256,6 +1268,10 @@ export default {
 }
 
 @media (max-width: 1200px) and (min-width: 992px) {
+    .total-box-inner .V-12-retail-Finance.cart-V-12{
+   margin-left: 24px !important;
+    width: 88%;
+}
   .sb-congragulation-text > p {
     font-size: 13px;
   }
@@ -1564,4 +1580,32 @@ export default {
     text-transform: uppercase;
     background: #071a44;
 }
+.total-box-inner .V-12-retail-Finance.cart-V-12 {
+    position: absolute;
+    bottom: 0;
+    margin-left: 32px;
+    margin-bottom: 10px;
+    background: #ffff;
+     @media (max-width: 991px){
+    margin-left: 0;
+    width: 100%;
+     }
+       @media (max-width: 767px){
+    width: 98%;
+     }
+       @media (max-width: 480px){
+    width: 96% !important;
+     }
+}
+.total-box-inner {
+      height: 556px;
+       }
+ @media (max-width: 1201px){
+   .total-box-inner {
+      height: 580px;
+       @media (max-width: 991px){
+         height: 600px !important;
+       }
+    }
+ }
 </style>
