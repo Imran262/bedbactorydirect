@@ -304,6 +304,9 @@ table#calc-table tbody {
     vertical-align: middle;
     min-width: 54%;
     font-family: arial;
+     @media (max-width: 520px){
+       padding: 5px 2px;
+     }
 }
 select#options-select {
     text-align: right;
@@ -316,6 +319,12 @@ select#options-select {
     border: 1px solid #E0DFDF;
     height: auto;
     font-family: arial;
+     @media (max-width: 520px){
+     font-size: 11px;
+     white-space: break-spaces;
+    text-align: start;
+     height: 44px;
+    }
 }
 select#imega-deposit-amount-select {
     border-radius: 2px;
@@ -326,6 +335,9 @@ select#imega-deposit-amount-select {
     width: 100%;
     border: 1px solid #E0DFDF;
     height: auto;
+     @media (max-width: 520px){
+     font-size: 11px;
+    }
 }
 .modal-retail-finance {
     font-size: 10px;
