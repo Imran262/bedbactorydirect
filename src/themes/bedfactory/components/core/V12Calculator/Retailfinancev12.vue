@@ -1,5 +1,5 @@
 <template>
-  <div class="V-12-retail-Finance">
+  <div class="V-12-retail-Finance cart-V-12">
     <div v-if="ViewCalculatorCheck">
       <div class="modal-backdrop"  @click="HandleOnCloseV12"/>
     <V12calculator   
