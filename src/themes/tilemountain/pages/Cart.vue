@@ -146,6 +146,7 @@
         </div>
 
         <div class="Total col-lg-4 col-md-12 col-xs-12 total-box-inner">
+           <Retailfinancev12 :currentPrice='360' :key="updatedPrice"/>
           <div class="cart-summary-main" id="cart-summary-main">
             <div class="inner-total bg-cl-primary">
               <div
@@ -253,8 +254,8 @@
               />
             </div> -->
           </div>
-           <Retailfinancev12 :currentPrice='360' :key="updatedPrice"/>
         </div>
+       
       </div>
     </div>
   </div>
