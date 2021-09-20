@@ -164,8 +164,8 @@ export default {
           console.log("778855 finance option found",financeOption);
           parseFloat(this.originalPrice).toFixed(2);
           let totalPrice = parseFloat(this.currentPrice).toFixed(2);
-          let initialDeposit = parseFloat(totalPrice - (totalPrice * this.despositOptionSelected)).toFixed(2);
-          let creditAmount = parseFloat(totalPrice- initialDeposit).toFixed(2);
+          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2);
+          let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);
           let noOfPayments = parseFloat(financeOption.imega_finance_rate.term).toFixed(2);
           let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
           this.payment = {
