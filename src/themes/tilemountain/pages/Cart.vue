@@ -253,7 +253,7 @@
               />
             </div> -->
           </div>
-           <Retailfinancev12 :currentPrice="updatedPrice" :key="updatedPrice"/>
+           <Retailfinancev12 :currentPrice='360' :key="updatedPrice"/>
         </div>
       </div>
     </div>
