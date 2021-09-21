@@ -100,11 +100,13 @@ export default {
       this.ViewCalculatorCheck = true
        let x = document.getElementsByTagName('BODY')[ 0 ]
       x.style.overflowY = 'hidden'
+    document.getElementsByClassName("flex menu")[ 0 ].style.zIndex = "0";   
     },
     HandleOnCloseV12 () {
       this.ViewCalculatorCheck = false
       let x = document.getElementsByTagName('BODY')[ 0 ]
       x.style.overflowY = 'scroll'
+     document.getElementsByClassName("flex menu")[ 0 ].style.zIndex = "9999";
     },
   },
    async mounted(){
