@@ -89,7 +89,7 @@ let routes = [
     component: SwatchSuccess,
     props: { page: 'swatches', title: 'Swatches' }
   },
-  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess }
+  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess },
   { name: 'FinanceSuccess', path: '/finance-success', component: FinanceSuccess }
 ]
 
