@@ -90,7 +90,7 @@ let routes = [
     props: { page: 'swatches', title: 'Swatches' }
   },
   { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess },
-  { name: 'FinanceSuccess', path: '/finance-success', component: FinanceSuccess }
+  { name: 'PaypalSuccess', path: '/paypal-success', component: Success3D }
 ]
 
 export default routes
