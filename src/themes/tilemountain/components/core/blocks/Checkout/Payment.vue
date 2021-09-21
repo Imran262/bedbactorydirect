@@ -292,7 +292,7 @@
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12"
-            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express'"
+            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express' || method.code==='financegateway'"
           >
             <label class="radioStyled sb-payment-method-label">
               {{ method.title ? method.title : method.name }}
@@ -373,6 +373,16 @@
                       src="/assets/footer/footer-paypal-icon.png"
                       alt="paypal"
                     />
+                  </li>
+                </ul>
+              </div>
+              <div class="bank-card" v-if="method.code === 'financegateway'">
+                <ul>
+                  <li>
+                    <!-- <img
+                      src="/assets/footer/footer-paypal-icon.png"
+                      alt="paypal"
+                    /> -->
                   </li>
                 </ul>
               </div>
