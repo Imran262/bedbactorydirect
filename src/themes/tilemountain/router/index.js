@@ -31,6 +31,8 @@ const SwatchSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/SwatchesSuccess.vue');
 const CheckoutSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/CheckoutSuccess.vue');
+const FinanceSuccess = () =>
+  import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/Financesuccess.vue');
 let routes = [
   { name: 'home', path: '/', component: Home, alias: '/pwa.html' },
   { name: 'checkout', path: '/checkout', component: Checkout },
@@ -87,7 +89,8 @@ let routes = [
     component: SwatchSuccess,
     props: { page: 'swatches', title: 'Swatches' }
   },
-  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess }
+  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess },
+  { name: 'FinanceSuccess', path: '/finance-success', component: FinanceSuccess }
 ]
 
 export default routes
