@@ -65,7 +65,7 @@ let routes = [
   { name: 'cms-page', path: '/i/:slug', component: CmsPage },
   { name: 'create-password', path: '/create-password', component: ResetPassword },
   { name: 'page-not-found', path: '*', component: PageNotFound },
-  { name: 'Success', path: '/success', component: Success3D },
+  { name: 'Success', path: '/success', component: FinanceSuccess },
   { name: 'Fail', path: '/fail', component: Fail3D },
   {
     name: 'catalog-search',
