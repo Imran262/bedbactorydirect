@@ -84,7 +84,10 @@ export default {
        }
     }
     const URL =' https://apply.v12finance.com/latest/retailerapi/SubmitApplication'
-      axios.post(URL, order).then(({ data }) => {
+      axios.post(URL, order,{headers: {
+            'Content-type': 'application/json'
+          }
+          }).then(({ data }) => {
           console.log('v12 data us ',data);
         });
     },
