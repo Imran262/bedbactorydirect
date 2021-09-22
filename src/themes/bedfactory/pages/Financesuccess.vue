@@ -83,8 +83,28 @@ export default {
           "RetailerId":retailerId
        }
     }
-    const URL =' https://apply.v12finance.com/latest/retailerapi/SubmitApplication'
-      axios.post(URL, order,{headers: {
+    const URL ='https://apply.v12finance.com/latest/retailerapi/SubmitApplication';
+    axios.post(URL, order, {
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+          .then(r => {
+            console.log('115599 responseIs', r);
+          })
+          .catch(error => {
+            console.log('115599 Error', error);
+          })
+     
+
+
+
+
+
+
+
+      axios.post(URL, order,{
+          headers: {
             'Content-type': 'application/json'
           }
           }).then(({ data }) => {
