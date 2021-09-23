@@ -19,70 +19,88 @@ export default {
             authenticationKey='U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM' , 
             productGuid='244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e', 
             productId='27' , 
-            salesReference = 'Style & Comfort Interiors - Web - Test';
-      let order = 
-      {
-       "Customer":{
-          "EmailAddress":"test@v12finance.com",
-          "Title":"3",
-          "FirstName":"Bob",
-          "Addresses":[
-             {
-                "MonthsAtAddress":"35",
-                "FlatNumber":"",
-                "BuildingName":"",
-                "BuildingNumber":"92",
-                "Street":"The Street",
-                "Locality":"",
-                "TownOrCity":"Cardiff",
-                "County":"Cardiff",
-                "Postcode":"CF24 5PJ"
-             },
-             {
-                "MonthsAtAddress":"150",
-                "FlatNumber":"",
-                "BuildingName":"",
-                "BuildingNumber":"92",
-                "Street":"The Street",
-                "Locality":"",
-                "TownOrCity":"Cardiff",
-                "County":"Cardiff",
-                "Postcode":"CF24 5PJ"
-             }
-          ],
-          "HomeTelephone":{
-             "Code":"02920",
-             "Number":"123456"
-          },
-          "LastName":"Test",
-          "MobileTelephone":{
-             "Code":"02920",
-             "Number":"123456"
-          }
-       },
-       "Order":{
-          "Lines":[
-             {
-                "Qty":"1",
-                "SKU":"cavali-divan-bed-6ft-2dre",
-                "Item":"Cavali Divan Bed",
-                "Price":"2000.00"
-             }
-          ],
-          "CashPrice":"2000",
-          "Deposit":"300",
-          "DuplicateSalesReferenceMethod":"ShowError",
-          "ProductGuid":productGuid,
-          "ProductId":productId,
-          "SalesReference":salesReference,
-          "vLink":"false"
-       },
-       "Retailer":{
-          "AuthenticationKey":authenticationKey,
-          "RetailerGuid":retailerGuid,
-          "RetailerId":retailerId
-       }
+            salesReference = '012365',
+            orderId = Math.floor(Math.random() * 1000000000) + 1000 ;
+            console.log("order id is ",orderId);
+
+      let order = {
+    "Order": {
+        "CashPrice": "3000",
+        "Deposit": "900",
+        "DuplicateSalesReferenceMethod": "ShowError",
+        "ProductGuid": "244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e",
+        "ProductId": "27",
+        "SalesReference": orderId
+    },
+    "Retailer": {
+        "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
+        "RetailerGuid": "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
+        "RetailerId": "25838"
     }
+}
+
+    //   {
+    //    "Customer":{
+    //       "EmailAddress":"test@v12finance.com",
+    //       "Title":"3",
+    //       "FirstName":"Bob",
+    //       "Addresses":[
+    //          {
+    //             "MonthsAtAddress":"35",
+    //             "FlatNumber":"",
+    //             "BuildingName":"",
+    //             "BuildingNumber":"92",
+    //             "Street":"The Street",
+    //             "Locality":"",
+    //             "TownOrCity":"Cardiff",
+    //             "County":"Cardiff",
+    //             "Postcode":"CF24 5PJ"
+    //          },
+    //          {
+    //             "MonthsAtAddress":"150",
+    //             "FlatNumber":"",
+    //             "BuildingName":"",
+    //             "BuildingNumber":"92",
+    //             "Street":"The Street",
+    //             "Locality":"",
+    //             "TownOrCity":"Cardiff",
+    //             "County":"Cardiff",
+    //             "Postcode":"CF24 5PJ"
+    //          }
+    //       ],
+    //       "HomeTelephone":{
+    //          "Code":"02920",
+    //          "Number":"123456"
+    //       },
+    //       "LastName":"Test",
+    //       "MobileTelephone":{
+    //          "Code":"02920",
+    //          "Number":"123456"
+    //       }
+    //    },
+    //    "Order":{
+    //       "Lines":[
+    //          {
+    //             "Qty":"1",
+    //             "SKU":"cavali-divan-bed-6ft-2dre",
+    //             "Item":"Cavali Divan Bed",
+    //             "Price":"2000.00"
+    //          }
+    //       ],
+    //       "CashPrice":"2000",
+    //       "Deposit":"300",
+    //       "DuplicateSalesReferenceMethod":"ShowError",
+    //       "ProductGuid":productGuid,
+    //       "ProductId":productId,
+    //       "SalesReference":salesReference,
+    //       "vLink":"false"
+    //    },
+    //    "Retailer":{
+    //       "AuthenticationKey":authenticationKey,
+    //       "RetailerGuid":retailerGuid,
+    //       "RetailerId":retailerId
+    //    }
+    // }
     const URL ='https://apply.v12finance.com/latest/retailerapi/SubmitApplication';
     axios.post(URL, order, {
           headers: {
