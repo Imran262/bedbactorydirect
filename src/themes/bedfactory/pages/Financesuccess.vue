@@ -24,7 +24,7 @@ export default {
             console.log("order id is ",orderId);
 
       let order = {
-    "Order": {
+          "Order": {
         "CashPrice": "3000",
         "Deposit": "900",
         "DuplicateSalesReferenceMethod": "ShowError",
@@ -103,9 +103,9 @@ export default {
     // }
     const URL ='https://apply.v12finance.com/latest/retailerapi/SubmitApplication';
     axios.post(URL, order, {
-          headers: {
-            'Content-type': 'application/json'
-          }
+        //   headers: {
+        //     'Content-type': 'application/json'
+        //   }
         })
           .then(r => {
             console.log('115599 responseIs', r);
