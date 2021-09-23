@@ -21,7 +21,7 @@ export default {
             productId='27' , 
             salesReference = '012365',
             orderId = Math.floor(Math.random() * 1000000000) + 1000 ;
-            console.log("order id is ",orderId);
+           
 
       let order = {
           "Order": {
@@ -38,6 +38,7 @@ export default {
         "RetailerId": "25838"
     }
 }
+ console.log("order id is ",orderId,typeof orderId);
 
     //   {
     //    "Customer":{
@@ -102,10 +103,23 @@ export default {
     //    }
     // }
     const URL ='https://apply.v12finance.com/latest/retailerapi/SubmitApplication';
-    axios.post(URL, order, {
-        //   headers: {
-        //     'Content-type': 'application/json'
-        //   }
+    fetch(URL, {
+        method: 'POST',
+        body: order,
+        headers: {
+            'Content-type': 'application/json'
+          }
+        })
+          .then(r => {
+            console.log('115599  fetch responseIs', r);
+          })
+          .catch(error => {
+            console.log('115599 fetch Error', error);
+          })
+    axios.post(URL, (order), {
+          headers: {
+            'Content-type': 'application/json'
+          }
         })
           .then(r => {
             console.log('115599 responseIs', r);
