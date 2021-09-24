@@ -1,6 +1,6 @@
 <template>
   <button type="button" data-testid="addToCart" class="financesuccess">
-    Apply For Finance new with 
+    Apply For Finance  without
   </button>
 </template>
 <script>
@@ -40,6 +40,20 @@ export default {
     }
 }
       console.log("order id is ", orderId, typeof orderId);
+      const URL ='https://apply.v12finance.com/latest/retailerapi/SubmitApplication';
+      fetch(URL, {
+        method: 'POST',
+        body: order,
+        headers: {
+            'Content-type': 'application/json',
+          }
+        })
+          .then(r => {
+            console.log('115599  fetch responseIs', r);
+          })
+          .catch(error => {
+            console.log('115599 fetch Error', error);
+          })
       axios
         .post(URL, order, {
           headers: {
