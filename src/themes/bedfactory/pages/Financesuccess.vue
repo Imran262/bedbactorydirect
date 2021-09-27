@@ -1,10 +1,11 @@
 <template>
   <button type="button" data-testid="addToCart" class="financesuccess">
-    Apply For Finance  without
+    Apply For Finance with our
   </button>
 </template>
 <script>
 import axios from "axios";
+import config from "config";
 export default {
   name: "FinanceSuccess",
   data() {
@@ -39,29 +40,15 @@ export default {
         "RetailerId": "25838"
     }
 }
-      console.log("order id is ", orderId, typeof orderId);
-      const URL ='https://apply.v12finance.com/latest/retailerapi/SubmitApplication';
-      fetch(URL, {
-        method: 'POST',
-        body: order,
-        headers: {
-            'Content-type': 'application/json',
-          }
-        })
-          .then(r => {
-            console.log('115599  fetch responseIs', r);
-          })
-          .catch(error => {
-            console.log('115599 fetch Error', error);
-          })
-      axios
-        .post(URL, order, {
+      console.log("order id is ", orderId, typeof order,order);
+      const URL = config.api.url + config.v12Finance.endpoint ;
+      axios.post(URL, order, {
           headers: {
             "Content-type": "application/json"
           }
         })
-        .then(r => {
-          console.log("115599 responseIs", r);
+        .then(res => {
+          console.log("115599 responseIs", res);
         })
         .catch(error => {
           console.log("115599 Error", error);
