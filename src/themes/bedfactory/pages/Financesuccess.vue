@@ -28,10 +28,11 @@
 
       <div class="imegacheckout-column" id="imegacheckout-loan-details">
         <V12calculator
+        v-if="showCalculator"
         @CalculatorValueUpdated='setValues($event)'
-          :calculatorData="financecal"
-          :minimumInstallment="450"
-          :currentPrice="1000"
+          :calculatorData="v12Data"
+          :minimumInstallment="minimumMonthlyPayment"
+          :currentPrice="currentPrice"
         />
         <button id="imegacheckout-apply-button" @click="submitApplication()">
           <h3 >Apply For Finance</h3>
@@ -65,6 +66,10 @@ export default {
       plateFormTotals: null,
       item: { items: [] },
       calculatedData : {},
+      v12Data : {},
+      minimumMonthlyPayment: 0.0,
+      currentPrice : 0,
+      showCalculator: false,
       financecal:  {
   "test_mode": true,
   "finance_available": true,
@@ -548,6 +553,39 @@ export default {
     },
   },
   methods: {
+      retailcalculator (){
+          let Totals = this.$store.state.cart.platformTotals;
+            let price = (Totals.grand_total).toString();
+            this.currentPrice= price;
+      // let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
+      console.log("14521452 current price is ",price);
+      this.updatedPrice = price
+      const URL = "https://angus.finance-calculator.co.uk/api/public/finance-options?loan_amount="+price+"&api_key=79166ebc201070380f581a4a2dcc004a";
+      axios.get(URL).then((res) => {
+        const response = res;
+        console.log("14521452 response for v12 is ",res);
+        if (response.status !== 200) {
+          throw (
+            ("Error Occured while requesting for reviews:",response.data[0].message));
+            } else {
+              let responseV12 = response.data;
+              this.v12Data = responseV12;
+              this.showCalculator =true
+               let selectedOption =responseV12.finance_options[responseV12.finance_options.length-1];
+                let initialdeposit =  selectedOption.deposit_options[0].value * price;
+                let noOfMonths = selectedOption.imega_finance_rate.term;
+                this.minimumMonthlyPayment = (price - initialdeposit)/noOfMonths;
+                this.minimumMonthlyPayment = parseFloat(this.minimumMonthlyPayment).toFixed(
+                            2
+                          )
+                console.log("778855 selcted option",selectedOption , initialdeposit ,noOfMonths, this.minimumMonthlyPayment);
+              console.log("14521452 Successfully called V12 API recieved data is new ",responseV12, responseV12.finance_available);
+      }
+      })
+      .catch((err) => {
+        throw ("14521452 Error occured while requesting for v12 api:", err);
+        });
+    },
       setValues(payment){
           console.log("1155889966 payment set for calculator is ",payment);
           this.calculatedData = payment
@@ -636,6 +674,7 @@ export default {
     }
   },
   async mounted () {
+    this.retailcalculator();
     if (this.$store.state.order && this.$store.state.order.last_order_confirmation) {
       this.$store.commit('google-gtag/SET_SUCCESS_PURCHASE', {
         order: this.$store.state.order.last_order_confirmation,
@@ -685,6 +724,7 @@ export default {
         this.item.items.push(prod)
       })
       // this.addBloom()
+    await this.retailcalculator();
   },
   beforeDestroy () {
     // this.removeLastOrderItem()
