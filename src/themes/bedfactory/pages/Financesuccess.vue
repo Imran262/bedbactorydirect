@@ -1,22 +1,232 @@
 <template>
-  <button type="button" data-testid="addToCart" class="financesuccess">
-    Apply For Finance with our
-  </button>
+  <div>
+    {{ backendOrderId }}
+  </div>
 </template>
+
 <script>
-import axios from "axios";
-import config from "config";
+import VueOfflineMixin from 'vue-offline/mixin'
+import Composite from '@vue-storefront/core/mixins/composite'
+import { isServer } from '@vue-storefront/core/helpers'
+import _ from 'lodash'
+import config from 'config'
+import axios from 'axios'
+import i18n from '@vue-storefront/i18n'
+import OrderReviewList from 'theme/components/theme/blocks/OrderReviewList/OrderReviewList'
+import DeliveryInformationSuccess from 'theme/components/theme/blocks/DeliveryInformationSuccess/DeliveryInformationSuccess'
+import RegisterAccountSuccess from 'theme/components/theme/blocks/RegisterAccountSuccess/RegisterAccountSuccess'
+import ThingsToRememberSuccess from 'theme/components/theme/blocks/ThingsToRememberSuccess/ThingsToRememberSuccess'
 export default {
-  name: "FinanceSuccess",
-  data() {
-    return {};
+  name: 'SuccessPage',
+  mixins: [ Composite, VueOfflineMixin ],
+  data () {
+    return {
+      lastOrderItem: null,
+      plateFormTotals: null,
+      item: { items: [] },
+    }
   },
-  props: {},
-  mounted() {
-    this.submitApplication();
+  components: {
+    OrderReviewList,
+    DeliveryInformationSuccess,
+    RegisterAccountSuccess,
+    ThingsToRememberSuccess
+  },
+  beforeRouteEnter (to, from, next) {
+    let toQuery = to.fullPath
+    console.log(to.fullPath)
+    //next()
+    if (!from.name && !toQuery.includes('utm_nooverride')) {
+      next({ name: 'home' })
+    } else {
+      next()
+    }
+  },
+  computed: {
+    getAddressInformation () {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.orderElements && this.orderElements.order) {
+        return this.orderElements.order.addressInformation
+      } else {
+        if (this.lastOrderItem) {
+          return this.lastOrderItem.order.addressInformation
+        } else {
+          return undefined
+        }
+      }
+    },
+    getPersonalDetails () {
+      if (this.orderElements && this.orderElements.order) {
+        const firstName = this.orderElements.order.addressInformation
+          .billingAddress.firstname
+        const lastName = this.orderElements.order.addressInformation
+          .billingAddress.lastname
+        const email = this.orderElements.order.addressInformation.billingAddress
+          .email
+        return {
+          firstName,
+          lastName,
+          email,
+        }
+      } else {
+        if (this.lastOrderItem) {
+          const firstName = this.lastOrderItem.order.addressInformation.billingAddress.firstname
+          const lastName = this.lastOrderItem.order.addressInformation.billingAddress.lastname
+          const email = this.lastOrderItem.order.addressInformation.billingAddress.email
+          return {
+            firstName,
+            lastName,
+            email
+          }
+        }
+        return undefined
+      }
+    },
+    // lastOrderConfirmation () {
+    //   return this.$store.state.order.last_order_confirmation
+    //     ? this.$store.state.order.last_order_confirmation.confirmation
+    //     : {}
+    // },
+    purchaserName () {
+      console.log("741258 purchaser name",this.$store.state.order,"\t\t\t\t",this.orderElements);
+      if (this.$store.state.order && this.orderElements) {
+        return this.orderElements.order.addressInformation.shippingAddress.firstname
+      } else {
+        if (this.lastOrderItem) {
+          return this.lastOrderItem.order.addressInformation.billingAddress.firstname
+        } else {
+          return undefined
+        }
+      }
+    },
+    orderElements () {
+      console.log('741258orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('utm_nooverride'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
+      if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+        console.log("741258 in if ");
+        return this.$store.state.order.last_order_confirmation
+      } else {
+        console.log("741258 in else ");
+        return {}
+      }
+    },
+    backendOrderId () {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order && this.orderElements) {
+        return this.orderElements.confirmation.orderNumber
+      } else {
+        if (this.lastOrderItem) {
+          return this.lastOrderItem.confirmation.backendOrderId
+        } else {
+          return undefined
+        }
+      }
+    },
+    orderPriceElements () {
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals) {
+        return this.$store.state.cart.platformTotals
+      } else {
+        if (this.lastOrderItem && this.lastOrderItem.order) {
+          var platformTotals = {
+            "subtotal_incl_tax": this.lastOrderItem.order.subtotal,
+            "base_grand_total": this.lastOrderItem.order.grandtotal,
+            "shipping_incl_tax": this.lastOrderItem.order.shipping_incl_tax
+          }
+        }
+        return this.lastOrderItem ? platformTotals : []
+      }
+    },
+    getOrderItems () {
+      console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
+        console.log("741258 in if")
+        return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
+      }
+      else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
+        console.log("741258 in if else")
+        return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
+      }else {
+        console.log("741258 in else")
+        if (this.lastOrderItem && this.lastOrderItem.order.products !== null) {
+          return _.values(this.lastOrderItem.order.products)
+        } else {
+          return []
+        }
+      }
+    },
+    getCartItems () {
+      console.log(
+        'getCartItemsOrderCheck ',
+        this.$store.state.cart.platformTotals
+      )
+      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals !== null) {
+        console.log("this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
+        return this.$store.state.cart.platformTotals.items
+      } else {
+        if (this.plateFormTotals) {
+          return this.plateFormTotals.platformTotals.items
+        } else {
+          return []
+        }
+      }
+    },
+    getFinalItems () {
+      const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
+
+      const values = _.values(merged)
+      console.log("663322 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
+      const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
+      const simpleProducts = values.filter(value => !(value.extension_attributes && value.extension_attributes.original_item_sku))
+      console.log("663322 Simple ",simpleProducts , "\n\n\nextension attributes" , extensionAttributes);
+      let finalItems = []
+      if (extensionAttributes.length > 0) {
+        console.log("663322 in extensionAttributes ",extensionAttributes);
+        const reducedProducts = extensionAttributes.reduce((acc, current) => {
+          const skuKey = current[ 'extension_attributes' ][ 'original_item_sku' ]
+          if (!(skuKey in acc) && !acc[ skuKey ]) {
+            return { ...acc, [ skuKey ]: [ current ] }
+          }
+          return { ...acc, [ skuKey ]: [ ...acc[ skuKey ], current ] }
+        }, {})
+        console.log("663322 Reduced products ",reducedProducts);
+        for (const item of _.values(reducedProducts)) {
+          const reducedItem = item.reduce((acc, current) => {
+            console.log("663322 getcaritems", current.extension_attributes)
+            const price = acc.price_incl_tax
+            return {
+              price_incl_tax: price + current.price_incl_tax,
+              name: current.extension_attributes.product_name,
+              sku: current.extension_attributes.original_item_sku,
+              qty: current.qty
+            }
+          }, { price_incl_tax: 0 })
+          console.log("663322 Reduced Item ",reducedItem);
+          finalItems.push(reducedItem)
+        }
+      }
+      if (simpleProducts.length > 0) {
+        console.log("663322 in Simple Product",finalItems);
+        finalItems = [ ...finalItems, ...simpleProducts ]
+        console.log("663322 After ",finalItems);
+      }
+      console.log("663322  Final Items are",finalItems);
+      finalItems.forEach((item,index)=>{
+        if(item.type_id){
+          console.log("663322 item has type id ",item.type_id);
+        }
+      // console.log("663322 item is ",item.type_id,( item.type_id !== 'null' || item.type_id !== 'undefined' ), item.type_id !== 'null' , item.type_id !== 'undefined'  );
+      })
+      finalItems = finalItems.filter(function(item){
+        return item.price >0 && item.type_id
+      })
+      console.log("663322  After Final Items are",finalItems);
+      return finalItems
+    },
   },
   methods: {
-    submitApplication() {
+      submitApplication() {
+          console.log("11559988 order is ",this.$store.state.order,this.backendOrderId);
+        let CurrentOrder = this.$store.state.order;
+        let Totals = this.$store.state.cart.platformTotals;
+
+        console.log("Current order is ",CurrentOrder,"\n current ",Totals);
       let retailerGuid = "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
         retailerId = "25838",
         authenticationKey =
@@ -25,56 +235,265 @@ export default {
         productId = "27",
         salesReference = "012365",
         orderId = Math.floor(Math.random() * 1000000000) + 1000;
-      let order = {
-    "Order": {
-        "CashPrice": "3000",
-        "Deposit": "900",
-        "DuplicateSalesReferenceMethod": "ShowError",
-        "ProductGuid": "244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e",
-        "ProductId": "27",
-        "SalesReference": orderId
+        let order = {
+            "Order": {
+               "CashPrice": (Totals.grand_total).toString(),
+               "Deposit": (Totals.grand_total*0.2).toString(),
+               "DuplicateSalesReferenceMethod": "ShowError",
+               "ProductGuid": "244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e",
+               "ProductId": "27",
+               "SalesReference": this.backendOrderId
+               },
+           "Retailer": {
+               "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
+               "RetailerGuid": "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
+               "RetailerId": "25838"
+            //    "AuthenticationKey": config.v12Finance.authenticationKey"U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
+            //    "RetailerGuid": config.v12Finance.retailerGuid"e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
+            //    "RetailerId": config.v12Finance.retailerId"25838"
+               }
+             }
+             console.log("order id is ", orderId, typeof order.CashPrice,order);
+            //  const URL = config.api.url + config.v12Finance.endpoint ;
+            const URL = "http://localhost:8080/api/ext/V12Finance/startApplication" ;
+             axios.post(URL, order, {
+                 headers: {
+                     "Content-type": "application/json"
+                     }
+                    })
+                    .then(res => {
+                        console.log("115599 responseIs", res);
+                        let v12Link = res.data.result.ApplicationFormUrl ;
+                        return v12Link
+                        })
+                    .catch(error => {
+                        console.log("115599 Error", error);
+                    });
     },
-    "Retailer": {
-        "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
-        "RetailerGuid": "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
-        "RetailerId": "25838"
+    removeLastOrderItem () {
+      localStorage.removeItem('lastOrderItem')
+    },
+    addBloom () {
+      if (config && config.bloomreach) {
+        console.log('tag', this.lastOrderItem)
+        var br_data = br_data || {}
+        br_data.acct_id = config.bloomreach.accountID
+        br_data.ptype = 'other'
+        br_data.domain_key = config.bloomreach.domainKey
+        br_data.view_id = config.bloomreach.viewId
+        br_data.test_data = config.bloomreach.testData
+        br_data.is_conversion = 1
+        br_data.basket_value = this.lastOrderItem.order.grandtotal || 0.00
+        br_data.order_id = this.backendOrderId
+        br_data.basket = this.item
+        BrTrk.getTracker().updateBrData(br_data)
+        BrTrk.getTracker().logPageView()
+      }
     }
-}
-      console.log("order id is ", orderId, typeof order,order);
-      const URL = config.api.url + config.v12Finance.endpoint ;
-      axios.post(URL, order, {
-          headers: {
-            "Content-type": "application/json"
-          }
-        })
-        .then(res => {
-          console.log("115599 responseIs", res);
-        })
-        .catch(error => {
-          console.log("115599 Error", error);
-        });
+  },
+  async mounted () {
+    if (this.$store.state.order && this.$store.state.order.last_order_confirmation) {
+      this.$store.commit('google-gtag/SET_SUCCESS_PURCHASE', {
+        order: this.$store.state.order.last_order_confirmation,
+        platformTotals: this.$store.state.cart.platformTotals
+      })
     }
+    if (!isServer && this.$route.fullPath.includes('utm_nooverride')) {
+      try {
+        if (performance.navigation.type === 1) {
+          await this.removeLastOrderItem()
+        }
+        // if (localStorage.getItem('checkout_3dSecure_orderId')) {
+          this.$store.dispatch("cart/clear", { recreateAndSyncCart: true }) // just clear the items without sync
+          this.$store.dispatch("cart/sync", { forceClientState: true })
+          this.$bus.$emit('notification-progress-start', i18n.t('Loading'))
+          let plateformTotals = localStorage.getItem('plateFormTotals')
+          plateformTotals = JSON.parse(plateformTotals)
+          this.plateFormTotals = plateformTotals
+          console.log("741258   plateformTotals",this.plateformTotals , plateformTotals);
+          let OrderDetailsUrl =
+            config.orderDetails
+          let orderId = localStorage.getItem('checkout_3dSecure_orderId')
+          console.log(" 741258   orderId  ",orderId,OrderDetailsUrl,axios.get(OrderDetailsUrl + orderId));
+          let { data } = await axios.get(OrderDetailsUrl + orderId)
+          this.lastOrderItem = data.result.orderData
+          console.log(" 741258       last order",this.lastOrderItem , "\twhole data" ,data);
+          this.$bus.$emit('notification-progress-stop')
+          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals ? plateformTotals.platformTotals : [] })
+          localStorage.removeItem('checkout_3dSecure_orderId')
+          localStorage.removeItem('plateFormTotals')
+        // } else {
+        //   this.$router.push({ name: 'home' })
+        // }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+        await this.lastOrderItem
+      this.getFinalItems.forEach(element => {
+        let prod = {
+          // 'prod_id': config.bloomreach.prefix + element.item_id,
+          'sku': element.sku,
+          'name': element.name,
+          'quantity': element.qty,
+          'price': element.price_incl_tax || 0.00
+        }
+        this.item.items.push(prod)
+      })
+      // this.addBloom()
+      this.submitApplication();
+  },
+  beforeDestroy () {
+    // this.removeLastOrderItem()
+  },
+  destroyed () {
+    this.$bus.$off('checkout_com-order-placed')
   }
-};
+}
 </script>
+
 <style scoped>
-.financesuccess {
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
-  display: block;
-  font-size: 14px;
-  max-width: 260px;
-  min-height: auto;
+.thank-you-title .category-title {
+  margin-bottom: 0;
+}
+.success-header {
   position: relative;
-  text-align: center;
+  margin-top: 25px;
+  padding: 25px 25px;
+  background: #00a997;
+}
+.success-header .non-selected-tick {
+  background: url(../assets/tick.png) no-repeat;
+  height: 80px;
   width: 100%;
-  font-family: Arial;
-  font-weight: bold;
-  padding: 15px 0px;
-  text-transform: uppercase;
-  margin-top: 5px;
-  float: right;
-  background: #071a44;
+}
+.success-heading {
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+p.order-received {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 7px 0 0 0;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+p.order-received-text {
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0px;
+  text-align: center;
+}
+.col-padding {
+  padding-right: 35px;
+  padding-left: 20px;
+}
+.seccess-body {
+  padding: 25px 0px;
+  font-size: 17px;
+  font-family: "Poppins", sans-serif;
+  color: #54575b;
+}
+.seccess-body span {
+  display: block;
+  padding-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+}
+span.purchaser-text {
+  font-size: 28px;
+  font-weight: 600;
+  color: #54575b;
+  padding-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+}
+label.order-num {
+  color: #00a997;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+}
+table.order-item {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  border-spacing: 0;
+  padding: 0;
+}
+table.order-item thead {
+  background: #606060;
+}
+thead tr th {
+  padding: 10px 15px;
+  text-align: left;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+table.order-item tbody tr td {
+  padding: 15px 5px 35px 5px;
+  text-align: center;
+}
+table.order-item tbody {
+  background: #ebebeb;
+}
+td.empty-dark-row-cell {
+  background: #6060608f;
+  width: 100%;
+  min-width: 100%;
+  color: transparent;
+}
+table.order-item tfoot {
+  background: #ebebeb;
+}
+table.order-item tfoot tr {
+  text-align: right;
+}
+td.empty-row-cell {
+  width: 0;
+  padding: 10px 0px 15px 15px;
+  text-align: center;
+}
+td.footer-last-cel {
+  text-align: left;
+  text-align: center;
+}
+@media (max-width: 423px) {
+  p.order-received {
+    font-size: 12px !important;
+  }
+  p.order-received-text {
+    font-size: 12px !important;
+  }
+}
+@media (max-width: 767px) {
+  .mobile-container {
+    padding: 0px;
+  }
+  .mobile-container .row {
+    margin: 0px;
+  }
+  .mobile-container .col-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  p.order-received {
+    font-size: 16px;
+  }
+  p.order-received-text {
+    font-size: 14px;
+  }
+  .seccess-body .inner-success {
+    padding: 0px 20px;
+  }
+  span.purchaser-text {
+    font-size: 16px;
+  }
+  .seccess-body span {
+    font-size: 14px;
+  }
+}
+@media (min-width: 767px) and (max-width: 991px) {
+  .col-padding {
+    padding-right: 20px;
+    padding-left: 20p;
+  }
 }
 </style>
