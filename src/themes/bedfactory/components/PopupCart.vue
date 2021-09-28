@@ -134,17 +134,18 @@
             </div>
             <div class="col-md-7">
               <div class="footer-btns-links">
-                <button class="shopping-button" @click="popupclose">
-                  Continue Shopping
-                </button>
-                <router-link
+                 <router-link
                   :to="localizedRoute('/cart')"
                   class="no-underline cl-secondary link btn-checkout"
                 >
                   <button class="Modalbutton" @click="popupclose">
-                    PROCEED to checkout
+                    PROCEED to Basket
                   </button>
                 </router-link>
+                <button class="shopping-button" @click="popupclose">
+                  Continue Shopping
+                </button>
+               
               </div>
             </div>
           </div>
