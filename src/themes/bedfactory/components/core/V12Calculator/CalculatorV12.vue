@@ -166,19 +166,20 @@ export default {
           let totalPrice = parseFloat(this.currentPrice).toFixed(2);
           let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2);
           let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);
-          let noOfPayments = parseFloat(financeOption.imega_finance_rate.term).toFixed(2);
+          let noOfPayments = financeOption.imega_finance_rate.term;
           let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
           this.payment = {
             monthlyPayment: monthlyPayment,
             purchasePrice: totalPrice,
             initialDeposit: initialDeposit,
             credit: creditAmount,
-            interest: 0.00,
+            interest: '0.00',
             noOfPayments: noOfPayments,
             totalAmount: totalPrice,
             rateOfInterestFixed:'0.00%',
             APR:'0%'
             }
+            this.$emit('CalculatorValueUpdated',this.payment)
         }
       });
     }
