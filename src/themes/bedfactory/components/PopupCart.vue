@@ -163,7 +163,7 @@
             class="no-underline cl-secondary link btn-checkout"
           >
             <button class="btn-checkout" @click="popupclose">
-              PROCEED to checkout
+              PROCEED to Basket
             </button>
           </router-link>
         </div>
