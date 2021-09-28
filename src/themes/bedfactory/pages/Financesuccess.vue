@@ -28,6 +28,7 @@
 
       <div class="imegacheckout-column" id="imegacheckout-loan-details">
         <V12calculator
+        @CalculatorValueUpdated='setValues($event)'
           :calculatorData="financecal"
           :minimumInstallment="450"
           :currentPrice="1000"
@@ -63,6 +64,7 @@ export default {
       lastOrderItem: null,
       plateFormTotals: null,
       item: { items: [] },
+      calculatedData : {},
       financecal:  {
   "test_mode": true,
   "finance_available": true,
@@ -546,6 +548,10 @@ export default {
     },
   },
   methods: {
+      setValues(payment){
+          console.log("1155889966 payment set for calculator is ",payment);
+          this.calculatedData = payment
+      },
       submitApplication() {
           console.log("11559988 order is ",this.$store.state.order,this.backendOrderId);
         let CurrentOrder = this.$store.state.order;
@@ -560,14 +566,25 @@ export default {
         productId = "27",
         salesReference = "012365",
         orderId = Math.floor(Math.random() * 1000000000) + 1000;
+        if (this.calculatedData.noOfPayments === '6' || this.calculatedData.noOfPayments === 6){
+            productId = "27"
+            productGuid = "244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e"
+        }else if(this.calculatedData.noOfPayments === '10' || this.calculatedData.noOfPayments === 10 ){
+            productId = "88"
+            productGuid = "34ee414c-94d8-4cd2-8f62-fc5b8a2d2a7d"
+        }
+        else {
+            productId = "28"
+            productGuid = "8e0bd3a9-657f-457c-b488-dbfab37fac39"
+        }
         let order = {
             "Order": {
-               "CashPrice": (Totals.grand_total).toString(),
-               "Deposit": (Totals.grand_total*0.2).toString(),
+               "CashPrice": this.calculatedData.totalAmount,
+               "Deposit": this.calculatedData.initialDeposit,
                "DuplicateSalesReferenceMethod": "ShowError",
-               "ProductGuid": "244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e",
-               "ProductId": "27",
-               "SalesReference": orderId
+               "ProductGuid": productGuid,
+               "ProductId": productId,
+               "SalesReference": this.backendOrderId
                },
            "Retailer": {
                "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
@@ -578,10 +595,10 @@ export default {
             //    "RetailerId": config.v12Finance.retailerId"25838"
                }
              }
-             console.log("order id is ", orderId, typeof order.CashPrice,order);
+             console.log("order id is ", orderId,this.backendOrderId, typeof order.CashPrice,order);
               const URL = config.api.url + config.v12Finance.endpoint ;
             //const URL = config.api.endpointlocal
-            // const URL = "http://localhost:8080/api/ext/V12Finance/startApplication" ;
+            //const URL = "http://localhost:8080/api/ext/V12Finance/startApplication" ;
              axios.post(URL, order, {
                  headers: {
                      "Content-type": "application/json"
