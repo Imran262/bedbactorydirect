@@ -1592,9 +1592,9 @@ export default {
     width: 100%;
      }
        @media (max-width: 767px){
-    width: 98%;
+    width: 97%;
      }
-       @media (max-width: 480px){
+       @media (max-width: 375px){
     width: 96% !important;
      }
 }
@@ -1610,3 +1610,4 @@ export default {
     }
  }
 </style>
+
