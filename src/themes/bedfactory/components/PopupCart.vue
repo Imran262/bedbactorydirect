@@ -145,6 +145,7 @@
                 <button class="shopping-button" @click="popupclose">
                   Continue Shopping
                 </button>
+                
                
               </div>
             </div>
