@@ -338,7 +338,7 @@ $color-mine-shaft: color(mine-shaft);
     a {
       padding-bottom: 9px;
       padding-top: 9px;
-      font-size: 10.59px;
+      font-size: 15px;
       color: #434343;
       font-family: 'Oblik';
       line-height: 1.5;
