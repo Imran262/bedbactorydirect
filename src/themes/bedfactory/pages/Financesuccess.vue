@@ -69,292 +69,7 @@ export default {
       v12Data : {},
       minimumMonthlyPayment: 0.0,
       currentPrice : 0,
-      showCalculator: false,
-      financecal:  {
-  "test_mode": true,
-  "finance_available": true,
-  "finance_provider": "v12",
-  "loan_amount": "1690",
-  "currency": "GBP",
-  "min_max": {
-    "min_loan": "300.00",
-    "max_loan": "15000.00",
-    "min_order": "335.00",
-    "max_order": "15000.00"
-  },
-  "finance_options": [
-    {
-      "id": 9793,
-      "finance_code": "27|244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e",
-      "name": "Interest Free Finance (6 Months)",
-      "order_id": 1,
-      "min_loan": "300.00",
-      "max_loan": "15000.00",
-      "min_order": "335.00",
-      "max_order": "15000.00",
-      "min_deposit": 10,
-      "max_deposit": 50,
-      "default_deposit": 10,
-      "keyword": "ALL",
-      "imega_finance_rate_id": 1,
-      "deposit_options": [
-        {
-          "value": 0.5,
-          "name": "50%"
-        },
-        {
-          "value": 0.4,
-          "name": "40%"
-        },
-        {
-          "value": 0.3,
-          "name": "30%"
-        },
-        {
-          "value": 0.2,
-          "name": "20%"
-        },
-        {
-          "value": 0.1,
-          "name": "10%"
-        }
-      ],
-      "imega_finance_rate": {
-        "id": 1,
-        "name": "0% 6 Months",
-        "apr": "0.00",
-        "term": 6,
-        "instalment_frequency": "MONTH",
-        "deferral_term": 0,
-        "rate_type": 1,
-        "load_factor": "0.166666666666666666666666666666",
-        "settlement_fee": "0.00",
-        "processing_fee": "0.00",
-        "fixed_deposit_amount": null,
-        "custom_1": null,
-        "custom_2": null,
-        "custom_3": null
-      }
-    },
-    {
-      "id": 9794,
-      "finance_code": "88|34ee414c-94d8-4cd2-8f62-fc5b8a2d2a7d",
-      "name": "Interest Free Finance (10 Months)",
-      "order_id": 2,
-      "min_loan": "300.00",
-      "max_loan": "15000.00",
-      "min_order": "335.00",
-      "max_order": "15000.00",
-      "min_deposit": 10,
-      "max_deposit": 50,
-      "default_deposit": 10,
-      "keyword": "ALL",
-      "imega_finance_rate_id": 3,
-      "deposit_options": [
-        {
-          "value": 0.5,
-          "name": "50%"
-        },
-        {
-          "value": 0.4,
-          "name": "40%"
-        },
-        {
-          "value": 0.3,
-          "name": "30%"
-        },
-        {
-          "value": 0.2,
-          "name": "20%"
-        },
-        {
-          "value": 0.1,
-          "name": "10%"
-        }
-      ],
-      "imega_finance_rate": {
-        "id": 3,
-        "name": "0% 10 Months",
-        "apr": "0.00",
-        "term": 10,
-        "instalment_frequency": "MONTH",
-        "deferral_term": 0,
-        "rate_type": 1,
-        "load_factor": "0.100000000000000000000000000000",
-        "settlement_fee": "0.00",
-        "processing_fee": "0.00",
-        "fixed_deposit_amount": null,
-        "custom_1": null,
-        "custom_2": null,
-        "custom_3": null
-      }
-    },
-    {
-      "id": 9795,
-      "finance_code": "28|8e0bd3a9-657f-457c-b488-dbfab37fac39",
-      "name": "Interest Free Finance (12 Months)",
-      "order_id": 3,
-      "min_loan": "300.00",
-      "max_loan": "15000.00",
-      "min_order": "335.00",
-      "max_order": "15000.00",
-      "min_deposit": 10,
-      "max_deposit": 50,
-      "default_deposit": 10,
-      "keyword": "ALL",
-      "imega_finance_rate_id": 4,
-      "deposit_options": [
-        {
-          "value": 0.5,
-          "name": "50%"
-        },
-        {
-          "value": 0.4,
-          "name": "40%"
-        },
-        {
-          "value": 0.3,
-          "name": "30%"
-        },
-        {
-          "value": 0.2,
-          "name": "20%"
-        },
-        {
-          "value": 0.1,
-          "name": "10%"
-        }
-      ],
-      "imega_finance_rate": {
-        "id": 4,
-        "name": "0% 12 Months",
-        "apr": "0.00",
-        "term": 12,
-        "instalment_frequency": "MONTH",
-        "deferral_term": 0,
-        "rate_type": 1,
-        "load_factor": "0.083333333333333333333333333333",
-        "settlement_fee": "0.00",
-        "processing_fee": "0.00",
-        "fixed_deposit_amount": null,
-        "custom_1": null,
-        "custom_2": null,
-        "custom_3": null
-      }
-    }
-  ],
-  "style_url": "https://angus.finance-calculator.co.uk/css/imegawidget-base.css",
-  "widget_options": {
-    "header_img": "https://angus.finance-calculator.co.uk/images/logos/v12.png",
-    "anchor_img": "zzhttp://dev1.imega-support.co.uk/images/logos/v12.png",
-    "style_css": "#imega-widget-anchor{\r\nbox-shadow: 0px 3px 15px rgba(0,0,0,0.2);\r\n} \r\n#imega-widget-anchor .imega-anchor-bottom .imega-slug{\r\nbackground:#f2f2f2;\r\npadding:10px;\r\nwidth:100%;\r\ndisplay:block;\r\n}\r\na#imega-see-info{\r\nbackground:#00315e;\r\nwidth:initial;\r\nheight:initial;\r\npadding:6px 12px 2px;\r\nfont-size:14px;\r\nborder-radius:20px;\r\n}\r\na#imega-see-info:hover{\r\nbackground:#2393d1;\r\n}\r\n#imega-modal{\r\nwidth: 510px;\r\n}\r\n#imega-modal-head{\r\nbackground: #f3f3f3;\r\npadding: 20px;\r\nborder-radius:8px;\r\n}\r\n#imega-modal-head img{\r\n height:50px;\r\n}\r\n#imega-modal select{\r\n padding: 2px 20px 2px 2px;\r\ntext-align: right;\r\nborder-radius:2px;\r\nfont-size:15px;\r\nfont-weight:bold;\r\ncolor: #00315e;\r\nbackground-color:white;\r\n}\r\n\r\n#calc-table td[data-imega-calculator-field=\"installment-amount\"]{\r\nfont-size:15px;\r\n}\r\n#imega-modal table th {\r\n background-color: #e1eefb;\r\nborder-color:white;\r\nborder-left:none;\r\nborder-color: white; \r\nborder-bottom: 4px solid white;\r\ncolor: #00315e;\r\n}\r\n#imega-modal table td{\r\nfont-weight:bold;\r\nborder-color:white;\r\nborder-right:none;\r\nborder-color: white; \r\nborder-bottom: 4px solid white;\r\nborder-left: 4px solid white;\r\nbackground-color: #f2f2f2;\r\n}\r\n#imega-modal .imega-modal-body h3{\r\nbackground:#00315e;\r\nborder-bottom:2px solid white;\r\n}\r\n#imega-widget span.imega-min-payment-text {\r\ncolor: #00315e;\r\n}\r\n#imega-close-btn{\r\nbackground:#00315e;\r\ncolor:white;\r\nborder-radius:0 4px;\r\n}",
-    "monthly_text": "From &lt;strong&gt;&lt;span class=\"imega-min-payment-text\"&gt;£xxxxx&lt;/span&gt;&lt;/strong&gt; per month, subject to details, conditions apply",
-    "header_text": "From &lt;span class=\"imega-min-payment-text\"&gt;&lt;/span&gt;  per month, subject to details, conditions apply",
-    "footer_text": "Only available to UK residents over 18, subject to terms and conditions.\r\n\r\nTo apply for finance, please add the product to your cart, proceed through checkout and select 'Apply For Finance' as your payment option where you can complete the application form online.",
-    "split_payments_text": "",
-    "top_text": "Finance available on all orders between £335 and £15000",
-    "calculator_fields": [
-      {
-        "id": 998,
-        "calculator_fields_alias": "installment-amount",
-        "calculator_style_id": 4,
-        "name": "Monthly Payments",
-        "sort_order": -1
-      },
-      {
-        "id": 995,
-        "calculator_fields_alias": "purchase-price",
-        "calculator_style_id": 4,
-        "name": "Purchase Price",
-        "sort_order": 0
-      },
-      {
-        "id": 1006,
-        "calculator_fields_alias": "bnpl-total",
-        "calculator_style_id": 4,
-        "name": "Total Amount Repayable",
-        "sort_order": 0
-      },
-      {
-        "id": 1005,
-        "calculator_fields_alias": "settlement-fee",
-        "calculator_style_id": 4,
-        "name": "Settlement Fee",
-        "sort_order": 0
-      },
-      {
-        "id": 1004,
-        "calculator_fields_alias": "defer-term",
-        "calculator_style_id": 4,
-        "name": "Deferral Term",
-        "sort_order": 0
-      },
-      {
-        "id": 996,
-        "calculator_fields_alias": "deposit-amount",
-        "calculator_style_id": 4,
-        "name": "Deposit To Pay",
-        "sort_order": 1
-      },
-      {
-        "id": 997,
-        "calculator_fields_alias": "credit-amount",
-        "calculator_style_id": 4,
-        "name": "Amount Of Credit",
-        "sort_order": 2
-      },
-      {
-        "id": 1007,
-        "calculator_fields_alias": "calc-processing-fee",
-        "calculator_style_id": 4,
-        "name": "Admin Fee",
-        "sort_order": 3
-      },
-      {
-        "id": 999,
-        "calculator_fields_alias": "interest-amount",
-        "calculator_style_id": 4,
-        "name": "Amount Of Interest",
-        "sort_order": 3
-      },
-      {
-        "id": 1000,
-        "calculator_fields_alias": "term",
-        "calculator_style_id": 4,
-        "name": "Number Of Monthly Payments",
-        "sort_order": 4
-      },
-      {
-        "id": 1001,
-        "calculator_fields_alias": "total-payable",
-        "calculator_style_id": 4,
-        "name": "Total Amount Payable",
-        "sort_order": 5
-      },
-      {
-        "id": 1002,
-        "calculator_fields_alias": "interest-rate",
-        "calculator_style_id": 4,
-        "name": "Rate Of Interest (Fixed)",
-        "sort_order": 6
-      },
-      {
-        "id": 1003,
-        "calculator_fields_alias": "apr",
-        "calculator_style_id": 4,
-        "name": "APR Representative",
-        "sort_order": 7
-      }
-    ]
-  },
-  "checkout_options": {
-    "stylesheet_url": "https://angus.finance-calculator.co.uk/css/imegacheckout-base.css",
-    "style_css": "#imegacheckout-left-header { \r\ncolor: #00315e;\r\n}\r\n#imegacheckout-calc-table td select{\r\nwidth:100%;\r\nbackground-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQ0NC44MTkgNDQ0LjgxOSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQ0LjgxOSA0NDQuODE5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTQzNC4yNTIsMTE0LjIwM2wtMjEuNDA5LTIxLjQxNmMtNy40MTktNy4wNC0xNi4wODQtMTAuNTYxLTI1Ljk3NS0xMC41NjFjLTEwLjA5NSwwLTE4LjY1NywzLjUyMS0yNS43LDEwLjU2MSAgIEwyMjIuNDEsMjMxLjU0OUw4My42NTMsOTIuNzkxYy03LjA0Mi03LjA0LTE1LjYwNi0xMC41NjEtMjUuNjk3LTEwLjU2MWMtOS44OTYsMC0xOC41NTksMy41MjEtMjUuOTc5LDEwLjU2MWwtMjEuMTI4LDIxLjQxNiAgIEMzLjYxNSwxMjEuNDM2LDAsMTMwLjA5OSwwLDE0MC4xODhjMCwxMC4yNzcsMy42MTksMTguODQyLDEwLjg0OCwyNS42OTNsMTg1Ljg2NCwxODUuODY1YzYuODU1LDcuMjMsMTUuNDE2LDEwLjg0OCwyNS42OTcsMTAuODQ4ICAgYzEwLjA4OCwwLDE4Ljc1LTMuNjE3LDI1Ljk3Ny0xMC44NDhsMTg1Ljg2NS0xODUuODY1YzcuMDQzLTcuMDQ0LDEwLjU2Ny0xNS42MDgsMTAuNTY3LTI1LjY5MyAgIEM0NDQuODE5LDEzMC4yODcsNDQxLjI5NSwxMjEuNjI5LDQzNC4yNTIsMTE0LjIwM3oiIGZpbGw9IiMyODMxODgiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);\r\nbackground-size:10px;\r\n}\r\n#imegacheckout-apply-button{\r\nbackground:#00315e;\r\n}\r\n#imegacheckout-apply-button:hover{\r\nbackground:#16A9E2;\r\ntransform:scale(1.02);\r\n}\r\n#imegacheckout-calc-table td{\r\nfont-weight:bold;\r\ntext-align:right;\r\n}\r\n#imegacheckout-calc-table td, #imegacheckout-calc-table th{\r\nborder:none;\r\n}\r\n#imegacheckout-calc-table tr:nth-child(odd) {\r\n background-color: #e6e6e6;\r\n}",
-    "header_text": "Now Complete Your Application",
-    "paragraph_text": "&lt;p&gt;Your order has been sent to us but now requires you to complete your finance application.&lt;/p&gt;&lt;p&gt;Please click on the apply button and once your finance application has been successful we will be able to proceed with your order. Please note that your goods will not be shipped until this has been completed.&lt;/p&gt;&lt;p&gt;Only available to UK residents over 18, subject to terms and conditions.&lt;/p&gt;",
-    "details_header_text": "Your Loan"
-  }
-}
+      showCalculator: false
     }
   },
   components: {
@@ -645,11 +360,29 @@ export default {
                     .then(res => {
                         let v12Link = res.data.result.ApplicationFormUrl ;
                         console.log("115599 responseIs",v12Link, res);
+                        let backendURL = config.api.url + "/vueapi/ext/V12Finance/applicationSuccess"
+                        axios.post(backendURL, {
+                          "orderId":this.backendOrderId,
+                          "v12ReferenceId": res.data.result.ApplicationId
+                        }, {
+                          headers: {
+                     "Content-type": "application/json"
+                     }
+                    })
+                    .then(responsebackend => {
+                       
+                        console.log("115599 responseIs backend",responsebackend);
                         window.location.replace(v12Link);
                         return v12Link
                         })
                     .catch(error => {
                         console.log("115599 Error", error);
+                        return v12Link
+                    });
+                        })
+                    .catch(error => {
+                        console.log("115599 Error", error);
+                        return v12Link
                     });
     },
     removeLastOrderItem () {
