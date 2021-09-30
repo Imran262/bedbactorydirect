@@ -1020,7 +1020,10 @@ export default {
   }
 
   .check-btn-outer {
-    padding: 30px 20px 70px 20px;
+    // padding: 30px 20px 70px 20px;
+    height: 70px;
+    display: flex;
+    align-items: center
   }
 
   .checkoutbutton {
@@ -1051,7 +1054,7 @@ export default {
     font-weight: bold;
 
     min-width: 150px;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
 
     @media (max-width: 1200px) and (min-width: 992px) {
       font-size: 13px;
@@ -1592,20 +1595,21 @@ export default {
     width: 100%;
      }
        @media (max-width: 767px){
-    width: 97%;
+    width: 97% !important;
+    margin-left: 5px !important;
      }
-       @media (max-width: 375px){
-    width: 96% !important;
+       @media (max-width: 480px){
+    width: 94% !important;
      }
 }
 .total-box-inner {
-      height: 556px;
+      height: 480px;
        }
  @media (max-width: 1201px){
    .total-box-inner {
-      height: 580px;
+      // height: 580px;
        @media (max-width: 991px){
-         height: 600px !important;
+         height: 510px !important;
        }
     }
  }
