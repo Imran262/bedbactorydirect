@@ -360,7 +360,7 @@ export default {
                     .then(res => {
                         let v12Link = res.data.result.ApplicationFormUrl ;
                         console.log("115599 responseIs",v12Link, res);
-                        let backendURL = config.api.url + "/vueapi/ext/V12Finance/applicationSuccess"
+                        let backendURL = config.api.url + config.v12Finance.applicationSuccess;
                         axios.post(backendURL, {
                           "orderId":this.backendOrderId,
                           "v12ReferenceId": res.data.result.ApplicationId
