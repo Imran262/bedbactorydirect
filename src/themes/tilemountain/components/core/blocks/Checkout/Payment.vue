@@ -379,10 +379,10 @@
               <div class="bank-card" v-if="method.code === 'financegateway'">
                 <ul>
                   <li>
-                    <!-- <img
-                      src="/assets/footer/footer-paypal-icon.png"
-                      alt="paypal"
-                    /> -->
+                    <img
+                      src="/assets/brandLogo/V12/Vector.svg"
+                      alt="v12 finance"
+                    />
                   </li>
                 </ul>
               </div>
