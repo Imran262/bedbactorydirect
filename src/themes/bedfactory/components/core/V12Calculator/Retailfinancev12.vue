@@ -28,7 +28,8 @@
           conditions apply
         </p>
         <p v-else>
-          {{ monthly_text }}
+          <!-- {{ monthly_text }} -->
+          Finance Available Over £{{ minProductPrice }}
         </p>
       </div>
     </div>
