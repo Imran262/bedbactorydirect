@@ -698,6 +698,8 @@ export default {
             proceedbtnTitle = 'Check / Money order'
           } else if(single.value === 'free') {
             proceedbtnTitle = 'Order Sample'
+          } else if(single.value === 'financegateway') {
+            proceedbtnTitle = 'Apply For Finance'
           } else {
             proceedbtnTitle = 'Payment'
           }
