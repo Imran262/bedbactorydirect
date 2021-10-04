@@ -85,7 +85,7 @@ const getDataToHash = (product: CartItem): any => {
 
 const productChecksum = (product: CartItem): string => {
   let someCheckSum = sha3_224(JSON.stringify(getDataToHash(product)))
-  console.log('checksumForProductFromProductChecksum', { id: product.id, name: product.name, checksum: someCheckSum })
+  console.log('checksumForProduct FromProductChecksum',product, { id: product.id, name: product.name, checksum: someCheckSum })
   return someCheckSum;
 }
 
