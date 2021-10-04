@@ -38,7 +38,7 @@
             <span class="p-from">
               <p class="only">
                 <span class="priceprod">  
-                £  {{product.final_price || product.price}}
+                £  {{ (typeof product.final_price ==='string' ? ( parseFloat(product.final_price) ? parseFloat(product.final_price) : 0 ): product.final_price)|| product.price}}
                   <!-- {{ product.calculated_sqm_price | price(storeView) }} <span v-if="productTileTypeUnitCheck(product) !== 'piece'">/</span> <span v-if="productTileTypeUnitCheck(product) !== 'piece'"   v-html="productTileTypeUnitCheck(product)"></span> -->
                   
                   <!-- {{product.price}}/<  span v-if="productTileTypeUnitCheck(product) !== 'piece'" v-html="productTileTypeUnitCheck(product)"></span> -->
@@ -570,6 +570,9 @@ $color-white: color(white);
   .only{
     padding-left: 9px;
   }
+}
+a.block.no-underline.product-link {
+    height: 100%;
 }
 </style>
 <style lang="scss">

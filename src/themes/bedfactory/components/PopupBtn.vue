@@ -5,7 +5,7 @@
       :disabled="isProductDisabled"
       data-testid="addToCart"
       class="carousel-addtocart-btn"
-      >{{ $t("Add to basket") }}</button-full
+      >{{ $t("Add to Basket") }}</button-full
     >
   </div>
 </template>
@@ -140,6 +140,7 @@ if (product.custom_options && product.custom_options.length > 0) {
       }
     },
     notifyUser(notificationData) {
+      console.log("789456 notificationData",notificationData);
       this.$store.dispatch("notification/spawnNotification", notificationData);
     },
     showAdding(event) {
@@ -147,7 +148,7 @@ if (product.custom_options && product.custom_options.length > 0) {
       const addedDiv = document.querySelectorAll(".successfull-added");
       Array.from(addedDiv).forEach((element, index) => {
         if (event === element.getAttribute("data-success-attr")) {
-          // console.log('FAWADASLAM_FAWADASLAM');
+          // console.log('AliASLAM_AliASLAM');
           element.classList.add("showed");
           var mainProdElementZero = document.getElementsByClassName(event)[0];
           mainProdElementZero.classList.add("podElementHide");

@@ -1,7 +1,7 @@
 <template>
   <div class="HomeBottomContent">
     <div class="container">
-      <CmsBlock identifier="home-bottom-content" />
+      <CmsBlock identifier="home-bottom-content-new" />
     </div>
   </div>
 </template>

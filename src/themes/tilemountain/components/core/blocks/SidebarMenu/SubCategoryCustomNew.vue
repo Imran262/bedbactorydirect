@@ -183,6 +183,7 @@ export default {
         let bodyVar = document.getElementsByTagName('BODY')[0]
         let sidebarMenu = document.getElementById('sidebarmenucontainer')
         if (sidebarMenu != null) {
+          console.log("9512 In sub category custom new",bodyVar.classList);
           return bodyVar.classList.remove('body-fixed')
         }
       }, 100)
@@ -238,13 +239,14 @@ export default {
 .subcategory-item a {
   padding-bottom: 9px;
   padding-top: 9px;
-  font-size: 10.59px;
+  font-size: 15px;
   color: #434343;
   font-family: "Oblik";
   line-height: 1.5;
 }
-
-/* #sidebarmenucontainer {
-    overflow: hidden;
+/* ul.sidebar-submenu.level2.absolute.w-100.p0.bg-cl-primary.newCLass.className.active {
+    height: 50vh;
+    overflow-y: auto;
+    background: transparent;
 } */
 </style>

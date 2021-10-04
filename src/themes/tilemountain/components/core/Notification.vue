@@ -184,4 +184,7 @@ $color-action: color(black);
     margin-left: 20px !important;
   }
 }
+.message{
+color: #4a4a4a !important;
+}
 </style>

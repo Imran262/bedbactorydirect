@@ -114,11 +114,11 @@ export const quickSearchByQuery = async ({ query = {}, start = 0, size = 50, ent
           }
           resolve(res)
         } else {
-          Logger.error('Can not connect the vue-storefront-api / ElasticSearch instance!', 'search', err)()
-          reject(err)
+          Logger.error('Can not connect the vue-storefront-api / ElasticSearch instance!', 'search', err + "Request "+Request)()
+          reject(err+Request)
         }
       }
-      reject(err)
+      reject(err+Request)
     })
   })
 }

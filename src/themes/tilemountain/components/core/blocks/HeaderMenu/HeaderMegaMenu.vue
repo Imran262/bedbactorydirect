@@ -3,7 +3,6 @@
     v-if="(!isCheckoutPage && $route.name !== 'confirmorder') || isThankYouPage"
     class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
   >
-  Tileeeee
     <MegaMenu :identifier="'main_menu'" />
   </div>
 </template>

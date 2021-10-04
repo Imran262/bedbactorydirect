@@ -153,7 +153,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
     // This is for measuring purchases using checkout_com. This event is fired in Success.vue page and caught here.
     Vue.prototype.$bus.$on('checkout_com-order-placed', async (payload) => {
-      // console.log('payloadShouldBe', payload);
+      console.log('payloadShouldBe', payload);
       // TODO: Make this into separate actions and mutations if possible.
       const orderId = payload.confirmation.orderNumber
       const platformTotals = payload.platformTotals
@@ -169,7 +169,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       // 'affiliation': (payload.order && payload.order.store_code) ? payload.order.store_code : '',
       GTAG.purchase({
         'transaction_id': orderId,
-        'affiliation': appConfig.themeConfigurations.title ? appConfig.themeConfigurations.title : '',
+        'affiliation': 'Bed Factory Direct',
         'value': ((payload.order && payload.order.grandtotal) ? +(parseFloat(payload.order.grandtotal).toFixed(2)) : 0.00),
         'currency': 'GBP',
         'tax': order ? order.total_due : platformTotals && platformTotals.base_tax_amount ? platformTotals.base_tax_amount : '',
@@ -181,12 +181,11 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       // Measuring Purchase through success Page [New]
       // SET_SUCCESS_PURCHASE
       if (type === 'google-gtag/SET_SUCCESS_PURCHASE') {
-        console.log("afer mutation detect")
-        const orderId = payload.confirmation.orderNumber
+        const orderId = payload.order?.confirmation?.orderNumber
         const orderHistory = state.user.orders_history
         const order = orderHistory ? orderHistory.items.find((order) => order['entity_id'].toString() === orderId) : null
         const platformTotals = state.cart.platformTotals
-        const products = await mapTransactionProductsToGtag(payload.order.products, store)
+        const products = await mapTransactionProductsToGtag(payload.order.order.products, store)
         let productsAllPurchaseId = Object.keys(products).map(key => products[key].id)
         const productsAllNames = Object.keys(products).map(k => products[k].name)
         const productsAllVal = Object.keys(products).map(k => +(parseFloat(products[k].price).toFixed(2)))
@@ -198,7 +197,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           'ecomm_pname': productsAllNames,
           'ecomm_pvalue': productsAllVal,
           'transaction_id': orderId,
-          'affiliation': appConfig.themeConfigurations.title ? appConfig.themeConfigurations.title : '',
+          'affiliation': 'Bed Factory Direct',
           'value': ((payload.order && payload.order.grandtotal) ? +(parseFloat(payload.order.grandtotal).toFixed(2)) : 0.00),
           // 'value': order ? order.total_due : platformTotals && platformTotals.base_grand_total ? platformTotals.base_grand_total : '',
           'currency': 'GBP',
@@ -325,7 +324,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
       // Add to cart
       if (type === 'google-gtag/SET_ADD_PRODUCT') {
-        // console.log('ShouldReachHere');
+        console.log('i am add to cart mutation');
         // console.log('payLoadIs', payload, payload.category?.[0].name);
         let product = state && state.cart && state.cart.cartItems ? state.cart.cartItems[state.cart.cartItems.length - 1] : []
 
@@ -339,7 +338,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           productCat = payload.category?.[0]?.name || payload.category?.name
         }
 
-        if (!productCat && payload.product.primary_category) {
+        if (!productCat && payload.product.primary_category && payload.product.primary_category !== 'null') {
           let category = await getCategoryById(payload.product.primary_category)
           if (category && category.length > 0) {
             productCat = category[0]?.name
@@ -391,7 +390,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           productCat = payload.category?.[0]?.name || payload.category?.name
         }
 
-        if (!productCat && payload.product.primary_category) {
+        if (!productCat && payload.product.primary_category && payload.product.primary_category !== 'null') {
           let category = await getCategoryById(payload.product.primary_category)
           if (category && category.length > 0) {
             productCat = category[0]?.name

@@ -7,8 +7,8 @@
     >
       <ul>
         <li>
-          <a href>
-            <img :src="singleblock.img" :alt="singleblock.alt"/>
+          <a :href="localizedRoute(singleblock.atag)">
+            <img :src="singleblock.img" :alt="singleblock.atag"/>
           </a>
         </li>
       </ul>
@@ -25,7 +25,7 @@ export default {
       var homeSmallBlocks = [];
       if (this.data) {
         var mbclasses = this.parsedContent.querySelectorAll(".mb_home_img");
-        console.log('Sb -class ', mbclasses);
+        // console.log('Sb -class ', mbclasses);
         var i = 0;
         [].forEach.call(mbclasses, mbclass => {
           var singleBlock = new Array(3);

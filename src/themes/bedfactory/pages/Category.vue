@@ -5,7 +5,7 @@
         <!-- <breadcrumbs  class="breadcrumb"/> -->
         <div class="category-info">
           <div class="row middle-sm">
-            <h1 class="col-sm-12 category-title mb10">
+            <h1 class="col-sm-12 category-title mb10" v-if="$device.isMobile">
               {{ getCurrentCategory.name }}
             </h1>
             <!-- <div class="sorting col-sm-2 align-right mt50"></div> -->
@@ -85,19 +85,25 @@
           :to="localizedRoute(product_link ? '/' + product_link : '')"
         >
           <div class="firstcol title-box sb-category-tile-text">
-            <div class="sb-left-text">
+            <div class="sb-left-text" v-if="!$device.isMobile">
               <h1>{{ getCurrentCategory.name }}</h1>
               <p v-html="getCurrentCategory.banner_description" />
             </div>
           </div>
 <!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
+            <!-- https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg -->
             <img
-              :src="backEnd + getCurrentCategory.banner_image
+              :src="(getCurrentCategory.banner_image ? (backEnd +  getCurrentCategory.banner_image):'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg')
               "
               :alt="getCurrentCategory.name"
               class="headerimg"
             />
+            <!-- <img
+              :src="'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg'"
+              :alt="getCurrentCategory.name"
+              class="headerimg"
+            /> -->
           </div>
         </router-link>
       </div>
@@ -120,8 +126,8 @@
     </header>
     <!-- <header v-else> </header> -->
     <div itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tile Mountain" />
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
+      <meta itemprop="name" content="Bed factory Direct" />
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
       <meta
         v-for="socialLink in socialLinksSchema"
         :key="socialLink"
@@ -130,8 +136,8 @@
       />
     </div>
     <div itemscope itemtype="http://schema.org/WebSite">
-      <meta itemprop="name" content="Tile Mountain" />
-      <meta itemprop="url" content="https://www.tilemountain.co.uk/" />
+      <meta itemprop="name" content="Bed factory Direct" />
+      <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
     </div>
     <div class="container pb60">
       <breadcrumbs class="pt40 pb20 hidden-xs breadcrumb" />
@@ -452,7 +458,7 @@ const composeInitialPageState = async (store, route, forceLoad = false) => {
     if (isServer) await breadCrumbsLoader
     catalogHooksExecutors.categoryPageVisited(currentCategory)
   } catch (e) {
-    console.error('Problem with setting Category initial data!', e)
+    console.error('Problem with setting Category initial data! in bfd', e)
   }
 }
 
@@ -1396,6 +1402,7 @@ $border-radius: 5px;
       font-weight: bold;
       background-color: #29275b;
       border-radius: 10px;
+      float: none !important;
     }
   }
   #subcategory-list {
@@ -1739,7 +1746,7 @@ p {
     // margin-top: 4px;
     p {
       // font-size: 11px;
-      z-index: 9999;
+      // z-index: 9999;
     }
     img {
       width: 25px;
@@ -1805,7 +1812,7 @@ p {
 @media (max-width: 440px) and (min-width: 320px) {
   .mobile-filters-button {
     p {
-      z-index: 9999;
+      // z-index: 9999;
     }
   }
 }

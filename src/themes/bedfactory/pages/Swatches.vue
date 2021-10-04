@@ -470,6 +470,7 @@ export default {
           .then((res) => {
             if (res.status !== 200) {
               this.$bus.$emit("notification-progress-stop", {});
+              console.log("78945614 notificationData",notificationData);
               this.$store.dispatch(
                 "notification/spawnNotification",
                 {
@@ -502,7 +503,7 @@ export default {
             }
           })
           .catch((err) => {
-            //  console.log("2211 in catch", err);
+             console.log("78945623 in catch", err);
             this.$bus.$emit("notification-progress-stop", {});
             this.$store.dispatch(
               "notification/spawnNotification",
@@ -557,7 +558,7 @@ export default {
   },
   mounted() {
     const URL = config.api.url + config.swatches.endpoint + "/getSwatches";
-    //   const URL =  "https:/bfd.tilemountain.co.uk/api/ext/swatches/getSwatches"
+    //   const URL =  "https:/bfd.bedfactorydirect.co.uk/api/ext/swatches/getSwatches"
     axios
       .get(URL)
       .then((resp) => {

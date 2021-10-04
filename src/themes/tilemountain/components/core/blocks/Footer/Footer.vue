@@ -38,7 +38,7 @@
                   <a
                     title="Instagram link"
                     class="insta"
-                    href="https://www.instagram.com/tilemountainuk"
+                    href="https://www.instagram.com/bedfactorydirect"
                     target="_blank"
                     rel="noopener"
                   >
@@ -48,7 +48,7 @@
                   </a>
                   <a
                     title="Pinterest link"
-                    href="https://www.pinterest.co.uk/tilemountainuk/"
+                    href="https://www.pinterest.co.uk/bedfactorydirect/"
                     target="_blank"
                     rel="noopener"
                   >
@@ -126,7 +126,7 @@
                       <div class="circle instagram">
                         <a
                           class="instagram"
-                          href="https://www.instagram.com/tilemountainuk"
+                          href="https://www.instagram.com/bedfactorydirect"
                           target="_blank"
                           rel="noopener"
                         >
@@ -135,7 +135,7 @@
                       </div>
                       <div class="circle pinterest">
                         <a
-                          href="https://www.pinterest.co.uk/tilemountainuk/"
+                          href="https://www.pinterest.co.uk/bedfactorydirect/"
                           target="_blank"
                           rel="noopener"
                         >

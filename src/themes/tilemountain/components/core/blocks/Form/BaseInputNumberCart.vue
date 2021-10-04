@@ -3,7 +3,7 @@
     <label class="base-input-number__label cl-primary flex" :for="getInputId">{{ name }}</label>
     <input
       :id="getInputId"
-      type="text"
+      type="number"
       :min="min"
       :max="max"
       :disabled="disabled"
@@ -72,7 +72,7 @@ export default {
         } else {
           const targetValue = parseInt(value, 10);
           if (!isNaN(targetValue)) {
-            this.$emit("input", targetValue !== 0 ? Math.abs(targetValue) : 1);
+            this.$emit("input", targetValue !== 0 ? (Math.sign(targetValue) !== -1 ? targetValue : 1) : 1);
           }
         }
       },

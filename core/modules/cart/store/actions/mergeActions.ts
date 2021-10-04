@@ -157,6 +157,7 @@ const mergeActions = {
     return diffLog
   },
   async mergeServerItem ({ dispatch, getters }, { clientItems, serverItem, forceClientState, dryRun }) {
+    console.log("In 741256 Merge server Item ",clientItems, serverItem, forceClientState, dryRun);
     const diffLog = createDiffLog()
     const clientItem = clientItems.find(itm => {
       let isProductEq = productsEquals(itm, serverItem)
@@ -203,8 +204,10 @@ const mergeActions = {
   async mergeServerItems ({ dispatch }, { serverItems, clientItems, forceClientState, dryRun }) {
     const diffLog = createDiffLog()
     const definedServerItems = serverItems.filter(serverItem => serverItem)
+    console.log("74125 defined Server Items are ",definedServerItems);
     for (const serverItem of definedServerItems) {
       try {
+        console.log("74125 About to call merge srever Item 1",clientItems ,"\t\t\t2 ", serverItem,"\t\t\t3 ", forceClientState,"\t\t\t4 ", dryRun);
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {
@@ -235,6 +238,7 @@ const mergeActions = {
       mergeQty
     }
     const mergeClientItemsDiffLog = await dispatch('mergeClientItems', mergeParameters)
+    console.log("74125 About to call merge server items parameters are",mergeParameters );
     const mergeServerItemsDiffLog = await dispatch('mergeServerItems', mergeParameters)
 
     await dispatch('updateTotalsAfterMerge', { clientItems, dryRun })

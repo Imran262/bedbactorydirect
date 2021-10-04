@@ -30,7 +30,7 @@ import { CustomerPhotos } from './vsf-customerphotos-integration';
 // @ts-ignore
 // import { Vinyl } from './vsf-vinyl-integration';
 import { CheckoutcomPayments } from './vsf-payment-checkout-com';
-// import { SearchRedirect } from './vsf-searchredirect-integration';
+import { SearchRedirect } from './vsf-searchredirect-integration';
 // import { BrAutosuggest } from './vsf-brautosuggest-integration';
 // TODO:distributed across proper pages BEFORE 1.11
 export function registerClientModules () {
@@ -62,7 +62,7 @@ export function registerClientModules () {
   // registerModule(GroutAdhesive)
   // registerModule(Vinyl)
   registerModule(CheckoutcomPayments)
-  // registerModule(SearchRedirect)
+  registerModule(SearchRedirect)
   // registerModule(BrAutosuggest)
 }
 

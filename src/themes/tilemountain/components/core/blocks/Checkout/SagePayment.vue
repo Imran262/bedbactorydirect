@@ -235,7 +235,7 @@ export default {
           if (selectedConfig.vendorName) {
             this.vendorName = selectedConfig.vendorName;
           } else {
-            this.vendorName = 'tilemountain';
+            this.vendorName = 'Bed Factory Direct';
           }
 
           // Loading the Credentials

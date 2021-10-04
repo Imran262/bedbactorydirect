@@ -20,7 +20,7 @@
             <Telephone404 :call-text="` call us,`" class="p15 icon pointer t-mobile" :identifier="'phone-number'" />
             {{ $t('drop us a line on live chat') }}
             {{ $t('or write to us via our') }}
-              <router-link :to="localizedRoute('/i/contacts')" class=" notfound_text">
+              <router-link :to="localizedRoute('/contact')" class=" notfound_text">
                {{ $t('contact us page.') }}
              </router-link>
           </p>

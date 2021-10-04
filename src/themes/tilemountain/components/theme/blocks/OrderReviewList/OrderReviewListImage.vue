@@ -42,12 +42,14 @@ export default {
   },
   methods: {
     async getProduct () {
+      console.log("741258 here to get image tile ",this.sku,this.product);
       this.product = await this.$store.dispatch("product/single", {
         options: { sku: this.sku },
         setCurrentProduct: false,
         setCurrentCategoryPath: false,
         selectDefaultVariant: false
       });
+      console.log("741258 Image product",this.product);
       if (this.product && this.product.thumbnail) {
         this.img = this.product.thumbnail;
       }

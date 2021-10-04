@@ -4,7 +4,7 @@
     :disabled="isProductDisabled"
     data-testid="addToCart"
   >
-    {{ $t("Add to cart") }}
+    {{ $t("Add to Basket") }}
   </button-full>
 </template>
 
@@ -43,7 +43,8 @@ export default {
       }
     },
     notifyUser (notificationData) {
-      this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
+      console.log("7894567 notificationData ",notificationData);
+     // this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
     }
   },
   computed: {

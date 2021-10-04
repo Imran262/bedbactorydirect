@@ -78,8 +78,28 @@ export default {
       state ? this.setOverlay(state) : setTimeout(() => this.setOverlay(state), this.delay)
     },
     close () {
-       document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+
+      console.log("11223344556677", window.innerWidth);
+      // console.log("11223344556677 ",$device.isMobile);
+      // console.log("11223344556677 ",this.$device.isMobile);
+      console.log("11223344556677", window.innerWidth);
+       console.log("fsfsfsfsfs", document.getElementsByTagName("BODY")[0].style);
+
+              document.getElementsByTagName("BODY")[0].removeAttribute('style');
+               console.log("fsfsfsfsfs", document.getElementsByTagName("BODY")[0]);
       this.toggle(false);
+      // console.log("11223344556677 ",this.$device.isMobile);
+      document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      if (window.innerWidth <= 768)
+      {
+        console.log('in if ');
+ clearAllBodyScrollLocks();
+      }
+      else{
+
+        console.log('in else');
+document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      }
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     }

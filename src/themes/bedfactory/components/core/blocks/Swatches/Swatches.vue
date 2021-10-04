@@ -20,7 +20,7 @@
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 home_video1 mt20"
       >
         <router-link :to="localizedRoute(link)" v-if="link" class="hm-watch-vid">
-          <img v-lazy="image" v-if="image" width="88%" alt="home video" />
+          <img v-lazy="image" v-if="image" width="100%" alt="home video" />
         </router-link>
 
         <router-link :to="localizedRoute(link)" v-if="link">
@@ -136,7 +136,6 @@ export default {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 61%;
     margin-bottom: 8px;
     margin-top: 6px;
   }
@@ -152,7 +151,7 @@ export default {
     margin-top: 0px !important;
   }
   .hm-watch-vid-mobile {
-    padding: 15px 27px;
+    padding: 15px 22px;
     font-size: 14px;
   }
   .hm-watch-vid-one {

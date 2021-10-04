@@ -212,7 +212,7 @@ export default {
 }
 
 .cart-summary-product-table tr td:first-child{
-  width: 70%;
+  width: 32%;
   padding-left: 20px;
 }
 .cart-summary-product-table tr td:nth-child(2n){
@@ -286,5 +286,15 @@ export default {
     justify-content: center;
     font-family: Arial;
     float: right;
+}
+@media (min-width: 992px) and (max-width: 1200px){
+.cart-summary-product-table tr td:first-child{
+  width: 45%;
+}
+}
+@media (min-width: 420px) and (max-width: 991px){
+.cart-summary-product-table tr td:first-child{
+  width: 27%;
+}
 }
 </style>

@@ -156,6 +156,7 @@
               class="btn"
               v-if="activatePaymentBtn && activePaymentSection"
             >
+            
               {{ activatePaymentBtnTitle }}
             </button>
           </div>
@@ -293,6 +294,10 @@ export default {
   methods: {
     updateScroll () {
       if (this.$route.name === 'checkout') {
+        if (window.innerWidth > 768)
+      {
+        document.getElementById('app').style.overflowX  = "unset";
+      }
         // document.getElementById('app').style.overflowX  = "unset";
         document.getElementById('viewport').style.overflow = "unset";
       }

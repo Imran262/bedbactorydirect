@@ -886,7 +886,7 @@
                   </span>
                 </span> -->
                   <span v-if="!(deliveryBtnClicked == true)">
-                    {{ $t("Continue to Payment here") }}
+                    {{ $t("Continue to Payment") }}
                     <span class="date-span" v-if="deliveryTimeDate"
                       >{{ deliveryTimeDate }}
                     </span>
@@ -2553,7 +2553,7 @@ button.find-address {
 @media (min-width: 320px) and (max-width: 767px) {
   .billing-details button {
     margin-left: 0;
-    width: 29%;
+    width: 100%;
     display: inline-block;
     margin-top: 0px;
     border-radius: 3px;
@@ -2564,6 +2564,7 @@ button.find-address {
     margin-top: 17px;
     padding: 12px 0px;
     height: 48px;
+    max-width: 106px;
   }
   button#shippingSubmitBtnId {
     font-size: 17px;
@@ -3246,5 +3247,8 @@ span.delivery-date {
     display: flex;
     justify-content: space-between;
   }
+}
+#shippingSubmitBtnId {
+    background: #071a44;
 }
 </style>

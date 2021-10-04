@@ -95,11 +95,14 @@ export default {
       if (!this.data) { return false }
       let slides = []
       let liParsedSlides = this.parsedContent.querySelectorAll('li')
+      // console.log("7896541 ",liParsedSlides);
       if (liParsedSlides && liParsedSlides.length === 0) return false
       liParsedSlides.forEach((slide, index) => {
         let mobileImage = ''
         let desktopImage = ''
         let imagesBoth = slide.querySelectorAll('img')
+        // console.log("7896541 images",imagesBoth);
+        mobileImage = imagesBoth[0].attributes['src']
         imagesBoth.forEach((img, index) => {
           if (img.classNames[0] === 'desktop') {
             desktopImage = img.attributes['src']

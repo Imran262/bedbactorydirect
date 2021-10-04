@@ -1,10 +1,10 @@
 <template>
-  <div class="link_button" @click="colorChange(), toggleMenu()">
+  <div class="link_button" @click=" toggleMenu()"   @click.stop="next()">
     <template v-if="type === 'next'">
       <template v-if="link">
         <router-link
           class="menuLinkTag inline-flex between-xs w-100 px25 py20 pr15 serif cl-accent"
-          :to="localizedRoute(link)"
+          :to="localizedRoute('')"
         >
           {{ name }}
         </router-link>
@@ -25,8 +25,8 @@
       </button>
     </template>
     <template v-else>
-      <div class="sub-category-mobile-main-back">
-        <div class="d-flex align-center">
+      <div class="sub-category-mobile-main-back" >
+        <div class="d-flex align-center"  @click.stop="back(false)">
           <button
             class="arrow-back"
             type="button"
@@ -36,7 +36,7 @@
             <i class="material-icons"> </i>
           </button>
           <template v-if="submenu.depth == 1">
-            <div id="backBtnRef" @click="redirectTo">
+            <div id="backBtnRef" @click.stop="back(false)">
               {{ menuName }}
             </div>
           </template>
@@ -106,8 +106,19 @@ export default {
         let bodyVar = document.getElementsByTagName('BODY')[0]
         let sidebarMenu = document.getElementById('sidebarmenucontainer')
         if (sidebarMenu != null) {
-          console.log('vissible')
-          return bodyVar.classList.toggle('body-fixed')
+          // console.log('9512 vissible sub btn',bodyVar.classList, bodyVar.classList.indexOf("body-fixed"),bodyVar.classList.includes("body-fixed"))
+          
+          
+          console.log('9512 vissible sub btn',bodyVar.classList, typeof bodyVar.classList)
+          var exists = Object.keys(bodyVar.classList).some(function(k) {
+            return bodyVar.classList[k] === "body-fixed";
+            });
+       console.log('9512 vissible sub btn',exists)
+          // console.log('9512 vissible sub btn',bodyVar.classList,bodyVar.classList.includes("body-fixed"))
+          if (exists)
+          return true
+          else
+            return bodyVar.classList.toggle('body-fixed')
         }
       }, 100)
     },
@@ -258,7 +269,7 @@ button {
     width: 100%;
     padding-bottom: 9px;
     padding-top: 9px;
-    font-size: 10.59px;
+    font-size: 15px;
     color: #434343;
     font-family: 'Oblik';
     line-height: 1.5;
@@ -282,7 +293,7 @@ button {
       // padding-top: 9px;
       //line-height: 1.5;
       padding: 0;
-      font-size: 10.59px;
+      font-size: 15px;
       color: #434343;
       font-family: 'Oblik';
       width: 50%;
@@ -291,7 +302,7 @@ button {
   a {
     padding-bottom: 9px;
     padding-top: 9px;
-    font-size: 10.59px;
+    font-size: 15px;
     color: #434343;
     font-family: 'Oblik';
     line-height: 1.5;
@@ -332,7 +343,7 @@ button {
 }
 #backBtnRef {
   padding-left: 3.5px;
-  font-size: 10.59px;
+  font-size: 15px;
   font-family: 'Oblik';
   color: #fff;
   font-weight: bold;
@@ -347,6 +358,6 @@ button {
   padding-left: 0;
 }
 .body-fixed {
-  position: fixed;
+  position: fixed !important;
 }
 </style>

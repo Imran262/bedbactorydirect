@@ -4,6 +4,33 @@
     itemtype="http://schema.org/Product"
     class="product-page-detail"
   >
+  <!-- here we are in 2  -->
+ <div >
+ <!-- get reviews {{getReviews}} -->
+ <meta itemprop="image" :content="getSchemaImageUrl" />
+ <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
+    <!-- Here we are {{reviewData.reviews[0]}} -->
+    <div itemprop="review" itemscope itemtype="https://schema.org/Review"> 
+      
+      </div>
+    <!-- {{reviewData.reviews[0]}} here we loaded <area shape="" coords="" href="" alt=""> -->
+      <meta itemprop="datePublished" :content="formatDate(reviewData.reviews[0].created_at)" />
+      <meta itemprop="description" :content="reviewData.reviews[0].content" />
+      <meta itemprop="name" :content="reviewData.reviews[0].title" />
+      <div
+        itemprop="reviewRating"
+        itemscope
+        itemtype="https://schema.org/Rating"
+      >
+        <meta itemprop="ratingValue" :content="reviewData.reviews[0].score" />
+        <meta itemprop="bestRating" content="5" />
+      </div>
+      <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" :content="reviewData.reviews[0].user.display_name" />
+      </div>
+ </div>
+ 
+    </div>
     <section>
       <div class="container">
         <div class="row">
@@ -89,8 +116,8 @@
                       :min-swipe-distance="20"
                       :navigation-enabled="true"
                       :pagination-enabled="false"
-                      navigation-next-label="<i class='material-icons p15  pointer rightArrow'>keyboard_arrow_right</i>"
-                      navigation-prev-label="<i class='material-icons p15  pointer leftArrow'>keyboard_arrow_left</i>"
+                      navigation-next-label=""
+                      navigation-prev-label=""
                       ref="carousel"
                     >
                       <slide
@@ -168,7 +195,7 @@
                 />
                 <meta itemprop="mpn" :content="getCurrentProduct.sku" />
                 <meta itemprop="url" :content="getProductUrl" />
-                <meta itemprop="aggregateRating" content />
+                <meta itemprop="aggregateRating" :content="reviewData.bottomline? reviewData.bottomline.average_score:'0.0'" />
                 <meta itemprop="brand" :content="`Bed Factory Direct`" />
                 <div
                   itemprop="manufacturer"
@@ -230,9 +257,9 @@
                       <meta
                         itemprop="price"
                         :content="
-                          parseFloat(
-                            getCurrentProduct.calculated_sqm_price
-                          ).toFixed(2)
+                          parseFloat(getCurrentProduct.price_incl_tax).toFixed(
+                            2
+                          )
                         "
                       />
                       <meta
@@ -301,7 +328,7 @@
                   class="cl-primary variants sizes basin_size"
                   v-if="getCurrentProduct.type_id == 'configurable'"
                 >
-                <!-- It is a configurable product -->
+                  <!-- It is a configurable product -->
                   <div
                     class="error"
                     v-if="
@@ -330,7 +357,7 @@
                         v-if="option.label == 'Color'"
                       >
                         <select @change="changeFilterCustom($event)">
-                          <option :value="null" :key="2378695843" selected>
+                          <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
                           <template
@@ -358,12 +385,13 @@
                         class="sizes basin_size"
                         v-else-if="option.label == 'Size'"
                       >
-                      <!-- Here we are -->
+                        <!-- Size -->
+                        <!-- Here we are -->
                         <select
-                          class="chevron-down-icon "
+                          class="chevron-down-icon"
                           @change="changeFilterCustom($event)"
                         >
-                          <option :value="null" :key="2378695843" selected>
+                          <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
                           <template
@@ -394,8 +422,13 @@
                         :class="option.attribute_code"
                         v-else
                       >
-                        <select   class="chevron-down-icon " @change="changeFilterCustom($event)">
-                          <option :value="null" :key="2378695843" selected>
+                        <!-- {{option.attribute_code}}
+                      <br/> else -->
+                        <select
+                          class="chevron-down-icon"
+                          @change="changeFilterCustom($event)"
+                        >
+                          <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
                           <template
@@ -542,7 +575,9 @@
                       >keyboard_arrow_right</i
                     > -->
                     </button>
-                    <span class="error1" v-if="isFabrics">Field is required</span>
+                    <span class="error1" v-if="isFabrics"
+                      >Field is required</span
+                    >
                     <div
                       id="overlay"
                       @click="hideColorPicker"
@@ -555,12 +590,13 @@
                       @closeColorPickerModal="hideColorPicker"
                       @selectedColor="setColorName($event)"
                     />
-                    </div>
                   </div>
+                </div>
               </div>
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
+                    <!-- maxQuantity {{maxQuantity}}  -->
                     <product-quantity
                       class="product-quantity bt-product-qty row m0"
                       v-if="
@@ -618,15 +654,34 @@
                     @Modal="modalshow"
                     :sqm-val-updated="'0'"
                   /> -->
-                    <add-to-cart
-                      :product-options="sendProductCustomOptions"
-                      :product="getCurrentProduct"
-                      :custom-options="getCurrentProductCustomOptionsRedo"
-                      class="col-xs-12 col-sm-4 col-md-6 float-right"
-                      :product-calculated-price="calculatedProductPrice"
-                      :disableProduct="false"
-                      :disableProductFlag="false"
-                    />
+                    <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
+                    <template
+                      v-if="
+                        getCurrentProduct.custom_options &&
+                        getCurrentProduct.custom_options.length > 0
+                      "
+                    >
+                      <add-to-cart
+                        :product-options="sendProductCustomOptions"
+                        :product="getCurrentProduct"
+                        :custom-options="getCurrentProductCustomOptionsRedo"
+                        class="col-xs-12 col-sm-4 col-md-6 float-right"
+                        :product-calculated-price="calculatedProductPrice"
+                        :disableProduct="false"
+                        :disableProductFlag="false"
+                      />
+                    </template>
+                    <template v-else>
+                      <add-to-cart
+                        :product-options="sendProductCustomOptions"
+                        :product="getCurrentProduct"
+                        :custom-options="getCurrentProductCustomOptionsRedo"
+                        class="col-xs-12 col-sm-4 col-md-6 float-right"
+                        :product-calculated-price="calculatedProductPrice"
+                        :disableProduct="cartFlag"
+                        :disableProductFlag="cartFlag"
+                      />
+                    </template>
 
                     <!-- <add-to-cart
                     :product="getCurrentProduct"
@@ -658,7 +713,8 @@
                   <AddToCompare :product="getCurrentProduct" />
                 </div>
               </div>-->
-              </div>
+              </div> 
+              <Retailfinancev12 :currentPrice="updatedPrice" :key="updatedPrice"/>
             </div>
           </div>
         </section>
@@ -673,9 +729,21 @@
           class="col-lg-6 col-md-7 col-sm-12 col-xs-12 product-description-left"
         >
           <h2
-            v-if="getCurrentProduct.description && getCurrentProduct.description.length>0"
+            v-if="
+              getCurrentProduct.description &&
+              getCurrentProduct.description.length > 0
+            "
             id="product-dimension-icon-id"
-            class="h3 m0 mb10 serif lh20 details-dimension Icon-update icon-rotate"
+            class="
+              h3
+              m0
+              mb10
+              serif
+              lh20
+              details-dimension
+              Icon-update
+              icon-rotate
+            "
             @click="ProDimensionShowFn"
           >
             {{ $t("Description") }}
@@ -727,8 +795,8 @@
             </div>
           </div>
           <h2
-          v-if="getCurrentProduct.specs && getCurrentProduct.specs.length>0"
-          id="product-Specifications-icon-id"
+            v-if="getCurrentProduct.specs && getCurrentProduct.specs.length > 0"
+            id="product-Specifications-icon-id"
             class="h3 m0 mb10 serif lh20 details-Delivery Icon-update"
             @click="ProSpecificationsShowFn"
           >
@@ -848,6 +916,8 @@
 <script>
 // import i18n from '@vue-storefront/i18n';
 // import VueOfflineMixin from 'vue-offline/mixin';
+import Retailfinancev12 from "src/themes/bedfactory/components/core/V12Calculator/Retailfinancev12.vue";
+import V12calculator from "src/themes/bedfactory/components/core/V12Calculator/CalculatorV12.vue";
 import CmsBlock from "src/themes/bedfactory/components/core/blocks/Cms/DeliveryBlock";
 import config from "config";
 import RelatedProducts from "src/themes/bedfactory/components/core/blocks/Product/Related.vue";
@@ -863,7 +933,6 @@ import addtobasket from "theme/components/core/AddTobasketModal";
 import clearancemodal from "theme/components/core/ClearanceModal";
 import OutOfStockModal from "theme/components/core/OutOfStockModal";
 import ProductQuantitySqm from "theme/components/core/ProductQuantitySqm.vue";
-// import ProductQuantitySqm from "/home/hamza/Desktop/Tilemountain/TmVuestore/src/themes/tilemountain/components/core/productQuantitySqm.vue"
 import ProductLinks from "theme/components/core/ProductLinks.vue";
 // import ProductCustomOptions from '/home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/bedfactory/components/core/ProductCustomOptions.vue';
 import ProductCustomOptions from "../components/core/ProductCustomOptions";
@@ -921,10 +990,13 @@ import { getThumbnailPath } from "@vue-storefront/core/helpers";
 import ReviewItemImageModel from "theme/components/core/blocks/Reviews/ReviewItemImageModel";
 import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker";
 import ProductPrice from "src/themes/bedfactory/components/core/ProductPrice.vue";
+import dateFormat from 'dateformat';
 //theme/components/core/blocks/ColorPicker/ColorPicker.vue
 export default {
   name: "ProductPage",
   components: {
+    Retailfinancev12,
+    V12calculator,
     ProductPrice,
     CmsBlock,
     RelatedProducts,
@@ -972,7 +1044,16 @@ export default {
   },
   data() {
     return {
-      isFabrics:true,
+      v12Data:{},
+      minimumMonthlyPayment : 0,
+      minProductPrice : 335,
+      monthly_text : ' ',
+      showCalculator : false,
+      updatedPrice:0,
+      cartFlag: false,
+      ViewCalculatorCheck: false,
+      currentConfiguration: {},
+      isFabrics: true,
       detailsOpen: false,
       ProDeliveryShow: true,
       ProReviewShow: true,
@@ -1050,7 +1131,7 @@ export default {
       reRender: 0,
       calculatedProductPrice: {},
       configurableChildren: {},
-      colorName: ""
+      colorName: "",
     };
   },
   computed: {
@@ -1129,21 +1210,21 @@ export default {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             this.getImageUrl(this.getCurrentProduct.thumbnail)
-        : "http://tilemountain.co.uk/" +
+        : config.baseUrl.live +
             this.getImageUrl(this.getCurrentProduct.thumbnail);
     },
     getProductUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl + this.getCurrentProduct.url_path
-        : "http://tilemountain.co.uk/" + this.getCurrentProduct.url_path;
+        : config.baseUrl.live + this.getCurrentProduct.url_path;
     },
     getSchemaImageUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
-            "img/600/744/resize/catalog/product" +
+            "img/600/744/resize" +
             this.getCurrentProduct.image
-        : "http://tilemountain.co.uk/" +
-            "img/600/744/resize/catalog/product" +
+        : config.baseUrl.live +
+            "img/600/744/resize/" +
             this.getCurrentProduct.image;
     },
     getVideoObjJsonLd() {
@@ -1157,8 +1238,7 @@ export default {
             thumbnailUrl: config.schemaUrl.baseUrl
               ? config.schemaUrl.baseUrl +
                 this.getImageUrl(videoElement[0].image)
-              : "http://tilemountain.co.uk/" +
-                this.getImageUrl(videoElement[0].image),
+              : config.baseUrl.live + this.getImageUrl(videoElement[0].image),
             contentUrl: videoElement[0].vid.url,
           };
         } else {
@@ -1170,8 +1250,7 @@ export default {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
             this.getImageUrl(this.getCurrentProduct.image)
-        : "http://tilemountain.co.uk/" +
-            this.getImageUrl(this.getCurrentProduct.image);
+        : config.baseUrl.live + this.getImageUrl(this.getCurrentProduct.image);
     },
     getProductGalleryCustom() {
       let mediaGallery = [];
@@ -1259,7 +1338,7 @@ export default {
         return this.roundTo(1 / this.getCurrentProduct.qty_per_sqm, 2);
       }
     },
-    structuredData() {
+    structuredDataTM() {
       const stockText = this.getCurrentProduct.stock_level_text
         ? this.getCurrentProduct.stock_level_text
         : "";
@@ -1278,8 +1357,74 @@ export default {
         stockTextString = "OutOfStock";
       }
       // console.log("stockTextString", stockTextString);
+      // return {
+      //   availability: stockTextString,
+      //   contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
+      //     ? this.getCurrentProduct.url_path
+      //     : this.attachBaseUrl(this.getCurrentProduct.url_path),
+      //   imageUrl: this.getImageUrl(this.getCurrentProduct.image),
+      // };
+      return true;
+    },
+    structuredData() {
+      let flag = false;
+      console.log(
+        "9878 structured data",
+        this.getCurrentProduct.type_id,
+        this.getCurrentProduct.stock.is_in_stock,
+        JSON.stringify(this.getCurrentProduct)
+      );
+      if (this.getCurrentProduct.type_id === "configurable") {
+        console.log("9878 yes this is a configurable product");
+        if (
+          this.getCurrentProduct.configurable_children &&
+          this.getCurrentProduct.configurable_children.length > 0
+        ) {
+          this.getCurrentProduct.configurable_children.forEach(
+            (child, index) => {
+              console.log(
+                "9878 stock status",
+                child.stock.is_in_stock,
+                child.stock
+              );
+              if (child.stock.is_in_stock) {
+                console.log("9878 Its true");
+                flag = true;
+              }
+            }
+          );
+        } else {
+          if (
+            this.getCurrentProduct.stock &&
+            this.getCurrentProduct.stock.is_in_stock
+          ) {
+            flag = true;
+          }
+        }
+      } else {
+        if (
+          this.getCurrentProduct.stock &&
+          this.getCurrentProduct.stock.is_in_stock
+        ) {
+          flag = true;
+        }
+      }
+      console.log("9878 result is ", flag);
+      // return {
+      //   availability:
+      //     flag
+      //       ? "InStock"
+      //       : "OutOfStock",
+      //   contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
+      //     ? this.getCurrentProduct.url_path
+      //     : this.attachBaseUrl(this.getCurrentProduct.url_path),
+      //   imageUrl: this.getImageUrl(this.getCurrentProduct.image),
+      // }
       return {
-        availability: stockTextString,
+        availability: "InStock",
+        // flag
+        //   ? "InStock"
+        //   : "OutOfStock",
         contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
           ? this.getCurrentProduct.url_path
           : this.attachBaseUrl(this.getCurrentProduct.url_path),
@@ -1489,7 +1634,7 @@ export default {
       ) {
         this.getCurrentProduct.custom_options.forEach((option) => {
           if (
-            option.iscolor == 1 || 
+            option.iscolor == 1 ||
             option.iscolor == "1" ||
             option.iscolor == true
           ) {
@@ -1502,7 +1647,7 @@ export default {
     },
     getCurrentCustomOptions: {
       handler() {
-     //   console.log("112255 state changed");
+        //   console.log("112255 state changed");
         if (
           this.getCurrentProduct.custom_options &&
           this.getCurrentProduct.custom_options.length > 0
@@ -1528,7 +1673,7 @@ export default {
         this.$bus.$emit("modal-hide", "modal-cutsample");
         this.$bus.$emit("modal-hide", "modal-clearancemodal");
         // For Quote Sample Buttons
-        this.updateSampleButtons();
+        // this.updateSampleButtons();
         this.disabledQuoteAddtoCart();
         this.getCustomerPhotos();
         this.similar_products = {
@@ -1544,6 +1689,11 @@ export default {
     },
   },
   methods: {
+    formatDate (date) {
+      let formattedDate = date.replace(' ', 'T');
+      let d = new Date(formattedDate);
+      return dateFormat(d, "yyyy-mm-dd")
+    },
     checkRoute() {
       console.log(
         "11226677 Route changes in check route function",
@@ -1551,13 +1701,17 @@ export default {
         "\nSTATE is \n\n",
         this.$store.state.product
       );
-     this.getCurrentProductCustomOptions();
-      this.$store.state.product.current_custom_options=this.getCurrentProductCustomOptionsRedo;
-      console.log(
-        "\n112266 After STATE is \n\n",
-        this.$store.state.product
-      );
+      this.getCurrentProductCustomOptions();
+      this.$store.state.product.current_custom_options =
+        this.getCurrentProductCustomOptionsRedo;
+      console.log("\n112266 After STATE is \n\n", this.$store.state.product);
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
+    },
+    HandleOnClickV12 () {
+      this.ViewCalculatorCheck = true
+    },
+    HandleOnCloseV12 () {
+      this.ViewCalculatorCheck = false
     },
     getCurrentProductCustomOptions() {
       // let cOptions = this.$store.state.product;
@@ -1628,104 +1782,149 @@ export default {
       const _ = require("lodash");
       let newObjList = [];
       let products = this.getCurrentProduct.configurable_children;
-     // console.log("885522 Products", products);
+      // console.log("885522 Products", products);
       let val = 10;
       let sampleObject = this.getCurrentProductConfiguration;
       let sampleObject2 = _.clone(sampleObject);
-    //  console.log("Current Configuration", sampleObject);
-      products.forEach((product, productIndex) => {
-     //   console.log("product is ", product);
-        var currentVariant = Object.create(sampleObject);
-        var newVariant = Object.assign({}, sampleObject);
-        const newCurrent = { ...sampleObject };
-        var newCur = JSON.parse(JSON.stringify(sampleObject));
-        console.log(currentVariant);
-        var newObj = {};
-        for (let i in sampleObject) {
-          val++;
-          newObj[i] = { ...sampleObject[i] };
-          //  sampleObject[i].id=product[i];
-          newObj[i].id = product[i];
-          newObj[i].label = product[i];
-          // sampleObject[i].id= 100
-          //  currentVariant[i].id= 50
-          //   newVariant[i].id= 30 +val
-          // console.log(
-          //   "78889",
-          //   i,
-          //   sampleObject[i].id,
-          //   currentVariant[i].id,
-          //   newVariant[i].id,
-          //   newCurrent[i].id,
-          //   "this ",
-          //   newCur[i].id,
-          //   product[i],
-          //   "id ",
-          //   newObj[i].id,
-          //   "new 2",
-          //   sampleObject2[i].id
-          // );
-        }
-        // console.log("newObj",newObj['size'].id);
-        newObjList.push(newObj);
-      });
-    //  console.log("After All", newObjList);
+      //  console.log("Current Configuration", sampleObject);
+      if (products && products.length > 0) {
+        console.log("Length of Children is greater than zero");
+        products.forEach((product, productIndex) => {
+          //   console.log("product is ", product);
+          var currentVariant = Object.create(sampleObject);
+          var newVariant = Object.assign({}, sampleObject);
+          const newCurrent = { ...sampleObject };
+          var newCur = JSON.parse(JSON.stringify(sampleObject));
+          console.log(currentVariant);
+          var newObj = {};
+          for (let i in sampleObject) {
+            val++;
+            newObj[i] = { ...sampleObject[i] };
+            //  sampleObject[i].id=product[i];
+            newObj[i].id = product[i];
+            newObj[i].label = product[i];
+            // sampleObject[i].id= 100
+            //  currentVariant[i].id= 50
+            //   newVariant[i].id= 30 +val
+            // console.log(
+            //   "78889",
+            //   i,
+            //   sampleObject[i].id,
+            //   currentVariant[i].id,
+            //   newVariant[i].id,
+            //   newCurrent[i].id,
+            //   "this ",
+            //   newCur[i].id,
+            //   product[i],
+            //   "id ",
+            //   newObj[i].id,
+            //   "new 2",
+            //   sampleObject2[i].id
+            // );
+          }
+
+          // console.log("newObj",newObj['size'].id);
+          newObjList.push(newObj);
+        });
+      } else {
+        console.log("Length of Children is greater than zero");
+      }
+      //  console.log("After All", newObjList);
       this.configurableChildren = newObjList;
     },
     changeFilterCustom(event) {
       console.log("112233 change filter custom", event);
-      this.cartFlag=true;
-      let variant = JSON.parse(event.target.value)
-      let filterOption = Object.assign({ attribute_code: variant.type }, variant);
+      this.cartFlag = false;
+      let variant = JSON.parse(event.target.value);
+      let filterOption = Object.assign(
+        { attribute_code: variant.type },
+        variant
+      );
       delete filterOption.type;
-console.log("VariantIS",variant , "filter option is ",filterOption, "variant.type" ,variant.type);
+      console.log(
+        "VariantIS",
+        variant,
+        "filter option is ",
+        filterOption,
+        "variant.type",
+        variant.type
+      );
       let configuration = this.getCurrentProductConfiguration;
-      console.log('currentProductConfiguration', configuration);
-  // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
-    let changedConfig = Object.assign({}, configuration);
-    changedConfig[variant.type].id = variant.id; 
-    changedConfig[variant.type].label = variant.id; 
-  console.log('changedConfig',changedConfig[variant.type].id, changedConfig);
-      for (let i in configuration )
-      {
-        configuration[i].id=parseInt(configuration[i].id)
-        configuration[i].label=parseInt(configuration[i].label)
+      console.log("currentProductConfiguration", configuration);
+      // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
+      let changedConfig = Object.assign({}, configuration);
+      changedConfig[variant.type].id = variant.id;
+      changedConfig[variant.type].label = variant.id;
+      let i = 0;
+      for (let i in changedConfig) {
+        console.log("Current is ", changedConfig[i]);
+        changedConfig[i].id = parseInt(changedConfig[i].id);
+        changedConfig[i].label = parseInt(changedConfig[i].id);
+      }
+      console.log(
+        "changedConfig",
+        changedConfig[variant.type].id,
+        changedConfig
+      );
+      for (let i in configuration) {
+        configuration[i].id = parseInt(configuration[i].id);
+        configuration[i].label = parseInt(configuration[i].label);
       }
       // for (let childIndex=0 ;childIndex<=this.configurableChildren.length;childIndex++){
       //   let child = this.configurableChildren[0];
-       // console.log("child is ",child);
+      // console.log("child is ",child);
       // }
       let flag = false;
       delete changedConfig.label;
-       this.configurableChildren.forEach((child,childIndex)=>{
-       // console.log("7788");
-       // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
-       console.log("7788 Child is ","\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
-       // if()
-        if (JSON.stringify(child)==JSON.stringify(changedConfig)){
-        //  let variant = JSON.parse(event.target.value)
-        console.log("774455", "child matched will emit " ,  );
-          this.$bus.$emit("filter-changed-product",Object.assign({ attribute_code: variant.type }, variant));
+      this.configurableChildren.forEach((child, childIndex) => {
+        // console.log("7788");
+        // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
+        console.log(
+          "7788 Child is ",
+          "\n",
+          JSON.stringify(child) == JSON.stringify(changedConfig),
+          "\n",
+          this.configurableChildren,
+          child,
+          changedConfig
+        );
+        // if()
+        this.currentConfiguration = changedConfig;
+        if (JSON.stringify(child) == JSON.stringify(changedConfig)) {
+          //  let variant = JSON.parse(event.target.value)
+          console.log("774455", "child matched will emit ", child.stock);
+          this.$bus.$emit(
+            "filter-changed-product",
+            Object.assign({ attribute_code: variant.type }, variant)
+          );
+          //   this.manageQuantity = false;
+          // this.maxQuantity = child.stock.qty;
+          // this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
           this.getQuantity();
-          flag =true;
-        }
-        else{
-          if(childIndex+1 == this.configurableChildren.length){
-            console.log("At the end of children");
-            if(flag){
-
-            }else{
-           // disable cart
-           this.cartFlag =false;
+          flag = true;
+        } else {
+          if (childIndex + 1 == this.configurableChildren.length) {
+            console.log("At the end of children", flag);
+            if (flag) {
+              // this.getQuantity();
+            } else {
+              // disable cart
+              console.log(
+                "this variant was not found",
+                this.currentConfiguration
+              );
+              this.cartFlag = true;
+              console.log("cart flag is ", this.cartFlag);
             }
-
           }
         }
-       });
-      
+      });
     },
     setPrice(data) {
-      //  console.log(data);
+      console.log("7778855 Current price is ",data);
+      let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
+      console.log("778855 current calculated price is ",price);
+      this.updatedPrice = price;
       this.calculatedProductPrice = data;
     },
     showDetails(event) {
@@ -1831,7 +2030,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
     },
     setColorName(name) {
       this.colorName = name;
-      this.isFabrics=false;
+      this.isFabrics = false;
     },
     getColorName() {
       // console.log("741258 in get color name",this.colorName);
@@ -1860,7 +2059,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
-      document.body.style.overflow = "scroll";
+      document.body.style.overflowY = "scroll";
     },
     setReviews() {
       try {
@@ -2140,7 +2339,8 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
         typeof this.getCurrentProduct !== "undefined" &&
         this.getCurrentProduct.category &&
         typeof this.getCurrentProduct.category !== "undefined" &&
-        this.getCurrentProduct.primary_category
+        this.getCurrentProduct.primary_category &&
+        this.getCurrentProduct.primary_category !== "null"
       ) {
         if (typeof this.getCurrentProduct.category === "object") {
           return Object.keys(this.getCurrentProduct.category)
@@ -2362,6 +2562,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
       this.boxSqm = this.getCurrentProduct.qty;
     },
     notifyOutStock() {
+      console.log("7894562 notificationData", notificationData);
       this.$store.dispatch("notification/spawnNotification", {
         type: "error",
         message: this.$t(
@@ -2574,6 +2775,7 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
       return n;
     },
     notifyWrongAttributes() {
+      console.log("7894567 notificationData", notificationData);
       this.$store.dispatch("notification/spawnNotification", {
         type: "warning",
         message: this.$t(
@@ -2651,14 +2853,86 @@ console.log("VariantIS",variant , "filter option is ",filterOption, "variant.typ
         if (config.products.alwaysSyncPricesClientSide) {
           doPlatformPricesSync([this.getCurrentProduct]);
         }
-        const res = await this.$store.dispatch("stock/check", {
-          product: this.getCurrentProduct,
-          qty: this.getCurrentProduct.qty,
-        });
-
-        this.manageQuantity = res.isManageStock;
-        this.maxQuantity = res.qty;
-        this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
+        if (
+          this.getCurrentProduct.configurable_options &&
+          this.getCurrentProduct.configurable_options.length > 0
+        ) {
+          let flag = true;
+          let count = 0;
+          let totalOption = 0;
+          console.log("74132", this.currentConfiguration);
+          for (let i in this.currentConfiguration) {
+            totalOption++;
+            console.log("74132 total option ", totalOption);
+            //console.log("i = ",i , this.currentConfiguration[i],"\n\n\n",this.currentConfiguration[i].id === child[i],this.currentConfiguration[i].id , child[i]);
+          }
+          this.getCurrentProduct.configurable_children.forEach(
+            (child, index) => {
+              console.log(
+                "child ",
+                child,
+                this.currentConfiguration,
+                this.getCurrentProduct.configurable_children.length,
+                index + 1
+              );
+              for (let i in this.currentConfiguration) {
+                console.log(
+                  "i = ",
+                  i,
+                  this.currentConfiguration[i],
+                  "\n\n\n",
+                  this.currentConfiguration[i].id === child[i],
+                  this.currentConfiguration[i].id,
+                  child[i]
+                );
+                if (this.currentConfiguration[i].id === child[i]) {
+                  console.log(i, " matched");
+                  count++;
+                } else {
+                  flag = false;
+                }
+              }
+              console.log("count is ", count, totalOption);
+              if (count === totalOption) {
+                console.log("Options matched ");
+                this.manageQuantity = false;
+                this.maxQuantity = child.stock.qty;
+              }
+              count = 0;
+              if (
+                this.getCurrentProduct.configurable_children.length ===
+                index + 1
+              ) {
+                if (flag) {
+                  this.manageQuantity = false;
+                  this.maxQuantity = child.stock.qty;
+                }
+              }
+            }
+          );
+          // console.log("12345654321 current product is configurable ",this.getCurrentProduct.stock.qty,JSON.stringify(this.getCurrentProduct),this.getCurrentProduct.colour,"       ",this.getCurrentProduct.size);
+          // this.manageQuantity = false;
+          // this.maxQuantity = this.getCurrentProduct.stock.qty;
+          // this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
+          // console.log("max is ",this.maxQuantity , this.getCurrentProduct.stock.qty);
+        } else {
+          const res = await this.$store.dispatch("stock/check", {
+            product: this.getCurrentProduct,
+            qty: this.getCurrentProduct.qty,
+          });
+          console.log(
+            "12345654321 current product is ",
+            JSON.stringify(this.getCurrentProduct),
+            this.getCurrentProduct.colour,
+            "       ",
+            this.getCurrentProduct.size,
+            " stock is ",
+            res
+          );
+          this.manageQuantity = res.isManageStock;
+          this.maxQuantity = res.qty;
+          this.maxSqmQuantity = this.getCurrentProduct.maxsqmquantity;
+        }
       } finally {
         this.isStockInfoLoading = false;
       }
@@ -2793,9 +3067,9 @@ $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
 
-.chevron-down{
-    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53%!important;
-    background-size: 17px!important;
+.chevron-down {
+  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+  background-size: 17px !important;
 }
 .chevron-down-icon {
   background: url(/assets/icons/downarrow.png) no-repeat 99% 53% !important;
@@ -2861,7 +3135,7 @@ h2.h3:after {
 .bt-dimension-wrapper-show-close.dimension-wrapper-show {
   display: block;
 }
-.Icon-update{
+.Icon-update {
   background: url(/assets/icons/rightarrow.png) no-repeat 100% 46% !important;
   background-size: 17px !important;
   // position: relative;
@@ -2870,8 +3144,8 @@ h2.h3:after {
   // width: 300px;
 }
 .icon-rotate {
-    background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
-    background-size: 17px !important;
+  background: url(/assets/icons/downarrow.png) no-repeat 100% 46% !important;
+  background-size: 17px !important;
 }
 // @media (max-width: 991px) and (min-width: 768px) {
 //   .delivery-info-icon {
@@ -3085,10 +3359,10 @@ i.product-detail-icon {
   }
 }
 .error1 {
-     color: #eb5757;
-    padding-top: 10px;
-    display: block;
-    width: auto;
+  color: #eb5757;
+  padding-top: 10px;
+  display: block;
+  width: auto;
 }
 
 .image {
@@ -3796,9 +4070,9 @@ a:not(.no-underline):hover:after {
           font-size: 1.6rem;
         }
 
-        .rating {
+        /* .rating {
           display: none;
-        }
+        } */
 
         .sku-value-top {
           display: none;
@@ -4851,6 +5125,10 @@ label.base-input-number__label.cl-primary.flex {
   .cl-primary.variants {
     padding-left: 25px !important;
   }
+  .V-12-retail-Finance {
+    margin-left: 27px !important;
+    width: 91% !important;
+}
 }
 h4.variants-label.basin-head {
   color: #071a44 !important;
@@ -4910,5 +5188,17 @@ h4.variants-label.basin-head {
 .basin_size.colour {
   width: 95%;
 }
+button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
+    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+    background-size: 18px !important;
+    transform: rotate(180deg);
+    position: absolute;
+    left: -17px;
+}
+button.VueCarousel-navigation-button.VueCarousel-navigation-next {
+    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+    background-size: 17px !important;
+}
+
 </style>
 

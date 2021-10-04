@@ -1,93 +1,171 @@
 <template>
   <div class="brdr-top-1 brdr-cl-secondary">
-
     <template v-if="finalReview">
+      <div
+        itemprop="review"
+        itemscope
+        itemtype="https://schema.org/Review"
+      >
+      </div>
       <div v-for="(review, index) in finalReview.reviews" :key="index">
-        <div v-if="review && index === 0" itemprop="review" itemscope itemtype="https://schema.org/Review">
-          <meta itemprop="datePublished" :content="formatDate(review.created_at)">
-          <meta itemprop="description" :content="review.content">
-          <meta itemprop="name" :content="review.title">
-          <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-            <meta itemprop="ratingValue" :content="review.score">
-            <meta itemprop="bestRating" content="5">
+        <div
+          v-if="review && index === 0"
+          itemprop="review"
+          itemscope
+          itemtype="https://schema.org/Review"
+        >
+          <meta
+            itemprop="datePublished"
+            :content="formatDate(review.created_at)"
+          />
+          <meta itemprop="description" :content="review.content" />
+          <meta itemprop="name" :content="review.title" />
+          <div
+            itemprop="reviewRating"
+            itemscope
+            itemtype="https://schema.org/Rating"
+          >
+            <meta itemprop="ratingValue" :content="review.score" />
+            <meta itemprop="bestRating" content="5" />
           </div>
           <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" :content="review.user.display_name">
+            <meta itemprop="name" :content="review.user.display_name" />
           </div>
         </div>
       </div>
     </template>
     <div class="row between-xs" id="reviewMainSection">
-      <div ref="productReviews" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 pt50 back_clr pb50">
+      <div
+        ref="productReviews"
+        class="
+          col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12
+          pt50
+          back_clr
+          pb50
+        "
+      >
         <div class="product_review">
-          <h2 style="font-family: oblik;" class="h3 m0 mb10 serif lh20 weight-700" @click="productReview()">
-            {{ $t('Product Reviews') }}
-            <span id="right-icon-review" class="icon-rotate-review"/>
+          <h2
+            style="font-family: oblik"
+            class="h3 m0 mb10 serif lh20 weight-700"
+            @click="productReview()"
+          >
+            {{ $t("Product Reviews") }}
+            <span id="right-icon-review" class="icon-rotate-review" />
           </h2>
           <div class="reviews-detail-box productReview-close">
-            <template v-if="finalReview.reviews && finalReview.reviews.length > 0">
-              
+            <template
+              v-if="finalReview.reviews && finalReview.reviews.length > 0"
+            >
               <template v-for="(reviewItem, index) in pageOfItems">
-                <review-item :key="index" :review="reviewItem"/>
+                <review-item :key="index" :review="reviewItem" />
               </template>
               <div class="pagination-box">
                 <b class="pagination_clr">
-                  <template v-if="finalReview.reviews && finalReview.reviews.length > reviewsPageSize">
+                  <template
+                    v-if="
+                      finalReview.reviews &&
+                      finalReview.reviews.length > reviewsPageSize
+                    "
+                  >
                     Read More Reviews:
                   </template>
                 </b>
-                <pagination :items="finalReview.reviews" @changePage="onChangePage" :page-size="reviewsPageSize"
-                            :product-id="productId"/>
+                <pagination
+                  :items="finalReview.reviews"
+                  @changePage="onChangePage"
+                  :page-size="reviewsPageSize"
+                  :product-id="productId"
+                />
               </div>
             </template>
             <template v-else>
-              <p class="not-found">
-                No Reviews Found
-              </p>
+              <p class="not-found">No Reviews Found</p>
             </template>
           </div>
         </div>
       </div>
       <!--QA Section-->
-      <div ref="productQAS" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 pt50 back_clr1 pb50">
+      <div
+        ref="productQAS"
+        class="
+          col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12
+          pt50
+          back_clr1
+          pb50
+        "
+      >
         <div class="add_review">
-          <h2 style="font-family: oblik;" class="h3 m0 mb10 serif lh20 weight-700 hidden-xs" @click="qaBox()">
-            {{ $t('Q & A') }}
-            <span id="right-icon-qa" class="icon-rotate-qa"/>
-            <span class="question" @click="qaArea()"><img src="/assets/qa-block.png" alt="qa block"> Ask A Question</span>
+          <h2
+            style="font-family: oblik"
+            class="h3 m0 mb10 serif lh20 weight-700 hidden-xs"
+            @click="qaBox()"
+          >
+            {{ $t("Q & A") }}
+            <span id="right-icon-qa" class="icon-rotate-qa" />
+            <span class="question" @click="qaArea()"
+              ><img src="/assets/qa-block.png" alt="qa block" /> Ask A
+              Question</span
+            >
           </h2>
-          <h2 style="font-family: oblik;" class="h3 m0 mb10 serif lh20 weight-700 hidden-lg hidden-md"
-              @click="qaBox(); qaArea()">
-            {{ $t('Question & Answers') }}
-            <span id="right-icon-qa" class="icon-rotate-qa"/>
-            <span class="question hidden-xs"><img src="/assets/qa-block.png"  alt="qa block" class="hidden-xs"></span>
+          <h2
+            style="font-family: oblik"
+            class="h3 m0 mb10 serif lh20 weight-700 hidden-lg hidden-md"
+            @click="
+              qaBox();
+              qaArea();
+            "
+          >
+            {{ $t("Question & Answers") }}
+            <span id="right-icon-qa" class="icon-rotate-qa" />
+            <span class="question hidden-xs"
+              ><img src="/assets/qa-block.png" alt="qa block" class="hidden-xs"
+            /></span>
           </h2>
           <div class="qa-detail-box qaBox-close">
             <div class="qaArea-close">
-              <form method="post" v-if="formSubmitted" @submit.prevent="createQuestion">
+              <form
+                method="post"
+                v-if="formSubmitted"
+                @submit.prevent="createQuestion"
+              >
                 <label>Question:</label>
-                <textarea name="question" v-model="question.review_content" ref="questionField" rows="5"
-                          @keyup="userName();" required/>
+                <textarea
+                  name="question"
+                  v-model="question.review_content"
+                  ref="questionField"
+                  rows="5"
+                  @keyup="userName()"
+                  required
+                />
                 <div class="row qa-inputarea">
                   <div class="col-md-4 username-box" @keyup="emailBox()">
                     <label>Name:</label>
-                    <input ref="nameField" name="username" v-model="question.display_name" required>
+                    <input
+                      ref="nameField"
+                      name="username"
+                      v-model="question.display_name"
+                      required
+                    />
                   </div>
                   <div class="col-md-4 email-box" @keyup="btnPost()">
                     <label>Email:</label>
-                    <input ref="emailField" name="email" v-model="question.email" type="email" required>
+                    <input
+                      ref="emailField"
+                      name="email"
+                      v-model="question.email"
+                      type="email"
+                      required
+                    />
                   </div>
-                  <button class="btn-post" type="submit">
-                    Post
-                  </button>
+                  <button class="btn-post" type="submit">Post</button>
                 </div>
-
               </form>
             </div>
             <div class="thankyou-box" v-if="thankYou">
               <div class="row">
                 <div class="col-xs-4 col-md-2 col-lg-2">
-                  <img src="/assets/check.png" alt="check">
+                  <img src="/assets/check.png" alt="check" />
                 </div>
                 <div class="col-xs-4 col-md-10 col-lg-10">
                   <h1>Thank you.</h1>
@@ -96,25 +174,28 @@
                 </div>
               </div>
             </div>
-             <template v-if="qas">
-            <template v-if="qas.length > 0">
-              <template v-for="(qaItem, index) in pageOfQas">
-                <qa-item :key="index" :qa="qaItem"/>
+            <template v-if="qas">
+              <template v-if="qas.length > 0">
+                <template v-for="(qaItem, index) in pageOfQas">
+                  <qa-item :key="index" :qa="qaItem" />
+                </template>
+                <div class="pagination-box">
+                  <b class="pagination_clr">
+                    <template v-if="qas.length > qasPageSize">
+                      Read More Q & A:
+                    </template>
+                  </b>
+                  <pagination
+                    :items="qas"
+                    @changePage="onChangeQAPage"
+                    :page-size="qasPageSize"
+                    :product-id="productId"
+                  />
+                </div>
               </template>
-              <div class="pagination-box">
-                <b class="pagination_clr">
-                  <template v-if="qas.length > qasPageSize">
-                    Read More Q & A:
-                  </template>
-                </b>
-                <pagination :items="qas" @changePage="onChangeQAPage" :page-size="qasPageSize" :product-id="productId"/>
-              </div>
-            </template>
-            <template v-else>
-              <p class="not-found">
-                No Questions yet
-              </p>
-            </template>
+              <template v-else>
+                <p class="not-found">No Questions yet</p>
+              </template>
             </template>
           </div>
         </div>
@@ -218,14 +299,29 @@ export default {
     },
     notifyUser (notificationData) {
       this.$emit('sampleRes', notificationData);
+      console.log("7894561 notificationData",notificationData);
       this.$store.dispatch('notification/spawnNotification', notificationData, {
         root: true
       });
     },
     async fetchQA () {
+      let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + this.productId
+      // let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + 1931
+      console.log("145214 QA url is ",productQAUrl);
+      await axios.get(productQAUrl)
+        .then(({ data }) => {
+          console.log("145214 Data received is ",data);
+          if (data.result) {
+            this.qas = data.result;
+            this.$emit('hasTotalQA', { 'qas': this.qas });
+          }
+          
+        })
+        .catch(err =>{ console.log('145214 qas hasError', err)
+        this.$emit('hasTotalQA', { 'qas': [] });})
       // let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + this.productId
       // let productQAUrl = this.configsData.api.url + this.configsData.qaPath.product + 1931
-      this.$emit('hasTotalQA', { 'qas': [] });
+      // this.$emit('hasTotalQA', { 'qas': [] });
       // await axios.get(productQAUrl)
       //   .then(({ data }) => {
       //     if (data.result) {
@@ -239,18 +335,19 @@ export default {
     async createQuestion () {
       if (!this.question.review_content || !this.question.display_name || !this.question.email) {
       } else {
-        let qaCreate = '/api/ext/yopto/qa/create';
+        let qaCreate = '/vueapi/ext/yopto/qa/create';
 
         if (config.yopto && config.yopto.qa.create) {
           qaCreate = config.yopto.qa.create;
         }
+        console.log("4563214 parameters are",config.api.url + qaCreate,config.yopto.qa.create, this.question);
         axios.post(config.api.url + qaCreate, this.question, {
           headers: {
             'Content-type': 'application/json'
           }
         })
           .then(r => {
-            console.log('responseIs', r);
+            console.log('4563214 responseIs', r);
             this.question.review_content = '';
             this.question.display_name = '';
             this.question.email = '';
@@ -260,7 +357,7 @@ export default {
             this.formSubmitted = false;
           })
           .catch(error => {
-            console.log('qaCreateError', error);
+            console.log('14563214 qaCreateError', error);
             this.notifyUser(
               notifications.createNotification({
                 type: 'error',
@@ -356,11 +453,11 @@ export default {
 }
 
 .back_clr {
-background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 .back_clr1 {
-  background-color: #D6D6D6 ;
+  background-color: #d6d6d6;
 }
 
 .add_review {
@@ -385,7 +482,6 @@ background-color: #F2F2F2;
   margin-bottom: -6px;
   font-family: Arial;
   font-size: 14px;
-
 }
 
 .mrg1 {
@@ -414,7 +510,7 @@ background-color: #F2F2F2;
 }
 
 .product_review h2 {
-  color: #071A44;
+  color: #071a44;
 }
 
 .product_review h2 span {
@@ -438,7 +534,7 @@ background-color: #F2F2F2;
 }
 
 .add_review h2 {
-  color: #071A44;
+  color: #071a44;
   border-bottom: 2px dashed #acacac;
   padding-bottom: 10px;
 }
@@ -470,7 +566,7 @@ background-color: #F2F2F2;
   display: block !important;
   float: right;
   font-size: 18px;
-  color: #071A44;
+  color: #071a44;
   cursor: pointer;
 }
 
@@ -495,9 +591,9 @@ background-color: #F2F2F2;
   padding: 10px;
   margin: 0;
   border: 1px solid #acacac;
-  font-family: 'Roboto', sans-serif;
-    color: #333333;
-    font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #333333;
+  font-size: 14px;
 }
 
 .qaArea-close textarea:active,
@@ -543,7 +639,7 @@ background-color: #F2F2F2;
   width: 100%;
   height: 34px;
   border: 1px solid #acacac;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333333;
   font-size: 14px;
   padding: 0 5px 0 5px;
@@ -567,7 +663,7 @@ background-color: #F2F2F2;
   width: 100%;
   height: 34px;
   border: 1px solid #acacac;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333333;
   font-size: 14px;
   padding: 0 5px 0 5px;
@@ -588,7 +684,7 @@ background-color: #F2F2F2;
 }
 
 .thankyou-box {
-  background: #BDEBFB;
+  background: #bdebfb;
   padding: 45px 35px;
   /* display: none; */
 }
@@ -614,17 +710,17 @@ background-color: #F2F2F2;
   font-size: 14px;
   font-family: Arial;
 }
-@media (min-width: 600px) and (max-width: 767px){
-.product_review h2 {
-padding: 20px 31px;
-margin: 0px;
-font-size: 22px !important;
-}
-.add_review h2 {
-padding: 21px 31px;
-margin: 0px;
-font-size: 22px !important;
-}
+@media (min-width: 600px) and (max-width: 767px) {
+  .product_review h2 {
+    padding: 20px 31px;
+    margin: 0px;
+    font-size: 22px !important;
+  }
+  .add_review h2 {
+    padding: 21px 31px;
+    margin: 0px;
+    font-size: 22px !important;
+  }
 }
 @media (max-width: 767px) and (min-width: 320px) {
   .product_review {
@@ -643,8 +739,9 @@ font-size: 22px !important;
     display: block;
   }
 
-  .back_clr, .back_clr1 {
-    background-color: #DEDAD9;
+  .back_clr,
+  .back_clr1 {
+    background-color: #dedad9;
     padding: 0px;
     border-bottom: 2px solid #ffffff;
   }
@@ -778,9 +875,7 @@ font-size: 22px !important;
     float: left;
     width: 22px;
     margin-left: 3px;
-
   }
-
 }
 
 .text_left {
@@ -806,7 +901,6 @@ font-size: 22px !important;
   float: left;
   width: 50%;
   height: 50px;
-
 }
 
 .advice {
@@ -818,7 +912,8 @@ font-size: 22px !important;
   font-family: Arial;
 }
 
-.pagination_clr, .pagination {
+.pagination_clr,
+.pagination {
   float: left;
   margin-top: 20px;
 }

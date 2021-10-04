@@ -134,17 +134,19 @@
             </div>
             <div class="col-md-7">
               <div class="footer-btns-links">
-                <button class="shopping-button" @click="popupclose">
-                  Continue Shopping
-                </button>
-                <router-link
+                 <router-link
                   :to="localizedRoute('/cart')"
                   class="no-underline cl-secondary link btn-checkout"
                 >
                   <button class="Modalbutton" @click="popupclose">
-                    PROCEED to checkout
+                    PROCEED to Basket
                   </button>
                 </router-link>
+                <button class="shopping-button" @click="popupclose">
+                  Continue Shopping
+                </button>
+                
+               
               </div>
             </div>
           </div>
@@ -162,7 +164,7 @@
             class="no-underline cl-secondary link btn-checkout"
           >
             <button class="btn-checkout" @click="popupclose">
-              PROCEED to checkout
+              PROCEED to Basket
             </button>
           </router-link>
         </div>
@@ -746,12 +748,26 @@ export default {
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
+      console.log("11223344556677", window.innerWidth);
+       console.log("fsfsfsfsfs", document.getElementsByTagName("BODY")[0]);
+      // console.log("11223344556677 ",this.$device.isMobile);
       document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      if (window.innerWidth <= 768)
+      {
+        console.log('in if ');
+ clearAllBodyScrollLocks();
+      }
+      else{
+
+        console.log('in else');
+document.getElementsByTagName("BODY")[0].style.overflow='scroll';
+      }
+      
       // document.getElementsByClassName("vue-back-to-top")[0].classList.remove("removeButton");
       // console.log("1122 class removed",document.getElementsByClassName("vue-back-to-top")[0].classList);
       // var x = document.getElementsByTagName("BODY")[0];
       // x.style.overflow = "scroll";
-     // clearAllBodyScrollLocks();
+    
       this.$bus.$emit("modal-hide", "modal-switcher");
       this.$emit("popInterface", 0);
     },

@@ -65,6 +65,7 @@
               <product-quantity-on-cart-page
                 class="qty"
                 :disabled-item="checkedQuoteItem(product.sku)"
+                :key="triggerUpdate"
                 :value="productQty"
                 :max-quantity="maxQuantity"
                 :loading="isStockInfoLoading"
@@ -208,6 +209,7 @@ export default {
     return {
       updatedQtyPass: this.editMode ? this.getEditingQty : this.product.qty,
       maxQuantity: 0,
+      triggerUpdate: 1,
       optionCheck: false,
       isStockInfoLoading: false,
       quantityError: false,
@@ -326,6 +328,7 @@ export default {
           this.$bus.$emit('notification-progress-stop', 'Updating qty... ')
           this.pullCartSync()
           this.updatedQtyPass = quantity
+          this.triggerUpdate++
           this.onProductQuantityUpdate()
           this.$emit('tile-quantity-updated', this.updatedQtyPass)
         }
@@ -340,7 +343,7 @@ export default {
       this.$forceUpdate();
     },
     updateProductQtyInput (qty) {
-      this.updatedQtyPass = qty
+        this.updatedQtyPass = qty
       // this.$emit('tile-quantity-updated', this.updatedQtyPass)
     },
     handleQuantityError (error) {
@@ -649,6 +652,7 @@ export default {
     display: block;
     margin-left: 5px;
     margin-bottom: 10px;
+    width: 140px;
   }
 }
 
@@ -812,6 +816,12 @@ input {
     .maincart .firstprice{
       padding-left: 5px;
     }
+    .options > div {
+    display: block;
+}
+.options .opv{
+    width: auto;
+}
   }
   @media (max-width: 991px) and (min-width: 767px) {
     .details {
@@ -929,6 +939,7 @@ input {
       margin-top: 0;
     }
   }
+
 }
 
 .row-sb-left-padding {
@@ -1123,7 +1134,8 @@ input {
     width: auto;
   }
   .options .opv {
-    font-size: 2.6vw;
+    font-size: 2.5vw;
+    width: auto;
   }
   .product-name a {
     width: 100%;

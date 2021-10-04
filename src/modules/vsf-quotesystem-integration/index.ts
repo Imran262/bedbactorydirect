@@ -13,6 +13,8 @@ const quoteSystemModuleStore = {
   },
   actions: {
     async quoteSystemFunction({}, systemData) {
+      console.log("74125 URL for fetch qoutes is ",QUOTE_URL,"\n\n\n Sysytem data is ",systemData);
+      
       try {
         console.log("URl is ",QUOTE_URL,JSON.stringify(systemData));
         
@@ -28,18 +30,20 @@ const quoteSystemModuleStore = {
             body: JSON.stringify(systemData)
           }
         );
-        console.log("\nquote system", systemData , "\nresponse",response,"\njson ",response.json());
-        
+        console.log("74125 Data received is Original",response);
         const jsonRes = await response.json();
+        console.log("74125 Data received is Json",jsonRes);
+        
         if (jsonRes.code === 200) {
           return jsonRes.result;
         }
         console.log(jsonRes);
       } catch (error) {
-        console.log(error);
+        console.log("74125 Error occured while Fteching Quotes ",error);
       }
     },
     async quoteSystemAddtoCart({}, systemData) {
+      console.log("74125 URL for qoutes add to cart is ",QUOTE_URL_CART,"\n\n\n Sysytem data is ",systemData);
       try {
         const response = await fetch(
           `${QUOTE_URL_CART}`,
@@ -53,13 +57,15 @@ const quoteSystemModuleStore = {
             body: JSON.stringify(systemData)
           }
         );
+        console.log("74125 Data received Qoute add to cart in Original",response);
         const jsonRes = await response.json();
+        console.log("74125 Data received Qoute add to cart in Json",jsonRes);
         if (jsonRes.code === 200) {
           return jsonRes.result;
         }
         console.log(jsonRes);
       } catch (error) {
-        console.log(error);
+        console.log("74125 Error occured while Adding to cart Quotes ",error);
       }
     }
   },

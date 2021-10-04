@@ -49,10 +49,10 @@
                     :value="opval.option_type_id"
                     :key="key"
                   >
-                    {{ opval.title }}
+                    {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
                   </option>
                   <option v-else :value="opval.option_type_id" :key="key">
-                    {{ opval.title }}
+                    {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
                   </option>
                 </template>
               </select>
@@ -315,7 +315,8 @@ export default {
       // console.log("1122 value", value);
       this.inputValues["customOption_" + option.option_id] =
         value.option_type_id;
-      this.colorName = value.title;
+      // this.colorName = value.title  + value.price ? ' | £' + value.price.toFixed(2) :' ';
+      this.colorName = value.title + ' | £' + value.price.toFixed(2);
       data1 = this.$refs.colorImage;
       this.imageSrc = value.option_type_id;
     },

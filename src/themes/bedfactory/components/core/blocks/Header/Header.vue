@@ -103,9 +103,9 @@
                   class="cl-tertiary links"
                   ><img src="/assets/icons/user.svg" alt="checkout user"
               class="checkout-user"  /></a>
-                <span v-else>{{
-                  $t("You are logged in as {firstname}", currentUser)
-                }}</span>
+                <span v-else class="log-in-detail">
+                  You are logged in as {{currentUser.firstname}}
+                  </span>
               </div>
             </div>
           </div>
@@ -300,6 +300,8 @@ export default {
       this.rightborder = border;
     },
     gotoAccount() {
+      // document.body.style.overflow = "hidden";
+      console.log("In Go to Account Function");
       this.$bus.$emit("modal-toggle", "modal-signup");
     },
     updateScroll() {
@@ -321,6 +323,10 @@ export default {
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
+span.log-in-detail {
+    color: #071a44 !important;
+    font-weight: bold;
+}
 .header-icon {
   margin-left: 50px;
 }

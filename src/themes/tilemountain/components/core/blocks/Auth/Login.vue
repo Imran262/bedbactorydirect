@@ -218,12 +218,16 @@ export default {
       }
     },
     close(e) {
+      console.log("14589 Log in function Close" ,document.getElementsByTagName("BODY")[0],document.getElementsByTagName("BODY")[0].style);
+      document.getElementsByTagName("BODY")[0].style.overflow ="scroll"
+      console.log("14589 Log in function Close After" ,document.getElementsByTagName("BODY")[0],document.getElementsByTagName("BODY")[0].style);
       if (e) localStorage.removeItem("redirect");
       this.$bus.$emit("modal-hide", "modal-signup");
     },
     login() {
       if (this.$v.$invalid) {
         this.$v.$touch();
+        console.log("78945676 notificationData fix validation errors");
         this.$store.dispatch("notification/spawnNotification", {
           type: "error",
           message: this.$t("Please fix the validation errors"),
@@ -336,8 +340,6 @@ $white: color(white);
   }
   @media (max-width: 1199px) and(min-width: 992px) {
     .modal-content {
-      // padding: 13px;
-      // max-width: 440px;
       .rem-group {
         padding-left: 8px;
       }
@@ -350,13 +352,7 @@ $white: color(white);
     }
   }
   @media (max-width: 991px) and (min-width: 768px) {
-    .modal-header {
-      // font-size: 20px;
-      // width: 86.2%;
-    }
     .modal-content {
-      // padding: 8px;
-      // max-width: 341px;
       .rem-group {
         padding-left: 11px;
       }
@@ -599,8 +595,8 @@ $white: color(white);
       height: 15px;
     }
     input:checked + label:after {
-      top: 6px;
-      left: 2px;
+      top: 8px;
+      left: 3px;
       width: 10px;
       height: 4px;
     }

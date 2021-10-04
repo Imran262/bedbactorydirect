@@ -13,9 +13,9 @@
             </h3>
           </div>
           <div class="col-xs-6 col-md-6 promo-code">
-            <span @click="addDiscountCoupon"
+            <!-- <span @click="addDiscountCoupon"
               >Have a promotional / gift code?</span
-            >
+            > -->
           </div>
         </div>
       </div>
@@ -292,7 +292,7 @@
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12"
-            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express'"
+            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express' || method.code==='financegateway'"
           >
             <label class="radioStyled sb-payment-method-label">
               {{ method.title ? method.title : method.name }}
@@ -372,6 +372,16 @@
                     <img
                       src="/assets/footer/footer-paypal-icon.png"
                       alt="paypal"
+                    />
+                  </li>
+                </ul>
+              </div>
+              <div class="bank-card" v-if="method.code === 'financegateway'">
+                <ul>
+                  <li>
+                    <img
+                      src="/assets/brandLogo/V12/Vector.svg"
+                      alt="v12 finance"
                     />
                   </li>
                 </ul>
@@ -688,6 +698,8 @@ export default {
             proceedbtnTitle = 'Check / Money order'
           } else if(single.value === 'free') {
             proceedbtnTitle = 'Order Sample'
+          } else if(single.value === 'financegateway') {
+            proceedbtnTitle = 'Apply For Finance'
           } else {
             proceedbtnTitle = 'Payment'
           }
@@ -1304,8 +1316,8 @@ span.postcodelookup-required {
 }
 @media (max-width: 374px) {
   .payment .payment-heading {
-    flex-basis: 38% !important;
-    max-width: 38% !important;
+    flex-basis: 63% !important;
+    max-width: 63% !important;
   }
   .payment .promo-code {
     flex-basis: 62% !important;
