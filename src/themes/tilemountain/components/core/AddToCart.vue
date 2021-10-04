@@ -8,7 +8,7 @@
       :disabled="!isProductDisabled"
       data-testid="addToCart"
     >
-      {{ $t("Add to cart") }}
+      {{ $t("Add to Basket") }}
     </button-full>
     <popup-cart
       :productOptions="productOptions"
