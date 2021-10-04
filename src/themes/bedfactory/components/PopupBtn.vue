@@ -5,7 +5,7 @@
       :disabled="isProductDisabled"
       data-testid="addToCart"
       class="carousel-addtocart-btn"
-      >{{ $t("Add to basket") }}</button-full
+      >{{ $t("Add to Basket") }}</button-full
     >
   </div>
 </template>

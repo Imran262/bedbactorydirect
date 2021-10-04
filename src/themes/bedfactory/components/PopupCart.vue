@@ -134,17 +134,17 @@
             </div>
             <div class="col-md-7">
               <div class="footer-btns-links">
-                <button class="shopping-button" @click="popupclose">
-                  Continue Shopping
-                </button>
                 <router-link
                   :to="localizedRoute('/cart')"
                   class="no-underline cl-secondary link btn-checkout"
                 >
                   <button class="Modalbutton" @click="popupclose">
-                    PROCEED to checkout
+                    PROCEED to Basket
                   </button>
                 </router-link>
+                <button class="shopping-button" @click="popupclose">
+                  Continue Shopping
+                </button>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@
             class="no-underline cl-secondary link btn-checkout"
           >
             <button class="btn-checkout" @click="popupclose">
-              PROCEED to checkout
+              PROCEED to Basket
             </button>
           </router-link>
         </div>
@@ -1138,7 +1138,7 @@ h4.essentials-prod-heading.mobile-essentials-prod-heading {
   .bottom-row-popup.mobile-bottom-row-popup button.btn-shopping {
     margin: 6px 0px 55px 0px;
     background: #57c9c0 !important;
-    border: 2px solid #57c9c0!important;
+    border: 2px solid #57c9c0 !important;
   }
   h4.essentials-prod-heading.mobile-essentials-prod-heading {
     display: block;
@@ -1194,7 +1194,7 @@ h4.essentials-prod-heading.mobile-essentials-prod-heading {
   .mobile-bottom-row-popup .footer-btns-links {
     display: flex !important;
     justify-content: space-around !important;
-}
+  }
 }
 @media (min-width: 767px) and (max-width: 1050px) {
   .footer-btns-links {
