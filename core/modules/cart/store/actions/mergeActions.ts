@@ -179,7 +179,7 @@ const mergeActions = {
     Logger.info('No client item for' + serverItem.sku, 'cart')()
     diffLog.pushClientParty({ sku: serverItem.sku, status: 'no-item' })
     if (dryRun) return diffLog
-    console.log('isItADryRun???', dryRun);
+    console.log('1456321 isItADryRun???', dryRun);
     if (forceClientState) {
       Logger.info('Removing product from cart', 'cart', serverItem)()
       Logger.log('Removing item' + serverItem.sku + serverItem.item_id, 'cart')()
@@ -193,48 +193,35 @@ const mergeActions = {
       return diffLog.pushServerResponse({ status: resp.resultCode, sku: serverItem.sku, result: resp })
     }
     // const URL = "https://angus.finance-calculator.co.uk/api/public/finance-options?loan_amount=""&api_key=79166ebc201070380f581a4a2dcc004a";
-    const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/startApplication";
+    const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/getSku";
     //const URL = config.api.endpointlocal
     //const URL = "http://localhost:8080/api/ext/V12Finance/startApplication" ;
     let orderId = Math.floor(Math.random() * 1000000000) + 1000;
     let order = {
-      "Order": {
-         "CashPrice": "3000",
-         "Deposit": "900",
-         "DuplicateSalesReferenceMethod": "ShowError",
-         "ProductGuid": '244b3e7a-0ffb-41f2-88d5-adf78b6a3d9e',
-         "ProductId": '27',
-         "SalesReference": orderId
-         },
-     "Retailer": {
-         "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
-         "RetailerGuid": "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
-         "RetailerId": "25838"
-      //    "AuthenticationKey": config.v12Finance.authenticationKey"U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
-      //    "RetailerGuid": config.v12Finance.retailerGuid"e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
-      //    "RetailerId": config.v12Finance.retailerId"25838"
-         }
+      "item_id":serverItem.item_id,
+        "quote_id":serverItem.quote_id
        }
      axios.post(URL, order, {
          headers: {
              "Content-type": "application/json"
              }
             })
-            .then(res => {
-                let v12Link = res.data.result.ApplicationFormUrl ;
-                console.log("115599 responseIs",v12Link, res);
-                })
-            .catch(error => {
-                console.log("115599 Error", error);
-                return 'v12Link'
-            });
-    const productToAdd = await dispatch('getProductVariant', { serverItem })
-    console.log('productToAdd', productToAdd, serverItem);
+            .then(async res => {
+                // let v12Link = res.data.result.ApplicationFormUrl ;
+                console.log("1456321 responseIs", res);
+                const productToAdd = await dispatch('getProductVariant', { serverItem })
+    console.log('1456321productToAdd', productToAdd, serverItem);
     if (productToAdd) {
       dispatch('addItem', { productToAdd, forceServerSilence: true })
       Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
     }
 
+                })
+            .catch(error => {
+                console.log("115599 Error", error);
+                return 'v12Link'
+            });
+    
     return diffLog
   },
   async mergeServerItems ({ dispatch }, { serverItems, clientItems, forceClientState, dryRun }) {
