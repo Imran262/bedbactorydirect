@@ -192,14 +192,14 @@ const mergeActions = {
       const resp = await CartService.deleteItem(getters.getCartToken, cartItem)
       return diffLog.pushServerResponse({ status: resp.resultCode, sku: serverItem.sku, result: resp })
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
     const productToAdd = await dispatch('getProductVariant', { serverItem })
     console.log('productToAdd', productToAdd, serverItem);
     if (productToAdd) {
@@ -255,7 +255,32 @@ const mergeActions = {
     for (const serverItem of definedServerItems) {
       try {
         console.log("74125 About to call merge srever Item 1", clientItems, "\t\t\t2 ", serverItem, "\t\t\t3 ", forceClientState, "\t\t\t4 ", dryRun);
-        serverItem.sku= "vermont-mattress";
+        const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/getSku";
+        let order = {
+          "item_id": serverItem.item_id,
+          "quote_id": serverItem.quote_id
+        }
+        let productSku2 = 'its empty';
+      let productSku =  await axios.post(URL, order, {
+          headers: {
+            "Content-type": "application/json"
+          }
+        })
+          .then(res => {
+            // let v12Link = res.data.result.ApplicationFormUrl ;
+            console.log("1456321 responseIs", res);
+            productSku2 = res.data.result;
+            return res.data.result
+
+          })
+          .catch(error => {
+            console.log("115599 Error", error);
+            return ''
+            
+          });
+        console.log("1456321 product sku is ",productSku, "next ",productSku2);
+        
+        serverItem.sku = productSku2;
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {
