@@ -206,11 +206,11 @@ const mergeActions = {
         "Content-type": "application/json"
       }
     })
-      .then(async res => {
+      .then( res => {
         // let v12Link = res.data.result.ApplicationFormUrl ;
         console.log("1456321 responseIs", res);
         serverItem.sku = res.data.result
-        const productToAdd = await dispatch('getProductVariant', { serverItem })
+        const productToAdd = dispatch('getProductVariant', { serverItem })
         console.log('1456321productToAdd', productToAdd, serverItem);
         if (productToAdd) {
           dispatch('addItem', { productToAdd, forceServerSilence: true })
