@@ -268,7 +268,7 @@ const mergeActions = {
         })
           .then(res => {
             // let v12Link = res.data.result.ApplicationFormUrl ;
-            console.log("1456321 14521 ", res);
+            console.log("1456321 14521 ",serverItem.name, res);
             productSku2 = res.data.result[0].childsku;
             return res.data.result[0].childsku
 
