@@ -260,7 +260,10 @@ const mergeActions = {
           "item_id": serverItem.item_id,
           "quote_id": serverItem.quote_id
         }
-        let productSku2 = 'its empty';
+        let productSku2 = {
+          childSku:'',
+          sku:''
+        };
       let productSku =  await axios.post(URL, order, {
           headers: {
             "Content-type": "application/json"
@@ -269,8 +272,8 @@ const mergeActions = {
           .then(res => {
             // let v12Link = res.data.result.ApplicationFormUrl ;
             console.log("1456321 14521 ",serverItem.name, res);
-            productSku2 = res.data.result[0].childsku;
-            return res.data.result[0].childsku
+            productSku2 = res.data.result[0];
+            return res.data.result[0];
 
           })
           .catch(error => {
@@ -278,9 +281,12 @@ const mergeActions = {
             return ''
             
           });
-        console.log("1456321 product sku is ",productSku, "next ",productSku2);
-        
-        serverItem.sku = productSku2;
+        console.log("1456321 product sku is ",productSku2.childSku !== productSku2.sku,productSku2.childSku , productSku2.sku,productSku, "next ",productSku2);
+        if (productSku2.childSku !== productSku2.sku){
+          console.log("Its a configurable product");
+          
+        }
+        serverItem.sku = productSku2.childSku;
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {
