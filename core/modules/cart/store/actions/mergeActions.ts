@@ -192,38 +192,61 @@ const mergeActions = {
       const resp = await CartService.deleteItem(getters.getCartToken, cartItem)
       return diffLog.pushServerResponse({ status: resp.resultCode, sku: serverItem.sku, result: resp })
     }
-    // const URL = "https://angus.finance-calculator.co.uk/api/public/finance-options?loan_amount=""&api_key=79166ebc201070380f581a4a2dcc004a";
-    const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/getSku";
-    //const URL = config.api.endpointlocal
-    //const URL = "http://localhost:8080/api/ext/V12Finance/startApplication" ;
-    let orderId = Math.floor(Math.random() * 1000000000) + 1000;
-    let order = {
-      "item_id": serverItem.item_id,
-      "quote_id": serverItem.quote_id
+    
+    
+    
+    
+    
+    
+    
+    
+    const productToAdd = await dispatch('getProductVariant', { serverItem })
+    console.log('productToAdd', productToAdd, serverItem);
+    if (productToAdd) {
+      dispatch('addItem', { productToAdd, forceServerSilence: true })
+      Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
     }
-    axios.post(URL, order, {
-      headers: {
-        "Content-type": "application/json"
-      }
-    })
-      .then( res => {
-        // let v12Link = res.data.result.ApplicationFormUrl ;
-        console.log("1456321 responseIs", res);
-        serverItem.sku = res.data.result
-        const productToAdd = dispatch('getProductVariant', { serverItem })
-        console.log('1456321productToAdd', productToAdd, serverItem);
-        if (productToAdd) {
-          dispatch('addItem', { productToAdd, forceServerSilence: true })
-          Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
-        }
-        return diffLog
 
-      })
-      .catch(error => {
-        console.log("115599 Error", error);
-        // return 'v12Link'
-        return diffLog
-      });
+
+
+
+
+
+
+
+
+
+
+
+
+    // const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/getSku";
+    // let order = {
+    //   "item_id": serverItem.item_id,
+    //   "quote_id": serverItem.quote_id
+    // }
+    // axios.post(URL, order, {
+    //   headers: {
+    //     "Content-type": "application/json"
+    //   }
+    // })
+    //   .then( res => {
+    //     // let v12Link = res.data.result.ApplicationFormUrl ;
+    //     console.log("1456321 responseIs", res);
+    //     serverItem.sku = res.data.result
+    //     const productToAdd = dispatch('getProductVariant', { serverItem })
+    //     console.log('1456321productToAdd', productToAdd, serverItem);
+    //     if (productToAdd) {
+    //       dispatch('addItem', { productToAdd, forceServerSilence: true })
+    //       Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
+    //     }
+    //     return diffLog
+
+    //   })
+    //   .catch(error => {
+    //     console.log("115599 Error", error);
+    //     // return 'v12Link'
+    //     return diffLog
+    //   });
   },
   async mergeServerItems({ dispatch }, { serverItems, clientItems, forceClientState, dryRun }) {
     const diffLog = createDiffLog()
@@ -232,6 +255,7 @@ const mergeActions = {
     for (const serverItem of definedServerItems) {
       try {
         console.log("74125 About to call merge srever Item 1", clientItems, "\t\t\t2 ", serverItem, "\t\t\t3 ", forceClientState, "\t\t\t4 ", dryRun);
+        serverItem.sku= "vermont-mattress";
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {
