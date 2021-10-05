@@ -218,7 +218,8 @@ const mergeActions = {
           productToAdd.configurable_options.forEach(option => {
             console.log('741654 current option is ',option.attribute_code);
             productToAdd[option.attribute_code] = child[option.attribute_code]
-            console.log('741654 product to add becomes ',productToAdd);
+            productToAdd.sku = serverItem.childSku
+            console.log('741654 product to add becomes ',productToAdd[option.attribute_code],productToAdd.sku,productToAdd);
           });
         }
       });
