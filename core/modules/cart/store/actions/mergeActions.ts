@@ -202,6 +202,29 @@ const mergeActions = {
 
     const productToAdd = await dispatch('getProductVariant', { serverItem })
     console.log('productToAdd', productToAdd, serverItem);
+    if (serverItem.childSku)
+    {
+      console.log("741654 this is a configurable product", serverItem.childSku);
+      let configurableOptions = [];
+      productToAdd.configurable_options.forEach(option => {
+        configurableOptions.push(option.attribute_code)
+      });
+      console.log("741654 Configurable options available are",configurableOptions);
+      productToAdd.configurable_children.forEach(child => {
+        console.log("741654 current child sku is ",child.sku , serverItem.childSku , child.sku ===  serverItem.childSku);
+        if (child.sku ===  serverItem.childSku )
+        {
+          console.log("741654 Child found with sku " ,child.sku , serverItem.childSku ); 
+          productToAdd.configurable_options.forEach(option => {
+            console.log('741654 current option is ',option.attribute_code);
+            productToAdd[option.attribute_code] = child[option.attribute_code]
+            console.log('741654 product to add becomes ',productToAdd);
+          });
+        }
+      });
+      
+      
+    }
     if (productToAdd) {
       dispatch('addItem', { productToAdd, forceServerSilence: true })
       Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
