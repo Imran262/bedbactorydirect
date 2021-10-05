@@ -283,10 +283,18 @@ const mergeActions = {
           });
         console.log("1456321 product sku is ",productSku2.childsku !== productSku2.sku,productSku2.childsku , productSku2.sku,productSku, "next ",productSku2);
         if (productSku2.childsku !== productSku2.sku){
-          console.log("Its a configurable product");
+          console.log("741654 Its a configurable product");
+          serverItem['childSku'] = productSku2.childsku
+          serverItem.sku = productSku2.sku;
+          console.log("Now Server Item Becomes",serverItem );
+          
           
         }
-        serverItem.sku = productSku2.childsku;
+        else{
+          console.log("741654 Its a simple product");
+          serverItem.sku = productSku2.childsku;
+       
+        }
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {
