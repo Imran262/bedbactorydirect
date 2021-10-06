@@ -216,10 +216,10 @@ const mergeActions = {
         {
           console.log("741654 Child found with sku " ,child.sku , serverItem.childSku ); 
           productToAdd.configurable_options.forEach(option => {
-            console.log('741654 current option is ',option.attribute_code);
+            console.log('741654 current option is ',typeof option.attribute_code,option.attribute_code,typeof productToAdd[option.attribute_code],typeof child[option.attribute_code]);
             productToAdd[option.attribute_code] = child[option.attribute_code]
             productToAdd.sku = serverItem.childSku
-            console.log('741654 product to add becomes ',productToAdd[option.attribute_code],productToAdd.sku,productToAdd);
+            console.log('741654 product to add becomes ',option.attribute_code,productToAdd[option.attribute_code],child[option.attribute_code],productToAdd.sku,productToAdd);
           });
         }
       });
