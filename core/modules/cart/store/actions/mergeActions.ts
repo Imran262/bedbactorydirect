@@ -219,6 +219,89 @@ const mergeActions = {
             console.log('741654 current option is ',typeof option.attribute_code,option.attribute_code,typeof productToAdd[option.attribute_code],typeof child[option.attribute_code], productToAdd[option.attribute_code],child[option.attribute_code]);
             productToAdd[option.attribute_code] = child[option.attribute_code]
             productToAdd.sku = serverItem.childSku
+            
+            productToAdd.finalPrice = child.finalPrice
+
+            productToAdd.finalPriceInclTax = child.finalPriceInclTax
+            
+            productToAdd.finalPriceTax = child.finalPriceTax
+            
+            productToAdd.final_price = child.final_price
+            
+            productToAdd.final_price_incl_tax = child.final_price_incl_tax
+
+            productToAdd.final_price_tax = child.final_price_tax
+
+
+
+            productToAdd.originalPrice = child.originalPrice
+            
+            productToAdd.originalPriceInclTax = child.originalPriceInclTax
+            
+            productToAdd.originalPriceTax = child.originalPriceTax
+            
+            productToAdd.original_final_price = child.original_final_price
+
+            productToAdd.original_price = child.original_price
+
+            productToAdd.original_price_incl_tax = child.original_price_incl_tax
+            
+            productToAdd.original_price_tax = child.original_price_tax
+            
+            productToAdd.original_special_price = child.original_special_price
+            
+            productToAdd.price = child.price
+
+            productToAdd.priceInclTax = child.priceInclTax
+
+            productToAdd.priceTax = child.priceTax
+            
+            productToAdd.price_incl_tax = child.price_incl_tax
+            
+            productToAdd.price_tax = child.price_tax
+            
+            productToAdd.regular_price = child.regular_price
+
+
+
+            productToAdd.specialPrice = child.specialPrice
+
+            productToAdd.specialPriceInclTax = child.specialPriceInclTax
+            
+            productToAdd.specialPriceTax = child.specialPriceTax
+            
+            productToAdd.special_price = child.special_price
+
+            productToAdd.special_price_incl_tax = child.special_price_incl_tax
+            
+            productToAdd.special_price_tax = child.special_price_tax
+            
+            productToAdd.stock = child.stock
+            
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+            
+            // productToAdd.sku = child.childSku
+
+            
+            productToAdd.id = child.id
+            
+            
+            
+
             console.log('741654 product to add becomes ',option.attribute_code,productToAdd[option.attribute_code],child[option.attribute_code],productToAdd.sku,productToAdd);
           });
         }
