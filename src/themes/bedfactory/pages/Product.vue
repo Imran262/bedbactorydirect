@@ -4,6 +4,33 @@
     itemtype="http://schema.org/Product"
     class="product-page-detail"
   >
+  <!-- here we are in 2  -->
+ <div >
+ <!-- get reviews {{getReviews}} -->
+ <meta itemprop="image" :content="getSchemaImageUrl" />
+ <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
+    <!-- Here we are {{reviewData.reviews[0]}} -->
+    <div itemprop="review" itemscope itemtype="https://schema.org/Review"> 
+      
+      </div>
+    <!-- {{reviewData.reviews[0]}} here we loaded <area shape="" coords="" href="" alt=""> -->
+      <meta itemprop="datePublished" :content="formatDate(reviewData.reviews[0].created_at)" />
+      <meta itemprop="description" :content="reviewData.reviews[0].content" />
+      <meta itemprop="name" :content="reviewData.reviews[0].title" />
+      <div
+        itemprop="reviewRating"
+        itemscope
+        itemtype="https://schema.org/Rating"
+      >
+        <meta itemprop="ratingValue" :content="reviewData.reviews[0].score" />
+        <meta itemprop="bestRating" content="5" />
+      </div>
+      <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" :content="reviewData.reviews[0].user.display_name" />
+      </div>
+ </div>
+ 
+    </div>
     <section>
       <div class="container">
         <div class="row">
@@ -168,7 +195,7 @@
                 />
                 <meta itemprop="mpn" :content="getCurrentProduct.sku" />
                 <meta itemprop="url" :content="getProductUrl" />
-                <meta itemprop="aggregateRating" content />
+                <meta itemprop="aggregateRating" :content="reviewData.bottomline? reviewData.bottomline.average_score:'0.0'" />
                 <meta itemprop="brand" :content="`Bed Factory Direct`" />
                 <div
                   itemprop="manufacturer"
@@ -937,6 +964,7 @@ import { getThumbnailPath } from "@vue-storefront/core/helpers";
 import ReviewItemImageModel from "theme/components/core/blocks/Reviews/ReviewItemImageModel";
 import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker";
 import ProductPrice from "src/themes/bedfactory/components/core/ProductPrice.vue";
+import dateFormat from 'dateformat';
 //theme/components/core/blocks/ColorPicker/ColorPicker.vue
 export default {
   name: "ProductPage",
@@ -1158,10 +1186,10 @@ export default {
     getSchemaImageUrl() {
       return config.schemaUrl.baseUrl
         ? config.schemaUrl.baseUrl +
-            "img/600/744/resize/catalog/product" +
+            "img/600/744/resize" +
             this.getCurrentProduct.image
         : config.baseUrl.live +
-            "img/600/744/resize/catalog/product" +
+            "img/600/744/resize/" +
             this.getCurrentProduct.image;
     },
     getVideoObjJsonLd() {
@@ -1613,6 +1641,11 @@ export default {
     },
   },
   methods: {
+    formatDate (date) {
+      let formattedDate = date.replace(' ', 'T');
+      let d = new Date(formattedDate);
+      return dateFormat(d, "yyyy-mm-dd")
+    },
     checkRoute() {
       console.log(
         "11226677 Route changes in check route function",

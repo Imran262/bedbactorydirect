@@ -199,7 +199,7 @@ export default {
       if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
         console.log("741258 in if")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
-      } 
+      }
       else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
         console.log("741258 in if else")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
@@ -230,7 +230,7 @@ export default {
     },
     getFinalItems () {
       const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
-      
+
       const values = _.values(merged)
       console.log("663322 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
       const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
@@ -245,7 +245,7 @@ export default {
             return { ...acc, [ skuKey ]: [ current ] }
           }
           return { ...acc, [ skuKey ]: [ ...acc[ skuKey ], current ] }
-        }, {}) 
+        }, {})
         console.log("663322 Reduced products ",reducedProducts);
         for (const item of _.values(reducedProducts)) {
           const reducedItem = item.reduce((acc, current) => {
@@ -347,7 +347,7 @@ export default {
         this.item.items.push(prod)
       })
       // this.addBloom()
-    
+
   },
   beforeDestroy () {
     // this.removeLastOrderItem()

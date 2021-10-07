@@ -69,6 +69,11 @@ export const CheckoutcomPayments: StorefrontModule = function ({ app, store, rou
                 .then(data => {
                   console.log('data obj', data)
                   if (data.result.success && data.result.redirect_url) {
+                    localStorage.setItem(
+                      "plateFormTotals",
+                      JSON.stringify({
+                        platformTotals: store.state.cart.platformTotals
+                      }))
                     localStorage.setItem('checkout_3dSecure_orderId', data.result.order_id)
                     window.location.replace(data.result.redirect_url);
                   } else if (data.result.success) {

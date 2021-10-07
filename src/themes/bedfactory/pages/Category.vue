@@ -5,7 +5,7 @@
         <!-- <breadcrumbs  class="breadcrumb"/> -->
         <div class="category-info">
           <div class="row middle-sm">
-            <h1 class="col-sm-12 category-title mb10">
+            <h1 class="col-sm-12 category-title mb10" v-if="$device.isMobile">
               {{ getCurrentCategory.name }}
             </h1>
             <!-- <div class="sorting col-sm-2 align-right mt50"></div> -->
@@ -85,7 +85,7 @@
           :to="localizedRoute(product_link ? '/' + product_link : '')"
         >
           <div class="firstcol title-box sb-category-tile-text">
-            <div class="sb-left-text">
+            <div class="sb-left-text" v-if="!$device.isMobile">
               <h1>{{ getCurrentCategory.name }}</h1>
               <p v-html="getCurrentCategory.banner_description" />
             </div>
@@ -94,7 +94,7 @@
           <div class="secondcol img-box">
             <!-- https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg -->
             <img
-              :src="backEnd + getCurrentCategory.banner_image
+              :src="(getCurrentCategory.banner_image ? (backEnd +  getCurrentCategory.banner_image):'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg')
               "
               :alt="getCurrentCategory.name"
               class="headerimg"
@@ -458,7 +458,7 @@ const composeInitialPageState = async (store, route, forceLoad = false) => {
     if (isServer) await breadCrumbsLoader
     catalogHooksExecutors.categoryPageVisited(currentCategory)
   } catch (e) {
-    console.error('Problem with setting Category initial data!', e)
+    console.error('Problem with setting Category initial data! in bfd', e)
   }
 }
 
