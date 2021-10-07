@@ -269,7 +269,7 @@ button {
     width: 100%;
     padding-bottom: 9px;
     padding-top: 9px;
-    font-size: 10.59px;
+    font-size: 14px;
     color: #434343;
     font-family: 'Oblik';
     line-height: 1.5;
@@ -293,7 +293,7 @@ button {
       // padding-top: 9px;
       //line-height: 1.5;
       padding: 0;
-      font-size: 10.59px;
+      font-size: 15px;
       color: #434343;
       font-family: 'Oblik';
       width: 50%;
@@ -343,7 +343,7 @@ button {
 }
 #backBtnRef {
   padding-left: 3.5px;
-  font-size: 10.59px;
+  font-size: 14px;
   font-family: 'Oblik';
   color: #fff;
   font-weight: bold;

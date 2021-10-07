@@ -237,9 +237,9 @@ export default {
 }
 
 .subcategory-item a {
-  padding-bottom: 9px;
-  padding-top: 9px;
-  font-size: 10.59px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  font-size: 11.4px;
   color: #434343;
   font-family: "Oblik";
   line-height: 1.5;
