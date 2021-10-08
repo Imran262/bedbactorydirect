@@ -69,7 +69,7 @@
                 :class="setComfortColor()"
                 v-if="comfort.id == product.comfort_grade[0]"
               >
-                {{ comfort.label }}
+                {{ comfort.label.split('-')[1] }}
               </button>
             </div>
           </div>
