@@ -239,6 +239,11 @@ export default {
       this.$forceUpdate()
       this.$bus.$emit('notification-progress-stop')
       this.$router.push(this.localizedRoute('/cart'))
+      await this.$store.dispatch("cart/sync", {
+        forceClientState: false,
+        forceSync: true,
+      })
+      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
     },
     async quoteAddToCart (quoteId) {
       const quoteItemData = await CartService.getItems()
