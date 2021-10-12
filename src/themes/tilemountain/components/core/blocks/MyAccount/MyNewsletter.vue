@@ -92,7 +92,7 @@ export default {
 }
 .main_pro1{
      border: 1px solid #b7b4b4;
-    background-color: #00a897;
+    background-color: #071a44;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     margin-top: -9px;
@@ -104,12 +104,23 @@ h3{
 }
 
 .bg-cl-mine-shaft {
-    background-color: #29275b!important;
+    background-color:  #071A44 !important;
+    font-family: Arial;
+    font-weight: bold;
+    border-radius: 4px;
 }
 h1, h2, h3, h4, h5 {
    font-family: oblik !important;
 }
 .cl-tertiary {
     color: #fff!important;
+}
+.main_pro h4 {
+    color: #071A44;
+}
+@media (max-width: 400px){
+.main_pro button {
+    font-size: 14px;
+}
 }
 </style>
