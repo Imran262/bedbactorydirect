@@ -1,6 +1,16 @@
 <template>
   <div class="addtocart-popup">
+   <!-- {{outofStock}}
+   {{typeof outofStock}} {{outofStock === 0 || outofStock === '0'}} -->
     <button-full
+    v-if="outofStock === 0 || outofStock === '0'"
+      :disabled="outofStock === 0 || outofStock === '0'"
+      data-testid="addToCart"
+    >
+      {{ $t("Out Of Stock") }}
+    </button-full>
+    <button-full 
+    v-else
       @click.native="
         addToCart(product);
         showPopUp(product);
@@ -47,6 +57,10 @@ export default {
     };
   },
   props: {
+    outofStock:{
+      required: true,
+      type: [String,Number],
+    },
     productCalculatedPrice: {
       required: true,
       type: Object,

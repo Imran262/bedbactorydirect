@@ -654,33 +654,30 @@
                     @Modal="modalshow"
                     :sqm-val-updated="'0'"
                   /> -->
-                    <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
-                    <template
-                      v-if="
-                        getCurrentProduct.custom_options &&
-                        getCurrentProduct.custom_options.length > 0
-                      "
-                    >
-                      <add-to-cart
-                        :product-options="sendProductCustomOptions"
-                        :product="getCurrentProduct"
-                        :custom-options="getCurrentProductCustomOptionsRedo"
-                        class="col-xs-12 col-sm-4 col-md-6 float-right"
-                        :product-calculated-price="calculatedProductPrice"
-                        :disableProduct="false"
-                        :disableProductFlag="false"
-                      />
-                    </template>
-                    <template v-else>
-                      <add-to-cart
-                        :product-options="sendProductCustomOptions"
-                        :product="getCurrentProduct"
-                        :custom-options="getCurrentProductCustomOptionsRedo"
-                        class="col-xs-12 col-sm-4 col-md-6 float-right"
-                        :product-calculated-price="calculatedProductPrice"
-                        :disableProduct="cartFlag"
-                        :disableProductFlag="cartFlag"
-                      />
+                  <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
+                  <template v-if="getCurrentProduct.custom_options && getCurrentProduct.custom_options.length>0" >
+                    <add-to-cart
+                      :product-options="sendProductCustomOptions"
+                      :product="getCurrentProduct"
+                      :custom-options="getCurrentProductCustomOptionsRedo"
+                      class="col-xs-12 col-sm-4 col-md-6 float-right"
+                      :product-calculated-price="calculatedProductPrice"
+                      :disableProduct="false"
+                      :disableProductFlag="false"
+                      :outofStock="getCurrentProduct.stock.stock_status? getCurrentProduct.stock.stock_status : getCurrentProduct.stock.stock_status === 0 ? 0:1"
+                    />
+                  </template>
+                   <template v-else>
+                     <add-to-cart
+                      :product-options="sendProductCustomOptions"
+                      :product="getCurrentProduct"
+                      :custom-options="getCurrentProductCustomOptionsRedo"
+                      class="col-xs-12 col-sm-4 col-md-6 float-right"
+                      :product-calculated-price="calculatedProductPrice"
+                      :disableProduct="cartFlag"
+                      :disableProductFlag="cartFlag"
+                      :outofStock="getCurrentProduct.stock.stock_status? getCurrentProduct.stock.stock_status : getCurrentProduct.stock.stock_status === 0 ? 0:1"
+                    />
                     </template>
 
                     <!-- <add-to-cart
@@ -5188,6 +5185,7 @@ h4.variants-label.basin-head {
 .basin_size.colour {
   width: 95%;
 }
+<<<<<<< HEAD
 button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
     background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
     background-size: 18px !important;
@@ -5202,3 +5200,6 @@ button.VueCarousel-navigation-button.VueCarousel-navigation-next {
 
 </style>
 
+=======
+</style>
+>>>>>>> 54b3138796ee14727a13770d38e824496c7d690e
