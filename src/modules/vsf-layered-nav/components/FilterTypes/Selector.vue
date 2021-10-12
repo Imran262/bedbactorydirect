@@ -10,7 +10,7 @@
         class="rounded-button"
         :class="setComfortColor(variant)"
       >
-        {{ variant.label }}
+        {{ variant.label.split('-')[1] }} 
       </button>
       <div v-else>
         {{ variant.label }}
