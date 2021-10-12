@@ -280,7 +280,7 @@ export default {
   text-align: center;
   font-size: 28px;
   font-family: oblik;
-  background-color: #00a897;
+  background-color: #071a44;
   color: #fff;
   padding: 8px;
   border-top-right-radius: 15px;
