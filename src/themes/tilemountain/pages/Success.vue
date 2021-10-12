@@ -268,8 +268,14 @@ export default {
         console.log("663322 After ",finalItems);
       }
       console.log("663322  Final Items are",finalItems);
+      finalItems.forEach((item,index)=>{
+        if(item.type_id){
+          console.log("663322 item has type id ",item.type_id);
+        }
+      // console.log("663322 item is ",item.type_id,( item.type_id !== 'null' || item.type_id !== 'undefined' ), item.type_id !== 'null' , item.type_id !== 'undefined'  );
+      })
       finalItems = finalItems.filter(function(item){
-        return item.price >0
+        return item.price >0 && item.type_id
       })
       console.log("663322  After Final Items are",finalItems);
       return finalItems

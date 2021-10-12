@@ -134,7 +134,7 @@
             </div>
             <div class="col-md-7">
               <div class="footer-btns-links">
-                <router-link
+                 <router-link
                   :to="localizedRoute('/cart')"
                   class="no-underline cl-secondary link btn-checkout"
                 >
@@ -145,6 +145,11 @@
                 <button class="shopping-button" @click="popupclose">
                   Continue Shopping
                 </button>
+<<<<<<< HEAD
+=======
+                
+               
+>>>>>>> 12346973c662fccebea04e6f044bfe849431d11d
               </div>
             </div>
           </div>

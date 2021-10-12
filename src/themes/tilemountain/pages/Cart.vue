@@ -146,6 +146,7 @@
         </div>
 
         <div class="Total col-lg-4 col-md-12 col-xs-12 total-box-inner">
+          <Retailfinancev12 :currentPrice="(getGrandTotal() ? getGrandTotal() : '0')" :key="getGrandTotal()"/>
           <div class="cart-summary-main" id="cart-summary-main">
             <div class="inner-total bg-cl-primary">
               <div
@@ -254,12 +255,15 @@
             </div> -->
           </div>
         </div>
+       
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Retailfinancev12 from "src/themes/bedfactory/components/core/V12Calculator/Retailfinancev12.vue";
+import V12calculator from "src/themes/bedfactory/components/core/V12Calculator/CalculatorV12.vue";
 import i18n from "@vue-storefront/i18n";
 import { CartSummary } from "@vue-storefront/core/modules/checkout/components/CartSummary";
 import EventBus from "@vue-storefront/core/compatibility/plugins/event-bus";
@@ -277,6 +281,7 @@ import _ from "lodash";
 export default {
   data() {
     return {
+       updatedPrice:0,
       regular: true,
       addCouponPressed: false,
       sorted: [],
@@ -306,6 +311,8 @@ export default {
   },
   mixins: [VueOfflineMixin, CartSummary, MeasureProductClick],
   components: {
+     Retailfinancev12,
+    V12calculator,
     ProductCartPage,
     ButtonFull,
     ButtonOutline,
@@ -455,6 +462,13 @@ export default {
     };
   },
   methods: {
+       setPrice(data) {
+      console.log("7778855 Current price is ",data);
+      let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
+      console.log("778855 current calculated price is ",price);
+      this.updatedPrice = price;
+      this.calculatedProductPrice = data;
+    },
     ...mapActions({
       applyCoupon: "cart/applyCoupon",
     }),
@@ -1006,7 +1020,10 @@ export default {
   }
 
   .check-btn-outer {
-    padding: 30px 20px 70px 20px;
+    // padding: 30px 20px 70px 20px;
+    height: 70px;
+    display: flex;
+    align-items: center
   }
 
   .checkoutbutton {
@@ -1037,7 +1054,7 @@ export default {
     font-weight: bold;
 
     min-width: 150px;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
 
     @media (max-width: 1200px) and (min-width: 992px) {
       font-size: 13px;
@@ -1054,7 +1071,6 @@ export default {
 
   @media (min-width: 767px) {
     .total-box-inner {
-      height: 556px;
       position: sticky;
       top: 70px;
     }
@@ -1256,6 +1272,10 @@ export default {
 }
 
 @media (max-width: 1200px) and (min-width: 992px) {
+    .total-box-inner .V-12-retail-Finance.cart-V-12{
+   margin-left: 24px !important;
+    width: 88%;
+}
   .sb-congragulation-text > p {
     font-size: 13px;
   }
@@ -1564,4 +1584,34 @@ export default {
     text-transform: uppercase;
     background: #071a44;
 }
+.total-box-inner .V-12-retail-Finance.cart-V-12 {
+    position: absolute;
+    bottom: 0;
+    margin-left: 32px;
+    margin-bottom: 10px;
+    background: #ffff;
+     @media (max-width: 991px){
+    margin-left: 0;
+    width: 100%;
+     }
+       @media (max-width: 767px){
+    width: 97% !important;
+    margin-left: 5px !important;
+     }
+       @media (max-width: 480px){
+    width: 94% !important;
+     }
+}
+.total-box-inner {
+      height: 480px;
+       }
+ @media (max-width: 1201px){
+   .total-box-inner {
+      // height: 580px;
+       @media (max-width: 991px){
+         height: 510px !important;
+       }
+    }
+ }
 </style>
+

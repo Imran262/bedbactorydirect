@@ -31,6 +31,8 @@ const SwatchSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/SwatchesSuccess.vue');
 const CheckoutSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/CheckoutSuccess.vue');
+const FinanceSuccess = () =>
+  import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/Financesuccess.vue');
 let routes = [
   { name: 'home', path: '/', component: Home, alias: '/pwa.html' },
   { name: 'checkout', path: '/checkout', component: Checkout },
@@ -63,7 +65,7 @@ let routes = [
   { name: 'cms-page', path: '/i/:slug', component: CmsPage },
   { name: 'create-password', path: '/create-password', component: ResetPassword },
   { name: 'page-not-found', path: '*', component: PageNotFound },
-  { name: 'Success', path: '/success', component: Success3D },
+  { name: 'Success', path: '/success', component: FinanceSuccess },
   { name: 'Fail', path: '/fail', component: Fail3D },
   {
     name: 'catalog-search',
@@ -87,7 +89,8 @@ let routes = [
     component: SwatchSuccess,
     props: { page: 'swatches', title: 'Swatches' }
   },
-  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess }
+  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess },
+  { name: 'PaypalSuccess', path: '/paypal-success', component: Success3D }
 ]
 
 export default routes

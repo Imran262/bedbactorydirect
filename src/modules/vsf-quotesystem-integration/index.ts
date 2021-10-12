@@ -16,6 +16,8 @@ const quoteSystemModuleStore = {
       console.log("74125 URL for fetch qoutes is ",QUOTE_URL,"\n\n\n Sysytem data is ",systemData);
       
       try {
+        console.log("URl is ",QUOTE_URL,JSON.stringify(systemData));
+        
         const response = await fetch(
           `${QUOTE_URL}`,
           {
