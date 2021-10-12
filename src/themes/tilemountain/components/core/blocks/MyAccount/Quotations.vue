@@ -97,7 +97,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
               <p class="align_right">
-                {{ quoteVal.base_subtotal | price(storeView) }}
+                {{ quoteVal.base_grand_total | price(storeView) }}
               </p>
               <p class="align_right">
                 {{ quoteVal.discount_amount | price(storeView) }}
