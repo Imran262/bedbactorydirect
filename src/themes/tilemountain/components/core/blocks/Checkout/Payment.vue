@@ -23,13 +23,19 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="freePaymentForm">
-          <template v-if="generateInvoice">
+          <!-- <template v-if="generateInvoice"> -->
+          <template >
             <form method="post" name="addressPayment" class="form-row row">
-              <base-checkbox
+              <!-- <base-checkbox
                 class="col-xs-12 mb15 copy-checkbox"
                 id="sendToShippingAddressCheckbox"
                 v-model="sendToShippingAddress"
                 v-if="!isVirtualCart"
+              > -->
+              <base-checkbox
+                class="col-xs-12 mb15 copy-checkbox"
+                id="sendToShippingAddressCheckbox"
+                v-model="sendToShippingAddress"
               >
                 {{ $t('Same details as delivery') }}
               </base-checkbox>
