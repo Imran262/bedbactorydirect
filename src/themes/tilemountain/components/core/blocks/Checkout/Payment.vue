@@ -48,14 +48,14 @@
                 v-model="sendToBillingAddress"
               > -->
               <base-checkbox
-                @click="$v.payment.phoneNumber.$touch()"
+                @click="$v.payment.phoneNumber.$touch(), showFormFunction()"
                 class="col-xs-12 mb15"
                 id="sendToBillingAddressCheckbox"
                 v-model="sendToBillingAddress"
               >
                 {{ $t('Use my billing data') }}
               </base-checkbox>
-              <div class="crafty-postcodelookup" id="postalcode">
+              <div v-if="ShowForm" class="crafty-postcodelookup" id="postalcode">
                 <label>Postcode</label>
                 <input
                   type="text"
@@ -88,7 +88,7 @@
               >
                 &nbsp;
               </div>
-              <div
+              <div v-if="ShowForm"
                 class="datafields relative base-input col-xs-12 col-md-12 col-sm-12"
               >
                 <base-input
@@ -521,6 +521,7 @@ export default {
     return {
       radioCheckedFlag: false,
       addCouponPressed: false,
+      ShowForm: false,
       couponCode: '',
       isCouponApplied: null,
       paymentMethodSelected: false,
@@ -678,6 +679,9 @@ export default {
   methods: {
     activateFindAddress () {
       this.postalcodelookup()
+    },
+    showFormFunction () {
+      this.ShowForm = ! this.ShowForm
     },
     ...mapActions({
       applyCoupon: 'cart/applyCoupon'
@@ -1349,5 +1353,13 @@ p.paypal-payment-para {
     color: #4a4a4a;
     font-size: 14px;
     line-height: 20px;
+}
+input:checked + label:before {
+    background-color: #57c9c0 !important;
+    border-color:#57c9c0 !important ;
+    cursor: pointer;
+}
+input:checked + label:after {
+    background-color: #57c9c0 !important;
 }
 </style>
