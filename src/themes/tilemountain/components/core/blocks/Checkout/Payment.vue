@@ -40,8 +40,14 @@
                 {{ $t('Same details as delivery') }}
               </base-checkbox>
               <!--@click is To validate the phoneNumber that it is less than 11 digits-->
-              <base-checkbox
+              <!-- <base-checkbox
                 v-if="hasBillingData()"
+                @click="$v.payment.phoneNumber.$touch()"
+                class="col-xs-12 mb15"
+                id="sendToBillingAddressCheckbox"
+                v-model="sendToBillingAddress"
+              > -->
+              <base-checkbox
                 @click="$v.payment.phoneNumber.$touch()"
                 class="col-xs-12 mb15"
                 id="sendToBillingAddressCheckbox"
