@@ -657,6 +657,7 @@
                       :product-calculated-price="calculatedProductPrice"
                       :disableProduct="false"
                       :disableProductFlag="false"
+                      :outofStock="getCurrentProduct.stock.stock_status? getCurrentProduct.stock.stock_status : getCurrentProduct.stock.stock_status === 0 ? 0:1"
                     />
                   </template>
                    <template v-else>
@@ -668,6 +669,7 @@
                       :product-calculated-price="calculatedProductPrice"
                       :disableProduct="cartFlag"
                       :disableProductFlag="cartFlag"
+                      :outofStock="getCurrentProduct.stock.stock_status? getCurrentProduct.stock.stock_status : getCurrentProduct.stock.stock_status === 0 ? 0:1"
                     />
                     </template>
                     
@@ -5085,4 +5087,3 @@ h4.variants-label.basin-head {
   width: 95%;
 }
 </style>
-
