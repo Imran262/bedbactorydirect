@@ -682,6 +682,7 @@ export default {
     },
     showFormFunction () {
       this.ShowForm = ! this.ShowForm
+     this.sendToShippingAddress= false
     },
     ...mapActions({
       applyCoupon: 'cart/applyCoupon'
