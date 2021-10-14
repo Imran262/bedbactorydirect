@@ -33,6 +33,7 @@
                 v-if="!isVirtualCart"pbas
               > -->
               <base-checkbox
+              @click="hideFormFunction()"
                 class="col-xs-12 mb15 copy-checkbox"
                 id="sendToShippingAddressCheckbox"
                 v-model="sendToShippingAddress"
@@ -539,7 +540,9 @@ export default {
       paymentMethodSelected: false,
       promoShow: false,
       count: 0,
-      proceedToPaymentButton: false
+      proceedToPaymentButton: false,
+      useBillingDataCheck:false,
+      sameDeliveryCheck :true
     }
   },
   components: {
@@ -699,8 +702,20 @@ export default {
       this.postalcodelookup()
     },
     showFormFunction () {
-      this.ShowForm = ! this.ShowForm
+      if(!this.useBillingDataCheck){
+      this.useBillingDataCheck=true
+      this.sameDeliveryCheck = false
+    this.ShowForm = ! this.ShowForm
      this.sendToShippingAddress= false
+      }
+    },
+    hideFormFunction(){
+      if (!this.sameDeliveryCheck){
+      this.sameDeliveryCheck = true
+      this.useBillingDataCheck = false
+      this.ShowForm = false;
+      this.sendToShippingAddress= true
+      }
     },
     ...mapActions({
       applyCoupon: 'cart/applyCoupon'
