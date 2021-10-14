@@ -300,6 +300,17 @@
           >
             Please Enter All required fields*
           </div>
+          <!-- {{$v.payment.$invalid || !isValid}}
+          {{ !isValid}}
+          {{showPaymentCards}}
+          {{$v.payment}}
+          <br />
+          {{this.$v.payment.zipCode.$invalid && this.$v.payment.streetAddress.$invalid  && this.$v.payment.city.$invalid  && this.$v.payment.country.$invalid  && this.$v.payment.phoneNumber.$invalid}}
+          {{this.$v.payment.zipCode.$invalid }}{{ this.$v.payment.streetAddress.$invalid  }}{{ this.$v.payment.city.$invalid  }}{{ this.$v.payment.country.$invalid  }}{{this.$v.payment.phoneNumber.$invalid}}
+           {{!this.$v.payment.zipCode.$invalid }}{{ !this.$v.payment.streetAddress.$invalid  }}{{ !this.$v.payment.city.$invalid  }}{{ !this.$v.payment.country.$invalid  }}{{!this.$v.payment.phoneNumber.$invalid}}
+                    {{!showPaymentCards}} -->
+
+          <template v-if="showPaymentCards" >
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
@@ -468,6 +479,7 @@
               will open for you to complete your order
             </p>
           </div>
+          </template>
           <div class="payment-sage" v-if="radioCheckedFlag">
             <SagePayDropin
               class="payment-sage-inner"
@@ -573,7 +585,13 @@ export default {
       } else {
         return true
       }
-
+    },
+    showPaymentCards () {
+      if((!this.$v.payment.zipCode.$invalid && !this.$v.payment.streetAddress.$invalid  && !this.$v.payment.city.$invalid  && !this.$v.payment.country.$invalid  && !this.$v.payment.phoneNumber.$invalid ) ) {
+        return true
+      } else {
+        return false
+      }
     },
     hasFreePaymentMethod () {
       if(this.paymentMethods && this.paymentMethods.length > 0) {
