@@ -30,7 +30,7 @@
                 class="col-xs-12 mb15 copy-checkbox"
                 id="sendToShippingAddressCheckbox"
                 v-model="sendToShippingAddress"
-                v-if="!isVirtualCart"
+                v-if="!isVirtualCart"pbas
               > -->
               <base-checkbox
                 class="col-xs-12 mb15 copy-checkbox"
