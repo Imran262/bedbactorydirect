@@ -33,7 +33,7 @@
                 v-if="!isVirtualCart"pbas
               > -->
               <base-checkbox
-              @click="hideFormFunction()"
+              @click="hideFormFunction(),showBilling()"
                 class="col-xs-12 mb15 copy-checkbox"
                 id="sendToShippingAddressCheckbox"
                 v-model="sendToShippingAddress"
@@ -48,14 +48,14 @@
                 id="sendToBillingAddressCheckbox"
                 v-model="sendToBillingAddress"
               > -->
-              <base-checkbox
+              <!-- <base-checkbox
                 @click="$v.payment.phoneNumber.$touch(), showFormFunction()"
                 class="col-xs-12 mb15"
                 id="sendToBillingAddressCheckbox"
                 v-model="sendToBillingAddress"
               >
                 {{ $t('Use my billing data') }}
-              </base-checkbox>
+              </base-checkbox> -->
               <div v-if="ShowForm" class="crafty-postcodelookup" id="postalcode">
                 <label>Postcode</label>
                 <input
@@ -308,8 +308,9 @@
           <br />
           {{this.$v.payment.zipCode.$invalid && this.$v.payment.streetAddress.$invalid  && this.$v.payment.city.$invalid  && this.$v.payment.country.$invalid  && this.$v.payment.phoneNumber.$invalid}}
           {{this.$v.payment.zipCode.$invalid }}{{ this.$v.payment.streetAddress.$invalid  }}{{ this.$v.payment.city.$invalid  }}{{ this.$v.payment.country.$invalid  }}{{this.$v.payment.phoneNumber.$invalid}}
-           {{!this.$v.payment.zipCode.$invalid }}{{ !this.$v.payment.streetAddress.$invalid  }}{{ !this.$v.payment.city.$invalid  }}{{ !this.$v.payment.country.$invalid  }}{{!this.$v.payment.phoneNumber.$invalid}}
-                    {{!showPaymentCards}} -->
+          -->
+           <!-- {{!this.$v.payment.zipCode.$invalid }}{{ !this.$v.payment.streetAddress.$invalid  }}{{ !this.$v.payment.city.$invalid  }}{{ !this.$v.payment.country.$invalid  }}{{!this.$v.payment.phoneNumber.$invalid}}
+                    {{!showPaymentCards}}  -->
 
           <template v-if="showPaymentCards" >
           <div
@@ -708,6 +709,9 @@ export default {
     this.ShowForm = ! this.ShowForm
      this.sendToShippingAddress= false
       }
+    },
+    showBilling(){
+      this.ShowForm = ! this.ShowForm
     },
     hideFormFunction(){
       if (!this.sameDeliveryCheck){
