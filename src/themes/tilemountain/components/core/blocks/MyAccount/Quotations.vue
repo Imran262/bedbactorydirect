@@ -227,6 +227,7 @@ export default {
         { ref_quoteId: quoteId, current_quoteId: this.getCartToken }
       ).then((resp) => {
         console.log('addtocartResponse', resp)
+        this.$router.push(this.localizedRoute('/my-account/'));
       })
         .catch((err) => {
           console.log('err occured from api call', err)
@@ -244,6 +245,8 @@ export default {
         forceSync: true,
       })
       await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+      console.log("789652365 about to send to cart page");
+      this.$router.push(this.localizedRoute('/cart'))
     },
     async quoteAddToCart (quoteId) {
       const quoteItemData = await CartService.getItems()
