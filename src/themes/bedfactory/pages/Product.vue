@@ -657,7 +657,7 @@
                       :product-calculated-price="calculatedProductPrice"
                       :disableProduct="false"
                       :disableProductFlag="false"
-                      :outofStock="getCurrentProduct.stock.stock_status? getCurrentProduct.stock.stock_status : getCurrentProduct.stock.stock_status === 0 ? 0:1"
+                      :outofStock="getStockStatus"
                     />
                   </template>
                    <template v-else>
@@ -669,7 +669,7 @@
                       :product-calculated-price="calculatedProductPrice"
                       :disableProduct="cartFlag"
                       :disableProductFlag="cartFlag"
-                      :outofStock="getCurrentProduct.stock.stock_status? getCurrentProduct.stock.stock_status : getCurrentProduct.stock.stock_status === 0 ? 0:1"
+                      :outofStock="getStockStatus"
                     />
                     </template>
                     
@@ -1112,6 +1112,25 @@ export default {
       productsInCart: "cart/getCartItems",
       getCartToken: "cart/getCartToken",
     }),
+    getStockStatus(){
+      console.log("14521 stock is ",this.getCurrentProduct.stock.stock_status,this.getCurrentProduct.stock);
+      if (this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1)
+      {//for 1
+      console.log("14521 123 in 1");
+      if (this.getCurrentProduct.stock.qty >0)
+      {
+        return 1
+      }else{
+        return 0
+      }
+
+      }
+      else{//for 0
+      console.log("14521 123 in 0");
+      return 0
+      }
+    //  return this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1
+    },
     getCurrentProductCustomOptionsRedo() {
       // let cOptions = this.$store.state.product;
       let currentOptions = {};
