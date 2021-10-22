@@ -341,8 +341,8 @@ background-size: 17px !important ;
   margin: 0px;
 }
 .allImages {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
 }
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
