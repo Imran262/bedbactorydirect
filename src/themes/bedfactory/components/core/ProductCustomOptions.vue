@@ -342,7 +342,7 @@ background-size: 17px !important ;
 }
 .allImages {
   // width: 100%;
-  // height: 100%;
+  height: 100%;
 }
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
