@@ -31,9 +31,9 @@ const SwatchSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/SwatchesSuccess.vue');
 const CheckoutSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/CheckoutSuccess.vue');
-const FinanceSuccess = () =>
+const FinanceCheckout = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/FinanceCheckout.vue');
-  const ApplicationComplete = () =>
+const FinanceSuccess = () =>
   import(/* webpackChunkName: 'vsf-static' */ 'src/themes/bedfactory/pages/FinanceSuccess.vue');
 let routes = [
   { name: 'home', path: '/', component: Home, alias: '/pwa.html' },
@@ -93,7 +93,7 @@ let routes = [
   },
   { name: 'CheckoutSuccess', path: '/checkout-success', component: FinanceSuccess },
   { name: 'PaypalSuccess', path: '/paypal-success', component: Success3D },
-  { name: 'FinanceSuccess', path: '/application-submitted', component: FinanceSuccess },
+  { name: 'FinanceSuccess', path: '/application-submitted', component: FinanceSuccess }
 ]
 
 export default routes
