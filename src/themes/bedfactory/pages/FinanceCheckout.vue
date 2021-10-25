@@ -359,8 +359,9 @@ export default {
                      }
                     })
                     .then(res => {
-                        let v12Link = res.data.result.ApplicationFormUrl ;
-                        console.log("115599 responseIs",v12Link, res);
+                      console.log("115599 responseIs before v-12", res);
+                        // let v12Link = res.data.result.ApplicationFormUrl ;
+                        // console.log("115599 responseIs",v12Link, res);
                         let backendURL = config.api.url + config.v12Finance.applicationSuccess;
                         axios.post(backendURL, {
                           "orderId":this.backendOrderId,
@@ -373,12 +374,12 @@ export default {
                     .then(responsebackend => {
                        
                         console.log("115599 responseIs backend",responsebackend);
-                        window.location.replace(v12Link);
-                        return v12Link
+                        // window.location.replace(v12Link);
+                        // return v12Link
                         })
                     .catch(error => {
                         console.log("115599 Error", error);
-                        return v12Link
+                        // return v12Link
                     });
                         })
                     .catch(error => {
