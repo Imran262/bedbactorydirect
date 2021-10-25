@@ -93,7 +93,7 @@ let routes = [
   },
   { name: 'CheckoutSuccess', path: '/checkout-success', component: FinanceSuccess },
   { name: 'PaypalSuccess', path: '/paypal-success', component: Success3D },
-  { name: 'FinanceSuccess', path: '/application-submitted', component: FinanceSuccess }
+  { name: 'FinanceSuccess', path: '/finance-success', component: FinanceSuccess }
 ]
 
 export default routes
