@@ -109,7 +109,7 @@ export default {
   //   let toQuery = to.fullPath
   //   console.log("789654 Path received is ",to.fullPath)
   //   next()
-  //   if (!from.name && !toQuery.includes('utm_nooverride')) {
+  //   if (!from.name && !toQuery.includes('backendorderid')) {
   //     next({ name: 'home' })
   //   } else {
   //     next()
@@ -118,7 +118,7 @@ export default {
   computed: {
     getAddressInformation () {
         console.log("741258 in getAddress Information");
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.orderElements && this.orderElements.order) {
+      if (!this.$route.fullPath.includes('backendorderid') && this.orderElements && this.orderElements.order) {
         return this.orderElements.order.addressInformation
       } else {
         if (this.lastOrderItem) {
@@ -172,8 +172,8 @@ export default {
       }
     },
     orderElements () {
-      console.log('741258 orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('utm_nooverride'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
-      if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+      console.log('741258 orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('backendorderid'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
+      if (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if orderElements");
         return this.$store.state.order.last_order_confirmation.order
       } else {
@@ -183,7 +183,7 @@ export default {
     },
     backendOrderId () {
         console.log("741258 in backendorderID ");
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order && this.orderElements) {
+      if (!this.$route.fullPath.includes('backendorderid') && this.$store.state.order && this.orderElements) {
           console.log("741258 in backendorderID in if");
         return this.orderElements.confirmation.orderNumber
       } else {
@@ -196,7 +196,7 @@ export default {
       }
     },
     orderPriceElements () {
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals) {
+      if (!this.$route.fullPath.includes('backendorderid') && this.$store.state.cart.platformTotals) {
         return this.$store.state.cart.platformTotals
       } else {
         if (this.lastOrderItem && this.lastOrderItem.order) {
@@ -210,12 +210,12 @@ export default {
       }
     },
     getOrderItems () {
-      console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
-      if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+      console.log(this.$route,this.$route.query === "backendorderid","741258 store is ",this.$store.state)
+      if (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if getOrderItems")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }
-      else if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+      else if (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
         console.log("741258 in if else getOrderItems")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }else {
@@ -232,7 +232,7 @@ export default {
         '741258 getCartItemsOrderCheck ',
         this.$store.state.cart.platformTotals
       )
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals !== null) {
+      if (!this.$route.fullPath.includes('backendorderid') && this.$store.state.cart.platformTotals !== null) {
         console.log("741258 this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
         return this.$store.state.cart.platformTotals.items
       } else {
@@ -425,7 +425,7 @@ finalItems.push(item);
         platformTotals: this.$store.state.cart.platformTotals
       })
     }
-    // if (!isServer && this.$route.fullPath.includes('utm_nooverride')) {
+    // if (!isServer && this.$route.fullPath.includes('backendorderid')) {
       try {
         if (performance.navigation.type === 1) {
           await this.removeLastOrderItem()
@@ -442,14 +442,14 @@ finalItems.push(item);
             config.orderDetails
         console.log('OrderDetailsUrl', OrderDetailsUrl)
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
-          console.log("7412589 current route is  ",this.$route.query.utm_nooverride.split('1?'),'\n',this.$route.query.utm_nooverride,'\n',this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
+          console.log("7412589 current route is  ",this.$route.query.backendorderid.split('1?'),'\n',this.$route.query.backendorderid,'\n',this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
           if (orderId)
           {
             console.log("7412589 order Id  form local storage is ",orderId);
           }
           else{
             console.log("7412589 Getting the order id from url");
-            let newOrderID = this.$route.query.utm_nooverride.split('?')
+            let newOrderID = this.$route.query.backendorderid.split('?')
             orderId = newOrderID[1];
             console.log("7412589 Getting the new order id is ",newOrderID, orderId);
             if (orderId){
