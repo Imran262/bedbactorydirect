@@ -449,9 +449,9 @@ finalItems.push(item);
           }
           else{
             console.log("7412589 Getting the order id from url");
-            let newOrderID = this.$route.query.backendorderid.split('?')
-            orderId = newOrderID[1];
-            console.log("7412589 Getting the new order id is ",newOrderID, orderId);
+            // let newOrderID = this.$route.query.backendorderid.split('?')
+            orderId = this.$route.query.backendorderid;
+            console.log("7412589 Getting the new order id is ");
             if (orderId){
               console.log("7412589 order Id  form URl with no over ride is ",orderId);
             }
