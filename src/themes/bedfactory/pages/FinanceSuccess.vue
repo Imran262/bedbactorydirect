@@ -117,6 +117,7 @@ export default {
   // },
   computed: {
     getAddressInformation () {
+        console.log("741258 in getAddress Information");
       if (!this.$route.fullPath.includes('utm_nooverride') && this.orderElements && this.orderElements.order) {
         return this.orderElements.order.addressInformation
       } else {
@@ -171,19 +172,22 @@ export default {
       }
     },
     orderElements () {
-      console.log('741258orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('utm_nooverride'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
+      console.log('741258 orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('utm_nooverride'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
       if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
-        console.log("741258 in if ");
+        console.log("741258 in if orderElements");
         return this.$store.state.order.last_order_confirmation.order
       } else {
-        console.log("741258 in else ");
+        console.log("741258 in else orderElements");
         return {}
       }
     },
     backendOrderId () {
+        console.log("741258 in backendorderID ");
       if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order && this.orderElements) {
+          console.log("741258 in backendorderID in if");
         return this.orderElements.confirmation.orderNumber
       } else {
+          console.log("741258 in backendorderID in else",this.lastOrderItem);
         if (this.lastOrderItem) {
           return this.lastOrderItem.confirmation.backendOrderId
         } else {
@@ -208,14 +212,14 @@ export default {
     getOrderItems () {
       console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
       if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
-        console.log("741258 in if")
+        console.log("741258 in if getOrderItems")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }
       else if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
-        console.log("741258 in if else")
+        console.log("741258 in if else getOrderItems")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }else {
-        console.log("741258 in else")
+        console.log("741258 in else getOrderItems")
         if (this.lastOrderItem && this.lastOrderItem.order.products !== null) {
           return _.values(this.lastOrderItem.order.products)
         } else {
@@ -225,15 +229,15 @@ export default {
     },
     getCartItems () {
       console.log(
-        'getCartItemsOrderCheck ',
+        '741258 getCartItemsOrderCheck ',
         this.$store.state.cart.platformTotals
       )
       if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals !== null) {
-        console.log("this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
+        console.log("741258 this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
         return this.$store.state.cart.platformTotals.items
       } else {
         if (this.plateFormTotals) {
-          console.log("here we are ",this.plateFormTotals);
+          console.log("741258 here we are ",this.plateFormTotals);
           return this.plateFormTotals.platformTotals.items
         } else {
           return []
