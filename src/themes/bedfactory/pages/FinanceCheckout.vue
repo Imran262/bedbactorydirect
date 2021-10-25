@@ -337,7 +337,8 @@ export default {
                "DuplicateSalesReferenceMethod": "ShowError",
                "ProductGuid": productGuid,
                "ProductId": productId,
-               "SalesReference": this.backendOrderId
+               "SalesReference": this.backendOrderId,
+               "vLink":true
                },
            "Retailer": {
                "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
