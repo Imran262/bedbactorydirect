@@ -87,8 +87,8 @@
                 <h2>{{ $t("Your Basket") }}</h2>
               </div>
               <ProductCartPage
-                :products-in-cart="productsInCart"
-                v-for="product in productsInCart"
+                :products-in-cart="productsInCartComputed"
+                v-for="product in productsInCartComputed"
                 :key="product.server_item_id || product.id"
                 :product="product"
                 :cart-adhesive-grout="cartHasGroutAdhesive"
@@ -324,7 +324,7 @@ export default {
     await this.discountAppliedCheck();
     if (this.grandTotal) {
       await this.sendCartClick({
-        productsInCart: this.productsInCart,
+        productsInCart: this.productsInCartComputed,
         grandTotal: this.grandTotal,
       });
     }
@@ -341,7 +341,44 @@ export default {
       totals: "cart/getTotals",
       getCartToken: "cart/getCartToken",
     }),
-
+    productsInCartComputed(){
+      let data = this.productsInCart;
+      console.log("7412589 in computed property ",data.length,data[2],data);
+      if(data.length >2){
+      data[2].totals.options= [
+        {
+          "value": "Double",
+          "label": "Size"
+        }
+      ];
+      data[2].product_option = {
+      "extension_attributes": {
+        "custom_options": [],
+        "configurable_item_options": [
+          {
+            "option_id": "152",
+            "option_value": "49"
+          }
+        ],
+        "bundle_options": []
+      }
+    };
+    data[2].options = [
+      {
+        "label": "Size",
+        "value": "Double"
+      }
+    ];
+    data[2].configuration= {
+      "size": {
+        "attribute_code": "size",
+        "id": "47",
+        "label": "Single"
+      }
+    }
+    }
+      return data
+    },
     checkIfAnyGroutAdhesive() {
       if (this.cartHasGroutAdhesive && this.cartHasGroutAdhesive.length > 0) {
         return false;
@@ -349,7 +386,7 @@ export default {
       return true;
     },
     nonzeroProduct() {
-      return this.productsInCart.filter((item) => {
+      return this.productsInCartComputed.filter((item) => {
         return item.totals.price_incl_tax > 0;
       });
     },
@@ -376,7 +413,7 @@ export default {
   },
   async beforeMount() {
     await this.checkCart();
-    // console.log("789456  ", this.productsInCart.length);
+    console.log("789456  ", this.productsInCart.length);
     if (this.productsInCart.length === 0) {
       // console.log("Cart is Empty ");
       this.$router.push(this.localizedRoute("/"));
@@ -448,7 +485,7 @@ export default {
       },
       deep: true,
     },
-    productsInCart: function (oldVal) {
+    productsInCartComputed: function (oldVal) {
       this.discountAppliedCheck();
       if (oldVal.length === 0 && this.$route.name === "cart") {
         this.$router.push("/");
