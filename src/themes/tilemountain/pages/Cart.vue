@@ -324,7 +324,7 @@ export default {
     await this.discountAppliedCheck();
     if (this.grandTotal) {
       await this.sendCartClick({
-        productsInCart: this.productsInCartComputed,
+        productsInCart: this.productsInCart,
         grandTotal: this.grandTotal,
       });
     }
@@ -344,39 +344,77 @@ export default {
     productsInCartComputed(){
       let data = this.productsInCart;
       console.log("7412589 in computed property ",data.length,data[2],data);
-      if(data.length >2){
-      data[2].totals.options= [
-        {
-          "value": "Double",
-          "label": "Size"
-        }
-      ];
-      data[2].product_option = {
-      "extension_attributes": {
-        "custom_options": [],
-        "configurable_item_options": [
-          {
-            "option_id": "152",
-            "option_value": "49"
+      data.forEach(async (product,index)=>{
+        console.log("7412589 Current Product is ",product);
+        if (product.configurable_children && product.configurable_children.length >0){
+          console.log("7896541254 In cart current product is configurable it has ",product.configurable_children.length," children",product.configuration);
+          if (product.configuration){
+            console.log("7896541254 current product is from quotes");
+            console.log("7896541254 Checking children Now");
+            product.configurable_children.forEach((child,childIndex)=>{
+              console.log(" 7896541254 parent sku ",product.sku," child sku",child.sku , typeof product.sku , typeof child.sku,product.sku === child.sku);
+              if (product.sku === child.sku)
+              {
+                console.log("7896541254 child found with sku ",child.sku);
+                console.log(product.totals,"7896541254 child is ",child,"configurable options of this product are ",product.configurable_options.length,product.configurable_options );
+                
+                let porductOptions =[];
+                let configurableItemOptions=[];
+                product.options=[]
+                if (product.totals){
+                product.totals.options=[]
+              }
+               if (product.product_option.extension_attributes.custom_options)
+               {
+                 product.product_option.extension_attributes.custom_options.configurable_item_options = []
+              }
+                product.configurable_options.forEach((option,index)=>{
+                  console.log("7896541254 current option is ",option, option.label );
+                  let attributeCode = option.attribute_code ;// size
+                  let currentOptionValueSelected = product[attributeCode] ; // 49
+                  let attributeId = option.attribute_id; // 152
+                  let currentValue = 'Single'; //Single
+                  let currentOption =  option.label //Size
+                  option.values.forEach((value,valueIndex)=>{
+                    console.log("7896541254 comparing  ",currentOptionValueSelected ,"with ", value.value_index,typeof currentOptionValueSelected,typeof value.value_index , typeof (parseInt(currentOptionValueSelected)) ,typeof (parseInt(value.value_index)), parseInt(currentOptionValueSelected) === parseInt(value.value_index));
+                    if (parseInt(currentOptionValueSelected) === parseInt(value.value_index)){
+                      console.log("7896541254 value matched",value.value_index);
+                      currentValue = value.label // Single
+                    }
+                  })
+                  console.log("789654125478 current values are \n",
+                  "\n attributeCode",attributeCode,
+                  "\n currentOptionValueSelected",currentOptionValueSelected,
+                  "\n attributeId",attributeId,
+                  "\n currentValue",currentValue,
+                  "\n currentOption",currentOption
+                  );
+                  let productOptions ={};
+                  let configurableItemOptions={};
+                  productOptions = {
+                    "value": currentValue,
+                    "label": currentOption
+                    }
+                  configurableItemOptions = {
+                    "option_id": attributeId,
+                    "option_value": currentOptionValueSelected
+                    }
+
+                  product.options.push(productOptions)
+                  product.totals.options.push(productOptions)
+                product.product_option.extension_attributes.custom_options.configurable_item_options.push(configurableItemOptions)
+                })
+              }
+              else{
+                console.log("7896541254 sku did not match");
+              }
+            })
           }
-        ],
-        "bundle_options": []
-      }
-    };
-    data[2].options = [
-      {
-        "label": "Size",
-        "value": "Double"
-      }
-    ];
-    data[2].configuration= {
-      "size": {
-        "attribute_code": "size",
-        "id": "47",
-        "label": "Single"
-      }
-    }
-    }
+          else{
+            console.log("7896541254 current product is NOT from quotes");
+          }
+        }
+      });
       return data
     },
     checkIfAnyGroutAdhesive() {
@@ -386,7 +424,7 @@ export default {
       return true;
     },
     nonzeroProduct() {
-      return this.productsInCartComputed.filter((item) => {
+      return this.productsInCart.filter((item) => {
         return item.totals.price_incl_tax > 0;
       });
     },
@@ -485,7 +523,7 @@ export default {
       },
       deep: true,
     },
-    productsInCartComputed: function (oldVal) {
+    productsInCart: function (oldVal) {
       this.discountAppliedCheck();
       if (oldVal.length === 0 && this.$route.name === "cart") {
         this.$router.push("/");
