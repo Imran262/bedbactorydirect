@@ -337,8 +337,7 @@ export default {
                "DuplicateSalesReferenceMethod": "ShowError",
                "ProductGuid": productGuid,
                "ProductId": productId,
-               "SalesReference": this.backendOrderId,
-               "vLink":true
+               "SalesReference": this.backendOrderId
                },
            "Retailer": {
                "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
@@ -359,9 +358,9 @@ export default {
                      }
                     })
                     .then(res => {
-                      console.log("115599 responseIs before v-12", res);
-                        // let v12Link = res.data.result.ApplicationFormUrl ;
-                        // console.log("115599 responseIs",v12Link, res);
+                        
+                        let v12Link = res.data.result.ApplicationFormUrl ;
+                        console.log("115599 responseIs",v12Link, res);
                         let backendURL = config.api.url + config.v12Finance.applicationSuccess;
                         axios.post(backendURL, {
                           "orderId":this.backendOrderId,
@@ -374,12 +373,12 @@ export default {
                     .then(responsebackend => {
                        
                         console.log("115599 responseIs backend",responsebackend);
-                        // window.location.replace(v12Link);
-                        // return v12Link
+                        window.location.replace(v12Link);
+                        return v12Link
                         })
                     .catch(error => {
                         console.log("115599 Error", error);
-                        // return v12Link
+                        return v12Link
                     });
                         })
                     .catch(error => {
