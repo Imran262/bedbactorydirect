@@ -285,7 +285,7 @@ button {
       border: none;
       position: absolute;
       right: 10px;
-      top: -3px;
+      top: 0;
     }
 
     a {
