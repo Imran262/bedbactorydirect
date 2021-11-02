@@ -174,7 +174,7 @@ background-color: transparent;
   }
 }
 .router-link-exact-active{
-  background-color:#00a897 !important;
+  background-color:#071a44 !important;
   color: #fff !important; 
   .material-icons{
     color: #fff !important;
@@ -194,5 +194,9 @@ background-color: transparent;
 .playimg{
   background: url(/assets/icons/accplay.svg) no-repeat 95% 46%;
   background-size: 18px;
+}
+.main_pro .col-xs-12 {
+    color: #333333;
+    font-size: 16px;
 }
 </style>

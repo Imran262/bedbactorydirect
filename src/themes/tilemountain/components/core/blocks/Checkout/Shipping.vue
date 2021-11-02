@@ -39,14 +39,19 @@
               &nbsp;
             </div>
 
-            <base-checkbox
+            <!-- <base-checkbox
               v-if="currentUser && hasShippingDetails()"
+              class="col-xs-12 mb10"
+              id="shipToMyAddressCheckbox"
+              v-model="shipToMyAddress"
+            > -->
+            <!-- <base-checkbox
               class="col-xs-12 mb10"
               id="shipToMyAddressCheckbox"
               v-model="shipToMyAddress"
             >
               {{ $t("Ship to my default address") }}
-            </base-checkbox>
+            </base-checkbox> -->
             <base-input
               class="col-xs-12 col-sm-6 mb10 shipping-first-name"
               type="text"
