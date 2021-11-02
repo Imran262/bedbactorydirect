@@ -54,11 +54,23 @@
           "
         >
           <RegisterAccountSuccess :personal-details="getPersonalDetails" />
+          <!-- getFinalItemsLive
+          <OrderReviewList
+            :products="getFinalItemsLive"
+            :totals="orderPriceElements"
+            :address-information="getAddressInformation"
+          /> -->
+
+
+
+
           <OrderReviewList
             :products="getFinalItems"
             :totals="orderPriceElements"
             :address-information="getAddressInformation"
           />
+
+
         </div>
       </div>
     </div>
@@ -93,19 +105,20 @@ export default {
     RegisterAccountSuccess,
     ThingsToRememberSuccess
   },
-  beforeRouteEnter (to, from, next) {
-    let toQuery = to.fullPath
-    console.log(to.fullPath)
-    //next()
-    if (!from.name && !toQuery.includes('utm_nooverride')) {
-      next({ name: 'home' })
-    } else {
-      next()
-    }
-  },
+  // beforeRouteEnter (to, from, next) {
+  //   let toQuery = to.fullPath
+  //   console.log("789654 Path received is ",to.fullPath)
+  //   next()
+  //   if (!from.name && !toQuery.includes('backendorderid')) {
+  //     next({ name: 'home' })
+  //   } else {
+  //     next()
+  //   }
+  // },
   computed: {
     getAddressInformation () {
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.orderElements && this.orderElements.order) {
+        console.log("741258 in getAddress Information");
+      if (!this.$route.fullPath.includes('backendorderid') && this.orderElements && this.orderElements.order) {
         return this.orderElements.order.addressInformation
       } else {
         if (this.lastOrderItem) {
@@ -148,7 +161,6 @@ export default {
     //     : {}
     // },
     purchaserName () {
-      console.log("741258 purchaser name",this.$store.state.order,"\t\t\t\t",this.orderElements);
       if (this.$store.state.order && this.orderElements) {
         return this.orderElements.order.addressInformation.shippingAddress.firstname
       } else {
@@ -160,19 +172,22 @@ export default {
       }
     },
     orderElements () {
-      console.log('741258orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('utm_nooverride'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
-      if (!this.$route.fullPath.includes('utm_nooverride') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
-        console.log("741258 in if ");
-        return this.$store.state.order.last_order_confirmation
+      console.log('741258 orderElementsOrderCheck ', this.$store.state.order,"\n\n\n\n ",!this.$route.fullPath.includes('backendorderid'),(this.$store.state.order && this.$store.state.order.last_order_confirmation !== null), (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)))
+      if (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+        console.log("741258 in if orderElements");
+        return this.$store.state.order.last_order_confirmation.order
       } else {
-        console.log("741258 in else ");
+        console.log("741258 in else orderElements");
         return {}
       }
     },
     backendOrderId () {
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order && this.orderElements) {
+        console.log("741258 in backendorderID ");
+      if (!this.$route.fullPath.includes('backendorderid') && this.$store.state.order && this.orderElements) {
+          console.log("741258 in backendorderID in if");
         return this.orderElements.confirmation.orderNumber
       } else {
+          console.log("741258 in backendorderID in else",this.lastOrderItem);
         if (this.lastOrderItem) {
           return this.lastOrderItem.confirmation.backendOrderId
         } else {
@@ -181,7 +196,7 @@ export default {
       }
     },
     orderPriceElements () {
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals) {
+      if (!this.$route.fullPath.includes('backendorderid') && this.$store.state.cart.platformTotals) {
         return this.$store.state.cart.platformTotals
       } else {
         if (this.lastOrderItem && this.lastOrderItem.order) {
@@ -195,16 +210,16 @@ export default {
       }
     },
     getOrderItems () {
-      console.log(this.$route,this.$route.query === "utm_nooverride","741258 store is ",this.$store.state)
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
-        console.log("741258 in if")
+      console.log(this.$route,this.$route.query === "backendorderid","741258 store is ",this.$store.state)
+      if (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+        console.log("741258 in if getOrderItems")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }
-      else if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order.last_order_confirmation !== null) {
-        console.log("741258 in if else")
+      else if (!this.$route.fullPath.includes('backendorderid') && (this.$store.state.order && this.$store.state.order.last_order_confirmation !== null)) {
+        console.log("741258 in if else getOrderItems")
         return this.$store.state.order? this.$store.state.order.last_order_confirmation.order.products : []
       }else {
-        console.log("741258 in else")
+        console.log("741258 in else getOrderItems")
         if (this.lastOrderItem && this.lastOrderItem.order.products !== null) {
           return _.values(this.lastOrderItem.order.products)
         } else {
@@ -214,25 +229,131 @@ export default {
     },
     getCartItems () {
       console.log(
-        'getCartItemsOrderCheck ',
+        '741258 getCartItemsOrderCheck ',
         this.$store.state.cart.platformTotals
       )
-      if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.cart.platformTotals !== null) {
-        console.log("this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
+      if (!this.$route.fullPath.includes('backendorderid') && this.$store.state.cart.platformTotals !== null) {
+        console.log("741258 this.$store.state.cart.platformTotals.items", this.$store.state.cart.platformTotals.items)
         return this.$store.state.cart.platformTotals.items
       } else {
         if (this.plateFormTotals) {
+          console.log("741258 here we are ",this.plateFormTotals);
           return this.plateFormTotals.platformTotals.items
         } else {
           return []
         }
       }
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    getFinalItemsLive() {
+      const merged = _.merge(
+        _.keyBy(this.getCartItems, "name"),
+        _.keyBy(this.getOrderItems, "name")
+      );
+      const values = _.values(merged);
+      console.log('1235689 Values ',values);
+      const extensionAttributes = values.filter(
+        (value) =>
+          value.extension_attributes &&
+          value.extension_attributes.original_item_sku
+      );
+      const simpleProducts = values.filter(
+        (value) =>
+          !(
+            value.extension_attributes &&
+            value.extension_attributes.original_item_sku
+          )
+      );
+      // console.log("1235689");
+      console.log("1235689 extensionAttributes",extensionAttributes,"\n simpleProducts",simpleProducts);
+      let finalItems = [];
+      if (extensionAttributes.length > 0) {
+        console.log('1235689 in extensionAttributes condition');
+        const reducedProducts = extensionAttributes.reduce((acc, current) => {
+          const skuKey = current["extension_attributes"]["original_item_sku"];
+          if (!(skuKey in acc) && !acc[skuKey]) {
+            return { ...acc, [skuKey]: [current] };
+          }
+          return { ...acc, [skuKey]: [...acc[skuKey], current] };
+        }, {});
+        console.log("1235689 reducedProducts",reducedProducts);
+
+        for (const item of _.values(reducedProducts)) {
+          const reducedItem = item.reduce(
+            (acc, current) => {
+              const price = acc.price_incl_tax;
+
+              return {
+                price_incl_tax: price + current.price_incl_tax,
+                name: current.extension_attributes.product_name,
+                sku: current.extension_attributes.original_item_sku,
+                qty: current.qty,
+              };
+            },
+            { price_incl_tax: 0 }
+          );
+          console.log("1235689 reducedItem",reducedItem);
+          finalItems.push(reducedItem);
+        }
+      }
+      if (simpleProducts.length > 0) {
+        console.log("1235689 in condition for simpleProducts",simpleProducts,"\n final products are ",finalItems);
+
+        finalItems = [];
+        simpleProducts.forEach((item,index)=>{
+      if(item.price>0){
+finalItems.push(item);
+      }
+    })
+       // finalItems = [...finalItems, ...simpleProducts];
+        console.log("1235689 finalItems",finalItems);
+      }
+      let newFinalItems=[];
+      console.log("1235689 Finally About to return final Items ",finalItems );
+      return finalItems;
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     getFinalItems () {
-      const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
+      // const merged = _.merge(_.keyBy(this.getCartItems, 'sku'), _.keyBy(this.getOrderItems, 'sku'))
+      const merged = this.getOrderItems
 
       const values = _.values(merged)
-      console.log("663322 \t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values);
+      const merged2 = _.merge(_.keyBy(this.getCartItems, 'name'), _.keyBy(this.getOrderItems, 'name'))
+
+      const values2 = _.values(merged2)
+      console.log("663322 key by",_.keyBy(this.getOrderItems, 'sku'),"\t cart items are ",this.getCartItems,"\t order items",this.getOrderItems,"\t values",values,"\n\t\t\tMerged",merged,"\n\n\n\n Second one \t values",values2,"\n\t\t\tMerged",merged2);
       const extensionAttributes = values.filter(value => value.extension_attributes && value.extension_attributes.original_item_sku)
       const simpleProducts = values.filter(value => !(value.extension_attributes && value.extension_attributes.original_item_sku))
       console.log("663322 Simple ",simpleProducts , "\n\n\nextension attributes" , extensionAttributes);
@@ -268,14 +389,8 @@ export default {
         console.log("663322 After ",finalItems);
       }
       console.log("663322  Final Items are",finalItems);
-      finalItems.forEach((item,index)=>{
-        if(item.type_id){
-          console.log("663322 item has type id ",item.type_id);
-        }
-      // console.log("663322 item is ",item.type_id,( item.type_id !== 'null' || item.type_id !== 'undefined' ), item.type_id !== 'null' , item.type_id !== 'undefined'  );
-      })
       finalItems = finalItems.filter(function(item){
-        return item.price >0 && item.type_id
+        return item.price >0
       })
       console.log("663322  After Final Items are",finalItems);
       return finalItems
@@ -310,7 +425,7 @@ export default {
         platformTotals: this.$store.state.cart.platformTotals
       })
     }
-    if (!isServer && this.$route.fullPath.includes('utm_nooverride')) {
+    // if (!isServer && this.$route.fullPath.includes('backendorderid')) {
       try {
         if (performance.navigation.type === 1) {
           await this.removeLastOrderItem()
@@ -323,15 +438,39 @@ export default {
           plateformTotals = JSON.parse(plateformTotals)
           this.plateFormTotals = plateformTotals
           console.log("741258   plateformTotals",this.plateformTotals , plateformTotals);
-          let OrderDetailsUrl =
+          let OrderDetailsUrl ='https://vue.bedfactorydirect.co.uk/' +
             config.orderDetails
+        console.log('OrderDetailsUrl', OrderDetailsUrl)
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
+          console.log("7412589 current route is  ",this.$route.query.backendorderid.split('1?'),'\n',this.$route.query.backendorderid,'\n',this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
+          if (orderId)
+          {
+            console.log("7412589 order Id  form local storage is ",orderId);
+          }
+          else{
+            console.log("7412589 Getting the order id from url");
+            // let newOrderID = this.$route.query.backendorderid.split('?')
+            orderId = this.$route.query.backendorderid;
+            console.log("7412589 Getting the new order id is ");
+            if (orderId){
+              console.log("7412589 order Id  form URl with no over ride is ",orderId);
+            }
+            else{
+              console.log("7412589 could not get order id from url as there is no url override",orderId);
+              console.log("7412589 Getting the order id from url with no override");
+            let newOrderIDNew =this.$route.fullpath.split('checkout-success?')
+            orderId = newOrderIDNew[1];
+            console.log("7412589 Getting the new order id is ",newOrderIDNew, orderId);
+
+            }
+          }
+          console.log("74125 Finally ",orderId);
           console.log(" 741258   orderId  ",orderId,OrderDetailsUrl,axios.get(OrderDetailsUrl + orderId));
           let { data } = await axios.get(OrderDetailsUrl + orderId)
           this.lastOrderItem = data.result.orderData
           console.log(" 741258       last order",this.lastOrderItem , "\twhole data" ,data);
           this.$bus.$emit('notification-progress-stop')
-          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals ? plateformTotals.platformTotals : [] })
+          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals?.platformTotals ? plateformTotals.platformTotals : [] })
           localStorage.removeItem('checkout_3dSecure_orderId')
           localStorage.removeItem('plateFormTotals')
         // } else {
@@ -340,7 +479,7 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    }
+    // }
         await this.lastOrderItem
       this.getFinalItems.forEach(element => {
         let prod = {

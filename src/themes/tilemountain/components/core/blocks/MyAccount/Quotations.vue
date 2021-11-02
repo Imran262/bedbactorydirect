@@ -97,7 +97,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
               <p class="align_right">
-                {{ quoteVal.base_subtotal | price(storeView) }}
+                {{ quoteVal.base_grand_total | price(storeView) }}
               </p>
               <p class="align_right">
                 {{ quoteVal.discount_amount | price(storeView) }}
@@ -185,6 +185,7 @@ export default {
       'quotesystem/quoteSystemFunction',
       { customerId: this.currentUser.id }
     ).then((resp) => {
+      console.log("1122 response is ",resp);
       const firstQuote = resp[Object.keys(resp)[0]]
       this.firstQuoteId = firstQuote.entity_id
       this.quoteData = resp
@@ -226,6 +227,7 @@ export default {
         { ref_quoteId: quoteId, current_quoteId: this.getCartToken }
       ).then((resp) => {
         console.log('addtocartResponse', resp)
+        this.$router.push(this.localizedRoute('/my-account/'));
       })
         .catch((err) => {
           console.log('err occured from api call', err)
@@ -237,6 +239,13 @@ export default {
       })
       this.$forceUpdate()
       this.$bus.$emit('notification-progress-stop')
+      this.$router.push(this.localizedRoute('/cart'))
+      await this.$store.dispatch("cart/sync", {
+        forceClientState: false,
+        forceSync: true,
+      })
+      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+      console.log("789652365 about to send to cart page");
       this.$router.push(this.localizedRoute('/cart'))
     },
     async quoteAddToCart (quoteId) {
@@ -274,7 +283,7 @@ export default {
   text-align: center;
   font-size: 28px;
   font-family: oblik;
-  background-color: #00a897;
+  background-color: #071a44;
   color: #fff;
   padding: 8px;
   border-top-right-radius: 15px;

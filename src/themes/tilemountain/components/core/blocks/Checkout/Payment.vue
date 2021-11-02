@@ -23,27 +23,40 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="freePaymentForm">
-          <template v-if="generateInvoice">
+          <!-- <template v-if="generateInvoice"> -->
+          <template >
             <form method="post" name="addressPayment" class="form-row row">
-              <base-checkbox
+              <!-- <base-checkbox
                 class="col-xs-12 mb15 copy-checkbox"
                 id="sendToShippingAddressCheckbox"
                 v-model="sendToShippingAddress"
-                v-if="!isVirtualCart"
+                v-if="!isVirtualCart"pbas
+              > -->
+              <base-checkbox
+              @click="hideFormFunction(),showBilling()"
+                class="col-xs-12 mb15 copy-checkbox"
+                id="sendToShippingAddressCheckbox"
+                v-model="sendToShippingAddress"
               >
                 {{ $t('Same details as delivery') }}
               </base-checkbox>
               <!--@click is To validate the phoneNumber that it is less than 11 digits-->
-              <base-checkbox
+              <!-- <base-checkbox
                 v-if="hasBillingData()"
                 @click="$v.payment.phoneNumber.$touch()"
                 class="col-xs-12 mb15"
                 id="sendToBillingAddressCheckbox"
                 v-model="sendToBillingAddress"
+              > -->
+              <!-- <base-checkbox
+                @click="$v.payment.phoneNumber.$touch(), showFormFunction()"
+                class="col-xs-12 mb15"
+                id="sendToBillingAddressCheckbox"
+                v-model="sendToBillingAddress"
               >
                 {{ $t('Use my billing data') }}
-              </base-checkbox>
-              <div class="crafty-postcodelookup" id="postalcode">
+              </base-checkbox> -->
+              <div v-if="ShowForm" class="crafty-postcodelookup" id="postalcode">
                 <label>Postcode</label>
                 <input
                   type="text"
@@ -76,7 +89,7 @@
               >
                 &nbsp;
               </div>
-              <div
+              <div v-if="ShowForm"
                 class="datafields relative base-input col-xs-12 col-md-12 col-sm-12"
               >
                 <base-input
@@ -288,11 +301,23 @@
           >
             Please Enter All required fields*
           </div>
+          <!-- {{$v.payment.$invalid || !isValid}}
+          {{ !isValid}}
+          {{showPaymentCards}}
+          {{$v.payment}}
+          <br />
+          {{this.$v.payment.zipCode.$invalid && this.$v.payment.streetAddress.$invalid  && this.$v.payment.city.$invalid  && this.$v.payment.country.$invalid  && this.$v.payment.phoneNumber.$invalid}}
+          {{this.$v.payment.zipCode.$invalid }}{{ this.$v.payment.streetAddress.$invalid  }}{{ this.$v.payment.city.$invalid  }}{{ this.$v.payment.country.$invalid  }}{{this.$v.payment.phoneNumber.$invalid}}
+          -->
+           <!-- {{!this.$v.payment.zipCode.$invalid }}{{ !this.$v.payment.streetAddress.$invalid  }}{{ !this.$v.payment.city.$invalid  }}{{ !this.$v.payment.country.$invalid  }}{{!this.$v.payment.phoneNumber.$invalid}}
+                    {{!showPaymentCards}}  -->
+
+          <template v-if="showPaymentCards" >
           <div
             v-for="(method, index) in paymentMethods"
             :key="index"
             class="col-md-12"
-            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express'"
+            v-if="method.code==='checkoutcom_card_payment' || method.code==='paypal_express' || method.code==='financegateway'"
           >
             <label class="radioStyled sb-payment-method-label">
               {{ method.title ? method.title : method.name }}
@@ -376,6 +401,16 @@
                   </li>
                 </ul>
               </div>
+              <div class="bank-card" v-if="method.code === 'financegateway'">
+                <ul>
+                  <li>
+                    <img
+                      src="/assets/brandLogo/V12/Vector.svg"
+                      alt="v12 finance"
+                    />
+                  </li>
+                </ul>
+              </div>
               <div class="bank-card" v-if="method.code === 'sagepaysuitepi'">
                 <ul>
                   <li>
@@ -446,6 +481,7 @@
               will open for you to complete your order
             </p>
           </div>
+          </template>
           <div class="payment-sage" v-if="radioCheckedFlag">
             <SagePayDropin
               class="payment-sage-inner"
@@ -499,12 +535,15 @@ export default {
     return {
       radioCheckedFlag: false,
       addCouponPressed: false,
+      ShowForm: false,
       couponCode: '',
       isCouponApplied: null,
       paymentMethodSelected: false,
       promoShow: false,
       count: 0,
-      proceedToPaymentButton: false
+      proceedToPaymentButton: false,
+      useBillingDataCheck:false,
+      sameDeliveryCheck :true
     }
   },
   components: {
@@ -551,7 +590,13 @@ export default {
       } else {
         return true
       }
-
+    },
+    showPaymentCards () {
+      if((!this.$v.payment.zipCode.$invalid && !this.$v.payment.streetAddress.$invalid  && !this.$v.payment.city.$invalid  && !this.$v.payment.country.$invalid  && !this.$v.payment.phoneNumber.$invalid ) ) {
+        return true
+      } else {
+        return false
+      }
     },
     hasFreePaymentMethod () {
       if(this.paymentMethods && this.paymentMethods.length > 0) {
@@ -657,6 +702,25 @@ export default {
     activateFindAddress () {
       this.postalcodelookup()
     },
+    showFormFunction () {
+      if(!this.useBillingDataCheck){
+      this.useBillingDataCheck=true
+      this.sameDeliveryCheck = false
+    this.ShowForm = ! this.ShowForm
+     this.sendToShippingAddress= false
+      }
+    },
+    showBilling(){
+      this.ShowForm = ! this.ShowForm
+    },
+    hideFormFunction(){
+      if (!this.sameDeliveryCheck){
+      this.sameDeliveryCheck = true
+      this.useBillingDataCheck = false
+      this.ShowForm = false;
+      this.sendToShippingAddress= true
+      }
+    },
     ...mapActions({
       applyCoupon: 'cart/applyCoupon'
     }),
@@ -688,6 +752,8 @@ export default {
             proceedbtnTitle = 'Check / Money order'
           } else if(single.value === 'free') {
             proceedbtnTitle = 'Order Sample'
+          } else if(single.value === 'financegateway') {
+            proceedbtnTitle = 'Apply For Finance'
           } else {
             proceedbtnTitle = 'Payment'
           }
@@ -1325,5 +1391,13 @@ p.paypal-payment-para {
     color: #4a4a4a;
     font-size: 14px;
     line-height: 20px;
+}
+input:checked + label:before {
+    background-color: #57c9c0 !important;
+    border-color:#57c9c0 !important ;
+    cursor: pointer;
+}
+input:checked + label:after {
+    background-color: #57c9c0 !important;
 }
 </style>

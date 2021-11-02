@@ -177,7 +177,7 @@ table {
 }
 .main_pro1{
      border: 1px solid #b7b4b4;
-    background-color: #00a897;
+    background-color:#071a44;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     margin-top: -9px;
@@ -196,5 +196,13 @@ h1, h2, h3, h4, h5 {
 }
 .cl-tertiary {
     color: #fff!important;
+}
+.main_pro p {
+    color: #333333;
+}
+@media (max-width: 1024px){
+.main_pro p {
+    font-size: 14px;
+}
 }
 </style>

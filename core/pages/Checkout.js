@@ -149,12 +149,16 @@ export default {
       // alert('on palce order')
       // this.$store.dispatch('checkout/setThankYouPage', true)
       let orderId = await this.confirmation.orderNumber
-      this.gotoSuccess(orderId)
+      this.gotoSuccess(orderId, payload)
       this.$store.dispatch('user/getOrdersHistory', { refresh: true, useCache: true })
       Logger.debug(payload.order)()
     },
-    gotoSuccess (id) {
-      this.$router.push({ name: 'Success', params: { orderId: id } })
+    gotoSuccess (id, payload) {
+      if (payload.order.addressInformation.payment_method_code === 'paypal_express') {
+        this.$router.push({ name: 'PaypalSuccess', params: { orderId: id } })
+      } else {
+        this.$router.push({ name: 'Success', params: { orderId: id } })
+      }
     },
     onBeforeEdit (section) {
       this.activateSection(section)
