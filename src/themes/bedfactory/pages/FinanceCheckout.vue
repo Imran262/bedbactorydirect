@@ -340,12 +340,12 @@ export default {
                "SalesReference": this.backendOrderId
                },
            "Retailer": {
-               "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
-               "RetailerGuid": "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
-               "RetailerId": "25838"
-            //    "AuthenticationKey": config.v12Finance.authenticationKey"U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
-            //    "RetailerGuid": config.v12Finance.retailerGuid"e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
-            //    "RetailerId": config.v12Finance.retailerId"25838"
+              //  "AuthenticationKey": "U6BPJvIObeSZkb3dW7E6mqHCxzisV5gvuget1yA4a0y2ALOnzM",
+              //  "RetailerGuid": "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
+              //  "RetailerId": "25838"
+               "AuthenticationKey": config.v12Finance.authenticationKey,
+               "RetailerGuid": config.v12Finance.retailerGuid,
+               "RetailerId": config.v12Finance.retailerId
                }
              }
              console.log("order id is ", orderId,this.backendOrderId, typeof order.CashPrice,order);
