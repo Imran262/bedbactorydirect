@@ -91,7 +91,7 @@ let routes = [
     component: SwatchSuccess,
     props: { page: 'swatches', title: 'Swatches' }
   },
-  { name: 'CheckoutSuccess', path: '/checkout-success', component: FinanceSuccess },
+  { name: 'CheckoutSuccess', path: '/checkout-success', component: CheckoutSuccess },
   { name: 'PaypalSuccess', path: '/paypal-success', component: Success3D },
   { name: 'FinanceSuccess', path: '/finance-success', component: FinanceSuccess }
 ]
