@@ -1,5 +1,8 @@
 <template>
   <div class="maincart">
+   <!-- totals {{totals}}
+   <br/>
+   productsInCart {{JSON.stringify (productsInCart)}} -->
     <div class="container">
       <div class="row uz_mb_top_checkout">
         <div class="col-xs-4 col-sm-6 uz-top-checkout-left">
@@ -86,9 +89,17 @@
               <div class="headingtop col-md-12 col-xs-12">
                 <h2>{{ $t("Your Basket") }}</h2>
               </div>
+              <!-- typeof product.options ,typeof product.totals.options ,typeof product.product_option.extension_attributes.custom_options.configurable_item_options  ,'\n', product
+              
+              products
+              {{typeof productsInCart[2].options}}<br/>
+              {{typeof productsInCart[2].totals.options}}<br/>
+              {{typeof productsInCart[2].product_option.extension_attributes.custom_options.configurable_item_options}}<br/>
+              {{productsInCart[2]}} -->
+              <!-- {{productsInCart}}  -->
               <ProductCartPage
                 :products-in-cart="productsInCart"
-                v-for="product in productsInCart"
+                v-for="product in productsInCartComputed"
                 :key="product.server_item_id || product.id"
                 :product="product"
                 :cart-adhesive-grout="cartHasGroutAdhesive"
@@ -322,6 +333,7 @@ export default {
     await this.checkCart();
     await this.getGrandTotal();
     await this.discountAppliedCheck();
+    console.log("1012 1235 in Mounted ",this.grandTotal);
     if (this.grandTotal) {
       await this.sendCartClick({
         productsInCart: this.productsInCart,
@@ -341,7 +353,100 @@ export default {
       totals: "cart/getTotals",
       getCartToken: "cart/getCartToken",
     }),
-
+    productsInCartComputed(){
+      let data = this.productsInCart;
+      console.log("7412589 in computed property ",data.length,data[2],data);
+      data.forEach(async (product,index)=>{
+        console.log("7412589 Current Product is ",product);
+        if (product.configurable_children && product.configurable_children.length >0){
+          console.log("7896541254 In cart current product is configurable it has ",product.configurable_children.length," children",product.configuration);
+          // if (product.configuration){
+            console.log("7896541254 current product is from quotes");
+            console.log("7896541254 Checking children Now");
+            product.configurable_children.forEach((child,childIndex)=>{
+              console.log(" 7896541254 parent sku ",product.sku," child sku",child.sku , typeof product.sku , typeof child.sku,product.sku === child.sku);
+              if (product.sku === child.sku)
+              {
+                console.log("7896541254 child found with sku ",child.sku);
+                console.log(product.totals,"7896541254 child is ",child,"configurable options of this product are ",product.configurable_options.length,product.configurable_options );
+                
+                let porductOptions =[];
+                let configurableItemOptions=[];
+                product.options=[]
+                if (product.totals){
+                product.totals.options=[]
+              }
+              //  if (product.product_option.extension_attributes.custom_options)
+              //  {
+              //    product.product_option.extension_attributes.custom_options.configurable_item_options = []
+              // }
+              let configurableOptions = [];
+              let selectedOptions = []
+              product.type_id = 'configurable';
+              product.shipping_grouptext = '0';
+                product.configurable_options.forEach((option,index)=>{
+                  console.log("7896541254 current option is ",option, option.label );
+                  let attributeCode = option.attribute_code ;// size
+                  let currentOptionValueSelected = parseInt(product[attributeCode]) ; // 49
+                  let attributeId = option.attribute_id; // 152
+                  let currentValue = 'Single'; //Single
+                  let currentOption =  option.label //Size
+                  option.values.forEach((value,valueIndex)=>{
+                    console.log("7896541254 comparing  ",currentOptionValueSelected ,"with ", value.value_index,typeof currentOptionValueSelected,typeof value.value_index , typeof (parseInt(currentOptionValueSelected)) ,typeof (parseInt(value.value_index)), parseInt(currentOptionValueSelected) === parseInt(value.value_index));
+                    if (parseInt(currentOptionValueSelected) === parseInt(value.value_index)){
+                      console.log("7896541254 value matched",value.value_index);
+                      currentValue = value.label // Single
+                    }
+                  })
+                  console.log("789654125478 current values are \n",
+                  "\n attributeCode",attributeCode,
+                  "\n currentOptionValueSelected",currentOptionValueSelected,
+                  "\n attributeId",attributeId,
+                  "\n currentValue",currentValue,
+                  "\n currentOption",currentOption
+                  );
+                  let productOptions ={};
+                  let configurableItemOptions={};
+                  productOptions = {
+                    "value": currentValue,
+                    "label": currentOption
+                    }
+                  configurableItemOptions = {
+                    "option_id": attributeId.toString(),
+                    "option_value": currentOptionValueSelected
+                    }
+                    
+                    configurableOptions.push(configurableItemOptions)
+                    console.log("789654125478 new objects ",configurableItemOptions ,configurableOptions ,productOptions);
+                   product.product_option = {
+                     "extension_attributes": {
+                      "configurable_item_options": configurableOptions
+                      //[
+                      //    {
+                      //      "option_id": "152",
+                      //      "option_value": 52
+                      //     }
+                      //   ]
+                      }
+                   }
+                  product.options.push(productOptions)
+                  product.totals.options.push(productOptions)
+                  // product.product_option.extension_attributes.custom_options.configurable_item_options.push(configurableItemOptions)
+                  console.log("7896541254 now the product becomes ",typeof product.options ,typeof product.totals.options   ,'\n', JSON.stringify (product));
+                })
+              }
+              else{
+                console.log("7896541254 sku did not match");
+              }
+            })
+          // }
+          // else{
+          //   console.log("7896541254 current product is NOT from quotes");
+          // }
+        }
+      });
+      return data
+    },
     checkIfAnyGroutAdhesive() {
       if (this.cartHasGroutAdhesive && this.cartHasGroutAdhesive.length > 0) {
         return false;
@@ -350,7 +455,12 @@ export default {
     },
     nonzeroProduct() {
       return this.productsInCart.filter((item) => {
-        return item.totals.price_incl_tax > 0;
+        if(item.totals && item.totals.price_incl_tax ){
+          return item.totals.price_incl_tax > 0;
+        }else{
+          console.log("1012 in non zero product this item has no totals",item.totals);
+
+        }
       });
     },
     // productsHasAdhesivesAndGrouts () {
@@ -376,18 +486,20 @@ export default {
   },
   async beforeMount() {
     await this.checkCart();
-    // console.log("789456  ", this.productsInCart.length);
+    console.log("1012 in before mount  ", this.productsInCart.length,JSON.stringify(this.productsInCart));
     if (this.productsInCart.length === 0) {
-      // console.log("Cart is Empty ");
+      console.log("1012 Cart is Empty ");
       this.$router.push(this.localizedRoute("/"));
     }
     this.$bus.$on("carPageUpdate", ({ productId }) => {
+      console.log("1012 carPageUpdate grout adhesive is ",this.hasGroutAdhesives);
       if (productId in this.hasGroutAdhesives) {
         delete this.hasGroutAdhesives[productId];
         this.groutAdhesivesOnCart();
       }
     });
     this.$bus.$on("has-grout-adhesive", ({ recommendation, productId }) => {
+      console.log("1012 has-grout-adhesive grout adhesive is ",this.hasGroutAdhesives);
       if (productId in this.hasGroutAdhesives) {
         this.hasGroutAdhesives[productId].recommendation = recommendation;
       } else {
@@ -397,6 +509,7 @@ export default {
     });
 
     this.$bus.$on("quantity-updated", ({ sqm, productId }) => {
+      console.log("1012 quantity-updated grout adhesive is ",this.ProductsHasAdhesiveGrouts);
       if (productId in this.ProductsHasAdhesiveGrouts) {
         this.ProductsHasAdhesiveGrouts[productId].sqm = sqm;
       } else {
@@ -406,6 +519,7 @@ export default {
     });
 
     this.$bus.$on("minSqmValue", ({ minSqmVal, productId, sqm }) => {
+       console.log("1012 minSqmValue grout adhesive is ",this.ProductsHasAdhesiveGrouts);
       if (productId in this.ProductsHasAdhesiveGrouts) {
         this.ProductsHasAdhesiveGrouts[productId].minSqmValue = minSqmVal;
         this.ProductsHasAdhesiveGrouts[productId].sqm = sqm;
@@ -420,6 +534,7 @@ export default {
     this.$bus.$on(
       "remove-grout-adhesive-section",
       ({ doesNotHasGroutAdhesiveSection, productId }) => {
+        console.log("1012 minSqmValue grout adhesive is ",this.ProductsHasAdhesiveGrouts);
         if (productId in this.groutAdhesiveAddedOrNoThanks) {
           this.groutAdhesiveAddedOrNoThanks[productId].check =
             doesNotHasGroutAdhesiveSection;
@@ -439,6 +554,7 @@ export default {
     totals: {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
+          console.log("1012 Totals being updated",newVal !== oldVal ,newVal , oldVal,this.getGrandTotal());
           // Re-fetch the GrandTotal
           this.getGrandTotal();
           // if (this.grandTotal) {
@@ -451,6 +567,7 @@ export default {
     productsInCart: function (oldVal) {
       this.discountAppliedCheck();
       if (oldVal.length === 0 && this.$route.name === "cart") {
+        console.log("1012 products in cart are zero");
         this.$router.push("/");
       }
     },
@@ -488,7 +605,8 @@ export default {
       //   this.$store.state.cart.cartItems.length
       // );
       if (this.$store.state.cart.cartItems.length === 0) {
-        this.notifyEmptyCart();
+        // this.notifyEmptyCart();
+        console.log("1012 Cart is empty");
         this.$router.push(this.localizedRoute("/"));
         return true;
       } else {
@@ -602,6 +720,7 @@ export default {
           },
         })
         .then((resp) => {
+          console.log("1012 in checkCartHasGroutAdhesiveAttachedToProduct ",resp);
           let response = JSON.parse(resp);
           if (response.success) {
             this.cartHasGroutAdhesive = response.data;
