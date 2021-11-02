@@ -1143,6 +1143,7 @@ export default {
       getCartToken: "cart/getCartToken",
     }),
     getStockStatus(){
+      return 1;
       console.log("14521 stock is ",this.getCurrentProduct.stock.stock_status,this.getCurrentProduct.stock);
       if (this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1)
       {//for 1
