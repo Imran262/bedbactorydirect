@@ -87,7 +87,8 @@ export default {
       };
     },
     tooltipContent () {
-      return { formatter: this.currencySign + ' {value}' + ' /Sqm' };
+      // return { formatter: this.currencySign + ' {value}' + ' /Sqm' };
+      return { formatter: this.currencySign + ' {value}'};
     },
     getMin () {
       return this.priceRange[0];
