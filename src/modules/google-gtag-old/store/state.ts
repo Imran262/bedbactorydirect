@@ -1,5 +1,7 @@
-export interface GoogleGtagState {
-  key?: null | string,
+import { GoogleGtagState } from '../types/GoogleGtagState';
+
+export const state: GoogleGtagState = {
+  key: null,
   product_list: null,
   product_current: null,
   product_click: null,
@@ -7,8 +9,6 @@ export interface GoogleGtagState {
   product_wishlist: null,
   product_compare: null,
   cart: null,
-  cat_click: null,
-  other: null,
   checkout: null,
   checkout_begin: null,
   checkout_option: null,
@@ -16,5 +16,6 @@ export interface GoogleGtagState {
   promo_click: null,
   promo_view: null,
   success_purchase: null,
+  other: null,
   checkout_page: null
 }
