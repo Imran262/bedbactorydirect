@@ -108,7 +108,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       let checkOutStepValue = {
         products: store.getters['cart/getCartItems'],
         option: 'Personal Details Updated',
-        step: '1'
+        step: '2'
       }
       let { firstName, lastName, emailAddress } = payload
       if (emailAddress) {
@@ -156,7 +156,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
     // This is for measuring purchases using checkout_com. This event is fired in Success.vue page and caught here.
     Vue.prototype.$bus.$on('checkout_com-order-placed', async (payload) => {
-      // console.log('payloadShouldBe', payload);
+      console.log('payloadShouldBe', payload);
       // TODO: Make this into separate actions and mutations if possible.
       const orderId = payload.confirmation.orderNumber
       const platformTotals = payload.platformTotals
@@ -172,7 +172,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       // 'affiliation': (payload.order && payload.order.store_code) ? payload.order.store_code : '',
       GTAG.purchase({
         'transaction_id': orderId,
-        'affiliation': appConfig.themeConfigurations.title ? appConfig.themeConfigurations.title : '',
+        'affiliation': 'Bed Factory Direct',
         'value': ((payload.order && payload.order.grandtotal) ? +(parseFloat(payload.order.grandtotal).toFixed(2)) : 0.00),
         'currency': 'GBP',
         'tax': order ? order.total_due : platformTotals && platformTotals.base_tax_amount ? platformTotals.base_tax_amount : '',
@@ -201,7 +201,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           'ecomm_pname': productsAllNames,
           'ecomm_pvalue': productsAllVal,
           'transaction_id': orderId,
-          'affiliation': appConfig.themeConfigurations.title ? appConfig.themeConfigurations.title : '',
+          'affiliation': 'Bed Factory Direct',
           'value': ((payload.order && payload.order.grandtotal) ? +(parseFloat(payload.order.grandtotal).toFixed(2)) : 0.00),
           // 'value': order ? order.total_due : platformTotals && platformTotals.base_grand_total ? platformTotals.base_grand_total : '',
           'currency': 'GBP',
@@ -400,7 +400,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           productCat = payload.category?.[0]?.name || payload.category?.name
         }
 
-        if (!productCat && payload.product && payload.product.primary_category) {
+        if (!productCat && payload.product.primary_category && payload.product.primary_category !== 'null') {
           let category = await getCategoryById(payload.product.primary_category)
           if (category && category.length > 0) {
             productCat = category[0]?.name
