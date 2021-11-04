@@ -515,6 +515,13 @@ export default {
     }
   },
   watch: {
+    getCurrentCategoryBrProductsResponseGetters (newData, oldData) {
+      if (newData !== oldData) {
+        if (this.listingPageCompute) {
+          this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
+        }
+      }
+    },
     getAvailableFilters : {
       handler(){
         this.getAvailableFiltersCustom();
@@ -523,7 +530,8 @@ export default {
     async getCurrentCategoryId (to, from) {
       if (to !== from) {
         this.children = await this.fetchCategoriesAndSubCategories()
-        this.setGtagProductsList()
+        this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
+        // this.setGtagProductsList();
       }
     },
     getBreadcrumbsRoutes (newval, old) {
@@ -608,7 +616,8 @@ export default {
     this.totalCategoryItemsCustom = this.getCategoryProductsTotal
 
     // ForGtag
-    this.setGtagProductsList()
+    // this.setGtagProductsList()
+    this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
   },
   computed: {
     ...mapGetters({
@@ -618,7 +627,15 @@ export default {
       getCategoryProductsTotal: 'category-next/getCategoryProductsTotal',
       getAvailableFilters: 'category-next/getAvailableFilters',
       getBreadcrumbsRoutes: 'breadcrumbs/getBreadcrumbsRoutes',
-      getBreadcrumbsCurrent: 'breadcrumbs/getBreadcrumbsCurrent'
+      getBreadcrumbsCurrent: 'breadcrumbs/getBreadcrumbsCurrent',
+      getCurrentCategoryBrResponseGetters: 'category-next/getCurrentCategoryBrResponseGetters',
+      getCurrentCategoryBrProductsResponseGetters: 'category-next/getCurrentCategoryBrProductsResponseGetters',
+      getPriceRange: 'category-next/getPriceRange',
+      getUpdatedPriceSliderRange: 'category-next/getUpdatedPriceSliderRange',
+      getListingRange: 'category-next/getListingRange',
+      getStatsFields: 'category-next/getStatsFields',
+      getCurrentCategoryBrProductsTotalResponseGetters: 'category-next/getCurrentCategoryBrProductsTotalResponseGetters',
+      getCurrentCategoryBrProductsFiltersResponseGetters: 'category-next/getCurrentCategoryBrProductsFiltersResponseGetters',
     }),
     filtersUpdated(){
       return this.reRender;

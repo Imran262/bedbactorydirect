@@ -15,10 +15,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
     once('__VUE_EXTEND_GTAG__', () => {
       Vue.use(VueGtag, {
         config: {
-          id: appConfig.globalSiteTag.id,
-          params: {
-            send_page_view: true
-          }
+          id: appConfig.globalSiteTag.id
         },
         includes: [{
           id: appConfig.globalSiteTag.GA4_id || 'G-MQ0RMQSH9J'
@@ -71,7 +68,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
   const GTAG: any = (Vue as any).$gtag
   if (appConfig.globalSiteTag.id && !isServer) {
     router.beforeEach(async (to, from, next) => {
-      if (('parentSku' in from.params) && to.name !== 'cart') {
+      if ('parentSku' in from.params) {
         // Means its a product page
         const productSku = from.params.parentSku
         const product = await getProductBySku(productSku, store)
@@ -184,16 +181,15 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       // Measuring Purchase through success Page [New]
       // SET_SUCCESS_PURCHASE
       if (type === 'google-gtag/SET_SUCCESS_PURCHASE') {
-        console.log('afer mutation detect')
-        const orderId = payload.confirmation.orderNumber
+        const orderId = payload.order?.confirmation?.orderNumber
         const orderHistory = state.user.orders_history
         const order = orderHistory ? orderHistory.items.find((order) => order['entity_id'].toString() === orderId) : null
         const platformTotals = state.cart.platformTotals
-        const products = await mapTransactionProductsToGtag(payload.order.products, store)
+        const products = await mapTransactionProductsToGtag(payload.order.order.products, store)
         let productsAllPurchaseId = Object.keys(products).map(key => products[key].id)
         const productsAllNames = Object.keys(products).map(k => products[k].name)
         const productsAllVal = Object.keys(products).map(k => +(parseFloat(products[k].price).toFixed(2)))
-        console.log('afer var init')
+        console.log("afer var init")
         let purchaseEventObj = {
           'ecomm_pagetype': 'purchase',
           'ecomm_prodid': productsAllPurchaseId,
@@ -207,12 +203,11 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           'currency': 'GBP',
           'tax': order ? order.total_due : platformTotals && platformTotals.base_tax_amount ? platformTotals.base_tax_amount : '',
           'shipping': (payload.order && payload.order.shipping_incl_tax) ? parseFloat(payload.order.shipping_incl_tax).toFixed(2) : 0.00,
-          'items': products,
-          'non_interaction': true
+          'items': products
         }
-        console.log('afer obj init')
+        console.log("afer obj init")
         GTAG.purchase(purchaseEventObj)
-        console.log('afer event fire ')
+        console.log("afer event fire ")
       }
 
       if (type === 'google-gtag/SET_CHECKOUT_PAGE') {
@@ -230,8 +225,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           'ecomm_prodid': productIds,
           'ecomm_pvalue': productsAllVal,
           'ecomm_pname': productsAllNames,
-          'ecomm_totalvalue': payload.totals?.find(t => t.code === 'grand_total')?.value,
-          'non_interaction': true
+          'ecomm_totalvalue': payload.totals?.find(t => t.code === 'grand_total')?.value
         })
       }
       // Measuring Views of Product Lists
@@ -242,13 +236,11 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           }
           GTAG.event('view_item_list', viewItemListData)
         }
-      }
-      if (type === 'google-gtag/SET_CATEGORY') {
+
         if (payload.catName && payload.isListingProducts === false) {
           GTAG.event('dynCategory', {
             'ecomm_pagetype': 'category',
-            'ecomm_category': payload.catName,
-            'non_interaction': true
+            'ecomm_category': payload.catName
           })
         }
       }
@@ -285,8 +277,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           'ecomm_pname': payload.product.name,
           'ecomm_category': payload.category,
           'ecomm_pvalue': parseFloat(payload.product.price).toFixed(2),
-          'ecomm_totalvalue': parseFloat(payload.product.price).toFixed(2),
-          'non_interaction': true
+          'ecomm_totalvalue': parseFloat(payload.product.price).toFixed(2)
         })
 
         GTAG.event('view_item', {
@@ -306,22 +297,20 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
       // Measuring Views of Other Clicks
       if (type === 'google-gtag/SET_HOME_CLICK') {
-        console.log('dynHome')
-        // let { metaInfo, path, fullPath } = payload
-        // if (metaInfo) {
-        //   // console.log('metaInfo', metaInfo);
-        //   GTAG.pageview({
-        //     /* The page's title. */
-        //     page_title: metaInfo?.title || metaInfo?.titleTemplate,
-        //     /* The page's URL. */
-        //     page_path: path,
-        //     /* The path portion of location. This value must start with a slash (/) character. */
-        //     page_location: fullPath
-        //   })
-        // }
+        let { metaInfo, path, fullPath } = payload
+        if (metaInfo) {
+          // console.log('metaInfo', metaInfo);
+          GTAG.pageview({
+            /* The page's title. */
+            page_title: metaInfo?.title || metaInfo?.titleTemplate,
+            /* The page's URL. */
+            page_path: path,
+            /* The path portion of location. This value must start with a slash (/) character. */
+            page_location: fullPath
+          })
+        }
         GTAG.event('dynHome', {
-          'ecomm_pagetype': 'home',
-          'non_interaction': true
+          'ecomm_pagetype': 'home'
         })
       }
 
@@ -335,7 +324,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
       // Add to cart
       if (type === 'google-gtag/SET_ADD_PRODUCT') {
-        // console.log('ShouldReachHere');
+        console.log('i am add to cart mutation');
         // console.log('payLoadIs', payload, payload.category?.[0].name);
         let product = state && state.cart && state.cart.cartItems ? state.cart.cartItems[state.cart.cartItems.length - 1] : []
 
@@ -349,12 +338,13 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           productCat = payload.category?.[0]?.name || payload.category?.name
         }
 
-        if (!productCat && payload.product && payload.product.primary_category && payload.product.primary_category !== 'null') {
+        if (!productCat && payload.product.primary_category && payload.product.primary_category !== 'null') {
           let category = await getCategoryById(payload.product.primary_category)
           if (category && category.length > 0) {
             productCat = category[0]?.name
           }
         }
+
 
         if (product) {
           // add_to_cart from documentation: https://developers.google.com/analytics/devguides/collection/gtagjs/enhanced-ecommerce
