@@ -10,6 +10,7 @@
         :max="getMax"
         :tooltip-formatter="tooltipContent"
         @drag-end="setPrice"
+        @input="sliderChange"
       />
     </no-ssr>
   </div>
@@ -87,8 +88,7 @@ export default {
       };
     },
     tooltipContent () {
-      // return { formatter: this.currencySign + ' {value}' + ' /Sqm' };
-      return { formatter: this.currencySign + ' {value}'};
+      return { formatter: this.currencySign + ' {value}' + ' /Sqm' };
     },
     getMin () {
       return this.priceRange[0];
@@ -108,12 +108,9 @@ export default {
   methods: {
     setPrice: function (e) {
       let val = e.val;
-      // let from = parseInt(val[0]);
-      // let to = parseInt(val[1]);
-      // let id = from.toFixed(1) + '-' + to.toFixed(1);
-      let from = typeof val[0] ==='string' ? ( parseFloat(val[0]) ? parseFloat(val[0]) : 0 ): val[0];
-      let to = typeof val[1] ==='string' ? ( parseFloat(val[1]) ? parseFloat(val[1]) : 0 ): val[1];
-      let id = from.toFixed(1) + "-" + to.toFixed(1);
+      let from = parseInt(val[0]);
+      let to = parseInt(val[1]);
+      let id = from.toFixed(1) + '-' + to.toFixed(1);
       this.remove = isEqual([from, to], this.priceRange);
       this.switchFilter({
         id: id,
@@ -157,15 +154,20 @@ export default {
 <style lang="scss" scoped>
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
+
 $color-event: color(tertiary);
 $color-active: color(accent);
 
 .price-slider-container {
-  padding-bottom: 55px;
+  padding-bottom: 50px;
   position: relative;
   z-index: 0;
+  padding-right: 6px;
+  @media (max-width: 767px) {
+    padding-right: 0px;
+  }
   @media (max-width: 480px) {
-    width: 90%;
+    width: 96%;
   }
 }
 
@@ -179,6 +181,14 @@ $color-active: color(accent);
     }
   }
 }
+
+// .square {
+//   width: 80%;
+//   height: 80%;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%,-50%);
+// }
 .square {
   width: 80%;
   @media (max-width: 480px) {
@@ -195,55 +205,74 @@ $color-active: color(accent);
 .vue-slider-component .vue-slider-dot {
   box-shadow: none;
 }
+
 .vue-slider-dot-handle {
-  background-color: #ee4c56 !important;
+  background-color: #da2f89 !important;
 }
+
 .vue-slider-component.vue-slider-horizontal .vue-slider-process {
-  background-color: #071a44 !important;
+  background-color: #2a285a !important;
   height: 4px !important;
-  padding: 0px !important ;
+  padding: 0px !important;
 }
+
 .vue-slider-tooltip {
   background-color: #ffffff !important;
-  color: #333333 !important;
-  border-color: #071a44 !important;
+  color: #434343 !important;
+  border-color: #2a285a !important;
 }
+
 .vue-slider-tooltip:before {
   display: none;
 }
+
 .vue-slider-horizontal {
   padding: 0px !important;
 }
+
 .vue-slider-always.vue-slider-dot .vue-slider-tooltip-bottom {
-  margin-left: 13px !important;
+  margin-left: 0px !important;
+  left: 2px;
+  transform: translate(0, 100%);
+  right: auto;
 }
+
 .vue-slider-always.vue-slider-dot:nth-child(2) .vue-slider-tooltip-bottom {
-  margin-left: -18px !important;
+  margin-left: 0px !important;
+  right: 2px;
+  left: auto;
+  transform: translate(0, 100%);
 }
-@media (min-width: 768px) {
-  .vue-slider-component .vue-slider-tooltip {
-    font-size: 14px;
-    color: #333333 !important;
-    font-weight: bold;
-  }
+
+.vue-slider-component .vue-slider-tooltip {
+  font-size: 13px;
+  color: #434343 !important;
+  font-weight: bold;
+  padding: 4px 5px !important;
+  min-width: fit-content;
 }
-@media (max-width: 767px) {
-  .vue-slider-tooltip {
-    background-color: #ffffff !important;
-    color: #333333 !important;
-    border-color: #2a285a !important;
-  }
-  .vue-slider-component .vue-slider-tooltip {
-    border: none !important;
-    font-size: 18px;
-  }
+
+.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom.vue-merged-tooltip {
+  transform: translate(0%, 92%) !important;
+  right: -5px !important;
+  left: auto !important;
 }
-span.vue-slider-tooltip {
-  padding: 7px 2px !important;
+
+.vue-slider-component .vue-slider-tooltip-wrap.vue-slider-tooltip-bottom.vue-merged-tooltip.left-fixed {
+  right: auto !important;
+  left: -5px !important;
 }
-@media screen and (min-width: 768px) and (max-width: 991px) {
-  span.vue-slider-tooltip {
-    font-size: 10px !important;
-  }
-}
+
+// @media (max-width: 767px) {
+//   .vue-slider-tooltip {
+//     background-color: #ffffff !important;
+//     color:#434343 !important;
+//     border-color: #2a285a !important;
+//     // font-weight: bold;
+//   }
+//   .vue-slider-component .vue-slider-tooltip {
+//     border: none !important;
+//     font-size: 18px;
+//   }
+// }
 </style>

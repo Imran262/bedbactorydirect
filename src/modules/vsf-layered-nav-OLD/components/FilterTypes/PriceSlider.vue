@@ -16,101 +16,99 @@
 </template>
 
 <script>
-import NoSSR from 'vue-no-ssr';
-import isEqual from 'lodash-es/isEqual';
-import { products } from 'config';
+import NoSSR from "vue-no-ssr";
+import isEqual from "lodash-es/isEqual";
+import { products } from "config";
 
 const PriceSliderComponents = {};
 
 if (process.browser) {
-  let VueSlider = require('vue-slider-component');
-  PriceSliderComponents['vue-slider'] = VueSlider;
+  let VueSlider = require("vue-slider-component");
+  PriceSliderComponents["vue-slider"] = VueSlider;
 }
-PriceSliderComponents['no-ssr'] = NoSSR;
+PriceSliderComponents["no-ssr"] = NoSSR;
 
 export default {
-  name: 'PriceSlider',
+  name: "PriceSlider",
   props: {
     content: {
       type: null,
-      default: ''
+      default: "",
     },
     id: {
       type: null,
-      required: true
+      required: true,
     },
     code: {
       type: null,
-      required: true
+      required: true,
     },
     priceRange: {
       type: Array,
-      required: true
+      required: true,
     },
     context: {
       type: null,
-      default: ''
-    }
+      default: "",
+    },
   },
-  beforeMount () {
-    this.$bus.$on('reset-filters', this.resetPriceSlider);
-    this.$bus.$on('reset-price-slider', this.resetPriceSlider);
+  beforeMount() {
+    this.$bus.$on("reset-filters", this.resetPriceSlider);
+    this.$bus.$on("reset-price-slider", this.resetPriceSlider);
   },
-  beforeDestroy () {
-    this.$bus.$off('reset-filters', this.resetPriceSlider);
-    this.$bus.$off('reset-price-slider', this.resetPriceSlider);
+  beforeDestroy() {
+    this.$bus.$off("reset-filters", this.resetPriceSlider);
+    this.$bus.$off("reset-price-slider", this.resetPriceSlider);
   },
-  mounted () {
-    const routeQueryData = this.$store.state.route[products.routerFiltersSource];
-    if (routeQueryData.hasOwnProperty('price')) {
-      const routePriceRange = routeQueryData['price'].split('-');
+  mounted() {
+    const routeQueryData =
+      this.$store.state.route[products.routerFiltersSource];
+    if (routeQueryData.hasOwnProperty("price")) {
+      const routePriceRange = routeQueryData["price"].split("-");
       if (!isEqual(this.value, routePriceRange)) {
         this.value = routePriceRange;
       }
     }
   },
-  data () {
+  data() {
     return {
       active: false,
       remove: false,
       value: this.priceRange,
       currencySign: this.$store.state.config.i18n.currencySign,
-      priceSliderConfig: this.$store.state.config.layeredNavigation.priceSliderOptions
+      priceSliderConfig:
+        this.$store.state.config.layeredNavigation.priceSliderOptions,
     };
   },
   computed: {
-    priceSliderOptions () {
+    priceSliderOptions() {
       return {
         ...this.priceSliderConfig,
         ...this.tooltipContent,
-        silent: true
+        silent: true,
       };
     },
-    tooltipContent () {
-      // return { formatter: this.currencySign + ' {value}' + ' /Sqm' };
-      return { formatter: this.currencySign + ' {value}'};
+    tooltipContent() {
+      return { formatter: this.currencySign + " {value}" };
     },
-    getMin () {
+    getMin() {
       return this.priceRange[0];
     },
-    getMax () {
+    getMax() {
       return this.priceRange[1];
-    }
+    },
   },
   watch: {
     $route: function (to, from) {
-      this.validateRoute('update');
+      this.validateRoute("update");
       if (from.path && to.path && from.path !== to.path) {
         this.value = this.priceRange;
       }
-    }
+    },
   },
   methods: {
     setPrice: function (e) {
       let val = e.val;
-      // let from = parseInt(val[0]);
-      // let to = parseInt(val[1]);
-      // let id = from.toFixed(1) + '-' + to.toFixed(1);
       let from = typeof val[0] ==='string' ? ( parseFloat(val[0]) ? parseFloat(val[0]) : 0 ): val[0];
       let to = typeof val[1] ==='string' ? ( parseFloat(val[1]) ? parseFloat(val[1]) : 0 ): val[1];
       let id = from.toFixed(1) + "-" + to.toFixed(1);
@@ -120,37 +118,28 @@ export default {
         type: this.code,
         from: from,
         to: to,
-        remove: this.remove
+        remove: this.remove,
       });
     },
-    switchFilter (variant) {
-      this.$emit('change', variant);
+    switchFilter(variant) {
+      this.$emit("change", variant);
     },
-    resetPriceSlider () {
+    resetPriceSlider() {
       if (this.$refs.priceSlider) {
         this.$refs.priceSlider.setValue(this.priceRange);
       }
     },
-    validateRoute () {
-      const routeQueryData = this.$store.state.route[products.routerFiltersSource];
-      if (this.$refs.priceSlider && !routeQueryData.hasOwnProperty('price')) {
+    validateRoute() {
+      const routeQueryData =
+        this.$store.state.route[products.routerFiltersSource];
+      if (this.$refs.priceSlider && !routeQueryData.hasOwnProperty("price")) {
         this.$nextTick(() => {
           this.$refs.priceSlider.setValue(this.priceRange);
         });
       }
     },
-    sliderChange: function (e) {
-      const sliderDot = this.$el.querySelectorAll('.vue-slider-dot')[1];
-      const dotStyles = getComputedStyle(sliderDot);
-      let dotMatrix = new WebKitCSSMatrix(dotStyles.transform);
-      if (dotMatrix.m41 < 100) {
-        this.$el.querySelectorAll('.vue-slider-process .vue-merged-tooltip')[0].classList.add('left-fixed')
-      } else {
-        this.$el.querySelectorAll('.vue-slider-process .vue-merged-tooltip')[0].classList.remove('left-fixed')
-      }
-    }
   },
-  components: PriceSliderComponents
+  components: PriceSliderComponents,
 };
 </script>
 

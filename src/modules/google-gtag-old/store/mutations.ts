@@ -38,9 +38,6 @@ export const mutations: MutationTree<any> = {
   [types.SET_PROMO_VIEW] (state, payload) {
     state.promo_view = payload
   },
-  [types.SET_CATEGORY] (state, payload) {
-    state.cat_click = payload
-  },
   [types.SET_SUCCESS_PURCHASE] (state, payload) {
     state.success_purchase = payload
   },

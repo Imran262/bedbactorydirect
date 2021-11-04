@@ -7,7 +7,6 @@ export interface GoogleGtagState {
   product_wishlist: null,
   product_compare: null,
   cart: null,
-  cat_click: null,
   other: null,
   checkout: null,
   checkout_begin: null,

@@ -14,6 +14,7 @@ export const state: GoogleGtagState = {
   checkout_option: null,
   order_details: null,
   promo_click: null,
+  cat_click: null,
   promo_view: null,
   success_purchase: null,
   other: null,
