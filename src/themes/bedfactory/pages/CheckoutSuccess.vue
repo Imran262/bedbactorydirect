@@ -466,7 +466,7 @@ finalItems.push(item);
           this.lastOrderItem = data.result.orderData
           console.log(" 741258       last order",this.lastOrderItem , "\twhole data" ,data);
           this.$bus.$emit('notification-progress-stop')
-          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals?.platformTotals ? plateformTotals.platformTotals : [] })
+          this.$bus.$emit('checkout_com-order-placed', { ...this.lastOrderItem, platformTotals: plateformTotals.platformTotals ? plateformTotals.platformTotals : [] })
           localStorage.removeItem('checkout_3dSecure_orderId')
           localStorage.removeItem('plateFormTotals')
         // } else {
