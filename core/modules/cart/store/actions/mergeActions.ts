@@ -362,7 +362,7 @@ const mergeActions = {
     for (const serverItem of definedServerItems) {
       try {
         console.log("74125 About to call merge srever Item 1", clientItems, "\t\t\t2 ", serverItem, "\t\t\t3 ", forceClientState, "\t\t\t4 ", dryRun);
-        const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/getSku";
+        const URL = config.baseUrl.url+"vueapi/ext/V12Finance/getSku";
         let order = {
           "item_id": serverItem.item_id,
           "quote_id": serverItem.quote_id
