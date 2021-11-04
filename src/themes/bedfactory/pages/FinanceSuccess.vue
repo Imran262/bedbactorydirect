@@ -438,8 +438,8 @@ finalItems.push(item);
           plateformTotals = JSON.parse(plateformTotals)
           this.plateFormTotals = plateformTotals
           console.log("741258   plateformTotals",this.plateformTotals , plateformTotals);
-          let OrderDetailsUrl ='https://vue.bedfactorydirect.co.uk/' +
-            config.orderDetails
+          // let OrderDetailsUrl ='https://vue.bedfactorydirect.co.uk/' +
+          let OrderDetailsUrl = baseUrl.baseUrl.url + config.orderDetails
         console.log('OrderDetailsUrl', OrderDetailsUrl)
           let orderId = localStorage.getItem('checkout_3dSecure_orderId')
           console.log("7412589 current route is  ",this.$route.query.backendorderid.split('1?'),'\n',this.$route.query.backendorderid,'\n',this.$route,localStorage.getItem('checkout_3dSecure_orderId'));
