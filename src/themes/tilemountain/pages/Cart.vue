@@ -99,7 +99,7 @@
               <!-- {{productsInCart}}  -->
               <ProductCartPage
                 :products-in-cart="productsInCart"
-                v-for="product in productsInCartComputed"
+                v-for="product in productsInCart"
                 :key="product.server_item_id || product.id"
                 :product="product"
                 :cart-adhesive-grout="cartHasGroutAdhesive"
@@ -356,7 +356,7 @@ export default {
     productsInCartComputed(){
       let data = this.productsInCart;
       console.log("7412589 in computed property ",data.length,data[2],data);
-      data.forEach(async (product,index)=>{
+      data.forEach(async (product,dataIndex)=>{
         console.log("7412589 Current Product is ",product);
         if (product.configurable_children && product.configurable_children.length >0){
           console.log("7896541254 In cart current product is configurable it has ",product.configurable_children.length," children",product.configuration);
@@ -433,6 +433,9 @@ export default {
                   product.totals.options.push(productOptions)
                   // product.product_option.extension_attributes.custom_options.configurable_item_options.push(configurableItemOptions)
                   console.log("7896541254 now the product becomes ",typeof product.options ,typeof product.totals.options   ,'\n', JSON.stringify (product));
+                  // if (product.configurable_options.lenght === index +1){
+                  //   return 
+                  // }
                 })
               }
               else{
@@ -444,6 +447,9 @@ export default {
           //   console.log("7896541254 current product is NOT from quotes");
           // }
         }
+      //   if(data.length-1 === dataIndex){
+      // return data
+      //   }
       });
       return data
     },
