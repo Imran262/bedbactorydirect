@@ -54,7 +54,7 @@
             <thead>
               <tr>
                 <th scope="col"></th>
-                <th colspan="2" scope="col">Product Name</th>
+                <th scope="col">Product Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Qty</th>
                 <th class="right-align" scope="col">Subtotal</th>
@@ -72,14 +72,14 @@
                     alt="quoteimage"
                   />
                 </td>
-                <td class="left" colspan="2" data-label="Account">
+                <td data-label="Name">
                   {{ itemsVal.name }}
                 </td>
-                <td data-label="Due Date">
+                <td data-label="price">
                   {{ itemsVal.price_incl_tax | price(storeView) }}
                 </td>
-                <td data-label="Amount">{{ itemsVal.items.qty }}</td>
-                <td class="right-align" data-label="Period">
+                <td data-label="Quantity">{{ itemsVal.items.qty }}</td>
+                <td class="right-align" data-label="Subtotal">
                   {{ itemsVal.row_total_incl_tax | price(storeView) }}
                 </td>
               </tr>
@@ -88,14 +88,14 @@
         </div>
         <div class="p_right">
           <div class="row">
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"></div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-              <p class="align_right bold">Subtotal</p>
-              <p class="align_right bold">Discount</p>
-              <p class="align_right bold">Delivery</p>
-              <p class="align_right bold">Grand Total Inc VAT</p>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-2"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-7">
+              <p class="bold">Subtotal</p>
+              <p class="bold">Discount</p>
+              <p class="bold">Delivery</p>
+              <p class="bold">Grand Total Inc VAT</p>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
               <p class="align_right">
                 {{ quoteVal.base_grand_total | price(storeView) }}
               </p>
