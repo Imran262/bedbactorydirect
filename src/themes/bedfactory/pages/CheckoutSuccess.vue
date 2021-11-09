@@ -473,7 +473,7 @@ finalItems.push(item);
         //   this.$router.push({ name: 'home' })
         // }
       } catch (error) {
-        console.log(error)
+        console.log("Error in mounted ",error)
       }
     // }
         await this.lastOrderItem
