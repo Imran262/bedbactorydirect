@@ -156,6 +156,7 @@ export default {
       }
     },
     backendOrderId () {
+      console.log("12541254 order number is this.lastOrderItem",this.lastOrderItem,"\n\nthis.this.orderElements",this.orderElements);
       if (!this.$route.fullPath.includes('utm_nooverride') && this.$store.state.order && this.orderElements) {
         return this.orderElements.confirmation.orderNumber
       } else {
