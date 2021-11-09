@@ -367,6 +367,7 @@ const mergeActions = {
           "item_id": serverItem.item_id,
           "quote_id": serverItem.quote_id
         }
+        let quoteItemCheck = false
         let productSku2 = {
           childsku:'',
           sku:''
@@ -379,6 +380,10 @@ const mergeActions = {
           .then(res => {
             // let v12Link = res.data.result.ApplicationFormUrl ;
             console.log("1456321 14521 ",serverItem.name, res);
+            if(res.data.result.length>0)
+            {
+              quoteItemCheck = true;
+            }
             productSku2 = res.data.result[0];
             return res.data.result[0];
 
@@ -388,8 +393,10 @@ const mergeActions = {
             return ''
             
           });
-        console.log("1456321 product sku is ",productSku2.childsku !== productSku2.sku,productSku2.childsku , productSku2.sku,productSku, "next ",productSku2);
-        if (productSku2.childsku !== productSku2.sku){
+        
+        if(quoteItemCheck){
+          console.log("1456321 product sku is ",productSku2.childsku !== productSku2.sku,productSku2.childsku , productSku2.sku,productSku, "next ",productSku2);
+          if (productSku2.childsku !== productSku2.sku){
           console.log("741654 Its a configurable product");
           serverItem['childSku'] = productSku2.childsku
           serverItem.sku = productSku2.sku;
@@ -400,8 +407,8 @@ const mergeActions = {
         else{
           console.log("741654 Its a simple product");
           serverItem.sku = productSku2.childsku;
-       
         }
+      }
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {
