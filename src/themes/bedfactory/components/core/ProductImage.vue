@@ -32,7 +32,8 @@
       class="product-image__thumb"
       :src="image.src"
     />
-    <div class="image_label_one" v-if="productLabel">
+    <!-- {{getProductLabel}} -->
+    <div class="image_label_one" >
       <img alt="Product Label" class="image_label" :src="getProductLabel" />
     </div>
   </div>
@@ -85,6 +86,7 @@ export default {
   },
   computed: {
     getProductLabel () {
+      return 'https://www.tilemountain.co.uk/img/120/120/resize/stockicon/stylish_savings.png'
       let productLabelStr = ''
       if (this.productLabel.length > 0 && Array.isArray(this.productLabel)) {
         productLabelStr = this.productLabel[0]
