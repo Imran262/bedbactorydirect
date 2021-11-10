@@ -42,6 +42,7 @@
           :alt="product.name | htmlDecode"
           :calc-ratio="false"
           data-testid="productImage"
+          :product-image-label="product.product_label"
         />
       </div>
       <div class="brand-size1">

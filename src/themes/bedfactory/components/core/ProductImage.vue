@@ -33,8 +33,9 @@
       :src="image.src"
     />
     <!-- {{getProductLabel}} -->
-    <div class="image_label_one" >
-      <img alt="Product Label" class="image_label" :src="getProductLabel" />
+   <!-- here we are {{productImageLabel}} -->
+    <div class="image_label_one" v-if="productImageLabel && productImageLabel.enabled">
+      <img alt="Product Label" class="image_label" :src="productImageLabel.image" />
     </div>
   </div>
 </template>
@@ -66,6 +67,10 @@ export default {
       type: Boolean,
       default: false
 
+    },
+    productImageLabel:{
+      type:String,
+      default:''
     }
   },
   data () {
