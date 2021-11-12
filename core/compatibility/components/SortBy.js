@@ -6,6 +6,8 @@ export default {
   methods: {
     changeOrder () {
       // renamed to sort
+      console.log('7532 filter changed function');
+      this.$bus.$emit('go-to-start-page', true)
       this.sort()
     }
   },
