@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <head-image />
-     <UspBar :identifier="'usp-bar-TM'" />
+     <!-- <UspBar :identifier="'usp-bar-TM'" /> -->
      <FamiliarProducts />
      <swatches :identifier="'swatches-TM'"/>
      <Brands />

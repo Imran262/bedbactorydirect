@@ -1,4 +1,5 @@
 <template>
+<div class="container-fluid main-usp-bar">
   <div class="usp-bar container">
     <!-- <div class="container">
       <div class="usp-bar-inner">
@@ -11,7 +12,7 @@
     >
 
       <div
-        class="bus-img-main col-md-4"
+        class="bus-img-main col-sm-3"
         v-for="(singleblock, index) in uspData"
         :key="index"
       >
@@ -27,6 +28,7 @@
           <div class="home_delivery_text">{{ singleblock.linktext }}</div>
         </router-link>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -70,6 +72,9 @@ export default {
 };
 </script>
 <style lang='scss'>
+.main-usp-bar{
+  background-color: aliceblue;
+}
 .usp-bar-box {
   img {
     width: 18px;
