@@ -607,7 +607,7 @@ export default {
 
   },
   beforeMount () {
-    this.$bus.$on('go-to-start-page', this.pageChangedCustom)
+    this.$bus.$on('go-to-start-page-Category', this.pageChangedCustom)
     window.addEventListener('scroll', (event) => {
       let scroll = window.scrollY
       localStorage.setItem("scrollloc", scroll)
@@ -769,6 +769,10 @@ export default {
     pageChangedCustom(){
       console.log("7532 In category page Emit recieved for filter change");
       this.productListingUpdate++;
+      setTimeout(() => {
+         this.$bus.$emit('go-to-start-page-Pagination', true)
+        // this.productListingUpdate++;
+      }, 2000);
     },
     getAvailableFiltersCustom(){
       let catFilters = {...this.getAvailableFilters};

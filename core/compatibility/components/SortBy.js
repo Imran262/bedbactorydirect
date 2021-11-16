@@ -7,7 +7,7 @@ export default {
     changeOrder () {
       // renamed to sort
       console.log('7532 filter changed function');
-      this.$bus.$emit('go-to-start-page', true)
+      this.$bus.$emit('go-to-start-page-Category', true)
       this.sort()
     }
   },
