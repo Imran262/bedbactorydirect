@@ -31,7 +31,7 @@
             </a>
           </figure>
           <div class="image_label_one" v-if="productLabel">
-            <img alt="Product Label" class="image_label" :src="'https://devadmin2.bedfactorydirect.co.uk/pub/media/'+productLabel" />
+            <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productLabel" />
           </div>
           <!-- <product-image
             v-show="hideImageAtIndex !== index"
@@ -155,6 +155,7 @@ export default {
   },
   data () {
     return {
+      backEnd: config.backEnd,
       carouselTransition: true,
       carouselTransitionSpeed: 0,
       currentColor: 0,
