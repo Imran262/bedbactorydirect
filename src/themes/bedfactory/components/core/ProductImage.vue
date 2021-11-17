@@ -32,17 +32,26 @@
       class="product-image__thumb"
       :src="image.src"
     />
-    <!-- {{getProductLabel}} -->
-   <!-- here we are {{productImageLabel}} -->
-    <div class="image_label_one" v-if="productImageLabel && productImageLabel.enabled">
-      <img alt="Product Label" class="image_label" :src="productImageLabel.image" />
+    <div class="image_label_one" v-if="productImageLabel && productImageLabel.length>1">
+      <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productImageLabel" />
     </div>
   </div>
 </template>
 
 <script>
 import { onlineHelper, getThumbnailPath } from '@vue-storefront/core/helpers'
+import config from 'config'
 export default {
+  data () {
+    return {
+      backEnd: config.backEnd,
+      lowerQualityImage: false,
+      lowerQualityImageError: false,
+      highQualityImage: false,
+      highQualityImageError: false,
+      basic: true
+    }
+  },
   props: {
     calcRatio: {
       type: Boolean,
@@ -71,15 +80,6 @@ export default {
     productImageLabel:{
       type:String,
       default:''
-    }
-  },
-  data () {
-    return {
-      lowerQualityImage: false,
-      lowerQualityImageError: false,
-      highQualityImage: false,
-      highQualityImageError: false,
-      basic: true
     }
   },
   watch: {
@@ -231,6 +231,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
 }
 .image_label {
+  width : 60px;
   display: block;
   margin-left: auto;
   @media screen and (max-width: 767px) {
