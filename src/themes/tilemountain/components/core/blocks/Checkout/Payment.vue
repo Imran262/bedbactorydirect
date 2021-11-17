@@ -38,7 +38,7 @@
                 id="sendToShippingAddressCheckbox"
                 v-model="sendToShippingAddress"
               >
-                {{ $t('Same details as delivery') }}
+                {{ $t('My billing address is the same as my delivery address') }}
               </base-checkbox>
               <!--@click is To validate the phoneNumber that it is less than 11 digits-->
               <!-- <base-checkbox
