@@ -30,6 +30,9 @@
               <img :src="images.src" alt="AltTitle" itemprop="thumbnail">
             </a>
           </figure>
+          <div class="image_label_one" v-if="productLabel">
+            <img alt="Product Label" class="image_label" :src="'https://devadmin2.bedfactorydirect.co.uk/pub/media/'+productLabel" />
+          </div>
           <!-- <product-image
             v-show="hideImageAtIndex !== index"
             @click="openOverlay"
@@ -427,6 +430,12 @@ export default {
   .margan{
     padding-bottom: 94% !important;
   }
+}
+.image_label{
+  width: 120px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .media-gallery-carousel {
   position: relative;

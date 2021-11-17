@@ -231,7 +231,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
 }
 .image_label {
-  width : 60px;
+  width : 120px;
   display: block;
   margin-left: auto;
   @media screen and (max-width: 767px) {

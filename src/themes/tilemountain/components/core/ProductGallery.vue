@@ -21,7 +21,7 @@
           @close="onEscapePress"
           @loaded="carouselLoaded = true"
           @pageChange="onPageChange"
-          :product-label="product.product_banner_image"
+          :product-label="product.front_label_image_name"
           :imagelength="imagelength"
           :gallery-zoom="galleryZoom"
           :customer-gallery="customerGallery"
