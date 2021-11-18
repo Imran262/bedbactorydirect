@@ -32,15 +32,26 @@
       class="product-image__thumb"
       :src="image.src"
     />
-    <div class="image_label_one" v-if="productLabel">
-      <img alt="Product Label" class="image_label" :src="getProductLabel" />
+    <div class="image_label_one" v-if="productImageLabel && productImageLabel.length>1">
+      <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productImageLabel" />
     </div>
   </div>
 </template>
 
 <script>
 import { onlineHelper, getThumbnailPath } from '@vue-storefront/core/helpers'
+import config from 'config'
 export default {
+  data () {
+    return {
+      backEnd: config.backEnd,
+      lowerQualityImage: false,
+      lowerQualityImageError: false,
+      highQualityImage: false,
+      highQualityImageError: false,
+      basic: true
+    }
+  },
   props: {
     calcRatio: {
       type: Boolean,
@@ -65,15 +76,10 @@ export default {
       type: Boolean,
       default: false
 
-    }
-  },
-  data () {
-    return {
-      lowerQualityImage: false,
-      lowerQualityImageError: false,
-      highQualityImage: false,
-      highQualityImageError: false,
-      basic: true
+    },
+    productImageLabel:{
+      type:String,
+      default:''
     }
   },
   watch: {
@@ -85,6 +91,7 @@ export default {
   },
   computed: {
     getProductLabel () {
+      return 'https://www.tilemountain.co.uk/img/120/120/resize/stockicon/stylish_savings.png'
       let productLabelStr = ''
       if (this.productLabel.length > 0 && Array.isArray(this.productLabel)) {
         productLabelStr = this.productLabel[0]
@@ -224,6 +231,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
 }
 .image_label {
+  width : 120px;
   display: block;
   margin-left: auto;
   @media screen and (max-width: 767px) {

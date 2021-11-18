@@ -2,7 +2,8 @@
   <div class="product-listing row m0 center-xs start-md">
     <!-- In product Listing
   Products are <br /> -->
-  <template v-if="isCategory">
+  <template v-if="isCategory"> 
+    <!-- from category -->
     <div
       v-for="(product, key) in products"
       :key="key"
