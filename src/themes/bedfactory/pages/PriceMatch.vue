@@ -5,32 +5,30 @@
         <div class="row">
           <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="MainpriceMatch">
-              <h3>Price Match</h3>
+              <h1>Price Match</h1>
               <p>
-                We try our to offer products at price that are competitive. To
-                make ure our cutomers are always getting the best products at
-                the best possible price, we also offer price match service
+                We try our best to offer products at prices that are competitive. To make sure our customers are always getting the best products at the best possible price, we also offer a price match service.
               </p>
-              <span> Price Match Conditions</span>
+              <strong> Price Match Conditions</strong>
               <ul>
                 <li>
                   It has to be the same product with the same specification
                 </li>
-                <li>It has to be a new product in</li>
+                <li>It has to be a new product in it’s original packaging</li>
                 <li>It has to be available to buy</li>
                 <li>We will consider any delivery charges</li>
               </ul>
-              <p>
+              <!-- <p>
                 For our full price match terms and conditions view our
                 <span class="underlineHere">price match t&c</span>
-              </p>
+              </p> -->
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="main-table">
               <h4 class="title">Submit A Request</h4>
               <p class="peragrapgh">
-                Complete our simple price mtch from and we'll aim to reply
+                Complete our simple price match form and we'll aim to reply
                 within 1 working day
               </p>
               <p>Your Details</p>
@@ -110,7 +108,7 @@
                   <div class="field">
                     <div class="input-field">
                       <button class="w-100 btn " :class="postCode === '' ? 'button-disabled' : ''" name="submit-button">
-                        Find Adress
+                        Find Address
                       </button>
                     </div>
                   </div>
@@ -119,7 +117,7 @@
                 <div class="single-input">
                   <div class="field-full">
                     <label for="address_line1">
-                      Adress line 1 <span>*</span>
+                      Address line 1 <span>*</span>
                     </label>
                     <div class="input-field">
                       <input type="text" autocomplete="address_line1" />
@@ -129,7 +127,7 @@
                 <div class="single-input">
                   <div class="field-full">
                     <label for="address_line1">
-                      Adress line 2 <span>*</span>
+                      Address line 2 <span>*</span>
                     </label>
                     <div class="input-field">
                       <input type="text" autocomplete="address_line2" />
