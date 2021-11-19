@@ -8,7 +8,7 @@
     >
       <MegaMenu :identifier="'megamenunew'" />
     </div>
-    <UspBar :identifier="'usp-bar-TM'" />
+    <UspBar v-if="$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'" />
   </div>
 </template>
 <script>

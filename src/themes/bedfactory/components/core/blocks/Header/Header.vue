@@ -131,12 +131,14 @@
           ><img src="/assets/icons/arrowupicon.png"
         /></span>
       </div>
+      <UspBar v-if="!$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'"/>
       <!-- <div class="header-placeholder" /> -->
     </div>
     <!-- <CutSampleModelHome /> -->
   </div>
 </template>
 <script>
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"
 import { mapState } from "vuex";
 import { mapGetters, mapActions } from "vuex";
 import CurrentPage from "theme/mixins/currentPage";
@@ -165,6 +167,7 @@ const Microcart = () =>
 export default {
   name: "Header",
   components: {
+    UspBar,
     CutSampleModelHome,
     AccountIcon,
     CompareIcon,
