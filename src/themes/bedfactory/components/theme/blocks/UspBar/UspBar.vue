@@ -1,8 +1,6 @@
 <template>
   <div class="main-usp-bar">
     <div class="usp-bar container">
-      
-           
         <no-ssr>
           <carousel
             :autoplay="true"
@@ -129,7 +127,7 @@ export default {
 .usp-bar {
 }
 .main-usp-bar {
-  /* background-color: aliceblue; */
+  background-color: aliceblue;
 }
 .usp-bar-box {
   img {
