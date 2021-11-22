@@ -131,7 +131,10 @@
           ><img src="/assets/icons/arrowupicon.png"
         /></span>
       </div>
-      <UspBar v-if="!$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'"/>
+      <!-- 1
+      {{'Mobile : '+ $device.isMobile}} {{!$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')}} 
+      {{!$device.isMobile }} {{ ($route.name !== 'checkout' && $route.name !== 'Checkout')}} -->
+      <UspBar class="usp-bar-tm-bfd" v-if="$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'"/>
       <!-- <div class="header-placeholder" /> -->
     </div>
     <!-- <CutSampleModelHome /> -->

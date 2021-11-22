@@ -1,6 +1,10 @@
 <template>
-    <div class="container">
-      <ul class="flex menu" @mouseover="mouseover" @mouseleave="mouseleave()">
+<div>
+    <div class="container-fluid menu-bar p-0">
+      <div class="container-fluid bg-menu p-0">
+
+<div class="container">
+            <ul class="flex menu" @mouseover="mouseover" @mouseleave="mouseleave()">
         <li
           v-for="(links, index) in link"
           class="sb-menu nav-item level0 nav-1 level-top first nav-item--parent mega nav-item--only-blocks parent"
@@ -61,15 +65,30 @@
           </div>
         </li>
       </ul>
+
+</div>
+  
+      </div>
+      <div class="container-fluid bg-usp-bar p-0">
+        <div class="container">
+   <UspBar class="usp-bar-border" v-if="!$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'" />
+   
+      </div>
+      </div>
+      
+    </div>
+
     </div>
 </template>
 <script>
 import cmsBlock from 'vsf-cms-block-mixin/components/cmsBlock'
-
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"
 export default {
   name: 'MegaMenu',
   mixins: [cmsBlock],
-
+  components:{
+    UspBar
+  },
   computed: {
     link () {
       var mainTopLinks = []
@@ -246,6 +265,15 @@ export default {
 };
 </script>
 <style>
+.menu-bar{
+  padding: 0px !important;
+}
+.bg-usp-bar{
+  background: aliceblue;
+}
+.bg-menu{
+  background: #071A44;
+}
 .hidden {
   display: none !important;
 }

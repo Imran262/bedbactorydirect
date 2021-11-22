@@ -7,8 +7,12 @@
       class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
     >
       <MegaMenu :identifier="'megamenunew'" />
+      
     </div>
-    <UspBar v-if="$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'" />
+    <!-- 2
+    {{'Mobile : '+ $device.isMobile}} {{$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')}} 
+      {{$device.isMobile }} {{ ($route.name !== 'checkout' && $route.name !== 'Checkout')}} -->
+    
   </div>
 </template>
 <script>
@@ -43,7 +47,7 @@ export default {
 }
 
 .new-menu-bar {
-  background-color: #071a44;
+  /* background-color: #071a44; */
   margin-top: 2px;
   ul.menu {
     padding: 0;
