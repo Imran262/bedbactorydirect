@@ -5,8 +5,7 @@
       :class="
         !isCheckoutPage && $route.name !== 'confirmorder'
           ? 'notcheckoutheader'
-          : 'ischeckoutheader'
-      "
+          : 'ischeckoutheader'"
     >
       <header
         class="w-100 bg-cl-primary brdr-cl-secondary"
@@ -101,11 +100,14 @@
                   href="#"
                   @click.prevent="gotoAccount"
                   class="cl-tertiary links"
-                  ><img src="/assets/icons/user.svg" alt="checkout user"
-              class="checkout-user"  /></a>
+                  ><img
+                    src="/assets/icons/user.svg"
+                    alt="checkout user"
+                    class="checkout-user"
+                /></a>
                 <span v-else class="log-in-detail">
-                  You are logged in as {{currentUser.firstname}}
-                  </span>
+                  You are logged in as {{ currentUser.firstname }}
+                </span>
               </div>
             </div>
           </div>
@@ -125,6 +127,15 @@
             :rightborder="rightborder"
           />
         </nav>
+        <!-- <UspBar
+        class="usp-bar-tm-bfd"
+        v-if="
+          $device.isMobile &&
+          $route.name !== 'checkout' &&
+          $route.name !== 'Checkout'
+        "
+        :identifier="'usp-bar-TM'"
+      /> -->
       </header>
       <div class="scroll" @click="animateToTop()">
         <span class="scrollimage"
@@ -134,14 +145,24 @@
       <!-- 1
       {{'Mobile : '+ $device.isMobile}} {{!$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')}} 
       {{!$device.isMobile }} {{ ($route.name !== 'checkout' && $route.name !== 'Checkout')}} -->
-      <UspBar class="usp-bar-tm-bfd" v-if="$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')" :identifier="'usp-bar-TM'"/>
+
+
+       <!-- <UspBar
+        class="usp-bar-tm-bfd"
+        v-if="
+          $device.isMobile &&
+          $route.name !== 'checkout' &&
+          $route.name !== 'Checkout'
+        "
+        :identifier="'usp-bar-TM'"
+      />  -->
       <!-- <div class="header-placeholder" /> -->
     </div>
     <!-- <CutSampleModelHome /> -->
   </div>
 </template>
 <script>
-import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar";
 import { mapState } from "vuex";
 import { mapGetters, mapActions } from "vuex";
 import CurrentPage from "theme/mixins/currentPage";
@@ -216,14 +237,14 @@ export default {
         document.getElementById("viewport").style.overflow = "hidden";
       }
     },
-    $route (to, from) {
-      console.log("789456 In Header in cart",this.$route,to,from);
+    $route(to, from) {
+      console.log("789456 In Header in cart", this.$route, to, from);
       if (to.name === "cart") {
         this.$store.dispatch("cart/sync", {
-        forceClientState: false,
-        forceSync: true,
-      })
-      this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+          forceClientState: false,
+          forceSync: true,
+        });
+        this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
         // console.log("789456 Header ", this.productsInCart.length);
         if (this.productsInCart.length === 0) {
           // console.log("789456 Cart is Empty ");
@@ -335,8 +356,8 @@ export default {
 @import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
 span.log-in-detail {
-    color: #071a44 !important;
-    font-weight: bold;
+  color: #071a44 !important;
+  font-weight: bold;
 }
 .header-icon {
   margin-left: 50px;
@@ -724,6 +745,6 @@ a.cl-tertiary.links img {
   }
 }
 img.checkout-user {
-    width: 22px;
+  width: 22px;
 }
 </style>

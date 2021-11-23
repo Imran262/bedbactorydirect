@@ -9,6 +9,15 @@
         :is-open="isSearchPanelOpen"
         @close="$store.commit('ui/setSearchpanel')"
       /> -->
+      <UspBar
+        class="usp-bar-tm-bfd"
+        v-if="
+          $device.isMobile &&
+          $route.name !== 'checkout' &&
+          $route.name !== 'Checkout'
+        "
+        :identifier="'usp-bar-TM'"
+      />
       <async-sidebarMobile
         :async-component="SidebarMenu"
         :is-open="isSidebarOpen"
@@ -38,6 +47,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar";
 import AsyncSidebar from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebar.vue';
 import AsyncSidebarMobile from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebarMobile.vue';
 import MainHeader from 'theme/components/core/blocks/Header/Header.vue';
@@ -144,6 +154,7 @@ export default {
   metaInfo: Head,
   components: {
     MainHeader,
+    UspBar,
     MainFooter,
     SidebarMenu, // eslint-disable-line vue/no-unused-components
     Overlay,

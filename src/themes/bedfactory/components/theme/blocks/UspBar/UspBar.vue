@@ -169,27 +169,18 @@ max-width:100%;
 
 }
 }
-// @media only screen and (min-width: 480px){
-// .main-usp-bar{
-//   margin-top: 28px;
-// }
-// }
 
-// @media only screen and (max-width: 767px){
-// .main-usp-bar{
-//   margin-top: 10px !important;
-// }
-// }
 
 
 @media (min-width: 320px) and (max-width:480px) {
   .main-usp-bar{
-    margin-top: 28px;
+    // margin-top: 28px;
   }
   }
   @media (min-width: 481px) and (max-width:767px) {
   .main-usp-bar{
-    margin-top: 10px;
+    // margin-top: 10px;
+    
   }
   }
 
