@@ -59,6 +59,13 @@ const defaultStyles = {
 };
 
 export default {
+  beforeMount () {
+    console.log("7532 1236 In before mount pagination",this.initialPage,"Items are",this.items);
+    
+    this.$bus.$on('go-to-start-page-Pagination', this.setPageCustom)
+    // this.$bus.$on('go-to-start-page-Pagination', this.setPage(1,{scroll:false,emit:true}))
+    // this.$bus.$on('go-to-start-page-Pagination', this.setPage(this.initialPage,{scroll:false,emit:true}))
+  },
   props: {
     items: {
       type: Array,
@@ -134,7 +141,29 @@ export default {
     this.setPage(this.initialPage);
   },
   methods: {
+    setPageCustom(){
+      console.log("7532 1236 in new set page function");
+      this.setPage(1,{scroll:false,emit:true});
+      // const { items, pageSize, maxPages } = this;
+
+      // get new page of items from items array
+      // const pageOfItems = items.slice(0, pageSize);
+
+// // get new pager object for specified page
+//       const pager = paginate(this.totalItems, page, pageSize, maxPages);
+//       // update pager
+//       this.pager = pager;
+        // emit change page event to parent component
+        // this.$emit('changePage', {
+        //   pageOfItems,
+        //   'startIndex': 0,
+        //   'endIndex': pageSize,
+        //   'selectedPage': 1
+        // });
+    
+    },
     setPage (page, { scroll, emit } = { scroll: false, emit: true }) {
+      console.log( "7532 1236 page ",page,"scroll",scroll,"emit",emit);
       if (scroll) {
         const secondHead = this.$parent.$refs.secondHead;
         // BreadCrumbs Row
@@ -159,10 +188,12 @@ export default {
 
       // get new pager object for specified page
       const pager = paginate(this.totalItems, page, pageSize, maxPages);
+      console.log("7532 1236 pager is ",pager);
 
       // get new page of items from items array
+      console.log("7532 1236 Items BEFORE",items);
       const pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
-
+      console.log("7532 1236 Items AFTER",pageOfItems);
       // update pager
       this.pager = pager;
       if (emit) {

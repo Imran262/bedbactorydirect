@@ -125,6 +125,7 @@
       </div>
     </header>
     <!-- <header v-else> </header> -->
+    <!-- getCategoryProducts {{getCategoryProducts}} -->
     <div itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Bed factory Direct" />
       <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
@@ -178,6 +179,13 @@
           </div>
           <div class="pagination sorting main-pagination col-sm-8 col-md-8">
             <div class="paging">
+              <!-- This is the pagination
+              startIndex{{pagination.startIndex}}
+              <br/>selectedPage {{pagination.selectedPage}}
+              <br/>currentPageItems{{pagination.currentPageItems.length}} -->
+              <!-- <br/>{{pagination.startIndex}}
+              <br/>{{pagination.startIndex}}
+              <br/>{{pagination.startIndex}} -->
               <ProductListingPagination
                 :items="pagination.currentPageItems"
                 :total-items="getCategoryProductsTotal"
@@ -329,6 +337,7 @@ getCategoryProducts {{getCategoryProducts}} -->
               getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
+          <!-- productListingUpdate {{productListingUpdate}} -->
             <lazy-hydrate
               :trigger-hydration="!loading"
               v-if="
@@ -337,7 +346,8 @@ getCategoryProducts {{getCategoryProducts}} -->
               "
             >
             <!-- So we in here <br /> Total products {{getCategoryProductsTotal}} -->
-              <product-listing
+            <product-listing
+            :key="productListingUpdate"
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
                 class="pagination-true"
@@ -360,6 +370,7 @@ getCategoryProducts {{getCategoryProducts}} -->
             >
              <!-- So we not in there <br /> Total products {{getCategoryProductsTotal}} -->
               <product-listing
+              :key="productListingUpdate"
                 :columns="defaultColumn"
                 class="pagination-false"
                 :products="getCategoryProducts"
@@ -370,6 +381,7 @@ getCategoryProducts {{getCategoryProducts}} -->
             </lazy-hydrate>
             <product-listing
               v-else
+              :key="productListingUpdate"
               @showPagination="showbottompage"
               :columns="defaultColumn"
               :products="pagination.currentPageItems || getCategoryProducts"
@@ -478,6 +490,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      productListingUpdate:0,
       reRender : 0,
       backEnd: config.backEnd,
       categoryFilters: {},
@@ -594,6 +607,7 @@ export default {
 
   },
   beforeMount () {
+    this.$bus.$on('go-to-start-page-Category', this.pageChangedCustom)
     window.addEventListener('scroll', (event) => {
       let scroll = window.scrollY
       localStorage.setItem("scrollloc", scroll)
@@ -752,6 +766,14 @@ export default {
     }
   },
   methods: {
+    pageChangedCustom(){
+      console.log("7532 In category page Emit recieved for filter change");
+      this.productListingUpdate++;
+      setTimeout(() => {
+         this.$bus.$emit('go-to-start-page-Pagination', true)
+        // this.productListingUpdate++;
+      }, 2000);
+    },
     getAvailableFiltersCustom(){
       let catFilters = {...this.getAvailableFilters};
     //  console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
@@ -923,12 +945,13 @@ export default {
       await this.getProducts()
     },
     async pageChanged ({ pageOfItems, startIndex, endIndex, selectedPage }) {
+      console.log("7532 Page has changed ","pageOfItems",pageOfItems,"startIndex",startIndex,"endIndex",endIndex,"selectedPage",selectedPage);
       this.pagination.startIndex = startIndex
       this.pagination.selectedPage = selectedPage
       await this.getProducts()
-      if (this.pagination.selectedPage !== 1) {
+      // if (this.pagination.selectedPage !== 1) {
         this.updatePathParams(this.$router, { page: this.pagination.selectedPage })
-      }
+      // }
     },
     async getProducts () {
       await this.$store.dispatch('category-next/loadCategoryProducts', {
@@ -940,9 +963,11 @@ export default {
       this.pagination.currentPageItems = this.getCategoryProducts
     },
     updatePathParams ($router, newParams) {
-      if (newParams.page && newParams.page === 1) {
-        return false
-      }
+      // console.log("7532 router",$router , "\n new params ",newParams );
+      console.log("7532 router param being updated", "\n new params ",newParams );
+      // if (newParams.page && newParams.page === 1) {
+      //   return false
+      // }
       // Retrieve current params
       const currentQueryParams = $router.currentRoute.query
       // When router is not supplied path or name,
