@@ -105,6 +105,7 @@
                     alt="checkout user"
                     class="checkout-user"
                 /></a>
+               
                 <span v-else class="log-in-detail">
                   You are logged in as {{ currentUser.firstname }}
                 </span>
@@ -745,6 +746,6 @@ a.cl-tertiary.links img {
   }
 }
 img.checkout-user {
-  width: 22px;
+  width: 24px;
 }
 </style>

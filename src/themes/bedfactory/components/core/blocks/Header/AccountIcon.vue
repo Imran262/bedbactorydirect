@@ -17,11 +17,13 @@
       >
         <button type="button" class="bg-cl-transparent brdr-none p0">
           <img src="/assets/icons/user.svg" alt="user login" />
+          <span class="account-name">Account</span>
         </button>
       </router-link>
       <router-link :to="localizedRoute('/my-account')" v-else>
         <button type="button" class="bg-cl-transparent brdr-none p0">
           <img src="/assets/icons/user.svg" alt="user login" />
+          <span class="account-name">Account</span>
         </button>
       </router-link>
       <no-ssr>
@@ -108,7 +110,12 @@ export default {
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-icon-hover: color(secondary, $colors-background);
-
+.account-name{
+   color: #071A44;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+}
 .dropdown {
   // padding-right: 42px;
   padding-right: 13px;
@@ -120,6 +127,7 @@ $color-icon-hover: color(secondary, $colors-background);
   img {
     height: 22px;
     margin-top: 9px;
+        margin-bottom: 4px;
   }
   .dropdown-content {
     display: none;

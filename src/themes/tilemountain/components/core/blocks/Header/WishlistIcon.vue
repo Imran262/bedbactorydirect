@@ -11,6 +11,7 @@
       v-show="getWishlistItemsCount"
       >{{ getWishlistItemsCount }}</span>-->
     </button>
+    <span>Showrooms</span>
   </div>
 </template>
 
@@ -26,6 +27,15 @@ export default {
 /* button {
   padding-right: 13px;
 } */
+.bg-cl-transparent button{
+  margin-left: 30px;
+}
+.bg-cl-transparent span{
+      color: #071A44;
+      font-weight: bold;
+       font-family: 'Roboto', sans-serif;
+           font-size: 14px;
+}
 .whishlist-count {
   top: 7px;
   left: 50%;
