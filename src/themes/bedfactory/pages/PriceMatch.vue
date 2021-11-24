@@ -18,10 +18,10 @@
                 <li>It has to be available to buy</li>
                 <li>We will consider any delivery charges</li>
               </ul>
-              <p class="price-peragrpgh">
+              <!-- <p class="price-peragrpgh">
                 For our full price match terms and conditions view our
                 <span class="underlineHere">price match t&c</span> page
-              </p>
+              </p> -->
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
