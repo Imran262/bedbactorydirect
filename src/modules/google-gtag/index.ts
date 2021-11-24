@@ -183,13 +183,14 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
     store.subscribe(async ({ type, payload }, state) => {
       // Measuring Purchase through success Page [New]
       // SET_SUCCESS_PURCHASE
+      console.log('7854 type',type,payload , state);
       if (type === 'google-gtag/SET_SUCCESS_PURCHASE') {
         console.log('afer mutation detect')
-        const orderId = payload.confirmation.orderNumber
+        const orderId = payload.order?.confirmation?.orderNumber
         const orderHistory = state.user.orders_history
         const order = orderHistory ? orderHistory.items.find((order) => order['entity_id'].toString() === orderId) : null
         const platformTotals = state.cart.platformTotals
-        const products = await mapTransactionProductsToGtag(payload.order.products, store)
+        const products = await mapTransactionProductsToGtag(payload.order.order.products, store)
         let productsAllPurchaseId = Object.keys(products).map(key => products[key].id)
         const productsAllNames = Object.keys(products).map(k => products[k].name)
         const productsAllVal = Object.keys(products).map(k => +(parseFloat(products[k].price).toFixed(2)))
@@ -335,6 +336,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
 
       // Add to cart
       if (type === 'google-gtag/SET_ADD_PRODUCT') {
+        console.log('i am add to cart mutation');
         // console.log('ShouldReachHere');
         // console.log('payLoadIs', payload, payload.category?.[0].name);
         let product = state && state.cart && state.cart.cartItems ? state.cart.cartItems[state.cart.cartItems.length - 1] : []
