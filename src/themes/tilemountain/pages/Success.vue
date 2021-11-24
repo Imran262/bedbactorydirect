@@ -304,7 +304,10 @@ export default {
     }
   },
   async mounted () {
+    console.log("7854 in mounted for paypal success page",this.$store.state.order && this.$store.state.order.last_order_confirmation,"\n\n\n",this.$store.state.order.last_order_confirmation,
+        this.$store.state.cart.platformTotals);
     if (this.$store.state.order && this.$store.state.order.last_order_confirmation) {
+      console.log("7854 in if condition to set google analytics");
       this.$store.commit('google-gtag/SET_SUCCESS_PURCHASE', {
         order: this.$store.state.order.last_order_confirmation,
         platformTotals: this.$store.state.cart.platformTotals
