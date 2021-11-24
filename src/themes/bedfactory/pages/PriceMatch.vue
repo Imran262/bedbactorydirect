@@ -18,10 +18,10 @@
                 <li>It has to be available to buy</li>
                 <li>We will consider any delivery charges</li>
               </ul>
-              <!-- <p>
+              <p class="price-peragrpgh">
                 For our full price match terms and conditions view our
-                <span class="underlineHere">price match t&c</span>
-              </p> -->
+                <span class="underlineHere">price match t&c</span> page
+              </p>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -31,7 +31,7 @@
                 Complete our simple price match form and we'll aim to reply
                 within 1 working day
               </p>
-              <p>Your Details</p>
+              <p class="your-details">Your Details</p>
               <form id="orderForm">
                 <div class="row mainFormRow">
                   <div class="field rightMargin">
@@ -107,7 +107,7 @@
                   </div>
                   <div class="field">
                     <div class="input-field">
-                      <button class="w-100 btn " :class="postCode === '' ? 'button-disabled' : ''" name="submit-button">
+                      <button class=" find-btn btn " :class="postCode === '' ? 'button-disabled' : ''" name="submit-button">
                         Find Address
                       </button>
                     </div>
@@ -161,7 +161,7 @@
 
                   <div class="field-full">
                     <label for="address_line1">
-                      Compititators Website Link <span>*</span>
+                      Competitors Website Link <span>*</span>
                     </label>
                     <div class="input-field">
                       <input
@@ -201,9 +201,27 @@ export default {
   text-align: left;
   margin-top: 1rem;
 }
+.MainpriceMatch strong{
+      font-family: oblik;
+    color: #343434;
+}
+.MainpriceMatch p{
+  color: #333;
+  font-family: Roboto,sans-serif;
+}
+.MainpriceMatch ul li{
+  color: #333;
+  font-family: Roboto,sans-serif;
 
+}
+.MainpriceMatch .price-peragrpgh{
+    color: #333;
+  font-family: Roboto,sans-serif;
+
+}
 .underlineHere {
   text-decoration: underline;
+  
 }
 .main-table {
   margin-top: 3rem;
@@ -220,6 +238,13 @@ export default {
 .peragrapgh {
   margin: 0;
   font-size: 14px;
+  color: #333;
+  font-family: Roboto,sans-serif;
+}
+.your-details{
+   color: #333;
+  font-family: Roboto,sans-serif;
+  font-weight: 700;
 }
 .mainFormRow {
   justify-content: center;
@@ -252,7 +277,8 @@ export default {
   border: 1px solid #dfdfdf;
   height: 30px;
   padding: 0;
-  font-size: 25px;
+   font-size: 18px;
+  font-family: Roboto,sans-serif;
   outline: none;
   background: #fff;
 }
@@ -264,6 +290,13 @@ export default {
   color: #fff;
   border: none;
   border-radius: 3px;
+}
+.find-btn{
+  width: 88%;
+  font-weight: 800;
+  padding: 5px;
+  margin-top: 1.62rem;
+
 }
 .button-disabled {
     opacity: 0.3;
@@ -301,7 +334,8 @@ export default {
   width: 100%;
   height: 30px;
   padding: 0;
-  /* font-size: 25px; */
+  font-size: 18px;
+  font-family: Roboto,sans-serif;
   outline: none;
 }
 
@@ -339,7 +373,8 @@ export default {
   width: 100%;
   height: 30px;
   padding: 0;
-  /* font-size: 25px; */
+  font-size: 18px;
+  font-family: Roboto,sans-serif;
   outline: none;
 }
 
