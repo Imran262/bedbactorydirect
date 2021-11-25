@@ -11,7 +11,7 @@
         <p class="sub-title-info">
           We aim to reply to price match requests within 1 working day.
         </p>
-        <button type="button" class="btn">CONTINUE SHOPPING</button>
+        <button type="button" class="btn" @click="goToShoppingPage" >CONTINUE SHOPPING</button>
       </div>
     </div>
   </div>
@@ -19,6 +19,11 @@
 <script>
 export default {
   name: "PriceMatchSuccess",
+   methods: {
+    goToShoppingPage() {
+      this.$router.replace("/");
+    },
+  },
 };
 </script>
 

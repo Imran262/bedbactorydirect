@@ -159,13 +159,13 @@
                   </div>
                   <div class="field">
                     <div class="input-field">
-                      <button
+                      <!-- <button
                         class="find-btn btn"
                         :class="postCode === '' ? 'button-disabled' : ''"
                         name="submit-button"
                       >
                         Find Address
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </div>
@@ -239,13 +239,13 @@
                         type="text"
                         name="city"
                         autocomplete="address-level2"
-                        v-model="user.orderTown"
-                        @blur="$v.user.orderTown.$touch()"
+                        v-model="user.product"
+                        @blur="$v.user.product.$touch()"
                         :validations="[
                           {
                             condition:
-                              !$v.user.orderTown.required &&
-                              $v.user.orderTown.$error,
+                              !$v.user.product.required &&
+                              $v.user.product.$error,
                             text: $t('Field is required.'),
                           },
                         ]"
@@ -262,13 +262,13 @@
                         type="text"
                         name="city"
                         autocomplete="address-level2"
-                        v-model="user.orderTown"
-                        @blur="$v.user.orderTown.$touch()"
+                        v-model="user.websitelink"
+                        @blur="$v.user.websitelink.$touch()"
                         :validations="[
                           {
                             condition:
-                              !$v.user.orderTown.required &&
-                              $v.user.orderTown.$error,
+                              !$v.user.websitelink.required &&
+                              $v.user.websitelink.$error,
                             text: $t('Field is required.'),
                           },
                         ]"
@@ -310,7 +310,9 @@ export default {
         addressLine1: '',
         addressLine2: '',
         orderTown: '',
-        postCode: ''
+        postCode: '',
+        product:'',
+        websitelink:''
       }
     };
   },
@@ -337,6 +339,12 @@ export default {
         required
       },
       postCode: {
+        required
+      },
+      product: {
+        required
+      },
+      websitelink: {
         required
       }
     }
@@ -370,8 +378,8 @@ export default {
           town: this.user.orderTown,
           country: 'GB',
           country_code: 'UK',
-          product: 'laptop',
-          competitior_link: '/dream'
+          product: this.user.product,
+          competitior_link: this.user.websitelink,
           // country_code: "US",
           // country: "US",
         }
