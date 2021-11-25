@@ -431,11 +431,12 @@ export default {
                     console.log('4125 token received is ', res.data.result);
                     // this.swatchBasket = [];
                     this.$bus.$emit('notification-progress-stop', {});
-                    this.$store.dispatch('notification/spawnNotification', {
-                      type: 'success',
-                      message: i18n.t(`Order placed successfully`),
-                      action1: { label: i18n.t('OK') }
-                    });
+                    // this.$store.dispatch('notification/spawnNotification', {
+                    //   type: 'success',
+                    //   message: i18n.t(`Order placed successfully`),
+                    //   action1: { label: i18n.t('OK') }
+                    // });
+                    this.$router.replace("/price-match-success");
                   }
                 })
                 .catch(err => {
