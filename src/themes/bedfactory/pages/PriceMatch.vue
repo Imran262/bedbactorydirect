@@ -189,9 +189,22 @@ export default {
   name: "PriceMatch",
   data(){
     return {
-      postCode: ''
+      postCode: '',
+      title:'prices'
     }
   },
+  metaInfo () {
+    return {
+      title: this.title || i18n.t('Compare Prices'),
+      meta: [{ vmid: 'description', description: 'price description' }]
+    }
+  }
+  // metaInfo () {
+  //   return {
+  //     title: 'Price',
+  //     meta: 'price description'
+  //   }
+  // }
 };
 </script>
 
