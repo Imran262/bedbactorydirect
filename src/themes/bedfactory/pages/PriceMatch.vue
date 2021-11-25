@@ -481,7 +481,7 @@ export default {
   metaInfo () {
     return {
       title: this.title || 'Price Match Service | Bed Factory Direct' ,
-      meta: [{ vmid: 'description', description: 'price description' }]
+      meta: [{ vmid: 'description', description: 'Pay the very best prices for your new bed, mattress or headboard with our Price Match Service at Bed Factory Direct!' }]
     }
   }
 };
