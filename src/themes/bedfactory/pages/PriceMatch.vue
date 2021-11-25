@@ -1,7 +1,18 @@
 <template>
   <div class="main-top">
     <div class="container">
-      <div class="mt-5">
+       <div class="breadcrumbs cl-gray">
+        <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
+          <router-link :to="localizedRoute('/')" class="cl-tertiary links">
+            <img
+              class="home-breadcrumb-icon-img"
+              src="/assets/home-breadcrumb-icon.svg"
+            /> </router-link
+          >/
+        </span>
+        <span class="cl-mine-shaft">Price Match</span>
+      </div>
+      <div class="mobile-view">
         <div class="row">
           <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="MainpriceMatch">
@@ -500,12 +511,28 @@ export default {
 }
 </style>
 <style>
+.breadcrumbs span {
+  color: #54575b;
+  padding: 0px 2.5px;
+}
+.cl-gray{
+  margin-top: 2rem;
+}
+
+img.home-breadcrumb-icon-img {
+  width: 15px;
+  float: left;
+  margin: 1px 2.5px 0 0;
+}
 .main-top{
   overflow: hidden;
 }
 .MainpriceMatch {
   text-align: left;
-  margin-top: 1rem;
+}
+.MainpriceMatch h1{
+font-size: 35px;
+margin: 10px 0;
 }
 .MainpriceMatch strong{
       font-family: oblik;
@@ -529,7 +556,7 @@ export default {
   text-decoration: underline;
 }
 .main-table {
-  margin-top: 3rem;
+  margin-top: 2rem;
   background-color: rgb(241 236 236);
   border-radius: 4px;
   flex-wrap: wrap;
@@ -700,4 +727,21 @@ export default {
   border: none;
   border-radius: 4px;
 }
+.breadcrumbs {
+    background-color: transparent;
+    padding: 15px 0;
+    float: left;
+    width: 100%;
+}
+@media (max-width: 767px)
+{
+.breadcrumbs {
+    display: none;
+}
+.mobile-view{
+  margin-top: 1rem;
+  
+}
+}
+
 </style>
