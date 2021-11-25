@@ -190,12 +190,12 @@ export default {
   data(){
     return {
       postCode: '',
-      title:'prices'
+      title:'Price Match Service | Bed Factory Direct'
     }
   },
   metaInfo () {
     return {
-      title: this.title || i18n.t('Compare Prices'),
+      title: this.title || 'Price match page ' ,
       meta: [{ vmid: 'description', description: 'price description' }]
     }
   }
