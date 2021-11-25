@@ -1,7 +1,7 @@
 <template>
-  <div col="lg-12" col-md-12 col-sm-12 col-xl-12>
+  <div class="main-top">
     <div class="container">
-      <div class="breadcrumbs mt-5">
+      <div class="mt-5">
         <div class="row">
           <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="MainpriceMatch">
@@ -499,6 +499,9 @@ export default {
 }
 </style>
 <style>
+.main-top{
+  overflow: hidden;
+}
 .MainpriceMatch {
   text-align: left;
   margin-top: 1rem;
