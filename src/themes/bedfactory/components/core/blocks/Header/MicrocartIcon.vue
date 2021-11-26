@@ -170,7 +170,7 @@ export default {
   src: url('/assets/fonts/Oblik_Bold.otf');
 }
 .minicart-count {
-  top: 30px;
+  top: 0px;
   left: 20px;
   width: 18px;
   height: 18px;

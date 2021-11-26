@@ -43,8 +43,7 @@
                 <div class="flex inner-icons">
                   <wishlist-icon class="icon pointer r-icons location-icon" />
                   <account-icon class="icon pointer r-icons1 account-icon" />
-
-                  <microcart-icon class="icon pointer r-icons" />
+                  <microcart-icon class="icon pointer r-icons3" />
                 </div>
               </div>
               <async-sidebar
@@ -380,15 +379,11 @@ span.log-in-detail {
   margin-left: 8px;
 }
 
-.inner-icons {
-  padding-left: 60px;
-  @media (max-width: 1199px) and(min-width: 992px) {
-    padding-left: 8px;
-  }
-  @media (max-width: 767px) {
-    padding-left: 0px;
-  }
+.r-icons3{
+  margin: 12px;
+  margin-bottom: 0;
 }
+
 header {
   z-index: 3;
   transition: top 0.2s ease-in-out;
@@ -422,7 +417,13 @@ header {
       opacity: 1;
     }
   }
-
+.inner-icons {
+  padding-left: 38px;
+  align-items: center;
+  @media (max-width: 1199px) and(min-width: 992px) {
+    padding-left: 0px;
+  }
+}
   .logo-desktop {
     @media (max-width: 767px) {
       padding-top: 6px;
@@ -435,30 +436,35 @@ header {
 }
 @media (min-width: 1200px) {
   .r-icons {
-    padding: 12px 34px 12px 12px;
-    // padding: 0px;
+    margin: 12px;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .r-icons {
-    padding: 12px 22px 12px 12px;
-    // padding: 0px;
+    margin: 6px;
   }
   .r-icons1 {
-    padding: 12px 22px 12px 12px !important;
+    margin: 6px;
+  }
+  .r-icons3{
+     margin: 6px;
+     margin-bottom: 0;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .r-icons {
-    padding: 12px 7px 12px 4px;
-    // padding: 0px;
+    margin: 5px;
   }
+  .r-icons1 {
+  margin: 5px;
 }
-.r-icons1 {
-  padding: 12px 36px 12px 12px;
+.r-icons3 {
+  margin: 5px;
 }
+}
+
 .t-mobile {
-  padding-left: 8px;
+  padding-left: 0px;
 }
 
 // .icon {
@@ -640,13 +646,9 @@ header {
   }
 }
 
-//
 @media (max-width: 992px) and (min-width: 768px) {
   .inner-icons {
     padding-left: 2px;
-  }
-  .r-icons1 {
-    padding: 10px;
   }
 }
 

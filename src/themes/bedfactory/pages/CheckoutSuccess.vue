@@ -415,6 +415,17 @@ finalItems.push(item);
     }
   },
   async mounted () {
+     if (localStorage.getItem('SuccessLand'))
+    {
+      localStorage.removeItem('SuccessLand')
+      this.$router.push({ name: 'home' })
+    }
+    else {
+      localStorage.setItem('SuccessLand', 'AnyValue')
+    }
+    console.log('welcome imran ali ')
+    // localStorage.getItem('SuccessLand', 'AnyValue')
+
     if (this.$store.state.order && this.$store.state.order.last_order_confirmation) {
       this.$store.commit('google-gtag/SET_SUCCESS_PURCHASE', {
         order: this.$store.state.order.last_order_confirmation,

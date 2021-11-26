@@ -24,17 +24,17 @@ export default {
 </script>
 
 <style scoped>
-/* button {
-  padding-right: 13px;
-} */
+.bg-cl-transparent{
+  width: min-content !important;
+}
 .bg-cl-transparent button{
-  margin-left: 30px;
+  margin-left:23px;
 }
 .bg-cl-transparent span{
       color: #071A44;
       font-weight: bold;
        font-family: 'Roboto', sans-serif;
-           font-size: 14px;
+           font-size: 12px;
 }
 .whishlist-count {
   top: 7px;
@@ -44,8 +44,8 @@ export default {
   border-radius: 10px;
 }
 button img {
-  margin-top: 29px;
-  margin-right: -1px;
+  margin-top: 28px;
+  /* margin-right: -1px; */
 }
 .location a:after {
   background-color: transparent !important;
@@ -53,10 +53,13 @@ button img {
 @media (max-width: 767px) {
   button {
     display: block;
-    height: 76px;
+    height: 24px;
     /* width: 100%; */
     max-width: 5em;
     padding: 0px;
+  }
+  .bg-cl-transparent button{
+        margin-left: 16px;
   }
   @media (min-width: 481px) and (max-width: 600px) {
     button {
@@ -80,7 +83,7 @@ button img {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   button img {
-    height: 22px;
+    height: 20px;
     margin-top: 29px;
   }
 }

@@ -114,7 +114,7 @@ $color-icon-hover: color(secondary, $colors-background);
    color: #071A44;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
-      font-size: 14px;
+      font-size: 12px;
 }
 .dropdown {
   // padding-right: 42px;
@@ -122,10 +122,10 @@ $color-icon-hover: color(secondary, $colors-background);
   outline: none;
   button {
     pointer-events: none;
-    padding-top: 20px;
+    padding-top: 19px;
   }
   img {
-    height: 22px;
+    height: 20px;
     margin-top: 9px;
         margin-bottom: 4px;
   }
@@ -185,11 +185,10 @@ $color-icon-hover: color(secondary, $colors-background);
     }
   }
   .dropdown img {
-    // height: 28px;
+    height: 22px;
     // margin-top: 8px;
-    height: 100%;
-    width: 5vw;
-    padding-top: 1px;
+    // height: 100%;
+    width: 4vw;
     margin: 0px;
   }
 }
