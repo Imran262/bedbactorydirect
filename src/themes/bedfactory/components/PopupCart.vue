@@ -113,6 +113,7 @@
               class="col-md-4 popup-product-col"
             >
               <product-popup
+              @popupClose="popupclose"
                 :productOptions="productOptions"
                 :pop-item="popup_item"
               />
@@ -748,7 +749,7 @@ export default {
       this.$bus.$emit("modal-hide", "modal-switcher");
     },
     popupclose() {
-      console.log("11223344556677", window.innerWidth);
+      console.log("11223344556677 emit recieved", window.innerWidth);
        console.log("fsfsfsfsfs", document.getElementsByTagName("BODY")[0]);
       // console.log("11223344556677 ",this.$device.isMobile);
       document.getElementsByTagName("BODY")[0].style.overflow='scroll';

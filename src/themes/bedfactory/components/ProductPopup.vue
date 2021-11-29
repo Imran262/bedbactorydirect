@@ -174,6 +174,8 @@ export default {
       }
     },
     prodClick() {
+      console.log('78965 clear scroll about to send emit');
+      this.$emit('popupClose',true);
       this.$bus.$emit("modal-hide", "modal-switcher");
       document
         .getElementsByClassName("mobile-bottom-row-popup")[0]
