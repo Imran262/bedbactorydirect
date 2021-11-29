@@ -336,6 +336,7 @@
                   />
                 </div>
               </div>
+              <div></div>
             </div>
             <p class="swatches-term-condition">
               Read our full
@@ -360,91 +361,88 @@
   </div>
 </template>
 <script>
-import Breadcrumbs from "../components/core/Breadcrumbs.vue";
-//import BaseInput from "src/theme/components/core/blocks/Form/BaseInput.vue";
-import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
-import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import axios from "axios";
-import SwatchProduct from "theme/components/core/blocks/swatches/SwatchProduct.vue";
+import Breadcrumbs from '../components/core/Breadcrumbs.vue';
+// import BaseInput from "src/theme/components/core/blocks/Form/BaseInput.vue";
+import BaseInput from 'src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue';
+import BaseSelect from 'src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue';
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
+import axios from 'axios';
+import SwatchProduct from 'theme/components/core/blocks/swatches/SwatchProduct.vue';
 // /home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/tilemountain/components/core/blocks/swatches/SwatchProduct.vue
-import i18n from "@vue-storefront/i18n";
-import { htmlDecode } from "@vue-storefront/core/lib/store/filters";
-import config from "config";
+import i18n from '@vue-storefront/i18n';
+import { htmlDecode } from '@vue-storefront/core/lib/store/filters';
+import config from 'config';
 
 export default {
   components: { Breadcrumbs, BaseInput, BaseSelect, SwatchProduct },
-  data() {
+  data () {
     return {
       user: {
-        email: "",
-        firstName: "",
-        lastName: "",
-        phone: "",
-        addressLine1: "",
-        addressLine2: "",
-        orderTown: "",
-        postCode: "",
+        email: '',
+        firstName: '',
+        lastName: '',
+        phone: '',
+        addressLine1: '',
+        addressLine2: '',
+        orderTown: '',
+        postCode: ''
       },
       swatches: [],
-      swatchBasket: [],
+      swatchBasket: []
     };
   },
   validations: {
     user: {
       email: {
         required,
-        email,
+        email
       },
       firstName: {
         minLength: minLength(2),
-        required,
+        required
       },
       lastName: {
-        required,
+        required
       },
       phone: {
-        required,
+        required
       },
       addressLine1: {
-        required,
+        required
       },
       orderTown: {
-        required,
+        required
       },
       postCode: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
-    retrunFullName() {
+    retrunFullName () {
       //     console.log("2211 in return full name function", this);
       const fullName = this.user.firstName + this.user.lastName;
       //   console.log("Full name is ", fullName);
       return fullName;
     },
-    submitForm(event) {
+    submitForm (event) {
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
       if (this.swatchBasket.length === 0) {
-        this.$store.dispatch(
-          "notification/spawnNotification",
-          {
-            type: "error",
-            message: i18n.t("Swatch basket is empty."),
-            action1: { label: i18n.t("OK") },
-          }
-        );
+        this.$store.dispatch('notification/spawnNotification', {
+          type: 'error',
+          message: i18n.t('Swatch basket is empty.'),
+          action1: { label: i18n.t('OK') }
+        });
       } else {
         this.$bus.$emit(
-          "notification-progress-start",
-          this.$t("Processing order...")
+          'notification-progress-start',
+          this.$t('Processing order...')
         );
         const swatchesInOrder = this.swatchBasket.map(
-          (element) => element.entity_id
+          element => element.entity_id
         );
         const payload = {
           id: swatchesInOrder,
@@ -457,67 +455,61 @@ export default {
             address_line1: this.user.addressLine1,
             town: this.user.orderTown,
             postcode: this.user.postCode,
-            country: "GB",
+            country: 'GB',
             street: this.user.addressLine1,
-            country_code: "UK",
+            country_code: 'UK'
             // country_code: "US",
             // country: "US",
-          },
+          }
         };
-        const URL = config.api.url + config.swatches.endpoint + "/placeorder";
+        const URL = config.api.url + config.swatches.endpoint + '/placeorder';
         axios
           .post(URL, payload)
-          .then((res) => {
+          .then(res => {
             if (res.status !== 200) {
-              this.$bus.$emit("notification-progress-stop", {});
-              console.log("78945614 notificationData",notificationData);
-              this.$store.dispatch(
-                "notification/spawnNotification",
-                {
-                  type: "error",
-                  message: i18n.t(`${res.result}`),
-                  action1: { label: i18n.t("OK") },
-                }
-              );
+              this.$bus.$emit('notification-progress-stop', {});
+              console.log('78945614 notificationData', notificationData);
+              this.$store.dispatch('notification/spawnNotification', {
+                type: 'error',
+                message: i18n.t(`${res.result}`),
+                action1: { label: i18n.t('OK') }
+              });
               throw new Error(res.result);
             } else {
               this.swatchBasket = [];
-              this.$bus.$emit("notification-progress-stop", {});
-              this.$store.dispatch(
-                "notification/spawnNotification",
-                {
-                  type: "success",
-                  message: i18n.t(`Order placed successfully`),
-                  action1: { label: i18n.t("OK") },
-                }
-              );
+              this.$bus.$emit('notification-progress-stop', {});
+              this.$store.dispatch('notification/spawnNotification', {
+                type: 'success',
+                message: i18n.t(`Order placed successfully`),
+                action1: { label: i18n.t('OK') }
+              });
               // console.log(
               //   "2211 success for swatch place order",
               //   this.retrunFullName()
               // );
               this.$bus.$emit(
-                "get-swatch-customer-fullname",
+                'get-swatch-customer-fullname',
                 this.retrunFullName()
               );
-              this.$router.replace("/swatches-success");
+              this.$router.replace('/swatches-success');
             }
           })
-          .catch((err) => {
-             console.log("78945623 in catch", err);
-            this.$bus.$emit("notification-progress-stop", {});
+          .catch(err => {
+            console.log('78945623 in catch', err);
+            this.$bus.$emit('notification-progress-stop', {});
             this.$store.dispatch(
-              "notification/spawnNotification",
+              'notification/spawnNotification',
               {
-                type: "error",
+                type: 'error',
                 message: i18n.t(`${err}`),
-                action1: { label: i18n.t("OK") },
+                action1: { label: i18n.t('OK') }
               },
               { root: true }
             );
           });
       }
     },
-    addToCart(value) {
+    addToCart (value) {
       if (this.swatchBasket.indexOf(value) === -1) {
         this.cartItemsChecker();
       }
@@ -528,49 +520,46 @@ export default {
       ) {
         this.swatchBasket.push(value);
         const element = document.getElementById(value.sku);
-        element.classList.add("selected");
+        element.classList.add('selected');
       } else if (
         this.swatchBasket.length > 0 &&
         this.swatchBasket.indexOf(value) !== -1
       ) {
         this.swatchBasket.splice(this.swatchBasket.indexOf(value), 1);
         const element = document.getElementById(value.sku);
-        element.classList.remove("selected");
+        element.classList.remove('selected');
       }
     },
-    cartItemsChecker() {
+    cartItemsChecker () {
       if (this.swatchBasket.length === 6) {
-        this.$store.dispatch(
-          "notification/spawnNotification",
-          {
-            type: "error",
-            message: i18n.t("You have already added six items  in cart."),
-            action1: { label: i18n.t("OK") },
-          }
-        );
+        this.$store.dispatch('notification/spawnNotification', {
+          type: 'error',
+          message: i18n.t('You have already added six items  in cart.'),
+          action1: { label: i18n.t('OK') }
+        });
       }
     },
-    removeFromCart(value) {
+    removeFromCart (value) {
       this.swatchBasket.splice(this.swatchBasket.indexOf(value), 1);
       const element = document.getElementById(value.sku);
-      element.classList.remove("selected");
-    },
+      element.classList.remove('selected');
+    }
   },
-  mounted() {
-    const URL = config.api.url + config.swatches.endpoint + "/getSwatches";
+  mounted () {
+    const URL = config.api.url + config.swatches.endpoint + '/getSwatches';
     //   const URL =  "https:/bfd.bedfactorydirect.co.uk/api/ext/swatches/getSwatches"
     axios
       .get(URL)
-      .then((resp) => {
+      .then(resp => {
         const { data } = resp;
         if (data.code !== 200) {
-          throw new Error("An Error occured");
+          throw new Error('An Error occured');
         } else {
           this.swatches = [...data.meta];
         }
       })
-      .catch((err) => {
-        console.error("Error is ===============> ", err);
+      .catch(err => {
+        console.error('Error is ===============> ', err);
       });
   },
   computed: {
@@ -580,7 +569,7 @@ export default {
     //   console.log("Full name is ",fullName);
     //   return fullName;
     // },
-  },
+  }
 };
 </script>
 
@@ -832,14 +821,14 @@ img.home-breadcrumb-icon-img {
 }
 .swatch-basket form p {
   text-align: center;
-    font-size: 14px;
-    margin: 5px 20px 20px 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #5e5e61;
-    line-height: 17px;
+  font-size: 14px;
+  margin: 5px 20px 20px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5e5e61;
+  line-height: 17px;
 }
 a.ui-link {
-    color: #ed008c;
+  color: #ed008c;
 }
 .swatch-basket form .btn-order {
   display: block;
