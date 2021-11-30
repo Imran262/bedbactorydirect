@@ -617,9 +617,9 @@ export default {
         // document.getElementsByClassName('manually-added-fields')[0].style.display = 'block'
         // setTimeout(()=>{
         this.assignAddressValues()
-        document.getElementById('address-summary-label').style.display = 'block'
-        document.getElementById('address-summary').style.display = 'block'
-        document.getElementById('edit-address-again').style.display = 'block'
+        // document.getElementById('address-summary-label').style.display = 'block'
+        // document.getElementById('address-summary').style.display = 'block'
+        // document.getElementById('edit-address-again').style.display = 'block'
         let fieldHeight = document.getElementById('fieldset-inner');
         if (fieldHeight)
            fieldHeight.classList.add('expandfield')
