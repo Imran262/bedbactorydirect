@@ -347,12 +347,12 @@
                 </div>
               </div>
               <div class="field-full required POST Code from wallsandfloors walls and floors">
-                <p class="input-wrapper lg-half address-postcode">
+                <p style="display: none" class="input-wrapper lg-half address-postcode">
                   <label>Address</label>
                   <span
                     @click="enterAddressManually()"
                     id="enter-address"
-                    style="display: none"
+                    
                     >&nbsp;</span
                   >
                   <span @click="enterAddressFullManually()" id="enter-addressLine1"
@@ -385,7 +385,7 @@
                 <div class="manually-added-fields">
                   <p class="input-wrapper lg-half address-postcode">
                     <label>Address</label>
-                    <span @click="enterPostCode()">Enter Postcode</span>
+                    <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                     <input
                       type="text"
                       id="address_manuall_1"
@@ -508,7 +508,6 @@
             </div>
             <p class="swatches-term-condition">
               Read our full
-              {{user}}
               <a href="/terms" class="ui-link" data-ajax="false"
                 >terms and conditions</a
               >
