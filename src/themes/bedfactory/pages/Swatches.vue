@@ -13,7 +13,7 @@
         <span class="cl-mine-shaft">Swatches Page</span>
       </div>
       <div class="row">
-        <div class="main_fabric col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="main_fabric col-lg-8 col-md-8 col-sm-12 col-xs-12" ref="quickCheckoutInner">
           <div class="fabrics-detail">
             <div class="boxes" v-for="item of swatches" :key="item.name">
               <h2>{{ item.name }}</h2>
@@ -257,7 +257,7 @@
               </div>
             </div>
             <div id="hide">
-              <div class="field-full required">
+              <!-- <div class="field-full required">
                 <label for="address_line1">
                   Address line 1
                   <span>*</span>
@@ -265,7 +265,7 @@
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="'address_line1' +'address_line2'"
+                    id="Addressline1"
                     autocomplete="'address_line1' +'address_line2'"
                     v-model="user.addressLine1"
                     @blur="$v.user.addressLine1.$touch()"
@@ -291,6 +291,16 @@
                 </div>
               </div>
               <div class="field-full required">
+                <label for="address_line2">Company</label>
+                <div class="ui-input-text">
+                  <base-input
+                    type="text"
+                    name="address_line2"
+                    v-model="user.company"
+                  />
+                </div>
+              </div>
+              <div class="field-full required">
                 <label for="city">
                   Town
                   <span>*</span>
@@ -300,23 +310,23 @@
                     type="text"
                     name="city"
                     autocomplete="address-level2"
-                    v-model="user.orderTown"
-                    @blur="$v.user.orderTown.$touch()"
+                    v-model="user.city"
+                    @blur="$v.user.city.$touch()"
                     :validations="[
                       {
                         condition:
-                          !$v.user.orderTown.required &&
-                          $v.user.orderTown.$error,
+                          !$v.user.city.required &&
+                          $v.user.city.$error,
                         text: $t('Field is required.'),
                       },
                     ]"
                   />
                 </div>
-              </div>
+              </div> -->
 
               <div class="field-full required">
                 <label for="order_postcode">
-                  Postcode
+                  Postcode 
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
@@ -336,10 +346,169 @@
                   />
                 </div>
               </div>
-              <div></div>
+              <div class="field-full required POST Code from wallsandfloors walls and floors">
+                <p class="input-wrapper lg-half address-postcode">
+                  <label>Address</label>
+                  <span
+                    @click="enterAddressManually()"
+                    id="enter-address"
+                    style="display: none"
+                    >&nbsp;</span
+                  >
+                  <span @click="enterAddressFullManually()" id="enter-addressLine1"
+                    >Enter Address Manually</span
+                  >
+                  <input
+                    type="text"
+                    id="address_1"
+                    name="postcode"
+                    required
+                    placeholder="Start typing your address or postcode..."
+                    v-model="user.addressLine1"
+                    @focus="overflowHide"
+                    @keyup="overflowHide"
+                    @blur="resetOverflowHide"
+                  />
+                </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="manually-added-fields">
+                  <p class="input-wrapper lg-half address-postcode">
+                    <label>Address</label>
+                    <span @click="enterPostCode()">Enter Postcode</span>
+                    <input
+                      type="text"
+                      id="address_manuall_1"
+                      name="street-address"
+                      required
+                      placeholder=""
+                      v-model="user.addressLine1"
+                    />
+                  </p>
+                  <p
+                    class="input-wrapper lg-half address-line"
+                    style="display: none"
+                  >
+                    <input
+                      type="text"
+                      id="address_2"
+                      name="apartment-number"
+                      placeholder="Line 2"
+                      v-model="user.addressLine2"
+                    />
+                  </p>
+                  <p class="input-wrapper lg-half">
+                    <input
+                      type="text"
+                      name="company-name"
+                      id="shipping-company"
+                      placeholder="Company"
+                      v-model="user.company"
+                    />
+                  </p>
+                  <p class="input-wrapper lg-half city-lg-half">
+                    <label>City</label>
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      required
+                      placeholder=""
+                      v-model="user.city"
+                    />
+                  </p>
+                  <p class="input-wrapper lg-half find-address-type">
+                    <label>Postcode</label>
+                    <input
+                      type="text"
+                      required
+                      id="find_address_manuall"
+                      placeholder=""
+                      v-model="user.postCode"
+                    />
+                  </p>
+                </div>
+                <label
+                  class="address-summary-label"
+                  id="address-summary-label"
+                  style="display: none"
+                  >Address</label
+                >
+                <!-- <div
+                  class="address-summary"
+                  id="address-summary"
+                  style="display: none"
+                >
+                  <div class="non-edited-text">
+                    <template v-if="user.company">
+                      {{ user.company }}<br />
+                    </template>
+                    <template v-if="user.addressLine1">
+                      {{ user.addressLine1 }}<br />
+                    </template>
+                    <template v-if="user.addressLine2">
+                      {{ user.addressLine2 }}<br />
+                    </template>
+                    <template v-if="user.city">
+                      {{ user.city }} <br />
+                    </template>
+                    <template v-if="user.postCode">
+                      {{ user.postCode }}
+                    </template>
+                  </div>
+                </div>
+                <span
+                  @click="enterEditAddressManuallyFunc()"
+                  id="edit-address-again"
+                  class="EditAddressAgain"
+                  style="display: none"
+                  >Edit Address</span
+                >  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
             </div>
             <p class="swatches-term-condition">
               Read our full
+              {{user}}
               <a href="/terms" class="ui-link" data-ajax="false"
                 >terms and conditions</a
               >
@@ -372,9 +541,11 @@ import SwatchProduct from 'theme/components/core/blocks/swatches/SwatchProduct.v
 import i18n from '@vue-storefront/i18n';
 import { htmlDecode } from '@vue-storefront/core/lib/store/filters';
 import config from 'config';
+import AddressLookupMixin from 'src/themes/bedfactory/mixins/addressLookupMixin'
 
 export default {
   components: { Breadcrumbs, BaseInput, BaseSelect, SwatchProduct },
+  mixins: [ AddressLookupMixin],
   data () {
     return {
       user: {
@@ -384,7 +555,7 @@ export default {
         phone: '',
         addressLine1: '',
         addressLine2: '',
-        orderTown: '',
+        city: '',
         postCode: ''
       },
       swatches: [],
@@ -410,7 +581,7 @@ export default {
       addressLine1: {
         required
       },
-      orderTown: {
+      city: {
         required
       },
       postCode: {
@@ -419,6 +590,93 @@ export default {
     }
   },
   methods: {
+    assignAddressValues () {
+      var ele1 = document.getElementById('address_manuall_1').value
+      this.user.addressLine1 = ele1
+      var ele2 = document.getElementById('address_2').value
+      this.user.addressLine2 = ele2
+      var ele3 = document.getElementById('city').value
+      this.user.city = ele3
+      var ele4 = document.getElementById('shipping-company').value
+      this.user.company = ele4
+      var ele5 = document.getElementById('find_address_manuall').value
+      this.user.postCode = ele5
+      console.log("741254 user",this.user);
+
+    },
+    overflowHide () {
+      this.$refs.quickCheckoutInner.style.overflowY = 'hidden'
+    },
+    resetOverflowHide () {
+      this.$refs.quickCheckoutInner.style.overflowY = 'auto'
+    },
+    enterAddressManually () {
+      console.log('enterAddressManually')
+      let autoFillField = document.getElementsByClassName('address-postcode');
+      if (autoFillField) {
+        autoFillField[0].style.display = 'none'
+        // document.getElementsByClassName('manually-added-fields')[0].style.display = 'block'
+        // setTimeout(()=>{
+        this.assignAddressValues()
+        document.getElementById('address-summary-label').style.display = 'block'
+        document.getElementById('address-summary').style.display = 'block'
+        document.getElementById('edit-address-again').style.display = 'block'
+        let fieldHeight = document.getElementById('fieldset-inner');
+        if (fieldHeight)
+           fieldHeight.classList.add('expandfield')
+        // }, 500)
+      }
+    },
+    enterAddressFullManually () {
+      console.log('enterAddressFullManually')
+      let autoFillField = document.getElementsByClassName('address-postcode');
+      if (autoFillField) {
+        autoFillField[0].style.display = 'none'
+        document.getElementsByClassName('manually-added-fields')[0].style.display = 'block'
+        document.getElementById('address-summary-label').style.display = 'none'
+        document.getElementById('address-summary').style.display = 'none'
+        document.getElementById('edit-address-again').style.display = 'none'
+        let fieldHeight = document.getElementById('fieldset-inner');
+        fieldHeight.classList.add('expandfield')
+        setTimeout(() => {
+          this.assignAddressValues()
+        }, 500)
+      }
+    },
+    enterEditAddressManuallyFunc () {
+      this.enterPostCode()
+    },
+    enterPostCode () {
+      document.getElementsByClassName('manually-added-fields')[0].style.display = 'none'
+      document.getElementById('address_1').value = ''
+      document.getElementById('address-summary-label').style.display = 'none'
+      document.getElementById('address-summary').style.display = 'none'
+      document.getElementById('edit-address-again').style.display = 'none'
+      let autoFillField = document.getElementsByClassName('address-postcode');
+      autoFillField[0].style.display = 'block'
+    },
+    autofillDetails () {
+      let {
+        city,
+        country,
+        firstName,
+        lastName,
+        phone,
+        region,
+        postcode,
+        street,
+        house,
+        email
+      } = this.shippingDetails
+      this.user.firstName = firstName
+      this.user.lastName = lastName
+      this.user.phone = phone
+      this.user.city = city
+      this.user.postCode = postcode
+      this.user.addressLine1 = street
+      this.user.addressLine2 = house
+      this.user.email = (this.currentUser && this.currentUser.email) ? this.currentUser.email : ''
+    },
     retrunFullName () {
       //     console.log("2211 in return full name function", this);
       const fullName = this.user.firstName + this.user.lastName;
@@ -449,11 +707,11 @@ export default {
           address: {
             firstname: this.user.firstName,
             email: this.user.email,
-            city: this.user.orderTown,
+            city: this.user.city,
             lastname: this.user.lastName,
             phone: this.user.phone,
             address_line1: this.user.addressLine1,
-            town: this.user.orderTown,
+            town: this.user.city,
             postcode: this.user.postCode,
             country: 'GB',
             street: this.user.addressLine1,
@@ -546,6 +804,16 @@ export default {
     }
   },
   mounted () {
+    const scriptList = document.querySelectorAll('script[type=\'text/javascript\']')
+    const convertedNodeList = Array.from(scriptList)
+    const cc_c2aScript = convertedNodeList.find(script => script.id === 'clickToAddressId')
+    cc_c2aScript?.parentNode.removeChild(cc_c2aScript)
+    if (document.getElementById('cc_c2a') !== null) {
+      document.getElementById('cc_c2a').remove();
+    }
+    setTimeout(() => {
+      this.addressLookUpFinder()
+    }, 1000);
     const URL = config.api.url + config.swatches.endpoint + '/getSwatches';
     //   const URL =  "https:/bfd.bedfactorydirect.co.uk/api/ext/swatches/getSwatches"
     axios
@@ -569,7 +837,15 @@ export default {
     //   console.log("Full name is ",fullName);
     //   return fullName;
     // },
-  }
+  },
+  beforeMount () {
+    const craftyplugin = document.createElement('script')
+    craftyplugin.setAttribute('src', '/assets/js/crafty_postcode.class.js')
+    document.head.appendChild(craftyplugin)
+    const craftAddressLookUpplugin = document.createElement('script');
+    craftAddressLookUpplugin.setAttribute('src', '/assets/js/cc_c2a.min.js');
+    document.head.appendChild(craftAddressLookUpplugin);
+  },
 };
 </script>
 
