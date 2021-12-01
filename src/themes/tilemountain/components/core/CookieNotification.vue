@@ -199,7 +199,7 @@ export default {
     margin: 24px;
     padding: 8px 24px;
     border-radius: 4px;
-    box-shadow: 8px 8px 8px black;
+    box-shadow: 0px 0px 10px #000;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -227,7 +227,7 @@ export default {
       line-height: 1.5;
       color: #e2e2e2;
       display: inline-block;
-      font-family: 'GillSansRegular';
+      font-family: 'Roboto';
       letter-spacing: 0.4px;
 
       b {
@@ -263,7 +263,7 @@ export default {
     }
 
     .cookie-preferences {
-      font-family: 'GillSansRegular';
+      font-family: 'Roboto';
       font-size: 16px;
       line-height: 1.5;
       color: #e2e2e2;
@@ -517,7 +517,7 @@ export default {
                   content: 'ON';
                   left: 5px;
                   top: 3px;
-                  font-family: 'GillSansRegular';
+                  font-family: 'Roboto';
                   color: #fff;
                   letter-spacing: 0.6px;
                 }
@@ -526,7 +526,7 @@ export default {
                   content: 'OFF';
                   right: 9px;
                   top: 3px;
-                  font-family: 'GillSansRegular';
+                  font-family: 'Roboto';
                   color: #fff;
                   letter-spacing: 0.6px;
                 }
