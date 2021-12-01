@@ -147,8 +147,8 @@
                   </div>
                 </div>
 
-                <div class="row mainFormRow">
-                  <div class="field rightMargin">
+                <div class="mainFormRow">
+                  <div class="field full-width">
                     <label for="Postcode-name"> Postcode <span>*</span></label>
                     <div class="input-field">
                       <base-input
@@ -166,17 +166,6 @@
                           },
                         ]"
                       />
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="input-field">
-                      <!-- <button
-                        class="find-btn btn"
-                        :class="postCode === '' ? 'button-disabled' : ''"
-                        name="submit-button"
-                      >
-                        Find Address
-                      </button> -->
                     </div>
                   </div>
                 </div>
@@ -776,6 +765,21 @@ export default {
 };
 </script>
 <style lang="scss">
+.full-width{
+    width: 100% !important;
+  }
+
+.manually-added-fields {
+  .input-wrapper{
+  display: flex;
+  flex-direction: column;
+  input{
+        height: 26px;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+  }
+}
+}
 .mainFormRow {
   .base-input{
     min-height: 1rem !important;
@@ -788,6 +792,7 @@ export default {
 }
 </style>
 <style>
+
 .breadcrumbs span {
   color: #54575b;
   padding: 0px 2.5px;
