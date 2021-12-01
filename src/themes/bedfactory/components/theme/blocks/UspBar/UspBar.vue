@@ -125,6 +125,7 @@ export default {
 </script>
 <style lang='scss'>
 .usp-bar {
+  text-align: center !important;
 }
 .main-usp-bar {
   background-color: aliceblue;
