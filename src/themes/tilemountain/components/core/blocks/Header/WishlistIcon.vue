@@ -1,8 +1,9 @@
 <template>
-  <div class="bg-cl-transparent brdr-none">
+  <div class="bg-cl-transparent bg-location2 brdr-none">
     <button type="button" class="bg-cl-transparent brdr-none p0 location">
       <router-link :to="localizedRoute('/bed-factory-stores')" exact>
         <img src="/assets/icons/location.svg" alt="location" />
+        <span class="showrooms">Showrooms</span>
       </router-link>
 
       <!-- <span
@@ -11,30 +12,26 @@
       v-show="getWishlistItemsCount"
       >{{ getWishlistItemsCount }}</span>-->
     </button>
-    <span>Showrooms</span>
   </div>
 </template>
 
 <script>
 // import WishlistIcon from "@vue-storefront/core/compatibility/components/blocks/Header/WishlistIcon";
-
 export default {
   // mixins: [WishlistIcon]
 };
 </script>
 
 <style scoped>
-.bg-cl-transparent{
-  width: min-content !important;
-}
-.bg-cl-transparent button{
-  margin-left:23px;
-}
-.bg-cl-transparent span{
-      color: #071A44;
-      font-weight: bold;
-       font-family: 'Roboto', sans-serif;
-           font-size: 12px;
+/* button {
+  padding-right: 13px;
+} */
+.showrooms {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Roboto";
+  color: #071a44;
 }
 .whishlist-count {
   top: 7px;
@@ -43,8 +40,17 @@ export default {
   min-height: 16px;
   border-radius: 10px;
 }
+.bg-location2 button {
+  margin-right: 1rem;
+}
+/* large than mobiles  */
+@media (min-width: 768px) and (max-width: 990px) {
+  .bg-location2 button {
+    margin-right: 0;
+  }
+}
 button img {
-  margin-top: 28px;
+  margin-top: 24px;
   /* margin-right: -1px; */
 }
 .location a:after {
@@ -53,13 +59,11 @@ button img {
 @media (max-width: 767px) {
   button {
     display: block;
-    height: 24px;
+    height: 23px;
     /* width: 100%; */
-    max-width: 5em;
+    max-width: 6em;
     padding: 0px;
-  }
-  .bg-cl-transparent button{
-        margin-left: 16px;
+    margin-right: 0;
   }
   @media (min-width: 481px) and (max-width: 600px) {
     button {
@@ -67,33 +71,44 @@ button img {
     }
   }
   button img {
-    /* height: 28px;
-    margin-top: 9px; */
-    height: 100%;
+    /* height: 100%; */
     width: 5vw;
-    padding-top: 3px;
     margin: 0px;
   }
-}
-@media (min-width: 320px) and (max-width: 480px) {
-  button {
-    max-width: 2em;
-    /* transform: scale(0.65); */
+  .bg-cl-transparent span {
+    font-size: 12px;
+    /* margin-top: 0.2rem; */
   }
 }
+/* for mobiles  */
+@media (min-width: 320px) and (max-width: 480px) {
+  button {
+    /* max-width: 2em; */
+    /* margin-top: 1.2rem; */
+    /* transform: scale(0.65); */
+    height: auto;
+  }
+  img {
+    width: 4vw;
+        margin: 0px;
+    margin-top: 6px;
+  }
+}
+/* for tablets devices */
 @media (min-width: 768px) and (max-width: 991px) {
   button img {
-    height: 20px;
-    margin-top: 29px;
+    height: 32px;
+    margin-top: 27px;
   }
 }
 img {
-  height: 23px;
-  margin-top: 12px;
+  height: 31px;
 }
 /* @media (max-width: 399px) {
   button img {
     height: 24px;
   }
 } */
+@media (max-width: 480px) {
+}
 </style>

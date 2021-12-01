@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="relative bg-cl-transparent brdr-none inline-flex cart"
+    class="relative bg-cl-transparent bg-cl-trans brdr-none inline-flex cart"
     data-testid="openMicrocart"
     ref="MicrocartBtn"
     :aria-label="$t('Open microcart')"
@@ -28,7 +28,6 @@
 import { mapGetters, mapActions } from 'vuex'
 import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon'
 import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers'
-
 export default {
   data () {
     return {
@@ -170,8 +169,8 @@ export default {
   src: url('/assets/fonts/Oblik_Bold.otf');
 }
 .minicart-count {
-  top: 0px;
-  left: 20px;
+  top: -4px;
+  left: 33px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -182,29 +181,32 @@ export default {
 }
 .cart {
   width: auto;
-  margin-right: -6px;
+  // margin-right: -6px;
   position: relative;
   display: flex;
-  min-width: 105px;
+  min-width: 60px;
   padding-left: 0 !important;
   align-items: center;
 }
 img {
-  height: 29px;
+  height: 30px;
 }
 .price {
-  /* margin-top: 35px; */
-  margin-top: 17px;
-  margin-left: 15px;
-  font-size: 18px;
-  font-family: 'Oblik';
+  margin-top: 7px;
+  font-size: 12px;
   color: #071A44;
+  font-weight: 600;
+  font-family: 'ROBOTO';
+  display: block !important;
 }
 @media (max-width: 1199px) {
+  .bg-cl-trans{
+    width: 7vw;
+  }
   .cart {
-    height: 100%;
-    width: 100%;
-    max-width: 53px;
+    // height: 100%;
+    // width: 100%;
+    // max-width: 53px;
     padding: 0px;
     -ms-flex-align: center;
     align-items: center;
@@ -212,8 +214,8 @@ img {
     min-width: auto !important;
   }
   .cart img {
-    margin-top: -4px;
-    height: 25px;
+    margin-top: 9px;
+    height: 30px;
   }
   .minicart-count {
     top: 28px;
@@ -223,12 +225,16 @@ img {
     font-size: 10px;
   }
   .price {
-    margin-top: 4px;
-    margin-left: 10px;
-    font-size: 14px !important;
+    margin-top:5px;
+    font-size: 12px !important;
   }
+  
 }
 @media (max-width: 991px) {
+  button{
+    width: 13.5vw !important;
+    
+  }
   .cart {
     height: 100%;
     width: 100%;
@@ -239,8 +245,9 @@ img {
     margin: 0px;
   }
   .cart img {
-    margin-top: -2px;
-    height: 19px;
+    // margin-top: -2px;
+    // margin-top: 18px;
+    height: 28px;
   }
   .price {
     display: none;
@@ -262,12 +269,11 @@ img {
     align-items: center;
   }
   .cart img {
-    height: 100%;
+    // height: 100%;
     width: 30px;
-    padding-top: 0px;
     margin: 0px;
-    margin-top: -10px;
-    min-height: 83px;
+    margin-top: 0px;
+    min-height: 40px;
   }
   .minicart-count {
     top: 13px;
@@ -294,5 +300,6 @@ img {
     height: 16px;
     font-size: 10px;
   }
+ 
 }
 </style>

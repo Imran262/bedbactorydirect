@@ -5,7 +5,8 @@
       :class="
         !isCheckoutPage && $route.name !== 'confirmorder'
           ? 'notcheckoutheader'
-          : 'ischeckoutheader'"
+          : 'ischeckoutheader'
+      "
     >
       <header
         class="w-100 bg-cl-primary brdr-cl-secondary"
@@ -36,13 +37,14 @@
             <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
               <div class="inline-flex sb-icons">
                 <Telephone
-                  class="p15 icon pointer t-mobile"
+                  class="icon pointer t-mobile"
                   :callText="phone"
                   :callNumber="call"
                 />
                 <div class="flex inner-icons">
                   <wishlist-icon class="icon pointer r-icons location-icon" />
                   <account-icon class="icon pointer r-icons1 account-icon" />
+
                   <microcart-icon class="icon pointer r-icons3" />
                 </div>
               </div>
@@ -104,7 +106,6 @@
                     alt="checkout user"
                     class="checkout-user"
                 /></a>
-               
                 <span v-else class="log-in-detail">
                   You are logged in as {{ currentUser.firstname }}
                 </span>
@@ -127,42 +128,18 @@
             :rightborder="rightborder"
           />
         </nav>
-        <!-- <UspBar
-        class="usp-bar-tm-bfd"
-        v-if="
-          $device.isMobile &&
-          $route.name !== 'checkout' &&
-          $route.name !== 'Checkout'
-        "
-        :identifier="'usp-bar-TM'"
-      /> -->
       </header>
       <div class="scroll" @click="animateToTop()">
         <span class="scrollimage"
           ><img src="/assets/icons/arrowupicon.png"
         /></span>
       </div>
-      <!-- 1
-      {{'Mobile : '+ $device.isMobile}} {{!$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')}} 
-      {{!$device.isMobile }} {{ ($route.name !== 'checkout' && $route.name !== 'Checkout')}} -->
-
-
-       <!-- <UspBar
-        class="usp-bar-tm-bfd"
-        v-if="
-          $device.isMobile &&
-          $route.name !== 'checkout' &&
-          $route.name !== 'Checkout'
-        "
-        :identifier="'usp-bar-TM'"
-      />  -->
       <!-- <div class="header-placeholder" /> -->
     </div>
     <!-- <CutSampleModelHome /> -->
   </div>
 </template>
 <script>
-import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar";
 import { mapState } from "vuex";
 import { mapGetters, mapActions } from "vuex";
 import CurrentPage from "theme/mixins/currentPage";
@@ -183,7 +160,6 @@ import HeaderMenu from "src/themes/bedfactory/components/core/blocks/HeaderMenu/
 import CutSampleModelHome from "theme/components/core/blocks/Footer/CutSampleModelHome.vue";
 import config from "config";
 import { themeConfigurations } from "@vue-storefront/core/helpers";
-
 const Microcart = () =>
   import(
     /* webpackPreload: true */ /* webpackChunkName: "vsf-microcart" */ "theme/components/core/blocks/Microcart/Microcart.vue"
@@ -191,7 +167,6 @@ const Microcart = () =>
 export default {
   name: "Header",
   components: {
-    UspBar,
     CutSampleModelHome,
     AccountIcon,
     CompareIcon,
@@ -274,7 +249,6 @@ export default {
   },
   beforeMount() {
     history.scrollRestoration = "auto";
-
     // console.log("789456 In Header ", this.$route);
     if (this.$route.name === "cart") {
       // console.log("789456 Header ", this.productsInCart.length);
@@ -283,7 +257,6 @@ export default {
         this.$router.push(this.localizedRoute("/"));
       }
     }
-
     window.addEventListener(
       "scroll",
       () => {
@@ -359,48 +332,85 @@ span.log-in-detail {
   color: #071a44 !important;
   font-weight: bold;
 }
+.inline-flex {
+  align-items: center;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+.r-icons3 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.6rem;
+      margin-left: 0.8rem;
+  // margin-left: 0.7rem;
+  // padding: 12px 0px 12px 12px;
+}
 .header-icon {
   margin-left: 50px;
 }
-
 .relativeHeader .navigation {
   position: relative;
   top: unset;
 }
-
 .fixedHeader .navigation {
   position: fixed;
   top: -2px;
   width: 100%;
   z-index: 1;
 }
-
 .header-main {
   margin-left: 8px;
 }
-
-.r-icons3{
-  margin: 12px;
-  margin-bottom: 0;
+.inner-icons {
+  //  align-items: baseline !important;
 }
-
+@media (max-width: 1199px) and(min-width: 992px) {
+  .inline-flex {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .r-icons3{
+          margin-top: 0;
+    }
+}
+//  for tablets
+@media (max-width: 991px) and(min-width: 768px) {
+  .inline-flex {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .r-icons3 {
+    margin-top: 0.6rem;
+    margin-right: -44px;
+    margin-left: 0.7rem;
+  }
+}
+.inner-icons {
+  // padding-left: 60px;
+  align-items: center;
+  @media (max-width: 1199px) and(min-width: 992px) {
+    // padding-left: 8px;
+  }
+  @media (max-width: 767px) {
+    padding-left: 0px;
+  }
+}
 header {
   z-index: 3;
   transition: top 0.2s ease-in-out;
-
   &.is-visible {
   }
-
   .wishlist {
     padding: 10px;
-
     .wishlist-img {
       span {
         display: block;
         text-align: center;
       }
     }
-
     .wishlist-text {
       span {
         font-size: 0.671875rem;
@@ -409,21 +419,12 @@ header {
       }
     }
   }
-
   .sb-header-right {
     padding: 0;
-
     button {
       opacity: 1;
     }
   }
-.inner-icons {
-  padding-left: 38px;
-  align-items: center;
-  @media (max-width: 1199px) and(min-width: 992px) {
-    padding-left: 0px;
-  }
-}
   .logo-desktop {
     @media (max-width: 767px) {
       padding-top: 6px;
@@ -436,37 +437,35 @@ header {
 }
 @media (min-width: 1200px) {
   .r-icons {
-    margin: 12px;
+    padding: 0px 0px 12px 12px;
+    // padding: 0px;
+    // width: 4.7vw !important;
+        margin: 0 0.8rem;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .r-icons {
-    margin: 6px;
+    padding: 0px 0px 12px 12px;
+    // padding: 0px;
   }
   .r-icons1 {
-    margin: 6px;
-  }
-  .r-icons3{
-     margin: 6px;
-     margin-bottom: 0;
+    padding: 0px 22px 12px 12px !important;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .r-icons {
-    margin: 5px;
+    padding: 0px 7px 12px 4px;
+    // padding: 0px;
   }
-  .r-icons1 {
-  margin: 5px;
 }
-.r-icons3 {
-  margin: 5px;
+.account-icon {
+  padding: 0px 0px 12px 12px;
+  // width: 4vw;
+      margin: 0 0.8rem;
 }
-}
-
 .t-mobile {
-  padding-left: 0px;
+  padding-left: 8px;
 }
-
 // .icon {
 //   opacity: 0.6;
 //   &:hover,
@@ -479,36 +478,28 @@ header {
   //for edge
   float: right;
 }
-
 .header-placeholder {
   height: 54px;
 }
-
 .links {
   text-decoration: underline;
 }
-
 .basket-loc-box {
   position: relative;
 }
-
 .ischeckoutheader {
   height: auto !important;
-
   .bg-cl-primary {
     /*background: #2a275c !important;*/
     padding: 10px 0px 15px 0px;
     z-index: 102;
   }
-
   .phone-no {
     margin-right: 20px;
-
     img {
       position: relative;
       top: 5px;
     }
-
     span {
       font-family: Arial, Helvetica, sans-serif;
       color: #ffffff;
@@ -516,12 +507,10 @@ header {
       font-weight: 700;
     }
   }
-
   span {
     color: #ffffff;
   }
 }
-
 @media (max-width: 480px) {
   .ischeckoutheader .checkout-logo {
     width: 100px;
@@ -541,14 +530,12 @@ header {
     width: 133px;
   }
 }
-
 @media (min-width: 600px) and (max-width: 767px) {
   .header {
     height: 133px !important;
   }
 }
-
-@media (max-width: 767px) {
+@media  (max-width: 767px) {
   .header {
     height: 8.4rem;
     position: relative;
@@ -556,7 +543,6 @@ header {
   }
   .row.middle-xs {
     margin: 0 -15px;
-
     &.py5 {
       margin: 0;
     }
@@ -603,10 +589,10 @@ header {
   }
   .t-mobile {
     // padding: 5px;
-    position: relative;
-    padding: 0px;
-    margin: 0px;
-    width: 13.7vw;
+    // position: relative;
+    // padding: 0px;
+    // margin: 0px;
+    // width: 12.7vw;
   }
   .ischeckoutheader .bg-cl-primary {
     padding: 10px 0px 15px 0px;
@@ -626,14 +612,13 @@ header {
     align-items: center;
     padding-top: 6px;
   }
-  .location-icon {
-    width: 18.7vw;
+  .r-icons {
+    width: 16.7vw;
   }
   .account-icon {
-    width: 17.5vw;
+    width: 13.5vw;
   }
 }
-
 @media (min-width: 320px) and (max-width: 480px) {
   .notcheckoutheader {
     height: 6.4rem;
@@ -645,19 +630,29 @@ header {
     padding-top: 0;
   }
 }
-
+// for movile view less than 767px
+@media (max-width: 767px) {
+  .r-icons3 {
+    margin-top: 20px;
+  }
+}
+//
 @media (max-width: 992px) and (min-width: 768px) {
   .inner-icons {
     padding-left: 2px;
   }
+  .r-icons1 {
+    padding: 10px;
+  }
+  .account-icon {
+    width: 5vw;
+  }
 }
-
 @media (max-width: 992px) {
   .fullCloseCart {
     display: none !important;
   }
 }
-
 .scrollimg {
   font-size: 32px;
   font-weight: normal;
@@ -666,7 +661,6 @@ header {
   outline: none;
   user-select: none;
 }
-
 .scroll {
   width: 50px;
   height: 50px;
@@ -682,7 +676,6 @@ header {
   cursor: pointer;
   display: none;
 }
-
 span.scrollimg:after {
   background-image: none;
   border: solid #333;
@@ -696,7 +689,6 @@ span.scrollimg:after {
   border-width: 2px 0px 0px 2px;
   margin-top: -16px;
 }
-
 @media (max-width: 992px) {
   .scroll {
     display: none !important;
@@ -722,7 +714,6 @@ span.scrollimg:after {
 .zsiq_theme1.zsiq_floatmain {
   bottom: 160px !important;
 }
-
 @media screen and (min-width: 768px) {
   .back-layout {
     position: fixed;
@@ -748,6 +739,32 @@ a.cl-tertiary.links img {
   }
 }
 img.checkout-user {
-  width: 24px;
+  width: 22px;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+ .t-mobile{
+   position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 12.7vw;
+  }
+}
+@media (min-width: 280px) and (max-width: 480px) {
+   .t-mobile{
+   position: relative;
+    padding: 0px !important;
+    margin: 0px;
+    width: 11.7vw;
+    height: 91px;
+  }
+  .sb-icons {
+    display: flex;
+    justify-content:flex-start;
+    padding-right: 7.81%;
+  }
+   /* @media (min-width: 992px) and (max-width: 1199px){
+    
+  } */
+  
 }
 </style>

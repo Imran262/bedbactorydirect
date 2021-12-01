@@ -17,13 +17,12 @@
       >
         <button type="button" class="bg-cl-transparent brdr-none p0">
           <img src="/assets/icons/user.svg" alt="user login" />
-          <span class="account-name">Account</span>
+          <span class="account">Account</span>
         </button>
       </router-link>
       <router-link :to="localizedRoute('/my-account')" v-else>
         <button type="button" class="bg-cl-transparent brdr-none p0">
           <img src="/assets/icons/user.svg" alt="user login" />
-          <span class="account-name">Account</span>
         </button>
       </router-link>
       <no-ssr>
@@ -53,7 +52,7 @@
               href="#"
               class="no-underline block py10 px15"
               @click.prevent="logout"
-              >{{ $t('Logout') }}</a
+              >{{ $t("Logout") }}</a
             >
           </div>
         </div>
@@ -65,9 +64,8 @@
 </template>
 
 <script>
-import NoSSR from "vue-no-ssr"
-import AccountIcon from "@vue-storefront/core/compatibility/components/blocks/Header/AccountIcon"
-
+import NoSSR from "vue-no-ssr";
+import AccountIcon from "@vue-storefront/core/compatibility/components/blocks/Header/AccountIcon";
 export default {
   mixins: [AccountIcon],
   components: {
@@ -79,15 +77,21 @@ export default {
       navigation: [
         { title: this.$t("My Dashboard"), link: "/my-account/dashboard" },
         { title: this.$t("Account Information"), link: "/my-account" },
-        { title: this.$t("Address Book"), link: "/my-account/shipping-details"},
+        {
+          title: this.$t("Address Book"),
+          link: "/my-account/shipping-details",
+        },
         { title: this.$t("My orders"), link: "/my-account/orders" },
         { title: this.$t("Quotations"), link: "/my-account/quotations" },
         { title: this.$t("Newsletter"), link: "/my-account/newsletter" },
         //{ title: this.$t("My loyalty card"), link: "#" },
         //{ title: this.$t("My product reviews"), link: "#" },
-        {title: this.$t("Recently viewed products"),link: "/my-account/recently-viewed"},
+        {
+          title: this.$t("Recently viewed products"),
+          link: "/my-account/recently-viewed",
+        },
       ],
-    }
+    };
   },
   methods: {
     notify(title) {
@@ -98,7 +102,7 @@ export default {
             "This feature is not implemented yet! Please take a look at https://github.com/DivanteLtd/vue-storefront/issues for our Roadmap!"
           ),
           action1: { label: this.$t("OK") },
-        })
+        });
       }
     },
   },
@@ -106,28 +110,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/base/global_vars';
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import "~theme/css/base/global_vars";
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
 $color-icon-hover: color(secondary, $colors-background);
-.account-name{
-   color: #071A44;
-  font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-      font-size: 12px;
+.account {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Roboto";
+  color: #071a44;
 }
 .dropdown {
-  // padding-right: 42px;
-  padding-right: 13px;
+  // padding-right: 13px;
   outline: none;
   button {
+    margin-right: 1rem;
     pointer-events: none;
-    padding-top: 19px;
+    padding-top: 17px;
   }
   img {
-    height: 20px;
-    margin-top: 9px;
-        margin-bottom: 4px;
+    height: 29px;
+    margin-top: 7px;
+    margin-bottom: 2px;
   }
   .dropdown-content {
     display: none;
@@ -141,8 +146,7 @@ $color-icon-hover: color(secondary, $colors-background);
   }
   a {
     // opacity: 0.6;
-    text-align: left;
-
+    // text-align: left;
     &:hover,
     &:focus {
       // background-color: transparent;
@@ -154,7 +158,6 @@ $color-icon-hover: color(secondary, $colors-background);
     &:focus .dropdown-content:not(.dropdown-content__hidden) {
       display: block;
     }
-
     &:focus-within {
       // background-color: $color-icon-hover;
       opacity: 1;
@@ -170,7 +173,7 @@ $color-icon-hover: color(secondary, $colors-background);
   }
   .dropdown {
     button {
-      padding-top: 28px;
+      // padding-top: 28px;
     }
   }
 }
@@ -178,25 +181,33 @@ $color-icon-hover: color(secondary, $colors-background);
   .dropdown {
     padding: 0px;
     button {
-      height: 78px;
-      width: 100%;
-      max-width: 3em;
+      height: 55px;
+      // width: 100%;
+      max-width: 4em;
       padding: 0px;
     }
   }
   .dropdown img {
-    height: 22px;
-    // margin-top: 8px;
+    height: 28px;
     // height: 100%;
-    width: 4vw;
+    width: 5vw;
+    padding-top: 15px;
     margin: 0px;
+  }
+  .account {
+    margin-top: 0.3rem;
   }
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .dropdown {
     button {
-      max-width: 2em;
+      max-width: 4em;
+      height: 68px;
       // transform: scale(0.65);
+    }
+    img {
+      padding-top: 0;
+     
     }
   }
 }
