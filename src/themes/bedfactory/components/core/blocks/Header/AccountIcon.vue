@@ -202,18 +202,25 @@ $color-icon-hover: color(secondary, $colors-background);
   .dropdown {
     button {
       max-width: 4em;
-      height: 68px;
+      height: 51px;
+      padding-right: 0;
       // transform: scale(0.65);
     }
     img {
       padding-top: 0;
-     
+      height: 25px;
+          width: 6vw;
     }
   }
 }
-// @media (max-width: 399px) {
-//   .dropdown img {
-//     height: 24px;
-//   }
-// }
+@media (max-width: 319px) {
+  .dropdown img {
+    padding-top: 2px;
+    height: 20px;
+
+  }
+  .account{
+        font-size: 10px;
+  }
+}
 </style>

@@ -8,119 +8,181 @@
     id="minicarticon"
     @click="toggleMicroCartCustom"
   >
-    <img src="/assets/icons/basket.svg" alt="basket">
+    <img src="/assets/icons/basket.svg" alt="basket" />
     <span
-      class="minicart-count absolute flex center-xs middle-xs border-box py0 px2 h6 lh16 weight-700 cl-white"
+      class="
+        minicart-count
+        absolute
+        flex
+        center-xs
+        middle-xs
+        border-box
+        py0
+        px2
+        h6
+        lh16
+        weight-700
+        cl-white
+      "
       v-cloak
       v-show="totalQuantity"
       data-testid="minicartCount"
-    >{{ totalItems.length }}</span>
-    <span
+      >{{ totalItems.length }}</span
+    >
+
+    <!-- <span
       class="price"
       id="microcartIconPrice"
       v-cloak
       v-show="totalQuantity"
-    >{{ getGrandTotal | price }}</span>
+    >{{ getGrandTotal | price }}</span> -->
+    <span
+      v-if="totalQuantity > 0"
+      class="price price-bfd"
+      id="microcartIconPrice"
+      v-cloak
+      v-show="totalQuantity"
+      >{{ getGrandTotal | price }}</span
+    >
+    <span
+      v-else
+      class="price price-bfd"
+      id="microcartIconPrice"
+      v-cloak
+      v-show="totalQuantity"
+      >Basket</span
+    >
   </button>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon'
-import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers'
+import { mapGetters, mapActions } from "vuex";
+import MicrocartIcon from "@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon";
+import { syncCartWhenLocalStorageChange } from "@vue-storefront/core/modules/cart/helpers";
 export default {
-  data () {
+  data() {
     return {
       onlyCutSizeSample: [],
-      onlyFullSizeSample: []
-    }
+      onlyFullSizeSample: [],
+    };
   },
   watch: {
     totalItems: {
-      handler (newVal, oldVal) {
+      handler(newVal, oldVal) {
         if (oldVal === newVal) {
-          this.getFullSampleItems()
-          this.getCutSampleItems()
+          this.getFullSampleItems();
+          this.getCutSampleItems();
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
-  async mounted () {
-    await this.getFullSampleItems()
-    await this.getCutSampleItems()
-    syncCartWhenLocalStorageChange.addEventListener()
-    this.$once('hook:beforeDestroy', () => {
-      syncCartWhenLocalStorageChange.removeEventListener()
-    })
-    document.body.addEventListener('click', (event) => {
-      this.closeMiniCart(event)
+  async mounted() {
+    await this.getFullSampleItems();
+    await this.getCutSampleItems();
+    syncCartWhenLocalStorageChange.addEventListener();
+    this.$once("hook:beforeDestroy", () => {
+      syncCartWhenLocalStorageChange.removeEventListener();
+    });
+    document.body.addEventListener("click", (event) => {
+      this.closeMiniCart(event);
     });
   },
   computed: {
     ...mapGetters({
-      totalQuantity: 'cart/getItemsTotalQuantity',
-      totalItems: 'cart/getCartItems',
-      getTotals: 'cart/getTotals'
+      totalQuantity: "cart/getItemsTotalQuantity",
+      totalItems: "cart/getCartItems",
+      getTotals: "cart/getTotals",
     }),
-    getGrandTotal () {
-      var grandTotal = 0
+    getGrandTotal() {
+      var grandTotal = 0;
       if (this.getTotals && this.getTotals.length > 0) {
         var totalItem = this.getTotals.filter((totalItemsInside) => {
-          if (totalItemsInside && totalItemsInside.code && totalItemsInside.code === 'subtotal') {
-            grandTotal = totalItemsInside.value
+          if (
+            totalItemsInside &&
+            totalItemsInside.code &&
+            totalItemsInside.code === "subtotal"
+          ) {
+            grandTotal = totalItemsInside.value;
           }
-        })
+        });
       }
-      return grandTotal
-    }
+      return grandTotal;
+    },
   },
   methods: {
     ...mapActions({
-      openMicrocart: 'ui/toggleMicrocart'
+      openMicrocart: "ui/toggleMicrocart",
     }),
-    openMicrocartCustom (event) {
-      document.getElementsByClassName('microcart-sidebar')[0].style.display = 'block'
+    openMicrocartCustom(event) {
+      document.getElementsByClassName("microcart-sidebar")[0].style.display =
+        "block";
     },
-    leaveMicrocartCustom (event) {
-      document.getElementsByClassName('microcart-sidebar')[0].style.display = 'none'
+    leaveMicrocartCustom(event) {
+      document.getElementsByClassName("microcart-sidebar")[0].style.display =
+        "none";
     },
-    async getFullSampleItems () {
+    async getFullSampleItems() {
       this.onlyFullSizeSample = await this.totalItems.filter((item, index) => {
-        return item.totals && item.totals.options && item.totals.options.length > 0 && item.totals.options[0].value === 'Full Size'
+        return (
+          item.totals &&
+          item.totals.options &&
+          item.totals.options.length > 0 &&
+          item.totals.options[0].value === "Full Size"
+        );
       });
-      return this.onlyFullSizeSample
+      return this.onlyFullSizeSample;
     },
-    isTotalsLoaded () {
+    isTotalsLoaded() {
       let firstItem = this.totalItems?.[0];
       if (firstItem) {
-        return firstItem.totals && firstItem.totals.options
+        return firstItem.totals && firstItem.totals.options;
       }
-      return true
+      return true;
     },
-    async getCutSampleItems () {
+    async getCutSampleItems() {
       this.onlyCutSizeSample = await this.totalItems.filter((item, index) => {
-        return item.totals && item.totals.options && item.totals.options.length > 0 && item.totals.options[0].value === 'Cut Size'
+        return (
+          item.totals &&
+          item.totals.options &&
+          item.totals.options.length > 0 &&
+          item.totals.options[0].value === "Cut Size"
+        );
       });
-      return this.onlyCutSizeSample
+      return this.onlyCutSizeSample;
     },
-    toggleMicroCartCustom () {
-      console.log("from PSWP")
-      this.getFullSampleItems()
-      this.getCutSampleItems()
+    toggleMicroCartCustom() {
+      console.log("from PSWP");
+      this.getFullSampleItems();
+      this.getCutSampleItems();
       if (!this.isTotalsLoaded()) {
         return false;
       }
-      if (this.onlyCutSizeSample.length > 0 && this.onlyCutSizeSample.length <= 3 && this.totalItems.length <= 3 && this.onlyCutSizeSample.length === this.totalItems.length) {
-        this.$bus.$emit('modal-show', 'modal-quickcheckoutmodel')
-      } else if (this.onlyCutSizeSample.length > 3 && this.onlyCutSizeSample.length === this.totalItems.length) {
-        this.$router.push(this.localizedRoute('/cart'))
-      } else if (this.onlyFullSizeSample.length > 0 && this.onlyFullSizeSample.length === this.totalItems.length) {
-        this.$router.push(this.localizedRoute('/checkout'))
-      } else if (this.onlyFullSizeSample.length === 0 && this.onlyCutSizeSample.length === 0 && this.totalItems.length > 0) {
-        this.$router.push(this.localizedRoute('/cart'))
+      if (
+        this.onlyCutSizeSample.length > 0 &&
+        this.onlyCutSizeSample.length <= 3 &&
+        this.totalItems.length <= 3 &&
+        this.onlyCutSizeSample.length === this.totalItems.length
+      ) {
+        this.$bus.$emit("modal-show", "modal-quickcheckoutmodel");
+      } else if (
+        this.onlyCutSizeSample.length > 3 &&
+        this.onlyCutSizeSample.length === this.totalItems.length
+      ) {
+        this.$router.push(this.localizedRoute("/cart"));
+      } else if (
+        this.onlyFullSizeSample.length > 0 &&
+        this.onlyFullSizeSample.length === this.totalItems.length
+      ) {
+        this.$router.push(this.localizedRoute("/checkout"));
+      } else if (
+        this.onlyFullSizeSample.length === 0 &&
+        this.onlyCutSizeSample.length === 0 &&
+        this.totalItems.length > 0
+      ) {
+        this.$router.push(this.localizedRoute("/cart"));
       } else if (this.totalItems.length > 0) {
-        this.$router.push(this.localizedRoute('/cart'))
+        this.$router.push(this.localizedRoute("/cart"));
       }
       if (this.totalItems.length === 0) {
         //this.$router.push(this.localizedRoute('/'))
@@ -137,47 +199,51 @@ export default {
         // }
       }
     },
-    closeMiniCart (event) {
-      if (this.$route.name !== 'checkout') {
-        let ignoreClickOnMeElement = document.getElementById('minicarticon');
-        let isCartRemoveButton = document.getElementById('minicartnotclose');
-        let isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+    closeMiniCart(event) {
+      if (this.$route.name !== "checkout") {
+        let ignoreClickOnMeElement = document.getElementById("minicarticon");
+        let isCartRemoveButton = document.getElementById("minicartnotclose");
+        let isClickInsideElement = ignoreClickOnMeElement.contains(
+          event.target
+        );
         let isClickInsideElementRemoveButton;
         if (isCartRemoveButton) {
-          isClickInsideElementRemoveButton = (event.target.id === isCartRemoveButton.id);
+          isClickInsideElementRemoveButton =
+            event.target.id === isCartRemoveButton.id;
         }
         if (isClickInsideElement) {
         } else {
           if (isClickInsideElementRemoveButton) {
           } else {
-            let getClassForHide = document.getElementsByClassName('microcart-sidebar')[0];
-            getClassForHide.style.display = 'none'
-            if (!getClassForHide.classList.contains('fullCloseCart')) {
-              getClassForHide.classList.remove('openFullMiniCart')
-              getClassForHide.classList.add('fullCloseCart')
+            let getClassForHide =
+              document.getElementsByClassName("microcart-sidebar")[0];
+            getClassForHide.style.display = "none";
+            if (!getClassForHide.classList.contains("fullCloseCart")) {
+              getClassForHide.classList.remove("openFullMiniCart");
+              getClassForHide.classList.add("fullCloseCart");
             }
           }
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
 }
 .minicart-count {
-  top: -4px;
-  left: 33px;
+  top: -8px;
+  left: 46px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #EE4C56;
+  background-color: #ee4c56;
 }
 .cart {
   width: auto;
@@ -194,13 +260,13 @@ img {
 .price {
   margin-top: 7px;
   font-size: 12px;
-  color: #071A44;
+  color: #071a44;
   font-weight: 600;
-  font-family: 'ROBOTO';
+  font-family: "ROBOTO";
   display: block !important;
 }
 @media (max-width: 1199px) {
-  .bg-cl-trans{
+  .bg-cl-trans {
     width: 7vw;
   }
   .cart {
@@ -218,22 +284,20 @@ img {
     height: 30px;
   }
   .minicart-count {
-    top: 28px;
-    left: 12px;
+    top: 0px;
+    left: 48px;
     width: 16px;
     height: 16px;
     font-size: 10px;
   }
   .price {
-    margin-top:5px;
+    margin-top: 5px;
     font-size: 12px !important;
   }
-  
 }
 @media (max-width: 991px) {
-  button{
+  button {
     width: 13.5vw !important;
-    
   }
   .cart {
     height: 100%;
@@ -253,8 +317,8 @@ img {
     display: none;
   }
   .minicart-count {
-    left: 25%;
-    top: 32px;
+    left: 63%;
+    top: 3px;
     width: 14px;
     height: 14px;
     font-size: 9px;
@@ -276,14 +340,15 @@ img {
     min-height: 40px;
   }
   .minicart-count {
-    top: 13px;
-    left: 20px;
+    top: -6px;
+    left: 35px;
     width: 22px;
     height: 22px;
     font-size: 14px;
   }
   .price {
     display: none;
+    margin-top: 4px;
   }
 }
 @media (max-width: 480px) {
@@ -291,15 +356,33 @@ img {
     max-width: 3em;
     img {
       width: 25px;
+      min-height: 30px;
+      margin: 0;
     }
   }
   .minicart-count {
-    top: 19px;
-    left: 17px;
+    top: -4px;
+    left: 27px;
     width: 16px;
     height: 16px;
     font-size: 10px;
   }
- 
+}
+@media (max-width: 420px) {
+  .cart img {
+    width: 22px;
+    min-height: 30px;
+  }
+}
+@media (max-width: 340px) {
+  .cart img {
+    width: 18px;
+    min-height: 20px;
+  }
+}
+@media (max-width: 319px) {
+  .price {
+  font-size: 10px;
+  }
 }
 </style>

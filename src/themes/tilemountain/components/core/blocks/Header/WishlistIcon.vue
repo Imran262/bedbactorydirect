@@ -65,6 +65,9 @@ button img {
     padding: 0px;
     margin-right: 0;
   }
+  img {
+  height: 30px;
+}
   @media (min-width: 481px) and (max-width: 600px) {
     button {
       width: auto;
@@ -77,7 +80,7 @@ button img {
   }
   .bg-cl-transparent span {
     font-size: 12px;
-    /* margin-top: 0.2rem; */
+    margin-top: 0.2rem;
   }
 }
 /* for mobiles  */
@@ -90,8 +93,13 @@ button img {
   }
   img {
     width: 4vw;
-        margin: 0px;
+    margin: 0px;
+    height: 26px;
     margin-top: 6px;
+  }
+  .bg-cl-transparent span{
+    margin-top: 0.3rem;
+        font-size: 11px;
   }
 }
 /* for tablets devices */
@@ -101,14 +109,33 @@ button img {
     margin-top: 27px;
   }
 }
-img {
+/* img {
   height: 31px;
-}
+} */
 /* @media (max-width: 399px) {
   button img {
     height: 24px;
   }
 } */
-@media (max-width: 480px) {
-}
+@media (min-width: 992px) { 
+ button img {
+   height: 33px;
+ }
+ }
+ @media (max-width: 319px) {
+   button{
+     height: 40px;
+   }
+   button img {
+      width: 4.3vw;
+    height: 27px;
+ }
+ .bg-cl-transparent{
+       margin-right: 0.2rem;
+ }
+ .bg-cl-transparent span{
+    font-size: 10px;
+     margin-top: 0;
+ }
+ }
 </style>

@@ -373,6 +373,7 @@ span.log-in-detail {
   }
   .r-icons3{
           margin-top: 0;
+          margin-left: 0;
     }
 }
 //  for tablets
@@ -442,6 +443,11 @@ header {
     // width: 4.7vw !important;
         margin: 0 0.8rem;
   }
+  .account-icon {
+  padding: 0px 0px 12px 0px;
+  // width: 4vw;
+      margin: 0 0.8rem;
+}
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .r-icons {
@@ -449,7 +455,10 @@ header {
     // padding: 0px;
   }
   .r-icons1 {
-    padding: 0px 22px 12px 12px !important;
+    padding: 0px 0px 6px 15px !important;
+  }
+  .account-icon{
+    margin: 0;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -458,11 +467,11 @@ header {
     // padding: 0px;
   }
 }
-.account-icon {
-  padding: 0px 0px 12px 12px;
-  // width: 4vw;
-      margin: 0 0.8rem;
-}
+// .account-icon {
+//   padding: 0px 0px 12px 12px;
+//   // width: 4vw;
+//       margin: 0 0.8rem;
+// }
 .t-mobile {
   padding-left: 8px;
 }
@@ -608,7 +617,7 @@ header {
     height: 100%;
     max-height: 50px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     padding-top: 6px;
   }
@@ -618,6 +627,15 @@ header {
   .account-icon {
     width: 13.5vw;
   }
+}
+@media  (max-width: 319px) {
+.header{
+      height: 6.3rem;
+}
+header{
+     height: 6.4rem;
+}
+
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .notcheckoutheader {
@@ -629,11 +647,30 @@ header {
   .search-bar {
     padding-top: 0;
   }
+  .account-icon{
+    margin-right: 6px;
+        margin-left: 6px;
+  }
+  .basket-loc-box{
+    justify-content: flex-start;
+  }
 }
 // for movile view less than 767px
 @media (max-width: 767px) {
   .r-icons3 {
-    margin-top: 20px;
+    margin-top: 17px;
+    margin-left: 0;
+  }
+}
+@media (max-width: 480px){
+    .r-icons3 {
+    margin-top: 0px;
+    margin-left: 0;
+  }
+}
+@media (max-width: 420px){
+    .r-icons3 {
+    margin-left: 10px;
   }
 }
 //
@@ -754,8 +791,9 @@ img.checkout-user {
    position: relative;
     padding: 0px !important;
     margin: 0px;
+    top: -4px;
     width: 11.7vw;
-    height: 91px;
+    height: 90px;
   }
   .sb-icons {
     display: flex;
@@ -767,4 +805,6 @@ img.checkout-user {
   } */
   
 }
+
+
 </style>

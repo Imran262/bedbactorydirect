@@ -12,7 +12,6 @@
 
 <script>
 import HamburgerIcon from "@vue-storefront/core/compatibility/components/blocks/Header/HamburgerIcon"
-
 export default {
   mixins: [HamburgerIcon],
   beforeMount(){
@@ -23,7 +22,6 @@ export default {
     colorChange () {
       let hamColorChange = document.getElementById("hamberger")
       hamColorChange.classList.toggle("hamberger-color")
-
     },
     toggleMenu () {
       setTimeout(function () {
@@ -83,8 +81,7 @@ button i {
     bottom: 0;
   }
   i#hamberger {
-    bottom: 15px !important;
+    bottom: 3px !important;
 }
 }
-
 </style>

@@ -92,7 +92,7 @@ div.phone-icon > .contact {
   background: url("/assets/phone.svg") no-repeat 0 60%;
   background-size: 29px;
   @media (max-width: 767px) {
-    background-size: 5.467vw;
+    // background-size: 4.4vw;
     // margin-top: 0.6rem;
   }
   img {
@@ -111,6 +111,7 @@ div.phone-icon > .contact {
 @media (max-width: 767px) {
   div.phone-icon > .contact{
     flex-direction: column-reverse;
+    margin-bottom: -2px;
   }
 }
 a.underline:after,
@@ -149,11 +150,12 @@ a:not(.no-underline):hover:after {
   }
   div.phone-icon > .contact {
     display: flex;
-    padding-top: 32px;
+    padding-top: 42px;
     height: 0;
+    top: -5px;
     white-space: nowrap;
     background: url("/assets/phone.svg") no-repeat 0 60%;
-    background-size: 29px;
+    background-size: 30px;
   }
 }
 // phone icons for mobile view 
@@ -218,15 +220,21 @@ a:not(.no-underline):hover:after {
     max-width: 13.7vw;
     // transform: scale(0.65);
   }
+  
 }
-// @media (max-width: 399px) {
-//   .contact {
-//     img {
-//       height: 24px;
-//       margin-top: 14px;
-//     }
-//   }
-// }
+@media (max-width: 480px) {
+  div.phone-icon > .contact{
+    background-size: 25px;
+  }
+  
+}
+@media (max-width: 320px) {
+  div.phone-icon > .contact{
+    background-size: 20px;
+    margin-bottom: 0;
+  }
+  
+}
 img.checkout-contact {
   width: 29px;
 }
