@@ -275,7 +275,7 @@
 
                   <div class="manually-added-fields">
                     <p class="input-wrapper lg-half address-postcode">
-                      <label>Address line 1 <span class="star">*</span></label>
+                      <label class="size1">Address line 1 <span class="star">*</span></label>
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
@@ -287,7 +287,7 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half address-postcode">
-                      <label>Address line 2 <span class="star">*</span></label>
+                      <label class="size1">Address line 2 <span class="star">*</span></label>
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
@@ -321,7 +321,7 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half city-lg-half">
-                        <label>Town <span class="star">*</span></label>
+                        <label class="size1">Town <span class="star">*</span></label>
                       <input
                         type="text"
                         id="city"
@@ -332,7 +332,7 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half find-address-type">
-                      <label>Postcode <span class="star">*</span></label>
+                      <label class="size1">Postcode <span class="star">*</span></label>
                       <input
                         type="text"
                         required
@@ -403,7 +403,7 @@
                   </div>
 
                   <div class="field-full">
-                    <label for="address_line1">
+                    <label for="address_line1" class="size1">
                       Competitors Website Link <span>*</span>
                     </label>
                     <div class="input-field">
@@ -772,6 +772,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.size1{
+  color: #747474;
+   font-size: 14px;
+}
 label{
    color: #747474;
 }
@@ -990,7 +994,7 @@ img.home-breadcrumb-icon-img {
   width: 100%;
   height: 30px;
   padding: 0;
-  font-size: 18px;
+  font-size: 15px;
   font-family: Roboto, sans-serif;
   outline: none;
 }
