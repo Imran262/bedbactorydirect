@@ -1,7 +1,7 @@
 <template>
   <div class="main-top">
     <div class="container">
-       <div class="breadcrumbs cl-gray">
+      <div class="breadcrumbs cl-gray">
         <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
           <router-link :to="localizedRoute('/')" class="cl-tertiary links">
             <img
@@ -14,7 +14,10 @@
       </div>
       <div class="mobile-view">
         <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" ref="quickCheckoutInner">
+          <div
+            class="col-lg-8 col-md-8 col-sm-12 col-xs-12"
+            ref="quickCheckoutInner"
+          >
             <div class="MainpriceMatch">
               <h1>Price Match</h1>
               <p>
@@ -39,13 +42,13 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="main-table">
+            <div class="main-table ">
               <h4 class="title">Submit A Request</h4>
               <p class="peragrapgh">
                 Complete our simple price match form and we'll aim to reply
                 within 1 working day
               </p>
-              <p  class="your-details">Your Details</p>
+              <p class="your-details">Your Details</p>
               <form id="orderForm" @submit.prevent="submitForm" method="post">
                 <div class="row mainFormRow">
                   <div class="field rightMargin">
@@ -149,7 +152,7 @@
 
                 <div class="mainFormRow">
                   <div class="field full-width">
-                    <label for="Postcode-name"> Postcode <span>*</span></label>
+                    <label for="Postcode-name"> Address Finder <span>*</span></label>
                     <div class="input-field">
                       <base-input
                         type="text"
@@ -230,100 +233,116 @@
                     </div>
                   </div>
                 </div> -->
-                
-                <div class="field-full required POST Code from wallsandfloors walls and floors">
-                <p style="display: none" class="input-wrapper lg-half address-postcode">
-                  <label>Address</label>
-                  <span
-                    @click="enterAddressManually()"
-                    id="enter-address"
-                    
-                    >&nbsp;</span
-                  >
-                  <span @click="enterAddressFullManually()" id="enter-addressLine1"
-                    >Enter Address Manually</span
-                  >
-                  <input
-                    type="text"
-                    id="address_1"
-                    name="postcode"
+
+                <div
+                  class="
+                    field-full
                     required
-                    placeholder="Start typing your address or postcode..."
-                    v-model="user.addressLine1"
-                    @focus="overflowHide"
-                    @keyup="overflowHide"
-                    @blur="resetOverflowHide"
-                  />
-                </p>
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="manually-added-fields">
-                  <p class="input-wrapper lg-half address-postcode">
-                    <label>Address</label>
-                    <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                    <input
-                      type="text"
-                      id="address_manuall_1"
-                      name="street-address"
-                      required
-                      placeholder=""
-                      v-model="user.addressLine1"
-                    />
-                  </p>
+                    POST
+                    Code
+                    from
+                    wallsandfloors
+                    walls
+                    and
+                    floors
+                  "
+                >
                   <p
-                    class="input-wrapper lg-half address-line"
                     style="display: none"
+                    class="input-wrapper lg-half address-postcode"
                   >
+                    <label>Address</label>
+                    <span @click="enterAddressManually()" id="enter-address"
+                      >&nbsp;</span
+                    >
+                    <span
+                      @click="enterAddressFullManually()"
+                      id="enter-addressLine1"
+                      >Enter Address Manually</span
+                    >
                     <input
                       type="text"
-                      id="address_2"
-                      name="apartment-number"
-                      placeholder="Line 2"
-                      v-model="user.addressLine2"
-                    />
-                  </p>
-                  <p class="input-wrapper lg-half">
-                    <input
-                      type="text"
-                      name="company-name"
-                      id="shipping-company"
-                      placeholder="Company"
-                      v-model="user.company"
-                    />
-                  </p>
-                  <p class="input-wrapper lg-half city-lg-half">
-                    <label>City</label>
-                    <input
-                      type="text"
-                      id="city"
-                      name="city"
+                      id="address_1"
+                      name="postcode"
                       required
-                      placeholder=""
-                      v-model="user.city"
+                      placeholder="Start typing your address or postcode..."
+                      v-model="user.addressLine1"
+                      @focus="overflowHide"
+                      @keyup="overflowHide"
+                      @blur="resetOverflowHide"
                     />
                   </p>
-                  <p class="input-wrapper lg-half find-address-type">
-                    <label>Postcode</label>
-                    <input
-                      type="text"
-                      required
-                      id="find_address_manuall"
-                      placeholder=""
-                      v-model="user.postCode"
-                    />
-                  </p>
-                </div>
-               <!--  <label
+
+                  <div class="manually-added-fields">
+                    <p class="input-wrapper lg-half address-postcode">
+                      <label>Address line 1 <span class="star">*</span></label>
+                      <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                      <input
+                        type="text"
+                        id="address_manuall_1"
+                        name="street-address"
+                        required
+                        placeholder=""
+                        v-model="user.addressLine1"
+                      />
+                    </p>
+                    <p class="input-wrapper lg-half address-postcode">
+                      <label>Address line 2 <span class="star">*</span></label>
+                      <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                      <input
+                        type="text"
+                        id="address_manuall_1"
+                        name="street-address"
+                        required
+                        placeholder=""
+                        v-model="user.addressLine1"
+                      />
+                    </p>
+                    <p
+                      class="input-wrapper lg-half address-line"
+                      style="display: none"
+                    >
+                      <input
+                        type="text"
+                        id="address_2"
+                        name="apartment-number"
+                        placeholder="Line 2"
+                        v-model="user.addressLine2"
+                      />
+                    </p>
+                    <p class="input-wrapper lg-half">
+                     
+                      <input
+                        type="text"
+                        name="company-name"
+                        id="shipping-company"
+                        placeholder="Company"
+                        v-model="user.company"
+                      />
+                    </p>
+                    <p class="input-wrapper lg-half city-lg-half">
+                        <label>Town <span class="star">*</span></label>
+                      <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        required
+                        placeholder=""
+                        v-model="user.city"
+                      />
+                    </p>
+                    <p class="input-wrapper lg-half find-address-type">
+                      <label>Postcode <span class="star">*</span></label>
+                      <input
+                        type="text"
+                        required
+                        id="find_address_manuall"
+                        placeholder=""
+                        v-model="user.postCode"
+                      />
+                    </p>
+                  </div>
+                  <!--  <label
                   class="address-summary-label"
                   id="address-summary-label"
                   style="display: none"
@@ -359,37 +378,7 @@
                   style="display: none"
                   >Edit Address</span
                 >  -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              </div>
+                </div>
                 <div class="producr-history mt-4 remove-height">
                   <h5>Product Details</h5>
                   <div class="field-full">
@@ -449,135 +438,137 @@
   </div>
 </template>
 <script>
-import BaseInput from 'src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue';
-import BaseSelect from 'src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue';
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
-import axios from 'axios';
-import config from 'config';
-import i18n from '@vue-storefront/i18n';
-import AddressLookupMixin from 'src/themes/bedfactory/mixins/addressLookupMixin'
+import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
+import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
+import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import axios from "axios";
+import config from "config";
+import i18n from "@vue-storefront/i18n";
+import AddressLookupMixin from "src/themes/bedfactory/mixins/addressLookupMixin";
 export default {
-  name: 'PriceMatch',
+  name: "PriceMatch",
   components: { BaseInput, BaseSelect },
-  mixins: [ AddressLookupMixin],
+  mixins: [AddressLookupMixin],
   data() {
     return {
-      title:'Price Match Service | Bed Factory Direct',
-      postCode: '',
+      title: "Price Match Service | Bed Factory Direct",
+      postCode: "",
       user: {
-        email: '',
-        firstName: '',
-        lastName: '',
-        phone: '',
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        postCode: '',
-        product:'',
-        websitelink:''
-      }
+        email: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        addressLine1: "",
+        addressLine2: "",
+        city: "",
+        postCode: "",
+        product: "",
+        websitelink: "",
+      },
     };
   },
   validations: {
     user: {
       email: {
         required,
-        email
+        email,
       },
       firstName: {
         minLength: minLength(2),
-        required
+        required,
       },
       lastName: {
-        required
+        required,
       },
       phone: {
-        required
+        required,
       },
       addressLine1: {
-        required
+        required,
       },
       city: {
-        required
+        required,
       },
       postCode: {
-        required
+        required,
       },
       product: {
-        required
+        required,
       },
       websitelink: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
-    assignAddressValues () {
-      var ele1 = document.getElementById('address_manuall_1').value
-      this.user.addressLine1 = ele1
-      var ele2 = document.getElementById('address_2').value
-      this.user.addressLine2 = ele2
-      var ele3 = document.getElementById('city').value
-      this.user.city = ele3
-      var ele4 = document.getElementById('shipping-company').value
-      this.user.company = ele4
-      var ele5 = document.getElementById('find_address_manuall').value
-      this.user.postCode = ele5
-      console.log("741254 user",this.user);
-
+    assignAddressValues() {
+      var ele1 = document.getElementById("address_manuall_1").value;
+      this.user.addressLine1 = ele1;
+      var ele2 = document.getElementById("address_2").value;
+      this.user.addressLine2 = ele2;
+      var ele3 = document.getElementById("city").value;
+      this.user.city = ele3;
+      var ele4 = document.getElementById("shipping-company").value;
+      this.user.company = ele4;
+      var ele5 = document.getElementById("find_address_manuall").value;
+      this.user.postCode = ele5;
+      console.log("741254 user", this.user);
     },
-    overflowHide () {
-      this.$refs.quickCheckoutInner.style.overflowY = 'hidden'
+    overflowHide() {
+      this.$refs.quickCheckoutInner.style.overflowY = "hidden";
     },
-    resetOverflowHide () {
-      this.$refs.quickCheckoutInner.style.overflowY = 'auto'
+    resetOverflowHide() {
+      this.$refs.quickCheckoutInner.style.overflowY = "auto";
     },
-    enterAddressManually () {
-      console.log('enterAddressManually')
-      let autoFillField = document.getElementsByClassName('address-postcode');
+    enterAddressManually() {
+      console.log("enterAddressManually");
+      let autoFillField = document.getElementsByClassName("address-postcode");
       if (autoFillField) {
-        autoFillField[0].style.display = 'none'
+        autoFillField[0].style.display = "none";
         // document.getElementsByClassName('manually-added-fields')[0].style.display = 'block'
         // setTimeout(()=>{
-        this.assignAddressValues()
+        this.assignAddressValues();
         // document.getElementById('address-summary-label').style.display = 'block'
         // document.getElementById('address-summary').style.display = 'block'
         // document.getElementById('edit-address-again').style.display = 'block'
-        let fieldHeight = document.getElementById('fieldset-inner');
-        if (fieldHeight)
-           fieldHeight.classList.add('expandfield')
+        let fieldHeight = document.getElementById("fieldset-inner");
+        if (fieldHeight) fieldHeight.classList.add("expandfield");
         // }, 500)
       }
     },
-    enterAddressFullManually () {
-      console.log('enterAddressFullManually')
-      let autoFillField = document.getElementsByClassName('address-postcode');
+    enterAddressFullManually() {
+      console.log("enterAddressFullManually");
+      let autoFillField = document.getElementsByClassName("address-postcode");
       if (autoFillField) {
-        autoFillField[0].style.display = 'none'
-        document.getElementsByClassName('manually-added-fields')[0].style.display = 'block'
-        document.getElementById('address-summary-label').style.display = 'none'
-        document.getElementById('address-summary').style.display = 'none'
-        document.getElementById('edit-address-again').style.display = 'none'
-        let fieldHeight = document.getElementById('fieldset-inner');
-        fieldHeight.classList.add('expandfield')
+        autoFillField[0].style.display = "none";
+        document.getElementsByClassName(
+          "manually-added-fields"
+        )[0].style.display = "block";
+        document.getElementById("address-summary-label").style.display = "none";
+        document.getElementById("address-summary").style.display = "none";
+        document.getElementById("edit-address-again").style.display = "none";
+        let fieldHeight = document.getElementById("fieldset-inner");
+        fieldHeight.classList.add("expandfield");
         setTimeout(() => {
-          this.assignAddressValues()
-        }, 500)
+          this.assignAddressValues();
+        }, 500);
       }
     },
-    enterEditAddressManuallyFunc () {
-      this.enterPostCode()
+    enterEditAddressManuallyFunc() {
+      this.enterPostCode();
     },
-    enterPostCode () {
-      document.getElementsByClassName('manually-added-fields')[0].style.display = 'none'
-      document.getElementById('address_1').value = ''
-      document.getElementById('address-summary-label').style.display = 'none'
-      document.getElementById('address-summary').style.display = 'none'
-      document.getElementById('edit-address-again').style.display = 'none'
-      let autoFillField = document.getElementsByClassName('address-postcode');
-      autoFillField[0].style.display = 'block'
+    enterPostCode() {
+      document.getElementsByClassName(
+        "manually-added-fields"
+      )[0].style.display = "none";
+      document.getElementById("address_1").value = "";
+      document.getElementById("address-summary-label").style.display = "none";
+      document.getElementById("address-summary").style.display = "none";
+      document.getElementById("edit-address-again").style.display = "none";
+      let autoFillField = document.getElementsByClassName("address-postcode");
+      autoFillField[0].style.display = "block";
     },
-    autofillDetails () {
+    autofillDetails() {
       let {
         city,
         country,
@@ -588,16 +579,16 @@ export default {
         postcode,
         street,
         house,
-        email
-      } = this.shippingDetails
-      this.user.firstName = firstName
-      this.user.lastName = lastName
-      this.user.phone = phone
-      this.user.city = city
-      this.user.postCode = postcode
-      this.user.addressLine1 = street
-      this.user.addressLine2 = house
-      this.user.email = email
+        email,
+      } = this.shippingDetails;
+      this.user.firstName = firstName;
+      this.user.lastName = lastName;
+      this.user.phone = phone;
+      this.user.city = city;
+      this.user.postCode = postcode;
+      this.user.addressLine1 = street;
+      this.user.addressLine2 = house;
+      this.user.email = email;
     },
     retrunFullName() {
       //     console.log("2211 in return full name function", this);
@@ -606,14 +597,14 @@ export default {
       return fullName;
     },
     submitForm(event) {
-      console.log('In submit form function', this.$v.$invalid, this.$v);
+      console.log("In submit form function", this.$v.$invalid, this.$v);
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
       this.$bus.$emit(
-        'notification-progress-start',
-        this.$t('Processing order...')
+        "notification-progress-start",
+        this.$t("Processing order...")
       );
       const payload = {
         param: {
@@ -625,69 +616,76 @@ export default {
           addressline_1: this.user.addressLine1,
           addressline_2: this.user.addressLine2,
           town: this.user.city,
-          country: 'GB',
-          country_code: 'UK',
+          country: "GB",
+          country_code: "UK",
           product: this.user.product,
           competitior_link: this.user.websitelink,
           // country_code: "US",
           // country: "US",
-        }
+        },
       };
       {
         let params = {
           param: {
-            first_name: 'Pro-3',
-            last_name: 'squid 2',
+            first_name: "Pro-3",
+            last_name: "squid 2",
             phone: 246544,
-            email: 'kamranzafar@ki5.co.uk',
+            email: "kamranzafar@ki5.co.uk",
             postcode: 141,
-            addressline_1: 'Attock',
-            addressline_2: '',
-            town: 'kamra cantt',
-            product: 'laptop',
-            competitior_link: '/dream'
-          }
+            addressline_1: "Attock",
+            addressline_2: "",
+            town: "kamra cantt",
+            product: "laptop",
+            competitior_link: "/dream",
+          },
         };
       }
       // const URL = config.api.url + config.swatches.endpoint + "/placeorder";
       let paramsToken = {
-        username: 'kamran',
-        password: 'tajveez@123'
+        username: "kamran",
+        password: "tajveez@123",
       };
       const tokenURL = config.api.url + config.pricematch.getToken;
-      console.log('4125 URL for getting token is', tokenURL);
+      console.log("4125 URL for getting token is", tokenURL);
       axios
         .post(tokenURL, paramsToken)
-        .then(res => {
+        .then((res) => {
           if (res.status !== 200) {
-            this.$bus.$emit('notification-progress-stop', {});
-            this.$store.dispatch('notification/spawnNotification', {
-              type: 'error',
+            this.$bus.$emit("notification-progress-stop", {});
+            this.$store.dispatch("notification/spawnNotification", {
+              type: "error",
               message: i18n.t(`${res.result}`),
-              action1: { label: i18n.t('OK') }
+              action1: { label: i18n.t("OK") },
             });
             throw new Error(res.result);
           } else {
-            console.log('4125 token received is ', res.data.result , res.data && res.data.result && res.data.result.length > 1);
-            if (res.data && res.data.result && res.data.result.length > 1)
-            {
-              const applicationSubmitURL = config.api.url + config.pricematch.submitApplication;
-              console.log('4125 URL for submitting Application is', applicationSubmitURL);
+            console.log(
+              "4125 token received is ",
+              res.data.result,
+              res.data && res.data.result && res.data.result.length > 1
+            );
+            if (res.data && res.data.result && res.data.result.length > 1) {
+              const applicationSubmitURL =
+                config.api.url + config.pricematch.submitApplication;
+              console.log(
+                "4125 URL for submitting Application is",
+                applicationSubmitURL
+              );
               axios
-                .post(applicationSubmitURL, {payload,'token':res.data.result})
-                .then(res => {
+                .post(applicationSubmitURL, { payload, token: res.data.result })
+                .then((res) => {
                   if (res.status !== 200) {
-                    this.$bus.$emit('notification-progress-stop', {});
-                    this.$store.dispatch('notification/spawnNotification', {
-                      type: 'error',
+                    this.$bus.$emit("notification-progress-stop", {});
+                    this.$store.dispatch("notification/spawnNotification", {
+                      type: "error",
                       message: i18n.t(`${res.result}`),
-                      action1: { label: i18n.t('OK') }
+                      action1: { label: i18n.t("OK") },
                     });
                     throw new Error(res.result);
                   } else {
-                    console.log('4125 token received is ', res.data.result);
+                    console.log("4125 token received is ", res.data.result);
                     // this.swatchBasket = [];
-                    this.$bus.$emit('notification-progress-stop', {});
+                    this.$bus.$emit("notification-progress-stop", {});
                     // this.$store.dispatch('notification/spawnNotification', {
                     //   type: 'success',
                     //   message: i18n.t(`Order placed successfully`),
@@ -696,108 +694,123 @@ export default {
                     this.$router.replace("/price-match-success");
                   }
                 })
-                .catch(err => {
-                  console.log('78945623 in catch', err);
-                  this.$bus.$emit('notification-progress-stop', {});
+                .catch((err) => {
+                  console.log("78945623 in catch", err);
+                  this.$bus.$emit("notification-progress-stop", {});
                   this.$store.dispatch(
-                    'notification/spawnNotification',
+                    "notification/spawnNotification",
                     {
-                      type: 'error',
+                      type: "error",
                       message: i18n.t(`${err}`),
-                      action1: { label: i18n.t('OK') }
+                      action1: { label: i18n.t("OK") },
                     },
                     { root: true }
                   );
                 });
-            }
-            else{
-              this.$bus.$emit('notification-progress-stop', {});
-            this.$store.dispatch('notification/spawnNotification', {
-              type: 'error',
-              message: i18n.t(`${res.result}`),
-              action1: { label: i18n.t('OK') }
-            });
-            throw new Error(res.result);
+            } else {
+              this.$bus.$emit("notification-progress-stop", {});
+              this.$store.dispatch("notification/spawnNotification", {
+                type: "error",
+                message: i18n.t(`${res.result}`),
+                action1: { label: i18n.t("OK") },
+              });
+              throw new Error(res.result);
             }
           }
         })
-        .catch(err => {
-          console.log('78945623 in catch', err);
-          this.$bus.$emit('notification-progress-stop', {});
+        .catch((err) => {
+          console.log("78945623 in catch", err);
+          this.$bus.$emit("notification-progress-stop", {});
           this.$store.dispatch(
-            'notification/spawnNotification',
+            "notification/spawnNotification",
             {
-              type: 'error',
+              type: "error",
               message: i18n.t(`${err}`),
-              action1: { label: i18n.t('OK') }
+              action1: { label: i18n.t("OK") },
             },
             { root: true }
           );
         });
-    }
+    },
   },
-  beforeMount () {
-    const craftyplugin = document.createElement('script')
-    craftyplugin.setAttribute('src', '/assets/js/crafty_postcode.class.js')
-    document.head.appendChild(craftyplugin)
-    const craftAddressLookUpplugin = document.createElement('script');
-    craftAddressLookUpplugin.setAttribute('src', '/assets/js/cc_c2a.min.js');
+  beforeMount() {
+    const craftyplugin = document.createElement("script");
+    craftyplugin.setAttribute("src", "/assets/js/crafty_postcode.class.js");
+    document.head.appendChild(craftyplugin);
+    const craftAddressLookUpplugin = document.createElement("script");
+    craftAddressLookUpplugin.setAttribute("src", "/assets/js/cc_c2a.min.js");
     document.head.appendChild(craftAddressLookUpplugin);
   },
-  mounted () {
-    const scriptList = document.querySelectorAll('script[type=\'text/javascript\']')
-    const convertedNodeList = Array.from(scriptList)
-    const cc_c2aScript = convertedNodeList.find(script => script.id === 'clickToAddressId')
-    cc_c2aScript?.parentNode.removeChild(cc_c2aScript)
-    if (document.getElementById('cc_c2a') !== null) {
-      document.getElementById('cc_c2a').remove();
+  mounted() {
+    const scriptList = document.querySelectorAll(
+      "script[type='text/javascript']"
+    );
+    const convertedNodeList = Array.from(scriptList);
+    const cc_c2aScript = convertedNodeList.find(
+      (script) => script.id === "clickToAddressId"
+    );
+    cc_c2aScript?.parentNode.removeChild(cc_c2aScript);
+    if (document.getElementById("cc_c2a") !== null) {
+      document.getElementById("cc_c2a").remove();
     }
     setTimeout(() => {
-      this.addressLookUpFinder()
+      this.addressLookUpFinder();
     }, 1000);
   },
-  metaInfo () {
+  metaInfo() {
     return {
-      title: this.title || 'Price Match Service | Bed Factory Direct' ,
-      meta: [{ vmid: 'description', description: 'Pay the very best prices for your new bed, mattress or headboard with our Price Match Service at Bed Factory Direct!' }]
-    }
-  }
+      title: this.title || "Price Match Service | Bed Factory Direct",
+      meta: [
+        {
+          vmid: "description",
+          description:
+            "Pay the very best prices for your new bed, mattress or headboard with our Price Match Service at Bed Factory Direct!",
+        },
+      ],
+    };
+  },
 };
 </script>
 <style lang="scss">
-.full-width{
-    width: 100% !important;
-  }
+label{
+   color: #747474;
+}
+.star{
+  color: red;
+}
+.full-width {
+  width: 100% !important;
+}
 
 .manually-added-fields {
-  .input-wrapper{
-  display: flex;
-  flex-direction: column;
-  input{
-        height: 26px;
-    border-radius: 4px;
-    border: 1px solid #dddddd;
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    input {
+      height: 26px;
+      border-radius: 4px;
+      border: 1px solid #dddddd;
+      outline: none;
+    }
   }
 }
-}
 .mainFormRow {
-  .base-input{
+  .base-input {
     min-height: 1rem !important;
   }
 }
-.remove-height{
-  .base-input{
+.remove-height {
+  .base-input {
     min-height: 1rem !important;
   }
 }
 </style>
 <style>
-
 .breadcrumbs span {
   color: #54575b;
   padding: 0px 2.5px;
 }
-.cl-gray{
+.cl-gray {
   margin-top: 2rem;
 }
 
@@ -806,40 +819,38 @@ img.home-breadcrumb-icon-img {
   float: left;
   margin: 1px 2.5px 0 0;
 }
-.main-top{
+.main-top {
   overflow: hidden;
 }
 .MainpriceMatch {
   text-align: left;
 }
-.MainpriceMatch h1{
-font-size: 35px;
-margin: 10px 0;
+.MainpriceMatch h1 {
+  font-size: 35px;
+  margin: 10px 0;
 }
-.MainpriceMatch strong{
-      font-family: oblik;
-    color: #343434;
+.MainpriceMatch strong {
+  font-family: oblik;
+  color: #343434;
 }
-.MainpriceMatch p{
+.MainpriceMatch p {
   color: #333;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
 }
-.MainpriceMatch ul li{
+.MainpriceMatch ul li {
   color: #333;
-  font-family: Roboto,sans-serif;
-
+  font-family: Roboto, sans-serif;
 }
-.MainpriceMatch .price-peragrpgh{
-    color: #333;
-  font-family: Roboto,sans-serif;
-
+.MainpriceMatch .price-peragrpgh {
+  color: #333;
+  font-family: Roboto, sans-serif;
 }
 .underlineHere {
   text-decoration: underline;
 }
 .main-table {
   margin-top: 2rem;
-  background-color: rgb(241 236 236);
+  background-color: #eeeeee;
   border-radius: 4px;
   flex-wrap: wrap;
   padding: 0.8rem 0.8rem 3rem 0.8rem;
@@ -853,11 +864,11 @@ margin: 10px 0;
   margin: 0;
   font-size: 14px;
   color: #333;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
 }
-.your-details{
-   color: #333;
-  font-family: Roboto,sans-serif;
+.your-details {
+  color: #333;
+  font-family: Roboto, sans-serif;
   font-weight: 700;
 }
 .mainFormRow {
@@ -891,8 +902,8 @@ margin: 10px 0;
   border: 1px solid #dfdfdf;
   height: 30px;
   padding: 0;
-  font-size: 18px;
-  font-family: Roboto,sans-serif;
+  font-size: 15px;
+  font-family: Roboto, sans-serif;
   outline: none;
   background: #fff;
 }
@@ -904,12 +915,11 @@ margin: 10px 0;
   border: none;
   border-radius: 3px;
 }
-.find-btn{
+.find-btn {
   width: 88%;
   font-weight: 800;
   padding: 5px;
   margin-top: 1.62rem;
-
 }
 .button-disabled {
   opacity: 0.3;
@@ -945,7 +955,7 @@ margin: 10px 0;
   height: 30px;
   padding: 0;
   font-size: 18px;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   outline: none;
 }
 .producr-history {
@@ -981,7 +991,7 @@ margin: 10px 0;
   height: 30px;
   padding: 0;
   font-size: 18px;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   outline: none;
 }
 
@@ -1010,20 +1020,17 @@ margin: 10px 0;
   border-radius: 4px;
 }
 .breadcrumbs {
-    background-color: transparent;
-    padding: 15px 0;
-    float: left;
-    width: 100%;
+  background-color: transparent;
+  padding: 15px 0;
+  float: left;
+  width: 100%;
 }
-@media (max-width: 767px)
-{
-.breadcrumbs {
+@media (max-width: 767px) {
+  .breadcrumbs {
     display: none;
+  }
+  .mobile-view {
+    margin-top: 1rem;
+  }
 }
-.mobile-view{
-  margin-top: 1rem;
-  
-}
-}
-
 </style>
