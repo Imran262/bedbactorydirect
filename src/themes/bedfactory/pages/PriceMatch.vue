@@ -156,15 +156,6 @@
                         name="postcode"
                         autocomplete="postal-code"
                         v-model="user.postCode"
-                        @blur="$v.user.postCode.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.postCode.required &&
-                              $v.user.postCode.$error,
-                            text: $t('Field is required.'),
-                          },
-                        ]"
                       />
                     </div>
                   </div>
@@ -319,7 +310,7 @@
                       required
                       id="find_address_manuall"
                       placeholder=""
-                      v-model="user.postCode"
+                      v-model="user.postCode2"
                     />
                   </p>
                 </div>
@@ -473,6 +464,7 @@ export default {
         addressLine2: '',
         city: '',
         postCode: '',
+        postCode2: '',
         product:'',
         websitelink:''
       }
@@ -500,9 +492,6 @@ export default {
       city: {
         required
       },
-      postCode: {
-        required
-      },
       product: {
         required
       },
@@ -523,6 +512,7 @@ export default {
       this.user.company = ele4
       var ele5 = document.getElementById('find_address_manuall').value
       this.user.postCode = ele5
+      this.user.postCode2 = ele5
       console.log("741254 user",this.user);
 
     },
@@ -595,6 +585,7 @@ export default {
       this.user.phone = phone
       this.user.city = city
       this.user.postCode = postcode
+      this.user.postCode2 = postcode
       this.user.addressLine1 = street
       this.user.addressLine2 = house
       this.user.email = email
@@ -621,7 +612,7 @@ export default {
           last_name: this.user.lastName,
           email: this.user.email,
           phone: this.user.phone,
-          postcode: this.user.postCode,
+          postcode: this.user.postCode2,
           addressline_1: this.user.addressLine1,
           addressline_2: this.user.addressLine2,
           town: this.user.city,
@@ -633,22 +624,6 @@ export default {
           // country: "US",
         }
       };
-      {
-        let params = {
-          param: {
-            first_name: 'Pro-3',
-            last_name: 'squid 2',
-            phone: 246544,
-            email: 'kamranzafar@ki5.co.uk',
-            postcode: 141,
-            addressline_1: 'Attock',
-            addressline_2: '',
-            town: 'kamra cantt',
-            product: 'laptop',
-            competitior_link: '/dream'
-          }
-        };
-      }
       // const URL = config.api.url + config.swatches.endpoint + "/placeorder";
       let paramsToken = {
         username: 'kamran',
