@@ -212,6 +212,9 @@ $color-icon-hover: color(secondary, $colors-background);
           width: 6vw;
     }
   }
+.account{
+        font-size: 11px;
+  }
 }
 @media (max-width: 319px) {
   .dropdown img {

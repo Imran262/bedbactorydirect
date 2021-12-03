@@ -224,9 +224,11 @@ a:not(.no-underline):hover:after {
 }
 @media (max-width: 480px) {
   div.phone-icon > .contact{
-    background-size: 25px;
+    background-size: 23px;
   }
-  
+  span{
+    font-size: 11px;
+  }
 }
 @media (max-width: 320px) {
   div.phone-icon > .contact{

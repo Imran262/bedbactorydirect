@@ -649,7 +649,7 @@ header{
   }
   .account-icon{
     margin-right: 6px;
-        margin-left: 6px;
+        margin-left: 12px;
   }
   .basket-loc-box{
     justify-content: flex-start;
@@ -658,19 +658,20 @@ header{
 // for movile view less than 767px
 @media (max-width: 767px) {
   .r-icons3 {
-    margin-top: 17px;
+    margin-top: 19px;
     margin-left: 0;
   }
 }
 @media (max-width: 480px){
     .r-icons3 {
-    margin-top: 0px;
+    margin-top: -4px;
     margin-left: 0;
   }
+
 }
 @media (max-width: 420px){
     .r-icons3 {
-    margin-left: 10px;
+    // margin-left: 10px;
   }
 }
 //
@@ -791,7 +792,7 @@ img.checkout-user {
    position: relative;
     padding: 0px !important;
     margin: 0px;
-    top: -4px;
+    top: -5px;
     width: 11.7vw;
     height: 90px;
   }

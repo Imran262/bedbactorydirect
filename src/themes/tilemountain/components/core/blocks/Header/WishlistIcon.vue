@@ -66,7 +66,7 @@ button img {
     margin-right: 0;
   }
   img {
-  height: 30px;
+  height: 28px;
 }
   @media (min-width: 481px) and (max-width: 600px) {
     button {
@@ -98,7 +98,7 @@ button img {
     margin-top: 6px;
   }
   .bg-cl-transparent span{
-    margin-top: 0.3rem;
+    /* margin-top: 0.3rem; */
         font-size: 11px;
   }
 }
