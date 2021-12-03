@@ -342,7 +342,7 @@
               </div>
               <div class="field-full required POST Code from wallsandfloors walls and floors">
                 <p style="display: none" class="input-wrapper lg-half address-postcode">
-                  <label>Address</label>
+                  <label>Address <span class="star">*</span></label>
                   <span
                     @click="enterAddressManually()"
                     id="enter-address"
@@ -378,7 +378,19 @@
 
                 <div class="manually-added-fields">
                   <p class="input-wrapper lg-half address-postcode">
-                    <label>Address</label>
+                    <label>Address line 1 <span class="star">*</span></label>
+                    <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                    <input
+                      type="text"
+                      id="address_manuall_1"
+                      name="street-address"
+                      required
+                      placeholder=""
+                      v-model="user.addressLine1"
+                    />
+                  </p>
+                  <p class="input-wrapper lg-half address-postcode">
+                    <label>Address line 2 <span class="star">*</span></label>
                     <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                     <input
                       type="text"
@@ -411,7 +423,7 @@
                     />
                   </p>
                   <p class="input-wrapper lg-half city-lg-half">
-                    <label>City</label>
+                    <label>Town <span class="star">*</span></label>
                     <input
                       type="text"
                       id="city"
@@ -422,7 +434,7 @@
                     />
                   </p>
                   <p class="input-wrapper lg-half find-address-type">
-                    <label>Postcode</label>
+                    <label>Postcode <span class="star">*</span></label>
                     <input
                       type="text"
                       required
@@ -1086,12 +1098,14 @@ img.home-breadcrumb-icon-img {
   background: #fff;
   width: 100%;
   height: 30px;
+  outline: none;
+  font-size: 16px;
   padding: 0;
 }
 .swatch-basket form p {
   text-align: center;
   font-size: 14px;
-  margin: 5px 20px 20px 20px;
+  margin: 5px 0px 20px 0px;
   font-family: Arial, Helvetica, sans-serif;
   color: #5e5e61;
   line-height: 17px;
