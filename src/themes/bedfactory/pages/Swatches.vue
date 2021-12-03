@@ -335,14 +335,8 @@
                     name="postcode"
                     autocomplete="postal-code"
                     v-model="user.postCode"
-                    @blur="$v.user.postCode.$touch()"
-                    :validations="[
-                      {
-                        condition:
-                          !$v.user.postCode.required && $v.user.postCode.$error,
-                        text: $t('Field is required.'),
-                      },
-                    ]"
+                    
+                    
                   />
                 </div>
               </div>
@@ -434,7 +428,7 @@
                       required
                       id="find_address_manuall"
                       placeholder=""
-                      v-model="user.postCode"
+                      v-model="user.postCode2"
                     />
                   </p>
                 </div>
@@ -555,7 +549,8 @@ export default {
         addressLine1: '',
         addressLine2: '',
         city: '',
-        postCode: ''
+        postCode: '',
+        postCode2: ''
       },
       swatches: [],
       swatchBasket: []
@@ -582,9 +577,6 @@ export default {
       },
       city: {
         required
-      },
-      postCode: {
-        required
       }
     }
   },
@@ -600,6 +592,7 @@ export default {
       this.user.company = ele4
       var ele5 = document.getElementById('find_address_manuall').value
       this.user.postCode = ele5
+      this.user.postCode2 = ele5
       console.log("741254 user",this.user);
 
     },
@@ -672,6 +665,7 @@ export default {
       this.user.phone = phone
       this.user.city = city
       this.user.postCode = postcode
+      this.user.postCode2 = postcode
       this.user.addressLine1 = street
       this.user.addressLine2 = house
       this.user.email = (this.currentUser && this.currentUser.email) ? this.currentUser.email : ''
@@ -711,7 +705,7 @@ export default {
             phone: this.user.phone,
             address_line1: this.user.addressLine1,
             town: this.user.city,
-            postcode: this.user.postCode,
+            postcode: this.user.postCode2,
             country: 'GB',
             street: this.user.addressLine1,
             country_code: 'UK'
@@ -1300,7 +1294,7 @@ a.ui-link {
     width: 104px;
   }
 }
-@media only screen and (min-device-width: 768px) and (max-device-width: 992px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 992px) { 
   .fabrics-detail .boxes ul li .fabric-tile__tile {
     height: 140px;
     width: 140px;
