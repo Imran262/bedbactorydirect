@@ -152,7 +152,7 @@
 
                 <div class="mainFormRow">
                   <div class="field full-width">
-                    <label for="Postcode-name"> Address Finder <span>*</span></label>
+                    <label for="Postcode-name"> Address Finder </label>
                     <div class="input-field">
                       <base-input
                         type="text"
@@ -282,11 +282,11 @@
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
-                        id="address_manuall_1"
+                        id="address_2"
                         name="street-address"
                         required
                         placeholder=""
-                        v-model="user.addressLine1"
+                        v-model="user.addressLine2"
                       />
                     </p>
                     <p
