@@ -326,8 +326,7 @@
 
               <div class="field-full required">
                 <label for="order_postcode">
-                  Postcode 
-                  <span>*</span>
+                  Address Finder
                 </label>
                 <div class="ui-input-text">
                   <base-input
@@ -394,11 +393,11 @@
                     <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                     <input
                       type="text"
-                      id="address_manuall_1"
+                      id="address_2"
                       name="street-address"
                       required
                       placeholder=""
-                      v-model="user.addressLine1"
+                      v-model="user.addressLine2"
                     />
                   </p>
                   <p
