@@ -389,7 +389,7 @@
                     />
                   </p>
                   <p class="input-wrapper lg-half address-postcode">
-                    <label>Address line 2 <span class="star">*</span></label>
+                    <label>Address line 2</label>
                     <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                     <input
                       type="text"
@@ -412,7 +412,7 @@
                       v-model="user.addressLine2"
                     />
                   </p>
-                  <p class="input-wrapper lg-half">
+                  <!-- <p class="input-wrapper lg-half">
                     <input
                       type="text"
                       name="company-name"
@@ -420,7 +420,7 @@
                       placeholder="Company"
                       v-model="user.company"
                     />
-                  </p>
+                  </p> -->
                   <p class="input-wrapper lg-half city-lg-half">
                     <label>Town <span class="star">*</span></label>
                     <input
@@ -479,31 +479,6 @@
                   style="display: none"
                   >Edit Address</span
                 >  -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -854,6 +829,52 @@ export default {
 </script>
 
 <style>
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type="text"] {
+ /* width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0; */
+  box-sizing: border-box;
+  /* // border: 3px solid #ccc;
+  // -webkit-transition: 0.5s;
+  // transition: 0.5s; */
+  outline: none;
+}
+input[type="text"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+ /* for number */
+input[type="number"] {
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="number"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+/* /// for Email */
+input[type="email"] {
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="email"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+
+
 .fabrics-detail {
   margin-top: 40px;
 }
@@ -1070,6 +1091,7 @@ img.home-breadcrumb-icon-img {
   height: 30px;
   width: 100%;
   padding: 0;
+  color: #747474;
 }
 .swatch-basket form .field-full {
   padding: 0px;
@@ -1100,6 +1122,7 @@ img.home-breadcrumb-icon-img {
   outline: none;
   font-size: 16px;
   padding: 0;
+  color: #747474;
 }
 .swatch-basket form p {
   text-align: center;
