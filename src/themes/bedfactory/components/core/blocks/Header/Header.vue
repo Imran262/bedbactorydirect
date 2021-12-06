@@ -336,7 +336,7 @@ span.log-in-detail {
   align-items: center;
   align-items: center;
   justify-content: space-around;
-  display: flex;
+  // display: flex;
 }
 .r-icons3 {
   display: flex;

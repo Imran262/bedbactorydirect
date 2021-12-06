@@ -81,7 +81,7 @@ button i {
     bottom: 0;
   }
   i#hamberger {
-    bottom: 3px !important;
+    bottom: 15px !important;
 }
 }
 </style>
