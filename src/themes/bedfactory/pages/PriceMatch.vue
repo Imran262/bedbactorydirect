@@ -42,7 +42,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="main-table ">
+            <div class="main-table">
               <h4 class="title">Submit A Request</h4>
               <p class="peragrapgh">
                 Complete our simple price match form and we'll aim to reply
@@ -266,7 +266,9 @@
 
                   <div class="manually-added-fields">
                     <p class="input-wrapper lg-half address-postcode">
-                      <label class="size1">Address line 1 <span class="star">*</span></label>
+                      <label class="size1"
+                        >Address line 1 <span class="star">*</span></label
+                      >
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
@@ -278,7 +280,9 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half address-postcode">
-                      <label class="size1">Address line 2 <span class="star">*</span></label>
+                      <label class="size1"
+                        >Address line 2 <span class="star">*</span></label
+                      >
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
@@ -302,7 +306,6 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half">
-                     
                       <input
                         type="text"
                         name="company-name"
@@ -312,7 +315,9 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half city-lg-half">
-                        <label class="size1">Town <span class="star">*</span></label>
+                      <label class="size1"
+                        >Town <span class="star">*</span></label
+                      >
                       <input
                         type="text"
                         id="city"
@@ -323,7 +328,9 @@
                       />
                     </p>
                     <p class="input-wrapper lg-half find-address-type">
-                      <label class="size1">Postcode <span class="star">*</span></label>
+                      <label class="size1"
+                        >Postcode <span class="star">*</span></label
+                      >
                       <input
                         type="text"
                         required
@@ -378,6 +385,7 @@
                       <base-input
                         type="text"
                         name="city"
+                        autofocus
                         autocomplete="address-level2"
                         v-model="user.product"
                         @blur="$v.user.product.$touch()"
@@ -445,18 +453,18 @@ export default {
       title: "Price Match Service | Bed Factory Direct",
       postCode: "",
       user: {
-        email: '',
-        firstName: '',
-        lastName: '',
-        phone: '',
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        postCode: '',
-        postCode2: '',
-        product:'',
-        websitelink:''
-      }
+        email: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        addressLine1: "",
+        addressLine2: "",
+        city: "",
+        postCode: "",
+        postCode2: "",
+        product: "",
+        websitelink: "",
+      },
     };
   },
   validations: {
@@ -490,20 +498,19 @@ export default {
     },
   },
   methods: {
-    assignAddressValues () {
-      var ele1 = document.getElementById('address_manuall_1').value
-      this.user.addressLine1 = ele1
-      var ele2 = document.getElementById('address_2').value
-      this.user.addressLine2 = ele2
-      var ele3 = document.getElementById('city').value
-      this.user.city = ele3
-      var ele4 = document.getElementById('shipping-company').value
-      this.user.company = ele4
-      var ele5 = document.getElementById('find_address_manuall').value
-      this.user.postCode = ele5
-      this.user.postCode2 = ele5
-      console.log("741254 user",this.user);
-
+    assignAddressValues() {
+      var ele1 = document.getElementById("address_manuall_1").value;
+      this.user.addressLine1 = ele1;
+      var ele2 = document.getElementById("address_2").value;
+      this.user.addressLine2 = ele2;
+      var ele3 = document.getElementById("city").value;
+      this.user.city = ele3;
+      var ele4 = document.getElementById("shipping-company").value;
+      this.user.company = ele4;
+      var ele5 = document.getElementById("find_address_manuall").value;
+      this.user.postCode = ele5;
+      this.user.postCode2 = ele5;
+      console.log("741254 user", this.user);
     },
     overflowHide() {
       this.$refs.quickCheckoutInner.style.overflowY = "hidden";
@@ -570,17 +577,17 @@ export default {
         postcode,
         street,
         house,
-        email
-      } = this.shippingDetails
-      this.user.firstName = firstName
-      this.user.lastName = lastName
-      this.user.phone = phone
-      this.user.city = city
-      this.user.postCode = postcode
-      this.user.postCode2 = postcode
-      this.user.addressLine1 = street
-      this.user.addressLine2 = house
-      this.user.email = email
+        email,
+      } = this.shippingDetails;
+      this.user.firstName = firstName;
+      this.user.lastName = lastName;
+      this.user.phone = phone;
+      this.user.city = city;
+      this.user.postCode = postcode;
+      this.user.postCode2 = postcode;
+      this.user.addressLine1 = street;
+      this.user.addressLine2 = house;
+      this.user.email = email;
     },
     retrunFullName() {
       //     console.log("2211 in return full name function", this);
@@ -748,14 +755,46 @@ export default {
 };
 </script>
 <style lang="scss">
-.size1{
+input[type="text"] {
+  // width: 100%;
+  // padding: 12px 20px;
+  // margin: 8px 0;
+  box-sizing: border-box;
+  // border: 3px solid #ccc;
+  // -webkit-transition: 0.5s;
+  // transition: 0.5s;
+  outline: none;
+}
+input[type="text"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+/// for number
+input[type="number"] {
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="number"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+/// for Email
+input[type="email"] {
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="email"]:focus {
+  border: 2px solid #747474 !important;
+}
+.size1 {
   color: #747474;
-   font-size: 14px;
+  font-size: 14px;
+  margin-bottom: 8px;
 }
-label{
-   color: #747474;
+label {
+  color: #747474;
 }
-.star{
+.star {
   color: red;
 }
 .full-width {
@@ -767,10 +806,12 @@ label{
     display: flex;
     flex-direction: column;
     input {
-      height: 26px;
+      height: 30px;
       border-radius: 4px;
       border: 1px solid #dddddd;
-      outline: none;
+      font-size: 15px;
+      color: #747474;
+      outline-color: #747474;
     }
   }
 }
@@ -869,7 +910,7 @@ img.home-breadcrumb-icon-img {
   margin-bottom: 8px;
   text-align: left;
   cursor: pointer;
-  color: #747474;
+  /* color: #747474; */
   font-size: 14px;
 }
 .main-table form .field label > span {
@@ -884,9 +925,11 @@ img.home-breadcrumb-icon-img {
   padding: 0;
   font-size: 15px;
   font-family: Roboto, sans-serif;
-  outline: none;
   background: #fff;
+  color: #747474;
+  outline-color: #747474;
 }
+
 .btn {
   margin-top: 1.6rem;
   padding: 0.5rem 0.1rem;
@@ -936,7 +979,7 @@ img.home-breadcrumb-icon-img {
   padding: 0;
   font-size: 18px;
   font-family: Roboto, sans-serif;
-  outline: none;
+  /* outline: none; */
 }
 .producr-history {
 }
@@ -972,7 +1015,8 @@ img.home-breadcrumb-icon-img {
   padding: 0;
   font-size: 15px;
   font-family: Roboto, sans-serif;
-  outline: none;
+  color: #747474;
+  /* outline-color: #747474; */
 }
 
 .bottom-button {
