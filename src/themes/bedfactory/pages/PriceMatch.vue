@@ -281,14 +281,14 @@
                     </p>
                     <p class="input-wrapper lg-half address-postcode">
                       <label class="size1"
-                        >Address line 2 <span class="star">*</span></label
+                        >Address line 2 </label
                       >
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
                         id="address_2"
                         name="street-address"
-                        required
+                        
                         placeholder=""
                         v-model="user.addressLine2"
                       />
@@ -305,7 +305,7 @@
                         v-model="user.addressLine2"
                       />
                     </p>
-                    <p class="input-wrapper lg-half">
+                    <!-- <p class="input-wrapper lg-half">
                       <input
                         type="text"
                         name="company-name"
@@ -313,7 +313,7 @@
                         placeholder="Company"
                         v-model="user.company"
                       />
-                    </p>
+                    </p> -->
                     <p class="input-wrapper lg-half city-lg-half">
                       <label class="size1"
                         >Town <span class="star">*</span></label
@@ -505,10 +505,10 @@ export default {
       this.user.addressLine2 = ele2;
       var ele3 = document.getElementById("city").value;
       this.user.city = ele3;
-      var ele4 = document.getElementById("shipping-company").value;
-      this.user.company = ele4;
+      // var ele4 = document.getElementById("shipping-company").value;
+      // this.user.company = ele4;
       var ele5 = document.getElementById("find_address_manuall").value;
-      this.user.postCode = ele5;
+      this.user.postCode = '';
       this.user.postCode2 = ele5;
       console.log("741254 user", this.user);
     },
@@ -583,7 +583,7 @@ export default {
       this.user.lastName = lastName;
       this.user.phone = phone;
       this.user.city = city;
-      this.user.postCode = postcode;
+      this.user.postCode = '';
       this.user.postCode2 = postcode;
       this.user.addressLine1 = street;
       this.user.addressLine2 = house;
@@ -755,6 +755,12 @@ export default {
 };
 </script>
 <style lang="scss">
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 input[type="text"] {
   // width: 100%;
   // padding: 12px 20px;
