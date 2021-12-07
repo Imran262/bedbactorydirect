@@ -21,7 +21,7 @@ export default {
           onResultSelected: function(c2a, elements, address){
             console.log('Selected Call', address);
             if (document && document.getElementsByName('street-address') && document.getElementsByName('street-address')  !== 'null' && document.getElementsByName('street-address').length > 0 ) {
-              document.getElementsByName('street-address')[0].value = address.line_1 + ' ' + address.line_2;
+              document.getElementById('address_manuall_1').value = address.line_1 + ' ' + address.line_2;
             }
             if (document && document.getElementById('city') && document.getElementById('city') !== 'null') {
               document.getElementById('city').value = address.locality;

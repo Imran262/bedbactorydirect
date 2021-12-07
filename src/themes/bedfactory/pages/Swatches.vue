@@ -333,9 +333,7 @@
                     type="text"
                     name="postcode"
                     autocomplete="postal-code"
-                    v-model="user.postCode"
-                    
-                    
+                    v-model="user.postCode"  
                   />
                 </div>
               </div>
@@ -364,28 +362,26 @@
                   />
                 </p>
 
-
-
-
-
-
-
-
-
-
-
-
                 <div class="manually-added-fields">
                   <p class="input-wrapper lg-half address-postcode">
                     <label>Address line 1 <span class="star">*</span></label>
                     <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                    <input
+                    <base-input
                       type="text"
                       id="address_manuall_1"
                       name="street-address"
                       required
                       placeholder=""
                       v-model="user.addressLine1"
+                      @blur="$v.user.addressLine1.$touch()"
+                      :validations="[
+                      {
+                        condition:
+                        !$v.user.addressLine1.required &&
+                        $v.user.addressLine1.$error,
+                        text: $t('Field is required.')
+
+                      },]" 
                     />
                   </p>
                   <p class="input-wrapper lg-half address-postcode">
@@ -423,13 +419,21 @@
                   </p> -->
                   <p class="input-wrapper lg-half city-lg-half">
                     <label>Town <span class="star">*</span></label>
-                    <input
+                    <base-input
                       type="text"
                       id="city"
                       name="city"
                       required
                       placeholder=""
                       v-model="user.city"
+                      @blur="$v.user.city.$touch()"
+                      :validations="[
+                      {
+                        condition:
+                        !$v.user.city.required &&
+                        $v.user.city.$error,
+                        text: $t('Field is required.')
+                      },]"
                     />
                   </p>
                   <p class="input-wrapper lg-half find-address-type">
@@ -440,6 +444,14 @@
                       id="find_address_manuall"
                       placeholder=""
                       v-model="user.postCode2"
+                      @blur="$v.user.postCode2.$touch()"
+                      :validations="[
+                      {
+                        condition:
+                        !$v.user.postCode2.required &&
+                        $v.user.postCode2.$error,
+                        text: $t('Field is required.')
+                      },]"
                     />
                   </p>
                 </div>
@@ -563,7 +575,10 @@ export default {
       },
       city: {
         required
-      }
+      },
+      postCode2:{
+        required
+      },
     }
   },
   methods: {
@@ -657,6 +672,7 @@ export default {
       this.user.email = (this.currentUser && this.currentUser.email) ? this.currentUser.email : ''
     },
     retrunFullName () {
+
       //     console.log("2211 in return full name function", this);
       const fullName = this.user.firstName + this.user.lastName;
       //   console.log("Full name is ", fullName);
@@ -830,7 +846,15 @@ export default {
 
 <style>
 
-
+.manually-added-fields .address-postcode .base-input{
+      min-height: 3rem;
+}
+.manually-added-fields .city-lg-half .base-input{
+  min-height: 2rem;
+}
+.manually-added-fields .find-address-type .base-input{
+   min-height: 2rem;
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -1026,7 +1050,7 @@ img.home-breadcrumb-icon-img {
 .swatch-basket {
   background: #eee;
   border-radius: 4px;
-  text-align: center;
+  text-align: left;
   position: relative;
   padding: 15px;
 }
@@ -1068,7 +1092,8 @@ img.home-breadcrumb-icon-img {
 .swatch-basket form .field {
   padding: 0px;
   margin-bottom: 15px;
-  width: 49%;
+  width: 48%;
+  margin-right: 8px;
   display: inline-block;
 }
 .swatch-basket form .field label {
@@ -1090,7 +1115,7 @@ img.home-breadcrumb-icon-img {
   background: #fff;
   height: 30px;
   width: 100%;
-  padding: 0;
+  padding: 0 3px;
   color: #747474;
 }
 .swatch-basket form .field-full {
@@ -1120,12 +1145,12 @@ img.home-breadcrumb-icon-img {
   width: 100%;
   height: 30px;
   outline: none;
-  font-size: 16px;
-  padding: 0;
+  font-size: 14px;
+  padding: 0 8px;
   color: #747474;
 }
 .swatch-basket form p {
-  text-align: center;
+  text-align: left;
   font-size: 14px;
   margin: 5px 0px 20px 0px;
   font-family: Arial, Helvetica, sans-serif;
