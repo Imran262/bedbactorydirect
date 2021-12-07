@@ -32,8 +32,8 @@
       class="product-image__thumb"
       :src="image.src"
     />
-    <div class="image_label_one" v-if="productImageLabel && productImageLabel.length>1">
-      <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productImageLabel" />
+    <div class="image_label_one" v-if="productImageLabel && productImageLabel !== '0' && productImageLabel.length>1">
+      <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productImageLabel" @error="imgPlaceholder"/>
     </div>
   </div>
 </template>
@@ -125,6 +125,9 @@ export default {
   },
 
   methods: {
+    imgPlaceholder (e) {
+      e.target.src = '/assets/placeholderLabel.png'
+    },
     imageLoaded (type, success = true) {
       this[`${type}QualityImage`] = success
       this[`${type}QualityImageError`] = !success

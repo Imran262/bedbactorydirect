@@ -30,8 +30,8 @@
               <img :src="images.src" alt="AltTitle" itemprop="thumbnail">
             </a>
           </figure>
-          <div class="image_label_one" v-if="productLabel">
-            <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productLabel" />
+          <div class="image_label_one" v-if="productLabel && productLabel != '0' && productLabel.length>1">
+            <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productLabel" @error="imgPlaceholder"/>
           </div>
           <!-- <product-image
             v-show="hideImageAtIndex !== index"
@@ -202,6 +202,9 @@ export default {
     this.$bus.$off('product-after-load', this.selectVariant);
   },
   methods: {
+    imgPlaceholder (e) {
+      e.target.src = '/assets/placeholderLabel.png'
+    },
     swipeInitFunction () {
       var initPhotoSwipeFromDOM = function (gallerySelector) {
         var parseThumbnailElements = function (el) {
