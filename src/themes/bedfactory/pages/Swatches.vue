@@ -491,11 +491,6 @@
                   style="display: none"
                   >Edit Address</span
                 >  -->
-
-
-
-
-
               </div>
             </div>
             <p class="swatches-term-condition">
@@ -530,7 +525,7 @@ import axios from 'axios';
 import SwatchProduct from 'theme/components/core/blocks/swatches/SwatchProduct.vue';
 // /home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/tilemountain/components/core/blocks/swatches/SwatchProduct.vue
 import i18n from '@vue-storefront/i18n';
-import { htmlDecode } from '@vue-storefront/core/lib/store/filters';
+// import { htmlDecode } from '@vue-storefront/core/lib/store/filters';
 import config from 'config';
 import AddressLookupMixin from 'src/themes/bedfactory/mixins/addressLookupMixin'
 
@@ -547,8 +542,8 @@ export default {
         addressLine1: '',
         addressLine2: '',
         city: '',
-        postCode: '',
-        postCode2: ''
+        postCode2: '',
+        postCode: ''
       },
       swatches: [],
       swatchBasket: []
@@ -588,12 +583,17 @@ export default {
       var ele2 = document.getElementById('address_2').value
       this.user.addressLine2 = ele2
       var ele3 = document.getElementById('city').value
+      console.log('hurreeee',ele3)
       this.user.city = ele3
-      var ele4 = document.getElementById('shipping-company').value
-      this.user.company = ele4
+      // var ele4 = document.getElementById('shipping-company').value
+      // this.user.company = ele4
       var ele5 = document.getElementById('find_address_manuall').value
-      this.user.postCode = ele5
+      console.log('hurrr222',ele5)
       this.user.postCode2 = ele5
+      console.log('hurr333',ele5)
+      this.user.postCode = ele5
+      
+      
       console.log("741254 user",this.user);
 
     },
