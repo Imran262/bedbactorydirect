@@ -90,7 +90,7 @@ div.phone-icon > .contact {
   padding-top: 12px;
   white-space: nowrap;
   background: url("/assets/phone.svg") no-repeat 0 60%;
-  background-size: 29px;
+  background-size: 27px;
   @media (max-width: 767px) {
     // background-size: 4.4vw;
     // margin-top: 0.6rem;
@@ -101,7 +101,7 @@ div.phone-icon > .contact {
   }
   p {
     margin-left: 6px;
-    font-size: 18px;
+    font-size: 16px;
     color: #071a44;
     font-family: "Oblik";
     padding-left: 29px;
@@ -129,7 +129,7 @@ a:not(.no-underline):hover:after {
 @media (min-width: 767px) and (max-width: 1199px) {
   span {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     font-family: "Roboto";
     color: #071a44;
@@ -155,7 +155,7 @@ a:not(.no-underline):hover:after {
     top: -5px;
     white-space: nowrap;
     background: url("/assets/phone.svg") no-repeat 0 60%;
-    background-size: 30px;
+    background-size: 27px;
   }
 }
 // phone icons for mobile view 
@@ -224,7 +224,9 @@ a:not(.no-underline):hover:after {
 }
 @media (max-width: 480px) {
   div.phone-icon > .contact{
-    background-size: 23px;
+    background-size: 21px !important;
+    background: url("/assets/phone.svg") no-repeat 17% 60%;
+
   }
   span{
     font-size: 11px;
@@ -232,7 +234,7 @@ a:not(.no-underline):hover:after {
 }
 @media (max-width: 320px) {
   div.phone-icon > .contact{
-    background-size: 20px;
+    // background-size: 20px;
     margin-bottom: 0;
   }
   

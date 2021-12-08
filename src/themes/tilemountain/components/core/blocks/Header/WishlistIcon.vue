@@ -28,7 +28,7 @@ export default {
 } */
 .showrooms {
   display: block;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   font-family: "Roboto";
   color: #071a44;
@@ -47,6 +47,9 @@ export default {
 @media (min-width: 768px) and (max-width: 990px) {
   .bg-location2 button {
     margin-right: 0;
+  }
+  .showrooms {
+    font-size: 11px;
   }
 }
 button img {
@@ -75,7 +78,7 @@ button img {
   }
   button img {
     /* height: 100%; */
-    width: 5vw;
+    width: 4.3vw;
     margin: 0px;
   }
   .bg-cl-transparent span {
@@ -119,7 +122,7 @@ button img {
 } */
 @media (min-width: 992px) { 
  button img {
-   height: 33px;
+   height: 25px;
  }
  }
  @media (max-width: 319px) {

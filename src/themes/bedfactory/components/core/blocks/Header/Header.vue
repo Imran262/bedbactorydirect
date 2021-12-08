@@ -335,8 +335,8 @@ span.log-in-detail {
 .inline-flex {
   align-items: center;
   align-items: center;
-  justify-content: space-around;
-  // display: flex;
+  justify-content: space-between;
+  display: flex;
 }
 .r-icons3 {
   display: flex;
@@ -379,14 +379,14 @@ span.log-in-detail {
 //  for tablets
 @media (max-width: 991px) and(min-width: 768px) {
   .inline-flex {
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     display: flex;
   }
   .r-icons3 {
-    margin-top: 0.6rem;
-    margin-right: -44px;
-    margin-left: 0.7rem;
+    margin-top: 0.4rem;
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 .inner-icons {
@@ -652,7 +652,7 @@ header{
         margin-left: 12px;
   }
   .basket-loc-box{
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 }
 // for movile view less than 767px

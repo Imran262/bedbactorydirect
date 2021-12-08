@@ -116,7 +116,7 @@ export default {
 $color-icon-hover: color(secondary, $colors-background);
 .account {
   display: block;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   font-family: "Roboto";
   color: #071a44;
@@ -130,7 +130,7 @@ $color-icon-hover: color(secondary, $colors-background);
     padding-top: 17px;
   }
   img {
-    height: 29px;
+    height: 25px;
     margin-top: 7px;
     margin-bottom: 2px;
   }
@@ -170,11 +170,15 @@ $color-icon-hover: color(secondary, $colors-background);
 @media (min-width: 767px) and (max-width: 1199px) {
   .dropdown img {
     margin-top: 0px;
+    height: 28px !important;
   }
   .dropdown {
     button {
       // padding-top: 28px;
     }
+  }
+  .account {
+    font-size: 11px;
   }
 }
 @media (max-width: 767px) {
@@ -209,7 +213,7 @@ $color-icon-hover: color(secondary, $colors-background);
     img {
       padding-top: 0;
       height: 25px;
-          width: 6vw;
+      width: 5.5vw;
     }
   }
 .account{

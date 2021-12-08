@@ -255,11 +255,11 @@ export default {
   align-items: center;
 }
 img {
-  height: 30px;
+  height: 25px;
 }
 .price {
   margin-top: 7px;
-  font-size: 12px;
+  font-size: 10px;
   color: #071a44;
   font-weight: 600;
   font-family: "ROBOTO";
@@ -373,7 +373,7 @@ img {
 }
 @media (max-width: 420px) {
   .cart img {
-    width: 22px;
+    width: 25px;
     min-height: 30px;
   }
 }
@@ -387,5 +387,10 @@ img {
   .price {
   font-size: 10px;
   }
+}
+@media (min-width: 767px) and (max-width: 1199px) {
+  .price {
+    font-size: 11px;
+}
 }
 </style>
