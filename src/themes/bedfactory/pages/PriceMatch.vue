@@ -270,13 +270,21 @@
                         >Address line 1 <span class="star">*</span></label
                       >
                       <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                      <input
+                      <base-input
                         type="text"
                         id="address_manuall_1"
                         name="street-address"
                         required
                         placeholder=""
                         v-model="user.addressLine1"
+                        @blur="$v.user.addressLine1.$touch()"
+                        :validations="[
+                        {
+                          condition:
+                          !$v.user.addressLine1.required && $v.user.addressLine1.$error,
+                          text: $t('field is required.')
+                        },
+                        ]"
                       />
                     </p>
                     <p class="input-wrapper lg-half address-postcode">
@@ -318,25 +326,39 @@
                       <label class="size1"
                         >Town <span class="star">*</span></label
                       >
-                      <input
+                      <base-input
                         type="text"
                         id="city"
                         name="city"
                         required
                         placeholder=""
                         v-model="user.city"
+                        @blur="$v.user.city.$touch()"
+                        :validations="[
+                        {
+                          condition:
+                          !$v.user.city.required && $v.user.city.$error,
+                          text:$t('Field is required.')
+                        }]"
                       />
                     </p>
                     <p class="input-wrapper lg-half find-address-type">
                       <label class="size1"
                         >Postcode <span class="star">*</span></label
                       >
-                      <input
+                      <base-input
                         type="text"
                         required
                         id="find_address_manuall"
                         placeholder=""
                         v-model="user.postCode2"
+                        @blur="$v.user.postCode2.$touch()"
+                         :validations="[
+                         {
+                           condition:
+                           !$v.user.postCode2.required && $v.user.postCode2.$error,
+                           text: $t('Field is required.')
+                         },]"
                       />
                     </p>
                   </div>
@@ -489,6 +511,9 @@ export default {
       city: {
         required,
       },
+      postCode2:{
+        required
+      },
       product: {
         required,
       },
@@ -499,7 +524,9 @@ export default {
   },
   methods: {
     assignAddressValues() {
+      console.log('wel')
       var ele1 = document.getElementById("address_manuall_1").value;
+      console.log('wel2',ele1)
       this.user.addressLine1 = ele1;
       var ele2 = document.getElementById("address_2").value;
       this.user.addressLine2 = ele2;
@@ -574,9 +601,9 @@ export default {
         lastName,
         phone,
         region,
-        postcode,
         street,
         house,
+        postcode,
         email,
       } = this.shippingDetails;
       this.user.firstName = firstName;
@@ -816,10 +843,20 @@ label {
       border-radius: 4px;
       border: 1px solid #dddddd;
       font-size: 15px;
+      padding: 0 5px;
       color: #747474;
       outline-color: #747474;
     }
   }
+}
+.manually-added-fields .address-postcode .base-input{
+  min-height: 3rem;
+}
+.manually-added-fields .city-lg-half .base-input{
+  min-height: 3rem;
+}
+.manually-added-fields .find-address-type .base-input{
+  min-height: 3rem;
 }
 .mainFormRow {
   .base-input {
@@ -928,7 +965,7 @@ img.home-breadcrumb-icon-img {
   border-radius: 4px;
   border: 1px solid #dfdfdf;
   height: 30px;
-  padding: 0;
+  padding: 0 5px;
   font-size: 15px;
   font-family: Roboto, sans-serif;
   background: #fff;
@@ -1018,7 +1055,7 @@ img.home-breadcrumb-icon-img {
   background: #fff;
   width: 100%;
   height: 30px;
-  padding: 0;
+  padding: 0 5px;
   font-size: 15px;
   font-family: Roboto, sans-serif;
   color: #747474;
