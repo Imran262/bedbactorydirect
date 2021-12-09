@@ -41,15 +41,7 @@
         </ul>
       </div>
     </div>
-    <template v-if="cmsPageContent.identifier == 'portico'">
-      <div class="pb10" :class="selectClasss(cmsPageContent.identifier)">
-        <portico
-          :content="cmsPageContent.content"
-          :select-class="selectClasss(cmsPageContent.identifier)"
-        />
-      </div>
-    </template>
-    <template v-else-if="cmsPageContent.identifier == 'clearance'">
+    <template v-if="cmsPageContent.identifier == 'clearance'">
       <div class="pb10" :class="selectClasss(cmsPageContent.identifier)">
         <clearance
           :content="cmsPageContent.content"
@@ -74,6 +66,7 @@ import clearance from 'theme/components/Clearance'
 import Head from 'theme/head'
 import config from 'config'
 import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
+import { isServer } from '@vue-storefront/core/helpers'
 export default {
   mixins: [CurrentPage, CmsPage, MeasureProductClick],
   components: {
@@ -85,21 +78,33 @@ export default {
       showdesc: false
     }
   },
+  // serverPrefetch () {
+  //   // return this.loadreviews()
+  // },
+  // created () {
+  //   if (!isServer) {
+  //     this.loadreviews();
+  //   }
+  // },
+  // beforeMount (){
+  //   console.log(" 741258 In Before mount ");
+  //   this.loadreviews();
+  // },
   mounted () {
-    this.showportico()
-    this.hideportico()
-    this.addevent1()
-    this.addevent2()
+    // this.showportico()
+    // this.hideportico()
+    // this.addevent1()
+    // this.addevent2()
     this.loadreviews()
     this.sendOtherClick()
 
-    if (typeof BrTrk === 'undefined') {
-      document.getElementsByTagName('script')[0].addEventListener('load', () => {
-        this.addBloom()
-      })
-    } else {
-      this.addBloom()
-    }
+    // if (typeof BrTrk === 'undefined') {
+    //   document.getElementsByTagName('script')[0].addEventListener('load', () => {
+    //     // this.addBloom()
+    //   })
+    // } else {
+    //   // this.addBloom()
+    // }
     // this.showroombutton()
     if (document.querySelector(".showroom-button")) {
       document.querySelector(".showroom-button").addEventListener("click", function () {
@@ -110,8 +115,9 @@ export default {
   },
   watch: {
     $route (to, from) {
+      console.log(" 741258 Loading the reviews from watch");
       this.loadreviews()
-      this.addBloom()
+      // this.addBloom()
     }
   },
   computed: {
@@ -144,7 +150,6 @@ export default {
 
       }
     },
-
     addevent1 () {
       if (document.getElementsByClassName('buton')) {
         let a = document.getElementsByClassName('buton')
@@ -178,21 +183,36 @@ export default {
       b.style.display = 'block'
       b.style.opacity = '1'
       b.style.visibility = 'visible'
-    },
+  },
     loadreviews () {
-      if (document.getElementsByClassName('trustpilot-widget')) {
+      var aScript = document.createElement('script');
+    aScript.type = 'text/javascript';
+    aScript.src = "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+    aScript.async = "true"
+    document.head.appendChild(aScript);
+    aScript.onload = function () {
+        if (document.getElementsByClassName('trustpilot-widget')) {
         // if(document.getElementsByClassName("trustpilot-widget")){
         var element = document.getElementsByClassName('trustpilot-widget')
-        // console("helolowowoowowow", element);
-        for (var i = 0; i < element.length; i++) {
+         console.log(" 741258 Current Element is ", element);
+        //  setTimeout( function(){
+          //  console.log("In Set timeout");
+           for (var i = 0; i < element.length; i++) {
+             console.log("element : ",element[i]);
           window.Trustpilot.loadFromElement(element[i])
         }
+        //  },1000)
+        
       }
+    };
+
+      // console.log(" 741258 ",document.getElementsByClassName('trustpilot-widget').length);
+      
     },
     showdescription () {
       this.showdesc = true
     },
-    selectClasss (url) {
+    selectClasss (url) {   
       let className = ''
       if (
         url == 'deliveryinfo' ||
