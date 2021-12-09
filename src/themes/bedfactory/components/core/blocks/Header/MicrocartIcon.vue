@@ -257,8 +257,8 @@ export default {
 }
 
 .price {
-  margin-top: 2px;
-  font-size: 10px;
+  margin-top: 1px;
+  font-size: 9px;
   color: #2a275b;
   font-weight: 600;
   font-family: "ROBOTO";
@@ -384,6 +384,12 @@ export default {
   }
   .cart {
     padding: 0;
+  }
+}
+@media (min-width: 993x) {
+  .price  {
+      font-size: 10px;
+
   }
 }
 </style>

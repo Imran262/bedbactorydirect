@@ -392,7 +392,7 @@ span.log-in-detail {
     justify-content: space-between;
   @media (max-width: 992px) {
     padding-left: 0px;
-    gap: 5vw;
+    gap: 3vw;
   }
 }
 header {

@@ -108,7 +108,7 @@ span{
   display: block;
   font-size: 9px;
   font-weight: 600;
-  font-family: "Oblik";
+  font-family: "Roboto";
   color: #2A275B;
 }
 
@@ -241,7 +241,7 @@ img.checkout-contact {
   .contact {
     display: flex;
     white-space: nowrap;
-    height: 37px;
+    height: 35px;
     width: 100%;
     padding: 0px !important;
     img {
@@ -262,7 +262,7 @@ img.checkout-contact {
     
   }
   .phone.phone-icon.icon.pointer.t-mobile {
-      padding-right: 5vw;
+      padding-right: 3vw;
   }
 }
 

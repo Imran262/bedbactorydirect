@@ -47,7 +47,7 @@ export default {
 } */
 .showrooms {
   display: block;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   font-family: "Roboto";
   color: #2A275B;
@@ -154,6 +154,11 @@ button img {
 @media (max-width: 767px) {
   .headerIconsNew > a .iconContainer {
     width: 16.5px;
+  }
+}
+@media (min-width: 991px) {
+  .showrooms {
+    font-size: 10px;
   }
 }
 </style>

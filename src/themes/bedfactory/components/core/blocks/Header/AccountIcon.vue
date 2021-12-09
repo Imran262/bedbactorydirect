@@ -133,7 +133,7 @@ $color-icon-hover: color(secondary, $colors-background);
 }
 .account {
   display: block;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   font-family: "Roboto";
   color: #2A275B;
@@ -238,5 +238,11 @@ $color-icon-hover: color(secondary, $colors-background);
   .headerIconsNew > a .iconContainer {
     width: 22px;
   }
+}
+@media (min-width: 991px) {
+  .account {
+  font-size: 10px;
+  
+}
 }
 </style>
