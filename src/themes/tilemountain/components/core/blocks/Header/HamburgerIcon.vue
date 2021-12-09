@@ -44,12 +44,12 @@ button i {
   /* font-size: 31px;
   color: #29275b; */
   position: absolute;
-  border-top: 2px solid #e3e3e5;
-  border-left: 2px solid #c2c2c2;
-  border-right: 1px solid #c2c2c2;
-  border-bottom: 2px solid #e3e3e5;
+  border-top: 1px solid #0B1A44;
+  border-left: 1px solid #0B1A44;
+  border-right: 1px solid #0B1A44;
+  border-bottom: 1px solid #0B1A44;
   bottom: 15px;
-  left: -2px;
+  left: 0px;
   width: 40px;
   height: 35px;
   line-height: 1.2;
@@ -81,7 +81,7 @@ button i {
     bottom: 0;
   }
   i#hamberger {
-    bottom: 15px !important;
+    bottom: 2px !important;
 }
 }
 </style>

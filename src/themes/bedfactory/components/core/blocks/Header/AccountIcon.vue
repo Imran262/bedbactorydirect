@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="inline-flex relative dropdown"
+      class="inline-flex relative dropdown headerIconsNew"
       data-testid="accountButton"
       @click.self="showMenu = true"
       @keyup.enter="goToAccount"
@@ -15,15 +15,20 @@
         :to="localizedRoute('/customer/account/login')"
         v-if="!currentUser"
       >
-        <button type="button" class="bg-cl-transparent brdr-none p0">
+        <!-- <button type="button" class="bg-cl-transparent brdr-none p0"> -->
+        <div class="iconContainer">
+
           <img src="/assets/icons/user.svg" alt="user login" />
+        </div>
           <span class="account">Account</span>
-        </button>
+        <!-- </button> -->
       </router-link>
       <router-link :to="localizedRoute('/my-account')" v-else>
-        <button type="button" class="bg-cl-transparent brdr-none p0">
+        <!-- <button type="button" class="bg-cl-transparent brdr-none p0"> -->
+        <div class="iconContainer">
           <img src="/assets/icons/user.svg" alt="user login" />
-        </button>
+        </div>
+        <!-- </button> -->
       </router-link>
       <no-ssr>
         <div
@@ -114,26 +119,33 @@ export default {
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 $color-icon-hover: color(secondary, $colors-background);
+.headerIconsNew > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.headerIconsNew > a .iconContainer {
+    width: 24px;
+}
+.headerIconsNew > a .iconContainer img{
+    max-width: 100%;
+}
 .account {
   display: block;
   font-size: 10px;
   font-weight: 600;
   font-family: "Roboto";
-  color: #071a44;
+  color: #2A275B;
 }
 .dropdown {
-  // padding-right: 13px;
   outline: none;
   button {
     margin-right: 1rem;
     pointer-events: none;
     padding-top: 17px;
   }
-  img {
-    height: 25px;
-    margin-top: 7px;
-    margin-bottom: 2px;
-  }
+
   .dropdown-content {
     display: none;
     position: absolute;
@@ -145,89 +157,86 @@ $color-icon-hover: color(secondary, $colors-background);
     background-color: #fff;
   }
   a {
-    // opacity: 0.6;
-    // text-align: left;
+    
     &:hover,
     &:focus {
-      // background-color: transparent;
       opacity: 1;
     }
   }
-  @media (min-width: 767px) {
-    &:hover .dropdown-content:not(.dropdown-content__hidden),
-    &:focus .dropdown-content:not(.dropdown-content__hidden) {
-      display: block;
-    }
-    &:focus-within {
-      // background-color: $color-icon-hover;
-      opacity: 1;
-      .dropdown-content:not(.dropdown-content__hidden) {
-        display: block;
-      }
-    }
-  }
+  // @media (min-width: 767px) {
+  //   &:hover .dropdown-content:not(.dropdown-content__hidden),
+  //   &:focus .dropdown-content:not(.dropdown-content__hidden) {
+  //     display: block;
+  //   }
+  //   &:focus-within {
+  //     opacity: 1;
+  //     .dropdown-content:not(.dropdown-content__hidden) {
+  //       display: block;
+  //     }
+  //   }
+  // }
 }
-@media (min-width: 767px) and (max-width: 1199px) {
-  .dropdown img {
-    margin-top: 0px;
-    height: 28px !important;
-  }
-  .dropdown {
-    button {
-      // padding-top: 28px;
-    }
-  }
-  .account {
-    font-size: 11px;
-  }
-}
-@media (max-width: 767px) {
-  .dropdown {
-    padding: 0px;
-    button {
-      height: 55px;
-      // width: 100%;
-      max-width: 4em;
-      padding: 0px;
-    }
-  }
-  .dropdown img {
-    height: 28px;
-    // height: 100%;
-    width: 5vw;
-    padding-top: 15px;
-    margin: 0px;
-  }
-  .account {
-    margin-top: 0.3rem;
-  }
-}
-@media (min-width: 320px) and (max-width: 480px) {
-  .dropdown {
-    button {
-      max-width: 4em;
-      height: 51px;
-      padding-right: 0;
-      // transform: scale(0.65);
-    }
-    img {
-      padding-top: 0;
-      height: 25px;
-      width: 5.5vw;
-    }
-  }
-.account{
-        font-size: 11px;
-  }
-}
-@media (max-width: 319px) {
-  .dropdown img {
-    padding-top: 2px;
-    height: 20px;
 
-  }
-  .account{
-        font-size: 10px;
+// @media (min-width: 767px) and (max-width: 1199px) {
+//   .dropdown img {
+//     margin-top: 0px;
+//   }
+
+//   .account {
+//     font-size: 9px;
+//   }
+//   .headerIconsNew > a .iconContainer {
+//     width: 21px;
+//   }
+// }
+
+// @media (max-width: 767px) {
+//   .dropdown {
+//     padding: 0px;
+//     button {
+//       height: 55px;
+//       max-width: 4em;
+//       padding: 0px;
+//     }
+//   }
+//   .dropdown img {
+//     padding-top: 15px;
+//     margin: 0px;
+//   }
+//   .account {
+//     margin-top: 0.3rem;
+//   }
+// }
+
+// @media (min-width: 320px) and (max-width: 480px) {
+//   .dropdown {
+//     button {
+//       max-width: 4em;
+//       height: 51px;
+//       padding-right: 0;
+//     }
+//     img {
+//       padding-top: 0;
+//     }
+//   }
+// .account{
+//         font-size: 11px;
+//   }
+// }
+
+// @media (max-width: 319px) {
+//   .dropdown img {
+//     padding-top: 2px;
+//     height: 20px;
+
+//   }
+//   .account{
+//         font-size: 10px;
+//   }
+// }
+@media (max-width: 767px) {
+  .headerIconsNew > a .iconContainer {
+    width: 22px;
   }
 }
 </style>

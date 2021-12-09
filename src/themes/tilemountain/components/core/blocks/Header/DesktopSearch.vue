@@ -515,7 +515,7 @@ export default {
         max-width: 406px;
         height: 45px;
         width: 100%;
-        border: 1px solid #333333;
+        border: 1px solid #0B1A44;
         font-size: 0.839375rem;
         padding-left: 0.5rem;
         background-color: #F2F2F2;
@@ -652,13 +652,13 @@ export default {
   .custom-search-icon {
     display: block;
     position: absolute !important;
-    top: 2px;
+    top: 1px;
     right: 13px;
     height: 35px;
     width: 35px;
     background-color: #ffffff;
-    border-bottom: 2px solid #e3e3e5;
-    border-left: 2px solid #e3e3e5;
+    border-bottom: 1px solid #0B1A44;
+    border-left: 1px solid #0B1A44;
     z-index: 99;
 
     img {
@@ -682,7 +682,7 @@ export default {
 
           input {
             border-radius: 0;
-            border: 2px solid #e3e3e5;
+            border: 1px solid #0B1A44;
             max-width: 100%;
             height: 35px;
             background-color: #f7f6f6;
@@ -748,7 +748,7 @@ export default {
   .searchpanel .container {
     padding-left: 25px;
     padding-right: 0px;
-    margin-top: 11px;
+    margin-top: 4px;
   }
 }
 
@@ -781,8 +781,20 @@ export default {
 }
 }
 @media screen and (min-width: 1200px){
-.Desktop-search{
-    right: 35px;
+  .Desktop-search{
+      right: 35px;
+  }
 }
+@media screen and (max-width: 1200px){
+  .searchpanel {
+    margin-top: 0px;
+  }
+}
+.search-panel-input::placeholder{
+  color: #0B1A44;
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0em;
 }
 </style>

@@ -80,7 +80,7 @@ export default {
   }
   span {
     font-family: Arial, Helvetica, sans-serif;
-    color: #071a44;
+    color: #2A275B;
     font-size: 14px;
     font-weight: 700;
   }
@@ -91,10 +91,6 @@ div.phone-icon > .contact {
   white-space: nowrap;
   background: url("/assets/phone.svg") no-repeat 0 60%;
   background-size: 27px;
-  @media (max-width: 767px) {
-    // background-size: 4.4vw;
-    // margin-top: 0.6rem;
-  }
   img {
     margin-top: 11px;
     height: 28px;
@@ -102,85 +98,139 @@ div.phone-icon > .contact {
   p {
     margin-left: 6px;
     font-size: 16px;
-    color: #071a44;
+    color: #2A275B;
     font-family: "Oblik";
     padding-left: 29px;
     // font-weight: 600;
   }
 }
-@media (max-width: 767px) {
-  div.phone-icon > .contact{
-    flex-direction: column-reverse;
-    margin-bottom: -2px;
-  }
+span{
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: "Oblik";
+  color: #2A275B;
 }
+
 a.underline:after,
 a:not(.no-underline):hover:after {
   content: none;
 }
-@media (min-width: 767px) and (max-width: 991px) {
-  .contact {
-    // padding-right: 50px;
-    img {
-      margin-top: 12px;
-    }
-  }
-}
-@media (min-width: 767px) and (max-width: 1199px) {
-  span {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    font-family: "Roboto";
-    color: #071a44;
-  }
-  .phone {
-    padding-right: 12px;
-    div.phone-icon > .contact {
-      padding: 13px;
-      padding-top: 20px;
-      padding-right: 0px;
-    }
-    img {
-      margin-top: 8px;
-    }
-  }
-  .contact p {
-    display: none;
-  }
-  div.phone-icon > .contact {
-    display: flex;
-    padding-top: 42px;
-    height: 0;
-    top: -5px;
-    white-space: nowrap;
-    background: url("/assets/phone.svg") no-repeat 0 60%;
-    background-size: 27px;
-  }
-}
+// @media (min-width: 767px) and (max-width: 991px) {
+//   .contact {
+//     img {
+//       margin-top: 12px;
+//     }
+//   }
+// }
+// @media (min-width: 767px) and (max-width: 1199px) {
+//   span {
+//     display: block;
+//     font-size: 9px;
+//     font-weight: 600;
+//     font-family: "Roboto";
+//     color: #2A275B;
+//   }
+//   .phone {
+//     padding-right: 8px;
+//     div.phone-icon > .contact {
+//       padding: 13px;
+//       padding-top: 20px;
+//       padding-right: 0px;
+//     }
+//     img {
+//       margin-top: 8px;
+//     }
+//   }
+//   .contact p {
+//     display: none;
+//   }
+//   div.phone-icon > .contact {
+//     display: flex;
+//     padding-top: 23px;
+//     height: 0;
+//     top: -4px;
+//     white-space: nowrap;
+//     background: url("/assets/phone.svg") no-repeat center 0%;
+//     background-size: 21px;
+//   }
+// }
 // phone icons for mobile view 
-@media (max-width: 767px) {
-  span{
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: "Roboto";
-    color: #071a44;
+// @media (max-width: 767px) {
+//   span{
+//     display: block;
+//     font-size: 12px;
+//     font-weight: 600;
+//     font-family: "Roboto";
+//     color: #2A275B;
     
-  }
-}
+//   }
+// }
 // 1200 se zyada
-@media (min-width: 1200px) {
-  span {
-    display: none;
-  }
+// @media (min-width: 1200px) {
+//   span {
+//     display: none;
+//   }
+// }
+// @media (max-width: 992px) {
+//   .contact img {
+//     height: 23px;
+//   }
+// }
+
+
+// @media (max-width: 480px) {
+//   div.phone-icon > .contact{
+//     background-size: 21px !important;
+//     background: url("/assets/phone.svg") no-repeat 17% 60%;
+
+//   }
+//   span{
+//     font-size: 11px;
+//   }
+// }
+// @media (max-width: 320px) {
+//   div.phone-icon > .contact{
+//     margin-bottom: 0;
+//   }
+  
+// }
+img.checkout-contact {
+  width: 29px;
 }
+//  @media (max-width: 1199px) and(min-width: 992px) {
+//     .phone {
+//     padding-right: 16px;
+//     }
+//   }
+
+
+// for mobiles
+// @media (max-width: 767px) {
+//   .wishlist {
+//     .wishlist-text {
+//       span {
+//         display: none;
+//       }
+//     }
+//   }
+//   .contact {
+//     display: flex;
+//     white-space: nowrap;
+//     height: 37px;
+//     width: 100%;
+//     padding: 0px !important;
+//     img {
+//       height: 38%;
+//       width: 100%;
+//       padding-top: 25px;
+//       margin: 0px;
+//     }
+//   }
+// }
+
+// for tablets
 @media (max-width: 992px) {
-  .contact img {
-    height: 23px;
-  }
-}
-@media (max-width: 767px) {
   .wishlist {
     .wishlist-text {
       span {
@@ -190,56 +240,36 @@ a:not(.no-underline):hover:after {
   }
   .contact {
     display: flex;
-    /* padding-top: 12px; */
     white-space: nowrap;
-    height: 72px;
+    height: 37px;
     width: 100%;
-    max-width: 35px;
     padding: 0px !important;
     img {
-      // margin-top: 12px;
-      // height: 28px;
       height: 38%;
       width: 100%;
       padding-top: 25px;
       margin: 0px;
     }
   }
-  .phone p {
+  .contact p {
     display: none;
   }
-  .phone a {
-    background: url("/assets/phone.svg") no-repeat 0 60%;
-    padding-top: 0;
-    width: 35px;
-  }
-}
-@media (min-width: 320px) and (max-width: 767px) {
-  .phone a {
-    width: 13.7vw;
-    max-width: 13.7vw;
-    // transform: scale(0.65);
-  }
-  
-}
-@media (max-width: 480px) {
-  div.phone-icon > .contact{
-    background-size: 21px !important;
-    background: url("/assets/phone.svg") no-repeat 17% 60%;
 
-  }
-  span{
-    font-size: 11px;
-  }
-}
-@media (max-width: 320px) {
   div.phone-icon > .contact{
-    // background-size: 20px;
-    margin-bottom: 0;
+    flex-direction: column-reverse;
+    background: url("/assets/phone.svg") no-repeat center 0;
+    background-size: 22px;
+    
   }
-  
+  .phone.phone-icon.icon.pointer.t-mobile {
+      padding-right: 5vw;
+  }
 }
-img.checkout-contact {
-  width: 29px;
+
+// for desktop
+@media (min-width: 993px) {
+  span {
+    display: none;
+  }
 }
 </style>

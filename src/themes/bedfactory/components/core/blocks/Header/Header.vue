@@ -17,7 +17,7 @@
       >
         <div class="container px15">
           <div
-            class="row between-xs middle-xs header-main"
+            class="row between-xs middle-xs header-main header-main-new"
             v-if="
               (!isCheckoutPage && $route.name !== 'confirmorder') ||
               isThankYouPage
@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
-              <div class="inline-flex sb-icons">
+              <div class="inline-flex sb-icons sb-icons-new">
                 <Telephone
                   class="icon pointer t-mobile"
                   :callText="phone"
@@ -328,12 +328,12 @@ export default {
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
+
 span.log-in-detail {
-  color: #071a44 !important;
+  color: #2A275B !important;
   font-weight: bold;
 }
 .inline-flex {
-  align-items: center;
   align-items: center;
   justify-content: space-between;
   display: flex;
@@ -341,10 +341,6 @@ span.log-in-detail {
 .r-icons3 {
   display: flex;
   flex-direction: column;
-  margin-top: 0.6rem;
-      margin-left: 0.8rem;
-  // margin-left: 0.7rem;
-  // padding: 12px 0px 12px 12px;
 }
 .header-icon {
   margin-left: 50px;
@@ -362,9 +358,7 @@ span.log-in-detail {
 .header-main {
   margin-left: 8px;
 }
-.inner-icons {
-  //  align-items: baseline !important;
-}
+
 @media (max-width: 1199px) and(min-width: 992px) {
   .inline-flex {
     justify-content: center;
@@ -375,6 +369,7 @@ span.log-in-detail {
           margin-top: 0;
           margin-left: 0;
     }
+
 }
 //  for tablets
 @media (max-width: 991px) and(min-width: 768px) {
@@ -384,26 +379,25 @@ span.log-in-detail {
     display: flex;
   }
   .r-icons3 {
-    margin-top: 0.4rem;
+    margin-top: 0;
     margin-right: 0;
     margin-left: 0;
   }
+  .header-main.header-main-new {
+    padding: 10px 0;
+  }
 }
 .inner-icons {
-  // padding-left: 60px;
   align-items: center;
-  @media (max-width: 1199px) and(min-width: 992px) {
-    // padding-left: 8px;
-  }
-  @media (max-width: 767px) {
+    justify-content: space-between;
+  @media (max-width: 992px) {
     padding-left: 0px;
+    gap: 5vw;
   }
 }
 header {
   z-index: 3;
   transition: top 0.2s ease-in-out;
-  &.is-visible {
-  }
   .wishlist {
     padding: 10px;
     .wishlist-img {
@@ -436,53 +430,20 @@ header {
     }
   }
 }
-@media (min-width: 1200px) {
-  .r-icons {
-    padding: 0px 0px 12px 12px;
-    // padding: 0px;
-    // width: 4.7vw !important;
-        margin: 0 0.8rem;
-  }
-  .account-icon {
-  padding: 0px 0px 12px 0px;
-  // width: 4vw;
-      margin: 0 0.8rem;
-}
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .r-icons {
-    padding: 0px 0px 12px 12px;
-    // padding: 0px;
-  }
-  .r-icons1 {
-    padding: 0px 0px 6px 15px !important;
-  }
-  .account-icon{
-    margin: 0;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .r-icons {
-    padding: 0px 7px 12px 4px;
-    // padding: 0px;
-  }
-}
-// .account-icon {
-//   padding: 0px 0px 12px 12px;
-//   // width: 4vw;
-//       margin: 0 0.8rem;
-// }
-.t-mobile {
-  padding-left: 8px;
-}
-// .icon {
-//   opacity: 0.6;
-//   &:hover,
-//   &:focus {
-//     background-color: $color-icon-hover;
-//     opacity: 1;
+
+// @media (min-width: 992px) and (max-width: 1199px) {
+//   .r-icons1 {
+//     padding: 0 !important;
+//   }
+//   .account-icon{
+//     margin: 0;
 //   }
 // }
+
+// .t-mobile {
+//   padding-left: 8px;
+// }
+
 .right-icons {
   //for edge
   float: right;
@@ -499,7 +460,6 @@ header {
 .ischeckoutheader {
   height: auto !important;
   .bg-cl-primary {
-    /*background: #2a275c !important;*/
     padding: 10px 0px 15px 0px;
     z-index: 102;
   }
@@ -539,17 +499,17 @@ header {
     width: 133px;
   }
 }
-@media (min-width: 600px) and (max-width: 767px) {
-  .header {
-    height: 133px !important;
-  }
-}
+// @media (min-width: 600px) and (max-width: 767px) {
+//   .header {
+//     height: 133px !important;
+//   }
+// }
 @media  (max-width: 767px) {
-  .header {
-    height: 8.4rem;
-    position: relative;
-    z-index: 9;
-  }
+  // .header {
+  //   height: 8.4rem;
+  //   position: relative;
+  //   z-index: 9;
+  // }
   .row.middle-xs {
     margin: 0 -15px;
     &.py5 {
@@ -567,10 +527,10 @@ header {
     font-size: 12px;
     // display: block;
   }
-  .r-icons,
-  .r-icons1 {
-    padding: 0px;
-  }
+  // .r-icons,
+  // .r-icons1 {
+  //   padding: 0px;
+  // }
   .sb-icons {
     display: flex;
     justify-content: flex-end;
@@ -589,52 +549,45 @@ header {
     position: relative;
     z-index: 10;
   }
-  header {
-    height: 7.625rem;
-  }
+  // header {
+  //   height: 7.625rem;
+  // }
   .container {
     padding-right: 0px;
     padding-left: 0px;
   }
-  .t-mobile {
-    // padding: 5px;
-    // position: relative;
-    // padding: 0px;
-    // margin: 0px;
-    // width: 12.7vw;
-  }
+
   .ischeckoutheader .bg-cl-primary {
     padding: 10px 0px 15px 0px;
     height: auto;
   }
-  .ischeckoutheader .phone-no span {
-  }
+
   .ischeckoutheader .phone-no img {
     position: relative;
     top: 4px;
   }
-  .basket-loc-box {
-    height: 100%;
-    max-height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 6px;
-  }
-  .r-icons {
-    width: 16.7vw;
-  }
-  .account-icon {
-    width: 13.5vw;
-  }
+  // .basket-loc-box {
+  //   height: 100%;
+  //   max-height: 50px;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   padding-top: 6px;
+  // }
+  // .r-icons {
+  //   width: 16.7vw;
+  // }
+  // .account-icon {
+  //   width: 13.5vw;
+  // }
 }
 @media  (max-width: 319px) {
-.header{
-      height: 6.3rem;
-}
-header{
-     height: 6.4rem;
-}
+// .header{
+//       height: 6.3rem;
+// }
+// header{
+//      height: 6.4rem;
+// }
 
 }
 @media (min-width: 320px) and (max-width: 480px) {
@@ -647,50 +600,51 @@ header{
   .search-bar {
     padding-top: 0;
   }
-  .account-icon{
-    margin-right: 6px;
-        margin-left: 12px;
-  }
-  .basket-loc-box{
-    justify-content: flex-end;
-  }
+  // .account-icon{
+  //   margin-right: 6px;
+  //       margin-left: 12px;
+  // }
+  // .basket-loc-box{
+  //   justify-content: flex-end;
+  // }
 }
 // for movile view less than 767px
 @media (max-width: 767px) {
-  .r-icons3 {
-    margin-top: 19px;
-    margin-left: 0;
-  }
+  // .r-icons3 {
+  //   margin-top: 19px;
+  //   margin-left: 0;
+  // }
 }
 @media (max-width: 480px){
-    .r-icons3 {
-    margin-top: -4px;
-    margin-left: 0;
-  }
+  //   .r-icons3 {
+  //   margin-top: -4px;
+  //   margin-left: 0;
+  // }
 
 }
-@media (max-width: 420px){
-    .r-icons3 {
-    // margin-left: 10px;
-  }
-}
+
 //
 @media (max-width: 992px) and (min-width: 768px) {
-  .inner-icons {
-    padding-left: 2px;
-  }
-  .r-icons1 {
-    padding: 10px;
-  }
-  .account-icon {
-    width: 5vw;
-  }
+  // .inner-icons {
+  //   padding-left: 2px;
+  // }
+  // .r-icons1 {
+  //   padding: 10px;
+  // }
+  // .account-icon {
+  //   width: 5vw;
+  // }
 }
 @media (max-width: 992px) {
   .fullCloseCart {
     display: none !important;
   }
 }
+ @media (max-width: 1199px) and(min-width: 992px) {
+    .sb-icons-new{
+      justify-content: flex-end;
+    }
+  }
 .scrollimg {
   font-size: 32px;
   font-weight: normal;
@@ -769,7 +723,6 @@ span.scrollimg:after {
 }
 a.cl-tertiary.links img {
   position: relative;
-  /* top: 5px; */
 }
 @media (max-width: 336px) {
   .phone-no {
@@ -780,32 +733,33 @@ img.checkout-user {
   width: 22px;
 }
 @media (min-width: 481px) and (max-width: 767px) {
- .t-mobile{
+ /* .t-mobile{
    position: relative;
     padding: 0px;
     margin: 0px;
     width: 12.7vw;
-  }
+  } */
 }
 @media (min-width: 280px) and (max-width: 480px) {
-   .t-mobile{
+   /* .t-mobile{
    position: relative;
     padding: 0px !important;
     margin: 0px;
     top: -5px;
     width: 11.7vw;
     height: 90px;
-  }
+  } */
   .sb-icons {
     display: flex;
     justify-content:flex-start;
     padding-right: 7.81%;
   }
-   /* @media (min-width: 992px) and (max-width: 1199px){
-    
-  } */
-  
 }
+@media screen and (min-width: 991px) {
 
+.inner-icons {
+  gap: 20px;
+}
+}
 
 </style>

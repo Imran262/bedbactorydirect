@@ -1,158 +1,156 @@
 <template>
-  <button
-    type="button"
-    class="relative bg-cl-transparent bg-cl-trans brdr-none inline-flex cart"
-    data-testid="openMicrocart"
-    ref="MicrocartBtn"
-    :aria-label="$t('Open microcart')"
-    id="minicarticon"
-    @click="toggleMicroCartCustom"
-  >
-    <img src="/assets/icons/basket.svg" alt="basket" />
-    <span
-      class="
-        minicart-count
-        absolute
-        flex
-        center-xs
-        middle-xs
-        border-box
-        py0
-        px2
-        h6
-        lh16
-        weight-700
-        cl-white
-      "
-      v-cloak
-      v-show="totalQuantity"
-      data-testid="minicartCount"
-      >{{ totalItems.length }}</span
+  <div>
+    <button
+      type="button"
+      class="relative bg-cl-transparent bg-cl-trans brdr-none cart"
+      data-testid="openMicrocart"
+      ref="MicrocartBtn"
+      :aria-label="$t('Open microcart')"
+      id="minicarticon"
+      @click="toggleMicroCartCustom"
     >
+      <div class="iconContainer">
+        <img src="/assets/icons/basket.svg" alt="basket" />
+      </div>
+      <span
+        class="
+          minicart-count
+          absolute
+          flex
+          center-xs
+          middle-xs
+          border-box
+          py0
+          px2
+          h6
+          lh16
+          weight-700
+          cl-white
+        "
+        v-cloak
+        v-show="totalQuantity"
+        data-testid="minicartCount"
+        >{{ totalItems.length }}
+      </span>
 
-    <!-- <span
-      class="price"
-      id="microcartIconPrice"
-      v-cloak
-      v-show="totalQuantity"
-    >{{ getGrandTotal | price }}</span> -->
-    <span
-      v-if="totalQuantity > 0"
-      class="price price-bfd"
-      id="microcartIconPrice"
-      v-cloak
-      v-show="totalQuantity"
-      >{{ getGrandTotal | price }}</span
-    >
-    <span
-      v-else
-      class="price price-bfd"
-      id="microcartIconPrice"
-      v-cloak
-      v-show="totalQuantity"
-      >Basket</span
-    >
-  </button>
+      <span
+        v-if="totalQuantity > 0"
+        class="price price-bfd"
+        id="microcartIconPrice"
+        v-cloak
+        v-show="totalQuantity"
+        >{{ getGrandTotal | price }}</span
+      >
+      <span
+        v-else
+        class="price price-bfd"
+        id="microcartIconPrice"
+        v-cloak
+        v-show="totalQuantity"
+        >Basket</span
+      >
+    </button>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import MicrocartIcon from "@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon";
-import { syncCartWhenLocalStorageChange } from "@vue-storefront/core/modules/cart/helpers";
+import { mapGetters, mapActions } from 'vuex';
+import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon';
+import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers';
 export default {
-  data() {
+  data () {
     return {
       onlyCutSizeSample: [],
-      onlyFullSizeSample: [],
+      onlyFullSizeSample: []
     };
   },
   watch: {
     totalItems: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (oldVal === newVal) {
           this.getFullSampleItems();
           this.getCutSampleItems();
         }
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
-  async mounted() {
+  async mounted () {
     await this.getFullSampleItems();
     await this.getCutSampleItems();
     syncCartWhenLocalStorageChange.addEventListener();
-    this.$once("hook:beforeDestroy", () => {
+    this.$once('hook:beforeDestroy', () => {
       syncCartWhenLocalStorageChange.removeEventListener();
     });
-    document.body.addEventListener("click", (event) => {
+    document.body.addEventListener('click', event => {
       this.closeMiniCart(event);
     });
   },
   computed: {
     ...mapGetters({
-      totalQuantity: "cart/getItemsTotalQuantity",
-      totalItems: "cart/getCartItems",
-      getTotals: "cart/getTotals",
+      totalQuantity: 'cart/getItemsTotalQuantity',
+      totalItems: 'cart/getCartItems',
+      getTotals: 'cart/getTotals'
     }),
-    getGrandTotal() {
+    getGrandTotal () {
       var grandTotal = 0;
       if (this.getTotals && this.getTotals.length > 0) {
-        var totalItem = this.getTotals.filter((totalItemsInside) => {
+        var totalItem = this.getTotals.filter(totalItemsInside => {
           if (
             totalItemsInside &&
             totalItemsInside.code &&
-            totalItemsInside.code === "subtotal"
+            totalItemsInside.code === 'subtotal'
           ) {
             grandTotal = totalItemsInside.value;
           }
         });
       }
       return grandTotal;
-    },
+    }
   },
   methods: {
     ...mapActions({
-      openMicrocart: "ui/toggleMicrocart",
+      openMicrocart: 'ui/toggleMicrocart'
     }),
-    openMicrocartCustom(event) {
-      document.getElementsByClassName("microcart-sidebar")[0].style.display =
-        "block";
+    openMicrocartCustom (event) {
+      document.getElementsByClassName('microcart-sidebar')[0].style.display =
+        'block';
     },
-    leaveMicrocartCustom(event) {
-      document.getElementsByClassName("microcart-sidebar")[0].style.display =
-        "none";
+    leaveMicrocartCustom (event) {
+      document.getElementsByClassName('microcart-sidebar')[0].style.display =
+        'none';
     },
-    async getFullSampleItems() {
+    async getFullSampleItems () {
       this.onlyFullSizeSample = await this.totalItems.filter((item, index) => {
         return (
           item.totals &&
           item.totals.options &&
           item.totals.options.length > 0 &&
-          item.totals.options[0].value === "Full Size"
+          item.totals.options[0].value === 'Full Size'
         );
       });
       return this.onlyFullSizeSample;
     },
-    isTotalsLoaded() {
+    isTotalsLoaded () {
       let firstItem = this.totalItems?.[0];
       if (firstItem) {
         return firstItem.totals && firstItem.totals.options;
       }
       return true;
     },
-    async getCutSampleItems() {
+    async getCutSampleItems () {
       this.onlyCutSizeSample = await this.totalItems.filter((item, index) => {
         return (
           item.totals &&
           item.totals.options &&
           item.totals.options.length > 0 &&
-          item.totals.options[0].value === "Cut Size"
+          item.totals.options[0].value === 'Cut Size'
         );
       });
       return this.onlyCutSizeSample;
     },
-    toggleMicroCartCustom() {
-      console.log("from PSWP");
+    toggleMicroCartCustom () {
+      console.log('from PSWP');
       this.getFullSampleItems();
       this.getCutSampleItems();
       if (!this.isTotalsLoaded()) {
@@ -164,28 +162,28 @@ export default {
         this.totalItems.length <= 3 &&
         this.onlyCutSizeSample.length === this.totalItems.length
       ) {
-        this.$bus.$emit("modal-show", "modal-quickcheckoutmodel");
+        this.$bus.$emit('modal-show', 'modal-quickcheckoutmodel');
       } else if (
         this.onlyCutSizeSample.length > 3 &&
         this.onlyCutSizeSample.length === this.totalItems.length
       ) {
-        this.$router.push(this.localizedRoute("/cart"));
+        this.$router.push(this.localizedRoute('/cart'));
       } else if (
         this.onlyFullSizeSample.length > 0 &&
         this.onlyFullSizeSample.length === this.totalItems.length
       ) {
-        this.$router.push(this.localizedRoute("/checkout"));
+        this.$router.push(this.localizedRoute('/checkout'));
       } else if (
         this.onlyFullSizeSample.length === 0 &&
         this.onlyCutSizeSample.length === 0 &&
         this.totalItems.length > 0
       ) {
-        this.$router.push(this.localizedRoute("/cart"));
+        this.$router.push(this.localizedRoute('/cart'));
       } else if (this.totalItems.length > 0) {
-        this.$router.push(this.localizedRoute("/cart"));
+        this.$router.push(this.localizedRoute('/cart'));
       }
       if (this.totalItems.length === 0) {
-        //this.$router.push(this.localizedRoute('/'))
+        // this.$router.push(this.localizedRoute('/'))
         // var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
         // console.log('xCartDiv',xCartDiv);
         // if (xCartDiv.classList.contains('fullCloseCart')) {
@@ -199,10 +197,10 @@ export default {
         // }
       }
     },
-    closeMiniCart(event) {
-      if (this.$route.name !== "checkout") {
-        let ignoreClickOnMeElement = document.getElementById("minicarticon");
-        let isCartRemoveButton = document.getElementById("minicartnotclose");
+    closeMiniCart (event) {
+      if (this.$route.name !== 'checkout') {
+        let ignoreClickOnMeElement = document.getElementById('minicarticon');
+        let isCartRemoveButton = document.getElementById('minicartnotclose');
         let isClickInsideElement = ignoreClickOnMeElement.contains(
           event.target
         );
@@ -215,24 +213,31 @@ export default {
         } else {
           if (isClickInsideElementRemoveButton) {
           } else {
-            let getClassForHide =
-              document.getElementsByClassName("microcart-sidebar")[0];
-            getClassForHide.style.display = "none";
-            if (!getClassForHide.classList.contains("fullCloseCart")) {
-              getClassForHide.classList.remove("openFullMiniCart");
-              getClassForHide.classList.add("fullCloseCart");
+            let getClassForHide = document.getElementsByClassName(
+              'microcart-sidebar'
+            )[0];
+            getClassForHide.style.display = 'none';
+            if (!getClassForHide.classList.contains('fullCloseCart')) {
+              getClassForHide.classList.remove('openFullMiniCart');
+              getClassForHide.classList.add('fullCloseCart');
             }
           }
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
 @font-face {
   font-family: "Oblik";
   src: url("/assets/fonts/Oblik_Bold.otf");
+}
+.iconContainer {
+  width: 27px;
+}
+.iconContainer img {
+  max-width: 100%;
 }
 .minicart-count {
   top: -7px;
@@ -246,151 +251,139 @@ export default {
   background-color: #ee4c56;
 }
 .cart {
-  width: auto;
-  // margin-right: -6px;
-  position: relative;
   display: flex;
-  min-width: 60px;
-  padding-left: 0 !important;
   align-items: center;
+  flex-direction: column;
 }
-img {
-  height: 25px;
-}
+
 .price {
-  margin-top: 7px;
+  margin-top: 2px;
   font-size: 10px;
-  color: #071a44;
+  color: #2a275b;
   font-weight: 600;
   font-family: "ROBOTO";
   display: block !important;
 }
-@media (max-width: 1199px) {
-  .bg-cl-trans {
-    width: 7vw;
-  }
-  .cart {
-    // height: 100%;
-    // width: 100%;
-    // max-width: 53px;
-    padding: 0px;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 0px;
-    min-width: auto !important;
-  }
-  .cart img {
-    margin-top: 10px;
-    height: 30px;
-  }
-  .minicart-count {
-    top: 0px;
-    left: 48px;
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-  }
-  .price {
-    margin-top: 5px;
-    font-size: 12px;
-  }
-}
-@media (max-width: 991px) {
-  button {
-    width: 13.5vw !important;
-  }
-  .cart {
-    height: 100%;
-    width: 100%;
-    max-width: 53px;
-    padding: 0px;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 0px;
-  }
-  .cart img {
-    // margin-top: -2px;
-    // margin-top: 18px;
-    height: 28px;
-  }
-  .price {
-    display: none;
-  }
-  .minicart-count {
-    left: 63%;
-    top: 3px;
-    width: 14px;
-    height: 14px;
-    font-size: 9px;
-  }
-}
+// @media (max-width: 1199px) {
+
+//   .cart {
+//     padding: 0px;
+//     -ms-flex-align: center;
+//     align-items: center;
+//     margin: 0px;
+//     min-width: auto !important;
+//   }
+//   .minicart-count {
+//     top: 0px;
+//     left: 48px;
+//     width: 16px;
+//     height: 16px;
+//     font-size: 10px;
+//   }
+//   .price {
+//     margin-top: 0;
+//     font-size: 9px;
+//   }
+// }
+// @media (max-width: 991px) {
+
+//   .cart {
+//     height: 100%;
+//     width: 100%;
+//     max-width: 53px;
+//     padding: 0px;
+//     -ms-flex-align: center;
+//     align-items: center;
+//     margin: 0px;
+//   }
+//   .price {
+//     display: none;
+//   }
+//   .minicart-count {
+//     left: 63%;
+//     top: 3px;
+//     width: 14px;
+//     height: 14px;
+//     font-size: 9px;
+//   }
+// }
+// @media (max-width: 767px) {
+//   .cart {
+//     min-width: 0px;
+//     height: 100%;
+//     width: 100%;
+//     padding: 0px;
+//     align-items: center;
+//   }
+//   .cart img {
+//     width: 30px;
+//     margin: 0px;
+//     margin-top: 0px;
+//     min-height: 40px;
+//   }
+//   .minicart-count {
+//     top: -6px;
+//     left: 35px;
+//     width: 22px;
+//     height: 22px;
+//     font-size: 14px;
+//   }
+//   .price {
+//     display: none;
+//     margin-top: 4px;
+//   }
+// }
+// @media (max-width: 480px) {
+//   .cart {
+//     max-width: 3em;
+//     img {
+//       width: 25px;
+//       min-height: 30px;
+//       margin: 0;
+//     }
+//     .price{
+//       font-size: 11px;
+//     }
+//   }
+//   .minicart-count {
+//     top: -2px;
+//     left: 25px;
+//     width: 14px;
+//     height: 14px;
+//     font-size: 9px;
+//   }
+// }
+// @media (max-width: 420px) {
+//   .cart img {
+//     width: 25px;
+//     min-height: 30px;
+//   }
+// }
+// @media (max-width: 340px) {
+//   .cart img {
+//     width: 18px;
+//     min-height: 20px;
+//   }
+// }
+// @media (max-width: 319px) {
+//   .price {
+//   font-size: 10px;
+//   }
+// }
+// @media (min-width: 767px) and (max-width: 1199px) {
+//   .price {
+//     font-size: 9px;
+//   }
+//   .iconContainer {
+//     width: 24px;
+//   }
+// }
 @media (max-width: 767px) {
+  .iconContainer {
+    width: 24.7px;
+  }
   .cart {
-    min-width: 0px;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    align-items: center;
+    padding: 0;
   }
-  .cart img {
-    // height: 100%;
-    width: 30px;
-    margin: 0px;
-    margin-top: 0px;
-    min-height: 40px;
-  }
-  .minicart-count {
-    top: -6px;
-    left: 35px;
-    width: 22px;
-    height: 22px;
-    font-size: 14px;
-  }
-  .price {
-    display: none;
-    margin-top: 4px;
-  }
-}
-@media (max-width: 480px) {
-  .cart {
-    max-width: 3em;
-    img {
-      width: 25px;
-      min-height: 30px;
-      margin: 0;
-    }
-    .price{
-      font-size: 11px;
-    }
-  }
-  .minicart-count {
-    top: -2px;
-    left: 25px;
-    width: 14px;
-    height: 14px;
-    font-size: 9px;
-  }
-}
-@media (max-width: 420px) {
-  .cart img {
-    width: 25px;
-    min-height: 30px;
-  }
-}
-@media (max-width: 340px) {
-  .cart img {
-    width: 18px;
-    min-height: 20px;
-  }
-}
-@media (max-width: 319px) {
-  .price {
-  font-size: 10px;
-  }
-}
-@media (min-width: 767px) and (max-width: 1199px) {
-  .price {
-    font-size: 11px;
-}
 }
 </style>

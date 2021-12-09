@@ -1,8 +1,10 @@
 <template>
-  <div class="bg-cl-transparent bg-location2 brdr-none">
-    <button type="button" class="bg-cl-transparent brdr-none p0 location">
+  <div class="bg-cl-transparent bg-location2 brdr-none headerIconsNew">
+    <!-- <button type="button" class="bg-cl-transparent brdr-none p0 location"> -->
       <router-link :to="localizedRoute('/bed-factory-stores')" exact>
-        <img src="/assets/icons/location.svg" alt="location" />
+        <div class="iconContainer">
+          <img src="/assets/icons/location.svg" alt="location" />
+        </div>
         <span class="showrooms">Showrooms</span>
       </router-link>
 
@@ -11,7 +13,7 @@
       v-cloak
       v-show="getWishlistItemsCount"
       >{{ getWishlistItemsCount }}</span>-->
-    </button>
+    <!-- </button> -->
   </div>
 </template>
 
@@ -26,12 +28,29 @@ export default {
 /* button {
   padding-right: 13px;
 } */
+.headerIconsNew > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.headerIconsNew > a .iconContainer {
+    width: 18px;
+}
+.headerIconsNew > a .iconContainer img{
+    max-width: 100%;
+}
+/* @media (min-width: 1200px) {
+    .showrooms {
+    font-size: 10px;
+  }
+} */
 .showrooms {
   display: block;
   font-size: 10px;
   font-weight: 600;
   font-family: "Roboto";
-  color: #071a44;
+  color: #2A275B;
 }
 .whishlist-count {
   top: 7px;
@@ -44,26 +63,24 @@ export default {
   margin-right: 1rem;
 }
 /* large than mobiles  */
-@media (min-width: 768px) and (max-width: 990px) {
+/* @media (min-width: 768px) and (max-width: 990px) {
   .bg-location2 button {
     margin-right: 0;
   }
   .showrooms {
-    font-size: 11px;
+    font-size: 9px;
   }
-}
+} */
 button img {
   margin-top: 24px;
-  /* margin-right: -1px; */
 }
 .location a:after {
   background-color: transparent !important;
 }
-@media (max-width: 767px) {
+/* @media (max-width: 768px) {
   button {
     display: block;
     height: 23px;
-    /* width: 100%; */
     max-width: 6em;
     padding: 0px;
     margin-right: 0;
@@ -71,13 +88,7 @@ button img {
   img {
   height: 28px;
 }
-  @media (min-width: 481px) and (max-width: 600px) {
-    button {
-      width: auto;
-    }
-  }
   button img {
-    /* height: 100%; */
     width: 4.3vw;
     margin: 0px;
   }
@@ -85,13 +96,12 @@ button img {
     font-size: 12px;
     margin-top: 0.2rem;
   }
-}
+} */
+
 /* for mobiles  */
-@media (min-width: 320px) and (max-width: 480px) {
+/* @media (min-width: 320px) and (max-width: 480px) {
   button {
-    /* max-width: 2em; */
-    /* margin-top: 1.2rem; */
-    /* transform: scale(0.65); */
+
     height: auto;
   }
   img {
@@ -101,44 +111,49 @@ button img {
     margin-top: 6px;
   }
   .bg-cl-transparent span{
-    /* margin-top: 0.3rem; */
         font-size: 11px;
   }
-}
+} */
+
 /* for tablets devices */
-@media (min-width: 768px) and (max-width: 991px) {
+/* @media (min-width: 768px) and (max-width: 991px) {
   button img {
     height: 32px;
     margin-top: 27px;
   }
-}
-/* img {
-  height: 31px;
 } */
-/* @media (max-width: 399px) {
+
+/* @media (min-width: 992px) { 
   button img {
-    height: 24px;
+    height: 25px;
   }
-} */
-@media (min-width: 992px) { 
- button img {
-   height: 25px;
- }
- }
- @media (max-width: 319px) {
+ } */
+
+ /* @media (max-width: 319px) {
    button{
      height: 40px;
    }
    button img {
       width: 4.3vw;
     height: 27px;
- }
- .bg-cl-transparent{
-       margin-right: 0.2rem;
- }
- .bg-cl-transparent span{
-    font-size: 10px;
-     margin-top: 0;
- }
- }
+  }
+  .bg-cl-transparent{
+        margin-right: 0.2rem;
+  }
+  .bg-cl-transparent span{
+      font-size: 10px;
+      margin-top: 0;
+  }
+ } */
+/* @media (min-width: 767px) and (max-width: 1199px) {
+  .headerIconsNew > a .iconContainer {
+    width: 16px;
+  }
+} */
+
+@media (max-width: 767px) {
+  .headerIconsNew > a .iconContainer {
+    width: 16.5px;
+  }
+}
 </style>
