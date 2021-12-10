@@ -555,11 +555,11 @@ header {
   }
 }
 // for movile view less than 767px
-@media (max-width: 767px) {
-   .account-icon{
-    margin-right: 1.25rem !important;
-  }
-}
+// @media (max-width: 767px) {
+//    .account-icon{
+//     margin-right: 1.25rem !important;
+//   }
+// }
 
 
 //
@@ -582,7 +582,7 @@ header {
     margin-right: 1.25rem;
   }
   .account-icon{
-    margin-right: 0.938rem;
+    margin-right: 1.25rem;
   }
 }
  @media (max-width: 1199px) and(min-width: 992px) {
@@ -698,7 +698,7 @@ img.checkout-user {
     margin-right: 1.5rem;
   }
   .account-icon{
-    margin-right: 1.188rem;
+    margin-right: 1.5rem;
   }
 }
 
