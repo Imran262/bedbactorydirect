@@ -157,7 +157,7 @@ img.checkout-contact {
     
   }
   .phone.phone-icon.icon.pointer.t-mobile {
-      padding-right: 3vw;
+      padding-right: 20px;
   }
 }
 

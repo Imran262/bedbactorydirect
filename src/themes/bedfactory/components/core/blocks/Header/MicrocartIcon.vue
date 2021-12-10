@@ -257,7 +257,7 @@ export default {
 }
 
 .price {
-  margin-top: 1px;
+  margin-top: 2px;
   font-size: 9px;
   color: #2a275b;
   font-weight: 600;
@@ -272,11 +272,18 @@ export default {
   .cart {
     padding: 0;
   }
+  .price  {
+    font-size: 9px;
+  }
+}
+@media (max-width: 991px) {
+  .price  {
+      margin-top: 1px;
+  }
 }
 @media (min-width: 993px) {
   .price  {
       font-size: 10px;
-
   }
 }
 </style>

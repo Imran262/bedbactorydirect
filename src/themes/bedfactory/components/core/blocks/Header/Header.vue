@@ -392,7 +392,7 @@ span.log-in-detail {
     justify-content: space-between;
   @media (max-width: 992px) {
     padding-left: 0px;
-    gap: 3vw;
+    // gap: 3vw;
   }
 }
 header {
@@ -639,6 +639,12 @@ header {
   .fullCloseCart {
     display: none !important;
   }
+  .location-icon{
+    margin-right: 20px;
+  }
+  .account-icon{
+    margin-right: 20px;
+  }
 }
  @media (max-width: 1199px) and(min-width: 992px) {
     .sb-icons-new{
@@ -760,9 +766,15 @@ img.checkout-user {
 }
 @media screen and (min-width: 991px) {
 
-.inner-icons {
-  gap: 20px;
-}
+  /* .inner-icons {
+    gap: 20px;
+  } */
+  .location-icon{
+    margin-right: 24px;
+  }
+  .account-icon{
+    margin-right: 19px;
+  }
 }
 
 </style>
