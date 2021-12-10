@@ -431,18 +431,6 @@ header {
   }
 }
 
-// @media (min-width: 992px) and (max-width: 1199px) {
-//   .r-icons1 {
-//     padding: 0 !important;
-//   }
-//   .account-icon{
-//     margin: 0;
-//   }
-// }
-
-// .t-mobile {
-//   padding-left: 8px;
-// }
 
 .right-icons {
   //for edge
@@ -499,17 +487,9 @@ header {
     width: 133px;
   }
 }
-// @media (min-width: 600px) and (max-width: 767px) {
-//   .header {
-//     height: 133px !important;
-//   }
-// }
+
 @media  (max-width: 767px) {
-  // .header {
-  //   height: 8.4rem;
-  //   position: relative;
-  //   z-index: 9;
-  // }
+ 
   .row.middle-xs {
     margin: 0 -15px;
     &.py5 {
@@ -525,12 +505,8 @@ header {
   a,
   span {
     font-size: 12px;
-    // display: block;
   }
-  // .r-icons,
-  // .r-icons1 {
-  //   padding: 0px;
-  // }
+ 
   .sb-icons {
     display: flex;
     justify-content: flex-end;
@@ -549,9 +525,7 @@ header {
     position: relative;
     z-index: 10;
   }
-  // header {
-  //   height: 7.625rem;
-  // }
+
   .container {
     padding-right: 0px;
     padding-left: 0px;
@@ -566,30 +540,9 @@ header {
     position: relative;
     top: 4px;
   }
-  // .basket-loc-box {
-  //   height: 100%;
-  //   max-height: 50px;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   padding-top: 6px;
-  // }
-  // .r-icons {
-  //   width: 16.7vw;
-  // }
-  // .account-icon {
-  //   width: 13.5vw;
-  // }
-}
-@media  (max-width: 319px) {
-// .header{
-//       height: 6.3rem;
-// }
-// header{
-//      height: 6.4rem;
-// }
 
 }
+
 @media (min-width: 320px) and (max-width: 480px) {
   .notcheckoutheader {
     height: 6.4rem;
@@ -600,28 +553,14 @@ header {
   .search-bar {
     padding-top: 0;
   }
-  // .account-icon{
-  //   margin-right: 6px;
-  //       margin-left: 12px;
-  // }
-  // .basket-loc-box{
-  //   justify-content: flex-end;
-  // }
 }
 // for movile view less than 767px
 @media (max-width: 767px) {
-  // .r-icons3 {
-  //   margin-top: 19px;
-  //   margin-left: 0;
-  // }
+   .account-icon{
+    margin-right: 1.25rem !important;
+  }
 }
-@media (max-width: 480px){
-  //   .r-icons3 {
-  //   margin-top: -4px;
-  //   margin-left: 0;
-  // }
 
-}
 
 //
 @media (max-width: 992px) and (min-width: 768px) {
@@ -640,10 +579,10 @@ header {
     display: none !important;
   }
   .location-icon{
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
   .account-icon{
-    margin-right: 15px;
+    margin-right: 0.938rem;
   }
 }
  @media (max-width: 1199px) and(min-width: 992px) {
@@ -741,23 +680,9 @@ a.cl-tertiary.links img {
 img.checkout-user {
   width: 22px;
 }
-@media (min-width: 481px) and (max-width: 767px) {
- /* .t-mobile{
-   position: relative;
-    padding: 0px;
-    margin: 0px;
-    width: 12.7vw;
-  } */
-}
+
 @media (min-width: 280px) and (max-width: 480px) {
-   /* .t-mobile{
-   position: relative;
-    padding: 0px !important;
-    margin: 0px;
-    top: -5px;
-    width: 11.7vw;
-    height: 90px;
-  } */
+
   .sb-icons {
     display: flex;
     justify-content:flex-start;
@@ -770,10 +695,10 @@ img.checkout-user {
     gap: 20px;
   } */
   .location-icon{
-    margin-right: 24px;
+    margin-right: 1.5rem;
   }
   .account-icon{
-    margin-right: 19px;
+    margin-right: 1.188rem;
   }
 }
 
