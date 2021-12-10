@@ -643,7 +643,7 @@ header {
     margin-right: 20px;
   }
   .account-icon{
-    margin-right: 20px;
+    margin-right: 15px;
   }
 }
  @media (max-width: 1199px) and(min-width: 992px) {
