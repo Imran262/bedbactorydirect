@@ -642,7 +642,10 @@ header {
 }
  @media (max-width: 1199px) and(min-width: 992px) {
     .sb-icons-new{
-      justify-content: flex-end;
+      justify-content: space-between;
+    }
+    .phone.phone-icon.icon.pointer.t-mobile {
+        padding-left: 8%;
     }
   }
 .scrollimg {

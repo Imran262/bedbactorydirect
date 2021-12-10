@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="bg-cl-transparent brdr-none inline-flex"
+    class="bg-cl-transparent brdr-none mobile-inline-flex"
     @click="openSidebarMenu(), colorChange(), toggleMenu()"
     :aria-label="$t('Open menu')"
     data-testid="menuButton"
@@ -44,16 +44,16 @@ button i {
   /* font-size: 31px;
   color: #29275b; */
   position: absolute;
-  border-top: 1px solid #0B1A44;
-  border-left: 1px solid #0B1A44;
-  border-right: 1px solid #0B1A44;
-  border-bottom: 1px solid #0B1A44;
+  border-top: 2px solid #e3e3e5;
+  border-left: 2px solid #c2c2c2;
+  border-right: 1px solid #c2c2c2;
+  border-bottom: 2px solid #e3e3e5;
   bottom: 15px;
-  left: 0px;
+  left: -2px;
   width: 40px;
   height: 35px;
   line-height: 1.2;
-  background: #ffffff url('/assets/menu-blue.svg') no-repeat 50% 50%;
+  background: #fff url('/assets/menu-blue.svg') no-repeat 50% 50%;
 }
 .hamberger-color {
   color: #fff;
@@ -81,7 +81,10 @@ button i {
     bottom: 0;
   }
   i#hamberger {
-    bottom: 2px !important;
-}
+    bottom: 15px!important;
+  }
+  .mobile-inline-flex{
+    display: inline-flex;
+  }
 }
 </style>

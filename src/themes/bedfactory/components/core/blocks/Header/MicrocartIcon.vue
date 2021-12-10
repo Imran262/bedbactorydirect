@@ -264,120 +264,7 @@ export default {
   font-family: "ROBOTO";
   display: block !important;
 }
-// @media (max-width: 1199px) {
 
-//   .cart {
-//     padding: 0px;
-//     -ms-flex-align: center;
-//     align-items: center;
-//     margin: 0px;
-//     min-width: auto !important;
-//   }
-//   .minicart-count {
-//     top: 0px;
-//     left: 48px;
-//     width: 16px;
-//     height: 16px;
-//     font-size: 10px;
-//   }
-//   .price {
-//     margin-top: 0;
-//     font-size: 9px;
-//   }
-// }
-// @media (max-width: 991px) {
-
-//   .cart {
-//     height: 100%;
-//     width: 100%;
-//     max-width: 53px;
-//     padding: 0px;
-//     -ms-flex-align: center;
-//     align-items: center;
-//     margin: 0px;
-//   }
-//   .price {
-//     display: none;
-//   }
-//   .minicart-count {
-//     left: 63%;
-//     top: 3px;
-//     width: 14px;
-//     height: 14px;
-//     font-size: 9px;
-//   }
-// }
-// @media (max-width: 767px) {
-//   .cart {
-//     min-width: 0px;
-//     height: 100%;
-//     width: 100%;
-//     padding: 0px;
-//     align-items: center;
-//   }
-//   .cart img {
-//     width: 30px;
-//     margin: 0px;
-//     margin-top: 0px;
-//     min-height: 40px;
-//   }
-//   .minicart-count {
-//     top: -6px;
-//     left: 35px;
-//     width: 22px;
-//     height: 22px;
-//     font-size: 14px;
-//   }
-//   .price {
-//     display: none;
-//     margin-top: 4px;
-//   }
-// }
-// @media (max-width: 480px) {
-//   .cart {
-//     max-width: 3em;
-//     img {
-//       width: 25px;
-//       min-height: 30px;
-//       margin: 0;
-//     }
-//     .price{
-//       font-size: 11px;
-//     }
-//   }
-//   .minicart-count {
-//     top: -2px;
-//     left: 25px;
-//     width: 14px;
-//     height: 14px;
-//     font-size: 9px;
-//   }
-// }
-// @media (max-width: 420px) {
-//   .cart img {
-//     width: 25px;
-//     min-height: 30px;
-//   }
-// }
-// @media (max-width: 340px) {
-//   .cart img {
-//     width: 18px;
-//     min-height: 20px;
-//   }
-// }
-// @media (max-width: 319px) {
-//   .price {
-//   font-size: 10px;
-//   }
-// }
-// @media (min-width: 767px) and (max-width: 1199px) {
-//   .price {
-//     font-size: 9px;
-//   }
-//   .iconContainer {
-//     width: 24px;
-//   }
-// }
 @media (max-width: 767px) {
   .iconContainer {
     width: 24.7px;
@@ -386,7 +273,7 @@ export default {
     padding: 0;
   }
 }
-@media (min-width: 993x) {
+@media (min-width: 993px) {
   .price  {
       font-size: 10px;
 

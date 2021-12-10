@@ -163,77 +163,8 @@ $color-icon-hover: color(secondary, $colors-background);
       opacity: 1;
     }
   }
-  // @media (min-width: 767px) {
-  //   &:hover .dropdown-content:not(.dropdown-content__hidden),
-  //   &:focus .dropdown-content:not(.dropdown-content__hidden) {
-  //     display: block;
-  //   }
-  //   &:focus-within {
-  //     opacity: 1;
-  //     .dropdown-content:not(.dropdown-content__hidden) {
-  //       display: block;
-  //     }
-  //   }
-  // }
 }
 
-// @media (min-width: 767px) and (max-width: 1199px) {
-//   .dropdown img {
-//     margin-top: 0px;
-//   }
-
-//   .account {
-//     font-size: 9px;
-//   }
-//   .headerIconsNew > a .iconContainer {
-//     width: 21px;
-//   }
-// }
-
-// @media (max-width: 767px) {
-//   .dropdown {
-//     padding: 0px;
-//     button {
-//       height: 55px;
-//       max-width: 4em;
-//       padding: 0px;
-//     }
-//   }
-//   .dropdown img {
-//     padding-top: 15px;
-//     margin: 0px;
-//   }
-//   .account {
-//     margin-top: 0.3rem;
-//   }
-// }
-
-// @media (min-width: 320px) and (max-width: 480px) {
-//   .dropdown {
-//     button {
-//       max-width: 4em;
-//       height: 51px;
-//       padding-right: 0;
-//     }
-//     img {
-//       padding-top: 0;
-//     }
-//   }
-// .account{
-//         font-size: 11px;
-//   }
-// }
-
-// @media (max-width: 319px) {
-//   .dropdown img {
-//     padding-top: 2px;
-//     height: 20px;
-
-//   }
-//   .account{
-//         font-size: 10px;
-//   }
-// }
 @media (max-width: 767px) {
   .headerIconsNew > a .iconContainer {
     width: 22px;
@@ -241,8 +172,8 @@ $color-icon-hover: color(secondary, $colors-background);
 }
 @media (min-width: 991px) {
   .account {
-  font-size: 10px;
-  
-}
+    font-size: 10px;
+    
+  }
 }
 </style>
