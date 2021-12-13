@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div
       class="inline-flex relative dropdown headerIconsNew"
       data-testid="accountButton"
@@ -65,7 +64,6 @@
     </div>
     <!-- <router-link :to="localizedRoute('/my-account')" exact v-else>
    </router-link> -->
-  </div>
 </template>
 
 <script>
@@ -163,6 +161,21 @@ $color-icon-hover: color(secondary, $colors-background);
       opacity: 1;
     }
   }
+
+  @media (min-width: 768px) {
+    &:hover .dropdown-content:not(.dropdown-content__hidden),
+    &:focus .dropdown-content:not(.dropdown-content__hidden) {
+      display: block;
+    }
+
+    &:focus-within {
+      background-color: $color-icon-hover;
+      opacity: 1;
+      .dropdown-content:not(.dropdown-content__hidden) {
+        display: block;
+      }
+    }
+  }
 }
 
 @media (max-width: 767px) {
@@ -176,4 +189,5 @@ $color-icon-hover: color(secondary, $colors-background);
     
   }
 }
+
 </style>
