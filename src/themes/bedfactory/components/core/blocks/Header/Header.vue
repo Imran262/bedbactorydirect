@@ -701,5 +701,12 @@ img.checkout-user {
     margin-right: 1.5rem;
   }
 }
+@media screen and (min-width: 1200px) {
+
+  .phone.phone-icon.icon.pointer.t-mobile {
+    padding-left: 12%;
+  }
+}
+
 
 </style>

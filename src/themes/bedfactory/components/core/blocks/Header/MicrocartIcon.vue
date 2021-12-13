@@ -240,15 +240,16 @@ export default {
   max-width: 100%;
 }
 .minicart-count {
-  top: -7px;
-  left: 38px;
-  width: 18px;
-  height: 18px;
+  top: -1px;
+  left: 24px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #ee4c56;
+  font-size: 11px;
 }
 .cart {
   display: flex;
@@ -287,4 +288,5 @@ export default {
       font-size: 10px;
   }
 }
+
 </style>
