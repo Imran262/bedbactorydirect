@@ -11,8 +11,7 @@
     >
       <div class="iconContainer">
         <img src="/assets/icons/basket.svg" alt="basket" />
-      </div>
-      <span
+        <span
         class="
           minicart-count
           absolute
@@ -32,6 +31,8 @@
         data-testid="minicartCount"
         >{{ totalItems.length }}
       </span>
+      </div>
+      
 
       <span
         v-if="totalQuantity > 0"
@@ -235,13 +236,14 @@ export default {
 }
 .iconContainer {
   width: 27px;
+  position: relative;
 }
 .iconContainer img {
   max-width: 100%;
 }
 .minicart-count {
   top: -1px;
-  left: 25px;
+  left: 19px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -278,7 +280,7 @@ export default {
     font-size: 9px;
   }
   .minicart-count {
-    left: 22px;
+    left: 17px;
   }
 }
 @media (max-width: 991px) {
@@ -294,7 +296,7 @@ export default {
 }
 @media (max-width: 991px) and (min-width: 768px) {
    .minicart-count {
-    left: 23px;
+    left: 19px;
   }
 }
 </style>
