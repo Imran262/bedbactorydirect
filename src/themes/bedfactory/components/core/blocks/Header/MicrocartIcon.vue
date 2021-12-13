@@ -241,7 +241,7 @@ export default {
 }
 .minicart-count {
   top: -1px;
-  left: 24px;
+  left: 25px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -277,16 +277,24 @@ export default {
   .price  {
     font-size: 9px;
   }
+  .minicart-count {
+    left: 22px;
+  }
 }
 @media (max-width: 991px) {
   .price  {
       margin-top: 1px;
   }
+  
 }
 @media (min-width: 993px) {
   .price  {
       font-size: 10px;
   }
 }
-
+@media (max-width: 991px) and (min-width: 768px) {
+   .minicart-count {
+    left: 23px;
+  }
+}
 </style>
