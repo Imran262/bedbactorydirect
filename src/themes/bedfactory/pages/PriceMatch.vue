@@ -106,10 +106,11 @@
                     <label for="phone-number"> Phone <span>*</span></label>
                     <div class="input-field">
                       <base-input
-                        type="number"
+                        type="tel"
                         name="phone-number"
                         autocomplete="tel"
                         v-model="user.phone"
+                        @keyup="onChanged(user.phone)"
                         @blur="$v.user.phone.$touch()"
                         :validations="[
                           {
@@ -117,6 +118,7 @@
                               !$v.user.phone.required && $v.user.phone.$error,
                             text: $t('Field is required.'),
                           },
+                          
                         ]"
                       />
                     </div>
@@ -460,7 +462,7 @@
 <script>
 import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
 import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import { required, email, minLength, sameAs, maxLength } from "vuelidate/lib/validators";
 import axios from "axios";
 import config from "config";
 import i18n from "@vue-storefront/i18n";
@@ -740,6 +742,9 @@ export default {
             { root: true }
           );
         });
+    },
+    onChanged (text) {
+      this.user.phone = text.replace(/[^0-9]/g, '');
     },
   },
   beforeMount() {
