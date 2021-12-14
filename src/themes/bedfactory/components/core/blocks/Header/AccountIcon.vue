@@ -27,6 +27,8 @@
         <div class="iconContainer">
           <img src="/assets/icons/user.svg" alt="user login" />
         </div>
+          <span class="account">Account</span>
+
         <!-- </button> -->
       </router-link>
       <no-ssr>
