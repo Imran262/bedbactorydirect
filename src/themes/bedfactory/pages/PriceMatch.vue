@@ -787,36 +787,40 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="text"] {
+// input[type="text"] {
   // width: 100%;
   // padding: 12px 20px;
   // margin: 8px 0;
-  box-sizing: border-box;
+  // box-sizing: border-box;
   // border: 3px solid #ccc;
   // -webkit-transition: 0.5s;
   // transition: 0.5s;
-  outline: none;
-}
-input[type="text"]:focus {
-  border: 2px solid #747474 !important;
-}
+  // outline: none;
+// }
+// input[type="text"]:focus {
+//   border: 2px solid #747474 !important;
+// }
 
 /// for number
-input[type="number"] {
-  box-sizing: border-box;
-  outline: none;
-}
-input[type="number"]:focus {
-  border: 2px solid #747474 !important;
-}
+// input[type="number"] {
+//   box-sizing: border-box;
+//   outline: none;
+// }
+// input[type="number"]:focus {
+//   border: 2px solid #747474 !important;
+// }
 
 /// for Email
-input[type="email"] {
-  box-sizing: border-box;
-  outline: none;
-}
-input[type="email"]:focus {
+// input[type="email"] {
+//   outline: none;
+// }
+// input[type="email"]:focus {
+//   border: 2px solid #747474 !important;
+// }
+input:hover, input:focus {
   border: 2px solid #747474 !important;
+  outline: none !important;
+  box-sizing: border-box;
 }
 .size1 {
   color: #747474;
