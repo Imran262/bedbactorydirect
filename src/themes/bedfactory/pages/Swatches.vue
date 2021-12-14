@@ -166,7 +166,6 @@
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    :autofocus="true"
                     name="first-name"
                     autocomplete="given-name"
                     v-model.trim="user.firstName"
@@ -217,15 +216,17 @@
                 </label>
                 <div class="ui-input-text">
                   <base-input
-                    type="number"
-                    name="phone-number"
-                    autocomplete="tel"
-                    v-model="user.phone"
-                    @blur="$v.user.phone.$touch()"
+                    type="tel"
+                    id="telephone"
+                    name="shipping-country"
+                    required
+                    v-model="user.telephone"
+                    @keyup="onChanged(user.telephone)"
+                   @blur="$v.user.telephone.$touch()"
                     :validations="[
                       {
                         condition:
-                          !$v.user.phone.required && $v.user.phone.$error,
+                          !$v.user.telephone.required && $v.user.telephone.$error,
                         text: $t('Field is required.'),
                       },
                     ]"
@@ -560,6 +561,7 @@ export default {
         city: "",
         postCode2: "",
         postCode: "",
+        telephone: null,
       },
       swatches: [],
       swatchBasket: [],
@@ -578,9 +580,13 @@ export default {
       lastName: {
         required,
       },
-      phone: {
-        required,
+      telephone: {
+        required
+
       },
+      // phone: {
+      //   required,
+      // },
       addressLine1: {
         required,
       },
@@ -593,6 +599,9 @@ export default {
     },
   },
   methods: {
+    onChanged (text) {
+      this.user.telephone = text.replace(/[^0-9]/g, '')
+    },
     assignAddressValues() {
       var ele1 = document.getElementById("address_manuall_1").value;
       this.user.addressLine1 = ele1;
@@ -680,12 +689,13 @@ export default {
       } = this.shippingDetails;
       this.user.firstName = firstName;
       this.user.lastName = lastName;
-      this.user.phone = phone;
+      // this.user.phone = phone;
       this.user.city = city;
       this.user.postCode = postcode;
       this.user.postCode2 = postcode;
       this.user.addressLine1 = street;
       this.user.addressLine2 = house;
+      this.user.telephone = phone;
       this.user.email =
         this.currentUser && this.currentUser.email
           ? this.currentUser.email
@@ -1142,8 +1152,9 @@ img.home-breadcrumb-icon-img {
   border-radius: 4px;
   border: 1px solid #dfdfdf;
   background: #fff;
-  /* height: 30px; */
+  height: unset !important;
   width: 100%;
+  line-height: 1.6;
   padding: 0 3px;
   color: #747474;
 }
@@ -1172,7 +1183,8 @@ img.home-breadcrumb-icon-img {
   border: 1px solid #dfdfdf;
   background: #fff;
   width: 100%;
-  /* height: 30px; */
+  height: unset !important;
+  line-height: 2;
   outline: none;
   font-size: 14px;
   padding: 0 8px;
@@ -1339,7 +1351,7 @@ a.ui-link {
     color: #747474;
     font-weight: 400;
     font-family: "Raleway", sans-serif;
-    font-size: 2.4vw;
+    font-size: 2.2vw;
     margin-bottom: 0px;
     text-align: center;
     margin-bottom: 50px;
@@ -1375,7 +1387,7 @@ a.ui-link {
     width: 89px;
   }
   .fabrics-detail ul li:nth-child(3n + 3) {
-    margin-right: 0;
+    /* margin-right: 0; */
   }
 }
 /* @media only screen and (min-device-width: 481px) and (max-device-width: 767px) {
