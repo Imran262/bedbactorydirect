@@ -78,17 +78,16 @@ export default {
         autoplay: true,
         autoplaySpeed: 2000,
         pauseOnFocus: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         responsive: [
           {
-            breakpoint: 1024,
+            breakpoint: 1200,
             settings: {
               infinite: true,
-              slidesToShow: 3,
+              slidesToShow: 4,
               slidesToScroll: 1,
               autoplay: true,
               autoplaySpeed: 2000,
-              pauseOnFocus: true,
               pauseOnHover: true,
             },
           },
@@ -99,10 +98,9 @@ export default {
               slidesToShow: 1,
               slidesToScroll: 1,
               autoplay: true,
+              focusOnSelect: false,
               autoplaySpeed: 2000,
-              pauseOnFocus: true,
-              pauseOnHover: true,
-            }
+            },
           },
         ],
       },
@@ -177,6 +175,15 @@ a.usp-a {
   margin-left: 10px;
   margin-top: 4px;
   color: #071a44;
+}
+/* Landscape tablets and medium desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .home_delivery_text {
+    margin-left: 10px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #071a44;
+  }
 }
 .bedfactorydirect {
   text-align: center;
