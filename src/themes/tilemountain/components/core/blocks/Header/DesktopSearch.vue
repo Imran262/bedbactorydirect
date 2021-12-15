@@ -423,7 +423,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   .addborders {
-    border: 1px solid #29a795 !important;
+    border: 1px solid #747474  !important;
   }
 }
 @media screen and (min-width: 768px) {
@@ -690,6 +690,11 @@ export default {
             padding: 0px;
             padding-left: 4rem;
             -webkit-appearance: none;
+
+            &:hover, &:focus{
+              border: 2px solid #e3e3e5;
+              box-sizing: unset;
+            }
           }
 
           .search-icon {
