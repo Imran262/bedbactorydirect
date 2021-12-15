@@ -423,7 +423,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   .addborders {
-    border: 1px solid #747474  !important;
+    border: 1px solid #0B1A44  !important;
   }
 }
 @media screen and (min-width: 768px) {
@@ -471,7 +471,7 @@ export default {
       right: 59px;
       width: 100%;
       max-width: 396px;
-      border: 2px solid #29a795;
+      border: 2px solid #0B1A44;
       border-top: none;
       @media screen and (max-width: 767px) {
         border: 3px solid #168ae5;
@@ -721,9 +721,9 @@ export default {
           overflow: auto;
           overflow: auto;
           @media screen and (max-width: 767px) {
-            border-left: 2px solid #29a795 !important;
-            border-right: 2px solid #29a795 !important;
-            border-bottom: 2px solid #29a795 !important;
+            border-left: 2px solid #e3e3e5 !important;
+            border-right: 2px solid #e3e3e5 !important;
+            border-bottom: 2px solid #e3e3e5 !important;
           }
         }
       }
