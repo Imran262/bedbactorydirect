@@ -970,7 +970,7 @@ input[type="email"]:focus {
   width: 100%;
 }
 .ui-input-text .relative {
-  min-height: 0rem;
+  min-height: 0rem !important;
 }
 .fabric-tile__trigger {
   position: absolute;
