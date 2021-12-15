@@ -158,7 +158,7 @@
             <div class="hidden" id="hidden_div"></div>
 
             <div class="row mainFormRow">
-              <div class="field required">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour">
                 <label for="first-name">
                   First Name
                   <span>*</span>
@@ -185,7 +185,7 @@
                   />
                 </div>
               </div>
-              <div class="field required">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour">
                 <label for="last-name">
                   Last Name
                   <span>*</span>
@@ -208,8 +208,8 @@
                 </div>
               </div>
             </div>
-            <div class="row mainFormRow">
-              <div class="field required">
+            <div class="row mainFormRow marginTop">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour">
                 <label for="phone-number">
                   Phone
                   <span>*</span>
@@ -217,23 +217,24 @@
                 <div class="ui-input-text">
                   <base-input
                     type="tel"
-                    id="telephone"
+                    id="phone"
                     name="shipping-country"
                     required
-                    v-model="user.telephone"
-                    @keyup="onChanged(user.telephone)"
-                   @blur="$v.user.telephone.$touch()"
+                    v-model="user.phone"
+                    @keyup="onChanged(user.phone)"
+                    @blur="$v.user.phone.$touch()"
                     :validations="[
                       {
                         condition:
-                          !$v.user.telephone.required && $v.user.telephone.$error,
+                          !$v.user.phone.required &&
+                          $v.user.phone.$error,
                         text: $t('Field is required.'),
                       },
                     ]"
                   />
                 </div>
               </div>
-              <div class="field required">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour">
                 <label for="email-address">
                   Email
                   <span>*</span>
@@ -328,7 +329,7 @@
                 </div>
               </div> -->
 
-              <div class="field-full required">
+              <div class="field-full required marginBottom">
                 <label for="order_postcode"> Address Finder </label>
                 <div class="ui-input-text">
                   <base-input
@@ -379,97 +380,92 @@
                 </p>
 
                 <div class="manually-added-fields">
-                  <p class="input-wrapper lg-half address-postcode">
-                    <label>Address line 1 <span class="star">*</span></label>
-                    <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                    <base-input
-                      type="text"
-                      id="address_manuall_1"
-                      name="street-address"
-                      required
-                      placeholder=""
-                      v-model="user.addressLine1"
-                      @blur="$v.user.addressLine1.$touch()"
-                      :validations="[
-                        {
-                          condition:
-                            !$v.user.addressLine1.required &&
-                            $v.user.addressLine1.$error,
-                          text: $t('Field is required.'),
-                        },
-                      ]"
-                    />
-                  </p>
-                  <p class="input-wrapper lg-half address-postcode">
-                    <label>Address line 2</label>
-                    <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                    <input
-                      type="text"
-                      id="address_2"
-                      name="street-address"
-                      required
-                      placeholder=""
-                      v-model="user.addressLine2"
-                    />
-                  </p>
-                  <p
-                    class="input-wrapper lg-half address-line"
-                    style="display: none"
-                  >
-                    <input
-                      type="text"
-                      id="address_2"
-                      name="apartment-number"
-                      placeholder="Line 2"
-                      v-model="user.addressLine2"
-                    />
-                  </p>
-                  <!-- <p class="input-wrapper lg-half">
-                    <input
-                      type="text"
-                      name="company-name"
-                      id="shipping-company"
-                      placeholder="Company"
-                      v-model="user.company"
-                    />
-                  </p> -->
-                  <p class="input-wrapper lg-half city-lg-half">
-                    <label>Town <span class="star">*</span></label>
-                    <base-input
-                      type="text"
-                      id="city"
-                      name="city"
-                      required
-                      placeholder=""
-                      v-model="user.city"
-                      @blur="$v.user.city.$touch()"
-                      :validations="[
-                        {
-                          condition:
-                            !$v.user.city.required && $v.user.city.$error,
-                          text: $t('Field is required.'),
-                        },
-                      ]"
-                    />
-                  </p>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode">
+                            <label>Address line 1 <span class="star">*</span></label>
+                            <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                            <base-input
+                            type="text"
+                            id="address_manuall_1"
+                            name="street-address"
+                            required
+                            placeholder=""
+                            v-model="user.addressLine1"
+                            @blur="$v.user.addressLine1.$touch()"
+                            :validations="[
+                                {
+                                condition:
+                                    !$v.user.addressLine1.required &&
+                                    $v.user.addressLine1.$error,
+                                text: $t('Field is required.'),
+                                },
+                            ]"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode">
+                            <label>Address line 2</label>
+                            <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                            <input
+                            type="text"
+                            id="address_2"
+                            name="street-address"
+                            required
+                            placeholder=""
+                            v-model="user.addressLine2"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 address-line"
+                            style="display: none">
+                            <input
+                            type="text"
+                            id="address_2"
+                            name="apartment-number"
+                            placeholder="Line 2"
+                            v-model="user.addressLine2"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 city-lg-half">
+                            <label>Town <span class="star">*</span></label>
+                            <base-input
+                            type="text"
+                            id="city"
+                            name="city"
+                            required
+                            placeholder=""
+                            v-model="user.city"
+                            @blur="$v.user.city.$touch()"
+                            :validations="[
+                                {
+                                condition:
+                                    !$v.user.city.required && $v.user.city.$error,
+                                text: $t('Field is required.'),
+                                },
+                            ]"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  find-address-type">
+                            <label>Postcode <span class="star">*</span></label>
+                            <input
+                            type="text"
+                            required
+                            id="find_address_manuall"
+                            placeholder=""
+                            v-model="user.postCode2"
+                            @blur="$v.user.postCode2.$touch()"
+                            :validations="[
+                                {
+                                condition:
+                                    !$v.user.postCode2.required &&
+                                    $v.user.postCode2.$error,
+                                text: $t('Field is required.'),
+                                },
+                            ]"
+                            />
+                        </div>
+                    </div>
+                 
                   <p class="input-wrapper lg-half find-address-type">
-                    <label>Postcode <span class="star">*</span></label>
-                    <input
-                      type="text"
-                      required
-                      id="find_address_manuall"
-                      placeholder=""
-                      v-model="user.postCode2"
-                      @blur="$v.user.postCode2.$touch()"
-                      :validations="[
-                        {
-                          condition:
-                            !$v.user.postCode2.required &&
-                            $v.user.postCode2.$error,
-                          text: $t('Field is required.'),
-                        },
-                      ]"
-                    />
+                    
                   </p>
                 </div>
                 <label
@@ -561,7 +557,6 @@ export default {
         city: "",
         postCode2: "",
         postCode: "",
-        telephone: null,
       },
       swatches: [],
       swatchBasket: [],
@@ -580,13 +575,9 @@ export default {
       lastName: {
         required,
       },
-      telephone: {
-        required
-
+      phone: {
+        required,
       },
-      // phone: {
-      //   required,
-      // },
       addressLine1: {
         required,
       },
@@ -600,7 +591,7 @@ export default {
   },
   methods: {
     onChanged (text) {
-      this.user.telephone = text.replace(/[^0-9]/g, '')
+        this.user.phone = text.replace(/[^0-9]/g, "");
     },
     assignAddressValues() {
       var ele1 = document.getElementById("address_manuall_1").value;
@@ -689,13 +680,12 @@ export default {
       } = this.shippingDetails;
       this.user.firstName = firstName;
       this.user.lastName = lastName;
-      // this.user.phone = phone;
+      this.user.phone = phone;
       this.user.city = city;
-      this.user.postCode = postcode;
+      this.user.postCode = "";
       this.user.postCode2 = postcode;
       this.user.addressLine1 = street;
-      this.user.addressLine2 = house;
-      this.user.telephone = phone;
+      this.user.addressLine2 = house ? house : " ";
       this.user.email =
         this.currentUser && this.currentUser.email
           ? this.currentUser.email
@@ -1128,14 +1118,14 @@ img.home-breadcrumb-icon-img {
   min-height: 110px;
   cursor: pointer;
 }
-.swatch-basket form .field {
+.swatch-basket > form .field {
   padding: 0px;
   margin-bottom: 15px;
   width: 46%;
   margin-right: 8px;
   display: inline-block;
 }
-.swatch-basket form .field label {
+.swatch-basket > form label {
   display: block;
   margin-bottom: 8px;
   text-align: left;
@@ -1143,20 +1133,24 @@ img.home-breadcrumb-icon-img {
   color: #747474;
   font-size: 14px;
 }
-.swatch-basket form .field.required label > span {
+.swatch-basket > form label > span {
   display: inline;
   color: #ef0b0b;
 }
-.swatch-basket form .field input {
+.swatch-basket > form input {
   display: block;
   border-radius: 4px;
   border: 1px solid #dfdfdf;
   background: #fff;
   height: unset !important;
   width: 100%;
-  line-height: 1.6;
+  line-height: 28px;
+  font-size:14px;
   padding: 0 3px;
   color: #747474;
+}
+.swatch-basket > form input:focus, .swatch-basket > form input:hover {
+  border: 1px solid #747474 !important;
 }
 .swatch-basket form .field-full {
   padding: 0px;
@@ -1411,5 +1405,20 @@ a.ui-link {
 }
 .tempClass {
   background: tomato;
+}
+.paddingLeftFour{
+  padding-left: 4px !important;
+}
+.paddingRightFour{
+  padding-right: 4px !important;
+}
+.minHeight0 > .base-input {
+    min-height: 0 !important;
+}
+.minHeight0, .marginBottom {
+    margin-bottom: 15px;
+}
+.marginTop {
+    margin-top: 15px;
 }
 </style>
