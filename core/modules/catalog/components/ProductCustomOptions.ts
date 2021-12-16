@@ -45,6 +45,7 @@ export const ProductCustomOptions = {
         return { error, message }
       }
     })
+    console.log('here I came everytime')
     this.setupInputFields()
   },
   methods: {
@@ -58,10 +59,12 @@ export const ProductCustomOptions = {
         if (customOption.is_require) { // validation rules are very basic
           this.$set(this.validation.rules, fieldName, 'required') // TODO: add custom validators for the custom options
         }
-        this.optionChanged(customOption)
+        console.log('imran as well')
+        // this.optionChanged(customOption)
       }
     },
     optionChanged (option) {
+      console.log('option changed')
       const fieldName = customOptionFieldName(option)
       this.validateField(option)
       this.setCustomOptionValue({ optionId: option.option_id, optionValue: this.selectedOptions[fieldName] })
@@ -76,6 +79,7 @@ export const ProductCustomOptions = {
         const validator = this.$store.state.product.custom_options_validators[validationRule]
         if (typeof validator === 'function') {
           const validationResult = validator(this['inputValues'][fieldName])
+          console.log("hgafdhahgfjsa", validationResult);
           this.validation.results[fieldName] = validationResult
           if (validationResult.error) {
             this.product.errors['custom_options_' + fieldName] = i18n.t('Please configure product custom options and fix the validation errors')

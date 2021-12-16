@@ -3,17 +3,16 @@
     <form class="custom-options" v-if="product.custom_options">
       <div
         v-for="(option, count) in product.custom_options"
-        :key="'customOption_' + option.option_id + count"
-      >
+        :key="'customOption_' + option.option_id + count">
         <h4 v-if="!color" class="basin-head">{{ option.title }} </h4>
         <div
           v-if="
             (option.iscolor == 1 ||
               option.iscolor == '1' ||
               option.iscolor == true) &&
-            color
-          "
-        >
+            color">
+
+
           <div class="custom-option mb15 basin">
             <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close fab-cross cl-white" @click="$emit('closeColorPickerModal')">close</i></h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
@@ -21,51 +20,46 @@
 
             <div
               class="mt5 mb5 basin_size basin-size-color"
-              v-if="option.type === 'select' || option.type === 'drop_down'"
-            >
+              v-if="option.type === 'select' || option.type === 'drop_down'" >
               <!-- <i
                 data-v-35f9ed0c=""
                 class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down-clr"
                 ></i
               > -->
               <select
-                ref="colorImage"
-                :name="'customOption_' + option.option_id"
-                class="m0 no-outline chevron-down chevron-down-color inside-Fabric chevron-down"
-                v-model="inputValues['customOption_' + option.option_id]"
-                @focus="$emit('focus')"
-                @blur="$emit('blur')"
-                @change="
-                  setOption(option);
-                  setImage();
-                "
-              >
+                    ref="colorImage"
+                    :name="'customOption_' + option.option_id"
+                    class="m0 no-outline chevron-down chevron-down-color inside-Fabric chevron-down"
+                    v-model="inputValues['customOption_' + option.option_id]"
+                    @focus="$emit('focus')"
+                    @blur="$emit('blur')"
+                    @change="
+                    setOption(option);
+                    setImage();">
                 <option disabled value="" :key="2378695843" selected="selected">
-                  Please Select
+                  Please Select2222222
                 </option>
                 <template v-for="(opval, key) in option.values">
                   <option
-                    v-if="key == 0"
-                    :value="opval.option_type_id"
-                    :key="key"
-                  >
-                    {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
+                      v-if="key == 0"
+                      :value="opval.option_type_id"
+                      :key="key">
+                      {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
                   </option>
                   <option v-else :value="opval.option_type_id" :key="key">
-                    {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
+                        {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
                   </option>
                 </template>
               </select>
                <span
-              class="error"
-              v-if="
-                validation.results['customOption_' + option.option_id] &&
-                validation.results['customOption_' + option.option_id].error
-              "
-              >{{
-                validation.results["customOption_" + option.option_id].message
-              }}</span
-            >
+                     class="error"
+                      v-if="
+                     validation.results['customOption_' + option.option_id] &&
+                      validation.results['customOption_' + option.option_id].error">
+                       {{
+                            validation.results["customOption_" + option.option_id].message
+                         }}
+              </span>
               <div
                 class="select-img-display"
                 v-for="(value, vIndex) in option.values"
@@ -118,117 +112,107 @@
             </div>
           </div>
         </div>
+
         <div
           v-else-if="
             (option.iscolor == 0 ||
               option.iscolor == '0' ||
               option.iscolor == ' ' ||
-              option.iscolor == false) &&
-            !color
-          "
-        >
+              option.iscolor == false) && !color" >
           <div class="custom-option mb15 basin">
-            <input
-              class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
-              v-if="option.type === 'field'"
-              type="text"
-              :name="'customOption_' + option.option_id"
-              focus
-              v-model="inputValues['customOption_' + option.option_id]"
-              :placeholder="option.title"
-              @change="optionChanged(option)"
-            />
-            <div
-              class="m5 relative"
-              v-for="opval in option.values"
-              :key="opval.option_type_id"
-              v-if="option.type === 'radio'"
-            >
-              <input
-                @change="optionChanged(option)"
-                type="radio"
-                class="m0 no-outline"
-                :name="'customOption_' + option.option_id"
-                :id="'customOption_' + opval.option_type_id"
-                focus
-                :value="opval.option_type_id"
-                v-model="inputValues['customOption_' + option.option_id]"
-              />
-              <label
-                class="pl10 lh20 h4 pointer"
-                :for="'customOption_' + opval.option_type_id"
-                v-html="opval.title"
-              />
-            </div>
-            <div
-              class="mt5 mb5 relative basin_size"
-              v-if="option.type === 'select' || option.type === 'drop_down'"
-            >
-              <!-- <i
-                class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down"
-                ></i 
-              > -->
-
-              <select
-                ref="selectedOption"
-                :name="'customOption_' + option.option_id"
-                class="m0 no-outline size-storage-select chevron-down"
-                focus
-                v-model="inputValues['customOption_' + option.option_id]"
-                @focus="$emit('focus')"
-                @blur="$emit('blur')"
-                @change="optionChanged(option), setCrossOptions(option)"
-              >
-                <option disabled value="" :key="2378695843" selected="selected">
-                  Please Select
-                </option>
-                <template v-for="(opval, key) in option.values">
-                  <option
-                    v-if="key == 0"
+                    <input
+                      class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
+                      v-if="option.type === 'field'"
+                      type="text"
+                      :name="'customOption_' + option.option_id"
+                      focus
+                      v-model="inputValues['customOption_' + option.option_id]"
+                      :placeholder="option.title"
+                      @change="optionChanged(option)"
+                    />
+                <div
+                    class="m5 relative"
+                    v-for="opval in option.values"
+                    :key="opval.option_type_id"
+                    v-if="option.type === 'radio'"
+                    >
+                  <input
+                    @change="optionChanged(option)"
+                    type="radio"
+                    class="m0 no-outline"
+                    :name="'customOption_' + option.option_id"
+                    :id="'customOption_' + opval.option_type_id"
+                    focus
                     :value="opval.option_type_id"
-                    :key="key"
-                  >
-                    {{ opval.title }}
-                  </option>
-                  <option v-else :value="opval.option_type_id" :key="key">
-                    {{ opval.title }}
-                  </option>
-                </template>
-              </select>
+                    v-model="inputValues['customOption_' + option.option_id]"
+                    />
+                    <label
+                    class="pl10 lh20 h4 pointer"
+                    :for="'customOption_' + opval.option_type_id"
+                    v-html="opval.title"
+                    />
+                </div>
+
+
+                  <!-- Size Product and Storage  -->
+                  <!-- ////////  Size //////////  -->
+            <div class="mt5 mb5 relative basin_size"
+                  v-if="option.type === 'select' || option.type === 'drop_down'">
+                    <!-- <i
+                      class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down"
+                      ></i 
+                    > -->
+                  <select
+                      ref="selectedOption"
+                      :name="'customOption_' + option.option_id"
+                      class="m0 no-outline size-storage-select chevron-down"
+                      v-model="inputValues['customOption_' + option.option_id]"
+                      @focus="$emit('focus'), optionChanged(option)"
+                      @blur="$emit('blur')"
+                      @change="optionChanged(option), setCrossOptions(option)"
+                       >
+                    <option disabled value="" :key="2378695843" selected="selected">
+                      Please Selectttttttt
+                    </option>
+                    <template v-for="(opval, key) in option.values">
+                      <option
+                        v-if="key == 0"
+                        :value="opval.option_type_id"
+                        :key="key"
+                      >
+                        {{ opval.title }}
+                      </option>
+                      <option v-else :value="opval.option_type_id" :key="key">
+                        {{ opval.title }}
+                      </option>
+                    </template>
+                  </select>
             </div>
 
+
+
+            <!-- //////// Size End/////////////  -->
+
             <div
-              class="m5 relative"
-              v-for="opval in option.values"
-              :key="opval.option_type_id"
-              v-if="option.type === 'checkbox'"
-            >
-              <input
-                @change="optionChanged(option)"
-                type="checkbox"
-                class="m0 no-outline"
-                :name="'customOption_' + option.option_id"
-                :id="'customOption_' + opval.option_type_id"
-                focus
-                :value="opval.option_type_id"
-                v-model="inputValues['customOption_' + option.option_id]"
-              />
-              <label
-                class="pl10 lh20 h4 pointer"
-                :for="'customOption_' + opval.option_type_id"
-                v-html="opval.title"
-              />
+                  class="m5 relative"
+                  v-for="opval in option.values"
+                  :key="opval.option_type_id"
+                  v-if="option.type === 'checkbox'" >
+                  <input @change="optionChanged(option)" type="checkbox" class="m0 no-outline" :name="'customOption_' + option.option_id"
+                    :id="'customOption_' + opval.option_type_id"
+                    focus
+                    :value="opval.option_type_id"
+                    v-model="inputValues['customOption_' + option.option_id]"/>
+                  <label  class="pl10 lh20 h4 pointer"
+                    :for="'customOption_' + opval.option_type_id"
+                    v-html="opval.title"/>
             </div>
-            <span
-              class="error"
-              v-if="
-                validation.results['customOption_' + option.option_id] &&
-                validation.results['customOption_' + option.option_id].error
-              "
-              >{{
-                validation.results["customOption_" + option.option_id].message
-              }}</span
-            >
+            <span class="error"
+                 v-if=" validation.results['customOption_' + option.option_id] && validation.results['customOption_' + option.option_id].error">
+                     akjsdaasd imran{{
+                        validation.results["customOption_" + option.option_id].message
+                     }}
+              </span>
           </div>
         </div>
       </div>
