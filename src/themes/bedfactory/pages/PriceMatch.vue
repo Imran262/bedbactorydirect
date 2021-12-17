@@ -108,7 +108,7 @@
                       <base-input
                         type="tel"
                         name="phone-number"
-                        autocomplete="tel"
+                        autocomplete="on"
                         v-model="user.phone"
                         @keyup="onChanged(user.phone)"
                         @blur="$v.user.phone.$touch()"
@@ -442,6 +442,7 @@
                               $v.user.websitelink.$error,
                             text: $t('Field is required.'),
                           },
+                          
                         ]"
                       />
                     </div>
@@ -462,7 +463,7 @@
 <script>
 import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
 import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
-import { required, email, minLength, sameAs, maxLength } from "vuelidate/lib/validators";
+import { required, email, minLength, sameAs, maxLength,url } from "vuelidate/lib/validators";
 import axios from "axios";
 import config from "config";
 import i18n from "@vue-storefront/i18n";
