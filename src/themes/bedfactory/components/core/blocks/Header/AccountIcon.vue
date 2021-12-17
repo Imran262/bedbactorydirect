@@ -171,8 +171,6 @@ $color-icon-hover: color(secondary, $colors-background);
     }
 
     &:focus-within {
-      background-color: $color-icon-hover;
-      opacity: 1;
       .dropdown-content:not(.dropdown-content__hidden) {
         display: block;
       }
