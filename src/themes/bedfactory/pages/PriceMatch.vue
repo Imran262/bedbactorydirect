@@ -442,6 +442,12 @@
                               $v.user.websitelink.$error,
                             text: $t('Field is required.'),
                           },
+                          {
+                            condition:
+                              !$v.user.websitelink.isValidURL &&
+                              $v.user.websitelink.$error,
+                            text: $t('Please enter valid website link.'),
+                          },
                           
                         ]"
                       />
@@ -468,10 +474,21 @@ import axios from "axios";
 import config from "config";
 import i18n from "@vue-storefront/i18n";
 import AddressLookupMixin from "src/themes/bedfactory/mixins/addressLookupMixin";
+function isValidURL(string) {
+    console.log('url validate function');
+    if(string.length > 0){
+      var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+      return (res !== null)
+    }else{
+      return true;
+    }
+    
+  }
 export default {
   name: "PriceMatch",
   components: { BaseInput, BaseSelect },
   mixins: [AddressLookupMixin],
+  
   data() {
     return {
       title: "Price Match Service | Bed Factory Direct",
@@ -521,6 +538,7 @@ export default {
       },
       websitelink: {
         required,
+        isValidURL,
       },
     },
   },
@@ -747,6 +765,11 @@ export default {
     onChanged (text) {
       this.user.phone = text.replace(/[^0-9]/g, '');
     },
+    isValidURL() {
+      console.log('url validate function');
+      var res = this.user.websitelink.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+      return (res !== null)
+    }
   },
   beforeMount() {
     const craftyplugin = document.createElement("script");
