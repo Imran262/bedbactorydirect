@@ -37,7 +37,7 @@
                     setOption(option);
                     setImage();">
                 <option disabled value="" :key="2378695843" selected="selected">
-                  Please Select2222222
+                  Please Select
                 </option>
                 <template v-for="(opval, key) in option.values">
                   <option
@@ -106,6 +106,7 @@
 
               <div class="green-grad-main">
                 <div @click="confirmColor()" class="green-grad confirm-extra">
+                  
                   CONFIRM COLOUR
                 </div>
               </div>
@@ -172,7 +173,7 @@
                       @change="optionChanged(option), setCrossOptions(option)"
                        >
                     <option disabled value="" :key="2378695843" selected="selected">
-                      Please Selectttttttt
+                      Please Select
                     </option>
                     <template v-for="(opval, key) in option.values">
                       <option
@@ -209,7 +210,7 @@
             </div>
             <span class="error"
                  v-if=" validation.results['customOption_' + option.option_id] && validation.results['customOption_' + option.option_id].error">
-                     akjsdaasd imran{{
+                     {{
                         validation.results["customOption_" + option.option_id].message
                      }}
               </span>
@@ -237,6 +238,9 @@ export default {
       colorName: "",
       productName: "",
     };
+  },
+  validations:{
+    
   },
   computed: {
     ...mapGetters({

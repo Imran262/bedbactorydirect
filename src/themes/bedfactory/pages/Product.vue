@@ -569,38 +569,35 @@
 
                        <!-- //////////////  Fabircs Title ////////  -->
 
-                <div class="fabric-btn-responsive">
-                  <div
-                    class="fabric-button-design"
-                    v-if="
-                      getCurrentProduct.isFabric !== 0 &&
-                      getCurrentProduct.isFabric !== '0' &&
-                      getCurrentProduct.isFabric !== ' ' &&
-                      getCurrentProduct.isFabric !== false
-                    ">
-                    <button
-                      class="select-color-button chevron-down"
-                      type="button"
-                      @click="showColorPicker" >
-                      {{ getColorName() }}
+        <div class="fabric-btn-responsive">
+            <div class="fabric-button-design"
+                v-if="
+                  getCurrentProduct.isFabric !== 0 &&
+                  getCurrentProduct.isFabric !== '0' &&
+                  getCurrentProduct.isFabric !== ' ' &&
+                  getCurrentProduct.isFabric !== false">
+                  <button
+                        class="select-color-button chevron-down"
+                        type="button"
+                        @click="showColorPicker" >
+                        {{ getColorName() }}
                           <!-- <i
                           class="material-icons cl-bg-tertiary pointer select-color-icon"
                           >keyboard_arrow_right</i
-                        > -->
-                    </button>
-                    <span class="error1" v-if="isFabrics">Field is required</span>
-                    <div
-                          id="overlay"
-                          @click="hideColorPicker"
-                          v-if="colorPickerCheck"/>
-                         <!-- {{getCurrentProduct.custom_options[2]}} -->
-                          <color-picker
-                            :colors="getCurrentProduct"
-                            v-show="colorPickerCheck"
-                            @closeColorPickerModal="hideColorPicker"
-                            @selectedColor="setColorName($event)"/>
-                      </div>
+                          > -->
+                     </button>
+                  <span class="error1" v-if="isFabrics">Field is required</span>
+                  <div id="overlay"
+                      @click="hideColorPicker"
+                      v-if="colorPickerCheck"/>
+                    <!-- {{getCurrentProduct.custom_options[2]}} -->
+                      <color-picker
+                        :colors="getCurrentProduct"
+                        v-show="colorPickerCheck"
+                        @closeColorPickerModal="hideColorPicker"
+                        @selectedColor="setColorName($event)"/>
                 </div>
+         </div>
               </div>
 
 
@@ -1067,6 +1064,7 @@ export default {
   },
   data() {
     return {
+      unCheckfabrics : false, 
       v12Data: {},
       minimumMonthlyPayment: 0,
       minProductPrice: 335,
@@ -1076,7 +1074,7 @@ export default {
       cartFlag: false,
       ViewCalculatorCheck: false,
       currentConfiguration: {},
-      isFabrics: true,
+      isFabrics: false,
       detailsOpen: false,
       ProDeliveryShow: true,
       ProReviewShow: true,
@@ -2086,6 +2084,7 @@ export default {
     setColorName(name) {
       this.colorName = name;
       this.isFabrics = false;
+      this.unCheckfabrics = true ; 
     },
     getColorName() {
       // console.log("741258 in get color name",this.colorName);
@@ -2114,6 +2113,12 @@ export default {
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
+      if (this.unCheckfabrics){
+      }
+      else{
+        this.isFabrics = true;
+        this.unCheckfabrics = false;
+      }
       document.body.style.overflowY = "scroll";
     },
     setReviews() {
