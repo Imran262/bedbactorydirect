@@ -1,5 +1,5 @@
 <template>
-  <div class="usp-bar container">
+  <div class="usp-bar container fullWidth">
     <!-- <div class="container">
       <div class="usp-bar-inner">
         <CmsBlock identifier="usp-bar-TM" />
@@ -104,5 +104,9 @@ a.usp-a {
 }
 .bedfactorydirect {
     text-align: center;
+    width: 100%;
+}
+.fullWidth > .bedfactorydirect {
+    width: 100%;
 }
 </style>
