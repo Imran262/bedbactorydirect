@@ -1,48 +1,28 @@
 <template>
   <div class="main-usp-bar">
-    <div class="usp-bar container">
-        <no-ssr>
-          <carousel
-            :autoplay="true"
-            :loop="true"
-            :paginationEnabled="false"
-            :per-page-custom="[
-              [100, 1],
-              [300, 1],
-              [400, 1],
-              [480, 1],
-              [768, 2],
-              [1000, 4],
-              [1200, 4],
-            ]"
-          >
-            <slide v-for="slide in uspData" :key="slide.id">
-              <div class="bus-img-main">
-                <router-link
-                  :to="localizedRoute(slide.actuallink)"
-                  class="usp-a"
-                >
-                  <div class="bus-img">
-                    <img
-                      :src="slide.icon"
-                      style="height: 24px"
-                      class="icons_home"
-                    />
-                  </div>
-                  <div class="home_delivery_text">{{ slide.linktext }}</div>
-                  <!-- <span>{{ slide.linktext }}</span> -->
-                </router-link>
-                <!-- <router-link :to="localizedRoute(slide.actuallink)" class="usp-a">
+    <div class="usp-bar container focusUnsetChild">
+      <VueSlickCarousel v-bind="settings">
+        <div class="focusUnset" v-for="slide in uspData" :key="slide.id">
+          <div class="bus-img-main">
+            <router-link :to="localizedRoute(slide.actuallink)" class="usp-a">
+              <div class="bus-img">
+                <img
+                  :src="slide.icon"
+                  style="height: 24px"
+                  class="icons_home"
+                />
+              </div>
+              <div class="home_delivery_text">{{ slide.linktext }}</div>
+              <!-- <span>{{ slide.linktext }}</span> -->
+            </router-link>
+            <!-- <router-link :to="localizedRoute(slide.actuallink)" class="usp-a">
                   <div class="bus-img">
                   </div>
                   <div class="home_delivery_text">{{ singleblock.linktext }}</div>
                   </router-link> -->
-              </div>
-            </slide>
-          </carousel>
-        </no-ssr>
-    
-      
+          </div>
+        </div>
+      </VueSlickCarousel>
 
       <!-- <div class="container">
          <div class="usp-bar-inner">
@@ -73,19 +53,57 @@
 </template>
 
 <script>
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+
 import CmsBlock from "theme/components/core/blocks/Cms/Block";
 import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
-import NoSSR from "vue-no-ssr";
+// import NoSSR from "vue-no-ssr";
 export default {
   components: {
     CmsBlock,
-    "no-ssr": NoSSR,
-    Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
-    Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
+    VueSlickCarousel,
+    // "no-ssr": NoSSR,
+    // Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
+    // Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
   },
   data() {
     return {
-      settings: {},
+      settings: {
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        pauseOnFocus: true,
+        pauseOnHover: false,
+        responsive: [
+          {
+            breakpoint: 1200,
+            settings: {
+              infinite: true,
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              pauseOnHover: true,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              infinite: true,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              autoplay: false,
+              focusOnSelect: false,
+              autoplaySpeed: 5000,
+            },
+          },
+        ],
+      },
     };
   },
   name: "homeDelivery",
@@ -124,11 +142,17 @@ export default {
 };
 </script>
 <style lang='scss'>
+.focusUnset:focus {
+  outline: unset !important;
+}
+.focusUnsetChild > div:focus {
+  outline: unset !important;
+}
 .usp-bar {
   text-align: center !important;
 }
 .main-usp-bar {
-  background-color: aliceblue;
+  background-color: #F1F8FF;
 }
 .usp-bar-box {
   img {
@@ -158,32 +182,37 @@ a.usp-a {
   margin-top: 4px;
   color: #071a44;
 }
+/* Landscape tablets and medium desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .home_delivery_text {
+    margin-left: 10px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #071a44;
+  }
+}
 .bedfactorydirect {
   text-align: center;
 }
-@media only screen and (max-width: 1200px){
-.bus-img-main{
- width:100%;
- display: flex;
- justify-content: center;
-max-width:100%;
-
+@media only screen and (max-width: 1200px) {
+  .bus-img-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+  }
 }
-}
 
-
-
-@media (min-width: 320px) and (max-width:480px) {
-  .main-usp-bar{
+@media (min-width: 320px) and (max-width: 480px) {
+  .main-usp-bar {
     // margin-top: 28px;
   }
-  }
-  @media (min-width: 481px) and (max-width:767px) {
-  .main-usp-bar{
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .main-usp-bar {
     // margin-top: 10px;
-    
   }
-  }
+}
 
 // Small devices (landscape phones, 576px and up)
 // @media (min-width: 576px) and (max-width: 767.98px) {

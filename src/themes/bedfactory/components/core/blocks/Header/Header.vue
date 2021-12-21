@@ -524,8 +524,9 @@ header {
   .sb-mobile-menu {
     position: relative;
     z-index: 10;
+    display: block;
+    padding: 0;
   }
-
   .container {
     padding-right: 0px;
     padding-left: 0px;
@@ -540,18 +541,33 @@ header {
     position: relative;
     top: 4px;
   }
-
+  .notcheckoutheader {
+      // height: 6.4rem;
+      height: 7.5rem;
+    }
+  .notcheckoutheader header {
+    height: 7.5rem;
+  }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
   .notcheckoutheader {
-    height: 6.4rem;
+    // height: 6.4rem;
+    height: 7.5rem;
   }
   .notcheckoutheader header {
-    height: 4.625rem;
+    height: 7.5rem;
   }
   .search-bar {
     padding-top: 0;
+  }
+}
+@media (max-width: 480px) {
+  .notcheckoutheader {
+    height: 5.9rem;
+  }
+  .notcheckoutheader header {
+    height: 5.9rem;
   }
 }
 // for movile view less than 767px

@@ -300,7 +300,7 @@ export default {
   padding: 0px !important;
 }
 .bg-usp-bar {
-  background: aliceblue;
+  background: #F1F8FF;
 }
 .bg-menu {
   background: #071a44;

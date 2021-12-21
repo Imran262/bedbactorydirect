@@ -81,7 +81,7 @@ button i {
     bottom: 0;
   }
   i#hamberger {
-    bottom: 15px!important;
+    bottom: 0px!important;
   }
   .mobile-inline-flex{
     display: inline-flex;
