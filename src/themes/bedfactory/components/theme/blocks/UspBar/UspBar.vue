@@ -97,7 +97,7 @@ export default {
               infinite: true,
               slidesToShow: 1,
               slidesToScroll: 1,
-              autoplay: false,
+              autoplay: true,
               focusOnSelect: false,
               autoplaySpeed: 5000,
             },
