@@ -49,8 +49,6 @@
                     searchClick();
                     showSearchPanel();
                     addborders();
-
-
                     closeMenu();
                   "
                   @keyup.enter="onEnter"
