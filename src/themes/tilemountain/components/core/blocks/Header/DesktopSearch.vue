@@ -301,7 +301,8 @@ export default {
       size: 3,
       formSubmitUrl: '',
       products: [],
-      shows: false
+      shows: false,
+      search:''
     }
   },
   computed: {
