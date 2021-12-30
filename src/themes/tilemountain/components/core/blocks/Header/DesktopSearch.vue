@@ -33,6 +33,7 @@
                   ref="search"
                   id="search"
                   v-model="search"
+                  v-onInput="{someKeyUpFunction}"
                   @input="makeSearch"
                   @blur="
                     $v.search.$touch();
@@ -203,7 +204,8 @@ export default {
       this.showPanelNewDesktop = true
     },
     someKeyUpFunction () {
-      this.showPanelNewDesktop = true
+      console.log(this.search);
+      this.showPanelNewDesktop = true;
       if (document.getElementById("search-mainmain") != null) {
         document.getElementById("search-mainmain").className = "sb-filters"
         document.getElementsByClassName('back-layout')[0].style.display = 'block'
@@ -280,6 +282,11 @@ export default {
         el.removeAttribute("data-dragging")
       },
     },
+    onInput:{
+      bind: function (el, binding, vnode) {
+        el.oninput = () => (vnode.context[binding.expression] = el.value)
+      }
+    }
   },
   components: {
     ProductTileSearch,
