@@ -543,20 +543,20 @@ header {
   }
   .notcheckoutheader {
       // height: 6.4rem;
-      height: 7.5rem;
+      // height: 7.5rem;
     }
   .notcheckoutheader header {
-    height: 7.5rem;
+    // height: 7.5rem;
   }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
   .notcheckoutheader {
     // height: 6.4rem;
-    height: 7.5rem;
+    // height: 7.5rem;
   }
   .notcheckoutheader header {
-    height: 7.5rem;
+    // height: 7.5rem;
   }
   .search-bar {
     padding-top: 0;
@@ -564,10 +564,10 @@ header {
 }
 @media (max-width: 480px) {
   .notcheckoutheader {
-    height: 5.9rem;
+    // height: 5.9rem;
   }
   .notcheckoutheader header {
-    height: 5.9rem;
+    // height: 5.9rem;
   }
 }
 // for movile view less than 767px
