@@ -33,7 +33,6 @@
                   ref="search"
                   id="search"
                   v-model="search"
-                  v-onInput="{someKeyUpFunction}"
                   @input="makeSearch"
                   @blur="
                     $v.search.$touch();
@@ -45,6 +44,7 @@
                   @keyup="
                     someKeyUpFunction();
                     addborders();
+                    customKeyUpFunction($event);
                   "
                   @click="
                     searchClick();
@@ -140,6 +140,7 @@ import CategoryPanel from "theme/components/core/blocks/Category/CategoryPanel"
 import { minLength } from "vuelidate/lib/validators"
 import config from 'config'
 // import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+
 export default {
   name: "DesktopSearch",
   methods: {
@@ -223,6 +224,9 @@ export default {
         })
       }
     },
+    customKeyUpFunction(event){
+      this.search = event.target.value;
+    },
     searchClick () {
       if (document.getElementById("search-mainmain") != null) {
         document.getElementById("search-mainmain").className = "sb-filters"
@@ -281,11 +285,6 @@ export default {
         document.removeEventListener("touchend", el.eventOnClick)
         el.removeAttribute("data-dragging")
       },
-    },
-    onInput:{
-      bind: function (el, binding, vnode) {
-        el.oninput = () => (vnode.context[binding.expression] = el.value)
-      }
     }
   },
   components: {
