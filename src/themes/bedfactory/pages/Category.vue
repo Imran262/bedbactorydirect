@@ -405,6 +405,11 @@ getCategoryProducts {{getCategoryProducts}} -->
               @changePage="pageChanged"
             />
           </div>
+          <div class="category-bottom-content">
+            <cms-block
+                    :identifier="'category_footer'"
+                  />
+            </div>
         </div>
       </div>
     </div>
@@ -412,6 +417,7 @@ getCategoryProducts {{getCategoryProducts}} -->
 </template>
 
 <script>
+import CmsBlock from 'src/themes/bedfactory/components/core/blocks/Cms/CategoryBottomBlock';
 import LazyHydrate from 'vue-lazy-hydration'
 import ActiveFilters from 'src/modules/vsf-layered-nav/components/ActiveFilters.vue'
 import Sidebar from 'src/modules/vsf-layered-nav/components/Sidebar'
@@ -485,7 +491,8 @@ export default {
     SortBy,
     CategoryTile,
     Columns,
-    ProductListingPagination
+    ProductListingPagination,
+    CmsBlock
   },
   mixins: [GTAGCategory],
   data () {
