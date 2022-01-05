@@ -1,7 +1,29 @@
 <template>
   <div class="main-usp-bar">
     <div class="usp-bar container focusUnsetChild">
-      <VueSlickCarousel v-bind="settings">
+      <VueSlickCarousel v-if="this.$device.isMobile" v-bind="settingsMobile">
+        <div class="focusUnset" v-for="slide in uspData" :key="slide.id">
+          <div class="bus-img-main">
+            <router-link :to="localizedRoute(slide.actuallink)" class="usp-a">
+              <div class="bus-img">
+                <img
+                  :src="slide.icon"
+                  style="height: 24px"
+                  class="icons_home"
+                />
+              </div>
+              <div class="home_delivery_text">{{ slide.linktext }}</div>
+              <!-- <span>{{ slide.linktext }}</span> -->
+            </router-link>
+            <!-- <router-link :to="localizedRoute(slide.actuallink)" class="usp-a">
+                  <div class="bus-img">
+                  </div>
+                  <div class="home_delivery_text">{{ singleblock.linktext }}</div>
+                  </router-link> -->
+          </div>
+        </div>
+      </VueSlickCarousel>
+      <VueSlickCarousel v-else v-bind="settings">
         <div class="focusUnset" v-for="slide in uspData" :key="slide.id">
           <div class="bus-img-main">
             <router-link :to="localizedRoute(slide.actuallink)" class="usp-a">
@@ -74,6 +96,39 @@ export default {
       settings: {
         infinite: true,
         slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        pauseOnFocus: true,
+        pauseOnHover: false,
+        responsive: [
+          {
+            breakpoint: 1200,
+            settings: {
+              infinite: true,
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 2000,
+              pauseOnHover: true,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              infinite: true,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              autoplay: true,
+              focusOnSelect: false,
+              autoplaySpeed: 5000,
+            },
+          },
+        ],
+      },
+      settingsMobile: {
+        infinite: true,
+        slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 2000,
