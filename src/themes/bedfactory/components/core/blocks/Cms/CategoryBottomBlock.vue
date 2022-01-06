@@ -1,9 +1,12 @@
 <template>
-  <div
-    :class="['cms-content Category page', { container: sync }]"
-    v-if="getCmsData"
-    v-html="getCmsData.content"
-  />
+    <div class="container">
+        <div
+        :class="['cms-content Category page', { container: sync }]"
+        v-if="getCmsData"
+        v-html="getCmsData.content"
+        />
+    </div>
+  
 </template>
 
 <script>
@@ -78,13 +81,27 @@ this.identifier));
 .details-Delivery{
   font-size:24px;
 }
- .cms-content h3 {
-font-size:16px !important;
- }
-.cms-content p{
-font-size:14px !important;
-margin: 0;
+.cms-content {
+    padding-bottom: 31px;
+    padding-top: 14px;
+
+    h2{
+        text-align: center;
+        font-family: oblik;
+        color: #29275b;
+    }
+    p{
+        color: #54575b;
+        font-size: 20px;
+        line-height: 1.7;
+    }
+    a{
+        color: #00aeef;
+        text-decoration: none;
+        cursor: pointer;
+    }
 }
+
 #category,
 #cms-page,
 .contact-page-main {
@@ -214,5 +231,10 @@ margin: 0;
       border-bottom: 1px solid transparent;
     }
   }
+  .cms-content{
+      padding-right: 15px;
+      padding-left: 15px;
+  }
 }
+
 </style>

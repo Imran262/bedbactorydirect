@@ -281,8 +281,8 @@
          
 
 
-<!-- {{getCategoryProductsTotal}}
-getCategoryProducts {{getCategoryProducts}} -->
+          <!-- {{getCategoryProductsTotal}}
+          getCategoryProducts {{getCategoryProducts}} -->
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h4 data-testid="noProductsInfo">
               {{ $t('No products found!') }}
@@ -405,13 +405,14 @@ getCategoryProducts {{getCategoryProducts}} -->
               @changePage="pageChanged"
             />
           </div>
-          <div class="category-bottom-content">
-            <cms-block
-                    :identifier="'category_footer'"
-                  />
-            </div>
+          
         </div>
       </div>
+    </div>
+    <div class="category-bottom-content">
+        <cms-block
+                :identifier="'category_footer'"
+                />
     </div>
   </div>
 </template>
@@ -1954,5 +1955,8 @@ span.sortbycleartxt {
     font-size: 12px !important;
     color: #434343;
 }
-
+.category-bottom-content{
+    border-top: 1px solid #9c9a9a;
+    border-bottom: 1px solid #9c9a9a;
+}
 </style>
