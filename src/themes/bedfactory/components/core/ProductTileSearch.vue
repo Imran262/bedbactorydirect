@@ -137,12 +137,6 @@ export default {
       return this.isOnWishlist ? 'favorite' : 'favorite_border';
     }
   },
-  async serverPrefetch() {
-    this.setReviews();
-  },
-  async mounted() {
-    this.setReviews();
-  },
   methods: {
     getBrandImage() {
       let imagelocation = '/assets/brandLogo/';
