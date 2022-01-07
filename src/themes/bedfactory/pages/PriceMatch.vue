@@ -743,25 +743,6 @@ label {
         margin-bottom: 15px;
   }
 }
-.manually-added-fields .address-postcode .base-input{
-  // min-height: 3rem;
-}
-.manually-added-fields .city-lg-half .base-input{
-  // min-height: 3rem;
-}
-.manually-added-fields .find-address-type .base-input{
-  // min-height: 3rem;
-}
-.mainFormRow {
-  .base-input {
-    // min-height: 1rem !important;
-  }
-}
-.remove-height {
-  .base-input {
-    // min-height: 1rem !important;
-  }
-}
 #orderForm > .mainFormRow .base-input, #orderForm > .removeMinHeight .base-input{
   min-height: unset !important;
 }
