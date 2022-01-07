@@ -154,7 +154,7 @@
               </li>
             </ul>
           </div>
-          <form id="orderForm" @submit.prevent="submitForm" method="post">
+          <form id="orderForm" @submit.prevent="submitForm" method="post" novalidate>
             <div class="hidden" id="hidden_div"></div>
 
             <div class="row mainFormRow">
@@ -410,7 +410,6 @@
                             type="text"
                             id="address_2"
                             name="street-address"
-                            required
                             placeholder=""
                             v-model="user.addressLine2"
                             />
@@ -446,7 +445,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  find-address-type">
                             <label>Postcode <span class="star">*</span></label>
-                            <input
+                            <base-input
                             type="text"
                             required
                             id="find_address_manuall"
