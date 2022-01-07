@@ -35,10 +35,6 @@
                 <li>It has to be available to buy</li>
                 <li>We will consider any delivery charges</li>
               </ul>
-              <!-- <p>
-                For our full price match terms and conditions view our
-                <span class="underlineHere">price match t&c</span>
-              </p> -->
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -49,105 +45,106 @@
                 within 1 working day
               </p>
               <p class="your-details">Your Details</p>
-              <form id="orderForm" @submit.prevent="submitForm" method="post">
-                <div class="row mainFormRow">
-                  <div class="field rightMargin">
-                    <label for="first-name"> First Name <span>*</span></label>
-                    <div class="input-field">
-                      <base-input
-                        type="text"
-                        :autofocus="true"
-                        name="first-name"
-                        autocomplete="given-name"
-                        v-model.trim="user.firstName"
-                        @blur="$v.user.firstName.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.firstName.required &&
-                              $v.user.firstName.$error,
-                            text: $t('Field is required.'),
-                          },
-                          {
-                            condition: !$v.user.firstName.minLength,
-                            text: $t('Name must have at least 2 letters.'),
-                          },
-                        ]"
-                      />
+              <form id="orderForm" @submit.prevent="submitForm" method="post" novalidate>
+                <div class="row mainFormRow marginBottom15">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <label for="first-name"> First Name <span>*</span></label>
+                      <div class="input-field">
+                        <base-input
+                          type="text"
+                          :autofocus="true"
+                          name="first-name"
+                          autocomplete="given-name"
+                          v-model.trim="user.firstName"
+                          @blur="$v.user.firstName.$touch()"
+                          :validations="[
+                            {
+                              condition:
+                                !$v.user.firstName.required &&
+                                $v.user.firstName.$error,
+                              text: $t('Field is required.'),
+                            },
+                            {
+                              condition: !$v.user.firstName.minLength,
+                              text: $t('Name must have at least 2 letters.'),
+                            },
+                          ]"
+                        />
                     </div>
                   </div>
-                  <div class="field">
-                    <label for="last-name">
-                      Last Name
-                      <span>*</span>
-                    </label>
-                    <div class="input-field">
-                      <base-input
-                        type="text"
-                        name="last-name"
-                        autocomplete="family-name"
-                        v-model="user.lastName"
-                        @blur="$v.user.lastName.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.lastName.required &&
-                              $v.user.lastName.$error,
-                            text: $t('Field is required.'),
-                          },
-                        ]"
-                      />
-                    </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                
+                      <label for="last-name">
+                        Last Name
+                        <span>*</span>
+                      </label>
+                      <div class="input-field">
+                        <base-input
+                          type="text"
+                          name="last-name"
+                          autocomplete="family-name"
+                          v-model="user.lastName"
+                          @blur="$v.user.lastName.$touch()"
+                          :validations="[
+                            {
+                              condition:
+                                !$v.user.lastName.required &&
+                                $v.user.lastName.$error,
+                              text: $t('Field is required.'),
+                            },
+                          ]"
+                        />
+                      </div>
                   </div>
                 </div>
 
-                <div class="row mainFormRow">
-                  <div class="field rightMargin">
-                    <label for="phone-number"> Phone <span>*</span></label>
-                    <div class="input-field">
-                      <base-input
-                        type="tel"
-                        name="phone-number"
-                        autocomplete="on"
-                        v-model="user.phone"
-                        @keyup="onChanged(user.phone)"
-                        @blur="$v.user.phone.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.phone.required && $v.user.phone.$error,
-                            text: $t('Field is required.'),
-                          },
-                          
-                        ]"
-                      />
+                <div class="row mainFormRow marginBottom15">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <label for="phone-number"> Phone <span>*</span></label>
+                      <div class="input-field">
+                        <base-input
+                          type="tel"
+                          name="phone-number"
+                          autocomplete="on"
+                          v-model="user.phone"
+                          @keyup="onChanged(user.phone)"
+                          @blur="$v.user.phone.$touch()"
+                          :validations="[
+                            {
+                              condition:
+                                !$v.user.phone.required && $v.user.phone.$error,
+                              text: $t('Field is required.'),
+                            },
+                            
+                          ]"
+                        />
                     </div>
                   </div>
-                  <div class="field">
-                    <label for="email-name">
-                      Email
-                      <span>*</span>
-                    </label>
-                    <div class="input-field">
-                      <base-input
-                        type="email"
-                        name="email-address"
-                        autocomplete="email"
-                        v-model="user.email"
-                        @blur="$v.user.email.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.email.required && $v.user.email.$error,
-                            text: $t('Field is required.'),
-                          },
-                          {
-                            condition:
-                              !$v.user.email.email && $v.user.email.$error,
-                            text: $t('Please provide valid e-mail address.'),
-                          },
-                        ]"
-                      />
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <label for="email-name">
+                        Email
+                        <span>*</span>
+                      </label>
+                      <div class="input-field">
+                        <base-input
+                          type="email"
+                          name="email-address"
+                          autocomplete="email"
+                          v-model="user.email"
+                          @blur="$v.user.email.$touch()"
+                          :validations="[
+                            {
+                              condition:
+                                !$v.user.email.required && $v.user.email.$error,
+                              text: $t('Field is required.'),
+                            },
+                            {
+                              condition:
+                                !$v.user.email.email && $v.user.email.$error,
+                              text: $t('Please provide valid e-mail address.'),
+                            },
+                          ]"
+                        />
                     </div>
                   </div>
                 </div>
@@ -165,68 +162,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- <div class="single-input remove-height">
-                  <div class="field-full remove-height">
-                    <label for="address_line1">
-                      Address line 1 <span>*</span>
-                    </label>
-                    <div class="input-field">
-                      <base-input
-                        type="text"
-                        name="'address_line1' +'address_line2'"
-                        autocomplete="'address_line1' +'address_line2'"
-                        v-model="user.addressLine1"
-                        @blur="$v.user.addressLine1.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.addressLine1.required &&
-                              $v.user.addressLine1.$error,
-                            text: $t('Field is required.'),
-                          },
-                        ]"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="single-input remove-height">
-                  <div class="field-full">
-                    <label for="address_line1">
-                      Address line 2 <span>*</span>
-                    </label>
-                    <div class="input-field">
-                      <base-input
-                        type="text"
-                        name="address_line2"
-                        v-model="user.addressLine2"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="single-input remove-height">
-                  <div class="field-full">
-                    <label for="address_line1"> Town <span>*</span> </label>
-                    <div class="input-field">
-                      <base-input
-                        type="text"
-                        name="city"
-                        autocomplete="address-level2"
-                        v-model="user.city"
-                        @blur="$v.user.city.$touch()"
-                        :validations="[
-                          {
-                            condition:
-                              !$v.user.city.required &&
-                              $v.user.city.$error,
-                            text: $t('Field is required.'),
-                          },
-                        ]"
-                      />
-                    </div>
-                  </div>
-                </div> -->
-
                 <div
                   class="
                     field-full
@@ -238,6 +173,7 @@
                     walls
                     and
                     floors
+                    removeMinHeight
                   "
                 >
                   <p
@@ -271,7 +207,6 @@
                       <label class="size1"
                         >Address line 1 <span class="star">*</span></label
                       >
-                      <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <base-input
                         type="text"
                         id="address_manuall_1"
@@ -293,7 +228,6 @@
                       <label class="size1"
                         >Address line 2 </label
                       >
-                      <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
                       <input
                         type="text"
                         id="address_2"
@@ -315,15 +249,7 @@
                         v-model="user.addressLine2"
                       />
                     </p>
-                    <!-- <p class="input-wrapper lg-half">
-                      <input
-                        type="text"
-                        name="company-name"
-                        id="shipping-company"
-                        placeholder="Company"
-                        v-model="user.company"
-                      />
-                    </p> -->
+                    
                     <p class="input-wrapper lg-half city-lg-half">
                       <label class="size1"
                         >Town <span class="star">*</span></label
@@ -364,46 +290,11 @@
                       />
                     </p>
                   </div>
-                  <!--  <label
-                  class="address-summary-label"
-                  id="address-summary-label"
-                  style="display: none"
-                  >Address</label
-                >
-                <div
-                  class="address-summary"
-                  id="address-summary"
-                  style="display: none"
-                >
-                  <div class="non-edited-text">
-                    <template v-if="user.company">
-                      {{ user.company }}<br />
-                    </template>
-                    <template v-if="user.addressLine1">
-                      {{ user.addressLine1 }}<br />
-                    </template>
-                    <template v-if="user.addressLine2">
-                      {{ user.addressLine2 }}<br />
-                    </template>
-                    <template v-if="user.city">
-                      {{ user.city }} <br />
-                    </template>
-                    <template v-if="user.postCode">
-                      {{ user.postCode }}
-                    </template>
-                  </div>
+                 
                 </div>
-                <span
-                  @click="enterEditAddressManuallyFunc()"
-                  id="edit-address-again"
-                  class="EditAddressAgain"
-                  style="display: none"
-                  >Edit Address</span
-                >  -->
-                </div>
-                <div class="producr-history mt-4 remove-height">
+                <div class="producr-history mt-4 remove-height removeMinHeight">
                   <h5>Product Details</h5>
-                  <div class="field-full">
+                  <div class="field-full marginBottom15">
                     <label for="address_line1"> Product <span>*</span> </label>
                     <div class="input-field">
                       <base-input
@@ -441,14 +332,7 @@
                               !$v.user.websitelink.required &&
                               $v.user.websitelink.$error,
                             text: $t('Field is required.'),
-                          },
-                          {
-                            condition:
-                              !$v.user.websitelink.isValidURL &&
-                              $v.user.websitelink.$error,
-                            text: $t('Please enter valid website link.'),
-                          },
-                          
+                          }
                         ]"
                       />
                     </div>
@@ -537,8 +421,7 @@ export default {
         required,
       },
       websitelink: {
-        required,
-        isValidURL,
+        required
       },
     },
   },
@@ -816,36 +699,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-// input[type="text"] {
-  // width: 100%;
-  // padding: 12px 20px;
-  // margin: 8px 0;
-  // box-sizing: border-box;
-  // border: 3px solid #ccc;
-  // -webkit-transition: 0.5s;
-  // transition: 0.5s;
-  // outline: none;
-// }
-// input[type="text"]:focus {
-//   border: 2px solid #747474 !important;
-// }
 
-/// for number
-// input[type="number"] {
-//   box-sizing: border-box;
-//   outline: none;
-// }
-// input[type="number"]:focus {
-//   border: 2px solid #747474 !important;
-// }
-
-/// for Email
-// input[type="email"] {
-//   outline: none;
-// }
-// input[type="email"]:focus {
-//   border: 2px solid #747474 !important;
-// }
 input:hover, input:focus {
   border: 2px solid #747474 !important;
   outline: none !important;
@@ -884,25 +738,39 @@ label {
     outline-color: #747474;
     }
   }
+  p{
+    margin-top: 0;
+        margin-bottom: 15px;
+  }
 }
 .manually-added-fields .address-postcode .base-input{
-  min-height: 3rem;
+  // min-height: 3rem;
 }
 .manually-added-fields .city-lg-half .base-input{
-  min-height: 3rem;
+  // min-height: 3rem;
 }
 .manually-added-fields .find-address-type .base-input{
-  min-height: 3rem;
+  // min-height: 3rem;
 }
 .mainFormRow {
   .base-input {
-    min-height: 1rem !important;
+    // min-height: 1rem !important;
   }
 }
 .remove-height {
   .base-input {
-    min-height: 1rem !important;
+    // min-height: 1rem !important;
   }
+}
+#orderForm > .mainFormRow .base-input, #orderForm > .removeMinHeight .base-input{
+  min-height: unset !important;
+}
+.marginBottom15{
+  margin-bottom: 15px !important;
+}
+.changeMargin{
+      margin-right: -17px !important;
+    margin-left: -17px !important;
 }
 </style>
 <style>
@@ -984,7 +852,7 @@ img.home-breadcrumb-icon-img {
   width: 46%;
   display: inline-block;
 }
-.main-table form .field label {
+.main-table form label {
   display: block;
   margin-bottom: 8px;
   text-align: left;
@@ -992,11 +860,11 @@ img.home-breadcrumb-icon-img {
   /* color: #747474; */
   font-size: 14px;
 }
-.main-table form .field label > span {
+.main-table form label > span {
   color: red;
   display: inline;
 }
-.main-table form .field input {
+.main-table form input {
   display: block;
   border-radius: 4px;
   border: 1px solid #dfdfdf;
@@ -1062,6 +930,7 @@ img.home-breadcrumb-icon-img {
   /* outline: none; */
 }
 .producr-history {
+  margin-top: 35px;
 }
 .producr-history h5 {
   font-weight: 700;
