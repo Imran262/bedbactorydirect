@@ -3,27 +3,6 @@
     class="product align-center w-100 pb15 product-img-category"
     v-observe-visibility="visibilityChanged"
   >
-    <!-- {{ filters.brand }} -->
-    <!-- <div class="product__icons">
-      <AddToWishlist :product="product">
-        <div
-          class="product__icon"
-          :class="{'product__icon--active': isOnWishlist }"
-          :title="isOnWishlist ? $t('Remove') : $t('Add to favorite') "
-        >
-          <i class="material-icons">{{ favoriteIcon }}</i>
-        </div>
-      </AddToWishlist>
-      <AddToCompare :product="product">
-        <div
-          class="product__icon"
-          :class="{'product__icon--active':isOnCompare } "
-          :title="isOnCompare ? $t('Remove from compare') : $t('Add to compare')"
-        >
-          <i class="material-icons">compare</i>
-        </div>
-      </AddToCompare>
-    </div> -->
     <router-link
       class="block no-underline product-link"
       :to="productLink"
@@ -46,9 +25,6 @@
         />
       </div>
       <div class="brand-size1">
-        <!-- {{ getBrandImage() }}
-        {{ product.brand }} -->
-        <!-- {{ product.brand }} -->
         <img class="brand-size" :src="getBrandImage()" alt="" />
       </div>
       <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
@@ -63,7 +39,6 @@
               v-for="(comfort, comfortIndex) in filters.comfort_grade"
               :key="comfortIndex"
             >
-              <!-- class="rounded-button" -->
               <button
                 id="comfortBtn"
                 class="rounded-button comfort-size"
@@ -79,32 +54,22 @@
 
         <div
           class="catstar review-size"
-          v-if="reviewData && reviewData.bottomline.total_review <= 0"
+          v-if="product.average_score && product.average_score <= 0"
         >
-          <!-- {{ getReviews() }} -->
-          <!-- {{reviewData.bottomline.total_review > 0}}
-        {{reviewData.bottomline.total_review}} -->
+         
         </div>
         <div class="catstar review-size gap-btwn" v-else>
-          <!-- {{ getReviews().bottomline.average_score }}
-        {{getReviews().bottomline.average_score
-            ? parseFloat(getReviews().bottomline.average_score) : 0}} -->
-          <!-- {{reviewData.bottomline.total_review > 0}}
-        {{reviewData.bottomline.total_review}} -->
-
           <div
             class="rating"
-            v-if="reviewData && reviewData.bottomline.total_review > 0"
+            v-if="product.average_score && product.average_score > 0"
           >
             <rating
               :score="
-                reviewData.bottomline.average_score
-                  ? parseFloat(reviewData.bottomline.average_score)
-                  : 0
+                product.average_score
               "
             />
             <span class="TotalReviewStar"
-              >({{ reviewData.bottomline.total_review }})</span
+              >({{ product.total_reviews }})</span
             >
           </div>
         </div>
@@ -172,7 +137,7 @@ export default {
     Rating,
   },
   data() {
-    return { reviewData: null, brandLogo: null };
+    return {brandLogo: null };
   },
   props: {
     labelsActive: {
@@ -199,17 +164,9 @@ export default {
       return this.isOnWishlist ? "favorite" : "favorite_border";
     },
   },
-  async serverPrefetch() {
-    this.setReviews();
-  },
-  async mounted() {
-    this.setReviews();
-  },
   methods: {
     getBrandImage() {
       let imagelocation = "/assets/brandLogo/";
-      // console.log("filters.brand", this.filters);
-      //  return imagelocation;
       if (this.filters && this.filters.brand) {
         this.filters.brand.forEach((brand, brandIndex) => {
           if (parseInt(brand.id) === this.product.brand) {
@@ -264,47 +221,7 @@ export default {
       }
       return imagelocation;
     },
-    setReviews() {
-      try {
-        let product_Id = "";
-
-        // if ((this.product.type_id = 'configurable')) {
-        //   product_Id = this.product.parentId;
-        // }
-        product_Id = this.product.id;
-
-        const URL =
-          config.api.url + config.reviews.getReviews_endpoint + product_Id;
-        // const URL = 'https://vue.bedfactorydirect.co.uk/api/ext/reviews/getReview?id='+ product_Id;
-        //   console.log('URL is for Reviews is ', URL);
-        axios
-          .get(URL)
-          .then((res) => {
-            const response = res;
-            if (response.status !== 200 && !review.data.length) {
-              throw ("Error:", response.data[0].message);
-            } else {
-              this.reviewData = response.data[1];
-            }
-          })
-          .catch((err) => {
-            throw ("Error:", err);
-          });
-      } catch (err) {
-        console.error("error message", err);
-      }
-    },
-    getReviews() {
-      return this.reviewData;
-    },
     setComfortColor() {
-      // let classList=document.getElementById('comfortBtn').classList;
-
-      // console.log("hello Before ",classList);
-      //   classList=document.getElementById('comfortBtn').classList.add("color-red");
-      // console.log("hello Afer",classList);
-      // document.getElementById('comfortBtn').style.backgroundColor = 'red';
-
       if (
         this.product.comfort_grade[0] === 203 ||
         this.product.comfort_grade[0] === "203"
