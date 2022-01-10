@@ -34,7 +34,7 @@ export default {
     this.$bus.$on("get-swatch-customer-fullname", async (data) => {
      // console.log("data ==============>", data);
       if (data) {
-        customerName = data;
+        this.customerName = data;
       }
     });
   },

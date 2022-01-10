@@ -1,23 +1,19 @@
 <template>
   <section class="head-image w-100 cl-white">
     <div class="slider-desktop" v-if="windowWidth > 767">
-      <slider-desktop
-        :identifier="'home_slider_desktopTM'"
-      />
+      <slider-desktop :identifier="'home_slider_desktopTM'" />
     </div>
     <div class="slider-mobile">
-      <slider-mobile
-        :identifier="'Home_Slider_Mobile_TM'"
-      />
+      <slider-mobile :identifier="'Home_Slider_Mobile_TM'" />
     </div>
   </section>
 </template>
 
 <script>
 // import ButtonOutline from 'theme/components/theme/ButtonOutline'
-import { mapGetters } from 'vuex'
-import SliderDesktop from 'src/themes/bedfactory/components/core/blocks/Home/SliderDesktopTM'
-import SliderMobile from 'src/themes/bedfactory/components/core/blocks/Home/SliderMobile'
+import { mapGetters } from 'vuex';
+import SliderDesktop from 'src/themes/bedfactory/components/core/blocks/Home/SliderDesktopTM';
+import SliderMobile from 'src/themes/bedfactory/components/core/blocks/Home/SliderMobile';
 
 export default {
   components: {
@@ -27,18 +23,18 @@ export default {
   data () {
     return {
       windowWidth: 768
-    }
+    };
   },
   mounted () {
-    console.log('HeadImage Mounted called')
-    this.windowWidth = window.innerWidth
+    console.log('HeadImage Mounted called');
+    this.windowWidth = window.innerWidth;
     window.addEventListener('resize', () => {
-      this.getWidth()
-    })
+      this.getWidth();
+    });
   },
   methods: {
     getWidth () {
-      this.windowWidth = window.innerWidth
+      this.windowWidth = window.innerWidth;
     }
   },
   computed: {
@@ -47,7 +43,7 @@ export default {
     })
   },
   beforeDestroy () {
-    window.removeEventListener('resize', this.getWidth)
+    window.removeEventListener('resize', this.getWidth);
   }
 };
 </script>
@@ -56,6 +52,31 @@ export default {
 .head-image {
   @media (min-width: 767px) {
     display: inherit;
+    position: relative;
+    padding-bottom: 24%;
+    .slider-desktop {
+      width: 100%;
+      height: 100%;
+      margin-bottom: -4 px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+    }
+  }
+  @media (max-width: 767px) {
+    position: relative;
+    padding-bottom: 90%;
+    .slider-mobile{
+      padding-bottom: 0;
+      width: 100%;
+      height: 100%;
+      margin-bottom: -4 px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+    }
   }
 
   .head-image-content {
@@ -72,7 +93,7 @@ export default {
     .subtitle {
       font-size: 0.8rem;
       max-width: 340px;
-      font-family: 'Roboto', sans-serif;
+      font-family: "Roboto", sans-serif;
       line-height: 1.2rem;
     }
   }
@@ -122,8 +143,6 @@ export default {
     height: 359px;
   }
 }
-
-
 
 @media (max-width: 480px) {
   .slider-mobile {

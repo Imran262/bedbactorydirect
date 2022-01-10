@@ -13,7 +13,10 @@
         <span class="cl-mine-shaft">Swatches Page</span>
       </div>
       <div class="row">
-        <div class="main_fabric col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div
+          class="main_fabric col-lg-8 col-md-8 col-sm-12 col-xs-12"
+          ref="quickCheckoutInner"
+        >
           <div class="fabrics-detail">
             <div class="boxes" v-for="item of swatches" :key="item.name">
               <h2>{{ item.name }}</h2>
@@ -151,11 +154,11 @@
               </li>
             </ul>
           </div>
-          <form id="orderForm" @submit.prevent="submitForm" method="post">
+          <form id="orderForm" @submit.prevent="submitForm" method="post" novalidate>
             <div class="hidden" id="hidden_div"></div>
 
-            <div class="row">
-              <div class="field required">
+            <div class="row mainFormRow">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour">
                 <label for="first-name">
                   First Name
                   <span>*</span>
@@ -163,7 +166,6 @@
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    :autofocus="true"
                     name="first-name"
                     autocomplete="given-name"
                     v-model.trim="user.firstName"
@@ -183,7 +185,7 @@
                   />
                 </div>
               </div>
-              <div class="field required">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour">
                 <label for="last-name">
                   Last Name
                   <span>*</span>
@@ -206,30 +208,33 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="field required">
+            <div class="row mainFormRow marginTop">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour">
                 <label for="phone-number">
                   Phone
                   <span>*</span>
                 </label>
                 <div class="ui-input-text">
                   <base-input
-                    type="number"
-                    name="phone-number"
-                    autocomplete="tel"
+                    type="tel"
+                    id="phone"
+                    name="shipping-country"
+                    required
                     v-model="user.phone"
+                    @keyup="onChanged(user.phone)"
                     @blur="$v.user.phone.$touch()"
                     :validations="[
                       {
                         condition:
-                          !$v.user.phone.required && $v.user.phone.$error,
+                          !$v.user.phone.required &&
+                          $v.user.phone.$error,
                         text: $t('Field is required.'),
                       },
                     ]"
                   />
                 </div>
               </div>
-              <div class="field required">
+              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour">
                 <label for="email-address">
                   Email
                   <span>*</span>
@@ -257,7 +262,7 @@
               </div>
             </div>
             <div id="hide">
-              <div class="field-full required">
+              <!-- <div class="field-full required">
                 <label for="address_line1">
                   Address line 1
                   <span>*</span>
@@ -265,7 +270,7 @@
                 <div class="ui-input-text">
                   <base-input
                     type="text"
-                    name="'address_line1' +'address_line2'"
+                    id="Addressline1"
                     autocomplete="'address_line1' +'address_line2'"
                     v-model="user.addressLine1"
                     @blur="$v.user.addressLine1.$touch()"
@@ -291,6 +296,16 @@
                 </div>
               </div>
               <div class="field-full required">
+                <label for="address_line2">Company</label>
+                <div class="ui-input-text">
+                  <base-input
+                    type="text"
+                    name="address_line2"
+                    v-model="user.company"
+                  />
+                </div>
+              </div>
+              <div class="field-full required">
                 <label for="city">
                   Town
                   <span>*</span>
@@ -300,41 +315,195 @@
                     type="text"
                     name="city"
                     autocomplete="address-level2"
-                    v-model="user.orderTown"
-                    @blur="$v.user.orderTown.$touch()"
+                    v-model="user.city"
+                    @blur="$v.user.city.$touch()"
                     :validations="[
                       {
                         condition:
-                          !$v.user.orderTown.required &&
-                          $v.user.orderTown.$error,
+                          !$v.user.city.required &&
+                          $v.user.city.$error,
                         text: $t('Field is required.'),
                       },
                     ]"
                   />
                 </div>
-              </div>
+              </div> -->
 
-              <div class="field-full required">
-                <label for="order_postcode">
-                  Postcode
-                  <span>*</span>
-                </label>
+              <div class="field-full required marginTop">
+                <label for="order_postcode"> Address Finder </label>
                 <div class="ui-input-text">
                   <base-input
                     type="text"
                     name="postcode"
                     autocomplete="postal-code"
                     v-model="user.postCode"
-                    @blur="$v.user.postCode.$touch()"
-                    :validations="[
-                      {
-                        condition:
-                          !$v.user.postCode.required && $v.user.postCode.$error,
-                        text: $t('Field is required.'),
-                      },
-                    ]"
                   />
                 </div>
+              </div>
+              <div
+                class="
+                  field-full
+                  required
+                  POST
+                  Code
+                  from
+                  wallsandfloors
+                  walls
+                  and
+                  floors
+                  
+                "
+              >
+                <p
+                  style="display: none"
+                  class="input-wrapper lg-half address-postcode"
+                >
+                  <label>Address <span class="star">*</span></label>
+                  <span @click="enterAddressManually()" id="enter-address"
+                    >&nbsp;</span
+                  >
+                  <span
+                    @click="enterAddressFullManually()"
+                    id="enter-addressLine1"
+                    >Enter Address Manually</span
+                  >
+                  <input
+                    type="text"
+                    id="address_1"
+                    name="postcode"
+                    required
+                    placeholder="Start typing your address or postcode..."
+                    v-model="user.addressLine1"
+                    @focus="overflowHide"
+                    @keyup="overflowHide"
+                    @blur="resetOverflowHide"
+                  />
+                </p>
+
+                <div class="manually-added-fields">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode">
+                            <label>Address line 1 <span class="star">*</span></label>
+                            <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                            <base-input
+                            type="text"
+                            id="address_manuall_1"
+                            name="street-address"
+                            required
+                            placeholder=""
+                            v-model="user.addressLine1"
+                            @blur="$v.user.addressLine1.$touch()"
+                            :validations="[
+                                {
+                                condition:
+                                    !$v.user.addressLine1.required &&
+                                    $v.user.addressLine1.$error,
+                                text: $t('Field is required.'),
+                                },
+                            ]"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode">
+                            <label>Address line 2</label>
+                            <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                            <input
+                            type="text"
+                            id="address_2"
+                            name="street-address"
+                            placeholder=""
+                            v-model="user.addressLine2"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 address-line"
+                            style="display: none">
+                            <input
+                            type="text"
+                            id="address_2"
+                            name="apartment-number"
+                            placeholder="Line 2"
+                            v-model="user.addressLine2"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 city-lg-half">
+                            <label>Town <span class="star">*</span></label>
+                            <base-input
+                            type="text"
+                            id="city"
+                            name="city"
+                            required
+                            placeholder=""
+                            v-model="user.city"
+                            @blur="$v.user.city.$touch()"
+                            :validations="[
+                                {
+                                condition:
+                                    !$v.user.city.required && $v.user.city.$error,
+                                text: $t('Field is required.'),
+                                },
+                            ]"
+                            />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  find-address-type">
+                            <label>Postcode <span class="star">*</span></label>
+                            <base-input
+                            type="text"
+                            required
+                            id="find_address_manuall"
+                            placeholder=""
+                            v-model="user.postCode2"
+                            @blur="$v.user.postCode2.$touch()"
+                            :validations="[
+                                {
+                                condition:
+                                    !$v.user.postCode2.required &&
+                                    $v.user.postCode2.$error,
+                                text: $t('Field is required.'),
+                                },
+                            ]"
+                            />
+                        </div>
+                    </div>
+                 
+                  <p class="input-wrapper lg-half find-address-type">
+                    
+                  </p>
+                </div>
+                <label
+                  class="address-summary-label"
+                  id="address-summary-label"
+                  style="display: none"
+                  >Address</label
+                >
+                <!-- <div
+                  class="address-summary"
+                  id="address-summary"
+                  style="display: none"
+                >
+                  <div class="non-edited-text">
+                    <template v-if="user.company">
+                      {{ user.company }}<br />
+                    </template>
+                    <template v-if="user.addressLine1">
+                      {{ user.addressLine1 }}<br />
+                    </template>
+                    <template v-if="user.addressLine2">
+                      {{ user.addressLine2 }}<br />
+                    </template>
+                    <template v-if="user.city">
+                      {{ user.city }} <br />
+                    </template>
+                    <template v-if="user.postCode">
+                      {{ user.postCode }}
+                    </template>
+                  </div>
+                </div>
+                <span
+                  @click="enterEditAddressManuallyFunc()"
+                  id="edit-address-again"
+                  class="EditAddressAgain"
+                  style="display: none"
+                  >Edit Address</span
+                >  -->
               </div>
             </div>
             <p class="swatches-term-condition">
@@ -361,7 +530,7 @@
 </template>
 <script>
 import Breadcrumbs from "../components/core/Breadcrumbs.vue";
-//import BaseInput from "src/theme/components/core/blocks/Form/BaseInput.vue";
+// import BaseInput from "src/theme/components/core/blocks/Form/BaseInput.vue";
 import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
 import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
@@ -369,11 +538,13 @@ import axios from "axios";
 import SwatchProduct from "theme/components/core/blocks/swatches/SwatchProduct.vue";
 // /home/ejaz/vsf/BEDFACTORY/newBFD/bfdvuestore/src/themes/tilemountain/components/core/blocks/swatches/SwatchProduct.vue
 import i18n from "@vue-storefront/i18n";
-import { htmlDecode } from "@vue-storefront/core/lib/store/filters";
+// import { htmlDecode } from '@vue-storefront/core/lib/store/filters';
 import config from "config";
+import AddressLookupMixin from "src/themes/bedfactory/mixins/addressLookupMixin";
 
 export default {
   components: { Breadcrumbs, BaseInput, BaseSelect, SwatchProduct },
+  mixins: [AddressLookupMixin],
   data() {
     return {
       user: {
@@ -383,7 +554,8 @@ export default {
         phone: "",
         addressLine1: "",
         addressLine2: "",
-        orderTown: "",
+        city: "",
+        postCode2: "",
         postCode: "",
       },
       swatches: [],
@@ -409,15 +581,116 @@ export default {
       addressLine1: {
         required,
       },
-      orderTown: {
+      city: {
         required,
       },
-      postCode: {
+      postCode2: {
         required,
       },
     },
   },
   methods: {
+    onChanged (text) {
+        this.user.phone = text.replace(/[^0-9]/g, "");
+    },
+    assignAddressValues() {
+      var ele1 = document.getElementById("address_manuall_1").value;
+      this.user.addressLine1 = ele1;
+      var ele2 = document.getElementById("address_2").value;
+      this.user.addressLine2 = ele2;
+      var ele3 = document.getElementById("city").value;
+      console.log("hurreeee", ele3);
+      this.user.city = ele3;
+      // var ele4 = document.getElementById('shipping-company').value
+      // this.user.company = ele4
+      var ele5 = document.getElementById("find_address_manuall").value;
+      console.log("hurrr222", ele5);
+      this.user.postCode2 = ele5;
+      console.log("hurr333", ele5);
+      this.user.postCode = ele5;
+
+      console.log("741254 user", this.user);
+    },
+    overflowHide() {
+      this.$refs.quickCheckoutInner.style.overflowY = "hidden";
+    },
+    resetOverflowHide() {
+      this.$refs.quickCheckoutInner.style.overflowY = "auto";
+    },
+    enterAddressManually() {
+      console.log("enterAddressManually");
+      let autoFillField = document.getElementsByClassName("address-postcode");
+      if (autoFillField) {
+        autoFillField[0].style.display = "none";
+        // document.getElementsByClassName('manually-added-fields')[0].style.display = 'block'
+        // setTimeout(()=>{
+        this.assignAddressValues();
+        // document.getElementById('address-summary-label').style.display = 'block'
+        // document.getElementById('address-summary').style.display = 'block'
+        // document.getElementById('edit-address-again').style.display = 'block'
+        let fieldHeight = document.getElementById("fieldset-inner");
+        if (fieldHeight) fieldHeight.classList.add("expandfield");
+        // }, 500)
+      }
+    },
+    enterAddressFullManually() {
+      console.log("enterAddressFullManually");
+      let autoFillField = document.getElementsByClassName("address-postcode");
+      if (autoFillField) {
+        autoFillField[0].style.display = "none";
+        document.getElementsByClassName(
+          "manually-added-fields"
+        )[0].style.display = "block";
+        document.getElementById("address-summary-label").style.display = "none";
+        document.getElementById("address-summary").style.display = "none";
+        document.getElementById("edit-address-again").style.display = "none";
+        let fieldHeight = document.getElementById("fieldset-inner");
+        fieldHeight.classList.add("expandfield");
+        setTimeout(() => {
+          this.assignAddressValues();
+        }, 500);
+      }
+    },
+    enterEditAddressManuallyFunc() {
+      this.enterPostCode();
+    },
+    enterPostCode() {
+      document.getElementsByClassName(
+        "manually-added-fields"
+      )[0].style.display = "none";
+      document.getElementById("address_1").value = "";
+      document.getElementById("address-summary-label").style.display = "none";
+      document.getElementById("address-summary").style.display = "none";
+      document.getElementById("edit-address-again").style.display = "none";
+      let autoFillField = document.getElementsByClassName("address-postcode");
+      autoFillField[0].style.display = "block";
+    },
+    autofillDetails() {
+      let {
+        city,
+        country,
+        firstName,
+        lastName,
+        phone,
+        region,
+        postcode,
+        street,
+        house,
+        email,
+      } = this.shippingDetails;
+      this.user.firstName = firstName;
+      this.user.lastName = lastName;
+      this.user.phone = phone;
+      this.user.city = city;
+      this.user.postCode = "";
+      this.user.postCode2 = postcode;
+      this.user.addressLine1 = street;
+      this.user.addressLine2 = house ? house : " ";
+      this.user.email =
+        this.currentUser && this.currentUser.email
+          ? this.currentUser.email
+          : "";
+    },
     retrunFullName() {
       //     console.log("2211 in return full name function", this);
       const fullName = this.user.firstName + this.user.lastName;
@@ -430,14 +703,11 @@ export default {
         return;
       }
       if (this.swatchBasket.length === 0) {
-        this.$store.dispatch(
-          "notification/spawnNotification",
-          {
-            type: "error",
-            message: i18n.t("Swatch basket is empty."),
-            action1: { label: i18n.t("OK") },
-          }
-        );
+        this.$store.dispatch("notification/spawnNotification", {
+          type: "error",
+          message: i18n.t("Swatch basket is empty."),
+          action1: { label: i18n.t("OK") },
+        });
       } else {
         this.$bus.$emit(
           "notification-progress-start",
@@ -451,12 +721,12 @@ export default {
           address: {
             firstname: this.user.firstName,
             email: this.user.email,
-            city: this.user.orderTown,
+            city: this.user.city,
             lastname: this.user.lastName,
             phone: this.user.phone,
             address_line1: this.user.addressLine1,
-            town: this.user.orderTown,
-            postcode: this.user.postCode,
+            town: this.user.city,
+            postcode: this.user.postCode2,
             country: "GB",
             street: this.user.addressLine1,
             country_code: "UK",
@@ -470,27 +740,21 @@ export default {
           .then((res) => {
             if (res.status !== 200) {
               this.$bus.$emit("notification-progress-stop", {});
-              console.log("78945614 notificationData",notificationData);
-              this.$store.dispatch(
-                "notification/spawnNotification",
-                {
-                  type: "error",
-                  message: i18n.t(`${res.result}`),
-                  action1: { label: i18n.t("OK") },
-                }
-              );
+              console.log("78945614 notificationData", notificationData);
+              this.$store.dispatch("notification/spawnNotification", {
+                type: "error",
+                message: i18n.t(`${res.result}`),
+                action1: { label: i18n.t("OK") },
+              });
               throw new Error(res.result);
             } else {
               this.swatchBasket = [];
               this.$bus.$emit("notification-progress-stop", {});
-              this.$store.dispatch(
-                "notification/spawnNotification",
-                {
-                  type: "success",
-                  message: i18n.t(`Order placed successfully`),
-                  action1: { label: i18n.t("OK") },
-                }
-              );
+              this.$store.dispatch("notification/spawnNotification", {
+                type: "success",
+                message: i18n.t(`Order placed successfully`),
+                action1: { label: i18n.t("OK") },
+              });
               // console.log(
               //   "2211 success for swatch place order",
               //   this.retrunFullName()
@@ -503,7 +767,7 @@ export default {
             }
           })
           .catch((err) => {
-             console.log("78945623 in catch", err);
+            console.log("78945623 in catch", err);
             this.$bus.$emit("notification-progress-stop", {});
             this.$store.dispatch(
               "notification/spawnNotification",
@@ -540,14 +804,11 @@ export default {
     },
     cartItemsChecker() {
       if (this.swatchBasket.length === 6) {
-        this.$store.dispatch(
-          "notification/spawnNotification",
-          {
-            type: "error",
-            message: i18n.t("You have already added six items  in cart."),
-            action1: { label: i18n.t("OK") },
-          }
-        );
+        this.$store.dispatch("notification/spawnNotification", {
+          type: "error",
+          message: i18n.t("You have already added six items  in cart."),
+          action1: { label: i18n.t("OK") },
+        });
       }
     },
     removeFromCart(value) {
@@ -557,6 +818,20 @@ export default {
     },
   },
   mounted() {
+    const scriptList = document.querySelectorAll(
+      "script[type='text/javascript']"
+    );
+    const convertedNodeList = Array.from(scriptList);
+    const cc_c2aScript = convertedNodeList.find(
+      (script) => script.id === "clickToAddressId"
+    );
+    cc_c2aScript?.parentNode.removeChild(cc_c2aScript);
+    if (document.getElementById("cc_c2a") !== null) {
+      document.getElementById("cc_c2a").remove();
+    }
+    setTimeout(() => {
+      this.addressLookUpFinder();
+    }, 1000);
     const URL = config.api.url + config.swatches.endpoint + "/getSwatches";
     //   const URL =  "https:/bfd.bedfactorydirect.co.uk/api/ext/swatches/getSwatches"
     axios
@@ -581,10 +856,78 @@ export default {
     //   return fullName;
     // },
   },
+  beforeMount() {
+    const craftyplugin = document.createElement("script");
+    craftyplugin.setAttribute("src", "/assets/js/crafty_postcode.class.js");
+    document.head.appendChild(craftyplugin);
+    const craftAddressLookUpplugin = document.createElement("script");
+    craftAddressLookUpplugin.setAttribute("src", "/assets/js/cc_c2a.min.js");
+    document.head.appendChild(craftAddressLookUpplugin);
+  },
 };
+
+
+
+
+
 </script>
 
 <style>
+.mainFormRow{
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.manually-added-fields .address-postcode .base-input {
+  min-height: 3rem;
+}
+.manually-added-fields .city-lg-half .base-input {
+  min-height: 2rem;
+}
+.manually-added-fields .find-address-type .base-input {
+  min-height: 2rem;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="text"] {
+  /* width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0; */
+  box-sizing: border-box;
+  /* // border: 3px solid #ccc;
+  // -webkit-transition: 0.5s;
+  // transition: 0.5s; */
+  outline: none;
+}
+input[type="text"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+/* for number */
+input[type="number"] {
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="number"]:focus {
+  border: 2px solid #747474 !important;
+}
+
+/* /// for Email */
+input[type="email"] {
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="email"]:focus {
+  border: 2px solid #747474 !important;
+}
+
 .fabrics-detail {
   margin-top: 40px;
 }
@@ -626,7 +969,7 @@ export default {
   width: 100%;
 }
 .ui-input-text .relative {
-  min-height: 0rem;
+  min-height: 0rem !important;
 }
 .fabric-tile__trigger {
   position: absolute;
@@ -696,7 +1039,7 @@ export default {
   font-size: 14px;
   margin-bottom: 0px;
   padding: 0px 10px;
-  height: 30px;
+  /* height: 30px; */
   margin: 0;
   line-height: 2;
 }
@@ -736,7 +1079,7 @@ img.home-breadcrumb-icon-img {
 .swatch-basket {
   background: #eee;
   border-radius: 4px;
-  text-align: center;
+  text-align: left;
   position: relative;
   padding: 15px;
 }
@@ -775,13 +1118,14 @@ img.home-breadcrumb-icon-img {
   min-height: 110px;
   cursor: pointer;
 }
-.swatch-basket form .field {
+.swatch-basket > form .field {
   padding: 0px;
   margin-bottom: 15px;
-  width: 49%;
+  width: 46%;
+  margin-right: 8px;
   display: inline-block;
 }
-.swatch-basket form .field label {
+.swatch-basket > form label {
   display: block;
   margin-bottom: 8px;
   text-align: left;
@@ -789,18 +1133,24 @@ img.home-breadcrumb-icon-img {
   color: #747474;
   font-size: 14px;
 }
-.swatch-basket form .field.required label > span {
+.swatch-basket > form label > span {
   display: inline;
   color: #ef0b0b;
 }
-.swatch-basket form .field input {
+.swatch-basket > form input {
   display: block;
   border-radius: 4px;
   border: 1px solid #dfdfdf;
   background: #fff;
-  height: 30px;
+  height: unset !important;
   width: 100%;
-  padding: 0;
+  line-height: 28px;
+  font-size:14px;
+  padding: 0 3px;
+  color: #747474;
+}
+.swatch-basket > form input:focus, .swatch-basket > form input:hover {
+  border: 1px solid #747474 !important;
 }
 .swatch-basket form .field-full {
   padding: 0px;
@@ -827,19 +1177,23 @@ img.home-breadcrumb-icon-img {
   border: 1px solid #dfdfdf;
   background: #fff;
   width: 100%;
-  height: 30px;
-  padding: 0;
+  height: unset !important;
+  line-height: 2;
+  outline: none;
+  font-size: 14px;
+  padding: 0 8px;
+  color: #747474;
 }
 .swatch-basket form p {
-  text-align: center;
-    font-size: 14px;
-    margin: 5px 20px 20px 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #5e5e61;
-    line-height: 17px;
+  text-align: left;
+  font-size: 14px;
+  margin: 5px 0px 20px 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5e5e61;
+  line-height: 17px;
 }
 a.ui-link {
-    color: #ed008c;
+  color: #ed008c;
 }
 .swatch-basket form .btn-order {
   display: block;
@@ -976,9 +1330,9 @@ a.ui-link {
   right: 8px;
   z-index: 9;
 }
-.swatch-basket form .row {
+/* .swatch-basket form .row {
   margin-left: 0;
-}
+} */
 @media (max-width: 767px) {
   .fabrics-detail .boxes ul li .heading {
     display: block;
@@ -991,7 +1345,7 @@ a.ui-link {
     color: #747474;
     font-weight: 400;
     font-family: "Raleway", sans-serif;
-    font-size: 12px;
+    font-size: 2.2vw;
     margin-bottom: 0px;
     text-align: center;
     margin-bottom: 50px;
@@ -1027,15 +1381,15 @@ a.ui-link {
     width: 89px;
   }
   .fabrics-detail ul li:nth-child(3n + 3) {
-    margin-right: 0;
+    /* margin-right: 0; */
   }
 }
-@media only screen and (min-device-width: 481px) and (max-device-width: 767px) {
+/* @media only screen and (min-device-width: 481px) and (max-device-width: 767px) {
   .fabrics-detail .boxes ul li .fabric-tile__tile {
     height: 104px;
     width: 104px;
   }
-}
+} */
 @media only screen and (min-device-width: 768px) and (max-device-width: 992px) {
   .fabrics-detail .boxes ul li .fabric-tile__tile {
     height: 140px;
@@ -1051,5 +1405,20 @@ a.ui-link {
 }
 .tempClass {
   background: tomato;
+}
+.paddingLeftFour{
+  padding-left: 4px !important;
+}
+.paddingRightFour{
+  padding-right: 4px !important;
+}
+.minHeight0 > .base-input {
+    min-height: 0 !important;
+}
+.minHeight0, .marginBottom {
+    margin-bottom: 15px;
+}
+.marginTop {
+    margin-top: 15px;
 }
 </style>
