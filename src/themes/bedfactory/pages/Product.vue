@@ -4,32 +4,41 @@
     itemtype="http://schema.org/Product"
     class="product-page-detail"
   >
-  <!-- here we are in 2  -->
- <div >
- <!-- get reviews {{getReviews}} -->
- <meta itemprop="image" :content="getSchemaImageUrl" />
- <div v-if="reviewData && reviewData.reviews && reviewData.reviews.length >0" >
-    <!-- Here we are {{reviewData.reviews[0]}} -->
-    <div itemprop="review" itemscope itemtype="https://schema.org/Review"> 
-      
-      </div>
-    <!-- {{reviewData.reviews[0]}} here we loaded <area shape="" coords="" href="" alt=""> -->
-      <meta itemprop="datePublished" :content="formatDate(reviewData.reviews[0].created_at)" />
-      <meta itemprop="description" :content="reviewData.reviews[0].content" />
-      <meta itemprop="name" :content="reviewData.reviews[0].title" />
+    <!-- here we are in 2  -->
+    <div>
+      <!-- get reviews {{getReviews}} -->
+      <meta itemprop="image" :content="getSchemaImageUrl" />
       <div
-        itemprop="reviewRating"
-        itemscope
-        itemtype="https://schema.org/Rating"
+        v-if="reviewData && reviewData.reviews && reviewData.reviews.length > 0"
       >
-        <meta itemprop="ratingValue" :content="reviewData.reviews[0].score" />
-        <meta itemprop="bestRating" content="5" />
+        <!-- Here we are {{reviewData.reviews[0]}} -->
+        <div
+          itemprop="review"
+          itemscope
+          itemtype="https://schema.org/Review"
+        ></div>
+        <!-- {{reviewData.reviews[0]}} here we loaded <area shape="" coords="" href="" alt=""> -->
+        <meta
+          itemprop="datePublished"
+          :content="formatDate(reviewData.reviews[0].created_at)"
+        />
+        <meta itemprop="description" :content="reviewData.reviews[0].content" />
+        <meta itemprop="name" :content="reviewData.reviews[0].title" />
+        <div
+          itemprop="reviewRating"
+          itemscope
+          itemtype="https://schema.org/Rating"
+        >
+          <meta itemprop="ratingValue" :content="reviewData.reviews[0].score" />
+          <meta itemprop="bestRating" content="5" />
+        </div>
+        <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <meta
+            itemprop="name"
+            :content="reviewData.reviews[0].user.display_name"
+          />
+        </div>
       </div>
-      <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-        <meta itemprop="name" :content="reviewData.reviews[0].user.display_name" />
-      </div>
- </div>
- 
     </div>
     <section>
       <div class="container">
@@ -195,7 +204,14 @@
                 />
                 <meta itemprop="mpn" :content="getCurrentProduct.sku" />
                 <meta itemprop="url" :content="getProductUrl" />
-                <meta itemprop="aggregateRating" :content="reviewData.bottomline? reviewData.bottomline.average_score:'0.0'" />
+                <meta
+                  itemprop="aggregateRating"
+                  :content="
+                    reviewData.bottomline
+                      ? reviewData.bottomline.average_score
+                      : '0.0'
+                  "
+                />
                 <meta itemprop="brand" :content="`Bed Factory Direct`" />
                 <div
                   itemprop="manufacturer"
@@ -382,39 +398,32 @@
                       />-->
                       </div>
                       <div
-                        class="sizes basin_size"
-                        v-else-if="option.label == 'Size'"
-                      >
+                          class="sizes basin_size"
+                          v-else-if="option.label == 'Size'">
                         <!-- Size -->
                         <!-- Here we are -->
                         <select
-                          class="chevron-down-icon"
-                          @change="changeFilterCustom($event)"
-                        >
-                          <option disabled value="" :key="2378695843" selected>
-                            Please select
-                          </option>
-                          <template
-                            v-for="filter in getAvailableFilters[
-                              option.attribute_code
-                            ]"
-                          >
-                            <option
-                              :key="filter.id"
-                              :value="JSON.stringify(filter)"
-                            >
-                              {{ filter.label }}
-                            </option>
-                          </template>
+                                class="chevron-down-icon"
+                                @change="changeFilterCustom($event)">
+                                <option disabled value="" :key="2378695843" selected>
+                                  Please select
+            </option>
+            <template v-for="filter in getAvailableFilters[option.attribute_code]">
+                                        <option
+                                          :key="filter.id"
+                                          :value="JSON.stringify(filter)">
+                                          {{ filter.label }}
+                                        </option>
+              </template>
                         </select>
-                        <!-- <size-selector
-                        class="mr10 mb10"
-                        v-for="filter in getAvailableFilters[option.attribute_code]"
-                        :key="filter.id"
-                        :variant="filter"
-                        :selected-filters="getSelectedFilters"
-                        @change="changeFilter"
-                      />-->
+                              <!-- <size-selector
+                              class="mr10 mb10"
+                              v-for="filter in getAvailableFilters[option.attribute_code]"
+                              :key="filter.id"
+                              :variant="filter"
+                              :selected-filters="getSelectedFilters"
+                              @change="changeFilter"
+                            />-->
                       </div>
 
                       <div
@@ -454,13 +463,12 @@
                       />-->
                       </div>
                       <!-- <span
-                      v-if="option.label == 'Size'"
-                      @click="openSizeGuide"
-                      class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
-                    >
-                      <i class="pr5 material-icons">accessibility</i>
-                      <span>{{ $t('Size guide') }}</span>
-                    </span>-->
+                            v-if="option.label == 'Size'"
+                            @click="openSizeGuide"
+                            class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary">
+                            <i class="pr5 material-icons">accessibility</i>
+                            <span>{{ $t('Size guide') }}</span>
+                          </span>-->
                     </div>
                   </div>
                 </div>
@@ -554,45 +562,46 @@
                   :color="false"
                   :key="reRender"
                 />
-                <div class="fabric-btn-responsive">
-                  <div
-                    class="fabric-button-design"
-                    v-if="
-                      getCurrentProduct.isFabric !== 0 &&
-                      getCurrentProduct.isFabric !== '0' &&
-                      getCurrentProduct.isFabric !== ' ' &&
-                      getCurrentProduct.isFabric !== false
-                    "
-                  >
-                    <button
-                      class="select-color-button chevron-down"
-                      type="button"
-                      @click="showColorPicker"
-                    >
-                      {{ getColorName() }}
-                      <!-- <i
-                      class="material-icons cl-bg-tertiary pointer select-color-icon"
-                      >keyboard_arrow_right</i
-                    > -->
-                    </button>
-                    <span class="error1" v-if="isFabrics"
-                      >Field is required</span
-                    >
-                    <div
-                      id="overlay"
+
+
+
+
+
+                       <!-- //////////////  Fabircs Title ////////  -->
+
+        <div class="fabric-btn-responsive">
+            <div class="fabric-button-design"
+                v-if="
+                  getCurrentProduct.isFabric !== 0 &&
+                  getCurrentProduct.isFabric !== '0' &&
+                  getCurrentProduct.isFabric !== ' ' &&
+                  getCurrentProduct.isFabric !== false">
+                  <button
+                        class="select-color-button chevron-down"
+                        type="button"
+                        @click="showColorPicker" >
+                        {{ getColorName() }}
+                          <!-- <i
+                          class="material-icons cl-bg-tertiary pointer select-color-icon"
+                          >keyboard_arrow_right</i
+                          > -->
+                     </button>
+                  <span class="error1" v-if="isFabrics">Field is required</span>
+                  <div id="overlay"
                       @click="hideColorPicker"
-                      v-if="colorPickerCheck"
-                    />
+                      v-if="colorPickerCheck"/>
                     <!-- {{getCurrentProduct.custom_options[2]}} -->
-                    <color-picker
-                      :colors="getCurrentProduct"
-                      v-show="colorPickerCheck"
-                      @closeColorPickerModal="hideColorPicker"
-                      @selectedColor="setColorName($event)"
-                    />
-                  </div>
+                      <color-picker
+                        :colors="getCurrentProduct"
+                        v-show="colorPickerCheck"
+                        @closeColorPickerModal="hideColorPicker"
+                        @selectedColor="setColorName($event)"/>
                 </div>
+         </div>
               </div>
+
+
+               <!-- ////////   add to Basket button //////    -->
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
@@ -654,30 +663,35 @@
                     @Modal="modalshow"
                     :sqm-val-updated="'0'"
                   /> -->
-                  <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
-                  <template v-if="getCurrentProduct.custom_options && getCurrentProduct.custom_options.length>0" >
-                    <add-to-cart
-                      :product-options="sendProductCustomOptions"
-                      :product="getCurrentProduct"
-                      :custom-options="getCurrentProductCustomOptionsRedo"
-                      class="col-xs-12 col-sm-4 col-md-6 float-right"
-                      :product-calculated-price="calculatedProductPrice"
-                      :disableProduct="false"
-                      :disableProductFlag="false"
-                      :outofStock="getStockStatus"
-                    />
-                  </template>
-                   <template v-else>
-                     <add-to-cart
-                      :product-options="sendProductCustomOptions"
-                      :product="getCurrentProduct"
-                      :custom-options="getCurrentProductCustomOptionsRedo"
-                      class="col-xs-12 col-sm-4 col-md-6 float-right"
-                      :product-calculated-price="calculatedProductPrice"
-                      :disableProduct="cartFlag"
-                      :disableProductFlag="cartFlag"
-                      :outofStock="getStockStatus"
-                    />
+                    <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
+                    <template
+                      v-if="
+                        getCurrentProduct.custom_options &&
+                        getCurrentProduct.custom_options.length > 0
+                      "
+                    >
+                      <add-to-cart
+                        :product-options="sendProductCustomOptions"
+                        :product="getCurrentProduct"
+                        :custom-options="getCurrentProductCustomOptionsRedo"
+                        class="col-xs-12 col-sm-4 col-md-6 float-right"
+                        :product-calculated-price="calculatedProductPrice"
+                        :disableProduct="false"
+                        :disableProductFlag="false"
+                        :outofStock="getStockStatus"
+                      />
+                    </template>
+                    <template v-else>
+                      <add-to-cart
+                        :product-options="sendProductCustomOptions"
+                        :product="getCurrentProduct"
+                        :custom-options="getCurrentProductCustomOptionsRedo"
+                        class="col-xs-12 col-sm-4 col-md-6 float-right"
+                        :product-calculated-price="calculatedProductPrice"
+                        :disableProduct="cartFlag"
+                        :disableProductFlag="cartFlag"
+                        :outofStock="getStockStatus"
+                      />
                     </template>
 
                     <!-- <add-to-cart
@@ -710,8 +724,17 @@
                   <AddToCompare :product="getCurrentProduct" />
                 </div>
               </div>-->
-              </div> 
-              <Retailfinancev12 :currentPrice="updatedPrice" :key="updatedPrice"/>
+              </div>
+
+
+
+              <!-- //////// Retail Finance /////  -->
+              <Retailfinancev12
+                :currentPrice="updatedPrice"
+                :key="updatedPrice"
+              />
+
+              <!-- //////// Retail Finance END /////  -->
             </div>
           </div>
         </section>
@@ -987,7 +1010,7 @@ import { getThumbnailPath } from "@vue-storefront/core/helpers";
 import ReviewItemImageModel from "theme/components/core/blocks/Reviews/ReviewItemImageModel";
 import ColorPicker from "src/themes/bedfactory/components/core/blocks/ColorPicker/ColorPicker";
 import ProductPrice from "src/themes/bedfactory/components/core/ProductPrice.vue";
-import dateFormat from 'dateformat';
+import dateFormat from "dateformat";
 //theme/components/core/blocks/ColorPicker/ColorPicker.vue
 export default {
   name: "ProductPage",
@@ -1041,16 +1064,17 @@ export default {
   },
   data() {
     return {
-      v12Data:{},
-      minimumMonthlyPayment : 0,
-      minProductPrice : 335,
-      monthly_text : ' ',
-      showCalculator : false,
-      updatedPrice:0,
+      unCheckfabrics : false, 
+      v12Data: {},
+      minimumMonthlyPayment: 0,
+      minProductPrice: 335,
+      monthly_text: " ",
+      showCalculator: false,
+      updatedPrice: 0,
       cartFlag: false,
       ViewCalculatorCheck: false,
       currentConfiguration: {},
-      isFabrics: true,
+      isFabrics: false,
       detailsOpen: false,
       ProDeliveryShow: true,
       ProReviewShow: true,
@@ -1142,25 +1166,33 @@ export default {
       productsInCart: "cart/getCartItems",
       getCartToken: "cart/getCartToken",
     }),
-    getStockStatus(){
+    getStockStatus() {
       return 1;
-      console.log("14521 stock is ",this.getCurrentProduct.stock.stock_status,this.getCurrentProduct.stock);
-      if (this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1)
-      {//for 1
-      console.log("14521 123 in 1");
-      if (this.getCurrentProduct.stock.qty >0)
-      {
-        return 1
-      }else{
-        return 0
+      console.log(
+        "14521 stock is ",
+        this.getCurrentProduct.stock.stock_status,
+        this.getCurrentProduct.stock
+      );
+      if (
+        this.getCurrentProduct.stock.stock_status
+          ? this.getCurrentProduct.stock.stock_status
+          : this.getCurrentProduct.stock.stock_status === 0
+          ? 0
+          : 1
+      ) {
+        //for 1
+        console.log("14521 123 in 1");
+        if (this.getCurrentProduct.stock.qty > 0) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else {
+        //for 0
+        console.log("14521 123 in 0");
+        return 0;
       }
-
-      }
-      else{//for 0
-      console.log("14521 123 in 0");
-      return 0
-      }
-    //  return this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1
+      //  return this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1
     },
     getCurrentProductCustomOptionsRedo() {
       // let cOptions = this.$store.state.product;
@@ -1706,10 +1738,10 @@ export default {
     },
   },
   methods: {
-    formatDate (date) {
-      let formattedDate = date.replace(' ', 'T');
+    formatDate(date) {
+      let formattedDate = date.replace(" ", "T");
       let d = new Date(formattedDate);
-      return dateFormat(d, "yyyy-mm-dd")
+      return dateFormat(d, "yyyy-mm-dd");
     },
     checkRoute() {
       console.log(
@@ -1724,11 +1756,11 @@ export default {
       console.log("\n112266 After STATE is \n\n", this.$store.state.product);
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
     },
-    HandleOnClickV12 () {
-      this.ViewCalculatorCheck = true
+    HandleOnClickV12() {
+      this.ViewCalculatorCheck = true;
     },
-    HandleOnCloseV12 () {
-      this.ViewCalculatorCheck = false
+    HandleOnCloseV12() {
+      this.ViewCalculatorCheck = false;
     },
     getCurrentProductCustomOptions() {
       // let cOptions = this.$store.state.product;
@@ -1938,9 +1970,13 @@ export default {
       });
     },
     setPrice(data) {
-      console.log("7778855 Current price is ",data);
-      let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
-      console.log("778855 current calculated price is ",price);
+      console.log("7778855 Current price is ", data);
+      let price = data.special
+        ? data.original - data.special === 0
+          ? data.original
+          : data.special
+        : data.original;
+      console.log("778855 current calculated price is ", price);
       this.updatedPrice = price;
       this.calculatedProductPrice = data;
     },
@@ -2048,6 +2084,7 @@ export default {
     setColorName(name) {
       this.colorName = name;
       this.isFabrics = false;
+      this.unCheckfabrics = true ; 
     },
     getColorName() {
       // console.log("741258 in get color name",this.colorName);
@@ -2076,6 +2113,12 @@ export default {
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
+      if (this.unCheckfabrics){
+      }
+      else{
+        this.isFabrics = true;
+        this.unCheckfabrics = false;
+      }
       document.body.style.overflowY = "scroll";
     },
     setReviews() {
@@ -5145,7 +5188,7 @@ label.base-input-number__label.cl-primary.flex {
   .V-12-retail-Finance {
     margin-left: 27px !important;
     width: 91% !important;
-}
+  }
 }
 h4.variants-label.basin-head {
   color: #071a44 !important;
@@ -5205,19 +5248,17 @@ h4.variants-label.basin-head {
 .basin_size.colour {
   width: 95%;
 }
-<<<<<<< HEAD
-button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
-    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
-    background-size: 18px !important;
-    transform: rotate(180deg);
-    position: absolute;
-    left: -17px;
+<<<<<<< HEAD button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
+  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+  background-size: 18px !important;
+  transform: rotate(180deg);
+  position: absolute;
+  left: -17px;
 }
 button.VueCarousel-navigation-button.VueCarousel-navigation-next {
-    background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
-    background-size: 17px !important;
+  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+  background-size: 17px !important;
 }
-
 </style>
 
 =======
