@@ -44,13 +44,12 @@
                   @keyup="
                     someKeyUpFunction();
                     addborders();
+                    customKeyUpFunction($event);
                   "
                   @click="
                     searchClick();
                     showSearchPanel();
                     addborders();
-
-
                     closeMenu();
                   "
                   @keyup.enter="onEnter"
@@ -141,6 +140,7 @@ import CategoryPanel from "theme/components/core/blocks/Category/CategoryPanel"
 import { minLength } from "vuelidate/lib/validators"
 import config from 'config'
 // import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+
 export default {
   name: "DesktopSearch",
   methods: {
@@ -205,7 +205,8 @@ export default {
       this.showPanelNewDesktop = true
     },
     someKeyUpFunction () {
-      this.showPanelNewDesktop = true
+      console.log(this.search);
+      this.showPanelNewDesktop = true;
       if (document.getElementById("search-mainmain") != null) {
         document.getElementById("search-mainmain").className = "sb-filters"
         document.getElementsByClassName('back-layout')[0].style.display = 'block'
@@ -222,6 +223,9 @@ export default {
           }
         })
       }
+    },
+    customKeyUpFunction(event){
+      this.search = event.target.value;
     },
     searchClick () {
       if (document.getElementById("search-mainmain") != null) {
@@ -281,7 +285,7 @@ export default {
         document.removeEventListener("touchend", el.eventOnClick)
         el.removeAttribute("data-dragging")
       },
-    },
+    }
   },
   components: {
     ProductTileSearch,
@@ -301,7 +305,8 @@ export default {
       size: 3,
       formSubmitUrl: '',
       products: [],
-      shows: false
+      shows: false,
+      search:''
     }
   },
   computed: {

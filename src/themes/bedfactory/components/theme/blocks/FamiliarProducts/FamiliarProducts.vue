@@ -1,6 +1,6 @@
 <template>
   <div class="familiar-brands">
-    <div class="container">
+    <div class="container fullWidth">
       <!-- <div class="row center-xs">
         <h1 class="desktop">amiliar Brands, Unfamiliar Prices</h1>
         <h1 class="mobile">
@@ -23,7 +23,7 @@ export default {
 <style lang="scss">
 @media (min-width: 767px) {
   .familiar-brands {
-    padding: 0px 0px 27px 0px;
+    padding: 0px 0px 27px 0px; 
     .desktop {
       text-align: center;
       font-size: 26px;
@@ -162,6 +162,11 @@ export default {
   .familiar-brands .brand-detail .brand-detail-inner:hover .heading {
     width: 100% !important;
     padding: 74px 0px;
+  }
+}
+.fullWidth {
+    .row{
+    width: 100%;
   }
 }
 </style>
