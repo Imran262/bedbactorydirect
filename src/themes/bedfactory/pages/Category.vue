@@ -281,8 +281,8 @@
          
 
 
-<!-- {{getCategoryProductsTotal}}
-getCategoryProducts {{getCategoryProducts}} -->
+          <!-- {{getCategoryProductsTotal}}
+          getCategoryProducts {{getCategoryProducts}} -->
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h4 data-testid="noProductsInfo">
               {{ $t('No products found!') }}
@@ -405,13 +405,20 @@ getCategoryProducts {{getCategoryProducts}} -->
               @changePage="pageChanged"
             />
           </div>
+          
         </div>
       </div>
+    </div>
+    <div class="category-bottom-content">
+        <cms-block
+                :identifier="'category_footer'"
+                />
     </div>
   </div>
 </template>
 
 <script>
+import CmsBlock from 'src/themes/bedfactory/components/core/blocks/Cms/CategoryBottomBlock';
 import LazyHydrate from 'vue-lazy-hydration'
 import ActiveFilters from 'src/modules/vsf-layered-nav/components/ActiveFilters.vue'
 import Sidebar from 'src/modules/vsf-layered-nav/components/Sidebar'
@@ -485,7 +492,8 @@ export default {
     SortBy,
     CategoryTile,
     Columns,
-    ProductListingPagination
+    ProductListingPagination,
+    CmsBlock
   },
   mixins: [GTAGCategory],
   data () {
@@ -1947,5 +1955,8 @@ span.sortbycleartxt {
     font-size: 12px !important;
     color: #434343;
 }
-
+.category-bottom-content{
+    border-top: 1px solid #9c9a9a;
+    border-bottom: 1px solid #9c9a9a;
+}
 </style>
