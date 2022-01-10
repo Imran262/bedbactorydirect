@@ -1,185 +1,235 @@
 <template>
-    <div class="container">
-      <ul class="flex menu" @mouseover="mouseover" @mouseleave="mouseleave()">
-        <li
-          v-for="(links, index) in link"
-          class="sb-menu nav-item level0 nav-1 level-top first nav-item--parent mega nav-item--only-blocks parent"
-          :class="links.customClassName"
-          :key="index"
-        >
-          <span @click="goto()" class="menuspan">
-            <router-link
-              :to="localizedRoute(links.link)"
-              class="level-top sb-forward"
-            >
-            {{ links.title }}
-            </router-link>
-          </span>
-          <div
-            v-if="links.submenu"
-            v-show="hovered"
-            :class="`nav-panel-dropdown ` + (show ? ` displayBlock` : null)"
+  <div>
+    <div class="container-fluid menu-bar p-0">
+      <div class="container-fluid bg-menu p-0">
+        <div class="container">
+          <ul
+            class="flex menu"
+            @mouseover="mouseover"
+            @mouseleave="mouseleave()"
           >
-            <div class="nav-panel-inner">
-              <div class="nav-block">
-                <div
-                  v-for="sublink in links.submenu"
-                  :class="sublink.sub_links.length>=10 ? 'sb-height-dropdown-menu col-lg-2 col-md-3':'sb-height-dropdown-menu col-lg-2 col-md-2'"
+            <li
+              v-for="(links, index) in link"
+              class="
+                sb-menu
+                nav-item
+                level0
+                nav-1
+                level-top
+                first
+                nav-item--parent
+                mega
+                nav-item--only-blocks
+                parent
+              "
+              :class="links.customClassName"
+              :key="index"
+            >
+              <span @click="goto()" class="menuspan">
+                <router-link
+                  :to="localizedRoute(links.link)"
+                  class="level-top sb-forward"
                 >
-                  <span class="subcag-title">{{ sublink.main_title }}</span>
-                 <ul :class="sublink.sub_links.length>=10 ? 'bullet menu-frame':'bullet'">
-                    <li v-for="finallink in sublink.sub_links">
-                      <router-link
-                        :class="finallink.class"
-                        :to="localizedRoute(finallink.link)"
-                        v-html="finallink.title"
+                  {{ links.title }}
+                </router-link>
+              </span>
+              <div
+                v-if="links.submenu"
+                v-show="hovered"
+                :class="`nav-panel-dropdown ` + (show ? ` displayBlock` : null)"
+              >
+                <div class="nav-panel-inner">
+                  <div class="nav-block">
+                    <div
+                      v-for="sublink in links.submenu"
+                      :class="
+                        sublink.sub_links.length >= 10
+                          ? 'sb-height-dropdown-menu col-lg-2 col-md-3'
+                          : 'sb-height-dropdown-menu col-lg-2 col-md-2'
+                      "
+                    >
+                      <span class="subcag-title">{{ sublink.main_title }}</span>
+                      <ul
+                        :class="
+                          sublink.sub_links.length >= 10
+                            ? 'bullet menu-frame'
+                            : 'bullet'
+                        "
                       >
-                        <!-- {{ finallink.title }} -->
-                      </router-link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <!-- <div class="sb-price-match">
+                        <li v-for="finallink in sublink.sub_links">
+                          <router-link
+                            :class="finallink.class"
+                            :to="localizedRoute(finallink.link)"
+                            v-html="finallink.title"
+                          >
+                            <!-- {{ finallink.title }} -->
+                          </router-link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- <div class="sb-price-match">
                 <div class="menu-dropdown-logo-img">&nbsp;</div>
               </div> -->
-              <div v-if="links.submenuimg" class="dropdown-menu-right-img">
-                <router-link
-                  v-if="links.imglink != '#'"
-                  :to="localizedRoute(links.imglink)"
-                >
-                  <img alt="Menu Image" :src="links.submenuimg" />
-                </router-link>
-                <span v-else>
-                  <img alt="Menu Image" :src="links.submenuimg" />
-                </span>
+                  <div v-if="links.submenuimg" class="dropdown-menu-right-img">
+                    <router-link
+                      v-if="links.imglink != '#'"
+                      :to="localizedRoute(links.imglink)"
+                    >
+                      <img alt="Menu Image" :src="links.submenuimg" />
+                    </router-link>
+                    <span v-else>
+                      <img alt="Menu Image" :src="links.submenuimg" />
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="arrow-down"></div>
-          </div>
-        </li>
-      </ul>
+              <div class="box">
+                <div class="arrow-down"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="container-fluid bg-usp-bar p-0">
+        <div class="container">
+          <UspBar
+            class="usp-bar-border"
+            v-if="
+              !$device.isMobile &&
+              $route.name !== 'checkout' &&
+              $route.name !== 'Checkout'
+            "
+            :identifier="'usp-bar-TM'"
+          />
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
-import cmsBlock from 'vsf-cms-block-mixin/components/cmsBlock'
-
+import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar";
 export default {
-  name: 'MegaMenu',
+  name: "MegaMenu",
   mixins: [cmsBlock],
-
+  components: {
+    UspBar,
+  },
   computed: {
-    link () {
-      var mainTopLinks = []
-      var i = 0
+    link() {
+      var mainTopLinks = [];
+      var i = 0;
 
       if (this.data) {
-
-        var mbclasses = this.parsedContent.querySelectorAll('.sb-menu');
-
+        var mbclasses = this.parsedContent.querySelectorAll(".sb-menu");
 
         [].forEach.call(mbclasses, (mbclass) => {
           // do whatever
           // console.log('class - ' + i, mbclass.classNames);
-          var menulink = []
+          var menulink = [];
           if (mbclass.classNames && mbclass.classNames.length > 0) {
             if (mbclass.classNames) {
-              if (mbclass.classNames.includes('not_on_desktop')) {
-                menulink['customClassName'] = 'not_on_desktop'
+              if (mbclass.classNames.includes("not_on_desktop")) {
+                menulink["customClassName"] = "not_on_desktop";
               } else {
-                menulink['customClassName'] = ''
+                menulink["customClassName"] = "";
               }
             }
           } else {
-            menulink['customClassName'] = ''
+            menulink["customClassName"] = "";
           }
-          if (mbclass.querySelector('a.sb-forward').attributes['href']) {
-            menulink['link'] = mbclass.querySelector('a.sb-forward').attributes['href']
+          if (mbclass.querySelector("a.sb-forward").attributes["href"]) {
+            menulink["link"] =
+              mbclass.querySelector("a.sb-forward").attributes["href"];
           } else {
-            menulink['link'] = '#'
+            menulink["link"] = "#";
           }
-          if (mbclass.querySelector('a.sb-forward').rawText) {
-            menulink['title'] = mbclass.querySelector('a.sb-forward').rawText
+          if (mbclass.querySelector("a.sb-forward").rawText) {
+            menulink["title"] = mbclass.querySelector("a.sb-forward").rawText;
           } else {
-            menulink['title'] = 'UnDefined'
+            menulink["title"] = "UnDefined";
           }
-          if (mbclass.querySelector('.dropdown-menu-right-img a') && mbclass.querySelector('.dropdown-menu-right-img a').attributes['href']) {
-            menulink['imglink'] = mbclass.querySelector('.dropdown-menu-right-img a').attributes['href']
-          }
-          else {
-            menulink['imglink'] = '#'
+          if (
+            mbclass.querySelector(".dropdown-menu-right-img a") &&
+            mbclass.querySelector(".dropdown-menu-right-img a").attributes[
+              "href"
+            ]
+          ) {
+            menulink["imglink"] = mbclass.querySelector(
+              ".dropdown-menu-right-img a"
+            ).attributes["href"];
+          } else {
+            menulink["imglink"] = "#";
           }
 
-          var issubmenu = false
-          var submenuimg = false
+          var issubmenu = false;
+          var submenuimg = false;
 
-          if (mbclass.querySelector('.nav-panel-dropdown')) {
-            var totalsubmenublocks = 0
-            var blockiterator = 0
+          if (mbclass.querySelector(".nav-panel-dropdown")) {
+            var totalsubmenublocks = 0;
+            var blockiterator = 0;
             var submenublockselements = mbclass.querySelectorAll(
-              '.sb-height-dropdown-menu'
-            )
+              ".sb-height-dropdown-menu"
+            );
             if (submenublockselements.length) {
-              issubmenu = true
-              totalsubmenublocks = submenublockselements.length
+              issubmenu = true;
+              totalsubmenublocks = submenublockselements.length;
 
               var allsubmenublocks = [];
-              [].forEach.call(submenublockselements, (submenublockelement) => {    
-                var submenublockls = []
-                var submenublocklinks = []
+              [].forEach.call(submenublockselements, (submenublockelement) => {
+                var submenublockls = [];
+                var submenublocklinks = [];
 
                 if (
-                  submenublockelement.querySelector('.subcag-title').rawText
+                  submenublockelement.querySelector(".subcag-title").rawText
                 ) {
-                  var subblocktitle = submenublockelement.querySelector(
-                    '.subcag-title'
-                  ).rawText
+                  var subblocktitle =
+                    submenublockelement.querySelector(".subcag-title").rawText;
                 } else {
-                  var subblocktitle = 'UnDefined'
+                  var subblocktitle = "UnDefined";
                 }
 
-                submenublockls['main_title'] = subblocktitle
+                submenublockls["main_title"] = subblocktitle;
 
-                var bulletul = submenublockelement.querySelector('ul.bullet')
-                var bulletullis = bulletul.querySelectorAll('li')
+                var bulletul = submenublockelement.querySelector("ul.bullet");
+                var bulletullis = bulletul.querySelectorAll("li");
                 var bulletlicount = 0;
 
                 [].forEach.call(bulletullis, (bulletulli) => {
-                  var submenulink = new Array(3)
+                  var submenulink = new Array(3);
 
-                  var bulletullianchor = bulletulli.querySelector('a')
-                 if (bulletulli && bulletulli.attributes['class']) {
-                    submenulink['class'] = bulletulli.attributes['class']
+                  var bulletullianchor = bulletulli.querySelector("a");
+                  if (bulletulli && bulletulli.attributes["class"]) {
+                    submenulink["class"] = bulletulli.attributes["class"];
                   } else {
-                    submenulink['class'] = ''
+                    submenulink["class"] = "";
                   }
-                  if (bulletullianchor && bulletullianchor.attributes['href']) {
-                    submenulink['link'] = bulletullianchor.attributes['href']
+                  if (bulletullianchor && bulletullianchor.attributes["href"]) {
+                    submenulink["link"] = bulletullianchor.attributes["href"];
                   } else {
-                    submenulink['link'] = '#'
+                    submenulink["link"] = "#";
                   }
 
                   if (bulletullianchor && bulletullianchor.rawText) {
-                    submenulink['title'] = bulletullianchor.rawText
+                    submenulink["title"] = bulletullianchor.rawText;
                   } else {
-                    submenulink['title'] = 'UnDefined'
+                    submenulink["title"] = "UnDefined";
                   }
 
-                  submenublocklinks[bulletlicount] = submenulink
+                  submenublocklinks[bulletlicount] = submenulink;
 
-                  bulletlicount++
-                })
+                  bulletlicount++;
+                });
 
-                submenublockls['sub_links'] = submenublocklinks
-                allsubmenublocks[blockiterator] = submenublockls
-                blockiterator++
-              })
+                submenublockls["sub_links"] = submenublocklinks;
+                allsubmenublocks[blockiterator] = submenublockls;
+                blockiterator++;
+              });
 
-              if (mbclass.querySelector('img')) {
+              if (mbclass.querySelector("img")) {
                 // submenuimg = true;
-                submenuimg = mbclass.querySelector('img').attributes['src']
+                submenuimg = mbclass.querySelector("img").attributes["src"];
               }
             }
             // console.log('Total subblocks ' + totalsubmenublocks);
@@ -187,65 +237,74 @@ export default {
 
           if (issubmenu) {
             // console.log('Submenuhtml', allsubmenublocks);
-            menulink['submenu'] = allsubmenublocks
+            menulink["submenu"] = allsubmenublocks;
           }
 
           if (submenuimg) {
-            menulink['submenuimg'] = submenuimg
+            menulink["submenuimg"] = submenuimg;
           }
-          mainTopLinks[i] = menulink
-          i++
-        })
+          mainTopLinks[i] = menulink;
+          i++;
+        });
 
         // this.parsedContent.querySelectorAll('.mb_class').forEach(this.title);
       }
       // console.log("11223344", mainTopLinks);
-      return mainTopLinks
+      return mainTopLinks;
       // return this.parsedContent.querySelector('a').attributes['href'];
     },
-    currRoute () {
-      return this.$route.name
-    }
+    currRoute() {
+      return this.$route.name;
+    },
   },
-  data () {
+  data() {
     return {
       show: false,
       hovered: false,
-      windowWidth: 0
-    }
+      windowWidth: 0,
+    };
   },
-  mounted () {
-    this.windowWidth = document.documentElement.clientWidth
+  mounted() {
+    this.windowWidth = document.documentElement.clientWidth;
   },
   methods: {
-    goto () {
-      this.$bus.$emit('gotop')
+    goto() {
+      this.$bus.$emit("gotop");
     },
-    mouseover () {
-      const sort_by = document.getElementsByClassName('sort-by-desktop')[0]
+    mouseover() {
+      const sort_by = document.getElementsByClassName("sort-by-desktop")[0];
       if (sort_by) {
-        sort_by.classList.add('hidden')
+        sort_by.classList.add("hidden");
       }
-      this.hovered = true
+      this.hovered = true;
     },
-    mouseleave () {
-      const sort_by = document.getElementsByClassName('sort-by-desktop')[0]
+    mouseleave() {
+      const sort_by = document.getElementsByClassName("sort-by-desktop")[0];
       if (sort_by) {
-        sort_by.classList.remove('hidden')
+        sort_by.classList.remove("hidden");
       }
-      this.hovered = false
-    }
+      this.hovered = false;
+    },
   },
   watch: {
-    currRoute (newVal, oldVal) {
+    currRoute(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.hovered = false
+        this.hovered = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
+.menu-bar {
+  padding: 0px !important;
+}
+.bg-usp-bar {
+  background: #F1F8FF;
+}
+.bg-menu {
+  background: #071a44;
+}
 .hidden {
   display: none !important;
 }
@@ -254,16 +313,16 @@ export default {
 }
 .menuspan {
   width: 100%;
-} 
-.bullet .view-all{
-  color: #071A44 !important;
+}
+.bullet .view-all {
+  color: #071a44 !important;
   font-weight: bold;
 }
 .menu-frame {
-    /* max-height: 200px; */
-    -ms-flex-flow: wrap column;
-    flex-flow: wrap column;
-    display: -ms-flexbox;
-    display: flex;
+  /* max-height: 200px; */
+  -ms-flex-flow: wrap column;
+  flex-flow: wrap column;
+  display: -ms-flexbox;
+  display: flex;
 }
 </style>

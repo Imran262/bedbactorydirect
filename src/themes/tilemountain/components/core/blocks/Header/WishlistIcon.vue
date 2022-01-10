@@ -1,8 +1,11 @@
 <template>
-  <div class="bg-cl-transparent brdr-none">
-    <button type="button" class="bg-cl-transparent brdr-none p0 location">
+  <div class="bg-cl-transparent bg-location2 brdr-none headerIconsNew">
+    <!-- <button type="button" class="bg-cl-transparent brdr-none p0 location"> -->
       <router-link :to="localizedRoute('/bed-factory-stores')" exact>
-        <img src="/assets/icons/location.svg" alt="location" />
+        <div class="iconContainer">
+          <img src="/assets/icons/location.svg" alt="location" />
+        </div>
+        <span class="showrooms">Showrooms</span>
       </router-link>
 
       <!-- <span
@@ -10,22 +13,39 @@
       v-cloak
       v-show="getWishlistItemsCount"
       >{{ getWishlistItemsCount }}</span>-->
-    </button>
+    <!-- </button> -->
   </div>
 </template>
 
 <script>
 // import WishlistIcon from "@vue-storefront/core/compatibility/components/blocks/Header/WishlistIcon";
-
 export default {
   // mixins: [WishlistIcon]
 };
 </script>
 
 <style scoped>
-/* button {
-  padding-right: 13px;
-} */
+
+.headerIconsNew > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.headerIconsNew > a .iconContainer {
+    width: 18px;
+}
+.headerIconsNew > a .iconContainer img{
+    max-width: 100%;
+}
+
+.showrooms {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: "Roboto";
+  color: #2A275B;
+}
 .whishlist-count {
   top: 7px;
   left: 50%;
@@ -33,54 +53,25 @@ export default {
   min-height: 16px;
   border-radius: 10px;
 }
+.bg-location2 button {
+  margin-right: 1rem;
+}
+
 button img {
-  margin-top: 29px;
-  margin-right: -1px;
+  margin-top: 24px;
 }
 .location a:after {
   background-color: transparent !important;
 }
+
 @media (max-width: 767px) {
-  button {
-    display: block;
-    height: 76px;
-    /* width: 100%; */
-    max-width: 5em;
-    padding: 0px;
-  }
-  @media (min-width: 481px) and (max-width: 600px) {
-    button {
-      width: auto;
-    }
-  }
-  button img {
-    /* height: 28px;
-    margin-top: 9px; */
-    height: 100%;
-    width: 5vw;
-    padding-top: 3px;
-    margin: 0px;
+  .headerIconsNew > a .iconContainer {
+    width: 16.5px;
   }
 }
-@media (min-width: 320px) and (max-width: 480px) {
-  button {
-    max-width: 2em;
-    /* transform: scale(0.65); */
+@media (min-width: 991px) {
+  .showrooms {
+    font-size: 10px;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
-  button img {
-    height: 22px;
-    margin-top: 29px;
-  }
-}
-img {
-  height: 23px;
-  margin-top: 12px;
-}
-/* @media (max-width: 399px) {
-  button img {
-    height: 24px;
-  }
-} */
 </style>

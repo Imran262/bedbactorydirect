@@ -1,4 +1,9 @@
 <template>
+<div>
+
+
+
+
   <button
     type="button"
     class="inline-flex bg-cl-transparent brdr-none relative"
@@ -15,6 +20,8 @@
       {{ getWishlistItemsCount }}
     </span>
   </button>
+  
+  </div>
 </template>
 
 <script>

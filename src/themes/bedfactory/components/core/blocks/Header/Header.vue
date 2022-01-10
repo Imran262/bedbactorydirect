@@ -17,7 +17,7 @@
       >
         <div class="container px15">
           <div
-            class="row between-xs middle-xs header-main"
+            class="row between-xs middle-xs header-main header-main-new"
             v-if="
               (!isCheckoutPage && $route.name !== 'confirmorder') ||
               isThankYouPage
@@ -35,9 +35,9 @@
               </div>
             </div>
             <div class="col-md-5 col-xs-8 pr-8 basket-loc-box">
-              <div class="inline-flex sb-icons">
+              <div class="inline-flex sb-icons sb-icons-new">
                 <Telephone
-                  class="p15 icon pointer t-mobile"
+                  class="icon pointer t-mobile"
                   :callText="phone"
                   :callNumber="call"
                 />
@@ -45,7 +45,7 @@
                   <wishlist-icon class="icon pointer r-icons location-icon" />
                   <account-icon class="icon pointer r-icons1 account-icon" />
 
-                  <microcart-icon class="icon pointer r-icons" />
+                  <microcart-icon class="icon pointer r-icons3" />
                 </div>
               </div>
               <async-sidebar
@@ -101,11 +101,14 @@
                   href="#"
                   @click.prevent="gotoAccount"
                   class="cl-tertiary links"
-                  ><img src="/assets/icons/user.svg" alt="checkout user"
-              class="checkout-user"  /></a>
+                  ><img
+                    src="/assets/icons/user.svg"
+                    alt="checkout user"
+                    class="checkout-user"
+                /></a>
                 <span v-else class="log-in-detail">
-                  You are logged in as {{currentUser.firstname}}
-                  </span>
+                  You are logged in as {{ currentUser.firstname }}
+                </span>
               </div>
             </div>
           </div>
@@ -157,7 +160,6 @@ import HeaderMenu from "src/themes/bedfactory/components/core/blocks/HeaderMenu/
 import CutSampleModelHome from "theme/components/core/blocks/Footer/CutSampleModelHome.vue";
 import config from "config";
 import { themeConfigurations } from "@vue-storefront/core/helpers";
-
 const Microcart = () =>
   import(
     /* webpackPreload: true */ /* webpackChunkName: "vsf-microcart" */ "theme/components/core/blocks/Microcart/Microcart.vue"
@@ -210,14 +212,14 @@ export default {
         document.getElementById("viewport").style.overflow = "hidden";
       }
     },
-    $route (to, from) {
-      console.log("789456 In Header in cart",this.$route,to,from);
+    $route(to, from) {
+      console.log("789456 In Header in cart", this.$route, to, from);
       if (to.name === "cart") {
         this.$store.dispatch("cart/sync", {
-        forceClientState: false,
-        forceSync: true,
-      })
-      this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+          forceClientState: false,
+          forceSync: true,
+        });
+        this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
         // console.log("789456 Header ", this.productsInCart.length);
         if (this.productsInCart.length === 0) {
           // console.log("789456 Cart is Empty ");
@@ -247,7 +249,6 @@ export default {
   },
   beforeMount() {
     history.scrollRestoration = "auto";
-
     // console.log("789456 In Header ", this.$route);
     if (this.$route.name === "cart") {
       // console.log("789456 Header ", this.productsInCart.length);
@@ -256,7 +257,6 @@ export default {
         this.$router.push(this.localizedRoute("/"));
       }
     }
-
     window.addEventListener(
       "scroll",
       () => {
@@ -328,56 +328,84 @@ export default {
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
+
 span.log-in-detail {
-    color: #071a44 !important;
-    font-weight: bold;
+  color: #2A275B !important;
+  font-weight: bold;
+}
+.inline-flex {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+.r-icons3 {
+  display: flex;
+  flex-direction: column;
 }
 .header-icon {
   margin-left: 50px;
 }
-
 .relativeHeader .navigation {
   position: relative;
   top: unset;
 }
-
 .fixedHeader .navigation {
   position: fixed;
   top: -2px;
   width: 100%;
   z-index: 1;
 }
-
 .header-main {
   margin-left: 8px;
 }
 
-.inner-icons {
-  padding-left: 60px;
-  @media (max-width: 1199px) and(min-width: 992px) {
-    padding-left: 8px;
+@media (max-width: 1199px) and(min-width: 992px) {
+  .inline-flex {
+    justify-content: center;
+    align-items: center;
+    display: flex;
   }
-  @media (max-width: 767px) {
+  .r-icons3{
+          margin-top: 0;
+          margin-left: 0;
+    }
+
+}
+//  for tablets
+@media (max-width: 991px) and(min-width: 768px) {
+  .inline-flex {
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+  }
+  .r-icons3 {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .header-main.header-main-new {
+    padding: 10px 0;
+  }
+}
+.inner-icons {
+  align-items: center;
+    justify-content: space-between;
+  @media (max-width: 992px) {
     padding-left: 0px;
+    // gap: 3vw;
   }
 }
 header {
   z-index: 3;
   transition: top 0.2s ease-in-out;
-
-  &.is-visible {
-  }
-
   .wishlist {
     padding: 10px;
-
     .wishlist-img {
       span {
         display: block;
         text-align: center;
       }
     }
-
     .wishlist-text {
       span {
         font-size: 0.671875rem;
@@ -386,15 +414,12 @@ header {
       }
     }
   }
-
   .sb-header-right {
     padding: 0;
-
     button {
       opacity: 1;
     }
   }
-
   .logo-desktop {
     @media (max-width: 767px) {
       padding-top: 6px;
@@ -405,76 +430,33 @@ header {
     }
   }
 }
-@media (min-width: 1200px) {
-  .r-icons {
-    padding: 12px 34px 12px 12px;
-    // padding: 0px;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .r-icons {
-    padding: 12px 22px 12px 12px;
-    // padding: 0px;
-  }
-  .r-icons1 {
-    padding: 12px 22px 12px 12px !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .r-icons {
-    padding: 12px 7px 12px 4px;
-    // padding: 0px;
-  }
-}
-.r-icons1 {
-  padding: 12px 36px 12px 12px;
-}
-.t-mobile {
-  padding-left: 8px;
-}
 
-// .icon {
-//   opacity: 0.6;
-//   &:hover,
-//   &:focus {
-//     background-color: $color-icon-hover;
-//     opacity: 1;
-//   }
-// }
+
 .right-icons {
   //for edge
   float: right;
 }
-
 .header-placeholder {
   height: 54px;
 }
-
 .links {
   text-decoration: underline;
 }
-
 .basket-loc-box {
   position: relative;
 }
-
 .ischeckoutheader {
   height: auto !important;
-
   .bg-cl-primary {
-    /*background: #2a275c !important;*/
     padding: 10px 0px 15px 0px;
     z-index: 102;
   }
-
   .phone-no {
     margin-right: 20px;
-
     img {
       position: relative;
       top: 5px;
     }
-
     span {
       font-family: Arial, Helvetica, sans-serif;
       color: #ffffff;
@@ -482,12 +464,10 @@ header {
       font-weight: 700;
     }
   }
-
   span {
     color: #ffffff;
   }
 }
-
 @media (max-width: 480px) {
   .ischeckoutheader .checkout-logo {
     width: 100px;
@@ -508,21 +488,10 @@ header {
   }
 }
 
-@media (min-width: 600px) and (max-width: 767px) {
-  .header {
-    height: 133px !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .header {
-    height: 8.4rem;
-    position: relative;
-    z-index: 9;
-  }
+@media  (max-width: 767px) {
+ 
   .row.middle-xs {
     margin: 0 -15px;
-
     &.py5 {
       margin: 0;
     }
@@ -536,12 +505,8 @@ header {
   a,
   span {
     font-size: 12px;
-    // display: block;
   }
-  .r-icons,
-  .r-icons1 {
-    padding: 0px;
-  }
+ 
   .sb-icons {
     display: flex;
     justify-content: flex-end;
@@ -559,75 +524,91 @@ header {
   .sb-mobile-menu {
     position: relative;
     z-index: 10;
-  }
-  header {
-    height: 7.625rem;
+    display: block;
+    padding: 0;
   }
   .container {
     padding-right: 0px;
     padding-left: 0px;
   }
-  .t-mobile {
-    // padding: 5px;
-    position: relative;
-    padding: 0px;
-    margin: 0px;
-    width: 13.7vw;
-  }
+
   .ischeckoutheader .bg-cl-primary {
     padding: 10px 0px 15px 0px;
     height: auto;
   }
-  .ischeckoutheader .phone-no span {
-  }
+
   .ischeckoutheader .phone-no img {
     position: relative;
     top: 4px;
   }
-  .basket-loc-box {
-    height: 100%;
-    max-height: 50px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-top: 6px;
-  }
-  .location-icon {
-    width: 18.7vw;
-  }
-  .account-icon {
-    width: 17.5vw;
+  .notcheckoutheader {
+      // height: 6.4rem;
+      // height: 7.5rem;
+    }
+  .notcheckoutheader header {
+    // height: 7.5rem;
   }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
   .notcheckoutheader {
-    height: 6.4rem;
+    // height: 6.4rem;
+    // height: 7.5rem;
   }
   .notcheckoutheader header {
-    height: 4.625rem;
+    // height: 7.5rem;
   }
   .search-bar {
     padding-top: 0;
   }
 }
+@media (max-width: 480px) {
+  .notcheckoutheader {
+    // height: 5.9rem;
+  }
+  .notcheckoutheader header {
+    // height: 5.9rem;
+  }
+}
+// for movile view less than 767px
+// @media (max-width: 767px) {
+//    .account-icon{
+//     margin-right: 1.25rem !important;
+//   }
+// }
+
 
 //
 @media (max-width: 992px) and (min-width: 768px) {
-  .inner-icons {
-    padding-left: 2px;
-  }
-  .r-icons1 {
-    padding: 10px;
-  }
+  // .inner-icons {
+  //   padding-left: 2px;
+  // }
+  // .r-icons1 {
+  //   padding: 10px;
+  // }
+  // .account-icon {
+  //   width: 5vw;
+  // }
 }
-
 @media (max-width: 992px) {
   .fullCloseCart {
     display: none !important;
   }
+  .location-icon{
+    margin-right: 1.25rem;
+  }
+  .account-icon{
+    margin-right: 1.25rem;
+  }
 }
-
+ @media (max-width: 1199px) and(min-width: 992px) {
+    .sb-icons-new{
+      justify-content: space-between;
+    }
+    .phone.phone-icon.icon.pointer.t-mobile {
+        padding-left: 8%;
+    }
+  }
 .scrollimg {
   font-size: 32px;
   font-weight: normal;
@@ -636,7 +617,6 @@ header {
   outline: none;
   user-select: none;
 }
-
 .scroll {
   width: 50px;
   height: 50px;
@@ -652,7 +632,6 @@ header {
   cursor: pointer;
   display: none;
 }
-
 span.scrollimg:after {
   background-image: none;
   border: solid #333;
@@ -666,7 +645,6 @@ span.scrollimg:after {
   border-width: 2px 0px 0px 2px;
   margin-top: -16px;
 }
-
 @media (max-width: 992px) {
   .scroll {
     display: none !important;
@@ -692,7 +670,6 @@ span.scrollimg:after {
 .zsiq_theme1.zsiq_floatmain {
   bottom: 160px !important;
 }
-
 @media screen and (min-width: 768px) {
   .back-layout {
     position: fixed;
@@ -710,7 +687,6 @@ span.scrollimg:after {
 }
 a.cl-tertiary.links img {
   position: relative;
-  /* top: 5px; */
 }
 @media (max-width: 336px) {
   .phone-no {
@@ -718,6 +694,35 @@ a.cl-tertiary.links img {
   }
 }
 img.checkout-user {
-    width: 22px;
+  width: 22px;
 }
+
+@media (min-width: 280px) and (max-width: 480px) {
+
+  .sb-icons {
+    display: flex;
+    justify-content:flex-start;
+    padding-right: 7.81%;
+  }
+}
+@media screen and (min-width: 991px) {
+
+  /* .inner-icons {
+    gap: 20px;
+  } */
+  .location-icon{
+    margin-right: 1.5rem;
+  }
+  .account-icon{
+    margin-right: 1.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+
+  .phone.phone-icon.icon.pointer.t-mobile {
+    padding-left: 12%;
+  }
+}
+
+
 </style>

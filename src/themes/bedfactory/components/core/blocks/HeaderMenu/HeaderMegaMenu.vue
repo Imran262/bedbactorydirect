@@ -1,31 +1,42 @@
 <template>
-  <div
-    v-if="(!isCheckoutPage && $route.name !== 'confirmorder') || isThankYouPage"
-    class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
-  >
-    <MegaMenu :identifier="'megamenunew'" />
+  <div>
+    <div
+      v-if="
+        (!isCheckoutPage && $route.name !== 'confirmorder') || isThankYouPage
+      "
+      class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
+    >
+      <MegaMenu :identifier="'megamenunew'" />
+      
+    </div>
+    <!-- 2
+    {{'Mobile : '+ $device.isMobile}} {{$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')}} 
+      {{$device.isMobile }} {{ ($route.name !== 'checkout' && $route.name !== 'Checkout')}} -->
+    
   </div>
 </template>
 <script>
 // import CmsBlock from 'theme/components/core/blocks/Cms/Block';
-import MegaMenu from "src/themes/bedfactory/components/core/blocks/Home/MegaMenu";
-import { mapState } from "vuex";
-import CurrentPage from "theme/mixins/currentPage";
+import MegaMenu from 'src/themes/bedfactory/components/core/blocks/Home/MegaMenu';
+import { mapState } from 'vuex';
+import CurrentPage from 'theme/mixins/currentPage';
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"
 
 export default {
   components: {
     // CmsBlock
     MegaMenu,
+    UspBar
   },
   mixins: [CurrentPage],
-  mounted() {},
+  mounted () {},
   computed: {
-    isThankYouPage() {
+    isThankYouPage () {
       return this.$store.state.checkout.isThankYouPage
         ? this.$store.state.checkout.isThankYouPage
         : false;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">
@@ -36,7 +47,7 @@ export default {
 }
 
 .new-menu-bar {
-  background-color: #071a44;
+  /* background-color: #071a44; */
   margin-top: 2px;
   ul.menu {
     padding: 0;

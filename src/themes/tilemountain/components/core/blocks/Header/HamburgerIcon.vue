@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="bg-cl-transparent brdr-none inline-flex"
+    class="bg-cl-transparent brdr-none mobile-inline-flex"
     @click="openSidebarMenu(), colorChange(), toggleMenu()"
     :aria-label="$t('Open menu')"
     data-testid="menuButton"
@@ -12,7 +12,6 @@
 
 <script>
 import HamburgerIcon from "@vue-storefront/core/compatibility/components/blocks/Header/HamburgerIcon"
-
 export default {
   mixins: [HamburgerIcon],
   beforeMount(){
@@ -23,7 +22,6 @@ export default {
     colorChange () {
       let hamColorChange = document.getElementById("hamberger")
       hamColorChange.classList.toggle("hamberger-color")
-
     },
     toggleMenu () {
       setTimeout(function () {
@@ -55,7 +53,7 @@ button i {
   width: 40px;
   height: 35px;
   line-height: 1.2;
-  background: #ffffff url('/assets/menu-blue.svg') no-repeat 50% 50%;
+  background: #fff url('/assets/menu-blue.svg') no-repeat 50% 50%;
 }
 .hamberger-color {
   color: #fff;
@@ -83,8 +81,10 @@ button i {
     bottom: 0;
   }
   i#hamberger {
-    bottom: 15px !important;
+    bottom: 0px!important;
+  }
+  .mobile-inline-flex{
+    display: inline-flex;
+  }
 }
-}
-
 </style>

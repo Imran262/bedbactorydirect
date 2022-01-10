@@ -186,7 +186,7 @@ export default {
     height: auto;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 51%;
+    top: 49%;
     left: 50%;
     object-fit: contain;
   }

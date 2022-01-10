@@ -407,6 +407,7 @@ export default {
 }
 .fixedbut::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
   border-radius: 5px;
 }
@@ -422,7 +423,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   .addborders {
-    border: 1px solid #29a795 !important;
+    border: 1px solid #0B1A44  !important;
   }
 }
 @media screen and (min-width: 768px) {
@@ -470,7 +471,7 @@ export default {
       right: 59px;
       width: 100%;
       max-width: 396px;
-      border: 2px solid #29a795;
+      border: 2px solid #0B1A44;
       border-top: none;
       @media screen and (max-width: 767px) {
         border: 3px solid #168ae5;
@@ -515,7 +516,7 @@ export default {
         max-width: 406px;
         height: 45px;
         width: 100%;
-        border: 1px solid #333333;
+        border: 1px solid #0B1A44;
         font-size: 0.839375rem;
         padding-left: 0.5rem;
         background-color: #F2F2F2;
@@ -603,11 +604,6 @@ export default {
     top: -1px;
     width: 100%;
   }
-
-  i {
-    // opacity: 0.6;
-  }
-
   i:hover {
     opacity: 1;
   }
@@ -694,6 +690,11 @@ export default {
             padding: 0px;
             padding-left: 4rem;
             -webkit-appearance: none;
+
+            &:hover, &:focus{
+              border: 2px solid #e3e3e5;
+              box-sizing: unset;
+            }
           }
 
           .search-icon {
@@ -720,9 +721,9 @@ export default {
           overflow: auto;
           overflow: auto;
           @media screen and (max-width: 767px) {
-            border-left: 2px solid #29a795 !important;
-            border-right: 2px solid #29a795 !important;
-            border-bottom: 2px solid #29a795 !important;
+            border-left: 2px solid #e3e3e5 !important;
+            border-right: 2px solid #e3e3e5 !important;
+            border-bottom: 2px solid #e3e3e5 !important;
           }
         }
       }
@@ -748,7 +749,7 @@ export default {
   .searchpanel .container {
     padding-left: 25px;
     padding-right: 0px;
-    margin-top: 11px;
+    margin-top: 4px;
   }
 }
 
@@ -780,9 +781,26 @@ export default {
     display: none;
 }
 }
+@media screen and (min-width: 768px){
+  .search-panel-input::placeholder{
+    color: #0B1A44;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0em;
+  }
+}
 @media screen and (min-width: 1200px){
-.Desktop-search{
-    right: 35px;
+  .Desktop-search{
+      right: 35px;
+  }
 }
+@media screen and (max-width: 1200px){
+  .searchpanel {
+    margin-top: 0px;
+  }
 }
+.search-panel-input::placeholder{
+    font-family: 'Roboto';
+  }
+
 </style>

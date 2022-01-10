@@ -1,61 +1,90 @@
 <template>
-  <button
-    type="button"
-    class="relative bg-cl-transparent brdr-none inline-flex cart"
-    data-testid="openMicrocart"
-    ref="MicrocartBtn"
-    :aria-label="$t('Open microcart')"
-    id="minicarticon"
-    @click="toggleMicroCartCustom"
-  >
-    <img src="/assets/icons/basket.svg" alt="basket">
-    <span
-      class="minicart-count absolute flex center-xs middle-xs border-box py0 px2 h6 lh16 weight-700 cl-white"
-      v-cloak
-      v-show="totalQuantity"
-      data-testid="minicartCount"
-    >{{ totalItems.length }}</span>
-    <span
-      class="price"
-      id="microcartIconPrice"
-      v-cloak
-      v-show="totalQuantity"
-    >{{ getGrandTotal | price }}</span>
-  </button>
+  <div>
+    <button
+      type="button"
+      class="relative bg-cl-transparent bg-cl-trans brdr-none cart"
+      data-testid="openMicrocart"
+      ref="MicrocartBtn"
+      :aria-label="$t('Open microcart')"
+      id="minicarticon"
+      @click="toggleMicroCartCustom"
+    >
+      <div class="iconContainer">
+        <img src="/assets/icons/basket.svg" alt="basket" />
+        <span
+        class="
+          minicart-count
+          absolute
+          flex
+          center-xs
+          middle-xs
+          border-box
+          py0
+          px2
+          h6
+          lh16
+          weight-700
+          cl-white
+        "
+        v-cloak
+        v-show="totalQuantity"
+        data-testid="minicartCount"
+        >{{ totalItems.length }}
+      </span>
+      </div>
+      
+
+      <span
+        v-if="totalQuantity > 0"
+        class="price price-bfd"
+        id="microcartIconPrice"
+        v-cloak
+        v-show="totalQuantity"
+        >{{ getGrandTotal | price }}</span
+      >
+      <span
+        v-else
+        class="price price-bfd"
+        id="microcartIconPrice"
+        v-cloak
+        v-show="totalQuantity"
+        >Basket</span
+      >
+    </button>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon'
-import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers'
-
+import { mapGetters, mapActions } from 'vuex';
+import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon';
+import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers';
 export default {
   data () {
     return {
       onlyCutSizeSample: [],
       onlyFullSizeSample: []
-    }
+    };
   },
   watch: {
     totalItems: {
       handler (newVal, oldVal) {
         if (oldVal === newVal) {
-          this.getFullSampleItems()
-          this.getCutSampleItems()
+          this.getFullSampleItems();
+          this.getCutSampleItems();
         }
       },
       deep: true
     }
   },
   async mounted () {
-    await this.getFullSampleItems()
-    await this.getCutSampleItems()
-    syncCartWhenLocalStorageChange.addEventListener()
+    await this.getFullSampleItems();
+    await this.getCutSampleItems();
+    syncCartWhenLocalStorageChange.addEventListener();
     this.$once('hook:beforeDestroy', () => {
-      syncCartWhenLocalStorageChange.removeEventListener()
-    })
-    document.body.addEventListener('click', (event) => {
-      this.closeMiniCart(event)
+      syncCartWhenLocalStorageChange.removeEventListener();
+    });
+    document.body.addEventListener('click', event => {
+      this.closeMiniCart(event);
     });
   },
   computed: {
@@ -65,15 +94,19 @@ export default {
       getTotals: 'cart/getTotals'
     }),
     getGrandTotal () {
-      var grandTotal = 0
+      var grandTotal = 0;
       if (this.getTotals && this.getTotals.length > 0) {
-        var totalItem = this.getTotals.filter((totalItemsInside) => {
-          if (totalItemsInside && totalItemsInside.code && totalItemsInside.code === 'subtotal') {
-            grandTotal = totalItemsInside.value
+        var totalItem = this.getTotals.filter(totalItemsInside => {
+          if (
+            totalItemsInside &&
+            totalItemsInside.code &&
+            totalItemsInside.code === 'subtotal'
+          ) {
+            grandTotal = totalItemsInside.value;
           }
-        })
+        });
       }
-      return grandTotal
+      return grandTotal;
     }
   },
   methods: {
@@ -81,50 +114,77 @@ export default {
       openMicrocart: 'ui/toggleMicrocart'
     }),
     openMicrocartCustom (event) {
-      document.getElementsByClassName('microcart-sidebar')[0].style.display = 'block'
+      document.getElementsByClassName('microcart-sidebar')[0].style.display =
+        'block';
     },
     leaveMicrocartCustom (event) {
-      document.getElementsByClassName('microcart-sidebar')[0].style.display = 'none'
+      document.getElementsByClassName('microcart-sidebar')[0].style.display =
+        'none';
     },
     async getFullSampleItems () {
       this.onlyFullSizeSample = await this.totalItems.filter((item, index) => {
-        return item.totals && item.totals.options && item.totals.options.length > 0 && item.totals.options[0].value === 'Full Size'
+        return (
+          item.totals &&
+          item.totals.options &&
+          item.totals.options.length > 0 &&
+          item.totals.options[0].value === 'Full Size'
+        );
       });
-      return this.onlyFullSizeSample
+      return this.onlyFullSizeSample;
     },
     isTotalsLoaded () {
       let firstItem = this.totalItems?.[0];
       if (firstItem) {
-        return firstItem.totals && firstItem.totals.options
+        return firstItem.totals && firstItem.totals.options;
       }
-      return true
+      return true;
     },
     async getCutSampleItems () {
       this.onlyCutSizeSample = await this.totalItems.filter((item, index) => {
-        return item.totals && item.totals.options && item.totals.options.length > 0 && item.totals.options[0].value === 'Cut Size'
+        return (
+          item.totals &&
+          item.totals.options &&
+          item.totals.options.length > 0 &&
+          item.totals.options[0].value === 'Cut Size'
+        );
       });
-      return this.onlyCutSizeSample
+      return this.onlyCutSizeSample;
     },
     toggleMicroCartCustom () {
-      console.log("from PSWP")
-      this.getFullSampleItems()
-      this.getCutSampleItems()
+      console.log('from PSWP');
+      this.getFullSampleItems();
+      this.getCutSampleItems();
       if (!this.isTotalsLoaded()) {
         return false;
       }
-      if (this.onlyCutSizeSample.length > 0 && this.onlyCutSizeSample.length <= 3 && this.totalItems.length <= 3 && this.onlyCutSizeSample.length === this.totalItems.length) {
-        this.$bus.$emit('modal-show', 'modal-quickcheckoutmodel')
-      } else if (this.onlyCutSizeSample.length > 3 && this.onlyCutSizeSample.length === this.totalItems.length) {
-        this.$router.push(this.localizedRoute('/cart'))
-      } else if (this.onlyFullSizeSample.length > 0 && this.onlyFullSizeSample.length === this.totalItems.length) {
-        this.$router.push(this.localizedRoute('/checkout'))
-      } else if (this.onlyFullSizeSample.length === 0 && this.onlyCutSizeSample.length === 0 && this.totalItems.length > 0) {
-        this.$router.push(this.localizedRoute('/cart'))
+      if (
+        this.onlyCutSizeSample.length > 0 &&
+        this.onlyCutSizeSample.length <= 3 &&
+        this.totalItems.length <= 3 &&
+        this.onlyCutSizeSample.length === this.totalItems.length
+      ) {
+        this.$bus.$emit('modal-show', 'modal-quickcheckoutmodel');
+      } else if (
+        this.onlyCutSizeSample.length > 3 &&
+        this.onlyCutSizeSample.length === this.totalItems.length
+      ) {
+        this.$router.push(this.localizedRoute('/cart'));
+      } else if (
+        this.onlyFullSizeSample.length > 0 &&
+        this.onlyFullSizeSample.length === this.totalItems.length
+      ) {
+        this.$router.push(this.localizedRoute('/checkout'));
+      } else if (
+        this.onlyFullSizeSample.length === 0 &&
+        this.onlyCutSizeSample.length === 0 &&
+        this.totalItems.length > 0
+      ) {
+        this.$router.push(this.localizedRoute('/cart'));
       } else if (this.totalItems.length > 0) {
-        this.$router.push(this.localizedRoute('/cart'))
+        this.$router.push(this.localizedRoute('/cart'));
       }
       if (this.totalItems.length === 0) {
-        //this.$router.push(this.localizedRoute('/'))
+        // this.$router.push(this.localizedRoute('/'))
         // var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
         // console.log('xCartDiv',xCartDiv);
         // if (xCartDiv.classList.contains('fullCloseCart')) {
@@ -142,20 +202,25 @@ export default {
       if (this.$route.name !== 'checkout') {
         let ignoreClickOnMeElement = document.getElementById('minicarticon');
         let isCartRemoveButton = document.getElementById('minicartnotclose');
-        let isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+        let isClickInsideElement = ignoreClickOnMeElement.contains(
+          event.target
+        );
         let isClickInsideElementRemoveButton;
         if (isCartRemoveButton) {
-          isClickInsideElementRemoveButton = (event.target.id === isCartRemoveButton.id);
+          isClickInsideElementRemoveButton =
+            event.target.id === isCartRemoveButton.id;
         }
         if (isClickInsideElement) {
         } else {
           if (isClickInsideElementRemoveButton) {
           } else {
-            let getClassForHide = document.getElementsByClassName('microcart-sidebar')[0];
-            getClassForHide.style.display = 'none'
+            let getClassForHide = document.getElementsByClassName(
+              'microcart-sidebar'
+            )[0];
+            getClassForHide.style.display = 'none';
             if (!getClassForHide.classList.contains('fullCloseCart')) {
-              getClassForHide.classList.remove('openFullMiniCart')
-              getClassForHide.classList.add('fullCloseCart')
+              getClassForHide.classList.remove('openFullMiniCart');
+              getClassForHide.classList.add('fullCloseCart');
             }
           }
         }
@@ -166,133 +231,72 @@ export default {
 </script>
 <style scoped lang="scss">
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
+}
+.iconContainer {
+  width: 27px;
+  position: relative;
+}
+.iconContainer img {
+  max-width: 100%;
 }
 .minicart-count {
-  top: 30px;
-  left: 20px;
-  width: 18px;
-  height: 18px;
+  top: -1px;
+  left: 19px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #EE4C56;
+  background-color: #ee4c56;
+  font-size: 11px;
 }
 .cart {
-  width: auto;
-  margin-right: -6px;
-  position: relative;
   display: flex;
-  min-width: 105px;
-  padding-left: 0 !important;
   align-items: center;
+  flex-direction: column;
+  padding: 0;
 }
-img {
-  height: 29px;
-}
+
 .price {
-  /* margin-top: 35px; */
-  margin-top: 17px;
-  margin-left: 15px;
-  font-size: 18px;
-  font-family: 'Oblik';
-  color: #071A44;
+  margin-top: 2px;
+  font-size: 9px;
+  color: #2a275b;
+  font-weight: 600;
+  font-family: "ROBOTO";
+  display: block !important;
 }
-@media (max-width: 1199px) {
-  .cart {
-    height: 100%;
-    width: 100%;
-    max-width: 53px;
-    padding: 0px;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 0px;
-    min-width: auto !important;
+
+@media (max-width: 767px) {
+  .iconContainer {
+    width: 24.7px;
   }
-  .cart img {
-    margin-top: -4px;
-    height: 25px;
+  .cart {
+    padding: 0;
+  }
+  .price  {
+    font-size: 9px;
   }
   .minicart-count {
-    top: 28px;
-    left: 12px;
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-  }
-  .price {
-    margin-top: 4px;
-    margin-left: 10px;
-    font-size: 14px !important;
+    left: 17px;
   }
 }
 @media (max-width: 991px) {
-  .cart {
-    height: 100%;
-    width: 100%;
-    max-width: 53px;
-    padding: 0px;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 0px;
+  .price  {
+      margin-top: 1px;
   }
-  .cart img {
-    margin-top: -2px;
-    height: 19px;
-  }
-  .price {
-    display: none;
-  }
-  .minicart-count {
-    left: 25%;
-    top: 32px;
-    width: 14px;
-    height: 14px;
-    font-size: 9px;
+  
+}
+@media (min-width: 993px) {
+  .price  {
+      font-size: 10px;
   }
 }
-@media (max-width: 767px) {
-  .cart {
-    min-width: 0px;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    align-items: center;
-  }
-  .cart img {
-    height: 100%;
-    width: 30px;
-    padding-top: 0px;
-    margin: 0px;
-    margin-top: -10px;
-    min-height: 83px;
-  }
-  .minicart-count {
-    top: 13px;
-    left: 20px;
-    width: 22px;
-    height: 22px;
-    font-size: 14px;
-  }
-  .price {
-    display: none;
-  }
-}
-@media (max-width: 480px) {
-  .cart {
-    max-width: 3em;
-    img {
-      width: 25px;
-    }
-  }
-  .minicart-count {
-    top: 19px;
-    left: 17px;
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
+@media (max-width: 991px) and (min-width: 768px) {
+   .minicart-count {
+    left: 19px;
   }
 }
 </style>
