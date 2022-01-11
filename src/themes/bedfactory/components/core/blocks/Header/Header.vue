@@ -40,6 +40,7 @@
                   class="icon pointer t-mobile"
                   :callText="phone"
                   :callNumber="call"
+                  :checkClass = "''"
                 />
                 <div class="flex inner-icons">
                   <wishlist-icon class="icon pointer r-icons location-icon" />
@@ -496,6 +497,10 @@ header {
 }
 
 @media  (max-width: 767px) {
+  .positionRelativeZindex{
+    position: relative;
+    z-index: 1;
+  }
   span.log-in-detail {
   display: block;
 }

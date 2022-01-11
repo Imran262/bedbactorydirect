@@ -39,8 +39,8 @@ export default {
       default: false,
     },
     checkClass: {
-      type: Boolean,
-      default: false,
+      type: String,
+      default: '',
     },
   },
   computed: {
