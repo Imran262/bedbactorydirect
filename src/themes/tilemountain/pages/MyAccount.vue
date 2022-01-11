@@ -25,6 +25,14 @@
                 </router-link>
                 
               </li>
+              <li class="py5 brdr-top-1 brdr-cl-bg-secondary">
+                <a
+                  href="#"
+                  class="no-underline block py10 px15 NewClasss"
+                  @click.prevent="logout"
+                >{{ $t('Logout') }}</a
+                >
+              </li>
             </ul>
           </nav>
         </div>
@@ -54,6 +62,7 @@ import { RecentlyViewedModule } from '@vue-storefront/core/modules/recently-view
 import { registerModule } from '@vue-storefront/core/lib/modules'
 import { htmlDecode } from '@vue-storefront/core/filters'
 import i18n from '@vue-storefront/i18n'
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
 
 export default {
   data () {
@@ -87,7 +96,7 @@ export default {
   beforeCreate () {
     registerModule(RecentlyViewedModule)
   },
-  mixins: [MyAccount],
+  mixins: [MyAccount, AccountButton],
   methods: {
     notify (title) {
       if (title === 'My loyalty card' || title === 'My product reviews') {
