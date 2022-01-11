@@ -73,7 +73,7 @@ export default {
   font-weight: bold;
 }
 .phone-no {
-  margin-right: 20px;
+  margin-right: 15px;
   img {
     position: relative;
     top: 5px;
@@ -126,6 +126,14 @@ img.checkout-contact {
 
 // for tablets
 @media (max-width: 992px) {
+  .phone-no {
+    display: flex;
+    align-items: center;
+
+    img {
+      top: 0px;
+    }
+  }
   .wishlist {
     .wishlist-text {
       span {
@@ -169,8 +177,14 @@ img.checkout-contact {
 }
 // for desktop
 @media (min-width: 993px) {
+  .phone-no {
+    img {
+      top: 0px !important; 
+    }
+  }
   span {
     display: none;
   }
 }
+
 </style>

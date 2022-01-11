@@ -100,11 +100,11 @@
                   v-if="!currentUser"
                   href="#"
                   @click.prevent="gotoAccount"
-                  class="cl-tertiary links"
+                  class="cl-tertiary links checkoutAccountIcon"
                   ><img
                     src="/assets/icons/user.svg"
                     alt="checkout user"
-                    class="checkout-user"
+                    class="checkout-user new-checkout-user"
                 /></a>
                 <span v-else class="log-in-detail">
                   You are logged in as {{ currentUser.firstname }}
@@ -328,7 +328,9 @@ export default {
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
-
+img.checkout-user.new-checkout-user {
+    top: -3px;
+}
 span.log-in-detail {
   color: #2A275B !important;
   font-weight: bold;
@@ -487,23 +489,18 @@ header {
     width: 133px;
   }
 }
-
-@media (min-width: 600px) and (max-width: 767px) {
-  .header {
-    height: 133px !important;
-  }
+@media (min-width: 770px) and (max-width: 992px) {
+  span.log-in-detail {
+  position: relative;
+  top: -8px;
+}
 }
 
-@media (max-width: 767px) {
-  .positionRelativeZindex{
-    position: relative;
-    z-index: 1;
-  }
-  .header {
-    height: 8.4rem;
-    position: relative;
-    z-index: 9;
-  }
+@media  (max-width: 767px) {
+  span.log-in-detail {
+  display: block;
+}
+  
   .row.middle-xs {
     margin: 0 -15px;
     &.py5 {
@@ -605,6 +602,11 @@ header {
   // }
 }
 @media (max-width: 992px) {
+  
+  .checkoutAccountIcon{
+    position: relative;
+    top: -3px;
+  }
   .fullCloseCart {
     display: none !important;
   }
@@ -720,6 +722,9 @@ img.checkout-user {
   }
 }
 @media screen and (min-width: 991px) {
+  img.checkout-user {
+  top: -3px;
+}
 
   /* .inner-icons {
     gap: 20px;
