@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="header"
+      class="header positionRelativeZindex"
       :class="
         !isCheckoutPage && $route.name !== 'confirmorder'
           ? 'notcheckoutheader'
@@ -488,8 +488,22 @@ header {
   }
 }
 
-@media  (max-width: 767px) {
- 
+@media (min-width: 600px) and (max-width: 767px) {
+  .header {
+    height: 133px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .positionRelativeZindex{
+    position: relative;
+    z-index: 1;
+  }
+  .header {
+    height: 8.4rem;
+    position: relative;
+    z-index: 9;
+  }
   .row.middle-xs {
     margin: 0 -15px;
     &.py5 {

@@ -158,7 +158,7 @@ export default {
 }
 @media (max-width: 767px) {
   .usp-bar {
-    margin: 5px 0px 10px 0px;
+    margin: 0px 0px 0px 0px;
     .usp-bar-inner {
       padding: 7px 0px;
       .mobile-view {

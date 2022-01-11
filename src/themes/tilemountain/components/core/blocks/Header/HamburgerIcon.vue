@@ -76,7 +76,7 @@ button i {
 }
 @media screen and (max-width: 767px) {
   .body-fixed .overlay.fixed.w-100 {
-    height: 88vh;
+    height: 100vh;
     top: auto;
     bottom: 0;
   }

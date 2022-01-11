@@ -1868,7 +1868,7 @@ p {
 }
 @media screen and (min-width: 320px) and (max-width: 475px) {
   .category-info .category-title {
-    font-size: 4.5vw;
+    font-size: 5vw;
     letter-spacing: 0px;
   }
 }
