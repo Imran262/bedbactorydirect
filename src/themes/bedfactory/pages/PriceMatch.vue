@@ -45,106 +45,108 @@
                 within 1 working day
               </p>
               <p class="your-details">Your Details</p>
-              <form id="orderForm" @submit.prevent="submitForm" method="post" novalidate>
+              <form
+                id="orderForm"
+                @submit.prevent="submitForm"
+                method="post"
+                novalidate
+              >
                 <div class="row mainFormRow marginBottom15">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <label for="first-name"> First Name <span>*</span></label>
-                      <div class="input-field">
-                        <base-input
-                          type="text"
-                          :autofocus="true"
-                          name="first-name"
-                          autocomplete="given-name"
-                          v-model.trim="user.firstName"
-                          @blur="$v.user.firstName.$touch()"
-                          :validations="[
-                            {
-                              condition:
-                                !$v.user.firstName.required &&
-                                $v.user.firstName.$error,
-                              text: $t('Field is required.'),
-                            },
-                            {
-                              condition: !$v.user.firstName.minLength,
-                              text: $t('Name must have at least 2 letters.'),
-                            },
-                          ]"
-                        />
+                    <label for="first-name"> First Name <span>*</span></label>
+                    <div class="input-field">
+                      <base-input
+                        type="text"
+                        name="first-name"
+                        autocomplete="given-name"
+                        v-model.trim="user.firstName"
+                        @blur="$v.user.firstName.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.firstName.required &&
+                              $v.user.firstName.$error,
+                            text: $t('Field is required.')
+                          },
+                          {
+                            condition: !$v.user.firstName.minLength,
+                            text: $t('Name must have at least 2 letters.')
+                          }
+                        ]"
+                      />
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                
-                      <label for="last-name">
-                        Last Name
-                        <span>*</span>
-                      </label>
-                      <div class="input-field">
-                        <base-input
-                          type="text"
-                          name="last-name"
-                          autocomplete="family-name"
-                          v-model="user.lastName"
-                          @blur="$v.user.lastName.$touch()"
-                          :validations="[
-                            {
-                              condition:
-                                !$v.user.lastName.required &&
-                                $v.user.lastName.$error,
-                              text: $t('Field is required.'),
-                            },
-                          ]"
-                        />
-                      </div>
+                    <label for="last-name">
+                      Last Name
+                      <span>*</span>
+                    </label>
+                    <div class="input-field">
+                      <base-input
+                        type="text"
+                        name="last-name"
+                        autocomplete="family-name"
+                        v-model="user.lastName"
+                        @blur="$v.user.lastName.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.lastName.required &&
+                              $v.user.lastName.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div class="row mainFormRow marginBottom15">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <label for="phone-number"> Phone <span>*</span></label>
-                      <div class="input-field">
-                        <base-input
-                          type="tel"
-                          name="phone-number"
-                          autocomplete="on"
-                          v-model="user.phone"
-                          @keyup="onChanged(user.phone)"
-                          @blur="$v.user.phone.$touch()"
-                          :validations="[
-                            {
-                              condition:
-                                !$v.user.phone.required && $v.user.phone.$error,
-                              text: $t('Field is required.'),
-                            },
-                            
-                          ]"
-                        />
+                    <label for="phone-number"> Phone <span>*</span></label>
+                    <div class="input-field">
+                      <base-input
+                        type="tel"
+                        name="phone-number"
+                        autocomplete="on"
+                        v-model="user.phone"
+                        @keyup="onChanged(user.phone)"
+                        @blur="$v.user.phone.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.phone.required && $v.user.phone.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
+                      />
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <label for="email-name">
-                        Email
-                        <span>*</span>
-                      </label>
-                      <div class="input-field">
-                        <base-input
-                          type="email"
-                          name="email-address"
-                          autocomplete="email"
-                          v-model="user.email"
-                          @blur="$v.user.email.$touch()"
-                          :validations="[
-                            {
-                              condition:
-                                !$v.user.email.required && $v.user.email.$error,
-                              text: $t('Field is required.'),
-                            },
-                            {
-                              condition:
-                                !$v.user.email.email && $v.user.email.$error,
-                              text: $t('Please provide valid e-mail address.'),
-                            },
-                          ]"
-                        />
+                    <label for="email-name">
+                      Email
+                      <span>*</span>
+                    </label>
+                    <div class="input-field">
+                      <base-input
+                        type="email"
+                        name="email-address"
+                        autocomplete="email"
+                        v-model="user.email"
+                        @blur="$v.user.email.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.email.required && $v.user.email.$error,
+                            text: $t('Field is required.')
+                          },
+                          {
+                            condition:
+                              !$v.user.email.email && $v.user.email.$error,
+                            text: $t('Please provide valid e-mail address.')
+                          }
+                        ]"
+                      />
                     </div>
                   </div>
                 </div>
@@ -216,23 +218,21 @@
                         v-model="user.addressLine1"
                         @blur="$v.user.addressLine1.$touch()"
                         :validations="[
-                        {
-                          condition:
-                          !$v.user.addressLine1.required && $v.user.addressLine1.$error,
-                          text: $t('Field is required.')
-                        },
+                          {
+                            condition:
+                              !$v.user.addressLine1.required &&
+                              $v.user.addressLine1.$error,
+                            text: $t('Field is required.')
+                          }
                         ]"
                       />
                     </p>
                     <p class="input-wrapper lg-half address-postcode">
-                      <label class="size1"
-                        >Address line 2 </label
-                      >
+                      <label class="size1">Address line 2 </label>
                       <input
                         type="text"
                         id="address_2"
                         name="street-address"
-                        
                         placeholder=""
                         v-model="user.addressLine2"
                       />
@@ -249,7 +249,7 @@
                         v-model="user.addressLine2"
                       />
                     </p>
-                    
+
                     <p class="input-wrapper lg-half city-lg-half">
                       <label class="size1"
                         >Town <span class="star">*</span></label
@@ -263,11 +263,12 @@
                         v-model="user.city"
                         @blur="$v.user.city.$touch()"
                         :validations="[
-                        {
-                          condition:
-                          !$v.user.city.required && $v.user.city.$error,
-                          text:$t('Field is required.')
-                        }]"
+                          {
+                            condition:
+                              !$v.user.city.required && $v.user.city.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
                       />
                     </p>
                     <p class="input-wrapper lg-half find-address-type">
@@ -281,16 +282,17 @@
                         placeholder=""
                         v-model="user.postCode2"
                         @blur="$v.user.postCode2.$touch()"
-                         :validations="[
-                         {
-                           condition:
-                           !$v.user.postCode2.required && $v.user.postCode2.$error,
-                           text: $t('Field is required.')
-                         },]"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.postCode2.required &&
+                              $v.user.postCode2.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
                       />
                     </p>
                   </div>
-                 
                 </div>
                 <div class="producr-history mt-4 remove-height removeMinHeight">
                   <h5>Product Details</h5>
@@ -308,8 +310,8 @@
                             condition:
                               !$v.user.product.required &&
                               $v.user.product.$error,
-                            text: $t('Field is required.'),
-                          },
+                            text: $t('Field is required.')
+                          }
                         ]"
                       />
                     </div>
@@ -331,7 +333,7 @@
                             condition:
                               !$v.user.websitelink.required &&
                               $v.user.websitelink.$error,
-                            text: $t('Field is required.'),
+                            text: $t('Field is required.')
                           }
                         ]"
                       />
@@ -353,26 +355,34 @@
 <script>
 import BaseInput from "src/themes/tilemountain/components/core/blocks/Form/BaseInput.vue";
 import BaseSelect from "src/themes/tilemountain/components/core/blocks/Form/BaseSelect.vue";
-import { required, email, minLength, sameAs, maxLength,url } from "vuelidate/lib/validators";
+import {
+  required,
+  email,
+  minLength,
+  sameAs,
+  maxLength,
+  url
+} from "vuelidate/lib/validators";
 import axios from "axios";
 import config from "config";
 import i18n from "@vue-storefront/i18n";
 import AddressLookupMixin from "src/themes/bedfactory/mixins/addressLookupMixin";
 function isValidURL(string) {
-    console.log('url validate function');
-    if(string.length > 0){
-      var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-      return (res !== null)
-    }else{
-      return true;
-    }
-    
+  console.log("url validate function");
+  if (string.length > 0) {
+    var res = string.match(
+      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    return res !== null;
+  } else {
+    return true;
   }
+}
 export default {
   name: "PriceMatch",
   components: { BaseInput, BaseSelect },
   mixins: [AddressLookupMixin],
-  
+
   data() {
     return {
       title: "Price Match Service | Bed Factory Direct",
@@ -388,48 +398,48 @@ export default {
         postCode: "",
         postCode2: "",
         product: "",
-        websitelink: "",
-      },
+        websitelink: ""
+      }
     };
   },
   validations: {
     user: {
       email: {
         required,
-        email,
+        email
       },
       firstName: {
         minLength: minLength(2),
-        required,
+        required
       },
       lastName: {
-        required,
+        required
       },
       phone: {
-        required,
+        required
       },
       addressLine1: {
-        required,
+        required
       },
       city: {
-        required,
+        required
       },
-      postCode2:{
+      postCode2: {
         required
       },
       product: {
-        required,
+        required
       },
       websitelink: {
         required
-      },
-    },
+      }
+    }
   },
   methods: {
     assignAddressValues() {
-      console.log('wel')
+      console.log("wel");
       var ele1 = document.getElementById("address_manuall_1").value;
-      console.log('wel2',ele1)
+      console.log("wel2", ele1);
       this.user.addressLine1 = ele1;
       var ele2 = document.getElementById("address_2").value;
       this.user.addressLine2 = ele2;
@@ -438,7 +448,7 @@ export default {
       // var ele4 = document.getElementById("shipping-company").value;
       // this.user.company = ele4;
       var ele5 = document.getElementById("find_address_manuall").value;
-      this.user.postCode = '';
+      this.user.postCode = "";
       this.user.postCode2 = ele5;
       console.log("741254 user", this.user);
     },
@@ -507,13 +517,13 @@ export default {
         street,
         house,
         postcode,
-        email,
+        email
       } = this.shippingDetails;
       this.user.firstName = firstName;
       this.user.lastName = lastName;
       this.user.phone = phone;
       this.user.city = city;
-      this.user.postCode = '';
+      this.user.postCode = "";
       this.user.postCode2 = postcode;
       this.user.addressLine1 = street;
       this.user.addressLine2 = house;
@@ -548,27 +558,27 @@ export default {
           country: "GB",
           country_code: "UK",
           product: this.user.product,
-          competitior_link: this.user.websitelink,
+          competitior_link: this.user.websitelink
           // country_code: "US",
           // country: "US",
-        },
+        }
       };
       // const URL = config.api.url + config.swatches.endpoint + "/placeorder";
       let paramsToken = {
         username: "kamran",
-        password: "tajveez@123",
+        password: "tajveez@123"
       };
       const tokenURL = config.api.url + config.pricematch.getToken;
       console.log("4125 URL for getting token is", tokenURL);
       axios
         .post(tokenURL, paramsToken)
-        .then((res) => {
+        .then(res => {
           if (res.status !== 200) {
             this.$bus.$emit("notification-progress-stop", {});
             this.$store.dispatch("notification/spawnNotification", {
               type: "error",
               message: i18n.t(`${res.result}`),
-              action1: { label: i18n.t("OK") },
+              action1: { label: i18n.t("OK") }
             });
             throw new Error(res.result);
           } else {
@@ -586,13 +596,13 @@ export default {
               );
               axios
                 .post(applicationSubmitURL, { payload, token: res.data.result })
-                .then((res) => {
+                .then(res => {
                   if (res.status !== 200) {
                     this.$bus.$emit("notification-progress-stop", {});
                     this.$store.dispatch("notification/spawnNotification", {
                       type: "error",
                       message: i18n.t(`${res.result}`),
-                      action1: { label: i18n.t("OK") },
+                      action1: { label: i18n.t("OK") }
                     });
                     throw new Error(res.result);
                   } else {
@@ -607,7 +617,7 @@ export default {
                     this.$router.replace("/price-match-success");
                   }
                 })
-                .catch((err) => {
+                .catch(err => {
                   console.log("78945623 in catch", err);
                   this.$bus.$emit("notification-progress-stop", {});
                   this.$store.dispatch(
@@ -615,7 +625,7 @@ export default {
                     {
                       type: "error",
                       message: i18n.t(`${err}`),
-                      action1: { label: i18n.t("OK") },
+                      action1: { label: i18n.t("OK") }
                     },
                     { root: true }
                   );
@@ -625,13 +635,13 @@ export default {
               this.$store.dispatch("notification/spawnNotification", {
                 type: "error",
                 message: i18n.t(`${res.result}`),
-                action1: { label: i18n.t("OK") },
+                action1: { label: i18n.t("OK") }
               });
               throw new Error(res.result);
             }
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log("78945623 in catch", err);
           this.$bus.$emit("notification-progress-stop", {});
           this.$store.dispatch(
@@ -639,19 +649,21 @@ export default {
             {
               type: "error",
               message: i18n.t(`${err}`),
-              action1: { label: i18n.t("OK") },
+              action1: { label: i18n.t("OK") }
             },
             { root: true }
           );
         });
     },
-    onChanged (text) {
-      this.user.phone = text.replace(/[^0-9]/g, '');
+    onChanged(text) {
+      this.user.phone = text.replace(/[^0-9]/g, "");
     },
     isValidURL() {
-      console.log('url validate function');
-      var res = this.user.websitelink.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-      return (res !== null)
+      console.log("url validate function");
+      var res = this.user.websitelink.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      );
+      return res !== null;
     }
   },
   beforeMount() {
@@ -668,7 +680,7 @@ export default {
     );
     const convertedNodeList = Array.from(scriptList);
     const cc_c2aScript = convertedNodeList.find(
-      (script) => script.id === "clickToAddressId"
+      script => script.id === "clickToAddressId"
     );
     cc_c2aScript?.parentNode.removeChild(cc_c2aScript);
     if (document.getElementById("cc_c2a") !== null) {
@@ -685,11 +697,11 @@ export default {
         {
           vmid: "description",
           description:
-            "Pay the very best prices for your new bed, mattress or headboard with our Price Match Service at Bed Factory Direct!",
-        },
-      ],
+            "Pay the very best prices for your new bed, mattress or headboard with our Price Match Service at Bed Factory Direct!"
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 <style lang="scss">
@@ -700,7 +712,8 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input:hover, input:focus {
+input:hover,
+input:focus {
   border: 2px solid #747474 !important;
   outline: none !important;
   box-sizing: border-box;
@@ -726,32 +739,33 @@ label {
     flex-direction: column;
     input {
       display: block;
-    border-radius: 4px;
-    border: 1px solid #dfdfdf;
-    height: unset !important;
-    line-height: 30px;
-    padding: 0 5px;
-    font-size: 15px;
-    font-family: Roboto, sans-serif;
-    background: #fff;
-    color: #747474;
-    outline-color: #747474;
+      border-radius: 4px;
+      border: 1px solid #dfdfdf;
+      height: unset !important;
+      line-height: 30px;
+      padding: 0 5px;
+      font-size: 15px;
+      font-family: Roboto, sans-serif;
+      background: #fff;
+      color: #747474;
+      outline-color: #747474;
     }
   }
-  p{
+  p {
     margin-top: 0;
-        margin-bottom: 15px;
+    margin-bottom: 15px;
   }
 }
-#orderForm > .mainFormRow .base-input, #orderForm > .removeMinHeight .base-input{
+#orderForm > .mainFormRow .base-input,
+#orderForm > .removeMinHeight .base-input {
   min-height: unset !important;
 }
-.marginBottom15{
+.marginBottom15 {
   margin-bottom: 15px !important;
 }
-.changeMargin{
-      margin-right: -17px !important;
-    margin-left: -17px !important;
+.changeMargin {
+  margin-right: -17px !important;
+  margin-left: -17px !important;
 }
 </style>
 <style>
@@ -858,7 +872,20 @@ img.home-breadcrumb-icon-img {
   color: #747474;
   outline-color: #747474;
 }
+.main-table > form input:focus,
+.main-table > form input:hover {
+  border: 1px solid #747474 !important;
+}
 
+input:-webkit-autofill {
+  -webkit-text-fill-color: #747474 !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 .btn {
   margin-top: 1.6rem;
   padding: 0.5rem 0.1rem;
@@ -937,16 +964,16 @@ img.home-breadcrumb-icon-img {
 }
 .producr-history .field-full input {
   display: block;
-    border-radius: 4px;
-    border: 1px solid #dfdfdf;
-    height: unset !important;
-    line-height: 30px;
-    padding: 0 5px;
-    font-size: 15px;
-    font-family: Roboto, sans-serif;
-    background: #fff;
-    color: #747474;
-    outline-color: #747474;
+  border-radius: 4px;
+  border: 1px solid #dfdfdf;
+  height: unset !important;
+  line-height: 30px;
+  padding: 0 5px;
+  font-size: 15px;
+  font-family: Roboto, sans-serif;
+  background: #fff;
+  color: #747474;
+  outline-color: #747474;
 }
 
 .bottom-button {

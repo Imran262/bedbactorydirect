@@ -154,11 +154,18 @@
               </li>
             </ul>
           </div>
-          <form id="orderForm" @submit.prevent="submitForm" method="post" novalidate>
+          <form
+            id="orderForm"
+            @submit.prevent="submitForm"
+            method="post"
+            novalidate
+          >
             <div class="hidden" id="hidden_div"></div>
 
             <div class="row mainFormRow">
-              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour">
+              <div
+                class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour"
+              >
                 <label for="first-name">
                   First Name
                   <span>*</span>
@@ -175,17 +182,19 @@
                         condition:
                           !$v.user.firstName.required &&
                           $v.user.firstName.$error,
-                        text: $t('Field is required.'),
+                        text: $t('Field is required.')
                       },
                       {
                         condition: !$v.user.firstName.minLength,
-                        text: $t('Name must have at least 2 letters.'),
-                      },
+                        text: $t('Name must have at least 2 letters.')
+                      }
                     ]"
                   />
                 </div>
               </div>
-              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour">
+              <div
+                class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour"
+              >
                 <label for="last-name">
                   Last Name
                   <span>*</span>
@@ -201,15 +210,17 @@
                       {
                         condition:
                           !$v.user.lastName.required && $v.user.lastName.$error,
-                        text: $t('Field is required.'),
-                      },
+                        text: $t('Field is required.')
+                      }
                     ]"
                   />
                 </div>
               </div>
             </div>
             <div class="row mainFormRow marginTop">
-              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour">
+              <div
+                class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingRightFour"
+              >
                 <label for="phone-number">
                   Phone
                   <span>*</span>
@@ -226,15 +237,16 @@
                     :validations="[
                       {
                         condition:
-                          !$v.user.phone.required &&
-                          $v.user.phone.$error,
-                        text: $t('Field is required.'),
-                      },
+                          !$v.user.phone.required && $v.user.phone.$error,
+                        text: $t('Field is required.')
+                      }
                     ]"
                   />
                 </div>
               </div>
-              <div class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour">
+              <div
+                class="required col-lg-6 col-md-6 col-sm-6 col-xs-6 paddingLeftFour"
+              >
                 <label for="email-address">
                   Email
                   <span>*</span>
@@ -250,12 +262,12 @@
                       {
                         condition:
                           !$v.user.email.required && $v.user.email.$error,
-                        text: $t('Field is required.'),
+                        text: $t('Field is required.')
                       },
                       {
                         condition: !$v.user.email.email && $v.user.email.$error,
-                        text: $t('Please provide valid e-mail address.'),
-                      },
+                        text: $t('Please provide valid e-mail address.')
+                      }
                     ]"
                   />
                 </div>
@@ -381,92 +393,100 @@
                 </p>
 
                 <div class="manually-added-fields">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode">
-                            <label>Address line 1 <span class="star">*</span></label>
-                            <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                            <base-input
-                            type="text"
-                            id="address_manuall_1"
-                            name="street-address"
-                            required
-                            placeholder=""
-                            v-model="user.addressLine1"
-                            @blur="$v.user.addressLine1.$touch()"
-                            :validations="[
-                                {
-                                condition:
-                                    !$v.user.addressLine1.required &&
-                                    $v.user.addressLine1.$error,
-                                text: $t('Field is required.'),
-                                },
-                            ]"
-                            />
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode">
-                            <label>Address line 2</label>
-                            <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
-                            <input
-                            type="text"
-                            id="address_2"
-                            name="street-address"
-                            placeholder=""
-                            v-model="user.addressLine2"
-                            />
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 address-line"
-                            style="display: none">
-                            <input
-                            type="text"
-                            id="address_2"
-                            name="apartment-number"
-                            placeholder="Line 2"
-                            v-model="user.addressLine2"
-                            />
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 city-lg-half">
-                            <label>Town <span class="star">*</span></label>
-                            <base-input
-                            type="text"
-                            id="city"
-                            name="city"
-                            required
-                            placeholder=""
-                            v-model="user.city"
-                            @blur="$v.user.city.$touch()"
-                            :validations="[
-                                {
-                                condition:
-                                    !$v.user.city.required && $v.user.city.$error,
-                                text: $t('Field is required.'),
-                                },
-                            ]"
-                            />
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  find-address-type">
-                            <label>Postcode <span class="star">*</span></label>
-                            <base-input
-                            type="text"
-                            required
-                            id="find_address_manuall"
-                            placeholder=""
-                            v-model="user.postCode2"
-                            @blur="$v.user.postCode2.$touch()"
-                            :validations="[
-                                {
-                                condition:
-                                    !$v.user.postCode2.required &&
-                                    $v.user.postCode2.$error,
-                                text: $t('Field is required.'),
-                                },
-                            ]"
-                            />
-                        </div>
+                  <div class="row">
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode"
+                    >
+                      <label>Address line 1 <span class="star">*</span></label>
+                      <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                      <base-input
+                        type="text"
+                        id="address_manuall_1"
+                        name="street-address"
+                        required
+                        placeholder=""
+                        v-model="user.addressLine1"
+                        @blur="$v.user.addressLine1.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.addressLine1.required &&
+                              $v.user.addressLine1.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
+                      />
                     </div>
-                 
-                  <p class="input-wrapper lg-half find-address-type">
-                    
-                  </p>
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  address-postcode"
+                    >
+                      <label>Address line 2</label>
+                      <!-- <span @click="enterPostCode()">Enter Postcode</span> -->
+                      <input
+                        type="text"
+                        id="address_2"
+                        name="street-address"
+                        placeholder=""
+                        v-model="user.addressLine2"
+                      />
+                    </div>
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 address-line"
+                      style="display: none"
+                    >
+                      <input
+                        type="text"
+                        id="address_2"
+                        name="apartment-number"
+                        placeholder="Line 2"
+                        v-model="user.addressLine2"
+                      />
+                    </div>
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0 city-lg-half"
+                    >
+                      <label>Town <span class="star">*</span></label>
+                      <base-input
+                        type="text"
+                        id="city"
+                        name="city"
+                        required
+                        placeholder=""
+                        v-model="user.city"
+                        @blur="$v.user.city.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.city.required && $v.user.city.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
+                      />
+                    </div>
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 minHeight0  find-address-type"
+                    >
+                      <label>Postcode <span class="star">*</span></label>
+                      <base-input
+                        type="text"
+                        required
+                        id="find_address_manuall"
+                        placeholder=""
+                        v-model="user.postCode2"
+                        @blur="$v.user.postCode2.$touch()"
+                        :validations="[
+                          {
+                            condition:
+                              !$v.user.postCode2.required &&
+                              $v.user.postCode2.$error,
+                            text: $t('Field is required.')
+                          }
+                        ]"
+                      />
+                    </div>
+                  </div>
+
+                  <p class="input-wrapper lg-half find-address-type"></p>
                 </div>
                 <label
                   class="address-summary-label"
@@ -556,42 +576,42 @@ export default {
         addressLine2: "",
         city: "",
         postCode2: "",
-        postCode: "",
+        postCode: ""
       },
       swatches: [],
-      swatchBasket: [],
+      swatchBasket: []
     };
   },
   validations: {
     user: {
       email: {
         required,
-        email,
+        email
       },
       firstName: {
         minLength: minLength(2),
-        required,
+        required
       },
       lastName: {
-        required,
+        required
       },
       phone: {
-        required,
+        required
       },
       addressLine1: {
-        required,
+        required
       },
       city: {
-        required,
+        required
       },
       postCode2: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
-    onChanged (text) {
-        this.user.phone = text.replace(/[^0-9]/g, "");
+    onChanged(text) {
+      this.user.phone = text.replace(/[^0-9]/g, "");
     },
     assignAddressValues() {
       var ele1 = document.getElementById("address_manuall_1").value;
@@ -676,7 +696,7 @@ export default {
         postcode,
         street,
         house,
-        email,
+        email
       } = this.shippingDetails;
       this.user.firstName = firstName;
       this.user.lastName = lastName;
@@ -706,7 +726,7 @@ export default {
         this.$store.dispatch("notification/spawnNotification", {
           type: "error",
           message: i18n.t("Swatch basket is empty."),
-          action1: { label: i18n.t("OK") },
+          action1: { label: i18n.t("OK") }
         });
       } else {
         this.$bus.$emit(
@@ -714,7 +734,7 @@ export default {
           this.$t("Processing order...")
         );
         const swatchesInOrder = this.swatchBasket.map(
-          (element) => element.entity_id
+          element => element.entity_id
         );
         const payload = {
           id: swatchesInOrder,
@@ -729,22 +749,22 @@ export default {
             postcode: this.user.postCode2,
             country: "GB",
             street: this.user.addressLine1,
-            country_code: "UK",
+            country_code: "UK"
             // country_code: "US",
             // country: "US",
-          },
+          }
         };
         const URL = config.api.url + config.swatches.endpoint + "/placeorder";
         axios
           .post(URL, payload)
-          .then((res) => {
+          .then(res => {
             if (res.status !== 200) {
               this.$bus.$emit("notification-progress-stop", {});
               console.log("78945614 notificationData", notificationData);
               this.$store.dispatch("notification/spawnNotification", {
                 type: "error",
                 message: i18n.t(`${res.result}`),
-                action1: { label: i18n.t("OK") },
+                action1: { label: i18n.t("OK") }
               });
               throw new Error(res.result);
             } else {
@@ -753,7 +773,7 @@ export default {
               this.$store.dispatch("notification/spawnNotification", {
                 type: "success",
                 message: i18n.t(`Order placed successfully`),
-                action1: { label: i18n.t("OK") },
+                action1: { label: i18n.t("OK") }
               });
               // console.log(
               //   "2211 success for swatch place order",
@@ -766,7 +786,7 @@ export default {
               this.$router.replace("/swatches-success");
             }
           })
-          .catch((err) => {
+          .catch(err => {
             console.log("78945623 in catch", err);
             this.$bus.$emit("notification-progress-stop", {});
             this.$store.dispatch(
@@ -774,7 +794,7 @@ export default {
               {
                 type: "error",
                 message: i18n.t(`${err}`),
-                action1: { label: i18n.t("OK") },
+                action1: { label: i18n.t("OK") }
               },
               { root: true }
             );
@@ -807,7 +827,7 @@ export default {
         this.$store.dispatch("notification/spawnNotification", {
           type: "error",
           message: i18n.t("You have already added six items  in cart."),
-          action1: { label: i18n.t("OK") },
+          action1: { label: i18n.t("OK") }
         });
       }
     },
@@ -815,7 +835,7 @@ export default {
       this.swatchBasket.splice(this.swatchBasket.indexOf(value), 1);
       const element = document.getElementById(value.sku);
       element.classList.remove("selected");
-    },
+    }
   },
   mounted() {
     const scriptList = document.querySelectorAll(
@@ -823,7 +843,7 @@ export default {
     );
     const convertedNodeList = Array.from(scriptList);
     const cc_c2aScript = convertedNodeList.find(
-      (script) => script.id === "clickToAddressId"
+      script => script.id === "clickToAddressId"
     );
     cc_c2aScript?.parentNode.removeChild(cc_c2aScript);
     if (document.getElementById("cc_c2a") !== null) {
@@ -836,7 +856,7 @@ export default {
     //   const URL =  "https:/bfd.bedfactorydirect.co.uk/api/ext/swatches/getSwatches"
     axios
       .get(URL)
-      .then((resp) => {
+      .then(resp => {
         const { data } = resp;
         if (data.code !== 200) {
           throw new Error("An Error occured");
@@ -844,7 +864,7 @@ export default {
           this.swatches = [...data.meta];
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.error("Error is ===============> ", err);
       });
   },
@@ -863,21 +883,16 @@ export default {
     const craftAddressLookUpplugin = document.createElement("script");
     craftAddressLookUpplugin.setAttribute("src", "/assets/js/cc_c2a.min.js");
     document.head.appendChild(craftAddressLookUpplugin);
-  },
+  }
 };
-
-
-
-
-
 </script>
 
 <style>
-.mainFormRow{
+.mainFormRow {
   justify-content: center;
   flex-wrap: wrap;
 }
-.manually-added-fields .address-postcode .base-input {
+/* .manually-added-fields .address-postcode .base-input {
   min-height: 3rem;
 }
 .manually-added-fields .city-lg-half .base-input {
@@ -885,7 +900,7 @@ export default {
 }
 .manually-added-fields .find-address-type .base-input {
   min-height: 2rem;
-}
+} */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -1145,12 +1160,22 @@ img.home-breadcrumb-icon-img {
   height: unset !important;
   width: 100%;
   line-height: 28px;
-  font-size:14px;
+  font-size: 14px;
   padding: 0 3px;
   color: #747474;
 }
-.swatch-basket > form input:focus, .swatch-basket > form input:hover {
+.swatch-basket > form input:focus,
+.swatch-basket > form input:hover {
   border: 1px solid #747474 !important;
+}
+input:-webkit-autofill {
+  -webkit-text-fill-color: #747474 !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 .swatch-basket form .field-full {
   padding: 0px;
@@ -1406,19 +1431,20 @@ a.ui-link {
 .tempClass {
   background: tomato;
 }
-.paddingLeftFour{
+.paddingLeftFour {
   padding-left: 4px !important;
 }
-.paddingRightFour{
+.paddingRightFour {
   padding-right: 4px !important;
 }
 .minHeight0 > .base-input {
-    min-height: 0 !important;
+  min-height: 0 !important;
 }
-.minHeight0, .marginBottom {
-    margin-bottom: 15px;
+.minHeight0,
+.marginBottom {
+  margin-bottom: 15px;
 }
 .marginTop {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 </style>
