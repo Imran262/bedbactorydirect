@@ -17,6 +17,7 @@
         src="/assets/phone.svg"
         alt="checkout phone"
         class="checkout-contact"
+        :class="checkClass"
       />
       <span>{{ callText || subtitle }}</span>
     </a>
@@ -34,6 +35,10 @@ export default {
       default: null,
     },
     fromCheckoutPage: {
+      type: Boolean,
+      default: false,
+    },
+    checkClass: {
       type: Boolean,
       default: false,
     },
@@ -122,7 +127,9 @@ a:not(.no-underline):hover:after {
 img.checkout-contact {
   width: 29px;
 }
-
+img.checkout-contact.logoutClass {
+    top: 0 !important;
+}
 
 // for tablets
 @media (max-width: 992px) {
@@ -177,11 +184,6 @@ img.checkout-contact {
 }
 // for desktop
 @media (min-width: 993px) {
-  .phone-no {
-    img {
-      top: 0px !important; 
-    }
-  }
   span {
     display: none;
   }

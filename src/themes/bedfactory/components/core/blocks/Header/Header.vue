@@ -95,6 +95,7 @@
                   :from-checkout-page="true"
                   :callText="phone"
                   :callNumber="call"
+                  :checkClass = "currentUser ? 'loginClass' : 'logoutClass'"
                 />
                 <a
                   v-if="!currentUser"
@@ -328,9 +329,7 @@ export default {
 @import "~theme/css/variables/colors";
 @import "~theme/css/helpers/functions/color";
 // $color-icon-hover: color(secondary, $colors-background);
-img.checkout-user.new-checkout-user {
-    top: -3px;
-}
+
 span.log-in-detail {
   color: #2A275B !important;
   font-weight: bold;
@@ -722,10 +721,13 @@ img.checkout-user {
   }
 }
 @media screen and (min-width: 991px) {
-  img.checkout-user {
-  top: -3px;
+  img.checkout-user.new-checkout-user {
+    top: -3px;
 }
-
+span.log-in-detail {
+    position: relative;
+    top: -3px;
+}
   /* .inner-icons {
     gap: 20px;
   } */
