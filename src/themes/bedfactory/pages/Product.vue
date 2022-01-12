@@ -5248,19 +5248,4 @@ h4.variants-label.basin-head {
 .basin_size.colour {
   width: 95%;
 }
-<<<<<<< HEAD button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
-  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
-  background-size: 18px !important;
-  transform: rotate(180deg);
-  position: absolute;
-  left: -17px;
-}
-button.VueCarousel-navigation-button.VueCarousel-navigation-next {
-  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
-  background-size: 17px !important;
-}
 </style>
-
-=======
-</style>
->>>>>>> 54b3138796ee14727a13770d38e824496c7d690e
