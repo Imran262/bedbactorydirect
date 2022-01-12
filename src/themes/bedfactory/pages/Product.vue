@@ -5248,4 +5248,7 @@ h4.variants-label.basin-head {
 .basin_size.colour {
   width: 95%;
 }
+select{
+  color: #000;
+}
 </style>
