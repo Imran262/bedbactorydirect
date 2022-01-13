@@ -19,6 +19,7 @@
       <div class="under-catergory-filter">
         <div class="container">
           <div class="row m0images catrow" v-if="!isListingProducts">
+            
             <button
               v-if="pageLayout !== '1column'"
               class="col-xs-5 mr15filters1 mobile-filters-button1 brdr-none cl-white"
@@ -41,17 +42,20 @@
               getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
-            <button
-              class="col-xs-6 col-sm-6 mr15filters mobile-filters-button brdr-none cl-white"
+            <div class="col-xs-6 col-sm-6 pl0">
+              <button
+              class=" mr15filters mobile-filters-button brdr-none cl-white w-100"
               @click="
                 openFilters();
                 overlayshow();
                 buttonshow();
               "
-            >
-              <!-- <img src="/assets/images/filter.svg" alt="filter" /> -->
-              <p>{{ $t('Filter') }}</p>
-            </button>
+              >
+                <!-- <img src="/assets/images/filter.svg" alt="filter" /> -->
+                <p>{{ $t('Filter') }}</p>
+              </button>
+            </div>
+            
             <div class="sorting1 sot col-sm-6 col-md-2 col-xs-6">
               <!-- <div class="sortp1">
                 <p>Sort by:</p>
