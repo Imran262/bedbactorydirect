@@ -93,16 +93,27 @@ export default {
   mixins: [MeasureProductClick],
   methods: {
     showPopUp(product) {
+      console.log('openpopup')
       this.cartpopupshow = true;
       // var x = document.getElementsByTagName("BODY")[0];
       // x.style.overflow ="hidden";
       this.$bus.$emit("modal-show", "modal-switcher");
+      var x = document.getElementsByTagName("BODY")[0];
+
+      var menu = x.querySelector('.menu');
+      var serachBar = x.querySelector('.search-panel-input');
+      menu.style.zIndex  ="0";
+      serachBar.style.zIndex  ="0";
     },
     handlePopupAfteBack(event) {
       console.log("EventEventEvent ", event);
       this.cartpopupshow = event;
       var x = document.getElementsByTagName("BODY")[0];
       x.style.overflow ="scroll";
+      var menu = x.querySelector('.menu');
+      var serachBar = x.querySelector('.search-panel-input');
+      menu.style.zIndex  ="8";
+      serachBar.style.zIndex  ="3";
     },
     onAfterRemovedVariant () {
       this.$forceUpdate()
