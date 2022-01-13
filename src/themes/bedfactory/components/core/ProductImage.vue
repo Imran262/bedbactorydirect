@@ -7,20 +7,9 @@
   >
     <img
       v-show="showPlaceholder"
-      src="/assets/placeholder.svg"
+      :src="placeholderSvg"
       :alt="alt"
       class="product-image__placeholder"
-    />
-    <img
-      v-if="!lowerQualityImageError || isOnline"
-      v-show="showLowerQuality"
-      v-lazy="image.loading"
-      :alt="alt"
-      @load="imageLoaded('lower', true)"
-      @error="imageLoaded('lower', false)"
-      ref="lQ"
-      class="product-image__thumb"
-      :src="image.src"
     />
     <img
       v-if="!highQualityImageError || isOnline"
@@ -32,8 +21,8 @@
       class="product-image__thumb"
       :src="image.src"
     />
-    <div class="image_label_one" v-if="productImageLabel && productImageLabel !== '0' && productImageLabel.length>1">
-      <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productImageLabel" @error="imgPlaceholder"/>
+    <div class="image_label_one" v-if="productLabel">
+      <img alt="Product Label" class="image_label" :src="getProductLabel" />
     </div>
   </div>
 </template>
@@ -42,16 +31,6 @@
 import { onlineHelper, getThumbnailPath } from '@vue-storefront/core/helpers'
 import config from 'config'
 export default {
-  data () {
-    return {
-      backEnd: config.backEnd,
-      lowerQualityImage: false,
-      lowerQualityImageError: false,
-      highQualityImage: false,
-      highQualityImageError: false,
-      basic: true
-    }
-  },
   props: {
     calcRatio: {
       type: Boolean,
@@ -76,10 +55,15 @@ export default {
       type: Boolean,
       default: false
 
-    },
-    productImageLabel:{
-      type:String,
-      default:''
+    }
+  },
+  data () {
+    return {
+      lowerQualityImage: false,
+      lowerQualityImageError: false,
+      highQualityImage: false,
+      highQualityImageError: false,
+      basic: true
     }
   },
   watch: {
@@ -91,7 +75,6 @@ export default {
   },
   computed: {
     getProductLabel () {
-      return 'https://www.tilemountain.co.uk/img/120/120/resize/stockicon/stylish_savings.png'
       let productLabelStr = ''
       if (this.productLabel.length > 0 && Array.isArray(this.productLabel)) {
         productLabelStr = this.productLabel[0]
@@ -118,6 +101,9 @@ export default {
     },
     isOnline (value) {
       return onlineHelper.isOnline
+    },
+    placeholderSvg () {
+      return config.images.productPlaceholder ? config.images.productPlaceholder : '/assets/placeholder.svg'
     }
   },
   mounted () {
@@ -125,9 +111,6 @@ export default {
   },
 
   methods: {
-    imgPlaceholder (e) {
-      e.target.src = '/assets/placeholderLabel.png'
-    },
     imageLoaded (type, success = true) {
       this[`${type}QualityImage`] = success
       this[`${type}QualityImageError`] = !success
@@ -137,6 +120,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-lisitng-inner .image_label_one img{
+  @media (min-width: 768px) and (max-width: 992px){
+    width: 80%;
+  }
+}
 .product-image {
   position: relative;
   width: 100%;
@@ -217,7 +205,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
   .product-image {
     mix-blend-mode: unset;
-    padding-bottom: 75% !important;
+    padding-bottom: 88% !important;
   }
   .CustomProduct{
     padding-bottom: 100% !important;
@@ -234,7 +222,6 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
 }
 .image_label {
-  width : 120px;
   display: block;
   margin-left: auto;
   @media screen and (max-width: 767px) {
@@ -245,6 +232,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   position: absolute;
   right: 0;
   top: 0;
+  pointer-events: none;
 }
 .cart-summary-product-table .image_label_two {
   position: relative;
