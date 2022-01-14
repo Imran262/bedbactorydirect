@@ -4116,6 +4116,7 @@ a:not(.no-underline):hover:after {
 
     .product-detail {
       padding: 0px;
+       margin-top: 1rem;
 
       .product-detail-inner {
         margin: 10px 0 0 0;

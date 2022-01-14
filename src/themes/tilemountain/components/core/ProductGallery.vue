@@ -32,13 +32,13 @@
       </div>
     </div>
     <product-image v-else :image="offline" :product-label="product.product_banner_image"/>
-    <div class="number-on-mobile">
+    <!-- <div class="number-on-mobile">
       <div class="number-text">
         <p>
           <span>{{ parseInt(page) + 1 }} / {{ gallery.length }}</span>
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -202,26 +202,26 @@ export default {
     background-image: none;
   }
 }
-div.number-on-mobile {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.5);
-  @media only screen and (min-width:768px) {
-    display: none;
-  }
-}
-.number-on-mobile p {
-  margin: 0;
-}
-div.number-on-mobile span {
-  width: 100%;
-  padding: 8px 0px;
-  background: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
-  color: #29275b;
-  font-weight: bold;
-  display: block;
-}
+// div.number-on-mobile {
+//   display: block;
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
+//   background: rgba(255, 255, 255, 0.5);
+//   @media only screen and (min-width:768px) {
+//     display: none;
+//   }
+// }
+// .number-on-mobile p {
+//   margin: 0;
+// }
+// div.number-on-mobile span {
+//   width: 100%;
+//   padding: 8px 0px;
+//   background: rgba(255, 255, 255, 0.5);
+//   font-size: 12px;
+//   color: #29275b;
+//   font-weight: bold;
+//   display: block;
+// }
 </style>

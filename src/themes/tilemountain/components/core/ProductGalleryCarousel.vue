@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="media-gallery-carousel" id="media-gallery-carousel">
-      <VueSlickCarousel
+      <VueSlickCarousel v-bind="mainCarousel"
         :infinite=false
         ref="carousel"
         :draggable = false
@@ -84,7 +84,7 @@
       <div class="Galleries" v-if="!$device.isMobile && gallery.length > 1">
         <div class="main-gallery">
         <VueSlickCarousel
-          v-bind="setting"
+          v-bind="settingABCD"
           :infinite=false
           ref="c2"
           :draggable = false
@@ -266,7 +266,19 @@ export default {
     return {
       selected: '',
       firstslideIndex : null ,
-      setting:{
+      mainCarousel:{
+          "responsive":[
+           {
+              "breakpoint": 767,
+              "settings": {
+              "dots": true
+                }
+           }
+         ],
+
+      },
+      
+      settingABCD:{
         "lazyLoad" : 'onDemand',
         "responsive": [
           {
@@ -281,6 +293,7 @@ export default {
               "slidesToShow": 4,
             }
           }
+           
         ]
       },
       newGallery: '',
@@ -900,7 +913,7 @@ export default {
   .slick-slide {
     img {
       @media (max-width: 991px) {
-        max-height: 572px;
+        // max-height: 572px;
         object-fit: cover;
       }
     }
@@ -1093,9 +1106,9 @@ export default {
   outline: 0;
 }
 
-.media-gallery-carousel .VueCarousel-pagination {
-  display: none;
-}
+// .media-gallery-carousel .VueCarousel-pagination {
+//   display: block;
+// }
 
 .media-gallery-carousel {
   .sale {
@@ -1204,25 +1217,45 @@ export default {
     height: 60px;
     width: auto;
   }
-  .media-gallery-carousel {
-    .VueCarousel-pagination {
-      .VueCarousel-dot {
-        background-color: #dcdcdc !important;
-        width: 12px !important;
-        height: 12px !important;
-      }
+  // .media-gallery-carousel {
+  //   .VueCarousel-pagination {
+  //     .VueCarousel-dot {
+  //       background-color: #f50808 !important;
+  //       width: 12px !important;
+  //       height: 12px !important;
+  //     }
 
-      .VueCarousel-dot.VueCarousel-dot--active {
-        background-color: #2a275c !important;
-        height: 12px !important;
-        width: 12px !important;
-      }
-    }
+  //     .VueCarousel-dot.VueCarousel-dot--active {
+  //       background-color: #f509d5 !important;
+  //       height: 12px !important;
+  //       width: 12px !important;
+  //     }
+  //   }
 
-    .sale {
-      top: 0px;
-    }
-  }
+  //   .sale {
+  //     top: 0px;
+  //   }
+  // }
+  
+  .slick-dots {
+}
+.slick-dots li button {
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    background: #f9f9f900 !important;
+}
+.slick-dots li button:before {
+    // font-family: 'slick';
+    font-size: 16px;
+    opacity: 1;
+    color: #dcdcdc !important;
+}
+.slick-dots li.slick-active button:before {
+    color: #EE4C56 !important;
+        opacity: 1;
+}
+
 }
 
 @media (max-width: 1320px) {
@@ -1240,7 +1273,7 @@ figure {
 }
 
 figure img {
-  width: 100%;
+  // width: 100%;
 }
 
 .pswp__bg {
@@ -1273,9 +1306,9 @@ figure img {
   padding: 0;
 }
 
-div#media-gallery-carousel figcaption {
-  display: none;
-}
+// div#media-gallery-carousel figcaption {
+//   display: none;
+// }
 div.bt-product-gallery .leftArrow{
   visibility: hidden;
 }
