@@ -116,7 +116,7 @@ span{
   font-family: "Roboto";
   color: #2A275B;
   position: relative;
-  top: 1px;
+  top: 0px;
 }
 
 a.underline:after,
@@ -188,5 +188,10 @@ img.checkout-contact.logoutClass {
     display: none;
   }
 }
-
+// for tablets
+@media (max-width: 486px) {
+  span{
+    top: 1px;
+  }
+}
 </style>
