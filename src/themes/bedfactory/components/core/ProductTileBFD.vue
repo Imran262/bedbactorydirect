@@ -335,6 +335,7 @@ $color-white: color(white);
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
+      -webkit-text-size-adjust: 100%;
 }
 .brand-size {
   height: 30px;
@@ -576,6 +577,7 @@ img.product-cover-thumb {
 .price-special {
   color: #ee4c56;
   font-size: 18px;
+  -webkit-text-size-adjust: 100%;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {
