@@ -147,7 +147,7 @@
               title="Close (Esc)"
             />
 
-            <button class="pswp__button pswp__button--share" title="Share" />
+            <button class="pswp__button pswp__button--share" title="Share"> </button>
 
             <button
               class="pswp__button pswp__button--fs"
@@ -588,11 +588,11 @@ export default {
 
           options = {
             history: false,
-            shareEl: false,
-            closeOnScroll: false,
+            shareEl: true,
+            closeOnScroll: true,
             closeOnVerticalDrag : false,
             closeElClasses: [],
-            hideAnimationDuration: 0,
+            hideAnimationDuration: 500,
             // define gallery index (for URL) testing
             galleryUID: galleryElement.getAttribute('data-pswp-uid'),
             // maxSpreadZoom: zoomYes === 1 ? 2 : 2,
@@ -1268,17 +1268,36 @@ export default {
 figure {
   display: block;
   margin: 0px;
-  width: 100%;
+  // width: 100%;
   position: relative;
 }
 
 figure img {
-  // width: 100%;
+  width: 100%;
+}
+@media (max-width: 767px) {
+ figure img {
+  width: auto !important;
+}
+}
+
+
+ .pswp__img{
+  height: auto !important;
 }
 
 .pswp__bg {
   background: rgb(0, 0, 0) !important;
 }
+@media (min-width: 480px) {
+img.pswp__img {
+    transform: translateY(80px);
+    height: auto !important;
+}
+}
+// .pswp__button--share {
+//     background-position: -45px -44px;
+// }
 
 .pswp__caption {
   top: 44px;
