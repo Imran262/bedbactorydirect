@@ -914,7 +914,7 @@ export default {
     img {
       @media (max-width: 991px) {
         // max-height: 572px;
-        object-fit: cover;
+        // object-fit: cover;
       }
     }
   }
@@ -1273,14 +1273,13 @@ figure {
 }
 
 figure img {
-  width: 100%;
+ max-width: 100%;
 }
 @media (max-width: 767px) {
  figure img {
-  width: auto !important;
+  // width: auto !important;
 }
 }
-
 
  .pswp__img{
   height: auto !important;
