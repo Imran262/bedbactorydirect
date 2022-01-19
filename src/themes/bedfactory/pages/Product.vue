@@ -104,7 +104,7 @@
                 @page-change="page => (currentGalleryPage = page)"
                 :imagelength="getProductGallery.length"
               />
-              <div
+              <!-- <div
                 class="productGalleryMain"
                 v-if="getProductGallery.length > 1"
               >
@@ -162,7 +162,7 @@
                 <div class="Viewgallery col-md-3">
                   <a @click="openFigureGallery()">View Gallery +</a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <!-- upper section  -->
@@ -4182,6 +4182,7 @@ a:not(.no-underline):hover:after {
 
     .product-detail {
       padding: 0px;
+       margin-top: 1rem;
 
       .product-detail-inner {
         margin: 10px 0 0 0;
