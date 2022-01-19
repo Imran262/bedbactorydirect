@@ -40,6 +40,7 @@
         </div>
       </div>
     </div>
+    getCurrentProduct{{getCurrentProduct}}
     <section>
       <div class="container">
         <div class="row">

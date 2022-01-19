@@ -379,7 +379,7 @@ const mergeActions = {
         })
           .then(res => {
             // let v12Link = res.data.result.ApplicationFormUrl ;
-            console.log("1456321 14521 ",serverItem.name, res);
+            console.log("1456321 14521 ",serverItem.name, res ,"\n\n",JSON.stringify(res.data.result));
             if(res.data.result.length>0)
             {
               quoteItemCheck = true;
