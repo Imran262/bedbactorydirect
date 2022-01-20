@@ -875,7 +875,6 @@ input {
       .firstprice {
         display: none;
       }
-
       .qty {
         display: none;
       }
@@ -896,6 +895,7 @@ input {
     }
     .sku-text {
       font-size: 2.319vw;
+      -webkit-text-size-adjust:100% !important;
     }
     .sku-p-text {
       font-size: 2.319vw;
@@ -964,6 +964,7 @@ input {
   font-family: Arial;
   font-weight: normal;
   font-size: 14px;
+   -webkit-text-size-adjust:100% !important;
   margin-top: 15px;
   width: 1280px;
 }
@@ -972,6 +973,7 @@ input {
   color: #4a4a4a;
   font-family: Arial;
   font-size: 14px;
+  -webkit-text-size-adjust:100% !important;
   // // font-weight: bold;
   // padding-right: 15px;
 }
@@ -983,6 +985,7 @@ input {
   font-family: Arial;
   font-weight: normal;
   font-size: 14px;
+  -webkit-text-size-adjust:100% !important;
   margin-top: 10px;
 }
 
