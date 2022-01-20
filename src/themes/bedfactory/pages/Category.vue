@@ -417,10 +417,12 @@
         </div>
       </div>
     </div>
-    <div class="category-bottom-content">
+    <div class="category-bottom-content" v-if="getCurrentCategory.footer_cms_block">
         <cms-block
-                :identifier="'category_footer'"
+                :id="parseInt(getCurrentCategory.footer_cms_block)"
                 />
+                <!-- footer_cms_block -->
+                <!-- :identifier="'category_footer'" -->
     </div>
   </div>
 </template>
