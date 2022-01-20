@@ -29,7 +29,7 @@
         v-cloak
         v-show="totalQuantity"
         data-testid="minicartCount"
-        >{{ totalItems.length }}
+        >{{ totalQuantity }}
       </span>
       </div>
       
