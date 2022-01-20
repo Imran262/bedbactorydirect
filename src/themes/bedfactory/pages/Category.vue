@@ -1,5 +1,6 @@
 <template>
   <div id="category" ref="categoryPage">
+    getCurrentCategory{{getCurrentCategory}}
     <header class="bg-cl-secondary py35 pl20 mobileheader">
       <div class="container">
         <!-- <breadcrumbs  class="breadcrumb"/> -->
@@ -409,10 +410,12 @@
         </div>
       </div>
     </div>
-    <div class="category-bottom-content">
+    <div class="category-bottom-content" v-if="getCurrentCategory.footer_cms_block">
         <cms-block
-                :identifier="'category_footer'"
+                :id="parseInt(getCurrentCategory.footer_cms_block)"
                 />
+                <!-- footer_cms_block -->
+                <!-- :identifier="'category_footer'" -->
     </div>
   </div>
 </template>
