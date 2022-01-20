@@ -1,6 +1,5 @@
 <template>
   <div id="category" ref="categoryPage">
-    getCurrentCategory{{getCurrentCategory}}
     <header class="bg-cl-secondary py35 pl20 mobileheader">
       <div class="container">
         <!-- <breadcrumbs  class="breadcrumb"/> -->
