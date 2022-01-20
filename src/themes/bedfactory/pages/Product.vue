@@ -3685,6 +3685,7 @@ i.product-detail-icon {
       display: inline-block;
       font-family: Arial;
       font-size: 0.815rem;
+      -webkit-text-size-adjust:100% !important;
       font-weight: bold;
     }
 
