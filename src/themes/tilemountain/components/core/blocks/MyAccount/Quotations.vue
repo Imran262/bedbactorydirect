@@ -223,6 +223,7 @@ import { notifications } from '@vue-storefront/core/modules/cart/helpers';
 import i18n from '@vue-storefront/i18n';
 import { CartService } from '@vue-storefront/core/data-resolver';
 import axios from "axios";
+import config from 'config'
 
 export default {
   Name: 'Quotations',
@@ -4064,9 +4065,10 @@ export default {
     async addQuote (quoteId,index) {
       console.log("36521 Here to add quote ",quoteId,index ,this.quoteData[index]);
       this.quoteData[index].items.forEach((product,productIndex)=>{
+        console.log("36521 current product in qoute is ", product);
         const URL = config.baseUrl.url+"vueapi/ext/V12Finance/getSku";
         let order = {
-          "item_id": product.item_id,
+          "item_id": product.itemid,
           "quote_id": quoteId
         }
         axios.post(URL, order, {
@@ -4076,6 +4078,226 @@ export default {
         })
           .then(res => {
             console.log("36521 Data received for ",product.name, res ,"\n\n",JSON.stringify(res.data.result));
+            let testProduct={
+  "original_price": 299,
+  "original_price_tax": 0,
+  "original_price_incl_tax": 299,
+  "originalPrice": 299,
+  "originalPriceTax": 0,
+  "originalPriceInclTax": 299,
+  "original_special_price": 259,
+  "original_final_price": 259,
+  "price_tax": 0,
+  "price_incl_tax": 259,
+  "priceTax": 0,
+  "priceInclTax": 259,
+  "special_price_tax": 0,
+  "special_price_incl_tax": 0,
+  "specialPrice": 259,
+  "specialPriceTax": 0,
+  "specialPriceInclTax": 0,
+  "final_price_tax": 0,
+  "final_price_incl_tax": 259,
+  "finalPrice": 259,
+  "finalPriceTax": 0,
+  "finalPriceInclTax": 259,
+  "_score": 0,
+  "regular_price": 299,
+  "final_price": 259,
+  "slug": "cavali-divan-bed",
+  "stock": {
+    "is_in_stock": true,
+    "max_sale_qty": 10000,
+    "stock_status": 1,
+    "min_sale_qty": 1,
+    "item_id": 528,
+    "backorders": false,
+    "min_qty": 0,
+    "product_id": 452,
+    "qty": 10000000,
+    "is_qty_decimal": false,
+    "low_stock_date": null
+  },
+  "qty": 1,
+  "id": 452,
+  "entity_id": "452",
+  "attribute_set_id": "4",
+  "type_id": "simple",
+  "sku": "cavali-divan-bed",
+  "has_options": "1",
+  "required_options": "1",
+  "created_at": "2020-05-06 12:30:13",
+  "updated_at": "2022-01-14 06:42:06",
+  "status": "1",
+  "visibility": "4",
+  "quantity_and_stock_status": {
+    "is_in_stock": true,
+    "qty": 10000000
+  },
+  "tax_class_id": "2",
+  "product_type_1": "25",
+  "brand": "34",
+  "shipping_group": "1",
+  "isFabric": "1",
+  "isFabrics": "0",
+  "swatches_sample_product": "0",
+  "total_reviews": "48",
+  "average_score": "4",
+  "isStock": "0",
+  "product_label": "1",
+  "fragrance": "309",
+  "description": "<p>The Cavali divan bed is a smart, modern divan with both a comfortable mattress and an attractive looking base. The mattress of this bed is a traditional sprung mattress finished in a quilted damask fabric. The mattress is hand tufted, making the fillings densely packed and adding extra durability to your mattress.</p>\n<p>The base of the Cavali divan is available in a choice of modern chenille fabrics, giving you great flexibility if you need the bed to fit into a particular colour scheme. You can also add storage options to the base if you could benefit from the extra space in keeping your bedroom neat and tidy.</p>\n<p>The bed photographed is upholstered in Wool Steel fabric with our <span style=\"text-decoration: underline;\"><a href=\"https://bedfactorydirect.co.uk/coniston-22-chenille-headboard\">Coniston headboard</a></span>. Don't forget to add the headboard to your basket to complete the look of your new Divan.</p>",
+  "short_description": "<ul>\n<li>Medium Firmness</li>\n<li>Hand Tufted</li>\n<li>Turnable</li>\n<li>Choice Of Colours</li>\n<li>Storage Options</li>\n</ul>",
+  "meta_keyword": "Sleepover Divan Bed",
+  "specs": "<p><strong>Divan Size</strong></p>\n<ul>\n<li>Single - (3'0\" x 6'3\") / (90 x 190cm)</li>\n<li>Small Double - (4'0\" x 6'3\") / (120 x 190cm)</li>\n<li>Double - (4'6\" x 6'3\") / (135 x 190cm)</li>\n<li>King - (5'0\" x 6'6\") / (150 x 200cm)</li>\n<li>Super King - (6'0\" x 6'6\") / (180 x 200cm)</li>\n</ul>\n<p><strong>Mattress Depth</strong></p>\n<ul>\n<li>10\" / 25cm</li>\n</ul>\n<p><strong>Base Depth</strong></p>\n<ul>\n<li>15.5\" / 39cm (Including Feet)</li>\n</ul>\n<p><strong>Drawer Dimensions </strong></p>\n<ul>\n<li>Height - 9\" / 23cm</li>\n<li>Width - 29\" / 74cm</li>\n<li>Depth - 20.5\" / 52cm</li>\n<li>Internal Storage - 7\" / 18cm</li>\n</ul>\n<p><strong>Storage Options</strong></p>\n<p><img src=\"https://admin.bedfactorydirect.co.uk/pub/media/storage-options-guide.jpg\" alt=\"storage options guide\" width=\"100%\" /></p>\n<p style=\"font-size: 12px;\">* All measurements are approximate and are subject to a tolerance of + or - 2cm</p>",
+  "shipping_grouptext": "3",
+  "option_group": "chenille_fabrics,faux_leather_fabrics,faux_suede_fabrics,crushed_velvet_fabrics,luxury_velvet_fabrics,premium_fabrics",
+  "name": "Cavali Divan Bed",
+  "meta_title": "Cavali Divan Bed",
+  "meta_description": "The Amazing Cavali divan bed has a deep hand tufted turnable mattress, full of luxury and support. Available in a rainbow of colours, this bed also has the option to add storage drawers if you need extra storage space.",
+  "image": "/c/a/cavali_grey.jpg",
+  "small_image": "/c/a/cavali_grey.jpg",
+  "thumbnail": "/c/a/cavali_grey.jpg",
+  "options_container": "container2",
+  "image_label": "cavali divan bed",
+  "small_image_label": "cavali divan bed",
+  "thumbnail_label": "cavali divan bed",
+  "country_of_manufacture": "GB",
+  "msrp_display_actual_price_type": "0",
+  "url_key": "cavali-divan-bed",
+  "gift_message_available": "2",
+  "swatch_image": "/c/a/cavali_grey.jpg",
+  "manufacturing_parts": "28,29",
+  "cust_pro_canonical": "100",
+  "filter_size": "194,195,196,197,198",
+  "comfort_grade": "205",
+  "delivery_cms_block": "standard_frame_delivery",
+  "mattress_type": "220",
+  "front_label_image_name": "0",
+  "price": 259,
+  "special_price": 259,
+  "weight": "10.000000",
+  "special_from_date": "2020-04-06 00:00:00",
+  "options": [
+    {},
+    {},
+    {}
+  ],
+  "media_gallery": {
+    "images": {
+      "201": {
+        "value_id": "201",
+        "file": "/c/a/cavali_grey.jpg",
+        "media_type": "image",
+        "entity_id": "452",
+        "label": "cavali divan bed",
+        "position": "2",
+        "disabled": "0",
+        "label_default": "cavali divan bed",
+        "position_default": "2",
+        "disabled_default": "0",
+        "video_provider": null,
+        "video_url": null,
+        "video_title": null,
+        "video_description": null,
+        "video_metadata": null,
+        "video_provider_default": null,
+        "video_url_default": null,
+        "video_title_default": null,
+        "video_description_default": null,
+        "video_metadata_default": null
+      },
+      "3306": {
+        "value_id": "3306",
+        "file": "/2/-/2-drawers-side_20.jpg",
+        "media_type": "image",
+        "entity_id": "452",
+        "label": "cavali divan bed",
+        "position": "2",
+        "disabled": "0",
+        "label_default": "cavali divan bed",
+        "position_default": "2",
+        "disabled_default": "0",
+        "video_provider": null,
+        "video_url": null,
+        "video_title": null,
+        "video_description": null,
+        "video_metadata": null,
+        "video_provider_default": null,
+        "video_url_default": null,
+        "video_title_default": null,
+        "video_description_default": null,
+        "video_metadata_default": null
+      },
+      "3307": {
+        "value_id": "3307",
+        "file": "/c/h/chrome-feet_20.jpg",
+        "media_type": "image",
+        "entity_id": "452",
+        "label": "cavali divan bed",
+        "position": "3",
+        "disabled": "0",
+        "label_default": "cavali divan bed",
+        "position_default": "3",
+        "disabled_default": "0",
+        "video_provider": null,
+        "video_url": null,
+        "video_title": null,
+        "video_description": null,
+        "video_metadata": null,
+        "video_provider_default": null,
+        "video_url_default": null,
+        "video_title_default": null,
+        "video_description_default": null,
+        "video_metadata_default": null
+      }
+    },
+    "values": []
+  },
+  "extension_attributes": {},
+  "tier_price": [],
+  "tier_price_changed": 0,
+  "category_ids": [
+    "3",
+    "13",
+    "77",
+    "51",
+    "100",
+    "119",
+    "121",
+    "124",
+    "92"
+  ],
+  "is_salable": 1,
+  "product_option": {
+    "extension_attributes": {
+      "custom_options": {
+        "13": {
+          "option_id": 13,
+          "option_value": 17411
+        },
+        "14": {
+          "option_id": 14,
+          "option_value": 17415
+        },
+        "6604": {
+          "option_id": 6604,
+          "option_value": 168777
+        }
+      },
+      "configurable_item_options": [],
+      "bundle_options": []
+    }
+  }
+}
+            const diffLog = this.$store.dispatch('cart/addItem', {
+        productToAdd: testProduct
+      });
+      console.log('789456 Product adding to cart');
+      diffLog.clientNotifications.forEach(notificationData => {
+        console.log('789456 Successfully added', notificationData);
+        // this.notifyUser(notificationData)
+      });
           })
           .catch(error => {
             console.log("36521 Error occured while getting data for product : ",product.name,"Error is ", error);

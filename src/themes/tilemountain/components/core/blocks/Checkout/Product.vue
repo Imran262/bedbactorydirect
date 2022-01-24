@@ -56,27 +56,29 @@
             <div v-if="isOnline && product.totals">
               <span class="h4 price" v-if="product.totals.discount_amount">
                 <!-- {{ (product.totals.row_total_incl_tax - product.totals.discount_amount) | price }} -->
-                {{ (product.total.price_incl_tax) | price }}
+                <!-- {{ (product.total.price_incl_tax) | price }} --> 1 
               </span>
               <!-- <span class="price-original h5"
                     v-if="product.totals.discount_amount"> {{ product.totals.row_total_incl_tax | price }} </span> -->
-              <span v-if="!product.totals.discount_amount" class="h4 price"> {{ product.totals.price_incl_tax | price }} </span>
+              <span v-if="!product.totals.discount_amount" class="h4 price"> 
+               2 <!-- {{ product.totals.price_incl_tax | price }} -->
+                 </span>
             </div>
             <div v-else>
               <span class="h4 cl-error" v-if="product.special_price">
-                {{
+              3  <!-- {{
                   (product.totals.price_incl_tax * product.qty) | price
-                }}
+                }} -->
               </span>
               <span class="price-original h5" v-if="product.special_price">
-                {{
+               4 <!-- {{
                   (product.totals.price_incl_tax * product.qty) | price
-                }}
+                }} -->
               </span>
               <span v-if="!product.special_price" class="h4">
-                {{
+               5 <!-- {{
                   (product.totals.price_incl_tax * product.qty) | price
-                }}
+                }} -->
               </span>
             </div>
           </td>
@@ -85,13 +87,15 @@
           <td colspan="2"><p class="sku" v-if="product.qty_per_sqm">
                 <!-- Sku : {{ product.sku }} -->
               </p></td>
-          <td> <span class="Sqm-price">{{product.totals.base_row_total_incl_tax | price}}</span></td>
+          <td> <span class="Sqm-price">
+          6 <!--  {{product.totals.base_row_total_incl_tax | price}} -->
+            </span></td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
-
+/home/ejaz/vsf/BEDFACTORY/vue2/VueStore/bfdvuestore/src/themes/tilemountain/components/core/blocks/Checkout/Product.vue
 <script>
 import config from 'config';
 import { Product } from '@vue-storefront/core/modules/checkout/components/Product';
