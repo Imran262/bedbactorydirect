@@ -203,7 +203,7 @@
                 "
                 @click="quoteAddToCart(quoteVal.quote_number,index)"
               >
-                Add to BASKET no
+                Add to BASKET
               </button>
             </template>
           </div>
