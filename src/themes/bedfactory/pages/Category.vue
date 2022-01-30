@@ -381,7 +381,10 @@
               :key="productListingUpdate"
                 :columns="defaultColumn"
                 class="pagination-false"
-                :products="getCategoryProducts"
+                :products="pagination.currentPageItems &&
+                  pagination.currentPageItems.length > 0
+                    ? pagination.currentPageItems
+                    : []"
                 @showPagination="showbottompage"
                 :filters="getAvailableFilters"
                 :isCategory="true"
@@ -392,7 +395,10 @@
               :key="productListingUpdate"
               @showPagination="showbottompage"
               :columns="defaultColumn"
-              :products="pagination.currentPageItems || getCategoryProducts"
+              :products="pagination.currentPageItems &&
+                  pagination.currentPageItems.length > 0
+                    ? pagination.currentPageItems
+                    : []"
               :filters="getAvailableFilters"
               :isCategory="true"
             />
