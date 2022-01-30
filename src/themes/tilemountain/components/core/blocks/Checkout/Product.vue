@@ -54,9 +54,10 @@
           </td>
           <td>
             <div v-if="isOnline && product.totals">
+              
               <span class="h4 price" v-if="product.totals.discount_amount">
                 <!-- {{ (product.totals.row_total_incl_tax - product.totals.discount_amount) | price }} -->
-                <!-- {{ (product.total.price_incl_tax) | price }} --> 1 
+               1 <!-- {{ (product.total.price_incl_tax) | price }} -->
               </span>
               <!-- <span class="price-original h5"
                     v-if="product.totals.discount_amount"> {{ product.totals.row_total_incl_tax | price }} </span> -->
