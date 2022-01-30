@@ -5,9 +5,13 @@
         <!-- <breadcrumbs  class="breadcrumb"/> -->
         <div class="category-info">
           <div class="row middle-sm">
-            <h1 class="col-sm-12 category-title mb10" v-if="$device.isMobile">
-              {{ getCurrentCategory.name }}
-            </h1>
+            <div class="col-sm-12">
+                <h1 class="category-title mb10" v-if="$device.isMobile">
+                {{ getCurrentCategory.name }}
+              </h1>
+            </div>
+
+            
             <!-- <div class="sorting col-sm-2 align-right mt50"></div> -->
           </div>
         </div>
@@ -15,6 +19,7 @@
       <div class="under-catergory-filter">
         <div class="container">
           <div class="row m0images catrow" v-if="!isListingProducts">
+            
             <button
               v-if="pageLayout !== '1column'"
               class="col-xs-5 mr15filters1 mobile-filters-button1 brdr-none cl-white"
@@ -37,18 +42,21 @@
               getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
-            <button
-              class="col-xs-6 col-sm-6 mr15filters mobile-filters-button brdr-none cl-white"
+            <div class="col-xs-6 col-sm-6 pl0">
+              <button
+              class=" mr15filters mobile-filters-button brdr-none cl-white w-100"
               @click="
                 openFilters();
                 overlayshow();
                 buttonshow();
               "
-            >
-              <!-- <img src="/assets/images/filter.svg" alt="filter" /> -->
-              <p>{{ $t('Filter') }}</p>
-            </button>
-            <div class="sorting1 sot col-sm-6 col-md-2 col-xs-6 p0">
+              >
+                <!-- <img src="/assets/images/filter.svg" alt="filter" /> -->
+                <p>{{ $t('Filter') }}</p>
+              </button>
+            </div>
+            
+            <div class="sorting1 sot col-sm-6 col-md-2 col-xs-6">
               <!-- <div class="sortp1">
                 <p>Sort by:</p>
               </div> -->
@@ -1274,12 +1282,12 @@ $border-radius: 5px;
   }
   .under-catergory-filter {
     border-bottom: 2px solid #ebebeb;
-    height: 60px;
+    border-top: 2px solid #ebebeb;
     margin-top: 5px;
      background: #fffefc;
+     padding: 10px 0;
     .row {
       margin-top: 0px;
-      padding-left: 10px;
     }
   }
   .products-upper {
@@ -1288,8 +1296,8 @@ $border-radius: 5px;
   }
   .category-info {
     position: relative;
-    border-bottom: 2px solid #ebebeb;
     height: 42px;
+    margin-top: 6px;
     .category-title {
       font-size: 4.5vw;
       line-height: 40px;
@@ -1298,6 +1306,7 @@ $border-radius: 5px;
       font-family: 'Oblik';
       color: #2a2857;
       margin-top: 0px;
+      margin-block-end: 0;
     }
   }
   .products-list {
@@ -1332,19 +1341,10 @@ $border-radius: 5px;
   .mobile-filters {
     display: block;
   }
-
-// select.cl-secondary {
-//     border: none !important;
-//     width: 100% !important;
-//     background: none !important;
-//     align-items: center !important;
-//     justify-content: center !important;
-// }
  .dropd1 {
     height: 43px;
     display: -ms-flexbox;
     display: flex;
-    padding: 0;
     margin-top: 3px;
     align-items: center;
     justify-content: center;
@@ -1352,23 +1352,17 @@ $border-radius: 5px;
     background-color: #fff;
     border: 1px solid #dedede;
     width: 100%;
-    margin: 0 0px 0px 10px;
-    top: 3px;
-    position: relative;
+    margin: 0 0px 0px 0px;
 }
   .mobile-filters-button {
    height: 45px;
     display: -ms-flexbox;
     display: flex;
-    padding: 0;
-    margin-top: 3px;
     align-items: center;
     justify-content: center;
     line-height: 2.9;
     background-color: #fff;
     border: 1px solid #dedede;
-    width: 49%;
-
     img {
       margin-top: 0px;
       margin-left: 27px;
@@ -1384,7 +1378,6 @@ $border-radius: 5px;
       font-size: 12px;
       font-family: 'Arial';
       @media screen and (max-width: 625px) {
-        // margin: 8px 0px 0px 3px !important;
       }
     }
   }
@@ -1404,6 +1397,7 @@ $border-radius: 5px;
     .sorting1 {
       display: block;
       line-height: 33px;
+          padding-right: 0;
     }
     .dropd1 {
       line-height: 47px;
@@ -1795,11 +1789,6 @@ p {
 }
 @media (max-width: 374px) and (min-width: 320px) {
   .mobile-filters-button {
-    // margin-top: 4px;
-    p {
-      // font-size: 11px;
-      // z-index: 9999;
-    }
     img {
       width: 25px;
       height: 25px;
@@ -1847,7 +1836,6 @@ p {
   .under-catergory-filter {
     .row {
       margin-top: 0px;
-      padding-left: 4px !important;
     }
   }
 }
@@ -1859,13 +1847,6 @@ p {
 @media screen and (min-width: 320px) and (max-width: 324px) {
   .clearallp {
     margin: -0px 0 !important;
-  }
-}
-@media (max-width: 440px) and (min-width: 320px) {
-  .mobile-filters-button {
-    p {
-      // z-index: 9999;
-    }
   }
 }
 @media screen and (min-width: 320px) and (max-width: 475px) {
@@ -1885,26 +1866,6 @@ p {
     display: inline-flex;
   }
 }
-/*@media only screen and (min-width: 1200px){
-.container {
-    padding-right: 45px !important;
-    padding-left: 45px !important;
-}
-}
-@media screen and (min-width: 992px) and (max-width: 1199px)
-{
-.container {
-    padding-left: 40px !important;
-    padding-right: 40px !important;
-}
-}
-@media screen and (min-width: 768px) and (max-width: 991px)
-{
-.container {
-    padding-left: 28px !important;
-    padding-right: 28px !important;
-}
-}*/
 
 .container {
     padding-right: 45px !important;
@@ -1949,7 +1910,6 @@ span.sortbycleartxt {
 <style lang="scss">
 .dropd1 .sort-by select.cl-secondary {
     border: none;
-    // width: 100% ;
     width: auto;
     background: none;
     align-items: center;
