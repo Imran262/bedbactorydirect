@@ -419,6 +419,7 @@
     </div>
     <div class="category-bottom-content" v-if="getCurrentCategory.footer_cms_block">
         <cms-block
+        :key="reRenderBlock"
                 :id="parseInt(getCurrentCategory.footer_cms_block)"
                 />
                 <!-- footer_cms_block -->
@@ -508,6 +509,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      reRenderBlock: 0,
       productListingUpdate:0,
       reRender : 0,
       backEnd: config.backEnd,
@@ -574,6 +576,7 @@ export default {
     },
 
     $route (to, from) {
+      this.reRenderBlock++;
       if (!this.asFired) {
         this.hasFired = true
         // this.addBloom()
@@ -639,6 +642,7 @@ export default {
     this.handleResize()
   },
   async mounted () {
+    this.reRenderBlock++;
     this.getAvailableFiltersCustom();
     this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
     window.addEventListener('resize', this.myEventHandler)
