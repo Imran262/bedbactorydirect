@@ -71,7 +71,7 @@
               {{ getImageTypeName(galleryZoom[index].image) }}
             </figcaption>
           
-            <div class="image_label_one">
+            <div class="image_label_one" v-if="productLabel && productLabel !== '0' && productLabel.length>1">
               <img
                 class="image_label"
                 :src="backEnd+'/pub/media/'+productLabel" @error="imgPlaceholder"
