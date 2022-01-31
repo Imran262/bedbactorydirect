@@ -1595,9 +1595,9 @@ export default {
   }
 }
 
-.row.sub-title.sub-title-discount {
-  display: flex !important;
-}
+// .row.sub-title.sub-title-discount {
+//   display: flex !important;
+// }
 
 .row.sub-title.sub-title-shipping {
   display: flex !important;

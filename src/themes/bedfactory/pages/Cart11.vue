@@ -1386,9 +1386,9 @@ if(this.productsInCart.length === 0){
   }
 }
 
-.row.sub-title.sub-title-discount {
-  display: flex !important;
-}
+// .row.sub-title.sub-title-discount {
+//   display: flex !important;
+// }
 
 .row.sub-title.sub-title-shipping {
   display: flex !important;
