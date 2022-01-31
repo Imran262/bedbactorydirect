@@ -12,6 +12,17 @@
       class="product-image__placeholder"
     />
     <img
+      v-if="!lowerQualityImageError || isOnline"
+      v-show="showLowerQuality"
+      v-lazy="image.loading"
+      :alt="alt"
+      @load="imageLoaded('lower', true)"
+      @error="imageLoaded('lower', false)"
+      ref="lQ"
+      class="product-image__thumb"
+      :src="image.src"
+    />
+    <img
       v-if="!highQualityImageError || isOnline"
       v-show="showHighQuality"
       v-lazy="image.src"
@@ -21,8 +32,8 @@
       class="product-image__thumb"
       :src="image.src"
     />
-    <div class="image_label_one" v-if="productLabel">
-      <img alt="Product Label" class="image_label" :src="getProductLabel" />
+    <div class="image_label_one" v-if="productImageLabel && productImageLabel !== '0' && productImageLabel.length>1">
+      <img alt="Product Label" class="image_label" :src="backEnd+'/pub/media/'+productImageLabel" @error="imgPlaceholder"/>
     </div>
   </div>
 </template>
@@ -31,6 +42,16 @@
 import { onlineHelper, getThumbnailPath } from '@vue-storefront/core/helpers'
 import config from 'config'
 export default {
+  data () {
+    return {
+      backEnd: config.backEnd,
+      lowerQualityImage: false,
+      lowerQualityImageError: false,
+      highQualityImage: false,
+      highQualityImageError: false,
+      basic: true
+    }
+  },
   props: {
     calcRatio: {
       type: Boolean,
@@ -55,15 +76,10 @@ export default {
       type: Boolean,
       default: false
 
-    }
-  },
-  data () {
-    return {
-      lowerQualityImage: false,
-      lowerQualityImageError: false,
-      highQualityImage: false,
-      highQualityImageError: false,
-      basic: true
+    },
+    productImageLabel:{
+      type:String,
+      default:''
     }
   },
   watch: {
@@ -75,6 +91,7 @@ export default {
   },
   computed: {
     getProductLabel () {
+      return 'https://www.tilemountain.co.uk/img/120/120/resize/stockicon/stylish_savings.png'
       let productLabelStr = ''
       if (this.productLabel.length > 0 && Array.isArray(this.productLabel)) {
         productLabelStr = this.productLabel[0]
@@ -102,7 +119,7 @@ export default {
     isOnline (value) {
       return onlineHelper.isOnline
     },
-    placeholderSvg () {
+     placeholderSvg () {
       return config.images.productPlaceholder ? config.images.productPlaceholder : '/assets/placeholder.svg'
     }
   },
@@ -111,6 +128,9 @@ export default {
   },
 
   methods: {
+    imgPlaceholder (e) {
+      e.target.src = '/assets/placeholderLabel.png'
+    },
     imageLoaded (type, success = true) {
       this[`${type}QualityImage`] = success
       this[`${type}QualityImageError`] = !success
@@ -222,6 +242,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
 }
 .image_label {
+  width : 120px;
   display: block;
   margin-left: auto;
   @media screen and (max-width: 767px) {
