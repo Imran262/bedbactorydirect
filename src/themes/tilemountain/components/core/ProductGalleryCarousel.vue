@@ -267,6 +267,7 @@ export default {
   },
   data () {
     return {
+      backEnd: config.backEnd,
       selected: '',
       firstslideIndex : null ,
       mainCarousel:{
