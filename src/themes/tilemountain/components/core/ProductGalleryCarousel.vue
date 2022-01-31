@@ -70,14 +70,17 @@
             <figcaption v-if="galleryZoom[index]">
               {{ getImageTypeName(galleryZoom[index].image) }}
             </figcaption>
-            <div class="image_label_one" v-if="productLabel">
+          
+            <div class="image_label_one">
               <img
                 class="image_label"
-                :src="getProductLabel"
+                :src="backEnd+'/pub/media/'+productLabel" @error="imgPlaceholder"
                 alt="product label"
               />
+              
             </div>
           </figure>
+          
         </div>
       </VueSlickCarousel>
       </div>
@@ -331,9 +334,9 @@ export default {
   },
   computed: {
 
-    getProductLabel () {
-      return getThumbnailPath(`/${this.productLabel}`, 120, 120, 'stockicon')
-    }
+    // getProductLabel () {
+    //   return getThumbnailPath(`/${this.productLabel}`, 120, 120, 'stockicon')
+    // }
   },
   beforeMount () {
     this.$bus.$on('product-after-configure', this.selectVariant)
@@ -366,6 +369,9 @@ export default {
     this.$bus.$off('product-after-load', this.selectVariant)
   },
   methods: {
+       imgPlaceholder (e) {
+      e.target.src = '/assets/placeholderLabel.png'
+    },
     onErrorIMg (el) {
       el.parentNode.style.display = 'none'
 
