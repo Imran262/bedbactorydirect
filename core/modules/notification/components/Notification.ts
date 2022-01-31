@@ -5,6 +5,9 @@ export const Notification = {
   computed: {
     notifications (): NotificationItem[] {
       return this.$store.getters['notification/notifications']
-    }
+    },
+  basketNotifications (): NotificationItem[] {
+    return this.$store.getters['notification/basketNotifications']
+  }
   }
 }
