@@ -164,7 +164,8 @@ export default {
           console.log("778855 finance option found",financeOption);
           parseFloat(this.originalPrice).toFixed(2);
           let totalPrice = parseFloat(this.currentPrice).toFixed(2);
-          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2);
+          // let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2); 
+          let initialDeposit = parseInt(totalPrice * this.despositOptionSelected); 
           let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);
           let noOfPayments = financeOption.imega_finance_rate.term;
           let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
@@ -179,6 +180,7 @@ export default {
             rateOfInterestFixed:'0.00%',
             APR:'0%'
             }
+            console.log("778855 payment data is ",this.payment);
             this.$emit('CalculatorValueUpdated',this.payment)
         }
       });
