@@ -252,7 +252,7 @@ export default {
         }
         console.log(
         "a1b2c3 STATE is \n",
-        this.$store.state.shippingDetails,this.$store.state
+        this.$store.state.shippingDetails,this.$store.state,this.shippingMethods
       );
     await this.$store
       .dispatch('quotesystem/quoteSystemFunction', {
@@ -277,6 +277,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      shippingMethods: 'checkout/getShippingMethods',
       getCartToken: 'cart/getCartToken',
       getUserToken: 'user/getToken'
     }),
