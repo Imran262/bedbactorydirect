@@ -29,6 +29,10 @@
       <lazy-hydrate when-visible>
         <notification />
       </lazy-hydrate>
+       <lazy-hydrate when-visible>
+      <BasketNotification />
+        </lazy-hydrate>
+
       <lazy-hydrate when-idle>
         <sign-up />
       </lazy-hydrate>
@@ -55,6 +59,7 @@ import MainFooter from 'theme/components/core/blocks/Footer/FooterTM.vue';
 import Overlay from 'theme/components/core/Overlay.vue';
 import Loader from 'theme/components/core/Loader.vue';
 import Notification from 'theme/components/core/Notification.vue';
+import BasketNotification from 'theme/components/core/BasketNotification.vue';
 import SignUp from 'theme/components/core/blocks/Auth/SignUp.vue';
 import CookieNotification from 'theme/components/core/CookieNotification.vue';
 import OfflineBadge from 'theme/components/core/OfflineBadge.vue';
@@ -160,6 +165,7 @@ export default {
     Overlay,
     Loader,
     Notification,
+    BasketNotification,
     SignUp,
     CookieNotification,
     OfflineBadge,
