@@ -9116,7 +9116,7 @@ export default {
             let simpleProductCheck = receivedQouteProduct.parentSku ? receivedQouteProduct.parentSku === receivedQouteProduct.sku ? true : false : true;
             console.log("Product check",simpleProductCheck);
             let productSku = receivedQouteProduct.parentSku ? receivedQouteProduct.parentSku :receivedQouteProduct.sku;
-            console.log("95123654 Product Sku is ",productSku,await self.getProduct('Sleepeezee Cool Gel Pillow'));
+            console.log("95123654 Product Sku is ",productSku);
             
             // if (receivedQouteProduct.parentSku === receivedQouteProduct.sku )
             // {
@@ -9194,6 +9194,8 @@ export default {
              const diffLog = await this.$store.dispatch('cart/addItem', {
         productToAdd: updatedTestProduct
       });
+      this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+      this.$forceUpdate()
       console.log('789456 Product adding to cart',diffLog);
       diffLog.clientNotifications.forEach(notificationData => {
         console.log('789456 Successfully added', notificationData);
