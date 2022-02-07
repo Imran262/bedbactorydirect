@@ -241,6 +241,19 @@ export default {
     });
   },
   async mounted () {
+      this.$store.state.shippingDetails =  {
+        region: 'Merseyside',
+        region_id: 0,
+        country_id: 'GB',
+        street: [ null, null ],
+        postcode: 'L33 7UH',
+        city: 'LIVERPOOL',
+        region_code: ''
+        }
+        console.log(
+        "a1b2c3 STATE is \n",
+        this.$store.state.shippingDetails,this.$store.state
+      );
     await this.$store
       .dispatch('quotesystem/quoteSystemFunction', {
         customerId: this.currentUser.id
