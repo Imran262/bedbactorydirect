@@ -1721,7 +1721,7 @@ export default {
     // position: absolute;
     // bottom: 0;
     // margin-left: 32px;
-     margin: 1.5rem 0 3rem 0;
+     margin: 1.5rem auto 3rem;
     background: #ffff;
      @media (max-width: 991px){
     // margin-left: 0;
