@@ -124,7 +124,7 @@ export default {
   height: 115px; */
   /* margin-left: 40px; */
   width: 92%;
-  margin: 0 auto !important;
+  margin: 1.5rem auto 3rem !important;
   /* margin-bottom: 20px; */
 }
 .retail-finance {
