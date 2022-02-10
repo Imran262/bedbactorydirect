@@ -28,8 +28,8 @@
       </div>
       
       <div class="brand-size1">
-        <img class="brand-size" :src="brandImageData" alt="" />
-        <!-- <img class="brand-size" :src="brandImageData" alt="" @error="imgPlaceholder"/> -->
+        <img class="brand-size" v-if="brandsImageData && brandsImageData.length>0" :src="brandLogoUrl +(brandsImageData.filter( brandData => (parseInt(brandData.option_id) === product.brand || brandData.option_id === product.brand)))[0].value" alt="" />
+        <!-- <img class="brand-size" :src="brandsImageData" alt="" @error="imgPlaceholder"/> -->
         
       </div>
       <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
@@ -135,14 +135,17 @@ export default {
   },
   data() {
     return {
-      brandLogo: null,
-      brandImageData : "Starting data"
+      brandLogoUrl: config.brandLogo.brandLogoUrl
        };
   },
   async mounted(){
     await this.getBrandImage();
   },
   props: {
+    brandsImageData:{
+      type: [Object,Array],
+      required: true,
+    },
     labelsActive: {
       type: Boolean,
       default: true,
@@ -168,25 +171,6 @@ export default {
     },
   },
   methods: {
-   async getBrandImage() {
-      console.log("1596321 Brand Logo is ",this.product);
-      let backendURL = config.api.url + config.brandLogo.endpoint;
-      await axios.post(backendURL, {
-        "brand_id":this.product.brand
-      }, {
-        headers: {
-          "Content-type": "application/json"
-           }
-          })
-      .then(responsebackend => {
-        console.log("1596321 Brand Logo is ",responsebackend);
-        this.brandImageData = responsebackend.data.result.data[0]
-        return responsebackend.data.result.data[0];
-      })
-      .catch(error => {
-        console.log("115599 Error", error);
-        });
-    },
     setComfortColor() {
       if (
         this.product.comfort_grade[0] === 203 ||

@@ -355,6 +355,7 @@
             >
             <!-- So we in here <br /> Total products {{getCategoryProductsTotal}} -->
             <product-listing
+            :brandsImageData="brandsImageData"
             :key="productListingUpdate"
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
@@ -378,6 +379,7 @@
             >
              <!-- So we not in there <br /> Total products {{getCategoryProductsTotal}} -->
               <product-listing
+              :brandsImageData="brandsImageData"
               :key="productListingUpdate"
                 :columns="defaultColumn"
                 class="pagination-false"
@@ -392,6 +394,7 @@
             </lazy-hydrate>
             <product-listing
               v-else
+              :brandsImageData="brandsImageData"
               :key="productListingUpdate"
               @showPagination="showbottompage"
               :columns="defaultColumn"
@@ -461,7 +464,7 @@ import { CategoryService } from '@vue-storefront/core/data-resolver'
 import ProductListingPagination from '../components/core/blocks/ProductListingPagination'
 import _ from 'lodash'
 const THEME_PAGE_SIZE = (config && config.filterShowItems && config.filterShowItems.selectedOption) ? config.filterShowItems.selectedOption : 12
-
+import axios from 'axios';
 const composeInitialPageState = async (store, route, forceLoad = false) => {
   try {
     let filters = getSearchOptionsFromRouteParams(route.params)
@@ -515,6 +518,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      brandsImageData: [],
       reRenderBlock: 0,
       productListingUpdate:0,
       reRender : 0,
@@ -648,6 +652,7 @@ export default {
     this.handleResize()
   },
   async mounted () {
+    await this.getBrandData();
     this.reRenderBlock++;
     this.getAvailableFiltersCustom();
     this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
@@ -794,6 +799,26 @@ export default {
     }
   },
   methods: {
+    async getBrandData(){
+      console.log("1596321 Calling bRand Logo API");
+      let URL = config.api.url + config.brandLogo.endpoint;
+      await axios.post(URL, {
+        "brand_id":"Brands ID"
+      }, {
+        headers: {
+          "Content-type": "application/json"
+           }
+          })
+      .then(responsebackend => {
+        console.log("1596321 Brand Logo is ",responsebackend);
+        this.brandsImageData = responsebackend.data.result
+        return responsebackend.data.result.data[0];
+      })
+      .catch(error => {
+        console.log("115599 Error", error);
+        return []
+        });
+    },
     pageChangedCustom(){
       console.log("7532 In category page Emit recieved for filter change");
       this.productListingUpdate++;
