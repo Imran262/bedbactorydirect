@@ -637,7 +637,8 @@ export default {
     }
 
   },
-  beforeMount () {
+  async beforeMount () {
+    await this.getBrandData();
     this.$bus.$on('go-to-start-page-Category', this.pageChangedCustom)
     window.addEventListener('scroll', (event) => {
       let scroll = window.scrollY
@@ -812,11 +813,11 @@ export default {
       .then(responsebackend => {
         console.log("1596321 Brand Logo is ",responsebackend);
         this.brandsImageData = responsebackend.data.result
-        return responsebackend.data.result.data[0];
+        console.log("1596321 data to send is ",this.brandsImageData);
       })
       .catch(error => {
         console.log("115599 Error", error);
-        return []
+        this.brandsImageData = []
         });
     },
     pageChangedCustom(){
