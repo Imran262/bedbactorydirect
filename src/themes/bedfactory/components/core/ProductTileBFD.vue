@@ -139,7 +139,6 @@ export default {
        };
   },
   async mounted(){
-    await this.getBrandImage();
   },
   props: {
     brandsImageData:{
