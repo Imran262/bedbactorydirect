@@ -156,7 +156,7 @@ export default {
       this.setCurrentData();
     },
     setCurrentData(){
-      console.log("778855 deposit option is ",this.despositOptionSelected,"Finance option selected",this.financeOptionSelected);
+      console.log(this.currentPrice,"778855 deposit option is ",this.despositOptionSelected,"Finance option selected",this.financeOptionSelected);
       console.log("778855 finance option found",this.calculatorData.finance_options.length);
       this.calculatorData.finance_options.forEach( (financeOption,financeIndex) => {
         console.log("778855 About to match",parseInt (financeOption.order_id) === parseInt(this.financeOptionSelected) ,financeOption.order_id , this.financeOptionSelected);
@@ -164,8 +164,27 @@ export default {
           console.log("778855 finance option found",financeOption);
           parseFloat(this.originalPrice).toFixed(2);
           let totalPrice = parseFloat(this.currentPrice).toFixed(2);
-          // let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2); 
-          let initialDeposit = parseInt(totalPrice * this.despositOptionSelected); 
+          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2); 
+          // let initialDeposit = parseInt(totalPrice * this.despositOptionSelected);
+          let initialDepositRounded = Math.round(initialDeposit); 
+          // console.log(this.despositOptionSelected,"778855 Deposit is ",initialDeposit , initialDepositRounded);
+          if (initialDeposit >= initialDepositRounded){
+
+          }
+          else{
+            if (this.despositOptionSelected === 0.5  || this.despositOptionSelected === '0.5')
+            {
+              console.log("778855 Deposit option selected is 50% initialDeposit is ",initialDeposit , "Rounded of Initial Deposit is ",initialDepositRounded)
+              let differnce = (initialDeposit.toString()).split('.')
+              let differencetoAdd=parseInt(differnce[1])-50
+              console.log(this.despositOptionSelected,differnce[1],differencetoAdd,"778855 Deposit is ",initialDeposit , initialDepositRounded);  
+              initialDeposit = parseInt(initialDeposit)
+              initialDeposit = (initialDeposit.toString())+'.'+differencetoAdd.toString()
+              initialDeposit = parseFloat(initialDeposit)
+              console.log("778855 Deposit becomes ",initialDeposit );
+            }
+          }
+          
           let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);
           let noOfPayments = financeOption.imega_finance_rate.term;
           let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
