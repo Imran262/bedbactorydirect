@@ -175,12 +175,13 @@ export default {
             if (this.despositOptionSelected === 0.5  || this.despositOptionSelected === '0.5')
             {
               console.log("778855 Deposit option selected is 50% initialDeposit is ",initialDeposit , "Rounded of Initial Deposit is ",initialDepositRounded)
-              let differnce = (initialDeposit.toString()).split('.')
-              let differencetoAdd=parseInt(differnce[1])-50
-              console.log(this.despositOptionSelected,differnce[1],differencetoAdd,"778855 Deposit is ",initialDeposit , initialDepositRounded);  
+              // let differnce = (initialDeposit.toString()).split('.')
+              // let differencetoAdd=parseInt(differnce[1])-50
+              // console.log(this.despositOptionSelected,differnce[1],differencetoAdd,"778855 Deposit is ",initialDeposit , initialDepositRounded);  
+              // initialDeposit = parseInt(initialDeposit)
+              // initialDeposit = (initialDeposit.toString())+'.'+differencetoAdd.toString()
+              // initialDeposit = parseFloat(initialDeposit)
               initialDeposit = parseInt(initialDeposit)
-              initialDeposit = (initialDeposit.toString())+'.'+differencetoAdd.toString()
-              initialDeposit = parseFloat(initialDeposit)
               console.log("778855 Deposit becomes ",initialDeposit );
             }
           }
