@@ -1,418 +1,284 @@
 <template>
-  <span>
-    <div class="tabset">
-      <div class="tab-panels">
-        <section id="luxurious-experiences" class="tab-panel">
-          <input type="checkbox" id="chck1" />
-          <label class="tab-label" for="chck1">{{ footerHeadings['footerlink1'] || 'About' }} </label>
-          <div class="content">
-            <ul>
-              <li v-for="(singleblock, index) in singleblockdata1" :key="index">
-                <a
-                  v-if="singleblock.target === '_blank'"
-                  :href="singleblock.atag"
-                  >{{ singleblock.hthree }}</a
-                >
-                <router-link
-                  v-else
-                  :to="localizedRoute(singleblock.atag)"
-                  :key="singleblock.atag"
-                  >{{ singleblock.hthree }}</router-link
-                >
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="impeccable-quality" class="tab-panel tab-panel">
-          <input type="checkbox" id="chck2" />
-          <label class="tab-label" for="chck2">{{ footerHeadings['footerlink2'] || 'Ordering' }}</label>
-          <div class="content">
-            <ul>
-              <li v-for="(singleblock, index) in singleblockdata2" :key="index">
-                <a
-                  v-if="singleblock.target === '_blank'"
-                  :href="singleblock.atag"
-                  >{{ singleblock.hthree }}</a
-                >
-                <router-link
-                  v-else
-                  :to="localizedRoute(singleblock.atag)"
-                  :key="singleblock.atag"
-                  >{{ singleblock.hthree }}</router-link
-                >
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section id="huge-variety" class="tab-panel">
-          <input type="checkbox" id="chck3" />
-          <label class="tab-label" for="chck3">{{ footerHeadings['footerlink3'] || "T&Zzz's" }}</label>
-          <div class="content">
-            <ul>
-              <li v-for="(singleblock, index) in singleblockdata3" :key="index">
-                <a
-                  v-if="singleblock.target === '_blank'"
-                  :href="singleblock.atag"
-                  >{{ singleblock.hthree }}</a
-                >
-                <router-link
-                  v-else
-                  :to="localizedRoute(singleblock.atag)"
-                  :key="singleblock.atag"
-                  >{{ singleblock.hthree }}</router-link
-                >
-              </li>
-            </ul>
-          </div>
-        </section>
+  <div class="footerTabsBox">
+    <section
+      id="luxurious-experiences"
+      class="tab-panel"
+      @click.prevent="selectTab('luxurious-experiences')"
+    >
+      <span class="mainHeading"
+        >{{ footerHeadings["footerlink1"] || "About" }}
+      </span>
+      <div class="content">
+        <ul>
+          <li v-for="(singleblock, index) in singleblockdata1" :key="index">
+            <a
+              v-if="singleblock.target === '_blank'"
+              :href="singleblock.atag"
+              >{{ singleblock.hthree }}</a
+            >
+            <router-link
+              v-else
+              :to="localizedRoute(singleblock.atag)"
+              :key="singleblock.atag"
+              >{{ singleblock.hthree }}</router-link
+            >
+          </li>
+        </ul>
       </div>
-    </div>
-  </span>
+    </section>
+
+    <section
+      id="impeccable-quality"
+      class="tab-panel"
+      @click.prevent="selectTab('impeccable-quality')"
+    >
+      <span class="mainHeading">{{
+        footerHeadings["footerlink2"] || "Ordering"
+      }}</span>
+      <div class="content">
+        <ul>
+          <li v-for="(singleblock, index) in singleblockdata2" :key="index">
+            <a
+              v-if="singleblock.target === '_blank'"
+              :href="singleblock.atag"
+              >{{ singleblock.hthree }}</a
+            >
+            <router-link
+              v-else
+              :to="localizedRoute(singleblock.atag)"
+              :key="singleblock.atag"
+              >{{ singleblock.hthree }}</router-link
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section
+      id="huge-variety"
+      class="tab-panel"
+      @click.prevent="selectTab('huge-variety')"
+    >
+      <span class="mainHeading">{{
+        footerHeadings["footerlink3"] || "T&Zzz's"
+      }}</span>
+      <div class="content">
+        <ul>
+          <li v-for="(singleblock, index) in singleblockdata3" :key="index">
+            <a
+              v-if="singleblock.target === '_blank'"
+              :href="singleblock.atag"
+              >{{ singleblock.hthree }}</a
+            >
+            <router-link
+              v-else
+              :to="localizedRoute(singleblock.atag)"
+              :key="singleblock.atag"
+              >{{ singleblock.hthree }}</router-link
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
-import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock"
-import { getThumbnailPath } from "@vue-storefront/core/helpers"
+import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
+import { getThumbnailPath } from "@vue-storefront/core/helpers";
 export default {
   name: "footerlinkmobile",
   props: {
     classname: {
       type: String,
-      required: false,
-    },
+      required: false
+    }
   },
   mixins: [cmsBlock],
   computed: {
     singleblockdata1() {
-      var homeSmallBlocks1 = []
+      var homeSmallBlocks1 = [];
       if (this.data) {
-        var mbclasses = this.parsedContent.querySelectorAll(".footerlink1 li")
+        var mbclasses = this.parsedContent.querySelectorAll(".footerlink1 li");
         var i = 0;
-        [].forEach.call(mbclasses, (mbclass) => {
-          var singleBlock1 = new Array(0)
-          singleBlock1["atag"] = mbclass.querySelector("a").attributes["href"]
-          singleBlock1["hthree"] = mbclass.querySelector("a").rawText
+        [].forEach.call(mbclasses, mbclass => {
+          var singleBlock1 = new Array(0);
+          singleBlock1["atag"] = mbclass.querySelector("a").attributes["href"];
+          singleBlock1["hthree"] = mbclass.querySelector("a").rawText;
           if (
             mbclass.querySelector("a").attributes["target"] &&
             mbclass.querySelector("a").attributes["target"] === "_blank"
           ) {
             singleBlock1["target"] = mbclass.querySelector("a").attributes[
               "target"
-            ]
+            ];
           } else {
-            singleBlock1["target"] = ""
+            singleBlock1["target"] = "";
           }
           // singleBlock['ul'] = mbclass.querySelector('ul').rawText;
-          homeSmallBlocks1[i] = singleBlock1
-          i++
-        })
+          homeSmallBlocks1[i] = singleBlock1;
+          i++;
+        });
       }
-      return homeSmallBlocks1
+      return homeSmallBlocks1;
     },
     singleblockdata2() {
-      var homeSmallBlocks2 = []
+      var homeSmallBlocks2 = [];
       if (this.data) {
-        var mbclasses = this.parsedContent.querySelectorAll(".footerlink2 li")
+        var mbclasses = this.parsedContent.querySelectorAll(".footerlink2 li");
         var i = 0;
-        [].forEach.call(mbclasses, (mbclass) => {
-          var singleBlock2 = new Array(0)
-          singleBlock2["atag"] = mbclass.querySelector("a").attributes["href"]
-          singleBlock2["hthree"] = mbclass.querySelector("a").rawText
+        [].forEach.call(mbclasses, mbclass => {
+          var singleBlock2 = new Array(0);
+          singleBlock2["atag"] = mbclass.querySelector("a").attributes["href"];
+          singleBlock2["hthree"] = mbclass.querySelector("a").rawText;
           if (
             mbclass.querySelector("a").attributes["target"] &&
             mbclass.querySelector("a").attributes["target"] == "_blank"
           ) {
             singleBlock2["target"] = mbclass.querySelector("a").attributes[
               "target"
-            ]
+            ];
           } else {
-            singleBlock2["target"] = ""
+            singleBlock2["target"] = "";
           }
           // singleBlock['ul'] = mbclass.querySelector('ul').rawText;
-          homeSmallBlocks2[i] = singleBlock2
-          i++
-        })
+          homeSmallBlocks2[i] = singleBlock2;
+          i++;
+        });
       }
-      return homeSmallBlocks2
+      return homeSmallBlocks2;
     },
     singleblockdata3() {
-      var homeSmallBlocks3 = []
+      var homeSmallBlocks3 = [];
       if (this.data) {
-        var mbclasses = this.parsedContent.querySelectorAll(".footerlink3 li")
+        var mbclasses = this.parsedContent.querySelectorAll(".footerlink3 li");
 
         var i = 0;
-        [].forEach.call(mbclasses, (mbclass) => {
-          var singleBlock3 = new Array(0)
-          singleBlock3["atag"] = mbclass.querySelector("a").attributes["href"]
-          singleBlock3["hthree"] = mbclass.querySelector("a").rawText
+        [].forEach.call(mbclasses, mbclass => {
+          var singleBlock3 = new Array(0);
+          singleBlock3["atag"] = mbclass.querySelector("a").attributes["href"];
+          singleBlock3["hthree"] = mbclass.querySelector("a").rawText;
           if (
             mbclass.querySelector("a").attributes["target"] &&
             mbclass.querySelector("a").attributes["target"] === "_blank"
           ) {
             singleBlock3["target"] = mbclass.querySelector("a").attributes[
               "target"
-            ]
+            ];
           } else {
-            singleBlock3["target"] = ""
+            singleBlock3["target"] = "";
           }
 
           // singleBlock['ul'] = mbclass.querySelector('ul').rawText;
-          homeSmallBlocks3[i] = singleBlock3
-          i++
-        })
+          homeSmallBlocks3[i] = singleBlock3;
+          i++;
+        });
       }
-      return homeSmallBlocks3
+      return homeSmallBlocks3;
     },
-    footerHeadings () {
+    footerHeadings() {
       let footerHeads = {};
       if (this.data) {
-        let fHeads = this.parsedContent.querySelectorAll('.footerHeadings');
+        let fHeads = this.parsedContent.querySelectorAll(".footerHeadings");
         fHeads.forEach((element, index) => {
           footerHeads[element.id] = element.innerHTML;
-        })
+        });
       }
       return footerHeads;
     }
   },
+  methods: {
+    selectTab(id) {
+      let activeEle = document.getElementById(id);
+      if (this.isHidden(activeEle.querySelector(".content"))) {
+        const elements = document.getElementsByClassName("tab-panel");
+        for (var i = 0; i < elements.length; i++) {
+          if (elements[i]) {
+            elements[i].querySelector(".content").style.display = "none";
+            elements[i].querySelector(".mainHeading").classList.remove("open");
+          }
+        }
+        setTimeout(function() {
+          activeEle.querySelector(".content").style.display = "block";
+          activeEle.querySelector(".mainHeading").classList.add("open");
+        }, 100);
+      } else {
+        activeEle.querySelector(".content").style.display = "none";
+        activeEle.querySelector(".mainHeading").classList.remove("open");
+      }
+    },
+    isHidden(el) {
+      var style = window.getComputedStyle(el);
+      return style.display === "none";
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
-}
-input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-// Layout
-.row {
-  display: flex;
-  .col {
-    flex: 1;
-    &:last-child {
-      margin-left: 1em;
-    }
-  }
-}
-/* Accordion styles */
-.tabs {
-  // border-radius: 8px;
-  overflow: hidden;
-  margin-left: -22px;
-  margin-right: -6px;
-}
-.tab {
-  margin-bottom: -13px;
-  width: 100%;
-  color: white;
-  overflow: hidden;
-  &-label {
-    font-family: 'oblik';
-    display: flex;
-    content: '\f068';
-    justify-content: space-between;
-    padding: 1em;
-    background: #606060;
-    font-size: 3vw;
-
-    cursor: pointer;
-    /* Icon */
-    // &:hover {
-    //   background: darken($midnight, 10%);
-    // }
-    &::after {
-      font-family: FontAwesome;
-      content: '\f067';
-      width: 1em;
-      height: 1em;
-      text-align: center;
-      transition: all 0.35s;
-      font-size: 9px;
-      margin-top: 10px;
-      border: none;
-    }
-  }
-  &-content {
-    max-height: 0;
-    padding: 0 1em;
-    color: #2c3e50;
-    background: white;
-    transition: all 0.35s;
-  }
-  &-close {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1em;
-    font-size: 0.75em;
-    // background: $midnight;
-    cursor: pointer;
-    &:hover {
-      background: darken(#2c3e50, 10%);
-    }
-  }
-}
-
-// :checked
-input:checked {
-  + .tab-label {
-    background: #606060;
-    color: #ffffff;;
-    &::after {
-      font-family: FontAwesome;
-      content: '\f068';
-    }
-  }
-  ~ .tab-content {
-    max-height: 100vh;
-    padding-top: 1px;
-    background-color: #f2f2f2;
-    font-family: 'Arial';
-  }
-}
-.tabset > input[type='radio'] {
-  position: absolute;
-  left: -200vw;
-}
-// .tabset .tab-panel {
-//   display: none;
-// }
-.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
-.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
-.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
-.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
-.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
-.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
-  display: block;
-}
-.tabset > label {
-  position: relative;
-  display: inline-block;
-  padding: 15px 15px 25px;
-  border: 1px solid transparent;
-  border-bottom: 0;
-  cursor: pointer;
-  color: white;
-}
-.tabset > label::after {
-  content: '';
-  position: absolute;
-  left: 0px;
-  bottom: 18px;
-  width: 100%;
-  height: 2px;
-}
-.tabset > label:hover,
-.tabset > input:focus + label {
-  color: white;
-}
-.tabset > label:hover::after,
-.tabset > input:focus + label::after,
-.tabset > input:checked + label::after {
-  border-bottom: 2px solid #00998c;
-}
-.tabset > input:checked + label {
-  border-color: #fff;
-  border-bottom: 2px solid #fff;
-  margin-bottom: -1px;
-}
-.tab-panel {
-  padding: 15px 0;
-}
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-.tabset {
-  max-width: 65em;
-  text-align: center;
-}
-p {
-  text-align: center;
-  color: #54575b;
-}
-
-@media (min-width: 768px) {
-  .tab-panels input,
-  .tab-panels .tab-label {
-    display: none;
-  }
-}
-@media (max-width: 500px) {
-  .tab-label {
-    // font-size: 18px !important;
-  }
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
 }
 
 @media (max-width: 767px) {
-  #tab1,
-  #tab2,
-  #tab3,
-  .desktop {
-    display: none !important;
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
   }
-  section {
-    background-color: #606060;
+  .footerTabsBox > .tab-panel:last-child {
+    border-bottom: unset !important;
   }
-  input {
-    position: absolute;
-    opacity: 0;
-    z-index: -1;
+  .tab-panel {
+    border-bottom: 0.5px solid #040e2c;
+    padding: 9px 0;
+
+    .mainHeading {
+      font-family: "oblik";
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fff;
+
+      &::after {
+        font-family: FontAwesome;
+        content: "\f067";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        transition: all 0.35s;
+        font-size: 9px;
+        margin-top: 10px;
+        border: none;
+      }
+    }
+    .mainHeading.open {
+      &::after {
+        font-family: FontAwesome;
+        content: "\f068";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        transition: all 0.35s;
+        font-size: 9px;
+        margin-top: 10px;
+        border: none;
+      }
+    }
   }
-  .tab-label {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 2.933vw;
-  }
-  .tab-label::after {
-    font-family: FontAwesome;
-    content: '\f067';
-    width: 1em;
-    height: 1em;
-    text-align: center;
-    -webkit-transition: all 0.35s;
-    transition: all 0.35s;
-    font-size: 9px;
-    margin-top: 5px;
+  section#luxurious-experiences {
+    margin-top: 25px;
   }
   .content {
-    text-align: left;
-    line-height: 20px;
-    font-size: 14px;
     -webkit-transition: all 0.35s;
     transition: all 0.35s;
     display: none;
-    padding-left: 20px;
-    margin-top: 10px;
-  }
-
-  input:checked + .tab-label::after {
-    font-family: FontAwesome;
-    content: '\f068';
-    color: #ffffff;
-  }
-  input:checked ~ .content {
-    display: block;
-  }
-  input:checked ~ .socialicons {
-    text-align: center;
-  }
-  .tabset .tab-panel {
-    display: block !important;
-    width: 100%;
-    float: left;
-    margin-left: -8px;
-    padding: 1px 0px;
-    border-bottom: 2px solid white;
   }
   .content ul li a {
-    font-size: 2.667vw;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    color: #fff;
   }
 }
 
@@ -423,23 +289,5 @@ ul {
 }
 ul li {
   padding-bottom: 13px;
-  margin: 10px 0 !important;
-  font-family: 'Arial';
-}
-a {
-  color: White;
-  font-size: 17px;
-}
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .tab-label {
-    font-size: 3vw;
-    color:#ffffff;
-  }
-  .content ul li {
-    padding-bottom: 0;
-  }
-  .content ul li a {
-    font-size: 3vw;
-  }
 }
 </style>

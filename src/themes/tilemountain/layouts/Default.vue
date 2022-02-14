@@ -1,9 +1,9 @@
 <template>
   <div class="default-layout">
-    <overlay v-if="overlayActive"/>
-    <loader/>
+    <overlay v-if="overlayActive" />
+    <loader />
     <div id="viewport" class="w-100 relative">
-      <main-header/>
+      <main-header />
       <!-- <async-sidebar
         :async-component="SearchPanel"
         :is-open="isSearchPanelOpen"
@@ -13,8 +13,8 @@
         class="usp-bar-tm-bfd"
         v-if="
           $device.isMobile &&
-          $route.name !== 'checkout' &&
-          $route.name !== 'Checkout'
+            $route.name !== 'checkout' &&
+            $route.name !== 'Checkout'
         "
         :identifier="'usp-bar-TM'"
       />
@@ -24,19 +24,20 @@
         @close="$store.commit('ui/setSidebar')"
         direction="left"
       />
-      <slot/>
-        <main-footer/>
+      <slot />
+      <main-footer v-if="!isCheckoutPage" />
+      <main-footer-checkout v-else />
       <lazy-hydrate when-visible>
         <notification />
       </lazy-hydrate>
-       <lazy-hydrate when-visible>
-      <BasketNotification />
-        </lazy-hydrate>
+      <lazy-hydrate when-visible>
+        <BasketNotification />
+      </lazy-hydrate>
 
       <lazy-hydrate when-idle>
         <sign-up />
       </lazy-hydrate>
-      <cookie-notification v-if="showCookieNotification"/>
+      <cookie-notification v-if="showCookieNotification" />
       <lazy-hydrate when-idle>
         <offline-badge />
       </lazy-hydrate>
@@ -45,65 +46,70 @@
         v-if="loadOrderConfirmation"
       />
     </div>
-    <vue-progress-bar/>
+    <vue-progress-bar />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar";
-import AsyncSidebar from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebar.vue';
-import AsyncSidebarMobile from 'theme/components/theme/blocks/AsyncSidebar/AsyncSidebarMobile.vue';
-import MainHeader from 'theme/components/core/blocks/Header/Header.vue';
-import MainFooter from 'theme/components/core/blocks/Footer/FooterTM.vue';
-import Overlay from 'theme/components/core/Overlay.vue';
-import Loader from 'theme/components/core/Loader.vue';
-import Notification from 'theme/components/core/Notification.vue';
-import BasketNotification from 'theme/components/core/BasketNotification.vue';
-import SignUp from 'theme/components/core/blocks/Auth/SignUp.vue';
-import CookieNotification from 'theme/components/core/CookieNotification.vue';
-import OfflineBadge from 'theme/components/core/OfflineBadge.vue';
-import { isServer } from '@vue-storefront/core/helpers';
-import Head from 'theme/head';
-import config from 'config';
-import LazyHydrate from 'vue-lazy-hydration'
+import AsyncSidebar from "theme/components/theme/blocks/AsyncSidebar/AsyncSidebar.vue";
+import AsyncSidebarMobile from "theme/components/theme/blocks/AsyncSidebar/AsyncSidebarMobile.vue";
+import MainHeader from "theme/components/core/blocks/Header/Header.vue";
+import MainFooter from "theme/components/core/blocks/Footer/FooterTM.vue";
+import MainFooterCheckout from "theme/components/core/blocks/Footer/FooterTMCheckout.vue";
+import BasketNotification from "theme/components/core/BasketNotification.vue";
+import Overlay from "theme/components/core/Overlay.vue";
+import Loader from "theme/components/core/Loader.vue";
+import Notification from "theme/components/core/Notification.vue";
+import SignUp from "theme/components/core/blocks/Auth/SignUp.vue";
+import CookieNotification from "theme/components/core/CookieNotification.vue";
+import OfflineBadge from "theme/components/core/OfflineBadge.vue";
+import { isServer } from "@vue-storefront/core/helpers";
+import Head from "theme/head";
+import config from "config";
+import LazyHydrate from "vue-lazy-hydration";
 
 const SidebarMenu = () =>
   import(
-    /* webpackPreload: true */ /* webpackChunkName: "vsf-sidebar-menu" */ 'theme/components/core/blocks/SidebarMenu/SidebarMenu.vue');
+    /* webpackPreload: true */ /* webpackChunkName: "vsf-sidebar-menu" */ "theme/components/core/blocks/SidebarMenu/SidebarMenu.vue"
+  );
 const SearchPanel = () =>
   import(
-    /* webpackChunkName: "vsf-search-panel" */ 'theme/components/core/blocks/SearchPanel/SearchPanel.vue');
+    /* webpackChunkName: "vsf-search-panel" */ "theme/components/core/blocks/SearchPanel/SearchPanel.vue"
+  );
 const OrderConfirmation = () =>
   import(
-    /* webpackChunkName: "vsf-order-confirmation" */ 'theme/components/core/blocks/Checkout/OrderConfirmation.vue');
+    /* webpackChunkName: "vsf-order-confirmation" */ "theme/components/core/blocks/Checkout/OrderConfirmation.vue"
+  );
 
 export default {
-  name: 'Default',
-  data () {
+  name: "Default",
+  data() {
     return {
       loadOrderConfirmation: false,
       ordersData: [],
       SearchPanel,
       SidebarMenu,
-      showCookieNotification: !!config.cookieNotification
+      showCookieNotification: !!config.cookieNotification,
+      isCheckoutPage: false
     };
   },
   computed: {
     ...mapState({
-      overlayActive: (state) => state.ui.overlay,
-      isSearchPanelOpen: (state) => state.ui.searchpanel,
-      isSidebarOpen: (state) => state.ui.sidebar
+      overlayActive: state => state.ui.overlay,
+      isSearchPanelOpen: state => state.ui.searchpanel,
+      isSidebarOpen: state => state.ui.sidebar
     })
   },
   methods: {
-    onOrderConfirmation (payload) {
+    onOrderConfirmation(payload) {
       this.loadOrderConfirmation = true;
       this.ordersData = payload;
-      this.$bus.$emit('modal-show', 'modal-order-confirmation');
+      this.$bus.$emit("modal-show", "modal-order-confirmation");
     },
-    fetchMenuData () {
-      return this.$store.dispatch('category-next/fetchMenuCategories', {
+    fetchMenuData() {
+      return this.$store.dispatch("category-next/fetchMenuCategories", {
         level:
           config.entities.category.categoriesDynamicPrefetch &&
           config.entities.category.categoriesDynamicPrefetchLevel >= 0
@@ -111,12 +117,15 @@ export default {
             : null,
         skipCache: isServer
       });
+    },
+    setCurrentPage() {
+      this.isCheckoutPage = this.$route.name === "checkout";
     }
   },
-  serverPrefetch () {
+  serverPrefetch() {
     return this.fetchMenuData();
   },
-  beforeMount () {
+  beforeMount() {
     // Progress bar on top of the page
     this.$router.beforeEach((to, from, next) => {
       this.$Progress.start();
@@ -126,7 +135,7 @@ export default {
     this.$router.afterEach((to, from) => {
       this.$Progress.finish();
     });
-    this.$bus.$on('offline-order-confirmation', this.onOrderConfirmation);
+    this.$bus.$on("offline-order-confirmation", this.onOrderConfirmation);
 
     // add script to page.
     // let gTagScript = document.createElement('script')
@@ -142,19 +151,25 @@ export default {
     //   '\n' +
     //   '  gtag(\'config\', \'G-MQ0RMQSH9J\');';
     // document.head.appendChild(gtagScriptData);
-    let fontawsmLib = document.createElement('link')
-    fontawsmLib.type = 'text/css';
-    fontawsmLib.rel = 'stylesheet';
-    fontawsmLib.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-    document.body.appendChild(fontawsmLib)
-    let googleFont = document.createElement('link')
-    googleFont.type = 'text/css';
-    googleFont.rel = 'stylesheet';
-    googleFont.setAttribute('href', 'https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Roboto:400,700|Material+Icons&display=swap')
-    document.body.appendChild(googleFont)
+    let fontawsmLib = document.createElement("link");
+    fontawsmLib.type = "text/css";
+    fontawsmLib.rel = "stylesheet";
+    fontawsmLib.setAttribute(
+      "href",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    );
+    document.body.appendChild(fontawsmLib);
+    let googleFont = document.createElement("link");
+    googleFont.type = "text/css";
+    googleFont.rel = "stylesheet";
+    googleFont.setAttribute(
+      "href",
+      "https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Roboto:400,700|Material+Icons&display=swap"
+    );
+    document.body.appendChild(googleFont);
   },
-  beforeDestroy () {
-    this.$bus.$off('offline-order-confirmation', this.onOrderConfirmation);
+  beforeDestroy() {
+    this.$bus.$off("offline-order-confirmation", this.onOrderConfirmation);
   },
   metaInfo: Head,
   components: {
@@ -172,7 +187,16 @@ export default {
     OrderConfirmation,
     AsyncSidebar,
     LazyHydrate,
-    AsyncSidebarMobile
+    AsyncSidebarMobile,
+    MainFooterCheckout
+  },
+  watch: {
+    "$route.name": function() {
+      this.setCurrentPage();
+    }
+  },
+  created() {
+    this.setCurrentPage();
   }
 };
 </script>
