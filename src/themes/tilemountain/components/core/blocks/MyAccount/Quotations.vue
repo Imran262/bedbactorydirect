@@ -390,7 +390,7 @@ export default {
         '7456321 from API ',
         JSON.stringify(receivedQouteProduct),
         '\n\n\n actualProduct',
-        JSON.stringify(actualProduct),"\n\n\n\n\nNow we should be",actualProduct.name
+        JSON.stringify(actualProduct),"\n\n\n\n\nNow we should be adding ",actualProduct.name
       );
       let updatedTestProduct = actualProduct;
       if (simpleProductCheck) {
