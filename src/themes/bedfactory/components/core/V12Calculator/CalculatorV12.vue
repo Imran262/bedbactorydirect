@@ -188,8 +188,8 @@ export default {
         if(parseInt (financeOption.order_id) === parseInt(this.financeOptionSelected)){
           console.log("778855 finance option found",financeOption);
           parseFloat(this.originalPrice).toFixed(2);
-          let totalPrice = parseFloat(6011.15).toFixed(2);
-          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected); 
+          let totalPrice = parseFloat(this.currentPrice).toFixed(2);
+          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2); 
           // let initialDeposit = parseInt(totalPrice * this.despositOptionSelected);
           let initialDepositRounded = Math.round(initialDeposit); 
           // console.log(this.despositOptionSelected,"778855 Deposit is ",initialDeposit , initialDepositRounded);
