@@ -188,7 +188,7 @@ export default {
         if(parseInt (financeOption.order_id) === parseInt(this.financeOptionSelected)){
           console.log("778855 finance option found",financeOption);
           parseFloat(this.originalPrice).toFixed(2);
-          let totalPrice = parseFloat(this.currentPrice).toFixed(2);
+          let totalPrice = parseFloat(1216.95).toFixed(2);
           let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2); 
           // let initialDeposit = parseInt(totalPrice * this.despositOptionSelected);
           let initialDepositRounded = Math.round(initialDeposit); 
@@ -207,11 +207,7 @@ export default {
               // initialDeposit = Math.ceil(initialDeposit)
               console.log("778855 Deposit becomes ",initialDeposit );
             }
-          if (initialDeposit >= initialDepositRounded){
-
-          }
-          else{
-            if (this.despositOptionSelected === 0.5  || this.despositOptionSelected === '0.5')
+            else if (this.despositOptionSelected === 0.5  || this.despositOptionSelected === '0.5')
             {
               console.log("778855 Deposit option selected is 50% initialDeposit is ",initialDeposit , "Rounded of Initial Deposit is ",initialDepositRounded)
               // let differnce = (initialDeposit.toString()).split('.')
@@ -226,8 +222,6 @@ export default {
               initialDeposit = floor10(initialDeposit,-1)
               console.log("778855 Deposit becomes ",initialDeposit );
             }
-          }
-          
           let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);
           let noOfPayments = financeOption.imega_finance_rate.term;
           let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
