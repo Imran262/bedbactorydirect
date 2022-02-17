@@ -156,8 +156,8 @@
           </div>
         </div>
 
-        <div class="Total col-lg-4 col-md-12 col-xs-12 total-box-inner">
-          <Retailfinancev12 :currentPrice="(getGrandTotal() ? getGrandTotal() : '0')" :key="getGrandTotal()"/>
+        <div class="Total col-lg-4 col-md-12 col-xs-12 total-box-inner YYYYYYYYYYYYYYYYYYYY">
+           
           <div class="cart-summary-main" id="cart-summary-main">
             <div class="inner-total bg-cl-primary">
               <div
@@ -264,7 +264,10 @@
                 @click="expressCheckout"
               />
             </div> -->
+
+              <Retailfinancev12 :currentPrice="(getGrandTotal() ? getGrandTotal() : '0')" :key="getGrandTotal()"/>
           </div>
+         
         </div>
        
       </div>
@@ -915,11 +918,21 @@ export default {
   font-family: "Oblik";
   src: url("/assets/fonts/Oblik_Bold.otf");
 }
+.cart-summary-main{
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  @media (max-width: 767px) {
+          .V-12-retail-Finance
+                  {
+                    margin-left: 0 !important;
+                   }
+            }
 
 .paypalBtn {
   cursor: pointer;
 }
-
 .maincart {
   background-color: #f2f2f2 !important;
 
@@ -959,7 +972,7 @@ export default {
   }
 
   .cart-summary-main {
-    width: 412px;
+    // width: 412px;
     // position: fixed;
     // // z-index: 1;
     // top: auto;
@@ -1023,13 +1036,10 @@ export default {
 
     .inner-total {
       width: 92%;
-
-      float: right;
-
+      // float: right;
+      // height: 100%;
       background-color: #ffff;
-
       border: 1px solid #bfc3cb !important;
-
       @media (max-width: 767px) {
         width: 99%;
       }
@@ -1198,6 +1208,7 @@ export default {
     .total-box-inner {
       position: sticky;
       top: 70px;
+      // padding-left: 2rem;
     }
   }
 
@@ -1398,17 +1409,15 @@ export default {
 
 @media (max-width: 1200px) and (min-width: 992px) {
     .total-box-inner .V-12-retail-Finance.cart-V-12{
-   margin-left: 24px !important;
-    width: 88%;
+  //  margin-left: 24px !important;
+    width: 92%;
 }
   .sb-congragulation-text > p {
     font-size: 13px;
   }
-
   .maincart .cart-summary-main {
     width: 310px;
   }
-
   .sb-add-all-button > button {
     font-size: 14px;
 
@@ -1442,8 +1451,7 @@ export default {
   }
 
   .maincart .Total .inner-total {
-    float: unset;
-
+    // float: unset;
     width: 100%;
   }
 
@@ -1710,33 +1718,32 @@ export default {
     background: #071a44;
 }
 .total-box-inner .V-12-retail-Finance.cart-V-12 {
-    position: absolute;
-    bottom: 0;
-    margin-left: 32px;
-    margin-bottom: 10px;
+    // position: absolute;
+    // bottom: 0;
+    // margin-left: 32px;
+    //  margin: 1.5rem auto 3rem;
     background: #ffff;
      @media (max-width: 991px){
-    margin-left: 0;
+    // margin-left: 0;
     width: 100%;
      }
        @media (max-width: 767px){
-    width: 97% !important;
-    margin-left: 5px !important;
+    width: 100% !important;
+    // margin-left: 5px !important;
      }
        @media (max-width: 480px){
-    width: 94% !important;
+    // width: 94% !important;
      }
 }
 .total-box-inner {
-      height: 480px;
+    // min-height: 580px;
        }
  @media (max-width: 1201px){
    .total-box-inner {
       // height: 580px;
        @media (max-width: 991px){
-         height: 510px !important;
+        //  height: 615px !important;
        }
     }
  }
 </style>
-

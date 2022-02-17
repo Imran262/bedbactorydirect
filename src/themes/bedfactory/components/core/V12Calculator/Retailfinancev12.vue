@@ -117,14 +117,15 @@ export default {
 }
   </script>
 
-<style scoped>
+<style scoped> 
 .V-12-retail-Finance {
   box-shadow: 0px 0px 8px rgb(0 0 0 / 25%);
-  width: 554px;
-  height: 115px;
-  margin-left: 40px;
-  width: 89%;
-  margin-bottom: 20px;
+  /* width: 554px;
+  height: 115px; */
+  /* margin-left: 40px; */
+  width: 92%;
+  margin: 1.5rem auto 3rem !important;
+  /* margin-bottom: 20px; */
 }
 .retail-finance {
   width: 100%;
