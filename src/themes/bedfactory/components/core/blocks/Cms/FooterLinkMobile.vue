@@ -8,7 +8,7 @@
       <span class="mainHeading"
         >{{ footerHeadings["footerlink1"] || "About" }}
       </span>
-      <div class="content">
+      <div class="content ">
         <ul>
           <li v-for="(singleblock, index) in singleblockdata1" :key="index">
             <a
@@ -62,7 +62,7 @@
       <span class="mainHeading">{{
         footerHeadings["footerlink3"] || "T&Zzz's"
       }}</span>
-      <div class="content">
+      <div class="content contentNew">
         <ul>
           <li v-for="(singleblock, index) in singleblockdata3" :key="index">
             <a
@@ -279,6 +279,9 @@ export default {
     font-size: 0.875rem;
     text-decoration: underline;
     color: #fff;
+  }
+  .content.contentNew > ul li:last-child {
+    padding-bottom: 0 !important;
   }
 }
 
