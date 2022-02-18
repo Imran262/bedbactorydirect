@@ -512,6 +512,10 @@ p {
 }
 
 @media screen and (max-width: 767px) {
+  .footer-middle.top-blue-line {
+    position: relative;
+    top: -1px;
+  }
   .footer-main {
     display: none;
   }
