@@ -4,7 +4,11 @@
     :class="{ 'brdr-top-1 brdr-cl-secondary': isCheckoutPage }"
   >
     <trustPoilet :identifier="'trust_pilot'" />
-    <div class="footer-main" id="footer-main-desktop" v-if="windowWidth >= 768">
+    <div
+      class="footer-main"
+      id="footer-main-desktop"
+      v-show="windowWidth >= 768"
+    >
       <div class="container">
         <div class="row">
           <footerlink :identifier="'tm_footer_links'" />
@@ -99,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile-footer" v-else>
+    <div class="mobile-footer" v-show="windowWidth < 768">
       <div class="container">
         <div class="row">
           <!-- <div class="w-100 footerPaddings"> -->
