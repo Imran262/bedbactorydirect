@@ -1300,6 +1300,10 @@ export default {
 
   @media (min-width: 767px) {
     .total-box-inner {
+      position: -webkit-sticky;
+      position: -moz-sticky;
+      position: -ms-sticky;
+      position: -o-sticky;
       position: sticky;
       top: 119px;
       height: 100%;
