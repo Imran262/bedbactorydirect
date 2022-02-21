@@ -812,8 +812,14 @@ export default {
           })
       .then(responsebackend => {
         console.log("1596321 Brand Logo is ",responsebackend);
-        this.brandsImageData = responsebackend.data.result
+        if (responsebackend && responsebackend.data && responsebackend.data.result){
+          this.brandsImageData = responsebackend.data.result
         console.log("1596321 data to send is ",this.brandsImageData);
+        }
+        else{
+          console.log("115599 Error", error);
+          this.brandsImageData = []
+        }
       })
       .catch(error => {
         console.log("115599 Error", error);
