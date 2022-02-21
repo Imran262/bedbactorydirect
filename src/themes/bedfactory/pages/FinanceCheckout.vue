@@ -307,11 +307,11 @@ export default {
           this.calculatedData = payment
       },
       submitApplication() {
-          console.log("11559988 order is ",this.$store.state.order,this.backendOrderId);
+          console.log("a2c3b4 11559988 order is ",this.$store.state.order,this.backendOrderId);
         let CurrentOrder = this.$store.state.order;
         let Totals = this.$store.state.cart.platformTotals;
 
-        console.log("Current order is ",CurrentOrder,"\n current ",Totals);
+        console.log("a2c3b4 Current order is ",CurrentOrder,"\n current ",Totals);
       let retailerGuid = "e6eb9e9a-9d8a-4919-9ef5-3ed2b14150a8",
         retailerId = "25838",
         authenticationKey =
@@ -349,20 +349,25 @@ export default {
                "RetailerId": config.v12Finance.retailerId
                }
              }
-             console.log("order id is ", orderId,this.backendOrderId, typeof order.CashPrice,order);
+             console.log("a2c3b4 order id is ", orderId,this.backendOrderId, typeof order.CashPrice,order);
               const URL = config.api.url + config.v12Finance.endpoint ;
             //const URL = config.api.endpointlocal
             //const URL = "http://localhost:8080/api/ext/V12Finance/startApplication" ;
+            console.log("a2c3b4 Submitting Application to V-12 at URL : ",URL,"\n with order " ,order);
              axios.post(URL, order, {
                  headers: {
                      "Content-type": "application/json"
                      }
                     })
                     .then(res => {
-                        
+                        console.log("a2c3b4 Response recieved for starting Aplication",res);
                         let v12Link = res.data.result.ApplicationFormUrl ;
-                        console.log("115599 responseIs",v12Link, res);
+                        console.log("a2c3b4 115599 responseIs",v12Link, res);
                         let backendURL = config.api.url + config.v12Finance.applicationSuccess;
+                        console.log("a2c3b4 Sending Data to V-12 after starting Application no submitting Application with Data ",backendURL, {
+                          "orderId":this.backendOrderId,
+                          "v12ReferenceId": res.data.result.ApplicationId
+                        });
                         axios.post(backendURL, {
                           "orderId":this.backendOrderId,
                           "v12ReferenceId": res.data.result.ApplicationId
@@ -372,18 +377,20 @@ export default {
                      }
                     })
                     .then(responsebackend => {
-                       
-                        console.log("115599 responseIs backend",responsebackend);
+                       console.log("a2c3b4 Response recieved for submitting Aplication",responsebackend);
+                        console.log("a2c3b4 115599 responseIs backend",responsebackend);
                         window.location.replace(v12Link);
                         return v12Link
                         })
                     .catch(error => {
-                        console.log("115599 Error", error);
+                      console.log("a2c3b4 Error Occured while submitting Aplication",error);
+                        console.log("a2c3b4 115599 Error", error);
                         return v12Link
                     });
                         })
                     .catch(error => {
-                        console.log("115599 Error", error);
+                      console.log("a2c3b4 Error Occured while starting Aplication",error);
+                        console.log(" a2c3b4 115599 Error", error);
                         return v12Link
                     });
     },
