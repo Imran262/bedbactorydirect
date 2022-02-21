@@ -241,23 +241,8 @@ export default {
     });
   },
   async mounted () {
-    this.$store.state.shippingDetails = {
-      region: 'Merseyside',
-      region_id: 0,
-      country_id: 'GB',
-      street: [null, null],
-      postcode: 'L33 7UH',
-      city: 'LIVERPOOL',
-      region_code: ''
-    };
-    console.log(
-      'a1b2c3 STATE is \n',
-      this.$store.state.shippingDetails,
-      this.$store.state,
-      this.shippingMethods
-    );
-    await this.$store
-      .dispatch('quotesystem/quoteSystemFunction', {
+    await this.$store.dispatch(
+      'quotesystem/quoteSystemFunction', {
         customerId: this.currentUser.id
       })
       .then(resp => {
@@ -305,7 +290,6 @@ export default {
     getQuoteProdImage (slug) {
       return getThumbnailPath(slug, 186, 186);
     },
-    
     async addQuote (quoteId, index) {
       console.log(
         '36521 Here to add quote ',
@@ -313,18 +297,6 @@ export default {
         index,
         this.quoteData[index]
       );
-      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true });
-      await this.$store.dispatch('cart/sync', {
-        forceClientState: false,
-        forceSync: true
-      });
-      this.$forceUpdate();
-      await this.$store.dispatch('cart/clear', { disconnect: false });
-      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true });
-      await this.$store.dispatch('cart/sync', {
-        forceClientState: false,
-        forceSync: true
-      });
       await this.$store.dispatch('cart/clear', { disconnect: false });
       let qouteProduct = this.quoteData[index].items[0];
       console.log('36521 current product in qoute is new ', qouteProduct);
@@ -359,10 +331,22 @@ export default {
               receivedQouteProduct
             );
             await this.addProductToCart(receivedQouteProduct);
+            if (index+1 == receivedQouteData.length){
+              await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+      await this.$store.dispatch("cart/sync", {
+        forceClientState: false,
+        forceSync: true,
+      })
+      this.$forceUpdate()
+      this.$bus.$emit('notification-progress-stop')
+      this.$router.push(this.localizedRoute('/cart'))
+              this.$bus.$emit('notification-progress-stop');
+            }
           }
         })
 
         .catch(error => {
+          this.$bus.$emit('notification-progress-stop');
           console.log(
             '36521 Error occured while getting data for quote id  : ',
             quoteId,
@@ -370,7 +354,6 @@ export default {
             error
           );
         });
-      this.$bus.$emit('notification-progress-stop');
     },
     async addProductToCart (receivedQouteProduct) {
       let simpleProductCheck = receivedQouteProduct.parentSku
