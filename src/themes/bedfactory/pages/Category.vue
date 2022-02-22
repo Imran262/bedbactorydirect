@@ -90,7 +90,7 @@
     <header class="desktopheader">
       <div class="container">
         <router-link
-          :to="localizedRoute(product_link ? '/' + product_link : '')"
+          :to="localizedRoute(getCurrentCategory.banner_url? getCurrentCategory.banner_url : (product_link ? '/' + product_link : ''))"
         >
           <div class="firstcol title-box sb-category-tile-text">
             <div class="sb-left-text" v-if="!$device.isMobile">
