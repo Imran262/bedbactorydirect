@@ -90,7 +90,7 @@
     <header class="desktopheader">
       <div class="container">
         <router-link
-          :to="localizedRoute(product_link ? '/' + product_link : '')"
+          :to="localizedRoute(getCurrentCategory.banner_url? getCurrentCategory.banner_url : (product_link ? '/' + product_link : ''))"
         >
           <div class="firstcol title-box sb-category-tile-text">
             <div class="sb-left-text" v-if="!$device.isMobile">
@@ -812,8 +812,14 @@ export default {
           })
       .then(responsebackend => {
         console.log("1596321 Brand Logo is ",responsebackend);
-        this.brandsImageData = responsebackend.data.result
+        if (responsebackend && responsebackend.data && responsebackend.data.result){
+          this.brandsImageData = responsebackend.data.result
         console.log("1596321 data to send is ",this.brandsImageData);
+        }
+        else{
+          console.log("115599 Error", error);
+          this.brandsImageData = []
+        }
       })
       .catch(error => {
         console.log("115599 Error", error);
