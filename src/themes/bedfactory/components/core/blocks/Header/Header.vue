@@ -12,7 +12,7 @@
         class="w-100 bg-cl-primary brdr-cl-secondary"
         :class="{
           relativeHeader: scrollPosition < 100,
-          fixedHeader: scrollPosition > 100,
+          fixedHeader: scrollPosition > 100
         }"
       >
         <div class="container px15">
@@ -20,7 +20,7 @@
             class="row between-xs middle-xs header-main header-main-new"
             v-if="
               (!isCheckoutPage && $route.name !== 'confirmorder') ||
-              isThankYouPage
+                isThankYouPage
             "
           >
             <div class="col-md-2 col-xs-4 pt5">
@@ -40,7 +40,7 @@
                   class="icon pointer t-mobile"
                   :callText="phone"
                   :callNumber="call"
-                  :checkClass = "''"
+                  :checkClass="''"
                 />
                 <div class="flex inner-icons">
                   <wishlist-icon class="icon pointer r-icons location-icon" />
@@ -68,7 +68,7 @@
             class="row between-xs middle-xs px15 py5"
             v-if="
               (isCheckoutPage || $route.name === 'confirmorder') &&
-              !isThankYouPage
+                !isThankYouPage
             "
           >
             <!-- <div class="col-xs-5 col-md-3 middle-xs">
@@ -96,7 +96,7 @@
                   :from-checkout-page="true"
                   :callText="phone"
                   :callNumber="call"
-                  :checkClass = "currentUser ? 'loginClass' : 'logoutClass'"
+                  :checkClass="currentUser ? 'loginClass' : 'logoutClass'"
                 />
                 <a
                   v-if="!currentUser"
@@ -124,7 +124,7 @@
           <hamburger-icon
             v-if="
               (!isCheckoutPage && $route.name !== 'confirmorder') ||
-              isThankYouPage
+                isThankYouPage
             "
             class="sb-mobile-menu pointer hidden-md"
             :rightborder="rightborder"
@@ -183,7 +183,7 @@ export default {
     WishlistIcon,
     AsyncSidebar,
     Overlay,
-    HeaderMenu,
+    HeaderMenu
   },
   mixins: [CurrentPage],
   data() {
@@ -197,21 +197,21 @@ export default {
       rightborder: false,
       scrollPosition: null,
       phone: config.phoneNumber.toShow,
-      call: config.phoneNumber.toCall,
+      call: config.phoneNumber.toCall
     };
   },
   async beforeRouteEnter(to, from, next) {
     // console.log("789456  header", this.productsInCart.length);
   },
   watch: {
-    "$route.name": function (to, from) {
+    "$route.name": function(to, from) {
       if (from === "checkout" && to !== "cart") {
         document.getElementById("app").style.overflowX = "hidden";
-        document.getElementById("viewport").style.overflow = "hidden";
+        document.getElementById("viewport").style.overflowX = "hidden";
       }
       if (from === "cart" && to !== "checkout") {
         document.getElementById("app").style.overflowX = "hidden";
-        document.getElementById("viewport").style.overflow = "hidden";
+        document.getElementById("viewport").style.overflowX = "hidden";
       }
     },
     $route(to, from) {
@@ -219,7 +219,7 @@ export default {
       if (to.name === "cart") {
         this.$store.dispatch("cart/sync", {
           forceClientState: false,
-          forceSync: true,
+          forceSync: true
         });
         this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
         // console.log("789456 Header ", this.productsInCart.length);
@@ -228,17 +228,17 @@ export default {
           this.$router.push(this.localizedRoute("/"));
         }
       }
-    },
+    }
   },
   computed: {
     ...mapState({
-      isOpenLogin: (state) => state.ui.signUp,
-      currentUser: (state) => state.user.current,
-      isMicrocartOpen: (state) => state.ui.microcart,
+      isOpenLogin: state => state.ui.signUp,
+      currentUser: state => state.user.current,
+      isMicrocartOpen: state => state.ui.microcart
     }),
     ...mapGetters({
       productsInCart: "cart/getCartItems",
-      totals: "cart/getTotals",
+      totals: "cart/getTotals"
     }),
     isThankYouPage() {
       return this.$store.state.checkout.isThankYouPage
@@ -247,7 +247,7 @@ export default {
     },
     checkoutLogoPath() {
       return "/assets/logo.svg";
-    },
+    }
   },
   beforeMount() {
     history.scrollRestoration = "auto";
@@ -292,7 +292,7 @@ export default {
   },
   methods: {
     animateToTop(e) {
-      let scrollToTop = window.setInterval(function () {
+      let scrollToTop = window.setInterval(function() {
         let pos = window.pageYOffset;
         if (pos > 0 && pageYOffset >= 10) {
           window.scrollTo(0, pos - 110);
@@ -321,8 +321,8 @@ export default {
         this.scrollTop > this.navbarHeight
       );
       this.lastScrollTop = this.scrollTop;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -332,7 +332,7 @@ export default {
 // $color-icon-hover: color(secondary, $colors-background);
 
 span.log-in-detail {
-  color: #2A275B !important;
+  color: #2a275b !important;
   font-weight: bold;
 }
 .inline-flex {
@@ -367,11 +367,10 @@ span.log-in-detail {
     align-items: center;
     display: flex;
   }
-  .r-icons3{
-          margin-top: 0;
-          margin-left: 0;
-    }
-
+  .r-icons3 {
+    margin-top: 0;
+    margin-left: 0;
+  }
 }
 //  for tablets
 @media (max-width: 991px) and(min-width: 768px) {
@@ -391,7 +390,7 @@ span.log-in-detail {
 }
 .inner-icons {
   align-items: center;
-    justify-content: space-between;
+  justify-content: space-between;
   @media (max-width: 992px) {
     padding-left: 0px;
     // gap: 3vw;
@@ -432,7 +431,6 @@ header {
     }
   }
 }
-
 
 .right-icons {
   //for edge
@@ -491,20 +489,20 @@ header {
 }
 @media (min-width: 770px) and (max-width: 992px) {
   span.log-in-detail {
-  position: relative;
-  top: -8px;
-}
+    position: relative;
+    top: -8px;
+  }
 }
 
-@media  (max-width: 767px) {
-  .positionRelativeZindex{
+@media (max-width: 767px) {
+  .positionRelativeZindex {
     position: relative;
     z-index: 1;
   }
   span.log-in-detail {
-  display: block;
-}
-  
+    display: block;
+  }
+
   .row.middle-xs {
     margin: 0 -15px;
     &.py5 {
@@ -521,7 +519,7 @@ header {
   span {
     font-size: 12px;
   }
- 
+
   .sb-icons {
     display: flex;
     justify-content: flex-end;
@@ -557,9 +555,9 @@ header {
     top: 4px;
   }
   .notcheckoutheader {
-      // height: 6.4rem;
-      // height: 7.5rem;
-    }
+    // height: 6.4rem;
+    // height: 7.5rem;
+  }
   .notcheckoutheader header {
     // height: 7.5rem;
   }
@@ -592,7 +590,6 @@ header {
 //   }
 // }
 
-
 //
 @media (max-width: 992px) and (min-width: 768px) {
   // .inner-icons {
@@ -606,29 +603,28 @@ header {
   // }
 }
 @media (max-width: 992px) {
-  
-  .checkoutAccountIcon{
+  .checkoutAccountIcon {
     position: relative;
     top: -3px;
   }
   .fullCloseCart {
     display: none !important;
   }
-  .location-icon{
+  .location-icon {
     margin-right: 1.25rem;
   }
-  .account-icon{
+  .account-icon {
     margin-right: 1.25rem;
   }
 }
- @media (max-width: 1199px) and(min-width: 992px) {
-    .sb-icons-new{
-      justify-content: space-between;
-    }
-    .phone.phone-icon.icon.pointer.t-mobile {
-        padding-left: 8%;
-    }
+@media (max-width: 1199px) and(min-width: 992px) {
+  .sb-icons-new {
+    justify-content: space-between;
   }
+  .phone.phone-icon.icon.pointer.t-mobile {
+    padding-left: 8%;
+  }
+}
 .scrollimg {
   font-size: 32px;
   font-weight: normal;
@@ -718,37 +714,33 @@ img.checkout-user {
 }
 
 @media (min-width: 280px) and (max-width: 480px) {
-
   .sb-icons {
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     padding-right: 7.81%;
   }
 }
 @media screen and (min-width: 991px) {
   img.checkout-user.new-checkout-user {
     top: -3px;
-}
-span.log-in-detail {
+  }
+  span.log-in-detail {
     position: relative;
     top: -3px;
-}
+  }
   /* .inner-icons {
     gap: 20px;
   } */
-  .location-icon{
+  .location-icon {
     margin-right: 1.5rem;
   }
-  .account-icon{
+  .account-icon {
     margin-right: 1.5rem;
   }
 }
 @media screen and (min-width: 1200px) {
-
   .phone.phone-icon.icon.pointer.t-mobile {
     padding-left: 12%;
   }
 }
-
-
 </style>

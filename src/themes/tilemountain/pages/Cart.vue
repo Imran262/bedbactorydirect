@@ -696,7 +696,8 @@ export default {
         if (window.innerWidth > 768) {
           document.getElementById("app").style.overflowX = "unset";
         }
-        document.getElementById("viewport").style.overflow = "unset";
+        document.getElementById("viewport").style.overflowX = "unset";
+        document.getElementsByTagName("body")[0].style.overflowX = "hidden";
       }
     },
     checkCart() {
@@ -1004,6 +1005,9 @@ export default {
     //     }
     //   }
     // }
+  },
+  created() {
+    this.updateScroll();
   }
 };
 </script>
@@ -1013,6 +1017,7 @@ export default {
   font-family: "Oblik";
   src: url("/assets/fonts/Oblik_Bold.otf");
 }
+
 .cart-summary-main {
   display: flex;
   flex-direction: column;
