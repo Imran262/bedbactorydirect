@@ -698,6 +698,8 @@ export default {
         }
         document.getElementById("viewport").style.overflowX = "unset";
         document.getElementsByTagName("body")[0].style.overflowX = "hidden";
+        document.getElementsByTagName("body")[0].style.height = "100vh";
+        document.getElementsByTagName("html")[0].style.overflowX = "hidden";
       }
     },
     checkCart() {
@@ -1305,14 +1307,16 @@ export default {
 
   @media (min-width: 767px) {
     .total-box-inner {
-      position: -webkit-sticky;
+      position: relative;
+    }
+    .cart-summary-main {
       position: -moz-sticky;
       position: -ms-sticky;
       position: -o-sticky;
       position: sticky;
-      top: 119px;
-      height: 100%;
-
+      position: -webkit-sticky;
+      top: 0;
+      height: 530px;
       // padding-left: 2rem;
     }
   }
