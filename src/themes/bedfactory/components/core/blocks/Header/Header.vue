@@ -228,6 +228,12 @@ export default {
           this.$router.push(this.localizedRoute("/"));
         }
       }
+      if (from.name === "cart" && to.name !== "checkout") {
+        document.getElementsByTagName("body")[0].style.height = "";
+      }
+      if (from.name === "checkout" && to.name !== "cart") {
+        document.getElementsByTagName("body")[0].style.height = "";
+      }
     }
   },
   computed: {

@@ -667,6 +667,9 @@ export default {
         console.log("1012 products in cart are zero");
         this.$router.push("/");
       }
+    },
+    async $route(to, from) {
+      console.log("kamran mushtaq is here");
     }
   },
   metaInfo() {
@@ -1011,6 +1014,9 @@ export default {
   created() {
     this.updateScroll();
   }
+  // beforeRouteLeave(to, from, next) {
+  //   console.log("rajahere", to, from);
+  // }
 };
 </script>
 
