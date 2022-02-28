@@ -696,9 +696,9 @@ export default {
     updateScroll() {
       if (this.$route.name === "cart") {
         // document.getElementById('app').style.overflowX  = "unset";
-        if (window.innerWidth > 768) {
-          document.getElementById("app").style.overflowX = "unset";
-        }
+        // if (window.innerWidth > 768) {
+        document.getElementById("app").style.overflowX = "unset";
+        // }
         document.getElementById("viewport").style.overflowX = "unset";
         document.getElementsByTagName("body")[0].style.overflowX = "hidden";
         document.getElementsByTagName("body")[0].style.height = "100vh";
@@ -1010,10 +1010,10 @@ export default {
     //     }
     //   }
     // }
-  },
-  created() {
-    this.updateScroll();
   }
+  // created() {
+  //   this.updateScroll();
+  // }
   // beforeRouteLeave(to, from, next) {
   //   console.log("rajahere", to, from);
   // }
