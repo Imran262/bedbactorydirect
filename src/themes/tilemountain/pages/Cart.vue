@@ -1046,7 +1046,8 @@ export default {
   //  overflow: auto;
   @media (max-width: 767px) {
     background-color: #ffffff !important;
-    margin-top: 10px;
+    margin-top: 15px;
+    padding-top: unset !important;
   }
 
   .grandTotalMobile {
@@ -1066,6 +1067,9 @@ export default {
     position: relative;
     @media (max-width: 767px) {
       padding-top: 15px;
+    }
+    @media (max-width: 991px) {
+      padding-top: 20px;
     }
   }
 
@@ -1728,13 +1732,13 @@ export default {
 
 @media screen and (max-width: 991px) {
   .uz_mb_top_checkout {
-    display: block;
+    display: flex !important;
     background-color: #fff;
-    // border-bottom: 2px solid #dddddd;
-    // border-top: 2px solid #dddddd;
-    display: inline-flex !important;
-    margin-top: 8px;
-    width: 102% !important;
+    padding: 11px 3px;
+    align-items: center;
+  }
+  .maincart {
+    padding-top: 2rem;
   }
   .uz_top_grand_price {
     color: #29275b;
@@ -1753,19 +1757,20 @@ export default {
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 6px;
+    margin-top: 3px;
   }
   .uz_top_grand_price {
     color: #29275b;
     font-family: Arial;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 0px;
+    margin: 0;
   }
   .grid12-12.price {
     white-space: nowrap !important;
   }
   .sb-button.button.btn-proceed-checkout.override-btn-checkout.btn-checkout {
-    margin-top: 10px;
+    // margin-top: 10px;
     margin-left: 0 !important;
     width: 100%;
     text-transform: uppercase;
@@ -1795,27 +1800,12 @@ export default {
     padding-right: 0px;
   }
   .uz-proceed-checkout {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
   }
 }
 
 .uz_mb_top_checkout {
   display: none;
-}
-
-@media screen and (min-width: 320px) and (max-width: 390px) {
-  .sb-button.button.btn-proceed-checkout.override-btn-checkout.btn-checkout {
-    min-width: 198px !important;
-  }
-  .padding-right {
-    padding-right: 0px;
-  }
-}
-
-@media screen and (min-width: 376px) and (max-width: 500px) {
-  .padding-right {
-    padding-right: 0px;
-  }
 }
 .hidden-xs {
   display: inherit !important;
