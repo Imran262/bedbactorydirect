@@ -331,6 +331,11 @@ export default {
               receivedQouteProduct
             );
             await this.addProductToCart(receivedQouteProduct);
+            console.log("37915 Checking special price ",receivedQouteProduct.custom_price);
+            if (receivedQouteProduct.custom_price){
+              console.log("37915 About to call special price function");
+              await this.addSpecialPrice(quoteId,receivedQouteProduct.item_id,receivedQouteProduct.custom_price);
+            }
             if (index+1 == receivedQouteData.length){
               await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
       await this.$store.dispatch("cart/sync", {
@@ -349,6 +354,36 @@ export default {
           this.$bus.$emit('notification-progress-stop');
           console.log(
             '36521 Error occured while getting data for quote id  : ',
+            quoteId,
+            'Error is ',
+            error
+          );
+        });
+    },
+    addSpecialPrice(quoteId,itemId,price){
+      console.log("37915 In here to set Special price");
+      let URL= "https://vue.bedfactorydirect.co.uk/vueapi/ext/quotesystem/setcustomprice"
+      let order ={
+        "itemId":itemId ,
+    "quoteId": quoteId,
+    "price":price
+      }
+      axios
+        .post(URL, order, {
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+        .then(async res => {
+          console.log(
+            '96521 789654 Received Data After Setting Price ',
+            res
+          );
+
+        })
+        .catch(error => {
+          console.log(
+            '36521 Error occured while setting Custom price for item: ',itemId ,"\n with qouteId",
             quoteId,
             'Error is ',
             error
