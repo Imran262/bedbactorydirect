@@ -361,12 +361,13 @@ export default {
         });
     },
     addSpecialPrice(quoteId,itemId,price){
-      console.log("37915 In here to set Special price");
+      console.log("37915 In here to set Special price",this.$store.state);
       let URL= "https://vue.bedfactorydirect.co.uk/vueapi/ext/quotesystem/setcustomprice"
       let order ={
-        "itemId":itemId ,
-    "quoteId": quoteId,
-    "price":price
+        "quoteId": quoteId,
+        "cartId":this.$store.state.cart.cartServerToken,
+        "itemId":itemId,
+        "price":price,
       }
       axios
         .post(URL, order, {
