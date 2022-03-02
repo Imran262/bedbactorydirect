@@ -710,7 +710,7 @@ export default {
   font-size: 12px;
   font-weight: normal;
   @media (min-width: 769px) {
-    width: 40%;
+    width: 42%;
   }
 
   .opn {
@@ -891,8 +891,8 @@ input {
       //   width: 23%;
     }
     .mainprice {
-      width: 22%;
-      padding-right: 16px;
+      // width: 22%;
+      // padding-right: 16px;
     }
     .mainprice .prices span {
       font-size: 17px;
@@ -1317,7 +1317,7 @@ input {
 
 @media (min-width: 769px) {
   .product-quantity.product-quantity-mobile {
-    width: 35%;
+    width: 38%;
   }
 }
 </style>
