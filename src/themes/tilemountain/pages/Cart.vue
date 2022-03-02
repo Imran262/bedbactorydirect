@@ -1326,7 +1326,7 @@ export default {
       position: sticky;
       position: -webkit-sticky;
       top: 0;
-      height: 530px;
+      max-height: 100%;
       // padding-left: 2rem;
     }
   }
