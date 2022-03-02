@@ -21,11 +21,16 @@
           :alt="product.name | htmlDecode"
           :calc-ratio="false"
           data-testid="productImage"
-          :product-image-label="product.front_label_image_name? product.front_label_image_name : ''"
+          :product-image-label="
+            product.front_label_image_name ? product.front_label_image_name : ''
+          "
         />
       </div>
+      
       <div class="brand-size1">
-        <img class="brand-size" :src="getBrandImage()" alt="" />
+        <img class="brand-size" v-if="brandsImageData && brandsImageData.length>0" :src="brandLogoUrl +(brandsImageData.filter( brandData => (parseInt(brandData.option_id) === product.brand || brandData.option_id === product.brand)))[0].value" alt="" />
+        <!-- <img class="brand-size" :src="brandsImageData" alt="" @error="imgPlaceholder"/> -->
+        
       </div>
       <p class="sb-prodcut-name name-size mb0 cl-accent mt20" v-if="!onlyImage">
         {{ product.name.toLowerCase() | htmlDecode }}
@@ -45,7 +50,7 @@
                 :class="setComfortColor()"
                 v-if="comfort.id == product.comfort_grade[0]"
               >
-                {{ comfort.label.split('-')[1] }}
+                {{ comfort.label.split("-")[1] }}
               </button>
             </div>
           </div>
@@ -55,22 +60,14 @@
         <div
           class="catstar review-size"
           v-if="product.average_score && product.average_score <= 0"
-        >
-         
-        </div>
+        ></div>
         <div class="catstar review-size gap-btwn" v-else>
           <div
             class="rating"
             v-if="product.average_score && product.average_score > 0"
           >
-            <rating
-              :score="
-                product.average_score
-              "
-            />
-            <span class="TotalReviewStar"
-              >({{ product.total_reviews }})</span
-            >
+            <rating :score="product.average_score" />
+            <span class="TotalReviewStar">({{ product.total_reviews }})</span>
           </div>
         </div>
       </div>
@@ -137,9 +134,17 @@ export default {
     Rating,
   },
   data() {
-    return {brandLogo: null };
+    return {
+      brandLogoUrl: config.brandLogo.brandLogoUrl
+       };
+  },
+  async mounted(){
   },
   props: {
+    brandsImageData:{
+      type: [Object,Array],
+      required: true,
+    },
     labelsActive: {
       type: Boolean,
       default: true,
@@ -165,62 +170,6 @@ export default {
     },
   },
   methods: {
-    getBrandImage() {
-      let imagelocation = "/assets/brandLogo/";
-      if (this.filters && this.filters.brand) {
-        this.filters.brand.forEach((brand, brandIndex) => {
-          if (parseInt(brand.id) === this.product.brand) {
-            if (brand.id === 34 || brand.id === "34") {
-              imagelocation = imagelocation + "BedFactoryDirect.png";
-              return;
-            } else if (brand.id === 35 || brand.id === "35") {
-              imagelocation = imagelocation + "Sealy.png";
-              return;
-            } else if (brand.id === 36 || brand.id === "36") {
-              imagelocation = imagelocation + "Birlea.png";
-              return;
-            } else if (brand.id === 38 || brand.id === "38") {
-              imagelocation = imagelocation + "Limelight.png";
-              return;
-            } else if (brand.id === 39 || brand.id === "39") {
-              imagelocation = imagelocation + "GFW.png";
-              return;
-            } else if (brand.id === 64 || brand.id === "64") {
-              imagelocation = imagelocation + "Kaydian.png";
-              return;
-            } else if (brand.id === 109 || brand.id === "109") {
-              imagelocation = imagelocation + "Silentnight.png";
-              return;
-            } else if (brand.id === 128 || brand.id === "128") {
-              imagelocation = imagelocation + "Millbrook.png";
-              return;
-            } else if (brand.id === 139 || brand.id === "139") {
-              imagelocation = imagelocation + "Relyon.png";
-              return;
-            } else if (brand.id === 182 || brand.id === "182") {
-              imagelocation = imagelocation + "Sleepeezee.png";
-              return;
-            } else if (brand.id === 183 || brand.id === "183") {
-              imagelocation = imagelocation + "Dormeo.png";
-              return;
-            } else if (brand.id === 184 || brand.id === "184") {
-              imagelocation = imagelocation + "Dunlopillo.png";
-              return;
-            } else if (brand.id === 210 || brand.id === "210") {
-              imagelocation = imagelocation + "Breasley.png";
-              return;
-            } else if (brand.id === 211 || brand.id === "211") {
-              imagelocation = imagelocation + "Bentley.png";
-              return;
-            } else if (brand.id === 212 || brand.id === "212") {
-              imagelocation = imagelocation + "Serene.png";
-              return;
-            }
-          }
-        });
-      }
-      return imagelocation;
-    },
     setComfortColor() {
       if (
         this.product.comfort_grade[0] === 203 ||
@@ -335,6 +284,7 @@ $color-white: color(white);
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
+  -webkit-text-size-adjust: 100%;
 }
 .brand-size {
   height: 30px;
@@ -345,7 +295,7 @@ $color-white: color(white);
   margin-top: 2px;
 }
 .name-size {
- min-height: 60px;
+  min-height: 60px;
 }
 .comfort-size {
   height: 30px;
@@ -447,7 +397,7 @@ $color-white: color(white);
   }
   span.sb-category-price {
     font-size: 1.131875rem;
-    color:#333333;
+    color: #333333;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
@@ -576,6 +526,7 @@ img.product-cover-thumb {
 .price-special {
   color: #ee4c56;
   font-size: 18px;
+  -webkit-text-size-adjust: 100%;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
   .product .sb-prodcut-name {

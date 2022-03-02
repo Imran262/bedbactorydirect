@@ -180,6 +180,7 @@ export default {
       this.$forceUpdate()
     },
     onAfterFilterChanged (filterOption) {
+      console.log('filterOption', filterOption)
       this.$bus.$emit('product-before-configure', { filterOption: filterOption, configuration: this.configuration })
       const prevOption = this.configuration[filterOption.attribute_code]
       let changedConfig = Object.assign({}, this.configuration, { [filterOption.attribute_code]: filterOption })

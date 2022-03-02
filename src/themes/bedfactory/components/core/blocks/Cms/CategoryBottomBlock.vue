@@ -89,11 +89,13 @@ this.identifier));
         text-align: center;
         font-family: oblik;
         color: #29275b;
+        -webkit-text-size-adjust: 100%;
     }
     p{
         color: #54575b;
         font-size: 20px;
         line-height: 1.7;
+        -webkit-text-size-adjust: 100%;
     }
     a{
         color: #00aeef;

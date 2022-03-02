@@ -101,10 +101,10 @@
                 :offline="getOfflineImage"
                 :configuration="getCurrentProductConfiguration"
                 :product="getCurrentProduct"
-                @page-change="(page) => (currentGalleryPage = page)"
+                @page-change="page => (currentGalleryPage = page)"
                 :imagelength="getProductGallery.length"
               />
-              <div
+              <!-- <div
                 class="productGalleryMain"
                 v-if="getProductGallery.length > 1"
               >
@@ -117,7 +117,7 @@
                         [480, 0],
                         [768, 4],
                         [1000, 3],
-                        [1200, 4],
+                        [1200, 4]
                       ]"
                       :mouse-drag="false"
                       :loop="true"
@@ -152,7 +152,7 @@
                           :class="[
                             currentGalleryPage === key
                               ? 'border-blue'
-                              : 'border-grey-light',
+                              : 'border-grey-light'
                           ]"
                         />
                       </slide>
@@ -162,7 +162,7 @@
                 <div class="Viewgallery col-md-3">
                   <a @click="openFigureGallery()">View Gallery +</a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <!-- upper section  -->
@@ -311,7 +311,7 @@
                 <div
                   v-if="
                     getCurrentProduct.price_incl_tax &&
-                    getCurrentProduct.original_price_incl_tax
+                      getCurrentProduct.original_price_incl_tax
                   "
                 >
                   <!-- deltaproduct {{ productCurrentCustomOptions }} -->
@@ -349,7 +349,7 @@
                     class="error"
                     v-if="
                       getCurrentProduct.errors &&
-                      Object.keys(getCurrentProduct.errors).length > 0
+                        Object.keys(getCurrentProduct.errors).length > 0
                     "
                   >
                     <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
@@ -363,16 +363,18 @@
                     <h4
                       class="variants-label basin-head"
                       data-testid="variantsLabel"
+                      :key="cutomRerender"
                     >
                       {{ option.label }}
                       <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                     </h4>
+
                     <div class="row top-xs m0 variants-wrapper">
                       <div
                         class="sizes basin_size"
                         v-if="option.label == 'Color'"
                       >
-                        <select @change="changeFilterCustom($event)">
+                        <select class="CustomSelectClass" @change="changeFilterCustom($event)">
                           <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
@@ -398,43 +400,13 @@
                       />-->
                       </div>
                       <div
-                          class="sizes basin_size"
-                          v-else-if="option.label == 'Size'">
+                        class="sizes basin_size"
+                        v-else-if="option.label == 'Size'"
+                      >
                         <!-- Size -->
                         <!-- Here we are -->
                         <select
-                                class="chevron-down-icon"
-                                @change="changeFilterCustom($event)">
-                                <option disabled value="" :key="2378695843" selected>
-                                  Please select
-            </option>
-            <template v-for="filter in getAvailableFilters[option.attribute_code]">
-                                        <option
-                                          :key="filter.id"
-                                          :value="JSON.stringify(filter)">
-                                          {{ filter.label }}
-                                        </option>
-              </template>
-                        </select>
-                              <!-- <size-selector
-                              class="mr10 mb10"
-                              v-for="filter in getAvailableFilters[option.attribute_code]"
-                              :key="filter.id"
-                              :variant="filter"
-                              :selected-filters="getSelectedFilters"
-                              @change="changeFilter"
-                            />-->
-                      </div>
-
-                      <div
-                        class="basin_size"
-                        :class="option.attribute_code"
-                        v-else
-                      >
-                        <!-- {{option.attribute_code}}
-                      <br/> else -->
-                        <select
-                          class="chevron-down-icon"
+                          class="chevron-down-icon CustomSelectClass"
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
@@ -453,6 +425,45 @@
                             </option>
                           </template>
                         </select>
+                        <!-- <size-selector
+                              class="mr10 mb10"
+                              v-for="filter in getAvailableFilters[option.attribute_code]"
+                              :key="filter.id"
+                              :variant="filter"
+                              :selected-filters="getSelectedFilters"
+                              @change="changeFilter"
+                            />-->
+                      </div>
+                      <div
+                        class="basin_size"
+                        :class="option.attribute_code"
+                        v-else
+                      >
+                        <!-- {{option.attribute_code}}
+                      <br/> else -->
+                        <select
+                          class="chevron-down-icon CustomSelectClass"
+                          @change="changeFilterCustom($event)"
+                        >
+                          <option disabled value="" :key="2378695843" selected>
+                            Please select
+                          </option>
+                          <template
+                            v-for="filter in getAvailableFilters[
+                              option.attribute_code
+                            ]"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <span v-if="colorValidation" class="error1"
+                          >Field is required</span
+                        > -->
                         <!-- <generic-selector
                         class="mr10 mb10"
                         v-for="filter in getAvailableFilters[option.attribute_code]"
@@ -463,12 +474,13 @@
                       />-->
                       </div>
                       <!-- <span
-                            v-if="option.label == 'Size'"
-                            @click="openSizeGuide"
-                            class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary">
-                            <i class="pr5 material-icons">accessibility</i>
-                            <span>{{ $t('Size guide') }}</span>
-                          </span>-->
+                        v-if="option.label == 'Size'"
+                        @click="openSizeGuide"
+                        class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
+                      >
+                        <i class="pr5 material-icons">accessibility</i>
+                        <span>{{ $t('Size guide') }}</span>
+                      </span>-->
                     </div>
                   </div>
                 </div>
@@ -544,7 +556,7 @@
               <product-bundle-options
                 v-if="
                   getCurrentProduct.bundle_options &&
-                  getCurrentProduct.bundle_options.length > 0
+                    getCurrentProduct.bundle_options.length > 0
                 "
                 :product="getCurrentProduct"
               />
@@ -552,7 +564,7 @@
               <div
                 v-if="
                   getCurrentProduct.custom_options &&
-                  getCurrentProduct.custom_options.length > 0
+                    getCurrentProduct.custom_options.length > 0
                 "
               >
                 <product-custom-options
@@ -562,56 +574,53 @@
                   :color="false"
                   :key="reRender"
                 />
-
-
-
-
-
-                       <!-- //////////////  Fabircs Title ////////  -->
-
-        <div class="fabric-btn-responsive">
-            <div class="fabric-button-design"
-                v-if="
-                  getCurrentProduct.isFabric !== 0 &&
-                  getCurrentProduct.isFabric !== '0' &&
-                  getCurrentProduct.isFabric !== ' ' &&
-                  getCurrentProduct.isFabric !== false">
-                  <button
-                        class="select-color-button chevron-down"
-                        type="button"
-                        @click="showColorPicker" >
-                        {{ getColorName() }}
-                          <!-- <i
-                          class="material-icons cl-bg-tertiary pointer select-color-icon"
-                          >keyboard_arrow_right</i
-                          > -->
-                     </button>
-                  <span class="error1" v-if="isFabrics">Field is required</span>
-                  <div id="overlay"
+                <div class="fabric-btn-responsive">
+                  <div
+                    class="fabric-button-design"
+                    v-if="
+                      getCurrentProduct.isFabric !== 0 &&
+                        getCurrentProduct.isFabric !== '0' &&
+                        getCurrentProduct.isFabric !== ' ' &&
+                        getCurrentProduct.isFabric !== false
+                    "
+                  >
+                    <button
+                      class="select-color-button chevron-down"
+                      type="button"
+                      @click="showColorPicker"
+                    >
+                      {{ getColorName() }}
+                      <!-- <i
+                      class="material-icons cl-bg-tertiary pointer select-color-icon"
+                      >keyboard_arrow_right</i
+                    > -->
+                    </button>
+                    <span class="error1" v-if="isFabrics"
+                      >Field is required</span
+                    >
+                    <div
+                      id="overlay"
                       @click="hideColorPicker"
-                      v-if="colorPickerCheck"/>
+                      v-if="colorPickerCheck"
+                    />
                     <!-- {{getCurrentProduct.custom_options[2]}} -->
-                      <color-picker
-                        :colors="getCurrentProduct"
-                        v-show="colorPickerCheck"
-                        @closeColorPickerModal="hideColorPicker"
-                        @selectedColor="setColorName($event)"/>
+                    <color-picker
+                      :colors="getCurrentProduct"
+                      v-show="colorPickerCheck"
+                      @closeColorPickerModal="hideColorPicker"
+                      @selectedColor="setColorName($event)"
+                    />
+                  </div>
                 </div>
-         </div>
               </div>
 
-
-               <!-- ////////   add to Basket button //////    -->
+              <!-- ////////   add to Basket button //////    -->
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
                     <!-- maxQuantity {{maxQuantity}}  -->
                     <product-quantity
                       class="product-quantity bt-product-qty row m0"
-                      v-if="
-                        getCurrentProduct.type_id !== 'grouped' &&
-                        getCurrentProduct.type_id !== 'bundle'
-                      "
                       v-model="getCurrentProduct.qty"
                       :max-quantity="maxQuantity"
                       input-type="text"
@@ -620,8 +629,17 @@
                       show-quantity
                       @error="handleQuantityError"
                     />
+                    <!-- <add-to-cart
+                      :product="getCurrentProduct"
+                      :custom-options="getCurrentProductCustomOptionsRedo"
+                      class="col-xs-12 col-sm-4 col-md-6 float-right"
+                      :product-calculated-price="calculatedProductPrice"
+                      :disableProduct="false"
+                      :disableProductFlag="false"
+                      :outofStock="getStockStatus"
+                    /> -->
                   </div>
-                  <addtobasket
+                  <!-- <addtobasket
                     v-if="showModal"
                     @closemodal="hidemodal"
                     :priceToShow="calculatedProductPrice"
@@ -637,7 +655,7 @@
                     :min-sqm-value="minSqmValue"
                     :vinyl-product-price="vinylProductPrice"
                     :vinyl-recommended-item-price="vinylRecommendedItemPrice"
-                  />
+                  /> -->
                   <modal name="modal-clearancemodal" class="ClearanceModal">
                     <clearancemodal
                       :similar-products="similar_products"
@@ -667,9 +685,30 @@
                     <template
                       v-if="
                         getCurrentProduct.custom_options &&
-                        getCurrentProduct.custom_options.length > 0
+                          getCurrentProduct.custom_options.length > 0
                       "
                     >
+                      <!-- simple product button  -->
+                      <add-to-cart
+                        :product-options="sendProductCustomOptions"
+                        :product="getCurrentProduct"
+                        :custom-options="getCurrentProductCustomOptionsRedo"
+                        class="col-xs-12 col-sm-4 col-md-6 float-right"
+                        :product-calculated-price="calculatedProductPrice"
+                        :disableProduct="false"
+                        :disableProductFlag="false"
+                        :outofStock="getStockStatus"
+                      />
+                    </template>
+                    <template
+                      v-else-if="
+                        !(
+                          getCurrentProduct.configurable_options &&
+                          getCurrentProduct.configurable_options.length > 0
+                        )
+                      "
+                    >
+                      <!-- no field here  -->
                       <add-to-cart
                         :product-options="sendProductCustomOptions"
                         :product="getCurrentProduct"
@@ -725,16 +764,10 @@
                 </div>
               </div>-->
               </div>
-
-
-
-              <!-- //////// Retail Finance /////  -->
               <Retailfinancev12
                 :currentPrice="updatedPrice"
                 :key="updatedPrice"
               />
-
-              <!-- //////// Retail Finance END /////  -->
             </div>
           </div>
         </section>
@@ -751,7 +784,7 @@
           <h2
             v-if="
               getCurrentProduct.description &&
-              getCurrentProduct.description.length > 0
+                getCurrentProduct.description.length > 0
             "
             id="product-dimension-icon-id"
             class="
@@ -977,23 +1010,23 @@ import LazyHydrate from "vue-lazy-hydration";
 import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption.ts";
 import {
   getAvailableFiltersByProduct,
-  getSelectedFiltersByProduct,
+  getSelectedFiltersByProduct
 } from "@vue-storefront/core/modules/catalog/helpers/filters";
 import { isOptionAvailableAsync } from "@vue-storefront/core/modules/catalog/helpers/index";
 import {
   localizedRoute,
-  currentStoreView,
+  currentStoreView
 } from "@vue-storefront/core/lib/multistore";
 import { htmlDecode } from "@vue-storefront/core/filters";
 import { ReviewModule } from "@vue-storefront/core/modules/review";
 import { RecentlyViewedModule } from "@vue-storefront/core/modules/recently-viewed";
 import {
   registerModule,
-  isModuleRegistered,
+  isModuleRegistered
 } from "@vue-storefront/core/lib/modules";
 import {
   onlineHelper,
-  isServer,
+  isServer
   // productJsonLd,
 } from "@vue-storefront/core/helpers";
 import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks";
@@ -1040,8 +1073,8 @@ export default {
     OutOfStockModal,
     RecentlyViewedItems,
     addtobasket,
-    Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
-    Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
+    Carousel: () => import("vue-carousel").then(Slider => Slider.Carousel),
+    Slide: () => import("vue-carousel").then(Slider => Slider.Slide),
     "no-ssr": NoSSR,
     ProductQuantity,
     ProductQuantitySqm,
@@ -1054,7 +1087,7 @@ export default {
     HalfSizeSample,
     QSizeSample,
     AddedToBasket,
-    ReviewItemImageModel,
+    ReviewItemImageModel
   },
   mixins: [ProductOption],
   directives: { focusClean },
@@ -1064,17 +1097,20 @@ export default {
   },
   data() {
     return {
-      unCheckfabrics : false, 
+      cutomRerender: 1,
+      SelectedOptions: [],
+      unCheckfabrics: false,
       v12Data: {},
       minimumMonthlyPayment: 0,
       minProductPrice: 335,
       monthly_text: " ",
       showCalculator: false,
       updatedPrice: 0,
-      cartFlag: false,
+      cartFlag: true,
       ViewCalculatorCheck: false,
       currentConfiguration: {},
       isFabrics: false,
+      // colorValidation: false,
       detailsOpen: false,
       ProDeliveryShow: true,
       ProReviewShow: true,
@@ -1117,7 +1153,7 @@ export default {
       reverseTileQty: null,
       similar_products: {
         skus: [],
-        items: [],
+        items: []
       },
       sqmCheckForModelType: true,
       payload: {
@@ -1128,8 +1164,8 @@ export default {
           applied_material: "",
           grout_width: "",
           total_qty: "",
-          sqm: "",
-        },
+          sqm: ""
+        }
       },
       currentUserTiles: "",
       groutAdhesiveOptions: [],
@@ -1139,20 +1175,20 @@ export default {
       madeOf: [],
       groutJoint: [],
       vinylPayload: {
-        productId: 0,
+        productId: 0
       },
       vinylProducts: {
         recommend: [],
         skus: [],
         skuItems: [],
-        recommendItems: [],
+        recommendItems: []
       },
       vinylProductPrice: 0,
       vinylRecommendedItemPrice: 0,
       reRender: 0,
       calculatedProductPrice: {},
       configurableChildren: {},
-      colorName: "",
+      colorName: ""
     };
   },
   computed: {
@@ -1164,7 +1200,7 @@ export default {
       attributesByCode: "attribute/attributeListByCode",
       getCurrentCustomOptions: "product/getCurrentCustomOptions",
       productsInCart: "cart/getCartItems",
-      getCartToken: "cart/getCartToken",
+      getCartToken: "cart/getCartToken"
     }),
     getStockStatus() {
       return 1;
@@ -1204,8 +1240,8 @@ export default {
           this.getCurrentProduct.custom_options.forEach((option, index) => {
             let obj2 = {
               [option.option_id]: {
-                option_id: option.option_id,
-              },
+                option_id: option.option_id
+              }
             };
             let value = null;
             if (this.$store.state.product.current_custom_options) {
@@ -1214,15 +1250,14 @@ export default {
                   option.option_id
                 ]
               ) {
-                value =
-                  this.$store.state.product.current_custom_options[
-                    option.option_id
-                  ].option_value;
+                value = this.$store.state.product.current_custom_options[
+                  option.option_id
+                ].option_value;
               }
             }
             currentOptions[option.option_id] = {
               option_id: option.option_id,
-              option_value: value,
+              option_value: value
             };
           });
           // this.productCurrentCustomOptions = currentOptions;
@@ -1279,7 +1314,7 @@ export default {
     getVideoObjJsonLd() {
       let videoElement = [];
       if (this.getCurrentProduct.media_gallery) {
-        videoElement = this.getCurrentProduct.media_gallery.filter((item) => {
+        videoElement = this.getCurrentProduct.media_gallery.filter(item => {
           return item.vid;
         });
         if (videoElement.length > 0) {
@@ -1288,7 +1323,7 @@ export default {
               ? config.schemaUrl.baseUrl +
                 this.getImageUrl(videoElement[0].image)
               : config.baseUrl.live + this.getImageUrl(videoElement[0].image),
-            contentUrl: videoElement[0].vid.url,
+            contentUrl: videoElement[0].vid.url
           };
         } else {
           return "";
@@ -1305,10 +1340,10 @@ export default {
       let mediaGallery = [];
       let mediaGallerySame = [];
       if (this.getProductGallery.length > 0) {
-        this.getProductGallery.forEach((imgFile) => {
+        this.getProductGallery.forEach(imgFile => {
           let srcFromPath = imgFile.src.split("product")[1];
           mediaGallerySame.push({
-            image: srcFromPath,
+            image: srcFromPath
           });
         });
       }
@@ -1317,7 +1352,7 @@ export default {
     similarCutDisabled() {
       if (this.productsInCart && this.productsInCart.length > 0) {
         return (
-          this.productsInCart.filter((product) => {
+          this.productsInCart.filter(product => {
             if (
               this.getCurrentProduct.cut_sample_location &&
               product.cut_sample_location &&
@@ -1370,7 +1405,7 @@ export default {
       return this.roundTo(this.getCurrentProduct.price, 2);
     },
     getOptionLabel() {
-      return (option) => {
+      return option => {
         const configName = option.attribute_code
           ? option.attribute_code
           : option.label.toLowerCase();
@@ -1477,7 +1512,7 @@ export default {
         contentUrl: this.validateUrl(this.getCurrentProduct.url_path)
           ? this.getCurrentProduct.url_path
           : this.attachBaseUrl(this.getCurrentProduct.url_path),
-        imageUrl: this.getImageUrl(this.getCurrentProduct.image),
+        imageUrl: this.getImageUrl(this.getCurrentProduct.image)
       };
     },
     getProductOptions() {
@@ -1506,13 +1541,13 @@ export default {
           this.getCurrentProduct.image,
           config.products.thumbnails.width,
           config.products.thumbnails.height
-        ),
+        )
       };
     },
     getCustomAttributes() {
       return Object.values(this.attributesByCode || [])
         .filter(
-          (a) =>
+          a =>
             (parseInt(a.is_visible_on_front) ||
               a.is_visible_on_front === true) &&
             (this.getCurrentProduct[a.attribute_code] ||
@@ -1561,28 +1596,28 @@ export default {
     getTotalAfterWasteRemoved() {
       this.tileSqmQuantity =
         parseFloat(this.tileSqmQuantity) - parseFloat(this.wastePercentage);
-    },
+    }
   },
   async beforeMount() {
     this.vinylFullProductPrice();
     this.$bus.$on("cart-after-update", () => {
       this.disableSampleButton();
     });
-    this.$bus.$on("cart-after-itemchanged", (cartItem) => {
+    this.$bus.$on("cart-after-itemchanged", cartItem => {
       this.disableSampleButton();
     });
-    this.$bus.$on("cart-after-delete", (items) => {
+    this.$bus.$on("cart-after-delete", items => {
       // e.stopImmediatePropagation();
       this.disableSampleButton();
     });
 
-    this.$bus.$on("show-samples-modal", (bool) => {
+    this.$bus.$on("show-samples-modal", bool => {
       this.modalTwo = bool;
     });
   },
   created() {
     var self = this;
-    self.$nextTick(function () {
+    self.$nextTick(function() {
       self.loaded = true;
     });
   },
@@ -1593,12 +1628,13 @@ export default {
     ) {
       this.getCurrentProductCustomOptions();
     } else {
-      console.log("998877 It is a a configurable product");
+      
       this.setConfigurableOption();
+      console.log(" setConfigurableOption  998877 It is a a configurable product");
     }
     this.setReviews();
     this.setProductPage();
-    this.$bus.$on("sendvalueToCart", (value) => {
+    this.$bus.$on("sendvalueToCart", value => {
       this.cartItems = value;
     });
     this.tileSqmQuantity = "";
@@ -1607,7 +1643,7 @@ export default {
       this.getCurrentProduct
     );
 
-    this.$bus.$on("cartUpdated", (payload) => {
+    this.$bus.$on("cartUpdated", payload => {
       // TODO: Update the Samples Button from here.
       if (this.getCartToken) {
         // this.updateSampleButtons();
@@ -1628,7 +1664,7 @@ export default {
     let primaryCategory = this.getProductPrimaryCategory();
     this.$store.commit("google-gtag/SET_PRODUCT_CURRENT", {
       product: this.getCurrentProduct,
-      category: primaryCategory?.[0]?.name,
+      category: primaryCategory?.[0]?.name
     });
   },
   async asyncData({ store, route, context }) {
@@ -1638,7 +1674,7 @@ export default {
       childSku:
         route && route.params && route.params.childSku
           ? route.params.childSku
-          : null,
+          : null
     });
     const loadBreadcrumbsPromise = store.dispatch(
       "product/loadProductBreadcrumbs",
@@ -1651,7 +1687,7 @@ export default {
     if (isServer) {
       next();
     } else {
-      next((vm) => {
+      next(vm => {
         vm.getQuantity();
       });
     }
@@ -1662,9 +1698,9 @@ export default {
         if (isOnline) {
           this.getQuantity();
         }
-      },
+      }
     },
-    "$route.name": function () {
+    "$route.name": function() {
       this.reRender++;
       this.setReviews();
       console.log(
@@ -1681,7 +1717,7 @@ export default {
         this.getCurrentProduct.custom_options &&
         this.getCurrentProduct.custom_options.length > 0
       ) {
-        this.getCurrentProduct.custom_options.forEach((option) => {
+        this.getCurrentProduct.custom_options.forEach(option => {
           if (
             option.iscolor == 1 ||
             option.iscolor == "1" ||
@@ -1694,6 +1730,22 @@ export default {
       this.checkRoute();
       // console.log("114455",this.getColorName(), this.colorName);
     },
+    $route(to, from) {
+      if (from.path !== to.path) {
+        if (this.SelectedOptions.length) {
+          let Selects = document.getElementsByClassName('CustomSelectClass')
+          Selects.forEach((select, index) => {
+            select.firstChild.disabled = false
+            select.firstChild.selected = true
+            select.firstChild.disabled = true
+          })
+        }
+        this.SelectedOptions = [];
+        this.cartFlag = true;
+        this.cutomRerender++
+      
+      }
+    },
     getCurrentCustomOptions: {
       handler() {
         //   console.log("112255 state changed");
@@ -1704,8 +1756,9 @@ export default {
           this.getCurrentProductCustomOptions();
         } else {
           this.setConfigurableOption();
+          console.log("setConfigurableOption2")
         }
-      },
+      }
     },
     currRoute(newVal, oldVal) {
       this.$refs.getProductGallery.$refs.carousel.navigate(0);
@@ -1727,7 +1780,7 @@ export default {
         this.getCustomerPhotos();
         this.similar_products = {
           skus: [],
-          items: [],
+          items: []
         };
         this.getSimilarTiles();
         this.tileSqmQuantity = "";
@@ -1735,7 +1788,7 @@ export default {
         // For GTAG
         this.setProductPage();
       }
-    },
+    }
   },
   methods: {
     formatDate(date) {
@@ -1751,8 +1804,7 @@ export default {
         this.$store.state.product
       );
       this.getCurrentProductCustomOptions();
-      this.$store.state.product.current_custom_options =
-        this.getCurrentProductCustomOptionsRedo;
+      this.$store.state.product.current_custom_options = this.getCurrentProductCustomOptionsRedo;
       console.log("\n112266 After STATE is \n\n", this.$store.state.product);
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
     },
@@ -1781,8 +1833,8 @@ export default {
           this.getCurrentProduct.custom_options.forEach((option, index) => {
             let obj2 = {
               [option.option_id]: {
-                option_id: option.option_id,
-              },
+                option_id: option.option_id
+              }
             };
             //  currentOptions.push(obj2);
             // currentOptions[index] = obj2;
@@ -1800,16 +1852,15 @@ export default {
                 //     option.option_id
                 //   ].option_value
                 // );
-                value =
-                  this.$store.state.product.current_custom_options[
-                    option.option_id
-                  ].option_value;
+                value = this.$store.state.product.current_custom_options[
+                  option.option_id
+                ].option_value;
               }
             }
             // this.$store.state.product.current_custom_options[option.option_id].option_value,
             currentOptions[option.option_id] = {
               option_id: option.option_id,
-              option_value: value,
+              option_value: value
             };
             //   console.log("1122 option is ", obj2, listOptions, currentOptions);
           });
@@ -1828,6 +1879,7 @@ export default {
       }
     },
     setConfigurableOption() {
+      console.log('setConfigurableOption')
       const _ = require("lodash");
       let newObjList = [];
       let products = this.getCurrentProduct.configurable_children;
@@ -1839,7 +1891,6 @@ export default {
       if (products && products.length > 0) {
         console.log("Length of Children is greater than zero");
         products.forEach((product, productIndex) => {
-          //   console.log("product is ", product);
           var currentVariant = Object.create(sampleObject);
           var newVariant = Object.assign({}, sampleObject);
           const newCurrent = { ...sampleObject };
@@ -1882,9 +1933,33 @@ export default {
       this.configurableChildren = newObjList;
     },
     changeFilterCustom(event) {
+      // this.colorValidation = true;
+      console.log("112233 change filter custommm");
       console.log("112233 change filter custom", event);
-      this.cartFlag = false;
       let variant = JSON.parse(event.target.value);
+      console.log("112233 change filter custommm",variant);
+      let newOptionSelected = true;
+      if (this.SelectedOptions.length) {
+        this.SelectedOptions.forEach((option, index) => {
+          if (this.SelectedOptions[index] === variant.type) {
+            // consol.log("variant type", variant.type);
+            newOptionSelected = false;
+          }
+        });
+      }
+
+      if (newOptionSelected) {
+        this.SelectedOptions.push(variant.type);
+        console.log("SelectedOptions", variant);
+      }
+
+      if (
+        this.getCurrentProduct.configurable_options.length ===
+        this.SelectedOptions.length
+      ) {
+        // console.log("get valu is here aagain");
+        this.cartFlag = false;
+      }
       let filterOption = Object.assign(
         { attribute_code: variant.type },
         variant
@@ -1906,6 +1981,7 @@ export default {
       changedConfig[variant.type].label = variant.id;
       let i = 0;
       for (let i in changedConfig) {
+        // this.cartFlag = false;
         console.log("Current is ", changedConfig[i]);
         changedConfig[i].id = parseInt(changedConfig[i].id);
         changedConfig[i].label = parseInt(changedConfig[i].id);
@@ -1942,6 +2018,7 @@ export default {
         if (JSON.stringify(child) == JSON.stringify(changedConfig)) {
           //  let variant = JSON.parse(event.target.value)
           console.log("774455", "child matched will emit ", child.stock);
+          // this.colorValidation = false;
           this.$bus.$emit(
             "filter-changed-product",
             Object.assign({ attribute_code: variant.type }, variant)
@@ -1953,6 +2030,10 @@ export default {
           flag = true;
         } else {
           if (childIndex + 1 == this.configurableChildren.length) {
+            // this.colorValidation = false;
+            // this.colorValidation2 = false;
+
+            // this.colorValidation = false;
             console.log("At the end of children", flag);
             if (flag) {
               // this.getQuantity();
@@ -1962,7 +2043,7 @@ export default {
                 "this variant was not found",
                 this.currentConfiguration
               );
-              this.cartFlag = true;
+              // this.cartFlag = true;
               console.log("cart flag is ", this.cartFlag);
             }
           }
@@ -2084,12 +2165,12 @@ export default {
     setColorName(name) {
       this.colorName = name;
       this.isFabrics = false;
-      this.unCheckfabrics = true ; 
+      this.unCheckfabrics = true;
     },
     getColorName() {
       // console.log("741258 in get color name",this.colorName);
       if (this.colorName == "") {
-        this.getCurrentProduct.custom_options.forEach((option) => {
+        this.getCurrentProduct.custom_options.forEach(option => {
           // console.log("741258 ",option);
           if (
             option.iscolor == 1 ||
@@ -2113,9 +2194,8 @@ export default {
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
-      if (this.unCheckfabrics){
-      }
-      else{
+      if (this.unCheckfabrics) {
+      } else {
         this.isFabrics = true;
         this.unCheckfabrics = false;
       }
@@ -2138,13 +2218,11 @@ export default {
         //   'https://vue.bedfactorydirect.co.uk/vueapi/ext/reviews/getReview?id=454';
         axios
           .get(URL)
-          .then((res) => {
+          .then(res => {
             const response = res;
             if (response.status !== 200 && !review.data.length) {
-              throw (
-                ("Error Occured while requesting for reviews:",
-                response.data[0].message)
-              );
+              throw ("Error Occured while requesting for reviews:",
+              response.data[0].message);
             } else {
               this.reviewData = response.data[1];
               // console.log("1234654321 Reviews are: ",this.reviewData);
@@ -2156,7 +2234,7 @@ export default {
               // console.log("this.reviewData",this.reviewData);
             }
           })
-          .catch((err) => {
+          .catch(err => {
             throw ("Error:", err);
           });
       } catch (err) {
@@ -2194,13 +2272,13 @@ export default {
         this.vinylPayload.productId = this.getCurrentProduct.id;
         await this.$store
           .dispatch("vinyl/getVinylItems", this.vinylPayload)
-          .then((res) => {
+          .then(res => {
             if (res.success) {
               if (res.vinyl.recommendations && res.vinyl.underlay) {
-                res.vinyl.recommendations.forEach((singleSku) => {
+                res.vinyl.recommendations.forEach(singleSku => {
                   this.vinylProducts.recommend.push(singleSku);
                 });
-                res.vinyl.underlay.forEach((singleSku) => {
+                res.vinyl.underlay.forEach(singleSku => {
                   this.vinylProducts.skus.push(singleSku);
                 });
               }
@@ -2222,12 +2300,12 @@ export default {
             query: vinylItemsQuery,
             size: 10,
             prefetchGroupProducts: false,
-            updateState: false,
+            updateState: false
           })
           .then(({ items }) => {
             this.vinylProducts.skuItems = items;
           })
-          .catch((err) => {
+          .catch(err => {
             // console.log("FailedToFetch vinyl Item Products", err);
           });
       }
@@ -2244,12 +2322,12 @@ export default {
             query: vinylRecommendItemsQuery,
             size: 10,
             prefetchGroupProducts: false,
-            updateState: false,
+            updateState: false
           })
           .then(({ items }) => {
             this.vinylProducts.recommendItems = items;
           })
-          .catch((err) => {
+          .catch(err => {
             // console.log("FailedToFetch vinyl Recommend Products", err);
           });
       }
@@ -2268,7 +2346,7 @@ export default {
           quoteItemData.result &&
           quoteItemData.result.length > 0
         ) {
-          quoteItem = quoteItemData.result.filter((quoteItemInside) => {
+          quoteItem = quoteItemData.result.filter(quoteItemInside => {
             if (
               quoteItemInside.extension_attributes &&
               quoteItemInside.extension_attributes.is_vue_quote
@@ -2297,18 +2375,18 @@ export default {
             query: relatedProductsQuery,
             size: 10,
             prefetchGroupProducts: false,
-            updateState: false,
+            updateState: false
           })
           .then(({ items }) => {
             this.similar_products.items = items.filter(
-              (i) => !i.product_banner_image?.includes("Out_of_Stock")
+              i => !i.product_banner_image?.includes("Out_of_Stock")
             );
             // Also update the skus, remove the ones not included in items.
-            this.similar_products.skus = this.similar_products.items.filter(
-              (i) => this.similar_products.skus.includes(i.sku)
+            this.similar_products.skus = this.similar_products.items.filter(i =>
+              this.similar_products.skus.includes(i.sku)
             );
           })
-          .catch((err) => {
+          .catch(err => {
             // console.log("FailedToFetch Similar Products", err);
           });
       }
@@ -2343,7 +2421,7 @@ export default {
             this.availableSamplesTypes = null;
           }
         })
-        .catch((err) => {
+        .catch(err => {
           this.hasSamples = false;
           this.availableSamples = null;
           console.log("hasAnError", err);
@@ -2354,7 +2432,7 @@ export default {
         options: { sku: this.sku },
         setCurrentProduct: false,
         setCurrentCategoryPath: false,
-        selectDefaultVariant: false,
+        selectDefaultVariant: false
       });
       this.img = this.product.image;
     },
@@ -2379,7 +2457,7 @@ export default {
     setProductPage() {
       let primaryCategory = this.getProductPrimaryCategory();
       let productPayload = {
-        product: this.getCurrentProduct,
+        product: this.getCurrentProduct
       };
       if (primaryCategory && primaryCategory.length > 0 && primaryCategory[0]) {
         productPayload["category"] = primaryCategory[0].name;
@@ -2404,13 +2482,13 @@ export default {
       ) {
         if (typeof this.getCurrentProduct.category === "object") {
           return Object.keys(this.getCurrentProduct.category)
-            .filter((c) => {
+            .filter(c => {
               return (
                 parseInt(this.getCurrentProduct.category[c].category_id) ===
                 parseInt(this.getCurrentProduct.primary_category)
               );
             })
-            .map((c) => ({ ...this.getCurrentProduct.category[c] }));
+            .map(c => ({ ...this.getCurrentProduct.category[c] }));
         }
       }
       return false;
@@ -2437,17 +2515,17 @@ export default {
       let apiUrl = config.api.url;
       let cartId = null;
       await this.getCartId()
-        .then((r) => {
+        .then(r => {
           cartId = r;
         })
-        .catch((err) => console.log("getCartIdHasErr", err));
+        .catch(err => console.log("getCartIdHasErr", err));
       let reqUrl = apiUrl + optionsPath + productId + "/" + cartId;
       return axios.get(reqUrl);
     },
     async getCartId() {
       if (!this.getCartToken) {
         await this.$store.dispatch("cart/createCartId", {
-          productToAdd: this.getCurrentProduct,
+          productToAdd: this.getCurrentProduct
         });
       }
       return this.getCartToken;
@@ -2475,32 +2553,16 @@ export default {
               this.halfSampleButtonDisable = true;
               this.qSampleButtonDisable = true;
             } else {
-              this.fullSampleButtonDisable =
-                this.cutSampleButtonDisable =
-                this.halfSampleButtonDisable =
-                this.qSampleButtonDisable =
-                  false;
+              this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
             }
           } else {
-            this.fullSampleButtonDisable =
-              this.cutSampleButtonDisable =
-              this.halfSampleButtonDisable =
-              this.qSampleButtonDisable =
-                false;
+            this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
           }
         } else {
-          this.fullSampleButtonDisable =
-            this.cutSampleButtonDisable =
-            this.halfSampleButtonDisable =
-            this.qSampleButtonDisable =
-              false;
+          this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
         }
       } else {
-        this.fullSampleButtonDisable =
-          this.cutSampleButtonDisable =
-          this.halfSampleButtonDisable =
-          this.qSampleButtonDisable =
-            false;
+        this.fullSampleButtonDisable = this.cutSampleButtonDisable = this.halfSampleButtonDisable = this.qSampleButtonDisable = false;
       }
     },
     modalshow() {
@@ -2515,7 +2577,7 @@ export default {
     hasSampleType(sample) {
       if (sample && this.availableSamples) {
         let selectedSample = this.availableSamples.filter(
-          (e) => e.type === sample
+          e => e.type === sample
         );
 
         if (selectedSample.length === 0) {
@@ -2527,7 +2589,7 @@ export default {
           price:
             selectedSample[0].price && selectedSample[0].price != 0
               ? parseFloat(selectedSample[0].price).toFixed(2)
-              : null,
+              : null
         };
       }
       return false;
@@ -2540,7 +2602,7 @@ export default {
       const offsetPosition = elementPosition - headerHeight;
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth",
+        behavior: "smooth"
       });
       if (screen.width < 991) {
         setTimeout(() => {
@@ -2548,7 +2610,7 @@ export default {
           const offsetPosition = elementPosition - headerHeight;
           window.scrollTo({
             top: offsetPosition,
-            behavior: "smooth",
+            behavior: "smooth"
           });
         }, 10);
       }
@@ -2561,7 +2623,7 @@ export default {
       const offsetPosition = elementPosition - headerHeight;
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth",
+        behavior: "smooth"
       });
       if (screen.width < 991) {
         setTimeout(() => {
@@ -2569,7 +2631,7 @@ export default {
           const offsetPosition = elementPosition - headerHeight;
           window.scrollTo({
             top: offsetPosition,
-            behavior: "smooth",
+            behavior: "smooth"
           });
         }, 10);
       }
@@ -2628,7 +2690,7 @@ export default {
         message: this.$t(
           "The product is out of stock and cannot be added to the cart!"
         ),
-        action1: { label: this.$t("OK") },
+        action1: { label: this.$t("OK") }
       });
     },
     pageChange(index) {
@@ -2841,7 +2903,7 @@ export default {
         message: this.$t(
           "No such configuration for the product. Please do choose another combination of attributes."
         ),
-        action1: { label: this.$t("OK") },
+        action1: { label: this.$t("OK") }
       });
     },
     getSingleAttributeLabel(code, val) {
@@ -2851,7 +2913,7 @@ export default {
           : null;
       let attrFinalLabel;
       if (attributName) {
-        attributName.map((attrFinal) => {
+        attributName.map(attrFinal => {
           if (val === parseInt(attrFinal.value)) {
             attrFinalLabel = attrFinal.label;
           }
@@ -2879,7 +2941,10 @@ export default {
         return subPathImg + img;
       }
     },
+
+    // change filter variant
     async changeFilter(variant) {
+      console.log('changeFilter variant',variant)
       const selectedConfiguration = Object.assign(
         { attribute_code: variant.type },
         variant
@@ -2903,7 +2968,7 @@ export default {
       currentConfig[option.type] = option;
       return isOptionAvailableAsync(this.$store, {
         product: this.getCurrentProduct,
-        configuration: currentConfig,
+        configuration: currentConfig
       });
     },
     async getQuantity() {
@@ -2978,7 +3043,7 @@ export default {
         } else {
           const res = await this.$store.dispatch("stock/check", {
             product: this.getCurrentProduct,
-            qty: this.getCurrentProduct.qty,
+            qty: this.getCurrentProduct.qty
           });
           console.log(
             "12345654321 current product is ",
@@ -3004,7 +3069,7 @@ export default {
       const customerPhotosRes = await this.$store.dispatch(
         "customerphotos/customerPhotosFunction",
         {
-          product_id: this.getCurrentProduct.id,
+          product_id: this.getCurrentProduct.id
         }
       );
       if (
@@ -3012,9 +3077,9 @@ export default {
         customerPhotosRes.status === 200 &&
         customerPhotosRes.errors === false
       ) {
-        const responseUrlObject = customerPhotosRes.urls.map((imgGallery) => {
+        const responseUrlObject = customerPhotosRes.urls.map(imgGallery => {
           return {
-            src: imgGallery,
+            src: imgGallery
             // src: this.getThumbnail(
             //   imgGallery,
             //   config.galleryZoomImageSize.width,
@@ -3036,7 +3101,7 @@ export default {
       } else {
         this.customerPhotosGallery = [];
       }
-    },
+    }
   },
   metaInfo() {
     const storeView = currentStoreView();
@@ -3055,23 +3120,23 @@ export default {
         property: "og:url",
         content: this.getCurrentProduct.canonical_url
           ? this.getCurrentProduct.canonical_url
-          : "/" + this.getCurrentProduct.url_path,
+          : "/" + this.getCurrentProduct.url_path
       },
       {
         property: "og:title",
         content: htmlDecode(
           this.getCurrentProduct.meta_title || this.getCurrentProduct.name
-        ),
+        )
       },
       {
         property: "og:type",
-        content: "website",
+        content: "website"
       },
       {
         property: "og:description",
         content: this.getCurrentProduct.meta_description
           ? this.getCurrentProduct.meta_description
-          : metaDescription,
+          : metaDescription
       },
       {
         property: "og:image",
@@ -3080,21 +3145,21 @@ export default {
           "1200/630/resize/catalog/product" +
           (this.getCurrentProduct.google_feed_img
             ? this.getCurrentProduct.google_feed_img
-            : this.getCurrentProduct.image),
-      },
+            : this.getCurrentProduct.image)
+      }
     ];
 
     if (this.getCurrentProduct.meta_description) {
       metaData.push({
         vmid: "description",
         name: "description",
-        content: this.getCurrentProduct.meta_description,
+        content: this.getCurrentProduct.meta_description
       });
     } else {
       metaData.push({
         vmid: "description",
         name: "description",
-        content: metaDescription,
+        content: metaDescription
       });
     }
 
@@ -3104,16 +3169,16 @@ export default {
           rel: "canonical",
           href: this.getCurrentProduct.canonical_url
             ? this.getCurrentProduct.canonical_url
-            : "/" + this.getCurrentProduct.url_path,
-        },
+            : "/" + this.getCurrentProduct.url_path
+        }
       ],
       title: htmlDecode(
         this.getCurrentProduct.meta_title || this.getCurrentProduct.name
       ),
       titleTemplate: htmlDecode("%s"),
-      meta: metaData,
+      meta: metaData
     };
-  },
+  }
 };
 </script>
 
@@ -3423,6 +3488,7 @@ i.product-detail-icon {
   padding-top: 10px;
   display: block;
   width: auto;
+  font-family: "Roboto", sans-serif !important;
 }
 
 .image {
@@ -3619,6 +3685,7 @@ i.product-detail-icon {
       display: inline-block;
       font-family: Arial;
       font-size: 0.815rem;
+      -webkit-text-size-adjust:100% !important;
       font-weight: bold;
     }
 
@@ -4116,6 +4183,7 @@ a:not(.no-underline):hover:after {
 
     .product-detail {
       padding: 0px;
+       margin-top: 1rem;
 
       .product-detail-inner {
         margin: 10px 0 0 0;
@@ -5194,7 +5262,7 @@ h4.variants-label.basin-head {
   color: #071a44 !important;
   margin-bottom: 5px;
 }
-.sizes.basin_size {
+.basin_size {
   width: 95%;
 }
 .sizes.basin_size select {
@@ -5248,7 +5316,16 @@ h4.variants-label.basin-head {
 .basin_size.colour {
   width: 95%;
 }
-select{
-  color: #071a44;
+
+button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
+  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+  background-size: 18px !important;
+  transform: rotate(180deg);
+  position: absolute;
+  left: -17px;
+}
+button.VueCarousel-navigation-button.VueCarousel-navigation-next {
+  background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
+  background-size: 17px !important;
 }
 </style>

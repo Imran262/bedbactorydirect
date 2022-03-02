@@ -842,10 +842,10 @@ export default {
   }
 
   .row-cart-inner-main {
-    margin-top: 60px;
+    padding-top: 60px;
     position: relative;
     @media (max-width: 767px) {
-      margin-top: 37px;
+      padding-top: 15px;
     }
   }
 

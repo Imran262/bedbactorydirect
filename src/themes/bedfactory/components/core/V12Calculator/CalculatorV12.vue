@@ -107,7 +107,9 @@
   </div>
 </template>
 <script>
+
 export default {
+  
   name : 'calculatorV12',
   data(){
     return {
@@ -155,8 +157,31 @@ export default {
       this.despositOptionSelected = option.target.value;
       this.setCurrentData();
     },
+    decimalAdjust(type, value, exp) {
+      // If the exp is undefined or zero...
+      if (typeof exp === 'undefined' || +exp === 0) {
+        return Math[type](value);
+        }
+      value = +value;
+      exp = +exp;
+      // If the value is not a number or the exp is not an integer...
+      if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+        return NaN;
+      }
+      // Shift
+      value = value.toString().split('e');
+      value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+      // Shift back
+      value = value.toString().split('e');
+      return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+      },
     setCurrentData(){
-      console.log("778855 deposit option is ",this.despositOptionSelected,"Finance option selected",this.financeOptionSelected);
+      const round10 = (value, exp) => this.decimalAdjust('round', value, exp);
+      // Decimal floor
+      const floor10 = (value, exp) => this.decimalAdjust('floor', value, exp);
+      // Decimal ceil
+      const ceil10 = (value, exp) => this.decimalAdjust('ceil', value, exp);
+      console.log(this.currentPrice,"778855 deposit option is ",this.despositOptionSelected,"Finance option selected",this.financeOptionSelected);
       console.log("778855 finance option found",this.calculatorData.finance_options.length);
       this.calculatorData.finance_options.forEach( (financeOption,financeIndex) => {
         console.log("778855 About to match",parseInt (financeOption.order_id) === parseInt(this.financeOptionSelected) ,financeOption.order_id , this.financeOptionSelected);
@@ -164,7 +189,39 @@ export default {
           console.log("778855 finance option found",financeOption);
           parseFloat(this.originalPrice).toFixed(2);
           let totalPrice = parseFloat(this.currentPrice).toFixed(2);
-          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2);
+          let initialDeposit = parseFloat(totalPrice * this.despositOptionSelected).toFixed(2); 
+          // let initialDeposit = parseInt(totalPrice * this.despositOptionSelected);
+          let initialDepositRounded = Math.round(initialDeposit); 
+          // console.log(this.despositOptionSelected,"778855 Deposit is ",initialDeposit , initialDepositRounded);
+          if (this.despositOptionSelected === 0.1  || this.despositOptionSelected === '0.1')
+            {
+              console.log("778855 Deposit option selected is 50% initialDeposit is ",initialDeposit ,parseFloat(initialDeposit), "Rounded of Initial Deposit is ",initialDepositRounded)
+              // let differnce = (initialDeposit.toString()).split('.')
+              // let differencetoAdd=parseInt(differnce[1])-50
+              // console.log(this.despositOptionSelected,differnce[1],differencetoAdd,"778855 Deposit is ",initialDeposit , initialDepositRounded);  
+              // initialDeposit = parseInt(initialDeposit)
+              // initialDeposit = (initialDeposit.toString())+'.'+differencetoAdd.toString()
+              // initialDeposit = parseFloat(initialDeposit)
+              initialDeposit = parseFloat(initialDeposit).toFixed(2)
+              initialDeposit = ceil10(initialDeposit,-1)
+              // initialDeposit = Math.ceil(initialDeposit)
+              console.log("778855 Deposit becomes ",initialDeposit );
+            }
+            else if (this.despositOptionSelected === 0.5  || this.despositOptionSelected === '0.5')
+            {
+              console.log("778855 Deposit option selected is 50% initialDeposit is ",initialDeposit , "Rounded of Initial Deposit is ",initialDepositRounded)
+              // let differnce = (initialDeposit.toString()).split('.')
+              // let differencetoAdd=parseInt(differnce[1])-50
+              // console.log(this.despositOptionSelected,differnce[1],differencetoAdd,"778855 Deposit is ",initialDeposit , initialDepositRounded);  
+              // initialDeposit = parseInt(initialDeposit)
+              // initialDeposit = (initialDeposit.toString())+'.'+differencetoAdd.toString()
+              // initialDeposit = parseFloat(initialDeposit)
+
+              // initialDeposit = parseInt(initialDeposit)
+              initialDeposit = parseFloat(initialDeposit).toFixed(2)
+              initialDeposit = floor10(initialDeposit,-1)
+              console.log("778855 Deposit becomes ",initialDeposit );
+            }
           let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);
           let noOfPayments = financeOption.imega_finance_rate.term;
           let monthlyPayment = parseFloat(creditAmount/noOfPayments).toFixed(2);
@@ -179,6 +236,7 @@ export default {
             rateOfInterestFixed:'0.00%',
             APR:'0%'
             }
+            console.log("778855 payment data is ",this.payment);
             this.$emit('CalculatorValueUpdated',this.payment)
         }
       });

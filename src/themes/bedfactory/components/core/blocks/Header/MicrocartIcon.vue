@@ -29,7 +29,7 @@
         v-cloak
         v-show="totalQuantity"
         data-testid="minicartCount"
-        >{{ totalItems.length }}
+        >{{ totalQuantity }}
       </span>
       </div>
       
@@ -110,6 +110,14 @@ export default {
     }
   },
   methods: {
+    showPopUp() { 
+     console.log('Your basket is currently empty')
+        this.$store.dispatch("notification/NewBasketNotification", {
+          type: "error",
+          message: this.$t("Your basket is currently empty"),
+          action5: { label: this.$t("CONTINUE SHOPPING") },
+        });
+      },
     ...mapActions({
       openMicrocart: 'ui/toggleMicrocart'
     }),
@@ -185,6 +193,8 @@ export default {
         this.$router.push(this.localizedRoute('/cart'));
       }
       if (this.totalItems.length === 0) {
+         console.log('show popUp successfull');
+         this.showPopUp();
         // this.$router.push(this.localizedRoute('/'))
         // var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
         // console.log('xCartDiv',xCartDiv);

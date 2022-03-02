@@ -7,7 +7,7 @@
   >
     <img
       v-show="showPlaceholder"
-      src="/assets/placeholder.svg"
+      :src="placeholderSvg"
       :alt="alt"
       class="product-image__placeholder"
     />
@@ -118,6 +118,9 @@ export default {
     },
     isOnline (value) {
       return onlineHelper.isOnline
+    },
+     placeholderSvg () {
+      return config.images.productPlaceholder ? config.images.productPlaceholder : '/assets/placeholder.svg'
     }
   },
   mounted () {
@@ -137,6 +140,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-lisitng-inner .image_label_one img{
+  @media (min-width: 768px) and (max-width: 992px){
+    width: 80%;
+  }
+}
 .product-image {
   position: relative;
   width: 100%;
@@ -217,7 +225,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   }
   .product-image {
     mix-blend-mode: unset;
-    padding-bottom: 75% !important;
+    padding-bottom: 88% !important;
   }
   .CustomProduct{
     padding-bottom: 100% !important;
@@ -245,6 +253,7 @@ li.media-zoom-carousel__thumb .image_label_two {
   position: absolute;
   right: 0;
   top: 0;
+  pointer-events: none;
 }
 .cart-summary-product-table .image_label_two {
   position: relative;
