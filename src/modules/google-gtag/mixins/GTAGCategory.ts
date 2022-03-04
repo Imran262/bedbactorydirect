@@ -23,18 +23,17 @@ export const GTAGCategory = {
   created () {
     // If Category Page has Products listed
     this.setGtagProductsList = debounce(function ({ isListingProducts = false, products = null } = {}, from = null) {
-      // console.log('getCurrentCategoryBrProductsResponseGetters', this.getCurrentCategoryBrProductsResponseGetters, isListingProducts);
-      console.log('eventTriggeredFrom', from, products, 'getCurrentCategoryBrProductsResponseGetters', this.getCurrentCategoryBrProductsResponseGetters);
-      if (this.getCurrentCategoryBrProductsResponseGetters && this.getCurrentCategoryBrProductsResponseGetters.length > 0) {
+      console.log('96325 Here to set category product list');
+      console.log('eventTriggeredFrom', from, products);
         this.$store.commit('google-gtag/SET_PRODUCT_LIST', {
-          products: products || this.getCurrentCategoryBrProductsResponseGetters,
+          products: products,
           list: 'Category',
           label: 'Category: ' + this.getCurrentCategory.name,
           catName: this.getCurrentCategory.name,
           category: this.list,
           isListingProducts
         })
-      }
+      
     }, 1000)
 
     // If Category page has only categories listing

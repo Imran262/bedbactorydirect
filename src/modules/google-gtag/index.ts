@@ -237,6 +237,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       }
       // Measuring Views of Product Lists
       if (type === 'google-gtag/SET_PRODUCT_LIST') {
+        console.log("96325 Here to set product list in google tag manager");
         if (payload.products && payload.isListingProducts) {
           let viewItemListData = {
             items: [mapViewListToGtag(payload.products)]
