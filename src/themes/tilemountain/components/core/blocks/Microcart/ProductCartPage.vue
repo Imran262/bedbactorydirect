@@ -1,5 +1,8 @@
 <template>
-  <div class="sb-table-left" v-if="productsInCart.length > 0 && !isAdhesiveGroutItem">
+  <div
+    class="sb-table-left"
+    v-if="productsInCart.length > 0 && !isAdhesiveGroutItem"
+  >
     <div class="row row-sb-left-padding">
       <CartProduct
         :products-in-cart="productsInCart"
@@ -10,43 +13,43 @@
         :adhesive-grout-items="adhesiveGroutItemsForSelectedProduct"
         @tile-quantity-updated="tileQuantityUpdated"
       />
-      <div class="col-lg-12 col-md-12 sb-md-dropdown">
-      </div>
+      <!-- <div class="col-lg-12 col-md-12 sb-md-dropdown">
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
-import config from 'config';
-import Product from '@vue-storefront/core/compatibility/components/blocks/Microcart/Product';
-import CartProduct from './CartProduct';
-import { ProductOption } from '@vue-storefront/core/modules/catalog/components/ProductOption';
-import EditMode from './EditMode';
-import AdhesiveAndGroutDropDown from 'theme/components/core/blocks/Microcart/AdhesiveAndGroutDropDown';
+import { mapActions, mapState, mapGetters } from "vuex";
+import config from "config";
+import Product from "@vue-storefront/core/compatibility/components/blocks/Microcart/Product";
+import CartProduct from "./CartProduct";
+import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption";
+import EditMode from "./EditMode";
+import AdhesiveAndGroutDropDown from "theme/components/core/blocks/Microcart/AdhesiveAndGroutDropDown";
 
 export default {
-  name: 'ProductCartPage',
-  data () {
+  name: "ProductCartPage",
+  data() {
     return {
       maxQuantity: 0,
       groutProdDetail: {},
       adhesiveProdDetail: {},
       optionCheck: false,
       payload: {
-        'data': {
-          product_id: '',
-          item_id: '',
-          fixing_type: '',
-          applied_material: '',
-          grout_width: '',
-          total_qty: '',
-          sqm: ''
+        data: {
+          product_id: "",
+          item_id: "",
+          fixing_type: "",
+          applied_material: "",
+          grout_width: "",
+          total_qty: "",
+          sqm: ""
         }
       },
       groutAdhesiveArray: [],
       sqmCheckForModelType: true,
-      groutAdhesiveParentProducts: '',
+      groutAdhesiveParentProducts: "",
       checkIfArraysAreloaded: false,
       minSqmValue: 0,
       groutAdhesiveChildData: [],
@@ -86,15 +89,17 @@ export default {
     CartProduct
   },
   mixins: [Product, ProductOption, EditMode],
-  async mounted () {
-    this.sqmQuantity = parseFloat(this.product.qty / this.product.qty_per_sqm).toFixed(2)
+  async mounted() {
+    this.sqmQuantity = parseFloat(
+      this.product.qty / this.product.qty_per_sqm
+    ).toFixed(2);
     // this.loaderSet();
     // await this.checkIfProductHasGroutAndAdhesive();
     if (this.minSqmValue > this.sqmQuantity) {
-      this.$bus.$emit('remove-grout-adhesive-section', {
+      this.$bus.$emit("remove-grout-adhesive-section", {
         doesNotHasGroutAdhesiveSection: true,
         productId: this.product.id
-      })
+      });
     }
     // this.$bus.$emit('minSqmValue', {
     //   minSqmVal: this.minSqmValue,
@@ -103,132 +108,137 @@ export default {
     // })
   },
   watch: {
-    changeGroutAdhesive () {
+    changeGroutAdhesive() {
       // this.loaderSet();
     },
-    groutAdhesiveChildData (newVal, oldVal) {
+    groutAdhesiveChildData(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit('grouts-adhesives', this.groutAdhesiveChildData)
+        this.$emit("grouts-adhesives", this.groutAdhesiveChildData);
       }
     },
-    total (newVal, oldVal) {
+    total(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit('add-all-total-price', this.total)
+        this.$emit("add-all-total-price", this.total);
       }
     },
-    productQuantity (newVal, oldVal) {
+    productQuantity(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.sqmQuantity = parseFloat(this.product.qty / this.product.qty_per_sqm).toFixed(2)
+        this.sqmQuantity = parseFloat(
+          this.product.qty / this.product.qty_per_sqm
+        ).toFixed(2);
       }
     }
   },
   computed: {
     ...mapGetters({
-      appliedCoupon: 'cart/getCoupon',
-      totals: 'cart/getTotals'
+      appliedCoupon: "cart/getCoupon",
+      totals: "cart/getTotals"
     }),
     ...mapState({
-      isMicrocartOpen: (state) => state.ui.microcart
+      isMicrocartOpen: state => state.ui.microcart
     }),
-    productQuantity () {
+    productQuantity() {
       return this.product.qty;
     },
-    changeGroutAdhesive () {
+    changeGroutAdhesive() {
       return this.cartAdhesiveGrout;
     },
-    hasProductInfo () {
+    hasProductInfo() {
       return this.product.info && Object.keys(this.product.info).length > 0;
     },
-    productQty () {
-      return this.editMode ? this.getEditingQty : this.product.qty
+    productQty() {
+      return this.editMode ? this.getEditingQty : this.product.qty;
     },
-    hasProductErrors () {
+    hasProductErrors() {
       const errors = this.product.errors || {};
       const errorsValuesExists =
-        Object.keys(errors).filter((errorKey) => errors[errorKey]).length > 0;
+        Object.keys(errors).filter(errorKey => errors[errorKey]).length > 0;
       return errorsValuesExists;
     },
-    productsAreReconfigurable () {
+    productsAreReconfigurable() {
       return (
         config.cart.productsAreReconfigurable &&
-        this.product.type_id === 'configurable' &&
+        this.product.type_id === "configurable" &&
         this.isOnline
       );
     },
-    adhesiveGroutItemsInCart () {
+    adhesiveGroutItemsInCart() {
       return this.cartAdhesiveGrout.map(item => {
         return item.recommended_sku;
       });
     },
-    isAdhesiveGroutItem () {
-      return this.adhesiveGroutItemsInCart.includes(this.product.sku)
+    isAdhesiveGroutItem() {
+      return this.adhesiveGroutItemsInCart.includes(this.product.sku);
     },
-    adhesiveGroutItemsForSelectedProduct () {
+    adhesiveGroutItemsForSelectedProduct() {
       return this.cartAdhesiveGrout.filter(item => {
-        return parseInt(item.parent_product_id) === this.product.id
+        return parseInt(item.parent_product_id) === this.product.id;
       });
     }
   },
   methods: {
     ...mapActions({
-      getProduct: 'product/single'
+      getProduct: "product/single"
     }),
-    tileQuantityUpdated (data) {
+    tileQuantityUpdated(data) {
       // this.updatedQtyPass = data;
     },
-    adhesivesGroutsFromChild (adhesivesGrouts) {
-      this.groutAdhesiveChildData = [adhesivesGrouts]
-      this.$emit('grouts-adhesives', this.groutAdhesiveChildData)
+    adhesivesGroutsFromChild(adhesivesGrouts) {
+      this.groutAdhesiveChildData = [adhesivesGrouts];
+      this.$emit("grouts-adhesives", this.groutAdhesiveChildData);
     },
-    addTotalPrice (addPrice) {
+    addTotalPrice(addPrice) {
       this.total[addPrice.sku] = addPrice.price;
-      this.$emit('add-all-total-price', this.total)
+      this.$emit("add-all-total-price", this.total);
     },
-    loaderSet () {
+    loaderSet() {
       if (!this.noGroutAdhesivesProduct) {
         if (!this.cartAdhesiveGrout[0] || !this.cartAdhesiveGrout.length > 0) {
-          this.$bus.$emit('notification-progress-start', 'Processing ... ');
-        } else if (this.cartAdhesiveGrout[0] || this.cartAdhesiveGrout.length > 0) {
-          this.$bus.$emit('notification-progress-stop');
+          this.$bus.$emit("notification-progress-start", "Processing ... ");
+        } else if (
+          this.cartAdhesiveGrout[0] ||
+          this.cartAdhesiveGrout.length > 0
+        ) {
+          this.$bus.$emit("notification-progress-stop");
         }
       }
     },
-    async checkIfProductHasGroutAndAdhesive () {
+    async checkIfProductHasGroutAndAdhesive() {
       this.payload.data.product_id = this.product.id;
-      await this.$store.dispatch(
-        'groutadhesive/groutAdhesiveFunction', this.payload)
-        .then((resp) => {
+      await this.$store
+        .dispatch("groutadhesive/groutAdhesiveFunction", this.payload)
+        .then(resp => {
           let response = JSON.parse(resp);
           if (response.success) {
             if (response.recommendation) {
               this.groutAdhesiveArray = response.data;
               this.sqmCheckForModelType = true;
-              this.$bus.$emit('has-grout-adhesive', {
+              this.$bus.$emit("has-grout-adhesive", {
                 recommendation: true,
                 productId: this.product.id
-              })
+              });
             } else if (!response.recommendation) {
               this.groutAdhesiveArray = [];
               this.sqmCheckForModelType = false;
-              this.$bus.$emit('has-grout-adhesive', {
+              this.$bus.$emit("has-grout-adhesive", {
                 recommendation: false,
                 productId: this.product.id
-              })
+              });
             }
             this.minSqmValue = parseInt(response.min_sqm);
-            this.$bus.$emit('minSqmValue', {
+            this.$bus.$emit("minSqmValue", {
               minSqmVal: this.minSqmValue,
               sqm: parseInt(this.sqmQuantity),
               productId: this.product.id
-            })
+            });
           } else {
             this.sqmCheckForModelType = false;
-            this.$bus.$emit('has-grout-adhesive', {
+            this.$bus.$emit("has-grout-adhesive", {
               recommendation: false,
               productId: this.product.id
-            })
+            });
           }
-        })
+        });
     }
   }
 };
@@ -352,10 +362,10 @@ input {
 .filters {
   flex: 1 1 200px;
 }
-.piecesQty{
-  .sb-prodcut-qty-on-cart-{
+.piecesQty {
+  .sb-prodcut-qty-on-cart- {
     padding-top: 16px;
-    }
+  }
 }
 .update-button {
   font-size: 14px;
@@ -520,11 +530,11 @@ input {
         display: none;
       }
     }
-    .update-link{
+    .update-link {
       display: none;
     }
-    .piecesQty{
-      .sb-prodcut-qty-on-cart-{
+    .piecesQty {
+      .sb-prodcut-qty-on-cart- {
         padding-top: 16px;
       }
     }
@@ -546,7 +556,7 @@ input {
   margin-bottom: 12px;
   font-weight: bold;
   white-space: nowrap;
-  @media(max-width: 767px) {
+  @media (max-width: 767px) {
     white-space: unset;
   }
 }
@@ -629,7 +639,7 @@ input {
   align-items: center;
   // height: 100%;
   padding-top: 56px;
-  @media(max-width: 767px){
+  @media (max-width: 767px) {
     padding-top: 0;
   }
 }
@@ -688,7 +698,7 @@ input {
   padding: 0;
 }
 
-@media(min-width: 767px) and (max-width: 991px){
+@media (min-width: 767px) and (max-width: 991px) {
   // .mainprice .prices span {
   //   // margin-top: 45px;
   // }
@@ -696,7 +706,7 @@ input {
   //   // margin-top: 45px;
   // }
 }
-@media(min-width: 991px) and (max-width: 1200px){
+@media (min-width: 991px) and (max-width: 1200px) {
   // .mainprice .prices span {
   //   margin-top: 60px;
   // }

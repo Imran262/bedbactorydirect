@@ -2,7 +2,7 @@
   <div class="cart-summary-main" id="cart-summary-main">
     <div class="brdr-cl-primary pb20 cart-summary-inner">
       <h3 class="cl-accent summary-title">
-        {{ $t('Order Review:') }}
+        {{ $t("Order Review:") }}
       </h3>
       <div class="order-summary-inner">
         <div class="order-summary-details">
@@ -70,7 +70,7 @@
                 class="col-xs align-right right-text cl-accent h4 subtotal"
               >
                 {{
-                  segment.value === 0 ? 'Free Delivery' : segment.value | price
+                  segment.value === 0 ? "Free Delivery" : segment.value | price
                 }}
               </div>
               <div
@@ -91,7 +91,7 @@
               <div
                 class="col-xs col-md-6 col-lg-8 grand-total-price grand-total"
               >
-                {{ $t('Grand Total') }}
+                {{ $t("Grand Total") }}
               </div>
               <div
                 class="col-xs col-md-6 col-lg-4 align-right grand-total-price"
@@ -100,7 +100,10 @@
               </div>
             </div>
           </div>
-          <FullToCutConverter :cart-items="productsInCart" v-if="$route.name !== 'confirmorder'" />
+          <FullToCutConverter
+            :cart-items="productsInCart"
+            v-if="$route.name !== 'confirmorder'"
+          />
         </div>
         <div
           class="cart-bottom-detail paypal-btn"
@@ -113,7 +116,7 @@
               class="btn"
               :disabled="!shippingMethod || !$v.phoneValidate.required"
             >
-              {{ $t('Place the order') }}
+              {{ $t("Place the order") }}
             </button-full>
           </div>
         </div>
@@ -156,7 +159,6 @@
               class="btn"
               v-if="activatePaymentBtn && activePaymentSection"
             >
-            
               {{ activatePaymentBtnTitle }}
             </button>
           </div>
@@ -165,7 +167,7 @@
           class="cart-bottom-detail"
           v-else-if="
             activatePaymentBtn &&
-            activatePaymentBtnTitle === 'Check / Money order'
+              activatePaymentBtnTitle === 'Check / Money order'
           "
         >
           <div class="cart-bottom-detail-inner">
@@ -200,10 +202,10 @@
               @click="proceedPayment()"
               v-if="
                 activatePaymentBtnTitle !== '' &&
-                activatePaymentBtn &&
-                activePaymentSection &&
-                activatePaymentBtnTitle !== 'PayPal' &&
-                activatePaymentBtnTitle !== 'SagePay'
+                  activatePaymentBtn &&
+                  activePaymentSection &&
+                  activatePaymentBtnTitle !== 'PayPal' &&
+                  activatePaymentBtnTitle !== 'SagePay'
               "
             >
               {{ activatePaymentBtnTitle }}
@@ -228,18 +230,18 @@
 </template>
 
 <script>
-import { CartSummary } from '@vue-storefront/core/modules/checkout/components/CartSummary'
-import Product from './Product'
-import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
-import ButtonFull from 'theme/components/theme/ButtonFull'
-import PaypalButton from '@develodesign/vsf-payment-paypal/components/Button'
-import FullToCutConverter from 'src/modules/cut-full-sample/components/converter/FullToCutConverter'
-import { Payment } from '@vue-storefront/core/modules/checkout/components/Payment'
-import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview'
-import { isServer } from '@vue-storefront/core/helpers'
-import { currentStoreView } from '@vue-storefront/core/lib/multistore'
-import config from 'config'
-import { required, maxLength } from 'vuelidate/lib/validators'
+import { CartSummary } from "@vue-storefront/core/modules/checkout/components/CartSummary";
+import Product from "./Product";
+import EventBus from "@vue-storefront/core/compatibility/plugins/event-bus";
+import ButtonFull from "theme/components/theme/ButtonFull";
+import PaypalButton from "@develodesign/vsf-payment-paypal/components/Button";
+import FullToCutConverter from "src/modules/cut-full-sample/components/converter/FullToCutConverter";
+import { Payment } from "@vue-storefront/core/modules/checkout/components/Payment";
+import { OrderReview } from "@vue-storefront/core/modules/checkout/components/OrderReview";
+import { isServer } from "@vue-storefront/core/helpers";
+import { currentStoreView } from "@vue-storefront/core/lib/multistore";
+import config from "config";
+import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
   components: {
@@ -248,12 +250,12 @@ export default {
     ButtonFull,
     FullToCutConverter
   },
-  mixins: [ CartSummary, Payment, OrderReview ],
-  data () {
+  mixins: [CartSummary, Payment, OrderReview],
+  data() {
     return {
       paymentRadioChecked: false,
       scrollPosition: null
-    }
+    };
   },
   props: {
     shippingMethod: {
@@ -277,44 +279,43 @@ export default {
       required: true
     }
   },
-  mounted () {
+  mounted() {
     this.updateScroll();
     // this.handleScroll();
     // window.addEventListener('scroll', this.handleScroll)
     // window.addEventListener('scroll', this.updateScroll)
   },
   computed: {
-    phoneValidate () {
-      return this.hasPhone ? this.hasPhone.replace(/[-]/g, '') : this.hasPhone
+    phoneValidate() {
+      return this.hasPhone ? this.hasPhone.replace(/[-]/g, "") : this.hasPhone;
     }
   },
   // destroyed () {
   //   // window.removeEventListener('scroll', this.handleScroll)
   //  },
   methods: {
-    updateScroll () {
-      if (this.$route.name === 'checkout') {
-        if (window.innerWidth > 768)
-      {
-        document.getElementById('app').style.overflowX  = "unset";
-      }
+    updateScroll() {
+      if (this.$route.name === "checkout") {
+        if (window.innerWidth > 768) {
+          document.getElementById("app").style.overflowX = "unset";
+        }
         // document.getElementById('app').style.overflowX  = "unset";
-        document.getElementById('viewport').style.overflow = "unset";
+        document.getElementById("viewport").style.overflow = "unset";
       }
     },
-    async handleOrderSubmit () {
-      await this.placeOrder()
+    async handleOrderSubmit() {
+      await this.placeOrder();
     },
-    prepareCartOrder () {
-      EventBus.$emit('prepare-cart-order')
+    prepareCartOrder() {
+      EventBus.$emit("prepare-cart-order");
     },
-    proceedPayment () {
-      this.placeOrder()
+    proceedPayment() {
+      this.placeOrder();
       // document.getElementById('sagepay-submit').click();
     },
-    paypalPayment () {
-      document.getElementsByClassName('paypal-button')[ 0 ].click()
-    },
+    paypalPayment() {
+      document.getElementsByClassName("paypal-button")[0].click();
+    }
     // handleScroll (event) {
     //   var SAFETY_MARGIN = 20
     //   const FOOTER_HEIGHT = document.getElementsByClassName('footer-main') !== undefined && document.getElementsByClassName('footer-main').length > 0 ? document.getElementsByClassName('footer-main')[0]
@@ -349,7 +350,7 @@ export default {
 <style lang="scss" scoped>
 .cart-summary-inner {
   position: sticky;
-  top: 14px;
+  top: 0;
 }
 thead tr th {
   padding: 10px 8px;
@@ -376,7 +377,7 @@ thead tr th {
 
 .order-summary-inner {
   background: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   // -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   // -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   // box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
@@ -385,7 +386,7 @@ thead tr th {
 
 .order-summary-bottom {
   background: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 9px -5px rgba(0, 0, 0, 0.75);
@@ -465,7 +466,7 @@ thead tr th {
   .cart-bottom-detail {
     padding-right: 60px;
     padding-left: 60px;
-    
+
     .btn {
       background: #2a275c;
       color: #fff;
