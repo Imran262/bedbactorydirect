@@ -246,6 +246,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
         }
       }
       if (type === 'google-gtag/SET_CATEGORY') {
+        console.log("96325 Here to set category list in google tag manager");
         if (payload.catName && payload.isListingProducts === false) {
           GTAG.event('dynCategory', {
             'ecomm_pagetype': 'category',

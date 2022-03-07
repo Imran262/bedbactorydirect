@@ -21,8 +21,27 @@ export const GTAGCategory = {
     // }
   },
   created () {
+    // If Category page has only categories listing
+    this.sendCategoryView = debounce(function() {
+      console.log('shouldIBeExecuted');
+      this.$store.commit('google-gtag/SET_CATEGORY', {
+        list: 'Category',
+        label: 'Category: ' + this.getCurrentCategory.name,
+        catName: this.getCurrentCategory.name,
+        category: this.list,
+        isListingProducts: false
+      })
+    }, 1000);
     // If Category Page has Products listed
     this.setGtagProductsList = debounce(function ({ isListingProducts = false, products = null } = {}, from = null) {
+      console.log('shouldIBeExecuted 1');
+      this.$store.commit('google-gtag/SET_CATEGORY', {
+        list: 'Category',
+        label: 'Category: ' + this.getCurrentCategory.name,
+        catName: this.getCurrentCategory.name,
+        category: this.list,
+        isListingProducts: false
+      })
       console.log('96325 Here to set category product list');
       console.log('eventTriggeredFrom', from, products);
         this.$store.commit('google-gtag/SET_PRODUCT_LIST', {
@@ -36,17 +55,7 @@ export const GTAGCategory = {
       
     }, 1000)
 
-    // If Category page has only categories listing
-    this.sendCategoryView = debounce(() => {
-      console.log('shouldIBeExecuted');
-      this.$store.commit('google-gtag/SET_CATEGORY', {
-        list: 'Category',
-        label: 'Category: ' + this.getCurrentCategory.name,
-        catName: this.getCurrentCategory.name,
-        category: this.list,
-        isListingProducts: false
-      })
-    }, 1000);
+    
   },
   computed: {
     ...mapGetters({
