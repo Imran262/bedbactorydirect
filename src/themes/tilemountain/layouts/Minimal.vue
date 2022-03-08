@@ -55,7 +55,7 @@ export default {
 
     // add script to page.
     let gTagScript = document.createElement('script')
-    gTagScript.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=G-MQ0RMQSH9J')
+    gTagScript.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=G-Q5973J67QM')
     gTagScript.async = true
     document.head.appendChild(gTagScript)
 
@@ -65,7 +65,7 @@ export default {
       '  function gtag(){dataLayer.push(arguments);}\n' +
       '  gtag(\'js\', new Date());\n' +
       '\n' +
-      '  gtag(\'config\', \'G-MQ0RMQSH9J\');'
+      '  gtag(\'config\', \'G-Q5973J67QM\');'
     document.head.appendChild(gtagScriptData)
     let fontawsmLib = document.createElement('link')
     fontawsmLib.type = 'text/css'

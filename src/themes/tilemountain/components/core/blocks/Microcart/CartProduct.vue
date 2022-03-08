@@ -2,151 +2,177 @@
   <div class="row row-sb-left-padding">
     <div class="col-xs-3 col-md-3 col-lg-3 sb-product-img">
       <!-- product {{product}} -->
-     <!-- {{ product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price}}
+      <!-- {{ product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price}}
      {{product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price}} -->
       <ProductImageCart :image="image" />
     </div>
-    <div class="col-md-3 col-lg-3 sb-product-detail">
-      <div class="product-name">
-        <router-link
-          class="serif h4 name"
-          :to="productLink"
-          data-testid="productLink"
-          @click.native="$store.commit('ui/setMicrocart', false), sendProductClick($vnode.key)"
-          v-if="product.name"
-        >
-          {{ product.name | htmlDecode }}
-        </router-link>
-      </div>
-      <div class="actions cart-remove-button" v-if="!editMode">
-        <remove-button-cart class @click="removeItem({id: product.id, totals:null})" />
-      </div>
-      <div class="sku" data-testid="productSku" v-if="product">
-        <span class="sku-text">SKU:</span>
-        <span class="sku-p-text">{{ product.sku }}</span>
-      </div>
-      <!-- <div class="size" v-if="fullCart && product && product.size">
-        <span class="size-text">Size:</span>
-        <span class="size-p-text">{{ product.size }}</span>
-      </div> -->
-      <!-- <div class="area" v-if="fullCart && productArea && !optionCheck">
-        <template v-if="productArea !== 'Infinity'">
-        <span class="area-text">Area:</span>
-        <span class="area-p-text">
-          {{ productArea }}sq.m
-        </span>
-        </template>
-      </div> -->
-      <div class="options" v-if="isTotalsActive && product && product.totals">
-        <div v-for="opt in product.totals.options" :key="opt.label">
-          <span class="opn">{{ opt.label }}:</span>
-          <span class="opv" v-html="opt.value" />
-        </div>
-      </div>
-      <div class="options" v-else-if="!editMode && product && product.options">
-        <div v-for="opt in product.options" :key="opt.label">
-          <span class="opn">{{ opt.label }}:</span>
-          <span class="opv" v-html="opt.value" />
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-      <div class="product-quantity">
-        <template v-if="isCutSampleProduct">
-          <div class="product-qty-input sb-product-qty-input">
-            <span>Sample</span>
-          </div>
-        </template>
-        <template v-else>
-          <div class="product-qty-input sb-product-qty-input">
-            <span v-if="product.qty_per_sqm" class="TotalQP" :class="title !== 'Tile Mountain' ? 'flooring' : ''"> {{ title === 'Tile Mountain' ? 'Total Pieces:' : 'Packs'}}</span>
-            <span v-else class="TotalQP">Qty:</span>
-            <div class="sb-prodcut-qty-on-cart-">
-              <product-quantity-on-cart-page
-                class="qty"
-                :disabled-item="checkedQuoteItem(product.sku)"
-                :key="triggerUpdate"
-                :value="productQty"
-                :max-quantity="maxQuantity"
-                :loading="isStockInfoLoading"
-                :is-simple-or-configurable="isSimpleOrConfigurable"
-                @input="updateProductQtyInput"
-                @error="handleQuantityError"
-              />
-              <button
-                class="update-link"
-                @click="updateProductQty(updatedQtyPass)"
+    <div class="col-xs-9 col-md-9 col-lg-9">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 sb-product-detail">
+          <div class="product-name-box">
+            <div class="product-name">
+              <router-link
+                class="serif h4 name"
+                :to="productLink"
+                data-testid="productLink"
+                @click.native="
+                  $store.commit('ui/setMicrocart', false),
+                    sendProductClick($vnode.key)
+                "
+                v-if="product.name"
               >
-                Update
-              </button>
+                {{ product.name | htmlDecode }}
+              </router-link>
             </div>
-            <div class="firstprice">
-              <span class="firstprice-cross">x</span>
-              <!-- <br /> product.totals 001 {{ product.totals}} <br /> -->
-              <!-- {{ product.totals.price_incl_tax.toFixed(2) | price(storeView) }} -->
-              {{ product.totals?product.totals.price_incl_tax? product.totals.price_incl_tax.toFixed(2) : product.totals.price : product.price | price(storeView) }}
+            <div class="actions cart-remove-button" v-if="!editMode">
+              <remove-button-cart
+                class
+                @click="removeItem({ id: product.id, totals: null })"
+              />
             </div>
           </div>
-        </template>
-
+        </div>
+        <div class="col-md-12 col-lg-12 sb-product-detail">
+          <div class="sku" data-testid="productSku" v-if="product">
+            <span class="sku-text">SKU:</span>
+            <span class="sku-p-text">{{ product.sku }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="skuOptionPriceBox">
+        <div class="options" v-if="isTotalsActive && product && product.totals">
+          <div v-for="opt in product.totals.options" :key="opt.label">
+            <span class="opn">{{ opt.label }}:</span>
+            <span class="opv" v-html="opt.value" />
+          </div>
+        </div>
+        <div
+          class="options"
+          v-else-if="!editMode && product && product.options"
+        >
+          <div v-for="opt in product.options" :key="opt.label">
+            <span class="opn">{{ opt.label }}:</span>
+            <span class="opv" v-html="opt.value" />
+          </div>
+        </div>
+        <div class="product-quantity product-quantity-mobile">
+          <template v-if="isCutSampleProduct">
+            <div class="product-qty-input sb-product-qty-input">
+              <span>Sample</span>
+            </div>
+          </template>
+          <template v-else>
+            <div class="product-qty-input sb-product-qty-input">
+              <span
+                v-if="product.qty_per_sqm"
+                class="TotalQP"
+                :class="title !== 'Tile Mountain' ? 'flooring' : ''"
+              >
+                {{
+                  title === "Tile Mountain" ? "Total Pieces:" : "Packs"
+                }}</span
+              >
+              <span v-else class="TotalQP">Qty:</span>
+              <div class="sb-prodcut-qty-on-cart-">
+                <product-quantity-on-cart-page
+                  class="qty"
+                  :disabled-item="checkedQuoteItem(product.sku)"
+                  :key="triggerUpdate"
+                  :value="productQty"
+                  :max-quantity="maxQuantity"
+                  :loading="isStockInfoLoading"
+                  :is-simple-or-configurable="isSimpleOrConfigurable"
+                  @input="updateProductQtyInput"
+                  @error="handleQuantityError"
+                />
+                <button
+                  class="update-link"
+                  @click="updateProductQty(updatedQtyPass)"
+                >
+                  Update
+                </button>
+              </div>
+              <div class="firstprice">
+                <span class="firstprice-cross">x</span>
+                <!-- <br /> product.totals 001 {{ product.totals}} <br /> -->
+                <!-- {{ product.totals.price_incl_tax.toFixed(2) | price(storeView) }} -->
+                {{
+                  product.totals
+                    ? product.totals.price_incl_tax
+                      ? product.totals.price_incl_tax.toFixed(2)
+                      : product.totals.price
+                    : product.price | price(storeView)
+                }}
+              </div>
+            </div>
+          </template>
+        </div>
         <div class="flex align-right start-xs between-sm prices mainprice">
           <div class="prices" v-if="!displayItemDiscounts || !isOnline">
             <span
               class="h4 serif cl-error price-special"
               v-if="product.special_price"
-            > 
-            <!-- <br /> product 002  {{ product}} <br /> -->
-            {{
-              (product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price * product.qty) | price(storeView)
-            }}</span>
-            <span
-              class="h6 serif price-original"
-              v-if="product.special_price"
-            ><br />
-            <!-- product 003  {{ product}}<br /> -->
-            {{
-              (product.original_price_incl_tax * product.qty)
-                | price(storeView)
-            }}</span>
+            >
+              <!-- <br /> product 002  {{ product}} <br /> -->
+              {{
+                (product.price_incl_tax
+                  ? product.price_incl_tax.toFixed(2)
+                  : product.price * product.qty) | price(storeView)
+              }}</span
+            >
+            <span class="h6 serif price-original" v-if="product.special_price"
+              ><br />
+              <!-- product 003  {{ product}}<br /> -->
+              {{
+                (product.original_price_incl_tax * product.qty)
+                  | price(storeView)
+              }}</span
+            >
 
             <span
               class="h4 serif price-regular"
               v-else
               data-testid="productPrice"
             >
-<!-- <br />            product 004  {{ product}} <br /> -->
-            {{
-              ((product.original_price_incl_tax
-                ? product.original_price_incl_tax
-                : product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price) *
-                product.qty)
-                | price(storeView)
-            }}</span>
+              <!-- <br />            product 004  {{ product}} <br /> -->
+              {{
+                ((product.original_price_incl_tax
+                  ? product.original_price_incl_tax
+                  : product.price_incl_tax
+                  ? product.price_incl_tax.toFixed(2)
+                  : product.price) *
+                  product.qty)
+                  | price(storeView)
+              }}</span
+            >
           </div>
           <div class="prices" v-else-if="isOnline && product.totals">
             <span
               class="h4 serif cl-error price-special"
               v-if="product.totals.discount_amount"
-            >{{
-              (product.totals.row_total_incl_tax)
-                | price(storeView)
-            }}</span>
+              >{{ product.totals.row_total_incl_tax | price(storeView) }}</span
+            >
             <!-- <span
-              class="h6 serif price-original"
-              v-if="product.totals.discount_amount"
-            >{{ product.totals.row_total_incl_tax | price(storeView) }}</span> -->
+                class="h6 serif price-original"
+                v-if="product.totals.discount_amount"
+                >{{ product.totals.row_total_incl_tax | price(storeView) }}</span> -->
             <span
               class="h4 serif price-regular"
               v-if="!product.totals.discount_amount"
-            >{{ product.totals.row_total_incl_tax | price(storeView) }}</span>
+              >{{ product.totals.row_total_incl_tax | price(storeView) }}</span
+            >
           </div>
           <div class="prices" v-else>
-            <span class="h4 serif price-regular"> 
+            <span class="h4 serif price-regular">
               <!-- product 000 {{ product}}  -->
               {{
-              ((product.regular_price || product.price_incl_tax? product.price_incl_tax.toFixed(2) : product.price) * product.qty)
-                | price(storeView)
-            }}</span>
+                ((product.regular_price || product.price_incl_tax
+                  ? product.price_incl_tax.toFixed(2)
+                  : product.price) *
+                  product.qty)
+                  | price(storeView)
+              }}</span
+            >
           </div>
         </div>
       </div>
@@ -155,26 +181,24 @@
 </template>
 
 <script>
-import ProductImageCart from 'theme/components/core/ProductImageCart'
-import RemoveButtonCart from './RemoveButtonCart'
-import ProductQuantityOnCartPage from 'theme/components/core/ProductQuantityOnCartPage.vue'
-import {
-  getThumbnailForProduct
-} from '@vue-storefront/core/modules/cart/helpers'
-import { onlineHelper } from '@vue-storefront/core/helpers'
-import Product from '@vue-storefront/core/compatibility/components/blocks/Microcart/Product'
-import { ProductOption } from '@vue-storefront/core/modules/catalog/components/ProductOption'
-import EditMode from './EditMode'
-import { formatProductLink } from '@vue-storefront/core/modules/url/helpers'
-import { currentStoreView } from '@vue-storefront/core/lib/multistore'
-import { mapGetters, mapState } from 'vuex'
-import config from 'config'
-import { CartService } from '@vue-storefront/core/data-resolver'
-import AddedAdhesiveGroutItem from './Cart/AddedAdhesiveGroutItem'
-import { prepareRelatedQuery } from '@vue-storefront/core/modules/catalog/queries/related';
-import { MeasureProductClick } from 'src/modules/google-gtag/mixins/MeasureProductClick'
+import ProductImageCart from "theme/components/core/ProductImageCart";
+import RemoveButtonCart from "./RemoveButtonCart";
+import ProductQuantityOnCartPage from "theme/components/core/ProductQuantityOnCartPage.vue";
+import { getThumbnailForProduct } from "@vue-storefront/core/modules/cart/helpers";
+import { onlineHelper } from "@vue-storefront/core/helpers";
+import Product from "@vue-storefront/core/compatibility/components/blocks/Microcart/Product";
+import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption";
+import EditMode from "./EditMode";
+import { formatProductLink } from "@vue-storefront/core/modules/url/helpers";
+import { currentStoreView } from "@vue-storefront/core/lib/multistore";
+import { mapGetters, mapState } from "vuex";
+import config from "config";
+import { CartService } from "@vue-storefront/core/data-resolver";
+import AddedAdhesiveGroutItem from "./Cart/AddedAdhesiveGroutItem";
+import { prepareRelatedQuery } from "@vue-storefront/core/modules/catalog/queries/related";
+import { MeasureProductClick } from "src/modules/google-gtag/mixins/MeasureProductClick";
 export default {
-  name: 'CartProduct',
+  name: "CartProduct",
   components: {
     ProductImageCart,
     ProductQuantityOnCartPage,
@@ -205,7 +229,7 @@ export default {
       type: [Number, String]
     }
   },
-  data () {
+  data() {
     return {
       updatedQtyPass: this.editMode ? this.getEditingQty : this.product.qty,
       maxQuantity: 0,
@@ -214,172 +238,198 @@ export default {
       isStockInfoLoading: false,
       quantityError: false,
       quoteVueItemOriginal: [],
-      fixing: '',
-      madeOf: '',
-      grout: '',
+      fixing: "",
+      madeOf: "",
+      grout: "",
       title: config?.themeConfigurations?.title,
       payload: {
-        'data': {
-          product_id: '',
-          item_id: '',
-          fixing_type: '',
-          applied_material: '',
-          grout_width: '',
-          total_qty: '',
-          sqm: ''
+        data: {
+          product_id: "",
+          item_id: "",
+          fixing_type: "",
+          applied_material: "",
+          grout_width: "",
+          total_qty: "",
+          sqm: ""
         }
       },
       productArea: 0,
       payloadChildProducts: {
-        'data': {
-          product_id: '',
-          item_id: '',
-          fixing_type: '',
-          applied_material: '',
-          grout_width: '',
-          total_qty: '',
-          sqm: ''
+        data: {
+          product_id: "",
+          item_id: "",
+          fixing_type: "",
+          applied_material: "",
+          grout_width: "",
+          total_qty: "",
+          sqm: ""
         }
       },
       childProducts: {},
       childProductSkus: [],
       childProductItems: []
-    }
+    };
   },
-  async mounted () {
+  async mounted() {
     if (this.product) {
-      this.productArea = (this.updatedQtyPass / this.product.qty_per_sqm).toFixed(2)
+      this.productArea = (
+        this.updatedQtyPass / this.product.qty_per_sqm
+      ).toFixed(2);
     }
-    this.checkIt()
-    await this.getChildProductSkus()
-    await this.itemExtensionAttributes()
+    this.checkIt();
+    await this.getChildProductSkus();
+    await this.itemExtensionAttributes();
   },
-  beforeMount () {
-    this.$bus.$on('fixing-madeOf-grout', (properties) => {
+  beforeMount() {
+    this.$bus.$on("fixing-madeOf-grout", properties => {
       this.fixing = properties.selectedFixing;
       this.madeOf = properties.selectedMadeOf;
       this.grout = properties.selectedGroutJoint;
-    })
+    });
   },
   methods: {
-    async itemExtensionAttributes () {
-      const quoteItemData = await CartService.getItems()
-      var quoteItem = []
-      var quoteVueItem = []
-      if (quoteItemData && quoteItemData.result && quoteItemData.result.length > 0 && Array.isArray(quoteItemData.result)) {
-        quoteItem = quoteItemData.result.filter((quoteItemInside) => {
-          if (quoteItemInside && quoteItemInside.extension_attributes && quoteItemInside.extension_attributes.is_vue_quote) {
-            quoteVueItem.push(quoteItemInside.sku)
+    async itemExtensionAttributes() {
+      const quoteItemData = await CartService.getItems();
+      var quoteItem = [];
+      var quoteVueItem = [];
+      if (
+        quoteItemData &&
+        quoteItemData.result &&
+        quoteItemData.result.length > 0 &&
+        Array.isArray(quoteItemData.result)
+      ) {
+        quoteItem = quoteItemData.result.filter(quoteItemInside => {
+          if (
+            quoteItemInside &&
+            quoteItemInside.extension_attributes &&
+            quoteItemInside.extension_attributes.is_vue_quote
+          ) {
+            quoteVueItem.push(quoteItemInside.sku);
           }
-        })
+        });
       }
-      this.quoteVueItemOriginal = quoteVueItem
+      this.quoteVueItemOriginal = quoteVueItem;
     },
-    async onProductQuantityUpdate () {
-      let tileSqm = (this.updatedQtyPass / this.product.qty_per_sqm).toFixed(2)
+    async onProductQuantityUpdate() {
+      let tileSqm = (this.updatedQtyPass / this.product.qty_per_sqm).toFixed(2);
       this.payload.data.product_id = this.product.id;
       this.payload.data.fixing_type = this.fixing;
       this.payload.data.applied_material = this.madeOf;
       this.payload.data.grout_width = this.grout;
       this.payload.data.total_qty = this.updatedQtyPass;
       this.payload.data.sqm = tileSqm;
-      await this.$store.dispatch(
-        'groutadhesive/groutAdhesiveFunction', this.payload).then((res) => {
-        let response = JSON.parse(res);
-        if (response.success) {
-          this.$bus.$emit('additional-products', {
-            groutAdhesiveArray: response.data,
-            groutAdhesiveTotalPrice: response.total_price
-          });
-        } else {
-          this.$bus.$emit('additional-products', {
-            groutAdhesiveArray: [],
-            groutAdhesiveTotalPrice: 0
-          });
-        }
-      });
+      await this.$store
+        .dispatch("groutadhesive/groutAdhesiveFunction", this.payload)
+        .then(res => {
+          let response = JSON.parse(res);
+          if (response.success) {
+            this.$bus.$emit("additional-products", {
+              groutAdhesiveArray: response.data,
+              groutAdhesiveTotalPrice: response.total_price
+            });
+          } else {
+            this.$bus.$emit("additional-products", {
+              groutAdhesiveArray: [],
+              groutAdhesiveTotalPrice: 0
+            });
+          }
+        });
     },
-    updateProductQty (qty) {
-      this.$bus.$emit('notification-progress-start', 'Updating qty... ')
+    updateProductQty(qty) {
+      this.$bus.$emit("notification-progress-start", "Updating qty... ");
       if (this.editMode) {
-        this.editModeSetQty(qty)
-        return
+        this.editModeSetQty(qty);
+        return;
       }
-      this.updateQuantity(qty)
+      this.updateQuantity(qty);
       if (this.minSqmValue < this.productArea) {
-        this.$bus.$emit('remove-grout-adhesive-section', {
+        this.$bus.$emit("remove-grout-adhesive-section", {
           doesNotHasGroutAdhesiveSection: false,
           productId: this.product.id
-        })
+        });
       } else if (this.minSqmValue > this.productArea) {
-        this.$bus.$emit('remove-grout-adhesive-section', {
+        this.$bus.$emit("remove-grout-adhesive-section", {
           doesNotHasGroutAdhesiveSection: true,
           productId: this.product.id
-        })
+        });
       }
-      this.$bus.$emit('quantity-updated', { minSqmValue: this.minSqmValue, sqm: this.productArea, productId: this.product.id })
+      this.$bus.$emit("quantity-updated", {
+        minSqmValue: this.minSqmValue,
+        sqm: this.productArea,
+        productId: this.product.id
+      });
     },
-    updateQuantity (quantity) {
-      this.$store.dispatch('cart/updateQuantity', {
-        product: this.product,
-        qty: quantity
-      }).then(r => {
-        if (r) {
-          this.$bus.$emit('notification-progress-stop', 'Updating qty... ')
-          this.pullCartSync()
-          this.updatedQtyPass = quantity
-          this.triggerUpdate++
-          this.onProductQuantityUpdate()
-          this.$emit('tile-quantity-updated', this.updatedQtyPass)
-        }
-      })
+    updateQuantity(quantity) {
+      this.$store
+        .dispatch("cart/updateQuantity", {
+          product: this.product,
+          qty: quantity
+        })
+        .then(r => {
+          if (r) {
+            this.$bus.$emit("notification-progress-stop", "Updating qty... ");
+            this.pullCartSync();
+            this.updatedQtyPass = quantity;
+            this.triggerUpdate++;
+            this.onProductQuantityUpdate();
+            this.$emit("tile-quantity-updated", this.updatedQtyPass);
+          }
+        });
     },
-    async pullCartSync () {
-      await this.$store.dispatch('cart/sync', {
+    async pullCartSync() {
+      await this.$store.dispatch("cart/sync", {
         forceClientState: false,
         forceSync: true
       });
-      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true });
+      await this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
       this.$forceUpdate();
     },
-    updateProductQtyInput (qty) {
-        this.updatedQtyPass = qty
+    updateProductQtyInput(qty) {
+      this.updatedQtyPass = qty;
       // this.$emit('tile-quantity-updated', this.updatedQtyPass)
     },
-    handleQuantityError (error) {
-      this.quantityError = error
+    handleQuantityError(error) {
+      this.quantityError = error;
     },
-    checkedQuoteItem (sku) {
-      var isVueQuote = false
-      this.quoteVueItemOriginal.filter((skuInside) => {
+    checkedQuoteItem(sku) {
+      var isVueQuote = false;
+      this.quoteVueItemOriginal.filter(skuInside => {
         if (sku === skuInside) {
-          isVueQuote = true
+          isVueQuote = true;
         }
-      })
-      return isVueQuote
+      });
+      return isVueQuote;
     },
-    checkIt () {
+    checkIt() {
       if (this.product && this.product.totals) {
         if (this.product.totals.options) {
           for (var i = 0; i <= this.product.totals.options.length; i++) {
             if (this.product.totals.options[i]) {
-              this.optionCheck = true
+              this.optionCheck = true;
             }
           }
         }
       }
     },
-    async removeFromCart () {
-      this.$store.commit('ui/setOverlay', false)
-      this.$bus.$emit('notification-progress-start', 'Processing... ')
-      let lastItem
+    async removeFromCart() {
+      this.$store.commit("ui/setOverlay", false);
+      this.$bus.$emit("notification-progress-start", "Processing... ");
+      let lastItem;
       if (this.childProductItems[0]) {
         // lastItem = this.objectSize(this.childProductItems)
         for (let productKey in this.childProductItems) {
           if (this.childProductItems.hasOwnProperty(productKey)) {
-            let productItem = this.getProductItemId(this.childProductItems[productKey])
-            if (this.productsInCart && this.productsInCart.length && this.productsInCart.length > 0) {
-              const currentProductInCart = this.productsInCart.find(item => item.server_item_id === parseInt(productItem.item_id))
+            let productItem = this.getProductItemId(
+              this.childProductItems[productKey]
+            );
+            if (
+              this.productsInCart &&
+              this.productsInCart.length &&
+              this.productsInCart.length > 0
+            ) {
+              const currentProductInCart = this.productsInCart.find(
+                item => item.server_item_id === parseInt(productItem.item_id)
+              );
               // if (parseInt(productKey) === lastItem - 1) {
               //   console.log('if Arsl')
               //    this.$store.dispatch('cart/removeItem', {
@@ -388,21 +438,24 @@ export default {
               //   })
               // } else {
               //   console.log('else Arsl')
-              this.$store.dispatch('cart/removeItem', { product: currentProductInCart, itemId: productItem.item_id })
+              this.$store.dispatch("cart/removeItem", {
+                product: currentProductInCart,
+                itemId: productItem.item_id
+              });
               // }
             }
           }
         }
       }
-      this.$bus.$emit('notification-progress-stop')
-      this.$bus.$emit('has-grout-adhesive', {
+      this.$bus.$emit("notification-progress-stop");
+      this.$bus.$emit("has-grout-adhesive", {
         recommendation: false,
         productId: this.product.id
-      })
-      await this.$store.dispatch('cart/removeItem', { product: this.product })
-      this.$bus.$emit('carPageUpdate', {
+      });
+      await this.$store.dispatch("cart/removeItem", { product: this.product });
+      this.$bus.$emit("carPageUpdate", {
         productId: this.product.id
-      })
+      });
     },
     // objectSize (obj) {
     //   let size = 0
@@ -412,29 +465,39 @@ export default {
     //   }
     //   return size;
     // },
-    getProductItemId (product) {
-      if (this.adhesiveGroutItems && this.adhesiveGroutItems.length && this.adhesiveGroutItems.length > 0) {
-        return this.adhesiveGroutItems.find(item => item.recommended_sku === product.sku)
+    getProductItemId(product) {
+      if (
+        this.adhesiveGroutItems &&
+        this.adhesiveGroutItems.length &&
+        this.adhesiveGroutItems.length > 0
+      ) {
+        return this.adhesiveGroutItems.find(
+          item => item.recommended_sku === product.sku
+        );
       }
     },
-    getChildProductSkus () {
-      if (this.adhesiveGroutItems && this.adhesiveGroutItems.length && this.adhesiveGroutItems.length > 0) {
-        this.adhesiveGroutItems.forEach((item) => {
+    getChildProductSkus() {
+      if (
+        this.adhesiveGroutItems &&
+        this.adhesiveGroutItems.length &&
+        this.adhesiveGroutItems.length > 0
+      ) {
+        this.adhesiveGroutItems.forEach(item => {
           if (!this.childProductSkus.includes(item.recommended_sku)) {
-            this.childProductSkus.push(item.recommended_sku)
+            this.childProductSkus.push(item.recommended_sku);
           }
-        })
-        this.getChildProducts()
+        });
+        this.getChildProducts();
       }
     },
-    async getChildProducts () {
+    async getChildProducts() {
       if (this.childProductSkus && this.childProductSkus.length > 0) {
         let childProductQuery = prepareRelatedQuery(
-          'sku',
+          "sku",
           this.childProductSkus
         );
         await this.$store
-          .dispatch('product/list', {
+          .dispatch("product/list", {
             query: childProductQuery,
             size: 10,
             prefetchGroupProducts: false,
@@ -443,142 +506,151 @@ export default {
           .then(({ items }) => {
             this.childProductItems = items;
           })
-          .catch((err) => {
-            console.log('Product Child Products Failed', err);
+          .catch(err => {
+            console.log("Product Child Products Failed", err);
           });
       }
     },
-    async getQuantity (product) {
-      if (this.isStockInfoLoading) return // stock info is already loading
-      this.isStockInfoLoading = true
+    async getQuantity(product) {
+      if (this.isStockInfoLoading) return; // stock info is already loading
+      this.isStockInfoLoading = true;
       try {
-        const validProduct = product || this.product
-        const res = await this.$store.dispatch('stock/check', {
+        const validProduct = product || this.product;
+        const res = await this.$store.dispatch("stock/check", {
           product: validProduct,
           qty: this.productQty
-        })
-        return res.qty
+        });
+        return res.qty;
       } finally {
-        this.isStockInfoLoading = false
+        this.isStockInfoLoading = false;
       }
     },
-    async changeEditModeFilter (filter) {
-      const editedProduct = this.getEditedProductgetEditedProduct(filter)
-      const maxQuantity = await this.getQuantity(editedProduct)
+    async changeEditModeFilter(filter) {
+      const editedProduct = this.getEditedProductgetEditedProduct(filter);
+      const maxQuantity = await this.getQuantity(editedProduct);
       if (!maxQuantity) {
-        this.$store.dispatch('notification/spawnNotification', {
-          type: 'error',
+        this.$store.dispatch("notification/spawnNotification", {
+          type: "error",
           message: this.$t(
-            'The product is out of stock and cannot be added to the cart!'
+            "The product is out of stock and cannot be added to the cart!"
           ),
-          action1: { label: this.$t('OK') }
-        })
+          action1: { label: this.$t("OK") }
+        });
       } else if (maxQuantity < this.productQty) {
-        this.$store.dispatch('notification/spawnNotification', {
-          type: 'error',
+        this.$store.dispatch("notification/spawnNotification", {
+          type: "error",
           message: this.$t(
-            'Only {maxQuantity} products of this type are available!',
+            "Only {maxQuantity} products of this type are available!",
             { maxQuantity }
           ),
-          action1: { label: this.$t('OK') }
-        })
+          action1: { label: this.$t("OK") }
+        });
       } else {
-        this.maxQuantity = maxQuantity
-        this.editModeSetFilters(filter)
+        this.maxQuantity = maxQuantity;
+        this.editModeSetFilters(filter);
       }
     }
   },
   computed: {
     ...mapState({
-      isMicrocartOpen: (state) => state.ui.microcart
+      isMicrocartOpen: state => state.ui.microcart
     }),
     ...mapGetters({
-      productsInCart: 'cart/getCartItems'
+      productsInCart: "cart/getCartItems"
     }),
-    displayItemDiscounts () {
-      return config.cart.displayItemDiscounts
+    displayItemDiscounts() {
+      return config.cart.displayItemDiscounts;
     },
-    isSimpleOrConfigurable () {
-      return ['simple', 'configurable'].includes(this.product.type_id)
+    isSimpleOrConfigurable() {
+      return ["simple", "configurable"].includes(this.product.type_id);
     },
-    isUpdateCartDisabled () {
+    isUpdateCartDisabled() {
       return (
         this.quantityError ||
         this.isStockInfoLoading ||
         (this.isOnline && !this.maxQuantity && this.isSimpleOrConfigurable)
-      )
+      );
     },
-    isCutSampleProduct () {
-      if (this.product && this.product.totals && this.product.totals.options && this.product.totals.options.length > 0) {
-        return this.product.totals.options.filter((option, key) => {
-          return option.label === 'Sample' && option.value === 'Cut Size'
-        }).length > 0
+    isCutSampleProduct() {
+      if (
+        this.product &&
+        this.product.totals &&
+        this.product.totals.options &&
+        this.product.totals.options.length > 0
+      ) {
+        return (
+          this.product.totals.options.filter((option, key) => {
+            return option.label === "Sample" && option.value === "Cut Size";
+          }).length > 0
+        );
       }
-      return false
+      return false;
     },
-    image () {
+    image() {
       return {
         loading: this.thumbnail,
         src: this.thumbnail
-      }
+      };
     },
-    thumbnail () {
-      return getThumbnailForProduct(this.product)
+    thumbnail() {
+      return getThumbnailForProduct(this.product);
     },
-    isTotalsActive () {
+    isTotalsActive() {
       return (
         this.isOnline &&
         !this.editMode &&
         this.product.totals &&
         this.product.totals.options
-      )
+      );
     },
-    isOnline () {
-      return onlineHelper.isOnline
+    isOnline() {
+      return onlineHelper.isOnline;
     },
-    editMode () {
-      return this.getEditingProductId === this.product.id
+    editMode() {
+      return this.getEditingProductId === this.product.id;
     },
-    productLink () {
-      return formatProductLink(this.product, currentStoreView().storeCode)
+    productLink() {
+      return formatProductLink(this.product, currentStoreView().storeCode);
     },
-    productQty () {
-      return this.editMode ? this.getEditingQty : this.product.qty
+    productQty() {
+      return this.editMode ? this.getEditingQty : this.product.qty;
     },
-    storeView () {
-      return currentStoreView()
+    storeView() {
+      return currentStoreView();
     }
   },
   watch: {
     isOnline: {
-      async handler (isOnline) {
+      async handler(isOnline) {
         if (isOnline) {
-          const maxQuantity = await this.getQuantity()
-          this.maxQuantity = maxQuantity
+          const maxQuantity = await this.getQuantity();
+          this.maxQuantity = maxQuantity;
         }
       }
     },
     isMicrocartOpen: {
-      async handler (isOpen) {
+      async handler(isOpen) {
         if (isOpen) {
-          const maxQuantity = await this.getQuantity()
-          this.maxQuantity = maxQuantity
+          const maxQuantity = await this.getQuantity();
+          this.maxQuantity = maxQuantity;
         }
       },
       immediate: true
     },
-    adhesiveGroutItems (newVal, oldVal) {
+    adhesiveGroutItems(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.getChildProductSkus()
+        this.getChildProductSkus();
       }
     },
-    updatedQtyPass (newVal, oldVal) {
+    updatedQtyPass(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.productArea = (this.updatedQtyPass / this.product.qty_per_sqm).toFixed(2);
+        this.productArea = (
+          this.updatedQtyPass / this.product.qty_per_sqm
+        ).toFixed(2);
         // this.$emit('tile-quantity-updated', this.productArea)
       }
     },
-    productArea (newVal, oldVal) {
+    productArea(newVal, oldVal) {
       if (newVal !== oldVal) {
         // this.$emit('tile-quantity-updated', this.productArea)
       }
@@ -588,8 +660,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
 
 .blend {
   flex: 0 0 150px;
@@ -613,7 +685,12 @@ export default {
 .mobilerow {
   display: none;
 }
-
+.options > div {
+  margin-bottom: 5px;
+}
+.options > div:last-child {
+  margin-bottom: 0;
+}
 .name {
   @media (max-width: 767px) {
     // font-size: 14px;
@@ -622,15 +699,19 @@ export default {
     margin-bottom: 0 !important;
   }
 }
-
+.skuOptionPriceBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .options {
   color: #4a4a4a;
   font-family: Arial;
   font-size: 12px;
   font-weight: normal;
-  padding-right: 15px;
-  margin-top: 25px;
-  width: 1280px;
+  @media (min-width: 769px) {
+    width: 42%;
+  }
 
   .opn {
     color: #4a4a4a;
@@ -638,7 +719,7 @@ export default {
     font-size: 12px;
     font-weight: bold;
     padding-right: 0px;
-    display: block;
+    // display: block;
     margin-bottom: 5px;
     // width: 175px;
   }
@@ -649,10 +730,8 @@ export default {
     font-size: 12px;
     font-weight: normal;
     padding-right: 15px;
-    display: block;
     margin-left: 5px;
     margin-bottom: 10px;
-    width: 140px;
   }
 }
 
@@ -680,6 +759,11 @@ export default {
   @media (max-width: 767px) {
     padding: 0;
     font-size: 12px;
+  }
+}
+.mainprice {
+  @media (min-width: 768px) {
+    min-width: 20%;
   }
 }
 
@@ -720,7 +804,7 @@ input {
   padding: 10px;
 }
 .sb-prodcut-qty-on-cart- {
-  margin-top: 52px;
+  //   margin-top: 52px;
 }
 .maincart {
   .mobilerow {
@@ -764,7 +848,7 @@ input {
     color: #878382;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 33px;
+    // margin-top: 33px;
 
     .firstprice-cross {
       padding-right: 3px;
@@ -804,24 +888,24 @@ input {
       }
     }
     .qty {
-      width: 23%;
+      //   width: 23%;
     }
     .mainprice {
-      width: 22%;
-      padding-right: 16px;
+      // width: 22%;
+      // padding-right: 16px;
     }
     .mainprice .prices span {
       font-size: 17px;
     }
-    .maincart .firstprice{
+    .maincart .firstprice {
       padding-left: 5px;
     }
-    .options > div {
-    display: block;
-}
-.options .opv{
-    width: auto;
-}
+    // .options > div {
+    //   display: block;
+    // }
+    .options .opv {
+      width: auto;
+    }
   }
   @media (max-width: 991px) and (min-width: 767px) {
     .details {
@@ -849,6 +933,10 @@ input {
     }
   }
   @media (max-width: 767px) {
+    .skuOptionPriceBox {
+      flex-wrap: wrap;
+      width: 103%;
+    }
     .mobilerow {
       display: flex;
     }
@@ -895,7 +983,7 @@ input {
     }
     .sku-text {
       font-size: 2.319vw;
-      -webkit-text-size-adjust:100% !important;
+      -webkit-text-size-adjust: 100% !important;
     }
     .sku-p-text {
       font-size: 2.319vw;
@@ -939,7 +1027,6 @@ input {
       margin-top: 0;
     }
   }
-
 }
 
 .row-sb-left-padding {
@@ -955,25 +1042,29 @@ input {
   margin-bottom: 12px;
   font-weight: bold;
   width: 390px;
-  display: block;
+  // display: block;
   white-space: normal;
 }
-
+.product-name-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .sku {
   color: #4a4a4a;
   font-family: Arial;
   font-weight: normal;
   font-size: 14px;
-   -webkit-text-size-adjust:100% !important;
+  -webkit-text-size-adjust: 100% !important;
   margin-top: 15px;
-  width: 1280px;
+  margin-bottom: 10px;
 }
 
 .sku-text {
   color: #4a4a4a;
   font-family: Arial;
   font-size: 14px;
-  -webkit-text-size-adjust:100% !important;
+  -webkit-text-size-adjust: 100% !important;
   // // font-weight: bold;
   // padding-right: 15px;
 }
@@ -985,7 +1076,7 @@ input {
   font-family: Arial;
   font-weight: normal;
   font-size: 14px;
-  -webkit-text-size-adjust:100% !important;
+  -webkit-text-size-adjust: 100% !important;
   margin-top: 10px;
 }
 
@@ -1022,16 +1113,14 @@ input {
   font-size: 16px;
   font-weight: normal;
   padding-right: 10px;
-  margin-top: 35px;
-  // min-width: 92px;
+  margin-bottom: 10px;
   @media screen and (max-width: 576px) {
     margin-top: 0px !important;
+  }
 }
-}
-.product-qty-input .flooring{
+.product-qty-input .flooring {
   min-width: 44px;
 }
-
 
 .product-quantity.qty .base-input-numberz input {
   height: 45px;
@@ -1048,26 +1137,19 @@ input {
   align-items: center;
 }
 
-.product-quantity {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
-
 .mainprice .prices span {
   color: #29275b;
   font-family: Arial;
   font-weight: bold;
   font-size: 20px;
-  margin-top: 32px;
+  //   margin-top: 32px;
   display: block;
 }
 
 .headingtop h2 {
   padding-top: 10px;
   color: #4a4a4a;
-  font-family: 'Oblik';
+  font-family: "Oblik";
   font-size: 30px;
 }
 
@@ -1085,7 +1167,7 @@ input {
 }
 
 .sb-product-img {
-  flex-basis: 21.9%;
+  //   flex-basis: 21.9%;
 }
 
 .sb-product-detail {
@@ -1102,12 +1184,12 @@ input {
 }
 
 .cart-remove-button {
-  display: flex;
-  justify-content: flex-end;
-  width: auto;
-  position: absolute;
-  right: 0;
-  top: 0;
+  // display: flex;
+  // justify-content: flex-end;
+  // width: auto;
+  // position: absolute;
+  // right: 0;
+  // top: 0;
 }
 
 .sb-md-dropdown {
@@ -1115,24 +1197,29 @@ input {
   width: 100%;
   padding: 0;
 }
-@media(max-width:360px){
+@media (max-width: 360px) {
   .product-name a {
     width: 190px !important;
     display: block;
     white-space: normal !important;
   }
 }
-@media(max-width:767px){
+@media (max-width: 767px) {
+  .row.row-sb-left-padding {
+    margin-bottom: 40px;
+  }
+  .product-quantity.product-quantity-mobile {
+    margin-left: -34%;
+  }
   .product-qty-input span {
-    // min-width: 76px;
     font-size: 2.853vw;
     margin-top: 0;
   }
-  .maincart .sb-prodcut-qty-on-cart-{
+  .maincart .sb-prodcut-qty-on-cart- {
     padding-left: 0px !important;
     margin-top: 12px;
   }
-  .options .opn{
+  .options .opn {
     font-size: 2.397vw !important;
     width: auto;
   }
@@ -1145,12 +1232,14 @@ input {
     display: block;
     white-space: normal;
   }
-  .sku{
+  .sku {
     margin-top: 10px;
+    margin-bottom: 0px;
   }
-  .options{
+  .options {
     margin-top: 10px;
-}
+    width: 100%;
+  }
 }
 @media (min-width: 767px) and (max-width: 991px) {
   .mainprice .prices span {
@@ -1165,7 +1254,7 @@ input {
 }
 @media (min-width: 991px) and (max-width: 1200px) {
   .mainprice .prices span {
-    margin-top: 33px;
+    // margin-top: 33px;
     font-size: 14px !important;
   }
   .product-qty-input span {
@@ -1174,7 +1263,7 @@ input {
     // padding-left: 0px !important;
     font-size: 12px !important;
   }
-  .maincart .firstprice{
+  .maincart .firstprice {
     font-size: 12px !important;
   }
   .update-link {
@@ -1216,16 +1305,19 @@ input {
     font-weight: bold;
   }
 }
-  .options>div {
-    display: flex;
-}
-@media (min-width: 768px){
-.sb-product-qty-input {
-  margin-left: 30px !important;
-}
-.row.row-sb-left-padding {
+
+@media (min-width: 768px) {
+  .row.row-sb-left-padding {
+    margin-bottom: 70px;
+  }
+  .row.row-sb-left-padding {
     justify-content: space-between;
-}
+  }
 }
 
+@media (min-width: 769px) {
+  .product-quantity.product-quantity-mobile {
+    width: 38%;
+  }
+}
 </style>
