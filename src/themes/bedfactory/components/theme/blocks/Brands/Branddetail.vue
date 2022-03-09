@@ -7,9 +7,9 @@
     >
       <ul>
         <li>
-          <a :href="localizedRoute(singleblock.atag)">
-            <img :src="singleblock.img" :alt="singleblock.atag"/>
-          </a>
+          <!-- <a :href="localizedRoute(singleblock.atag)"> -->
+          <img :src="singleblock.img" :alt="singleblock.atag" />
+          <!-- </a> -->
         </li>
       </ul>
     </router-link>
@@ -30,9 +30,21 @@ export default {
         [].forEach.call(mbclasses, mbclass => {
           var singleBlock = new Array(3);
 
-          singleBlock["atag"] = mbclass.querySelector("a")? mbclass.querySelector("a").attributes["href"] ? mbclass.querySelector("a").attributes["href"] :' ' :' ';
-          singleBlock["img"] = mbclass.querySelector("img")? mbclass.querySelector("img").attributes["src"] ? mbclass.querySelector("img").attributes["src"] :' ' :' ';
-          singleBlock["alt"] = mbclass.querySelector("img")? mbclass.querySelector("img").attributes["alt"] ? mbclass.querySelector("img").attributes["alt"] :' ' :' ';
+          singleBlock["atag"] = mbclass.querySelector("a")
+            ? mbclass.querySelector("a").attributes["href"]
+              ? mbclass.querySelector("a").attributes["href"]
+              : " "
+            : " ";
+          singleBlock["img"] = mbclass.querySelector("img")
+            ? mbclass.querySelector("img").attributes["src"]
+              ? mbclass.querySelector("img").attributes["src"]
+              : " "
+            : " ";
+          singleBlock["alt"] = mbclass.querySelector("img")
+            ? mbclass.querySelector("img").attributes["alt"]
+              ? mbclass.querySelector("img").attributes["alt"]
+              : " "
+            : " ";
           homeSmallBlocks[i] = singleBlock;
           i++;
         });

@@ -7,7 +7,7 @@
       >
         <div class="hm-tilingtips-content">
           <h3 v-if="title" v-html="title" class="hm-style-advice"></h3>
-         
+
           <p v-if="subtitle" class="hm-tiling-para">
             {{ subtitle }}
           </p>
@@ -19,12 +19,24 @@
       <div
         class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 home_video1 mt20"
       >
-        <router-link :to="localizedRoute(link)" v-if="link" class="hm-watch-vid">
-          <img v-lazy="image" v-if="image" width="100%" alt="home video" />
+        <router-link
+          :to="localizedRoute(link)"
+          v-if="link"
+          class="hm-watch-vid"
+        >
+          <img
+            v-lazy="image"
+            v-if="image"
+            :src="image"
+            width="100%"
+            alt="home video eee"
+          />
         </router-link>
 
         <router-link :to="localizedRoute(link)" v-if="link">
-          <button class="hm-watch-vid-mobile" v-if="buttonmobile">{{ buttonmobile }}</button>
+          <button class="hm-watch-vid-mobile" v-if="buttonmobile">
+            {{ buttonmobile }}
+          </button>
         </router-link>
       </div>
     </div>
@@ -38,55 +50,69 @@ export default {
   mixins: [cmsBlock],
   computed: {
     title() {
-      if (!this.data) { return false;}
-      let liParsedH3 = this.parsedContent.querySelector('h3');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedH3 = this.parsedContent.querySelector("h3");
       if (liParsedH3 && liParsedH3.length === 0) return false;
       return this.parsedContent.querySelector("h3").rawText;
     },
     title2() {
-      if (!this.data) { return false;}
-      let liParsedH1 = this.parsedContent.querySelector('h1');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedH1 = this.parsedContent.querySelector("h1");
       if (liParsedH1 && liParsedH1.length === 0) return false;
       return this.parsedContent.querySelector("h1").rawText;
     },
     subtitle() {
-      if (!this.data) { return false;}
-      let liParsedP = this.parsedContent.querySelector('p');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedP = this.parsedContent.querySelector("p");
       if (liParsedP && liParsedP.length === 0) return false;
       return this.parsedContent.querySelector("p").rawText;
     },
     button() {
-      if (!this.data) { return false;}
-      let liParsedBtn = this.parsedContent.querySelector('button');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedBtn = this.parsedContent.querySelector("button");
       if (liParsedBtn && liParsedBtn.length === 0) return false;
       return this.parsedContent.querySelector("button").rawText;
     },
     buttonmobile() {
-      if (!this.data) { return false;}
-      let liParsedBtnMob = this.parsedContent.querySelector('button');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedBtnMob = this.parsedContent.querySelector("button");
       if (liParsedBtnMob && liParsedBtnMob.length === 0) return false;
       return this.parsedContent.querySelector("button").rawText;
     },
     link() {
-      if (!this.data) { return false;}
-      let liParsedA = this.parsedContent.querySelector('a');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedA = this.parsedContent.querySelector("a");
       if (liParsedA && liParsedA.length === 0) return false;
       return this.parsedContent.querySelector("a").attributes["href"];
     },
     image() {
-      if (!this.data) { return false;}
-      let liParsedImg = this.parsedContent.querySelector('img');
+      if (!this.data) {
+        return false;
+      }
+      let liParsedImg = this.parsedContent.querySelector("img");
       if (liParsedImg && liParsedImg.length === 0) return false;
       return this.parsedContent.querySelector("img").attributes["src"];
-    },
-  },
+    }
+  }
 };
 </script>
-<style  scoped>
+<style scoped>
 .hm-style-advice {
   margin-top: 80px !important;
   font-size: 25px;
-  color: #071A44;
+  color: #071a44;
   font-family: Arial;
   font-weight: bold;
   font-family: oblik;
@@ -97,11 +123,11 @@ export default {
   font-family: oblik;
 }
 .hm-tiling-para {
-    font-size: 18px;
-    line-height: 1.6;
-    padding-bottom: 20px;
-    color: #333333;
-    padding-right: 119px;
+  font-size: 18px;
+  line-height: 1.6;
+  padding-bottom: 20px;
+  color: #333333;
+  padding-right: 119px;
 }
 
 .hm-watch-vid-one {
@@ -114,7 +140,7 @@ export default {
   padding: 15px 47px;
   font-size: 14px;
   border-radius: 4px;
-  background-color: #071A44;
+  background-color: #071a44;
   color: #ffffff;
 }
 .hm-watch-vid-mobile {
@@ -158,9 +184,10 @@ export default {
     display: none;
   }
 }
-@media (max-width: 575px){
-.home_video1 , .home_video{
-  padding: 0px 14px 0px 14px;
-}
+@media (max-width: 575px) {
+  .home_video1,
+  .home_video {
+    padding: 0px 14px 0px 14px;
+  }
 }
 </style>

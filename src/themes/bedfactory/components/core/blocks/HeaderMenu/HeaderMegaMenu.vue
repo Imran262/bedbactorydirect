@@ -7,20 +7,18 @@
       class="new-menu-bar new-menu-bar-main hidden-sm hidden-xs"
     >
       <MegaMenu :identifier="'megamenunew'" />
-      
     </div>
     <!-- 2
     {{'Mobile : '+ $device.isMobile}} {{$device.isMobile && ($route.name !== 'checkout' && $route.name !== 'Checkout')}} 
       {{$device.isMobile }} {{ ($route.name !== 'checkout' && $route.name !== 'Checkout')}} -->
-    
   </div>
 </template>
 <script>
 // import CmsBlock from 'theme/components/core/blocks/Cms/Block';
-import MegaMenu from 'src/themes/bedfactory/components/core/blocks/Home/MegaMenu';
-import { mapState } from 'vuex';
-import CurrentPage from 'theme/mixins/currentPage';
-import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar"
+import MegaMenu from "src/themes/bedfactory/components/core/blocks/Home/MegaMenu";
+import { mapState } from "vuex";
+import CurrentPage from "theme/mixins/currentPage";
+import UspBar from "src/themes/bedfactory/components/theme/blocks/UspBar/UspBar";
 
 export default {
   components: {
@@ -29,9 +27,9 @@ export default {
     UspBar
   },
   mixins: [CurrentPage],
-  mounted () {},
+  mounted() {},
   computed: {
-    isThankYouPage () {
+    isThankYouPage() {
       return this.$store.state.checkout.isThankYouPage
         ? this.$store.state.checkout.isThankYouPage
         : false;
@@ -193,49 +191,102 @@ export default {
       }
 
       .box {
-        width: 115px;
-        height: 66px;
-        background-color: #ee4c56;
-        position: absolute;
-        display: none;
-        top: 0px;
+        // width: 109px;
+        // height: 66px;
+        // background-color: #ee4c56;
+        // position: absolute;
+        // display: none;
+        // top: 0px;
 
-        .arrow-down {
-          width: 0;
-          height: 0;
-          border-left: 58px solid transparent;
-          border-right: 58px solid transparent;
-          border-top: 20px solid #ee4c56;
-          position: absolute;
-          bottom: -24px;
-          left: 0;
-          display: none;
-        }
+        // .arrow-down {
+        //   width: 0;
+        //   height: 0;
+        //   border-left: 55px solid transparent;
+        //   border-right: 55px solid transparent;
+        //   border-top: 20px solid #ee4c56;
+        //   position: absolute;
+        //   bottom: -24px;
+        //   left: 0;
+        //   display: none;
+        // }
       }
 
       &:hover .nav-panel-dropdown {
         display: block;
       }
 
-      &:hover .box {
-        display: block;
-      }
+      // &:hover .box {
+      //   display: block;
+      // }
     }
   }
 }
 
-.nav-panel-dropdown + .box .arrow-down {
-  display: block !important;
+// .nav-panel-dropdown + .box .arrow-down {
+//   display: block !important;
+// }
+
+.new-menu-bar ul.menu li > .menuspan {
+  position: relative;
+  width: 100%;
+  display: block;
+  &:hover {
+    background-color: #ee4c56;
+    .mystyle {
+      display: none !important;
+    }
+    & + .nav-panel-dropdown {
+      display: block !important;
+    }
+  }
+}
+.new-menu-bar ul.menu li > .menuspan.hasSubMenu {
+  &:hover {
+    &::after {
+      width: 100%;
+      height: 20px;
+      position: absolute;
+      left: 0;
+      content: "";
+      bottom: -20px;
+      z-index: 99;
+      clip-path: polygon(50% 99%, 0 0, 100% 0);
+      background-color: #ee4c56;
+    }
+  }
 }
 
-.new-menu-bar ul.menu li:hover .mystyle {
-  display: none !important;
+.new-menu-bar ul.menu li > .menuspan.hasNoSubMenu {
+  &:hover {
+    &::after {
+      content: unset !important;
+    }
+  }
 }
+
+// .new-menu-bar ul.menu li:hover:after {
+//   width: 0;
+//   height: 0;
+//   border-left: 55px solid transparent;
+//   border-right: 55px solid transparent;
+//   border-top: 20px solid #ee4c56;
+//   position: absolute;
+//   bottom: -24px px;
+//   left: 0;
+// }
+
+// .new-menu-bar ul.menu li:hover .mystyle {
+//   display: none !important;
+// }
+
+// .new-menu-bar ul.menu li:hover > .nav-panel-dropdown {
+//   display: block !important;
+// }
 
 .new-menu-bar ul.menu li.sb-menu:nth-child(12n + 11) {
   background-color: #00adee;
 }
-.new-menu-bar ul.menu li.sb-menu:nth-child(12n + 11) .box {
+.new-menu-bar ul.menu li.sb-menu:nth-child(12n + 11) .menuspan {
   background-color: #00adee;
   width: 66px;
 }
@@ -253,21 +304,21 @@ export default {
         }
 
         .nav-panel-dropdown {
-          top: 50px !important;
+          top: 52px !important;
           left: 0;
         }
         a {
           font-size: 11.96px !important;
           padding: 20px 0px;
         }
-        .box {
-          height: 52px;
-          width: 95px !important;
-          .arrow-down {
-            display: none !important;
-            border-left: 30px solid transparent !important;
-            border-right: 30px solid transparent !important;
-          }
+        .menuspan {
+          // height: 52px;
+          // width: 95px !important;
+          // .arrow-down {
+          //   display: none !important;
+          //   border-left: 30px solid transparent !important;
+          //   border-right: 30px solid transparent !important;
+          // }
         }
       }
     }
@@ -321,14 +372,14 @@ export default {
           font-size: 12.96px;
         }
 
-        .box {
-          width: 88px;
+        .menuspan {
+          // width: 88px;
 
-          .arrow-down {
-            bottom: -23px;
-            border-left: 43px solid transparent;
-            border-right: 43px solid transparent;
-          }
+          // .arrow-down {
+          //   bottom: -23px;
+          //   border-left: 43px solid transparent;
+          //   border-right: 43px solid transparent;
+          // }
         }
       }
     }
@@ -374,14 +425,14 @@ export default {
           font-size: 12.96px;
         }
 
-        .box {
-          width: 88px;
+        .menuspan {
+          // width: 88px;
 
-          .arrow-down {
-            border-left: 43px solid transparent;
-            border-right: 43px solid transparent;
-            bottom: -23px;
-          }
+          // .arrow-down {
+          //   border-left: 43px solid transparent;
+          //   border-right: 43px solid transparent;
+          //   bottom: -23px;
+          // }
         }
       }
     }
@@ -392,13 +443,13 @@ export default {
   .new-menu-bar {
     ul.menu {
       li {
-        .box {
-          width: 109px;
+        .menuspan {
+          // width: 109px;
 
-          .arrow-down {
-            border-left: 53px solid transparent;
-            border-right: 53px solid transparent;
-          }
+          // .arrow-down {
+          //   border-left: 53px solid transparent;
+          //   border-right: 53px solid transparent;
+          // }
         }
       }
     }
@@ -413,6 +464,16 @@ export default {
 @media (min-width: 768px) and (max-width: 991px) {
   .menu-frame {
     // max-width: 55%;
+  }
+}
+@media (min-width: 1200px) {
+  .new-menu-bar ul.menu li .nav-panel-dropdown {
+    left: 12px;
+  }
+}
+@media (min-width: 1200px) {
+  .menuspan {
+    width: 115px !important;
   }
 }
 </style>
