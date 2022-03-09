@@ -88,21 +88,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import CurrentPage from 'theme/mixins/currentPage'
-import Checkout from '@vue-storefront/core/pages/Checkout'
-import { bus } from '../index'
-import PersonalDetails from 'theme/components/core/blocks/Checkout/PersonalDetails'
-import Shipping from 'theme/components/core/blocks/Checkout/Shipping'
-import Payment from 'theme/components/core/blocks/Checkout/Payment'
+import { mapState } from "vuex";
+import CurrentPage from "theme/mixins/currentPage";
+import Checkout from "@vue-storefront/core/pages/Checkout";
+import { bus } from "../index";
+import PersonalDetails from "theme/components/core/blocks/Checkout/PersonalDetails";
+import Shipping from "theme/components/core/blocks/Checkout/Shipping";
+import Payment from "theme/components/core/blocks/Checkout/Payment";
 // import OrderReview from 'theme/components/core/blocks/Checkout/OrderReview';
-import CartSummary from 'theme/components/core/blocks/Checkout/CartSummary'
-import ThankYouPage from 'theme/components/core/blocks/Checkout/ThankYouPage'
-import { registerModule } from '@vue-storefront/core/lib/modules'
-import { OrderModule } from '@vue-storefront/core/modules/order'
-import config from 'config'
-import { currentStoreView } from '@vue-storefront/core/lib/multistore'
-import { mapGetters } from "vuex"
+import CartSummary from "theme/components/core/blocks/Checkout/CartSummary";
+import ThankYouPage from "theme/components/core/blocks/Checkout/ThankYouPage";
+import { registerModule } from "@vue-storefront/core/lib/modules";
+import { OrderModule } from "@vue-storefront/core/modules/order";
+import config from "config";
+import { currentStoreView } from "@vue-storefront/core/lib/multistore";
+import { mapGetters } from "vuex";
 export default {
   components: {
     PersonalDetails,
@@ -112,140 +112,140 @@ export default {
     CartSummary,
     ThankYouPage
   },
-  data () {
+  data() {
     return {
       activePaymentSection: false,
       activatePaymentBtn: false,
-      activatePaymentBtnTitle: ''
-    }
+      activatePaymentBtnTitle: ""
+    };
   },
   mixins: [Checkout, CurrentPage],
-  beforeCreate () {
-    registerModule(OrderModule)
+  beforeCreate() {
+    registerModule(OrderModule);
   },
   methods: {
-    paymentBtnUpdate (data) {
-      this.activatePaymentBtn = data.btn
-      this.activatePaymentBtnTitle = data.title
+    paymentBtnUpdate(data) {
+      this.activatePaymentBtn = data.btn;
+      this.activatePaymentBtnTitle = data.title;
     },
-    autoFillBillingDetails (paymentData) {
-      this.$bus.$emit('autoFillBilling', paymentData)
+    autoFillBillingDetails(paymentData) {
+      this.$bus.$emit("autoFillBilling", paymentData);
     },
-    checkIfDateSelected (data) {
+    checkIfDateSelected(data) {
       if (data === true) {
-        this.activePaymentSection = true
+        this.activePaymentSection = true;
       } else {
-        this.activePaymentSection = false
+        this.activePaymentSection = false;
       }
-      this.activatePaymentBtn = false
+      this.activatePaymentBtn = false;
     },
-    notifyEmptyCart () {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'warning',
+    notifyEmptyCart() {
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "warning",
         message: this.$t(
-          'Shopping cart is empty. Please add some products before entering Checkout'
+          "Shopping cart is empty. Please add some products before entering Checkout"
         ),
-        action1: { label: this.$t('OK') }
-      })
+        action1: { label: this.$t("OK") }
+      });
     },
-    notifyOutStock (chp) {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'error',
-        message: chp.name + this.$t(' is out of stock!'),
-        action1: { label: this.$t('OK') }
-      })
+    notifyOutStock(chp) {
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "error",
+        message: chp.name + this.$t(" is out of stock!"),
+        action1: { label: this.$t("OK") }
+      });
     },
-    notifyNotAvailable () {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'error',
-        message: this.$t('Some of the ordered products are not available!'),
-        action1: { label: this.$t('OK') }
-      })
+    notifyNotAvailable() {
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "error",
+        message: this.$t("Some of the ordered products are not available!"),
+        action1: { label: this.$t("OK") }
+      });
     },
-    notifyStockCheck () {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'warning',
+    notifyStockCheck() {
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "warning",
         message: this.$t(
-          'Stock check in progress, please wait while available stock quantities are checked'
+          "Stock check in progress, please wait while available stock quantities are checked"
         ),
-        action1: { label: this.$t('OK') }
-      })
+        action1: { label: this.$t("OK") }
+      });
     },
-    notifyNoConnection () {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'warning',
+    notifyNoConnection() {
+      this.$store.dispatch("notification/spawnNotification", {
+        type: "warning",
         message: this.$t(
-          'There is no Internet connection. You can still place your order. We will notify you if any of ordered products is not available because we cannot check it right now.'
+          "There is no Internet connection. You can still place your order. We will notify you if any of ordered products is not available because we cannot check it right now."
         ),
-        action1: { label: this.$t('OK') }
-      })
+        action1: { label: this.$t("OK") }
+      });
     },
-    gotoAccount () {
-      this.$bus.$emit('modal-toggle', 'modal-signup')
+    gotoAccount() {
+      this.$bus.$emit("modal-toggle", "modal-signup");
     },
-    setCheckoutPage () {
-      this.$store.commit('google-gtag/SET_CHECKOUT_PAGE', {
+    setCheckoutPage() {
+      this.$store.commit("google-gtag/SET_CHECKOUT_PAGE", {
         cartItems: this.cartItems,
         totals: this.totals
-      })
+      });
     }
   },
   computed: {
     ...mapGetters({
-      totals: 'cart/getTotals',
-      cartItems: "cart/getCartItems",
+      totals: "cart/getTotals",
+      cartItems: "cart/getCartItems"
     }),
     ...mapState({
       isOpenLogin: state => state.ui.signUp,
       currentUser: state => state.user.current
     }),
-    isThankYouPage () {
+    isThankYouPage() {
       return this.$store.state.checkout.isThankYouPage
         ? this.$store.state.checkout.isThankYouPage
-        : false
+        : false;
     },
-    grandTotal () {
-      let grandTotalVal = this.totals.find(t => t.code === 'grand_total')?.value
-      return grandTotalVal || 0.00
+    grandTotal() {
+      let grandTotalVal = this.totals.find(t => t.code === "grand_total")
+        ?.value;
+      return grandTotalVal || 0.0;
     }
   },
-  beforeMount () {
+  beforeMount() {
     // console.log('isThankYouPage' + this.$store.state.checkout.isThankYouPage);
-    console.log('this.$store.state.cart', this.$store.state.cart)
+    console.log("this.$store.state.cart", this.$store.state.cart);
     if (this.$store.state.checkout.isThankYouPage === false) {
-      console.log('isThankYouPage_IF ')
+      console.log("isThankYouPage_IF ");
       // this.$store.state.OrderDetail.orderdetail = this.$store.state.cart.platformTotals;
     }
   },
   watch: {
-    grandTotal (to, from) {
+    grandTotal(to, from) {
       if (to !== from) {
-        this.setCheckoutPage()
+        this.setCheckoutPage();
       }
     }
   },
-  async mounted () {
-    const craftyPlugin = document.createElement('script')
-    craftyPlugin.setAttribute('src', '/assets/js/crafty_postcode.class.js')
-    document.head.appendChild(craftyPlugin)
-    const sagePayConfig = await config.sagepay
-    let dropInJSUrl = 'https://pi-test.sagepay.com/api/v1/js/sagepay-dropin.js'
+  async mounted() {
+    const craftyPlugin = document.createElement("script");
+    craftyPlugin.setAttribute("src", "/assets/js/crafty_postcode.class.js");
+    document.head.appendChild(craftyPlugin);
+    const sagePayConfig = await config.sagepay;
+    let dropInJSUrl = "https://pi-test.sagepay.com/api/v1/js/sagepay-dropin.js";
     if (sagePayConfig) {
-      let selectedMode = sagePayConfig.selectedMode ? sagePayConfig.selectedMode : 'test'
+      let selectedMode = sagePayConfig.selectedMode
+        ? sagePayConfig.selectedMode
+        : "test";
       if (sagePayConfig[selectedMode]) {
-        let selectedConfig = await sagePayConfig[selectedMode]
+        let selectedConfig = await sagePayConfig[selectedMode];
         if (selectedConfig.urls && selectedConfig.urls.dropinJs) {
-          dropInJSUrl = selectedConfig.urls.dropinJs
+          dropInJSUrl = selectedConfig.urls.dropinJs;
         }
       }
     }
-    let checkoutCdn = document.createElement('script')
-    checkoutCdn.setAttribute(
-      'src',
-      dropInJSUrl
-    )
-    await document.head.appendChild(checkoutCdn)
-    this.setCheckoutPage()
+    let checkoutCdn = document.createElement("script");
+    checkoutCdn.setAttribute("src", dropInJSUrl);
+    await document.head.appendChild(checkoutCdn);
+    this.setCheckoutPage();
   },
   metaInfo: () => {
     // let recaptchaScript = document.createElement('script')
@@ -253,35 +253,37 @@ export default {
     // document.head.appendChild(recaptchaScript)
 
     if (config && config.paypal) {
-      const storeView = currentStoreView()
-      const { currencyCode } = storeView.i18n
-      const clientId = config.paypal.hasOwnProperty('clientId') ? config.paypal.clientId : ''
-      const sdkUrl = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=${currencyCode}&disable-funding=card,credit,sofort`
+      const storeView = currentStoreView();
+      const { currencyCode } = storeView.i18n;
+      const clientId = config.paypal.hasOwnProperty("clientId")
+        ? config.paypal.clientId
+        : "";
+      const sdkUrl = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=${currencyCode}&disable-funding=card,credit,sofort`;
       return {
         script: [
           {
-            type: 'text/javascript',
-            src: 'https://cdn.checkout.com/js/framesv2.min.js',
+            type: "text/javascript",
+            src: "https://cdn.checkout.com/js/framesv2.min.js",
             defer: true,
             async: true
           },
           {
-            type: 'text/javascript',
+            type: "text/javascript",
             src: sdkUrl,
             defer: true,
             async: true
           }
         ]
-      }
+      };
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import '~theme/css/base/text';
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import "~theme/css/base/text";
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
 
 $bg-secondary: color(secondary, $colors-background);
 $color-tertiary: color(tertiary);
@@ -347,24 +349,8 @@ $color-black: color(black);
       height: 25px;
       width: 25px;
       border-radius: 50%;
-      border: 1px solid #57c9c0  !important;
+      border: 1px solid #57c9c0 !important;
       margin-left: 15px;
-    }
-    input:checked ~ .checkmark:after {
-      // content: '' !important;
-      // position: absolute;
-      // display: none;
-      // top: 4px !important;
-      // left: 9px !important;
-      // width: 4px !important;
-      // height: 10px !important;
-      // border-radius: 0 !important;
-      // border: solid #4c5053;
-      // border-width: 0 3px 3px 0;
-      // -webkit-transform: rotate(45deg);
-      // -ms-transform: rotate(45deg);
-      // transform: rotate(45deg);
-      // background: transparent !important;
     }
   }
 
@@ -410,7 +396,7 @@ $color-black: color(black);
       margin-left: 0px !important;
 
       &:after {
-        content: '' !important;
+        content: "" !important;
         position: absolute;
         display: none;
         top: 3px !important;
@@ -459,7 +445,7 @@ $color-black: color(black);
       margin-left: -30px;
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         display: none;
         top: 3px;
@@ -467,7 +453,7 @@ $color-black: color(black);
         width: 19px;
         height: 19px;
         border-radius: 50%;
-       background: #57c9c0 ;
+        background: #57c9c0;
       }
     }
 
@@ -479,7 +465,7 @@ $color-black: color(black);
 
 .line {
   &:after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 0;
@@ -537,7 +523,7 @@ $color-black: color(black);
 
 .return-shopping a {
   font-size: 26.1px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
   color: #54575b;
   background: url(/assets/return-shopinig-back.png);
@@ -569,7 +555,7 @@ $color-black: color(black);
 
 .checkout-top-icons ul li span {
   font-size: 28px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
   line-height: 2;
   padding-left: 70px;
@@ -613,18 +599,6 @@ $color-black: color(black);
   }
 }
 
-@media (max-width: 480px) {
-  #checkout .radioStyled .checkmark {
-    // top: 4px !important;
-    // left: -18px;
-  }
-}
-@media (min-width: 480px) and (max-width: 580px) {
-  #checkout .radioStyled .checkmark {
-    // top: 3px !important;
-  }
-}
-
 @media (min-width: 320px) and (max-width: 767px) {
   .delivery-detail-col {
     width: 100%;
@@ -640,24 +614,6 @@ $color-black: color(black);
   #checkout .delivery-methods-detail .radioStyled {
     font-size: 12px;
   }
-  #checkout .radioStyled .checkmark {
-    // height: 20px;
-    // width: 20px;
-    // top: -2px;
-    // left: -10px;
-  }
-  #checkout .delivery-methods-detail input:checked ~ .checkmark:after {
-    // top: 2px !important;
-    // left: 7px !important;
-    // width: 4px !important;
-  }
-  #checkout .radioStyled .checkmark:after {
-    // content: '';
-    // top: 0px;
-    // left: 0px;
-    // width: 20px;
-    // height: 20px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -665,28 +621,18 @@ $color-black: color(black);
     font-size: 12px;
     // padding-left: 20px;
   }
-    #checkout .calendar-right-inner .checkmark {
-      margin-left: 18px !important;
-    }
-        label.radioStyled.pre-del span {
-      // margin-left: 9px !important;
-    }
+  #checkout .calendar-right-inner .checkmark {
+    margin-left: 18px !important;
+  }
 }
 @media (min-width: 320px) and (max-width: 480px) {
-  #checkout .radioStyled {
-    // font-size: 2.35vw;
-    // padding-left: 20px !important;
-  }
   .bank-card ul li img {
     width: 22px;
     margin-top: 7px;
     display: block;
   }
-   label.radioStyled.pre-del span {
-      // margin-left: 30px !important;
-    }
 }
 label.radioStyled.sb-payment-method-label {
-    margin-left: 25px;
+  margin-left: 25px;
 }
 </style>

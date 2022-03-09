@@ -1,6 +1,6 @@
 <template>
   <div class="main-usp-bar">
-    <div class="usp-bar container focusUnsetChild">
+    <div class="usp-bar container focusUnsetChild fullWidth">
       <VueSlickCarousel v-if="this.$device.isMobile" v-bind="settingsMobile">
         <div class="focusUnset" v-for="slide in uspData" :key="slide.id">
           <div class="bus-img-main">
@@ -86,7 +86,7 @@ import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
 export default {
   components: {
     CmsBlock,
-    VueSlickCarousel,
+    VueSlickCarousel
     // "no-ssr": NoSSR,
     // Carousel: () => import("vue-carousel").then((Slider) => Slider.Carousel),
     // Slide: () => import("vue-carousel").then((Slider) => Slider.Slide),
@@ -110,8 +110,8 @@ export default {
               slidesToScroll: 1,
               autoplay: true,
               autoplaySpeed: 2000,
-              pauseOnHover: true,
-            },
+              pauseOnHover: true
+            }
           },
           {
             breakpoint: 767,
@@ -121,10 +121,10 @@ export default {
               slidesToScroll: 1,
               autoplay: true,
               focusOnSelect: false,
-              autoplaySpeed: 5000,
-            },
-          },
-        ],
+              autoplaySpeed: 5000
+            }
+          }
+        ]
       },
       settingsMobile: {
         infinite: true,
@@ -143,8 +143,8 @@ export default {
               slidesToScroll: 1,
               autoplay: true,
               autoplaySpeed: 2000,
-              pauseOnHover: true,
-            },
+              pauseOnHover: true
+            }
           },
           {
             breakpoint: 767,
@@ -154,11 +154,11 @@ export default {
               slidesToScroll: 1,
               autoplay: true,
               focusOnSelect: false,
-              autoplaySpeed: 5000,
-            },
-          },
-        ],
-      },
+              autoplaySpeed: 5000
+            }
+          }
+        ]
+      }
     };
   },
   name: "homeDelivery",
@@ -182,7 +182,7 @@ export default {
           let dataObject = {
             linktext: anchortext.toString(),
             actuallink: anchorlink.toString(),
-            icon: imgicon.toString(),
+            icon: imgicon.toString()
           };
           storeAllData.push(dataObject);
         });
@@ -191,12 +191,12 @@ export default {
     },
     title() {
       return config?.themeConfigurations?.title;
-    },
+    }
   },
-  methods: {},
+  methods: {}
 };
 </script>
-<style lang='scss'>
+<style lang="scss">
 .focusUnset:focus {
   outline: unset !important;
 }
@@ -207,7 +207,7 @@ export default {
   text-align: center !important;
 }
 .main-usp-bar {
-  background-color: #F1F8FF;
+  background-color: #f1f8ff;
 }
 .usp-bar-box {
   img {
@@ -282,4 +282,10 @@ a.usp-a {
 //     margin: 0 auto;
 // }
 // }
+
+@supports (-moz-appearance: none) {
+  .fullWidth > .bedfactorydirect {
+    width: 100%;
+  }
+}
 </style>

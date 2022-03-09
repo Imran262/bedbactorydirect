@@ -16,14 +16,14 @@
 import Productlist from "src/themes/bedfactory/components/theme/blocks/FamiliarProducts/ProductlistTM";
 export default {
   components: {
-    Productlist,
-  },
+    Productlist
+  }
 };
 </script>
 <style lang="scss">
 @media (min-width: 767px) {
   .familiar-brands {
-    padding: 0px 0px 27px 0px; 
+    padding: 0px 0px 27px 0px;
     .desktop {
       text-align: center;
       font-size: 26px;
@@ -71,7 +71,7 @@ export default {
           background: rgba(0, 0, 0, 0.3);
         }
         &:hover h3 {
-          color:#071A44;
+          color: #071a44;
           z-index: 999;
         }
       }
@@ -164,9 +164,11 @@ export default {
     padding: 74px 0px;
   }
 }
-.fullWidth {
-    .row{
-    width: 100%;
+@supports (-moz-appearance: none) {
+  .fullWidth {
+    .row {
+      width: 100%;
+    }
   }
 }
 </style>
