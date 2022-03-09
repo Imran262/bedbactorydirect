@@ -29,10 +29,10 @@ export default {
         let sidebarMenu = document.getElementById('sidebarmenucontainer')
         if (sidebarMenu != null) {
           console.log('9512 BEFORE vissible in hamberger',bodyVar.classList)
-          bodyVar.classList.toggle('body-fixed');
-          console.log('9512 AFTER vissible in hamberger',bodyVar.classList)
-          // return bodyVar.classList.toggle('body-fixed')
-      return ;
+          // bodyVar.classList.toggle('body-fixed');
+          // console.log('9512 AFTER vissible in hamberger',bodyVar.classList)
+          return bodyVar.classList.remove('body-fixed')
+      // return ;
        }
       }, 100)
     }

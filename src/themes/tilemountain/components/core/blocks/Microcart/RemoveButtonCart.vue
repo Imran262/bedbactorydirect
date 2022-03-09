@@ -1,6 +1,6 @@
 <template>
   <button @click="$emit('click')" class="cart-remove-btn">
-    <span class="h6 hidden-xs">{{ $t('Remove') }}</span>
+    <span class="h6 hidden-xs">{{ $t("Remove") }}</span>
   </button>
 </template>
 <style scoped>
@@ -9,6 +9,7 @@
   border: none;
   display: flex;
   flex-direction: row;
+  padding: 0;
 }
 .cart-remove-btn:after {
   content: "x";
