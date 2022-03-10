@@ -7,7 +7,7 @@
     <div
       class="footer-main"
       id="footer-main-desktop"
-      v-show="windowWidth >= 768"
+      v-show="!$device.isMobile"
     >
       <div class="container">
         <div class="row">
@@ -103,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile-footer" v-show="windowWidth < 768">
+    <div class="mobile-footer" v-show="$device.isMobile">
       <div class="container">
         <div class="row">
           <!-- <div class="w-100 footerPaddings"> -->
