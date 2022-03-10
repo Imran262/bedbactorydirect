@@ -520,6 +520,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      originalRoute : null,
       previousPrice:-1,
       filtersKey:0,
       priceUpdated:false,
@@ -659,6 +660,18 @@ export default {
     this.handleResize()
   },
   async mounted () {
+   console.log("7456321 route is ",this.$route.path);
+   if(this.$route.path.includes('clearance-beds')){
+     this.originalRoute = this.$route.path; 
+        let nextRoute = this.$route.path.split('clearance-beds');
+        console.log('7456321 Next route is ',nextRoute);
+        this.$router.push(this.localizedRoute("/clearance-beds"));
+    setTimeout(() => {
+      console.log("7456321 After 5 seconds",originalRoute);
+      this.$router.push(this.localizedRoute(originalRoute));
+    }, 5000);
+      }
+    
     await this.getBrandData();
     this.reRenderBlock++;
     this.getAvailableFiltersCustom();
@@ -674,8 +687,12 @@ export default {
     
     // this.getAvailableFiltersCustom();
     this.filtersKey++;
-    this.getAvailableFiltersCustom();
+    setTimeout(() => {
+      console.log("75321 After 2 seconds");
+      this.getAvailableFiltersCustom();
     this.filtersKey++;
+    }, 5000);
+    
     this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
     window.addEventListener('resize', this.myEventHandler)
     this.children = await this.fetchCategoriesAndSubCategories()
@@ -866,16 +883,23 @@ export default {
         })
     //    console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
       } 
+      console.log("75321 the initial price is",catFilters.price[0]);   
       if (this.previousPrice >= 0)
       {
         console.log("75321 in if ");
-        catFilters.price[0] = 1;
         this.previousPrice = catFilters.price[0]
+        catFilters.price[0] -= 1;
+
+        // if (catFilters.price[0] === 5)
+        // {
+        //   catFilters.price[0] = 1;
+        // }
+        
       }
       else{
         console.log("75321 in else ");
-        catFilters.price[0] = 0;
         this.previousPrice = catFilters.price[0]
+        catFilters.price[0] -= 1;
       }
       
       // if (catFilters.price[0] === this.previousPrice){
@@ -884,8 +908,8 @@ export default {
       // else{
       //   catFilters.price[0] = 0; 
       // }
-      console.log("Price Filter updated");
-      this.categoryFilters= catFilters;
+        console.log("75321 now the initial price becomes",catFilters.price[0]);      
+        this.categoryFilters= catFilters;
       this.filtersKey++;
       // if (this.priceUpdated === true){
       //   this.categoryFilters.price[1] = this.endingPrice;
