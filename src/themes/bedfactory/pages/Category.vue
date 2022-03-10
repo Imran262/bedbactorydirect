@@ -667,8 +667,8 @@ export default {
         console.log('7456321 Next route is ',nextRoute);
         this.$router.push(this.localizedRoute("/clearance-beds"));
     setTimeout(() => {
-      console.log("7456321 After 5 seconds",originalRoute);
-      this.$router.push(this.localizedRoute(originalRoute));
+      console.log("7456321 After 5 seconds",this.originalRoute);
+      this.$router.push(this.localizedRoute(this.originalRoute));
     }, 5000);
       }
     
