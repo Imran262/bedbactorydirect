@@ -218,6 +218,7 @@
               getCurrentSearchQuery.sort ? getCurrentSearchQuery.sort : ''
             "
             :filters="categoryFilters"
+            :key="filtersKey"
             @changeFilter="changeFilter"
             :prodlisting="
               isListingProducts ||
@@ -255,6 +256,7 @@
         <!-- Mobile Filters -->
         <div class="col-md-3 start-xs mobile-filters" v-if="mobileFilters">
           <sidebar
+          :key="filtersKey"
             class="mobile-filters-body"
             :filters="categoryFilters"
             @changeFilter="changeFilter"
@@ -518,6 +520,10 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      previousPrice:-1,
+      filtersKey:0,
+      priceUpdated:false,
+      endingPrice:0.0,
       brandsImageData: [],
       reRenderBlock: 0,
       productListingUpdate:0,
@@ -656,6 +662,20 @@ export default {
     await this.getBrandData();
     this.reRenderBlock++;
     this.getAvailableFiltersCustom();
+//     let variantData = {
+//   "id": (this.categoryFilters.price[0]-10).toString()+".0"+"-"+this.categoryFilters.price[1].toString()+".0",
+//   "type": "price",
+//   "from": this.categoryFilters.price[0]-10,
+//   "to": this.categoryFilters.price[1],
+//   "remove": false
+// }
+// console.log("Filter data ",variantData,this.categoryFilters.price);
+    // this.$bus.$emit('apply-filter-custom', variantData)
+    
+    // this.getAvailableFiltersCustom();
+    this.filtersKey++;
+    this.getAvailableFiltersCustom();
+    this.filtersKey++;
     this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
     window.addEventListener('resize', this.myEventHandler)
     this.children = await this.fetchCategoriesAndSubCategories()
@@ -845,8 +865,38 @@ export default {
          return a.id -b.id
         })
     //    console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+      } 
+      if (this.previousPrice >= 0)
+      {
+        console.log("75321 in if ");
+        catFilters.price[0] = 1;
+        this.previousPrice = catFilters.price[0]
       }
+      else{
+        console.log("75321 in else ");
+        catFilters.price[0] = 0;
+        this.previousPrice = catFilters.price[0]
+      }
+      
+      // if (catFilters.price[0] === this.previousPrice){
+      //   catFilters.price[0] = 1; 
+      // }
+      // else{
+      //   catFilters.price[0] = 0; 
+      // }
+      console.log("Price Filter updated");
       this.categoryFilters= catFilters;
+      this.filtersKey++;
+      // if (this.priceUpdated === true){
+      //   this.categoryFilters.price[1] = this.endingPrice;
+      // }
+      // else{
+      //   this.endingPrice = this.categoryFilters.price[1];
+      //   this.categoryFilters.price[1] = this.categoryFilters.price[1] - 50;
+      //   this.priceUpdated = true
+      // }
+      
+      // console.log("785421 Here to get all available filters",this.categoryFilters.price[1],this.categoryFilters);
       return catFilters
     
     },
