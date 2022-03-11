@@ -661,11 +661,15 @@ export default {
      this.originalRoute = this.$route.path; 
         let nextRoute = this.$route.path.split('clearance-beds');
         console.log('7456321 Next route is ',nextRoute);
-        this.$router.push(this.localizedRoute("/clearance-beds"));
+        setTimeout(() => {
+      console.log("7456321 After 0.5 seconds");
+            this.$router.push(this.localizedRoute("/clearance-beds"));
+    }, 500);
+  
     setTimeout(() => {
       console.log("7456321 After 5 seconds",this.originalRoute);
       this.$router.push(this.localizedRoute(this.originalRoute));
-    }, 1000);
+    }, 2000);
       }
     await this.getBrandData();
     this.reRenderBlock++;
