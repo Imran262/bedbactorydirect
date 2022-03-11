@@ -215,6 +215,7 @@ export default {
       }
     },
     $route(to, from) {
+      console.log("7456321 In header",to.path , from.path);
       console.log("789456 In Header in cart", this.$route, to, from);
       if (to.name === "cart") {
         this.$store.dispatch("cart/sync", {
