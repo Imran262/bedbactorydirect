@@ -665,7 +665,7 @@ export default {
     setTimeout(() => {
       console.log("7456321 After 5 seconds",this.originalRoute);
       this.$router.push(this.localizedRoute(this.originalRoute));
-    }, 100);
+    }, 1000);
       }
     await this.getBrandData();
     this.reRenderBlock++;
