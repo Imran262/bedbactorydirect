@@ -664,12 +664,12 @@ export default {
         setTimeout(() => {
       console.log("7456321 After 0.5 seconds");
             this.$router.push(this.localizedRoute("/clearance-beds"));
-    }, 500);
+    }, 200);
   
     setTimeout(() => {
       console.log("7456321 After 5 seconds",this.originalRoute);
       this.$router.push(this.localizedRoute(this.originalRoute));
-    }, 2000);
+    }, 1000);
       }
     await this.getBrandData();
     this.reRenderBlock++;
