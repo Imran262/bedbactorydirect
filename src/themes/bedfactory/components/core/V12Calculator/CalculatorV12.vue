@@ -205,6 +205,7 @@ export default {
               initialDeposit = parseFloat(initialDeposit).toFixed(2)
               initialDeposit = ceil10(initialDeposit,-1)
               // initialDeposit = Math.ceil(initialDeposit)
+              initialDeposit = initialDeposit.toString();
               console.log("778855 Deposit becomes ",initialDeposit );
             }
             else if (this.despositOptionSelected === 0.5  || this.despositOptionSelected === '0.5')
@@ -220,6 +221,7 @@ export default {
               // initialDeposit = parseInt(initialDeposit)
               initialDeposit = parseFloat(initialDeposit).toFixed(2)
               initialDeposit = floor10(initialDeposit,-1)
+              initialDeposit = initialDeposit.toString();
               console.log("778855 Deposit becomes ",initialDeposit );
             }
           let creditAmount = parseFloat(totalPrice - initialDeposit).toFixed(2);

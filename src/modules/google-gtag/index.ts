@@ -21,7 +21,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           }
         },
         includes: [{
-          id: appConfig.globalSiteTag.GA4_id || 'G-MQ0RMQSH9J'
+          id: appConfig.globalSiteTag.GA4_id || 'G-Q5973J67QM'
         }],
         pageTrackerTemplate (to, from) {
           // Need to identify if its a category route.
@@ -237,6 +237,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
       }
       // Measuring Views of Product Lists
       if (type === 'google-gtag/SET_PRODUCT_LIST') {
+        console.log("96325 Here to set product list in google tag manager");
         if (payload.products && payload.isListingProducts) {
           let viewItemListData = {
             items: [mapViewListToGtag(payload.products)]
@@ -245,6 +246,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
         }
       }
       if (type === 'google-gtag/SET_CATEGORY') {
+        console.log("96325 Here to set category list in google tag manager");
         if (payload.catName && payload.isListingProducts === false) {
           GTAG.event('dynCategory', {
             'ecomm_pagetype': 'category',

@@ -29,7 +29,11 @@
               >
             </div>
 
-            <div v-else class="subcategory-item" @click="menuItemsEmit()">
+            <div
+              v-else
+              class="subcategory-item"
+              @click="menuItemsEmit(), colorChange(), toggleMenu()"
+            >
               <router-link
                 class="px25 py20 cl-accent no-underline col-xs"
                 :to="localizedRoute(category.link)"
@@ -248,6 +252,24 @@ export default {
     clearAllBodyScrollLocks()
   },
   methods: {
+    
+      colorChange () {
+        console.log("hamberger 123456")
+        let hamColorChange = document.getElementById('hamberger')
+        hamColorChange.classList.remove('hamberger-color')
+   
+    },
+    toggleMenu () {
+      setTimeout(function () {
+        let bodyVar = document.getElementsByTagName('BODY')[0]
+        let sidebarMenu = document.getElementById('sidebarmenucontainer')
+        if (sidebarMenu != null) {
+          console.log("hamberger 9512 In sub category custom new",bodyVar.classList);
+          return bodyVar.classList.remove('body-fixed')
+        }
+      }, 100)
+    },
+
     login () {
       if (!this.currentUser && this.isCurrentMenuShowed) {
         this.$nextTick(() => {
@@ -269,12 +291,12 @@ export default {
 
 <style lang="scss" scoped>
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
 }
-@import '~theme/css/animations/transitions';
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import "~theme/css/animations/transitions";
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
 $bg-secondary: color(secondary, $colors-background);
 $color-gainsboro: color(gainsboro);
 $color-matterhorn: color(matterhorn);
@@ -332,7 +354,7 @@ $color-mine-shaft: color(mine-shaft);
       padding-top: 9px;
       font-size: 10.59px;
       color: #434343;
-      font-family: 'Oblik';
+      font-family: "Oblik";
       line-height: 1.5;
     }
     a {
@@ -340,7 +362,7 @@ $color-mine-shaft: color(mine-shaft);
       padding-top: 9px;
       font-size: 15px;
       color: #434343;
-      font-family: 'Oblik';
+      font-family: "Oblik";
       line-height: 1.5;
     }
   }

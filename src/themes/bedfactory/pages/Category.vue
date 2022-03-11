@@ -561,6 +561,7 @@ export default {
     getCurrentCategoryBrProductsResponseGetters (newData, oldData) {
       if (newData !== oldData) {
         if (this.listingPageCompute) {
+          console.log("96325 about to set products for category 3");
           this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
         }
       }
@@ -573,6 +574,7 @@ export default {
     async getCurrentCategoryId (to, from) {
       if (to !== from) {
         this.children = await this.fetchCategoriesAndSubCategories()
+        console.log("96325 about to set products for category 2");
         this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
         // this.setGtagProductsList();
       }
@@ -665,7 +667,11 @@ export default {
 
     // ForGtag
     // this.setGtagProductsList()
+    setTimeout(() => {
+      console.log("96325 about to set products for category 1 new data",this.getCategoryProducts);
     this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
+    }, 5000);
+    
   },
   computed: {
     ...mapGetters({
