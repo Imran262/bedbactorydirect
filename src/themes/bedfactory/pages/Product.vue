@@ -101,7 +101,7 @@
                 :offline="getOfflineImage"
                 :configuration="getCurrentProductConfiguration"
                 :product="getCurrentProduct"
-                @page-change="page => (currentGalleryPage = page)"
+                @page-change="(page) => (currentGalleryPage = page)"
                 :imagelength="getProductGallery.length"
               />
               <!-- <div
@@ -303,7 +303,6 @@
                 </div>
               </div>
               <!-- Price Section Start-->
-
               <div
                 class="price serif bt-price-main"
                 v-if="getCurrentProduct.type_id !== 'grouped'"
@@ -311,7 +310,7 @@
                 <div
                   v-if="
                     getCurrentProduct.price_incl_tax &&
-                      getCurrentProduct.original_price_incl_tax
+                    getCurrentProduct.original_price_incl_tax
                   "
                 >
                   <!-- deltaproduct {{ productCurrentCustomOptions }} -->
@@ -349,7 +348,7 @@
                     class="error"
                     v-if="
                       getCurrentProduct.errors &&
-                        Object.keys(getCurrentProduct.errors).length > 0
+                      Object.keys(getCurrentProduct.errors).length > 0
                     "
                   >
                     <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
@@ -368,16 +367,19 @@
                       {{ option.label }}
                       <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                     </h4>
-
                     <div class="row top-xs m0 variants-wrapper">
                       <div
                         class="sizes basin_size"
                         v-if="option.label == 'Color'"
                       >
-                        <select class="CustomSelectClass" @change="changeFilterCustom($event)">
+                        <select
+                          class="CustomSelectClass"
+                          @change="changeFilterCustom($event)"
+                        >
                           <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
+
                           <template
                             v-for="filter in getAvailableFilters[
                               option.attribute_code
@@ -399,6 +401,7 @@
                         @change="changeFilter"
                       />-->
                       </div>
+
                       <div
                         class="sizes basin_size"
                         v-else-if="option.label == 'Size'"
@@ -440,7 +443,7 @@
                         v-else
                       >
                         <!-- {{option.attribute_code}}
-                      <br/> else -->
+                          <br/> else -->
                         <select
                           class="chevron-down-icon CustomSelectClass"
                           @change="changeFilterCustom($event)"
@@ -462,16 +465,16 @@
                           </template>
                         </select>
                         <!-- <span v-if="colorValidation" class="error1"
-                          >Field is required</span
-                        > -->
+                                    >Field is required</span
+                                  > -->
                         <!-- <generic-selector
-                        class="mr10 mb10"
-                        v-for="filter in getAvailableFilters[option.attribute_code]"
-                        :key="filter.id"
-                        :variant="filter"
-                        :selected-filters="getSelectedFilters"
-                        @change="changeFilter"
-                      />-->
+                                  class="mr10 mb10"
+                                  v-for="filter in getAvailableFilters[option.attribute_code]"
+                                  :key="filter.id"
+                                  :variant="filter"
+                                  :selected-filters="getSelectedFilters"
+                                  @change="changeFilter"
+                                />-->
                       </div>
                       <!-- <span
                         v-if="option.label == 'Size'"
@@ -483,6 +486,9 @@
                       </span>-->
                     </div>
                   </div>
+                  <span class="error5" v-if="isFabricText">
+                    This option is not available for you selected!
+                  </span>
                 </div>
               </div>
 
@@ -556,7 +562,7 @@
               <product-bundle-options
                 v-if="
                   getCurrentProduct.bundle_options &&
-                    getCurrentProduct.bundle_options.length > 0
+                  getCurrentProduct.bundle_options.length > 0
                 "
                 :product="getCurrentProduct"
               />
@@ -564,7 +570,7 @@
               <div
                 v-if="
                   getCurrentProduct.custom_options &&
-                    getCurrentProduct.custom_options.length > 0
+                  getCurrentProduct.custom_options.length > 0
                 "
               >
                 <product-custom-options
@@ -579,9 +585,9 @@
                     class="fabric-button-design"
                     v-if="
                       getCurrentProduct.isFabric !== 0 &&
-                        getCurrentProduct.isFabric !== '0' &&
-                        getCurrentProduct.isFabric !== ' ' &&
-                        getCurrentProduct.isFabric !== false
+                      getCurrentProduct.isFabric !== '0' &&
+                      getCurrentProduct.isFabric !== ' ' &&
+                      getCurrentProduct.isFabric !== false
                     "
                   >
                     <button
@@ -685,7 +691,7 @@
                     <template
                       v-if="
                         getCurrentProduct.custom_options &&
-                          getCurrentProduct.custom_options.length > 0
+                        getCurrentProduct.custom_options.length > 0
                       "
                     >
                       <!-- simple product button  -->
@@ -784,7 +790,7 @@
           <h2
             v-if="
               getCurrentProduct.description &&
-                getCurrentProduct.description.length > 0
+              getCurrentProduct.description.length > 0
             "
             id="product-dimension-icon-id"
             class="
@@ -1110,6 +1116,7 @@ export default {
       ViewCalculatorCheck: false,
       currentConfiguration: {},
       isFabrics: false,
+      isFabricText: false,
       // colorValidation: false,
       detailsOpen: false,
       ProDeliveryShow: true,
@@ -1451,41 +1458,31 @@ export default {
       return true;
     },
     structuredData() {
-      let flag = false;
-      console.log(
-        "9878 structured data",
-        this.getCurrentProduct.type_id,
-        this.getCurrentProduct.stock.is_in_stock,
-        JSON.stringify(this.getCurrentProduct)
-      );
-      if (this.getCurrentProduct.type_id === "configurable") {
-        console.log("9878 yes this is a configurable product");
-        if (
-          this.getCurrentProduct.configurable_children &&
-          this.getCurrentProduct.configurable_children.length > 0
-        ) {
-          this.getCurrentProduct.configurable_children.forEach(
-            (child, index) => {
-              console.log(
-                "9878 stock status",
-                child.stock.is_in_stock,
-                child.stock
-              );
-              if (child.stock.is_in_stock) {
-                console.log("9878 Its true");
-                flag = true;
-              }
-            }
-          );
-        } else {
-          if (
-            this.getCurrentProduct.stock &&
-            this.getCurrentProduct.stock.is_in_stock
-          ) {
-            flag = true;
-          }
+        let flag = false;
+        console.log( "9878 structured data", this.getCurrentProduct.type_id,this.getCurrentProduct.stock.is_in_stock, JSON.stringify(this.getCurrentProduct));
+         if (this.getCurrentProduct.type_id === "configurable")
+          {
+            console.log("9878 yes this is a configurable product");
+           if (
+              this.getCurrentProduct.configurable_children &&
+              this.getCurrentProduct.configurable_children.length > 0
+            ) {
+                 this.getCurrentProduct.configurable_children.forEach(
+                 (child, index) => {
+                 console.log("9878 stock status",child.stock.is_in_stock,child.stock);
+                 if (child.stock.is_in_stock)
+                  {
+                     console.log("9878 Its true");
+                     flag = true; 
+                    } 
+                  });
+               } else {
+                 if ( this.getCurrentProduct.stock && this.getCurrentProduct.stock.is_in_stock) 
+                {
+                 flag = true;
+               }
         }
-      } else {
+       } else {
         if (
           this.getCurrentProduct.stock &&
           this.getCurrentProduct.stock.is_in_stock
@@ -1558,7 +1555,9 @@ export default {
         });
     },
     getAvailableFilters() {
+        console.log('select items');
       return getAvailableFiltersByProduct(this.getCurrentProduct);
+    
     },
     getSelectedFilters() {
       return getSelectedFiltersByProduct(
@@ -1883,11 +1882,11 @@ export default {
       const _ = require("lodash");
       let newObjList = [];
       let products = this.getCurrentProduct.configurable_children;
-      // console.log("885522 Products", products);
+      console.log("885522 Products", products);
       let val = 10;
       let sampleObject = this.getCurrentProductConfiguration;
       let sampleObject2 = _.clone(sampleObject);
-      //  console.log("Current Configuration", sampleObject);
+       console.log("Current Configuration", sampleObject);
       if (products && products.length > 0) {
         console.log("Length of Children is greater than zero");
         products.forEach((product, productIndex) => {
@@ -1922,7 +1921,6 @@ export default {
             //   sampleObject2[i].id
             // );
           }
-
           // console.log("newObj",newObj['size'].id);
           newObjList.push(newObj);
         });
@@ -1934,25 +1932,24 @@ export default {
     },
     changeFilterCustom(event) {
       // this.colorValidation = true;
-      console.log("112233 change filter custommm");
-      console.log("112233 change filter custom", event);
+      console.log(" SelectedOptions 112233 change filter custommm 1");
+      console.log(" SelectedOptions 112233 change filter custom 12", event);
       let variant = JSON.parse(event.target.value);
-      console.log("112233 change filter custommm",variant);
+      console.log(" SelectedOptions 112233 change filter custommm 123",variant);
       let newOptionSelected = true;
       if (this.SelectedOptions.length) {
         this.SelectedOptions.forEach((option, index) => {
           if (this.SelectedOptions[index] === variant.type) {
-            // consol.log("variant type", variant.type);
+            console.log("variant type");
             newOptionSelected = false;
+            this.isFabricText= false
           }
         });
       }
-
       if (newOptionSelected) {
         this.SelectedOptions.push(variant.type);
-        console.log("SelectedOptions", variant);
+        console.log("SelectedOptions 1234", variant);
       }
-
       if (
         this.getCurrentProduct.configurable_options.length ===
         this.SelectedOptions.length
@@ -1966,15 +1963,15 @@ export default {
       );
       delete filterOption.type;
       console.log(
-        "VariantIS",
+        " SelectedOptions VariantIS",
         variant,
-        "filter option is ",
+        " SelectedOptions filter option is ",
         filterOption,
-        "variant.type",
+        " SelectedOptions variant.type",
         variant.type
       );
       let configuration = this.getCurrentProductConfiguration;
-      console.log("currentProductConfiguration", configuration);
+      console.log(" SelectedOptions currentProductConfiguration", configuration);
       // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
       let changedConfig = Object.assign({}, configuration);
       changedConfig[variant.type].id = variant.id;
@@ -2030,21 +2027,21 @@ export default {
           flag = true;
         } else {
           if (childIndex + 1 == this.configurableChildren.length) {
+            console.log('At the end of children',this.configurableChildren.length)
             // this.colorValidation = false;
             // this.colorValidation2 = false;
 
             // this.colorValidation = false;
-            console.log("At the end of children", flag);
+            console.log("At the end of children 1234", flag);
             if (flag) {
+              console.log('At the end of children 1234567',flag)
               // this.getQuantity();
             } else {
-              // disable cart
-              console.log(
-                "this variant was not found",
-                this.currentConfiguration
-              );
-              // this.cartFlag = true;
-              console.log("cart flag is ", this.cartFlag);
+                      // disable cart//
+                      console.log( "this variant was not found", this.currentConfiguration, 'button is disable',newOptionSelected);
+                      this.cartFlag = true;
+                      console.log("this variant was not found 3030 cart flag is ", this.cartFlag);
+                      this.isFabricText= true;
             }
           }
         }
@@ -3191,7 +3188,6 @@ $color-tertiary: color(tertiary);
 $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
-
 .chevron-down {
   background: url(/assets/icons/rightarrow.png) no-repeat 99% 53% !important;
   background-size: 17px !important;
@@ -3490,6 +3486,14 @@ i.product-detail-icon {
   width: auto;
   font-family: "Roboto", sans-serif !important;
 }
+.error5 {
+  color: #ee4c56;
+  padding-top: 10px;
+  font-weight: 700;
+  display: block;
+  width: auto;
+  font-family: "Roboto", sans-serif !important;
+}
 
 .image {
   @media (max-width: 1023px) {
@@ -3685,7 +3689,7 @@ i.product-detail-icon {
       display: inline-block;
       font-family: Arial;
       font-size: 0.815rem;
-      -webkit-text-size-adjust:100% !important;
+      -webkit-text-size-adjust: 100% !important;
       font-weight: bold;
     }
 
@@ -4183,7 +4187,7 @@ a:not(.no-underline):hover:after {
 
     .product-detail {
       padding: 0px;
-       margin-top: 1rem;
+      margin-top: 1rem;
 
       .product-detail-inner {
         margin: 10px 0 0 0;
