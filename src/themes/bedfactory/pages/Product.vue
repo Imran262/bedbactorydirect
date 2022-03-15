@@ -1742,6 +1742,7 @@ export default {
         this.SelectedOptions = [];
         this.cartFlag = true;
         this.cutomRerender++
+        this.isFabricText= false
       
       }
     },
@@ -1932,15 +1933,14 @@ export default {
     },
     changeFilterCustom(event) {
       // this.colorValidation = true;
-      console.log(" SelectedOptions 112233 change filter custommm 1");
-      console.log(" SelectedOptions 112233 change filter custom 12", event);
+      console.log(" SelectedOptions 112233 change filter custom 1", event);
       let variant = JSON.parse(event.target.value);
-      console.log(" SelectedOptions 112233 change filter custommm 123",variant);
+      console.log(" SelectedOptions 112233 change filter custommm 12",variant);
       let newOptionSelected = true;
       if (this.SelectedOptions.length) {
         this.SelectedOptions.forEach((option, index) => {
           if (this.SelectedOptions[index] === variant.type) {
-            console.log("variant type");
+            console.log("SelectedOptions variant type 123 ");
             newOptionSelected = false;
             this.isFabricText= false
           }
@@ -1948,13 +1948,13 @@ export default {
       }
       if (newOptionSelected) {
         this.SelectedOptions.push(variant.type);
-        console.log("SelectedOptions 1234", variant);
+        console.log("SelectedOptions push variant type 1234", variant);
       }
       if (
         this.getCurrentProduct.configurable_options.length ===
         this.SelectedOptions.length
       ) {
-        // console.log("get valu is here aagain");
+        console.log(" SelectedOptions two input is select then button enable");
         this.cartFlag = false;
       }
       let filterOption = Object.assign(
@@ -2037,11 +2037,19 @@ export default {
               console.log('At the end of children 1234567',flag)
               // this.getQuantity();
             } else {
+                       if (
+                          this.getCurrentProduct.configurable_options.length ===
+                          this.SelectedOptions.length
+                        ) {
+                          console.log(" SelectedOptions two input is select then button disablable 12345");
+                          this.cartFlag = true;
+                           this.isFabricText= true;
+                        }
                       // disable cart//
-                      console.log( "this variant was not found", this.currentConfiguration, 'button is disable',newOptionSelected);
-                      this.cartFlag = true;
-                      console.log("this variant was not found 3030 cart flag is ", this.cartFlag);
-                      this.isFabricText= true;
+                      // console.log( " SelectedOption this variant was not found", this.currentConfiguration);
+                      // this.cartFlag = true;
+                      // console.log(" SelectedOptionthis variant was not found 3030 cart flag is ", this.cartFlag);
+                      // this.isFabricText= true;
             }
           }
         }
