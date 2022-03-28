@@ -3,62 +3,89 @@
     <form class="custom-options" v-if="product.custom_options">
       <div
         v-for="(option, count) in product.custom_options"
-        :key="'customOption_' + option.option_id + count">
-        <h4 v-if="!color" class="basin-head">{{ option.title }} </h4>
+        :key="'customOption_' + option.option_id + count"
+      >
+        <h4 v-if="!color" class="basin-head">{{ option.title }}</h4>
         <div
           v-if="
             (option.iscolor == 1 ||
               option.iscolor == '1' ||
               option.iscolor == true) &&
-            color">
-
-
+            color
+          "
+        >
           <div class="custom-option mb15 basin">
-            <h4 class="basin-head">{{ option.title }}<i data-v-0b1c0f15="" class="material-icons close fab-cross cl-white" @click="$emit('closeColorPickerModal')">close</i></h4>
+            <h4 class="basin-head">
+              {{ option.title
+              }}<i
+                data-v-0b1c0f15=""
+                class="material-icons close fab-cross cl-white"
+                @click="$emit('closeColorPickerModal')"
+                >close</i
+              >
+            </h4>
             <span @click="$emit('closeColorPickerModal')" class="close-modal">
             </span>
 
             <div
               class="mt5 mb5 basin_size basin-size-color"
-              v-if="option.type === 'select' || option.type === 'drop_down'" >
+              v-if="option.type === 'select' || option.type === 'drop_down'"
+            >
               <!-- <i
                 data-v-35f9ed0c=""
                 class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down-clr"
                 ></i
               > -->
               <select
-                    ref="colorImage"
-                    :name="'customOption_' + option.option_id"
-                    class="m0 no-outline chevron-down chevron-down-color inside-Fabric chevron-down"
-                    v-model="inputValues['customOption_' + option.option_id]"
-                    @focus="$emit('focus')"
-                    @blur="$emit('blur')"
-                    @change="
-                    setOption(option);
-                    setImage();">
+                ref="colorImage"
+                :name="'customOption_' + option.option_id"
+                class="
+                  m0
+                  no-outline
+                  chevron-down chevron-down-color
+                  inside-Fabric
+                  chevron-down
+                "
+                v-model="inputValues['customOption_' + option.option_id]"
+                @focus="$emit('focus')"
+                @blur="$emit('blur')"
+                @change="
+                  setOption(option);
+                  setImage();
+                "
+              >
                 <option disabled value="" :key="2378695843" selected="selected">
                   Please Select
                 </option>
                 <template v-for="(opval, key) in option.values">
                   <option
-                      v-if="key == 0"
-                      :value="opval.option_type_id"
-                      :key="key">
-                      {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
+                    v-if="key == 0"
+                    :value="opval.option_type_id"
+                    :key="key"
+                  >
+                    {{ opval.title }}
+                    {{
+                      opval.price ? "| £" + opval.price.toFixed(2) : "| £0.00"
+                    }}
                   </option>
                   <option v-else :value="opval.option_type_id" :key="key">
-                        {{ opval.title }} {{opval.price ? '| £'+opval.price.toFixed(2) :'| £0.00'}}
+                    {{ opval.title }}
+                    {{
+                      opval.price ? "| £" + opval.price.toFixed(2) : "| £0.00"
+                    }}
                   </option>
                 </template>
               </select>
-               <span
-                     class="error"
-                      v-if="
-                     validation.results['customOption_' + option.option_id] &&
-                      validation.results['customOption_' + option.option_id].error">
-                       {{
-                            validation.results["customOption_" + option.option_id].message
-                         }}
+              <span
+                class="error"
+                v-if="
+                  validation.results['customOption_' + option.option_id] &&
+                  validation.results['customOption_' + option.option_id].error
+                "
+              >
+                {{
+                  validation.results["customOption_" + option.option_id].message
+                }}
               </span>
               <div
                 class="select-img-display"
@@ -76,38 +103,29 @@
                       )
                     "
                     class="selctedImage"
-                    :src="
-                      backEnd+'/pub/media/catalog/layer' +
-                      value.layer
-                    "
+                    :src="backEnd + '/pub/media/catalog/layer' + value.layer"
                     alt="Image"
                   />
                 </div>
               </div>
-              <div class="custom-attribute-list height-adjust">
+              <div
+                class="custom-attribute-list"
+                :class="{ height_adjust: newHeightAdjust }"
+              >
                 <div
                   v-for="(value, vIndex) in option.values"
                   :key="vIndex + value.layer"
                 >
                   <img
                     class="allImages"
-                    :src="
-                      backEnd+'/pub/media/catalog/layer' +
-                      value.layer
-                    "
+                    :src="backEnd + '/pub/media/catalog/layer' + value.layer"
                     alt="Image"
                     @click="
                       showOption(value, option);
                       setOption(option);
+                      addCustomHeight();
                     "
                   />
-                </div>
-              </div>
-
-              <div class="green-grad-main">
-                <div @click="confirmColor()" class="green-grad confirm-extra">
-                  
-                  CONFIRM COLOUR
                 </div>
               </div>
             </div>
@@ -119,101 +137,136 @@
             (option.iscolor == 0 ||
               option.iscolor == '0' ||
               option.iscolor == ' ' ||
-              option.iscolor == false) && !color" >
+              option.iscolor == false) &&
+            !color
+          "
+        >
           <div class="custom-option mb15 basin">
-                    <input
-                      class="py10 w-100 border-box brdr-none brdr-bottom-1 brdr-cl-primary h4 sans-serif"
-                      v-if="option.type === 'field'"
-                      type="text"
-                      :name="'customOption_' + option.option_id"
-                      focus
-                      v-model="inputValues['customOption_' + option.option_id]"
-                      :placeholder="option.title"
-                      @change="optionChanged(option)"
-                    />
-                <div
-                    class="m5 relative"
-                    v-for="opval in option.values"
-                    :key="opval.option_type_id"
-                    v-if="option.type === 'radio'"
-                    >
-                  <input
-                    @change="optionChanged(option)"
-                    type="radio"
-                    class="m0 no-outline"
-                    :name="'customOption_' + option.option_id"
-                    :id="'customOption_' + opval.option_type_id"
-                    focus
-                    :value="opval.option_type_id"
-                    v-model="inputValues['customOption_' + option.option_id]"
-                    />
-                    <label
-                    class="pl10 lh20 h4 pointer"
-                    :for="'customOption_' + opval.option_type_id"
-                    v-html="opval.title"
-                    />
-                </div>
+            <input
+              class="
+                py10
+                w-100
+                border-box
+                brdr-none brdr-bottom-1 brdr-cl-primary
+                h4
+                sans-serif
+              "
+              v-if="option.type === 'field'"
+              type="text"
+              :name="'customOption_' + option.option_id"
+              focus
+              v-model="inputValues['customOption_' + option.option_id]"
+              :placeholder="option.title"
+              @change="optionChanged(option)"
+            />
+            <div
+              class="m5 relative"
+              v-for="opval in option.values"
+              :key="opval.option_type_id"
+              v-if="option.type === 'radio'"
+            >
+              <input
+                @change="optionChanged(option)"
+                type="radio"
+                class="m0 no-outline"
+                :name="'customOption_' + option.option_id"
+                :id="'customOption_' + opval.option_type_id"
+                focus
+                :value="opval.option_type_id"
+                v-model="inputValues['customOption_' + option.option_id]"
+              />
+              <label
+                class="pl10 lh20 h4 pointer"
+                :for="'customOption_' + opval.option_type_id"
+                v-html="opval.title"
+              />
+            </div>
 
-
-                  <!-- Size Product and Storage  -->
-                  <!-- ////////  Size //////////  -->
-            <div class="mt5 mb5 relative basin_size"
-                  v-if="option.type === 'select' || option.type === 'drop_down'">
-                    <!-- <i
+            <!-- Size Product and Storage  -->
+            <!-- ////////  Size //////////  -->
+            <div
+              class="mt5 mb5 relative basin_size"
+              v-if="option.type === 'select' || option.type === 'drop_down'"
+            >
+              <!-- <i
                       class="material-icons p15 cl-bg-tertiary pointer select-color-icon chevron-down"
                       ></i 
                     > -->
-                  <select
-                      ref="selectedOption"
-                      :name="'customOption_' + option.option_id"
-                      class="m0 no-outline size-storage-select chevron-down"
-                      v-model="inputValues['customOption_' + option.option_id]"
-                      @focus="$emit('focus'), optionChanged(option)"
-                      @blur="$emit('blur')"
-                      @change="optionChanged(option), setCrossOptions(option)"
-                       >
-                    <option disabled value="" :key="2378695843" selected="selected">
-                      Please Select
-                    </option>
-                    <template v-for="(opval, key) in option.values">
-                      <option
-                        v-if="key == 0"
-                        :value="opval.option_type_id"
-                        :key="key"
-                      >
-                        {{ opval.title }}
-                      </option>
-                      <option v-else :value="opval.option_type_id" :key="key">
-                        {{ opval.title }}
-                      </option>
-                    </template>
-                  </select>
+              <select
+                ref="selectedOption"
+                :name="'customOption_' + option.option_id"
+                class="m0 no-outline size-storage-select chevron-down"
+                v-model="inputValues['customOption_' + option.option_id]"
+                @focus="$emit('focus'), optionChanged(option)"
+                @blur="$emit('blur')"
+                @change="optionChanged(option), setCrossOptions(option)"
+              >
+                <option disabled value="" :key="2378695843" selected="selected">
+                  Please Select
+                </option>
+                <template v-for="(opval, key) in option.values">
+                  <option
+                    v-if="key == 0"
+                    :value="opval.option_type_id"
+                    :key="key"
+                  >
+                    {{ opval.title }}
+                  </option>
+                  <option v-else :value="opval.option_type_id" :key="key">
+                    {{ opval.title }}
+                  </option>
+                </template>
+              </select>
             </div>
-
-
 
             <!-- //////// Size End/////////////  -->
 
             <div
-                  class="m5 relative"
-                  v-for="opval in option.values"
-                  :key="opval.option_type_id"
-                  v-if="option.type === 'checkbox'" >
-                  <input @change="optionChanged(option)" type="checkbox" class="m0 no-outline" :name="'customOption_' + option.option_id"
-                    :id="'customOption_' + opval.option_type_id"
-                    focus
-                    :value="opval.option_type_id"
-                    v-model="inputValues['customOption_' + option.option_id]"/>
-                  <label  class="pl10 lh20 h4 pointer"
-                    :for="'customOption_' + opval.option_type_id"
-                    v-html="opval.title"/>
+              class="m5 relative"
+              v-for="opval in option.values"
+              :key="opval.option_type_id"
+              v-if="option.type === 'checkbox'"
+            >
+              <input
+                @change="optionChanged(option)"
+                type="checkbox"
+                class="m0 no-outline"
+                :name="'customOption_' + option.option_id"
+                :id="'customOption_' + opval.option_type_id"
+                focus
+                :value="opval.option_type_id"
+                v-model="inputValues['customOption_' + option.option_id]"
+              />
+              <label
+                class="pl10 lh20 h4 pointer"
+                :for="'customOption_' + opval.option_type_id"
+                v-html="opval.title"
+              />
             </div>
-            <span class="error"
-                 v-if=" validation.results['customOption_' + option.option_id] && validation.results['customOption_' + option.option_id].error">
-                     {{
-                        validation.results["customOption_" + option.option_id].message
-                     }}
-              </span>
+            <span
+              class="error"
+              v-if="
+                validation.results['customOption_' + option.option_id] &&
+                validation.results['customOption_' + option.option_id].error
+              "
+            >
+              {{
+                validation.results["customOption_" + option.option_id].message
+              }}
+            </span>
+          </div>
+        </div>
+        <div
+          v-if="
+            (option.iscolor == 1 ||
+              option.iscolor == '1' ||
+              option.iscolor == true) &&
+            color
+          "
+          class="green-grad-main"
+        >
+          <div @click="confirmColor()" class="green-grad confirm-extra">
+            CONFIRM COLOUR
           </div>
         </div>
       </div>
@@ -231,6 +284,7 @@ export default {
   components: {},
   data() {
     return {
+      newHeightAdjust: false,
       backEnd: config.backEnd,
       options: [],
       imageSrc: "",
@@ -270,6 +324,14 @@ export default {
     // this.product = this.currProduct;
     // this.product = this.getCurrentProduct;
   },
+  watch:{
+        $route(to, from) {
+         if (from.path !== to.path) {
+         this.newHeightAdjust = false;
+      }
+    },
+
+  },
   methods: {
     update() {
       this.$forceUpdate();
@@ -308,6 +370,11 @@ export default {
       data1 = this.$refs.colorImage;
       this.imageSrc = value.option_type_id;
     },
+       addCustomHeight(){
+      // let height = this.$refs.
+        this.newHeightAdjust = true;
+        console.log('505050 height change', this.newHeightAdjust );
+    },
     setImage() {
       let data = this.$refs.colorImage[0].selectedOptions[0];
       this.colorName = data.innerHTML;
@@ -317,9 +384,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.chevron-down{
-background: url(/assets/icons/downarrow.png) no-repeat 99% 46% !important;
-background-size: 17px !important ;
+.chevron-down {
+  background: url(/assets/icons/downarrow.png) no-repeat 99% 46% !important;
+  background-size: 17px !important ;
 }
 .height-adjust {
   height: calc(100vh - 212px);
@@ -355,14 +422,14 @@ $color-error: color(error);
   }
   .basin_size {
     select {
-    background: #ffffff;
-    //  font-family: 'OBLIK';
-      color: #071A44;
+      background: #ffffff;
+      //  font-family: 'OBLIK';
+      color: #071a44;
       font-size: 16px;
-      border: 2px solid #071A44;
+      border: 2px solid #071a44;
       appearance: none;
       padding-left: 4px !important;
-       cursor: pointer;
+      cursor: pointer;
     }
   }
 }
@@ -491,33 +558,37 @@ input[type="checkbox"] {
   margin-left: 0;
 }
 .select-img-display {
-  width: 96.7%;
-  margin-top: 10px;
+  width: 96%;
+  margin-top: 5px;
 }
 .select-img-display div img {
-  max-height: 200px;
+  max-height: 150px;
   width: 100%;
 }
 .custom-attribute-list {
   margin: 20px 0;
-  max-height: calc(100vh - 155px);
   /* height: 100%; */
-  overflow: auto;
+  overflow-y: auto;
+  height: calc(100vh - 185px);
+}
+.height_adjust {
+  overflow-y: auto;
+  height: calc(100vh - 335px);
 }
 .green-grad-main {
   background: #fafafa;
   height: 75px;
   /*width: 96.7%;*/
   width: 90%;
-  position: absolute;
-  bottom: 15px;
+  // position: absolute;
+  // bottom: 15px;
 }
 .green-grad.confirm-extra {
   width: 100%;
   max-width: calc(100% - 60px);
-  vertical-align: baseline;
-  position: absolute;
-  bottom: 22px;
+  // vertical-align: baseline;
+  // position: absolute;
+  // bottom: 22px;
   border-radius: 4px;
   padding: 0 1rem;
   line-height: 45px;
@@ -526,9 +597,8 @@ input[type="checkbox"] {
   font-family: Arial;
   font-weight: 600;
   display: inline-block;
-  background: #57c9c0 no-repeat 100%
-    55%;
-  left: 0;
+  background: #57c9c0 no-repeat 100% 55%;
+  // left: 0;
   cursor: pointer;
 }
 @media (max-width: 767px) {
@@ -545,9 +615,9 @@ input[type="checkbox"] {
     width: 62px;
     height: 62px;
   }
-  .select-img-display div img {
-    max-height: 100px;
-  }
+  // .select-img-display div img {
+  //   max-height: 100px;
+  // }
   .green-grad.confirm-extra {
     width: 100%;
     max-width: calc(100% - 60px);
@@ -568,9 +638,9 @@ input[type="checkbox"] {
   .custom-attribute-list div {
     width: calc(16.5% - 8px);
   }
-  .select-img-display div img {
-    max-height: 100px;
-  }
+  // .select-img-display div img {
+  //   max-height: 100px;
+  // }
 }
 .select-color-icon {
   padding: 0;
@@ -594,17 +664,17 @@ select {
   /*padding: 2px 2px 2px 2px;*/
   border: none;
 }
-.basin_size {
-  width: 550px;
+// .basin_size {
+//   width: 550px;
+// }
+@media (max-width: 1268px) {
+  .basin_size {
+    width: 400px;
+  }
 }
- @media (max-width: 1268px){
-    .basin_size {
-      width: 400px;
-  }
-  }
 h4.basin-head {
-    color: #071A44 !important;
-     margin-bottom: 5px;
+  color: #071a44 !important;
+  margin-bottom: 5px;
 }
 /*@media only screen and (min-device-width: 320px) and (max-device-width: 400px) {
 .size-storage-select {
@@ -627,13 +697,13 @@ h4.basin-head {
 .chevron-down-color {
   width: 100% !important;
 }
-@media (max-width: 767px){
-.inside-Fabric {
-     width: 100% !important;
+@media (max-width: 767px) {
+  .inside-Fabric {
+    width: 100% !important;
+  }
 }
-}
-.chevron-down-clr{
- padding: 0;
+.chevron-down-clr {
+  padding: 0;
   float: right;
   color: #000;
   font-size: 20px;
@@ -645,19 +715,19 @@ h4.basin-head {
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-.basin_size{
-    width: 95%;
+.basin_size {
+  width: 95% !important;
 }
 select.m0.no-outline.size-storage-select {
-    width: 100%;
+  width: 100%;
 }
 .fab-cross {
-    position: relative;
-    top: -2px;
-    float: right;
-   cursor: pointer;
-   background: #EE4C56;
-    border: 2px solid #EE4C56;
-    border-radius: 22px;
+  position: relative;
+  top: -2px;
+  float: right;
+  cursor: pointer;
+  background: #ee4c56;
+  border: 2px solid #ee4c56;
+  border-radius: 22px;
 }
 </style>

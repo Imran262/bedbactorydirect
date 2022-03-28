@@ -101,7 +101,7 @@
                 :offline="getOfflineImage"
                 :configuration="getCurrentProductConfiguration"
                 :product="getCurrentProduct"
-                @page-change="page => (currentGalleryPage = page)"
+                @page-change="(page) => (currentGalleryPage = page)"
                 :imagelength="getProductGallery.length"
               />
               <!-- <div
@@ -311,7 +311,7 @@
                 <div
                   v-if="
                     getCurrentProduct.price_incl_tax &&
-                      getCurrentProduct.original_price_incl_tax
+                    getCurrentProduct.original_price_incl_tax
                   "
                 >
                   <!-- deltaproduct {{ productCurrentCustomOptions }} -->
@@ -349,7 +349,7 @@
                     class="error"
                     v-if="
                       getCurrentProduct.errors &&
-                        Object.keys(getCurrentProduct.errors).length > 0
+                      Object.keys(getCurrentProduct.errors).length > 0
                     "
                   >
                     <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
@@ -374,7 +374,10 @@
                         class="sizes basin_size"
                         v-if="option.label == 'Color'"
                       >
-                        <select class="CustomSelectClass" @change="changeFilterCustom($event)">
+                        <select
+                          class="CustomSelectClass"
+                          @change="changeFilterCustom($event)"
+                        >
                           <option disabled value="" :key="2378695843" selected>
                             Please select
                           </option>
@@ -556,7 +559,7 @@
               <product-bundle-options
                 v-if="
                   getCurrentProduct.bundle_options &&
-                    getCurrentProduct.bundle_options.length > 0
+                  getCurrentProduct.bundle_options.length > 0
                 "
                 :product="getCurrentProduct"
               />
@@ -564,7 +567,7 @@
               <div
                 v-if="
                   getCurrentProduct.custom_options &&
-                    getCurrentProduct.custom_options.length > 0
+                  getCurrentProduct.custom_options.length > 0
                 "
               >
                 <product-custom-options
@@ -579,9 +582,9 @@
                     class="fabric-button-design"
                     v-if="
                       getCurrentProduct.isFabric !== 0 &&
-                        getCurrentProduct.isFabric !== '0' &&
-                        getCurrentProduct.isFabric !== ' ' &&
-                        getCurrentProduct.isFabric !== false
+                      getCurrentProduct.isFabric !== '0' &&
+                      getCurrentProduct.isFabric !== ' ' &&
+                      getCurrentProduct.isFabric !== false
                     "
                   >
                     <button
@@ -685,7 +688,7 @@
                     <template
                       v-if="
                         getCurrentProduct.custom_options &&
-                          getCurrentProduct.custom_options.length > 0
+                        getCurrentProduct.custom_options.length > 0
                       "
                     >
                       <!-- simple product button  -->
@@ -784,7 +787,7 @@
           <h2
             v-if="
               getCurrentProduct.description &&
-                getCurrentProduct.description.length > 0
+              getCurrentProduct.description.length > 0
             "
             id="product-dimension-icon-id"
             class="
@@ -1742,6 +1745,7 @@ export default {
         }
         this.SelectedOptions = [];
         this.cartFlag = true;
+         this.isFabrics = false;
         this.cutomRerender++
       
       }
@@ -3685,7 +3689,7 @@ i.product-detail-icon {
       display: inline-block;
       font-family: Arial;
       font-size: 0.815rem;
-      -webkit-text-size-adjust:100% !important;
+      -webkit-text-size-adjust: 100% !important;
       font-weight: bold;
     }
 
@@ -4183,7 +4187,7 @@ a:not(.no-underline):hover:after {
 
     .product-detail {
       padding: 0px;
-       margin-top: 1rem;
+      margin-top: 1rem;
 
       .product-detail-inner {
         margin: 10px 0 0 0;
@@ -5314,7 +5318,7 @@ h4.variants-label.basin-head {
   background-color: #071a44 !important;
 }
 .basin_size.colour {
-  width: 95%;
+  width: 95% !important;
 }
 
 button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
