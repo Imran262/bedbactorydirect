@@ -518,6 +518,7 @@ export default {
   mixins: [GTAGCategory],
   data () {
     return {
+      originalRoute : null,
       brandsImageData: [],
       reRenderBlock: 0,
       productListingUpdate:0,
@@ -655,6 +656,23 @@ export default {
     this.handleResize()
   },
   async mounted () {
+   console.log("7456321 route is ",this.$route.path);
+   if(this.$route.path.includes('clearance-beds')){
+     this.originalRoute = this.$route.path; 
+        let nextRoute = this.$route.path.split('clearance-beds');
+        console.log('7456321 Next route is ',nextRoute);
+        setTimeout(() => {
+      console.log("7456321 After 0.5 seconds");
+            this.$router.push(this.localizedRoute("/clearance-beds"));
+            setTimeout(() => {
+      console.log("7456321 After 5 seconds",this.originalRoute);
+      this.$router.push(this.localizedRoute(this.originalRoute));
+    }, 100);
+    }, 1000);
+    
+  
+    
+      }
     await this.getBrandData();
     this.reRenderBlock++;
     this.getAvailableFiltersCustom();
