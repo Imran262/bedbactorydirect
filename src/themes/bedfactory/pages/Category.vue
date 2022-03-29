@@ -670,10 +670,8 @@ export default {
     }
   },
   async beforeMount() {
-    console.log("raja beforeMount here ");
     window.addEventListener("scroll", event => {
       let scroll = window.scrollY;
-      console.log("raja unmounted scroll", scroll);
       if (scroll > 0) localStorage.setItem("scrollloc", scroll);
     });
     await this.getBrandData();
@@ -684,7 +682,6 @@ export default {
     this.handleResize();
   },
   async mounted() {
-    console.log("raja mounted here ", this.$route.path);
     if (this.$route.path.includes("clearance-beds")) {
       this.originalRoute = this.$route.path;
       let nextRoute = this.$route.path.split("clearance-beds");
@@ -728,7 +725,6 @@ export default {
     }, 5000);
     setTimeout(() => {
       let loca = localStorage.getItem("scrollloc");
-      console.log("raja bahir h", loca);
       window.scrollTo(0, loca);
     }, 1200);
   },
