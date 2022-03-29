@@ -487,7 +487,7 @@
                     </div>
                   </div>
                   <span class="error5" v-if="isFabricText">
-                    This option is not available for you selected!
+                    This product is not available!
                   </span>
                 </div>
               </div>
@@ -3495,11 +3495,10 @@ i.product-detail-icon {
   font-family: "Roboto", sans-serif !important;
 }
 .error5 {
-  color: #ee4c56;
-  padding-top: 10px;
-  font-weight: 700;
+  color: gray;
+  padding-top: 6px;
+  font-weight: 600;
   display: block;
-  width: auto;
   font-family: "Roboto", sans-serif !important;
 }
 
