@@ -486,9 +486,9 @@
                       </span>-->
                     </div>
                   </div>
-                  <span class="error5" v-if="isFabricText">
+                  <!-- <span class="error5" v-if="isFabricText">
                     This product is not available!
-                  </span>
+                  </span> -->
                 </div>
               </div>
 
@@ -1116,7 +1116,7 @@ export default {
       ViewCalculatorCheck: false,
       currentConfiguration: {},
       isFabrics: false,
-      isFabricText: false,
+      // isFabricText: false,
       // colorValidation: false,
       detailsOpen: false,
       ProDeliveryShow: true,
@@ -1742,7 +1742,7 @@ export default {
         this.SelectedOptions = [];
         this.cartFlag = true;
         this.cutomRerender++
-        this.isFabricText= false
+        // this.isFabricText= false
       
       }
     },
@@ -1942,7 +1942,7 @@ export default {
           if (this.SelectedOptions[index] === variant.type) {
             console.log("SelectedOptions variant type 123 ");
             newOptionSelected = false;
-            this.isFabricText= false
+            // this.isFabricText= false
           }
         });
       }
@@ -2002,7 +2002,7 @@ export default {
         // console.log("7788");
         // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
         console.log(
-          "7788 Child is ",
+          "7788 Child is edit ",'child edit',child, 'child index',childIndex,
           "\n",
           JSON.stringify(child) == JSON.stringify(changedConfig),
           "\n",
@@ -2012,6 +2012,7 @@ export default {
         );
         // if()
         this.currentConfiguration = changedConfig;
+        this.option = false;
         if (JSON.stringify(child) == JSON.stringify(changedConfig)) {
           //  let variant = JSON.parse(event.target.value)
           console.log("774455", "child matched will emit ", child.stock);
@@ -2043,7 +2044,7 @@ export default {
                         ) {
                           console.log(" SelectedOptions two input is select then button disablable 12345");
                           this.cartFlag = true;
-                           this.isFabricText= true;
+                          //  this.isFabricText= true;
                         }
                       // disable cart//
                       // console.log( " SelectedOption this variant was not found", this.currentConfiguration);
