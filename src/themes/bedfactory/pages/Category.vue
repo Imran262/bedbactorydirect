@@ -6,12 +6,11 @@
         <div class="category-info">
           <div class="row middle-sm">
             <div class="col-sm-12">
-                <h1 class="category-title mb10" v-if="$device.isMobile">
+              <h1 class="category-title mb10" v-if="$device.isMobile">
                 {{ getCurrentCategory.name }}
               </h1>
             </div>
 
-            
             <!-- <div class="sorting col-sm-2 align-right mt50"></div> -->
           </div>
         </div>
@@ -19,7 +18,6 @@
       <div class="under-catergory-filter">
         <div class="container">
           <div class="row m0images catrow" v-if="!isListingProducts">
-            
             <button
               v-if="pageLayout !== '1column'"
               class="col-xs-5 mr15filters1 mobile-filters-button1 brdr-none cl-white"
@@ -30,7 +28,7 @@
               "
             >
               <img src="/assets/images/filter.svg" alt="filter" />
-              <p>{{ $t('Filter') }}</p>
+              <p>{{ $t("Filter") }}</p>
             </button>
           </div>
 
@@ -38,24 +36,24 @@
             class="row m0 prodrow"
             v-show="
               isListingProducts ||
-              getCurrentCategory.display_mode === 'PRODUCTS' ||
-              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+                getCurrentCategory.display_mode === 'PRODUCTS' ||
+                getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
             <div class="col-xs-6 col-sm-6 pl0">
               <button
-              class=" mr15filters mobile-filters-button brdr-none cl-white w-100"
-              @click="
-                openFilters();
-                overlayshow();
-                buttonshow();
-              "
+                class=" mr15filters mobile-filters-button brdr-none cl-white w-100"
+                @click="
+                  openFilters();
+                  overlayshow();
+                  buttonshow();
+                "
               >
                 <!-- <img src="/assets/images/filter.svg" alt="filter" /> -->
-                <p>{{ $t('Filter') }}</p>
+                <p>{{ $t("Filter") }}</p>
               </button>
             </div>
-            
+
             <div class="sorting1 sot col-sm-6 col-md-2 col-xs-6">
               <!-- <div class="sortp1">
                 <p>Sort by:</p>
@@ -71,26 +69,33 @@
                 <p>{{ getCategoryProductsTotal }} Results</p>
               </div> -->
             </div>
-             
           </div>
         </div>
       </div>
-             <span
-              class="weight-400 sidebar__header__clear pointer sans-serif flex lh37 sortbycleartxt col-sm-4 col-xs-2"
-            >
-              <p
-                class="clearallp"
-                @click="resetAllFilters"
-                v-show="hasActiveFilters1"
-              >
-                {{ $t('Clear All') }}
-              </p>
-            </span>
+      <span
+        class="weight-400 sidebar__header__clear pointer sans-serif flex lh37 sortbycleartxt col-sm-4 col-xs-2"
+      >
+        <p
+          class="clearallp"
+          @click="resetAllFilters"
+          v-show="hasActiveFilters1"
+        >
+          {{ $t("Clear All") }}
+        </p>
+      </span>
     </header>
     <header class="desktopheader">
       <div class="container">
         <router-link
-          :to="localizedRoute(getCurrentCategory.banner_url? getCurrentCategory.banner_url : (product_link ? '/' + product_link : ''))"
+          :to="
+            localizedRoute(
+              getCurrentCategory.banner_url
+                ? getCurrentCategory.banner_url
+                : product_link
+                ? '/' + product_link
+                : ''
+            )
+          "
         >
           <div class="firstcol title-box sb-category-tile-text">
             <div class="sb-left-text" v-if="!$device.isMobile">
@@ -98,11 +103,14 @@
               <p v-html="getCurrentCategory.banner_description" />
             </div>
           </div>
-<!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
+          <!-- getCurrentCategory          {{getCurrentCategory.banner_image}} -->
           <div class="secondcol img-box">
             <!-- https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg -->
             <img
-              :src="(getCurrentCategory.banner_image ? (backEnd +  getCurrentCategory.banner_image):'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg')
+              :src="
+                getCurrentCategory.banner_image
+                  ? backEnd + getCurrentCategory.banner_image
+                  : 'https://admin.bedfactorydirect.co.uk/media/wysiwyg/bedfactory-sale-banner-desktop.jpg'
               "
               :alt="getCurrentCategory.name"
               class="headerimg"
@@ -121,7 +129,7 @@
             class="col-xs-4 mt25 mr15 p15 mobile-filters-button bg-cl-th-accent brdr-none cl-white h5 sans-serif fs-medium-small"
             @click="openFilters"
           >
-            {{ $t('Filters') }}
+            {{ $t("Filters") }}
           </button>
           <div class="mobile-sorting col-xs-4 mt25">
             <sort-by
@@ -155,8 +163,8 @@
         ref="secondHead"
         v-if="
           isListingProducts ||
-          getCurrentCategory.display_mode === 'PRODUCTS' ||
-          getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+            getCurrentCategory.display_mode === 'PRODUCTS' ||
+            getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
         "
       >
         <span class="col-sm-2 side-filter sorting pl0">
@@ -165,7 +173,7 @@
             alt="filter"
             class="filtericon"
           />
-          <p class="filterp">{{ $t('Refine by') }}</p>
+          <p class="filterp">{{ $t("Refine by") }}</p>
         </span>
         <div class="col-md-10 sotby">
           <div class="sorting sot p0">
@@ -181,7 +189,7 @@
             </div>
           </div>
           <div class="sorting droppy col-sm-4">
-            <label class="mr10 collabel">{{ $t('Show') }}:</label>
+            <label class="mr10 collabel">{{ $t("Show") }}:</label>
             <columns @change-column="columnChange" />
             <p class="totalprods">{{ getCategoryProductsTotal }} Results</p>
           </div>
@@ -221,8 +229,8 @@
             @changeFilter="changeFilter"
             :prodlisting="
               isListingProducts ||
-              getCurrentCategory.display_mode === 'PRODUCTS' ||
-              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+                getCurrentCategory.display_mode === 'PRODUCTS' ||
+                getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           />
         </div>
@@ -285,20 +293,18 @@
           class="border-box products-list"
           :class="[pageLayout !== '1column' ? 'col-md-10' : 'col-md-12']"
         >
-         <!-- getCurrentCategory  {{getCurrentCategory}} -->
-         
-
+          <!-- getCurrentCategory  {{getCurrentCategory}} -->
 
           <!-- {{getCategoryProductsTotal}}
           getCategoryProducts {{getCategoryProducts}} -->
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h4 data-testid="noProductsInfo">
-              {{ $t('No products found!') }}
+              {{ $t("No products found!") }}
             </h4>
             <p>
               {{
                 $t(
-                  'Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!'
+                  "Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!"
                 )
               }}
             </p>
@@ -309,7 +315,7 @@
             id="subcategory-list"
             v-show="!hasActiveFiltersOnPage && !sorted"
           >
-          <!-- It wont come here -->
+            <!-- It wont come here -->
             <div
               class="category-listing row m0 start-md"
               v-if="getCurrentCategory.display_mode === 'PAGE'"
@@ -341,22 +347,22 @@
             id="products-list-new"
             v-if="
               isListingProducts ||
-              getCurrentCategory.display_mode === 'PRODUCTS' ||
-              getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
+                getCurrentCategory.display_mode === 'PRODUCTS' ||
+                getCurrentCategory.display_mode === 'PRODUCTS_AND_PAGE'
             "
           >
-          <!-- productListingUpdate {{productListingUpdate}} -->
+            <!-- productListingUpdate {{productListingUpdate}} -->
             <lazy-hydrate
               :trigger-hydration="!loading"
               v-if="
                 isLazyHydrateEnabled &&
-                getCategoryProductsTotal > lengthOfProductArray
+                  getCategoryProductsTotal > lengthOfProductArray
               "
             >
-            <!-- So we in here <br /> Total products {{getCategoryProductsTotal}} -->
-            <product-listing
-            :brandsImageData="brandsImageData"
-            :key="productListingUpdate"
+              <!-- So we in here <br /> Total products {{getCategoryProductsTotal}} -->
+              <product-listing
+                :brandsImageData="brandsImageData"
+                :key="productListingUpdate"
                 @showPagination="showbottompage"
                 :columns="defaultColumn"
                 class="pagination-true"
@@ -374,19 +380,21 @@
               :trigger-hydration="!loading"
               v-else-if="
                 isLazyHydrateEnabled &&
-                getCategoryProductsTotal <= lengthOfProductArray
+                  getCategoryProductsTotal <= lengthOfProductArray
               "
             >
-             <!-- So we not in there <br /> Total products {{getCategoryProductsTotal}} -->
+              <!-- So we not in there <br /> Total products {{getCategoryProductsTotal}} -->
               <product-listing
-              :brandsImageData="brandsImageData"
-              :key="productListingUpdate"
+                :brandsImageData="brandsImageData"
+                :key="productListingUpdate"
                 :columns="defaultColumn"
                 class="pagination-false"
-                :products="pagination.currentPageItems &&
+                :products="
+                  pagination.currentPageItems &&
                   pagination.currentPageItems.length > 0
                     ? pagination.currentPageItems
-                    : []"
+                    : []
+                "
                 @showPagination="showbottompage"
                 :filters="getAvailableFilters"
                 :isCategory="true"
@@ -398,10 +406,12 @@
               :key="productListingUpdate"
               @showPagination="showbottompage"
               :columns="defaultColumn"
-              :products="pagination.currentPageItems &&
-                  pagination.currentPageItems.length > 0
-                    ? pagination.currentPageItems
-                    : []"
+              :products="
+                pagination.currentPageItems &&
+                pagination.currentPageItems.length > 0
+                  ? pagination.currentPageItems
+                  : []
+              "
               :filters="getAvailableFilters"
               :isCategory="true"
             />
@@ -422,84 +432,89 @@
               @changePage="pageChanged"
             />
           </div>
-          
         </div>
       </div>
     </div>
-    <div class="category-bottom-content" v-if="getCurrentCategory.footer_cms_block">
-        <cms-block
+    <div
+      class="category-bottom-content"
+      v-if="getCurrentCategory.footer_cms_block"
+    >
+      <cms-block
         :key="reRenderBlock"
-                :id="parseInt(getCurrentCategory.footer_cms_block)"
-                />
-                <!-- footer_cms_block -->
-                <!-- :identifier="'category_footer'" -->
+        :id="parseInt(getCurrentCategory.footer_cms_block)"
+      />
+      <!-- footer_cms_block -->
+      <!-- :identifier="'category_footer'" -->
     </div>
   </div>
 </template>
 
 <script>
-import CmsBlock from 'src/themes/bedfactory/components/core/blocks/Cms/CategoryBottomBlock';
-import LazyHydrate from 'vue-lazy-hydration'
-import ActiveFilters from 'src/modules/vsf-layered-nav/components/ActiveFilters.vue'
-import Sidebar from 'src/modules/vsf-layered-nav/components/Sidebar'
-import ProductListing from '../components/core/ProductListingCustom.vue'
-import Breadcrumbs from '../components/core/Breadcrumbs.vue'
-import SortBy from '../components/core/SortByCustom.vue'
-import { getThumbnailPath, isServer } from '@vue-storefront/core/helpers'
-import { getSearchOptionsFromRouteParams } from '@vue-storefront/core/modules/catalog-next/helpers/categoryHelpers'
-import config from 'config'
-import Columns from '../components/core/Columns.vue'
-import ButtonFull from 'theme/components/theme/ButtonFull.vue'
-import { mapGetters } from 'vuex'
-import { GTAGCategory } from 'src/modules/google-gtag/mixins/GTAGCategory'
-import sortBy from 'lodash.sortby'
-import CategoryTile from 'theme/components/core/blocks/CategoryTile/CategoryTile'
-import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks'
+import CmsBlock from "src/themes/bedfactory/components/core/blocks/Cms/CategoryBottomBlock";
+import LazyHydrate from "vue-lazy-hydration";
+import ActiveFilters from "src/modules/vsf-layered-nav/components/ActiveFilters.vue";
+import Sidebar from "src/modules/vsf-layered-nav/components/Sidebar";
+import ProductListing from "../components/core/ProductListingCustom.vue";
+import Breadcrumbs from "../components/core/Breadcrumbs.vue";
+import SortBy from "../components/core/SortByCustom.vue";
+import { getThumbnailPath, isServer } from "@vue-storefront/core/helpers";
+import { getSearchOptionsFromRouteParams } from "@vue-storefront/core/modules/catalog-next/helpers/categoryHelpers";
+import config from "config";
+import Columns from "../components/core/Columns.vue";
+import ButtonFull from "theme/components/theme/ButtonFull.vue";
+import { mapGetters } from "vuex";
+import { GTAGCategory } from "src/modules/google-gtag/mixins/GTAGCategory";
+import sortBy from "lodash.sortby";
+import CategoryTile from "theme/components/core/blocks/CategoryTile/CategoryTile";
+import { catalogHooksExecutors } from "@vue-storefront/core/modules/catalog-next/hooks";
 import {
   localizedRoute,
   currentStoreView
-} from '@vue-storefront/core/lib/multistore'
-import { htmlDecode } from '@vue-storefront/core/filters'
-import { CategoryService } from '@vue-storefront/core/data-resolver'
-import ProductListingPagination from '../components/core/blocks/ProductListingPagination'
-import _ from 'lodash'
-const THEME_PAGE_SIZE = (config && config.filterShowItems && config.filterShowItems.selectedOption) ? config.filterShowItems.selectedOption : 12
-import axios from 'axios';
+} from "@vue-storefront/core/lib/multistore";
+import { htmlDecode } from "@vue-storefront/core/filters";
+import { CategoryService } from "@vue-storefront/core/data-resolver";
+import ProductListingPagination from "../components/core/blocks/ProductListingPagination";
+import _ from "lodash";
+const THEME_PAGE_SIZE =
+  config && config.filterShowItems && config.filterShowItems.selectedOption
+    ? config.filterShowItems.selectedOption
+    : 12;
+import axios from "axios";
 const composeInitialPageState = async (store, route, forceLoad = false) => {
   try {
-    let filters = getSearchOptionsFromRouteParams(route.params)
+    let filters = getSearchOptionsFromRouteParams(route.params);
     let customFilter = {
-      url_path: route.fullPath.substring(1).replace(/\?.*/, '')
-    }
-    filters = { ...filters, ...customFilter }
-    const cachedCategory = store.getters['category-next/getCategoryFrom'](
+      url_path: route.fullPath.substring(1).replace(/\?.*/, "")
+    };
+    filters = { ...filters, ...customFilter };
+    const cachedCategory = store.getters["category-next/getCategoryFrom"](
       route.path
-    )
+    );
     const currentCategory =
       cachedCategory && !forceLoad
         ? cachedCategory
-        : await store.dispatch('category-next/loadCategory', { filters })
-    await store.dispatch('category-next/loadCategoryProducts', {
+        : await store.dispatch("category-next/loadCategory", { filters });
+    await store.dispatch("category-next/loadCategoryProducts", {
       route,
       category: currentCategory,
       pageSize: THEME_PAGE_SIZE,
       startIndex: route.query.page || 0
-    })
+    });
     const breadCrumbsLoader = store.dispatch(
-      'category-next/loadCategoryBreadcrumbs',
+      "category-next/loadCategoryBreadcrumbs",
       {
         category: currentCategory,
         currentRouteName: currentCategory.name,
         omitCurrent: true
       }
-    )
+    );
 
-    if (isServer) await breadCrumbsLoader
-    catalogHooksExecutors.categoryPageVisited(currentCategory)
+    if (isServer) await breadCrumbsLoader;
+    catalogHooksExecutors.categoryPageVisited(currentCategory);
   } catch (e) {
-    console.error('Problem with setting Category initial data! in bfd', e)
+    console.error("Problem with setting Category initial data! in bfd", e);
   }
-}
+};
 
 export default {
   components: {
@@ -516,17 +531,17 @@ export default {
     CmsBlock
   },
   mixins: [GTAGCategory],
-  data () {
+  data() {
     return {
-      originalRoute : null,
+      originalRoute: null,
       brandsImageData: [],
       reRenderBlock: 0,
-      productListingUpdate:0,
-      reRender : 0,
+      productListingUpdate: 0,
+      reRender: 0,
       backEnd: config.backEnd,
       categoryFilters: {},
       bottompagination: false,
-      product_link: '',
+      product_link: "",
       mobileFilters: false,
       totalCategoryItemsCustom: 0,
       defaultColumn: 3,
@@ -551,382 +566,428 @@ export default {
       cateRoute: [],
       lengthOfProductArray: config.filterShowItems.selectedOption,
       baseUrlImage: ""
-    }
+    };
   },
-  async serverPrefetch () {
+  async serverPrefetch() {
     if (!this.children || this.children.length === 0) {
       // this.children = await this.fetchCategoriesAndSubCategories();
     }
   },
   watch: {
-    getCurrentCategoryBrProductsResponseGetters (newData, oldData) {
+    getCurrentCategoryBrProductsResponseGetters(newData, oldData) {
       if (newData !== oldData) {
         if (this.listingPageCompute) {
           console.log("96325 about to set products for category 3");
-          this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
+          this.setGtagProductsList(
+            { isListingProducts: this.getCategoryProducts },
+            "fromWatchCategory"
+          );
         }
       }
     },
-    getAvailableFilters : {
-      handler(){
+    getAvailableFilters: {
+      handler() {
         this.getAvailableFiltersCustom();
       }
     },
-    async getCurrentCategoryId (to, from) {
+    async getCurrentCategoryId(to, from) {
       if (to !== from) {
-        this.children = await this.fetchCategoriesAndSubCategories()
+        this.children = await this.fetchCategoriesAndSubCategories();
         console.log("96325 about to set products for category 2");
-        this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
+        this.setGtagProductsList(
+          { isListingProducts: this.getCategoryProducts },
+          "fromWatchCategory"
+        );
         // this.setGtagProductsList();
       }
     },
-    getBreadcrumbsRoutes (newval, old) {
+    getBreadcrumbsRoutes(newval, old) {
       if (newval.length > 0 && !this.hasFired) {
-        this.hasFired = true
+        this.hasFired = true;
         // this.addBloom()
       }
-
     },
 
-    $route (to, from) {
+    $route(to, from) {
       this.reRenderBlock++;
       if (!this.asFired) {
-        this.hasFired = true
+        this.hasFired = true;
         // this.addBloom()
       }
-      this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
+      this.getCatproduct(this.getCurrentCategory.cat_banner_sku);
       if (from.path !== to.path) {
-        if (localStorage.getItem('topLevelCategoryPosition')) {
+        if (localStorage.getItem("topLevelCategoryPosition")) {
           setTimeout(() => {
-            var localCatName = localStorage.getItem('topLevelCategoryPosition')
-            var customScrollPos = document.getElementsByClassName(localCatName)
+            var localCatName = localStorage.getItem("topLevelCategoryPosition");
+            var customScrollPos = document.getElementsByClassName(localCatName);
             if (customScrollPos) {
               if (customScrollPos.length > 0) {
-                var customScrollPosValue = document.getElementsByClassName(localCatName)[0].offsetTop
+                var customScrollPosValue = document.getElementsByClassName(
+                  localCatName
+                )[0].offsetTop;
                 if (customScrollPosValue) {
-                  var customScrollPosValueFinal = customScrollPosValue - 500
-                  window.scrollTo(0, customScrollPosValueFinal)
+                  var customScrollPosValueFinal = customScrollPosValue - 500;
+                  window.scrollTo(0, customScrollPosValueFinal);
                 }
               }
             }
-          }, 1500)
+          }, 1500);
         }
-        this.clearSorting()
+        this.clearSorting();
         // this.bannerUrlLink()
         setTimeout(() => {
-          if (this.$store.getters['url/isBackRoute']) {
-            let getScrollPosition = this.$store.getters['url/getCurrentRoute'] && this.$store.getters['url/getCurrentRoute'].scrollPosition ? this.$store.getters['url/getCurrentRoute'].scrollPosition.y : 0
-            window.scrollTo(0, getScrollPosition)
+          if (this.$store.getters["url/isBackRoute"]) {
+            let getScrollPosition =
+              this.$store.getters["url/getCurrentRoute"] &&
+              this.$store.getters["url/getCurrentRoute"].scrollPosition
+                ? this.$store.getters["url/getCurrentRoute"].scrollPosition.y
+                : 0;
+            window.scrollTo(0, getScrollPosition);
           }
-        }, 1000)
+        }, 1000);
       }
     },
-    hasActiveFiltersOnPage (newVal, oldVal) {
+    hasActiveFiltersOnPage(newVal, oldVal) {
       if (newVal !== oldVal) {
         if (newVal === true) {
-          this.sorted = true
-          this.hasActiveFilters = true
+          this.sorted = true;
+          this.hasActiveFilters = true;
         } else {
-          this.sorted = false
-          this.hasActiveFilters = false
+          this.sorted = false;
+          this.hasActiveFilters = false;
         }
       }
     }
   },
-  created () {
-    this.baseUrlImage = config.server.baseUrl
-    if (this.$route.query && this.$route.query.page && !isNaN(this.$route.query.page)) {
-      this.pagination.selectedPage = parseInt(this.$route.query.page)
+  created() {
+    this.baseUrlImage = config.server.baseUrl;
+    if (
+      this.$route.query &&
+      this.$route.query.page &&
+      !isNaN(this.$route.query.page)
+    ) {
+      this.pagination.selectedPage = parseInt(this.$route.query.page);
+    }
+  },
+  async beforeMount() {
+    window.addEventListener("scroll", event => {
+      let scroll = window.scrollY;
+      if (scroll > 0) localStorage.setItem("scrollloc", scroll);
+    });
+    await this.getBrandData();
+    this.$bus.$on("go-to-start-page-Category", this.pageChangedCustom);
+
+    this.$bus.$on("gotop", this.gototop);
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  async mounted() {
+
+    if (this.$route.path.includes("clearance-beds")) {
+      this.originalRoute = this.$route.path;
+      let nextRoute = this.$route.path.split("clearance-beds");
+      console.log("7456321 Next route is ", nextRoute);
+      
+      setTimeout(() => {
+        console.log("7456321 After 0.5 seconds");
+        this.$router.push(this.localizedRoute("/clearance-beds"));
+        setTimeout(() => {
+          console.log("7456321 After 5 seconds", this.originalRoute);
+          this.$router.push(this.localizedRoute(this.originalRoute));
+        }, 100);
+      }, 1000);
     }
 
-  },
-  async beforeMount () {
-    await this.getBrandData();
-    this.$bus.$on('go-to-start-page-Category', this.pageChangedCustom)
-    window.addEventListener('scroll', (event) => {
-      let scroll = window.scrollY
-      localStorage.setItem("scrollloc", scroll)
-    })
-    window.addEventListener('load', (event) => {
-      let loca = localStorage.getItem('scrollloc')
-      window.scrollTo(0, loca)
-    })
-    this.$bus.$on('gotop', this.gototop)
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
-  },
-  async mounted () {
-   console.log("7456321 route is ",this.$route.path);
-   if(this.$route.path.includes('clearance-beds')){
-     this.originalRoute = this.$route.path; 
-        let nextRoute = this.$route.path.split('clearance-beds');
-        console.log('7456321 Next route is ',nextRoute);
-        setTimeout(() => {
-      console.log("7456321 After 0.5 seconds");
-            this.$router.push(this.localizedRoute("/clearance-beds"));
-            setTimeout(() => {
-      console.log("7456321 After 5 seconds",this.originalRoute);
-      this.$router.push(this.localizedRoute(this.originalRoute));
-    }, 100);
-    }, 1000);
-    
-  
-    
-      }
     await this.getBrandData();
     this.reRenderBlock++;
     this.getAvailableFiltersCustom();
-    this.getCatproduct(this.getCurrentCategory.cat_banner_sku)
-    window.addEventListener('resize', this.myEventHandler)
-    this.children = await this.fetchCategoriesAndSubCategories()
+    this.getCatproduct(this.getCurrentCategory.cat_banner_sku);
+    window.addEventListener("resize", this.myEventHandler);
+    this.children = await this.fetchCategoriesAndSubCategories();
     // For Pagination
-    this.pagination.currentPageItems = this.getCategoryProducts
-    this.totalCategoryItemsCustom = this.getCategoryProductsTotal
+    this.pagination.currentPageItems = this.getCategoryProducts;
+    this.totalCategoryItemsCustom = this.getCategoryProductsTotal;
 
+    // window.addEventListener("load", event => {
+    //   let loca = localStorage.getItem("scrollloc");
+    //   console.log("raja loaded", loca);
+
+    //   window.scrollTo(0, loca);
+    // });
     // ForGtag
     // this.setGtagProductsList()
     setTimeout(() => {
-      console.log("96325 about to set products for category 1 new data",this.getCategoryProducts);
-    this.setGtagProductsList({ isListingProducts: this.getCategoryProducts }, 'fromWatchCategory')
+      console.log(
+        "96325 about to set products for category 1 new data",
+        this.getCategoryProducts
+      );
+      this.setGtagProductsList(
+        { isListingProducts: this.getCategoryProducts },
+        "fromWatchCategory"
+      );
     }, 5000);
-    
+    setTimeout(() => {
+      let loca = localStorage.getItem("scrollloc");
+      window.scrollTo(0, loca);
+    }, 1200);
   },
   computed: {
     ...mapGetters({
-      getCurrentSearchQuery: 'category-next/getCurrentSearchQuery',
-      getCategoryProducts: 'category-next/getCategoryProducts',
-      getCurrentCategory: 'category-next/getCurrentCategory',
-      getCategoryProductsTotal: 'category-next/getCategoryProductsTotal',
-      getAvailableFilters: 'category-next/getAvailableFilters',
-      getBreadcrumbsRoutes: 'breadcrumbs/getBreadcrumbsRoutes',
-      getBreadcrumbsCurrent: 'breadcrumbs/getBreadcrumbsCurrent',
-      getCurrentCategoryBrResponseGetters: 'category-next/getCurrentCategoryBrResponseGetters',
-      getCurrentCategoryBrProductsResponseGetters: 'category-next/getCurrentCategoryBrProductsResponseGetters',
-      getPriceRange: 'category-next/getPriceRange',
-      getUpdatedPriceSliderRange: 'category-next/getUpdatedPriceSliderRange',
-      getListingRange: 'category-next/getListingRange',
-      getStatsFields: 'category-next/getStatsFields',
-      getCurrentCategoryBrProductsTotalResponseGetters: 'category-next/getCurrentCategoryBrProductsTotalResponseGetters',
-      getCurrentCategoryBrProductsFiltersResponseGetters: 'category-next/getCurrentCategoryBrProductsFiltersResponseGetters',
+      getCurrentSearchQuery: "category-next/getCurrentSearchQuery",
+      getCategoryProducts: "category-next/getCategoryProducts",
+      getCurrentCategory: "category-next/getCurrentCategory",
+      getCategoryProductsTotal: "category-next/getCategoryProductsTotal",
+      getAvailableFilters: "category-next/getAvailableFilters",
+      getBreadcrumbsRoutes: "breadcrumbs/getBreadcrumbsRoutes",
+      getBreadcrumbsCurrent: "breadcrumbs/getBreadcrumbsCurrent",
+      getCurrentCategoryBrResponseGetters:
+        "category-next/getCurrentCategoryBrResponseGetters",
+      getCurrentCategoryBrProductsResponseGetters:
+        "category-next/getCurrentCategoryBrProductsResponseGetters",
+      getPriceRange: "category-next/getPriceRange",
+      getUpdatedPriceSliderRange: "category-next/getUpdatedPriceSliderRange",
+      getListingRange: "category-next/getListingRange",
+      getStatsFields: "category-next/getStatsFields",
+      getCurrentCategoryBrProductsTotalResponseGetters:
+        "category-next/getCurrentCategoryBrProductsTotalResponseGetters",
+      getCurrentCategoryBrProductsFiltersResponseGetters:
+        "category-next/getCurrentCategoryBrProductsFiltersResponseGetters"
     }),
-    filtersUpdated(){
+    filtersUpdated() {
       return this.reRender;
     },
-    socialLinksSchema () {
-      return config.socialUrlsForSchema ? config.socialUrlsForSchema : ''
+    socialLinksSchema() {
+      return config.socialUrlsForSchema ? config.socialUrlsForSchema : "";
     },
-    pageLayout () {
-      return this.getCurrentCategory.page_layout ? this.getCurrentCategory.page_layout : ''
+    pageLayout() {
+      return this.getCurrentCategory.page_layout
+        ? this.getCurrentCategory.page_layout
+        : "";
     },
-    categoryTileType () {
-      return config.tileTypes
+    categoryTileType() {
+      return config.tileTypes;
     },
-    currRoute () {
+    currRoute() {
       // this.routeUrl
-      return this.$route.name
+      return this.$route.name;
     },
-    isListingProducts () {
+    isListingProducts() {
       if (isServer && !this.children) {
-        return false
+        return false;
       }
 
-      if (this.getCurrentCategory && this.getCurrentCategory.display_mode && this.getCurrentCategory.display_mode !== 'PAGE') {
-        return true
+      if (
+        this.getCurrentCategory &&
+        this.getCurrentCategory.display_mode &&
+        this.getCurrentCategory.display_mode !== "PAGE"
+      ) {
+        return true;
       }
 
-      if (this.getCurrentCategory && !this.getCurrentCategory.display_mode && this.children.length === 0) {
-        return true
+      if (
+        this.getCurrentCategory &&
+        !this.getCurrentCategory.display_mode &&
+        this.children.length === 0
+      ) {
+        return true;
       }
       return (
         // this.children.length === 0 ||
-        this.hasActiveFiltersOnPage === true ||
-        this.sorted
-      )
+        this.hasActiveFiltersOnPage === true || this.sorted
+      );
     },
-    hasActiveFilters1 () {
-      return this.$store.getters['category-next/hasActiveFilters']
+    hasActiveFilters1() {
+      return this.$store.getters["category-next/hasActiveFilters"];
     },
-    isLazyHydrateEnabled () {
-      return config.ssr.lazyHydrateFor.includes('category-next.products')
+    isLazyHydrateEnabled() {
+      return config.ssr.lazyHydrateFor.includes("category-next.products");
     },
-    bannerImage () {
+    bannerImage() {
       if (
-        this.getCurrentCategory.image === '' ||
-        this.getCurrentCategory.image === 'null' ||
+        this.getCurrentCategory.image === "" ||
+        this.getCurrentCategory.image === "null" ||
         this.getCurrentCategory.image === null
       ) {
-        return '/assets/category-images/header.png'
+        return "/assets/category-images/header.png";
       }
       return getThumbnailPath(
         `/${(this.getCurrentCategory, this.getCurrentCategory.image)}`,
         955,
         277,
-        'category'
-      )
+        "category"
+      );
     },
-    getIncludeFieldsForRequest () {
-      return config.entities.category.includeFields
+    getIncludeFieldsForRequest() {
+      return config.entities.category.includeFields;
     },
-    getExcludeFieldsForRequest () {
-      return ['sgn']
+    getExcludeFieldsForRequest() {
+      return ["sgn"];
     },
-    isCategoryEmpty () {
-      return this.getCategoryProductsTotal === 0
+    isCategoryEmpty() {
+      return this.getCategoryProductsTotal === 0;
     },
-    isCategoryChildrenEmpty () {
-      return parseInt(this.getCurrentCategory.children_count) === 0
+    isCategoryChildrenEmpty() {
+      return parseInt(this.getCurrentCategory.children_count) === 0;
     },
-    childrenData () {
-      return sortBy(this.getCurrentCategory.children_data, 'position')
+    childrenData() {
+      return sortBy(this.getCurrentCategory.children_data, "position");
     },
-    getCurrentCategoryId () {
-      return this.getCurrentCategory.id
+    getCurrentCategoryId() {
+      return this.getCurrentCategory.id;
     },
-    hasActiveFiltersOnPage () {
+    hasActiveFiltersOnPage() {
       if (!this.$route || !this.$route.query || _.isEmpty(this.$route.query)) {
-        return false
+        return false;
       }
       if (!config || !config.products.defaultFilters) {
-        return false
+        return false;
       }
-      let defaultFilters = config.products.defaultFilters
+      let defaultFilters = config.products.defaultFilters;
       for (let key in this.$route.query) {
-        if (this.$route.query.hasOwnProperty(key) && defaultFilters.includes(key)) {
-          return true
+        if (
+          this.$route.query.hasOwnProperty(key) &&
+          defaultFilters.includes(key)
+        ) {
+          return true;
         }
       }
     }
   },
-  async asyncData ({ store, route }) {
+  async asyncData({ store, route }) {
     // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
-    await composeInitialPageState(store, route)
+    await composeInitialPageState(store, route);
   },
-  async beforeRouteEnter (to, from, next) {
+  async beforeRouteEnter(to, from, next) {
     if (isServer) {
-      next()
+      next();
       // eslint-disable-next-line brace-style
     } // SSR no need to invoke SW caching here
     else if (!from.name) {
       // SSR but client side invocation, we need to cache products and invoke requests from asyncData for offline support
-      next(async (vm) => {
-        vm.loading = true
-        await composeInitialPageState(vm.$store, to, true)
-        await vm.$store.dispatch('category-next/cacheProducts', { route: to }) // await here is because we must wait for the hydration
-        vm.loading = false
-      })
+      next(async vm => {
+        vm.loading = true;
+        await composeInitialPageState(vm.$store, to, true);
+        await vm.$store.dispatch("category-next/cacheProducts", { route: to }); // await here is because we must wait for the hydration
+        vm.loading = false;
+      });
     } else {
       // Pure CSR, with no initial category state
-      next(async (vm) => {
-        vm.loading = true
-        vm.$store.dispatch('category-next/cacheProducts', { route: to })
-        vm.loading = false
-      })
+      next(async vm => {
+        vm.loading = true;
+        vm.$store.dispatch("category-next/cacheProducts", { route: to });
+        vm.loading = false;
+      });
     }
   },
   methods: {
-    async getBrandData(){
+    async getBrandData() {
       console.log("1596321 Calling bRand Logo API");
       let URL = config.api.url + config.brandLogo.endpoint;
-      await axios.post(URL, {
-        "brand_id":"Brands ID"
-      }, {
-        headers: {
-          "Content-type": "application/json"
-           }
-          })
-      .then(responsebackend => {
-        console.log("1596321 Brand Logo is ",responsebackend);
-        if (responsebackend && responsebackend.data && responsebackend.data.result){
-          this.brandsImageData = responsebackend.data.result
-        console.log("1596321 data to send is ",this.brandsImageData);
-        }
-        else{
+      await axios
+        .post(
+          URL,
+          {
+            brand_id: "Brands ID"
+          },
+          {
+            headers: {
+              "Content-type": "application/json"
+            }
+          }
+        )
+        .then(responsebackend => {
+          console.log("1596321 Brand Logo is ", responsebackend);
+          if (
+            responsebackend &&
+            responsebackend.data &&
+            responsebackend.data.result
+          ) {
+            this.brandsImageData = responsebackend.data.result;
+            console.log("1596321 data to send is ", this.brandsImageData);
+          } else {
+            console.log("115599 Error", error);
+            this.brandsImageData = [];
+          }
+        })
+        .catch(error => {
           console.log("115599 Error", error);
-          this.brandsImageData = []
-        }
-      })
-      .catch(error => {
-        console.log("115599 Error", error);
-        this.brandsImageData = []
+          this.brandsImageData = [];
         });
     },
-    pageChangedCustom(){
+    pageChangedCustom() {
       console.log("7532 In category page Emit recieved for filter change");
       this.productListingUpdate++;
       setTimeout(() => {
-         this.$bus.$emit('go-to-start-page-Pagination', true)
+        this.$bus.$emit("go-to-start-page-Pagination", true);
         // this.productListingUpdate++;
       }, 2000);
     },
-    getAvailableFiltersCustom(){
-      let catFilters = {...this.getAvailableFilters};
-    //  console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
-      if(catFilters.filter_size && catFilters.filter_size.length >0){
-        catFilters.filter_size.sort(function (a, b) {
+    getAvailableFiltersCustom() {
+      let catFilters = { ...this.getAvailableFilters };
+      //  console.log("741852 in function after spreading",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+      if (catFilters.filter_size && catFilters.filter_size.length > 0) {
+        catFilters.filter_size.sort(function(a, b) {
           // if (a.id>b.id){
           //   return 1
           // }
-         return a.id -b.id
-        })
-    //    console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
+          return a.id - b.id;
+        });
+        //    console.log("741852 in After",catFilters,catFilters.filter_size && catFilters.filter_size.length >0 ,catFilters.filter_size , catFilters.filter_size.length >0);
       }
-      this.categoryFilters= catFilters;
-      return catFilters
-    
+      this.categoryFilters = catFilters;
+      return catFilters;
     },
-    gototop () {
+    gototop() {
       setTimeout(() => {
-        localStorage.setItem("topLevelCategoryPosition", '')
-        window.scrollTo(0, 0)
-      }, 500)
+        localStorage.setItem("topLevelCategoryPosition", "");
+        window.scrollTo(0, 0);
+      }, 500);
     },
-    handleResize () {
-      this.windowWidth = window.innerWidth
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     },
-    async addBloom () {
-      let cat_name = ''
-      let crubms = this.getBreadcrumbsRoutes.map((crumb) => {
-        return crumb.name
-      })
+    async addBloom() {
+      let cat_name = "";
+      let crubms = this.getBreadcrumbsRoutes.map(crumb => {
+        return crumb.name;
+      });
       for (let x of crubms) {
-        cat_name += x + '|'
+        cat_name += x + "|";
       }
-      cat_name = cat_name + this.getBreadcrumbsCurrent
-
-     
+      cat_name = cat_name + this.getBreadcrumbsCurrent;
     },
-    async getCatproduct (sku) {
-      this.product_link = ''
+    async getCatproduct(sku) {
+      this.product_link = "";
       if (sku) {
-        let prodlink = await this.getProduct(sku)
+        let prodlink = await this.getProduct(sku);
         if (prodlink) {
-          this.product_link = prodlink.url_path
+          this.product_link = prodlink.url_path;
         }
       }
     },
-    showbottompage () {
-      this.bottompagination = true
+    showbottompage() {
+      this.bottompagination = true;
     },
-    async getCrumbs () {
-      return await this.getBreadcrumbsRoutes
+    async getCrumbs() {
+      return await this.getBreadcrumbsRoutes;
     },
-    async getProduct (psku) {
-      return this.$store.dispatch('product/single', {
+    async getProduct(psku) {
+      return this.$store.dispatch("product/single", {
         options: { sku: psku },
         setCurrentProduct: false,
         setCurrentCategoryPath: false,
         selectDefaultVariant: false
-      })
+      });
     },
-    async fetchCategoriesAndSubCategories () {
+    async fetchCategoriesAndSubCategories() {
       try {
         return await CategoryService.getCategories({
           parentId: this.getCurrentCategoryId,
           includeFields: this.getIncludeFieldsForRequest,
           excludeFields: this.getExcludeFieldsForRequest
-        })
+        });
       } catch (error) {
-        console.log('GotIntoAnError', error)
+        console.log("GotIntoAnError", error);
       }
     },
     // async bannerUrlLink () {
@@ -938,130 +999,149 @@ export default {
     //   this.bannerUrl = getThumbnailPath(`/${this.bannerUrl}`, 1280, 298, 'category')
     //   return this.bannerUrl
     // },
-    categoryTileTypeUnitCheck (category) {
-      let categoryUnit = ''
+    categoryTileTypeUnitCheck(category) {
+      let categoryUnit = "";
       if (category.category_price_type) {
-        if (this.categoryTileType[category.category_price_type] === 'sqm') {
-          categoryUnit = 'm<sup>2</sup>'
+        if (this.categoryTileType[category.category_price_type] === "sqm") {
+          categoryUnit = "m<sup>2</sup>";
         } else if (this.categoryTileType[category.category_price_type]) {
-          categoryUnit = this.categoryTileType[category.category_price_type]
+          categoryUnit = this.categoryTileType[category.category_price_type];
         } else {
-          categoryUnit = 'm<sup>2</sup>'
+          categoryUnit = "m<sup>2</sup>";
         }
       } else {
-        categoryUnit = 'm<sup>2</sup>'
+        categoryUnit = "m<sup>2</sup>";
       }
-      return categoryUnit
+      return categoryUnit;
     },
-    overlayshow () {
-      this.isOverlayShowing = true
-      let scrollOff = document.getElementsByTagName('body')[0]
+    overlayshow() {
+      this.isOverlayShowing = true;
+      let scrollOff = document.getElementsByTagName("body")[0];
       if (this.isOverlayShowing === true) {
-        scrollOff.style.overflow = 'hidden'
-        scrollOff.style.position = 'fixed'
+        scrollOff.style.overflow = "hidden";
+        scrollOff.style.position = "fixed";
       } else {
-        scrollOff.style.overflow = 'scroll'
+        scrollOff.style.overflow = "scroll";
       }
     },
-    resetAllFilters () {
-      this.$store.dispatch('category-next/resetSearchFilters')
+    resetAllFilters() {
+      this.$store.dispatch("category-next/resetSearchFilters");
     },
-    clearSorting () {
-      this.sorted = false
+    clearSorting() {
+      this.sorted = false;
     },
-    myEventHandler (e) {
-      let scrollOff = document.getElementsByTagName('body')[0]
-      scrollOff.style.overflow = 'scroll'
-      scrollOff.style.position = 'unset'
-      this.closeButtonShowing = false
-      this.mobileFilters = false
-      this.isOverlayShowing = false
+    myEventHandler(e) {
+      let scrollOff = document.getElementsByTagName("body")[0];
+      scrollOff.style.overflow = "scroll";
+      scrollOff.style.position = "unset";
+      this.closeButtonShowing = false;
+      this.mobileFilters = false;
+      this.isOverlayShowing = false;
     },
-    overlayclose () {
-      this.isOverlayShowing = false
-      let scrollOff = document.getElementsByTagName('body')[0]
-      scrollOff.style.overflow = 'scroll'
-      scrollOff.style.position = 'unset'
+    overlayclose() {
+      this.isOverlayShowing = false;
+      let scrollOff = document.getElementsByTagName("body")[0];
+      scrollOff.style.overflow = "scroll";
+      scrollOff.style.position = "unset";
     },
-    buttonshow () {
-      this.closeButtonShowing = true
+    buttonshow() {
+      this.closeButtonShowing = true;
     },
-    buttonclose () {
-      this.closeButtonShowing = false
-      let scrollOff = document.getElementsByTagName('body')[0]
-      scrollOff.style.overflow = 'scroll'
-      scrollOff.style.position = 'unset'
+    buttonclose() {
+      this.closeButtonShowing = false;
+      let scrollOff = document.getElementsByTagName("body")[0];
+      scrollOff.style.overflow = "scroll";
+      scrollOff.style.position = "unset";
     },
-    openFilters () {
-      this.mobileFilters = true
-      this.closeButtonShowing = true
+    openFilters() {
+      this.mobileFilters = true;
+      this.closeButtonShowing = true;
     },
-    closeFilters () {
-      this.mobileFilters = false
-      this.isOverlayShowing = false
-      let scrollOff = document.getElementsByTagName('body')[0]
-      scrollOff.style.overflow = 'scroll'
+    closeFilters() {
+      this.mobileFilters = false;
+      this.isOverlayShowing = false;
+      let scrollOff = document.getElementsByTagName("body")[0];
+      scrollOff.style.overflow = "scroll";
     },
-    async changeFilter (filterVariant) {
-      console.log("Filter changed in category page",filterVariant);
+    async changeFilter(filterVariant) {
+      console.log("Filter changed in category page", filterVariant);
       if (filterVariant && filterVariant.type && this.sorted === false) {
-        this.sorted = true
+        this.sorted = true;
       }
-      await this.$store.dispatch('category-next/switchSearchFilters', [
+      await this.$store.dispatch("category-next/switchSearchFilters", [
         filterVariant
-      ])
+      ]);
       this.getAvailableFiltersCustom();
       this.reRender++;
     },
-    async changeFilterSort (filterVariant) {
+    async changeFilterSort(filterVariant) {
       if (filterVariant && filterVariant.type && this.sorted === false) {
-        this.sorted = true
+        this.sorted = true;
       }
-      this.$store.dispatch('category-next/switchSearchFilters', [
+      this.$store.dispatch("category-next/switchSearchFilters", [
         filterVariant
-      ])
+      ]);
       setTimeout(() => {
-        this.getProducts()
-      }, 500)
+        this.getProducts();
+      }, 500);
     },
-    async columnChange (column) {
-      this.pagination.pageSize = column
-      await this.getProducts()
+    async columnChange(column) {
+      this.pagination.pageSize = column;
+      await this.getProducts();
     },
-    async pageChanged ({ pageOfItems, startIndex, endIndex, selectedPage }) {
-      console.log("7532 Page has changed ","pageOfItems",pageOfItems,"startIndex",startIndex,"endIndex",endIndex,"selectedPage",selectedPage);
-      this.pagination.startIndex = startIndex
-      this.pagination.selectedPage = selectedPage
-      await this.getProducts()
+    async pageChanged({ pageOfItems, startIndex, endIndex, selectedPage }) {
+      console.log(
+        "7532 Page has changed ",
+        "pageOfItems",
+        pageOfItems,
+        "startIndex",
+        startIndex,
+        "endIndex",
+        endIndex,
+        "selectedPage",
+        selectedPage
+      );
+      this.pagination.startIndex = startIndex;
+      this.pagination.selectedPage = selectedPage;
+      await this.getProducts();
       // if (this.pagination.selectedPage !== 1) {
-        this.updatePathParams(this.$router, { page: this.pagination.selectedPage })
+      this.updatePathParams(this.$router, {
+        page: this.pagination.selectedPage
+      });
       // }
     },
-    async getProducts () {
-      await this.$store.dispatch('category-next/loadCategoryProducts', {
+    async getProducts() {
+      await this.$store.dispatch("category-next/loadCategoryProducts", {
         route: this.$route,
         category: this.getCurrentCategory,
         pageSize: this.pagination.pageSize,
         startIndex: this.pagination.startIndex
-      })
-      this.pagination.currentPageItems = this.getCategoryProducts
+      });
+      this.pagination.currentPageItems = this.getCategoryProducts;
     },
-    updatePathParams ($router, newParams) {
+    updatePathParams($router, newParams) {
       // console.log("7532 router",$router , "\n new params ",newParams );
-      console.log("7532 router param being updated", "\n new params ",newParams );
+      console.log(
+        "7532 router param being updated",
+        "\n new params ",
+        newParams
+      );
       // if (newParams.page && newParams.page === 1) {
       //   return false
       // }
       // Retrieve current params
-      const currentQueryParams = $router.currentRoute.query
+      const currentQueryParams = $router.currentRoute.query;
       // When router is not supplied path or name,
       // it simply tries to update current route with new params or query
       // Almost everything is optional.
-      this.$router.push({ path: $router.currentRoute.path, query: { ...currentQueryParams, ...newParams } })
+      this.$router.push({
+        path: $router.currentRoute.path,
+        query: { ...currentQueryParams, ...newParams }
+      });
     }
   },
-  metaInfo () {
-    const storeView = currentStoreView()
+  metaInfo() {
+    const storeView = currentStoreView();
     const {
       meta_title,
       meta_description,
@@ -1069,59 +1149,76 @@ export default {
       cat_banner_desp,
       name,
       slug
-    } = this.getCurrentCategory
-   // console.log('getCurrentCategory Meta', this.getCurrentCategory)
-    let metaDescriptionCat = this.getCurrentCategory.cat_banner_desp ? this.getCurrentCategory.cat_banner_desp.replace(/<\/?[^>]+(>|$)/g, '') : ''
-    let metaLengthCat = 233
+    } = this.getCurrentCategory;
+    // console.log('getCurrentCategory Meta', this.getCurrentCategory)
+    let metaDescriptionCat = this.getCurrentCategory.cat_banner_desp
+      ? this.getCurrentCategory.cat_banner_desp.replace(/<\/?[^>]+(>|$)/g, "")
+      : "";
+    let metaLengthCat = 233;
     if (metaDescriptionCat) {
-      metaDescriptionCat = metaDescriptionCat.length > metaLengthCat ? metaDescriptionCat.substring(0, metaLengthCat - 3) + '...' : metaDescriptionCat
+      metaDescriptionCat =
+        metaDescriptionCat.length > metaLengthCat
+          ? metaDescriptionCat.substring(0, metaLengthCat - 3) + "..."
+          : metaDescriptionCat;
     }
 
-    const meta_descriptionHtml = htmlDecode(meta_description)
-    const meta_descriptionHtmlAfter = meta_descriptionHtml.replace(/<\/?[^>]+(>|$)/g, '')
+    const meta_descriptionHtml = htmlDecode(meta_description);
+    const meta_descriptionHtmlAfter = meta_descriptionHtml.replace(
+      /<\/?[^>]+(>|$)/g,
+      ""
+    );
     const categoryLocaliedLink = localizedRoute(
       {
-        name: 'category-amp',
+        name: "category-amp",
         params: { slug }
       },
       storeView.storeCode
-    )
-    const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href
-    const canonicalCategoryLink = this.getCurrentCategory.canonical_url ? this.getCurrentCategory.canonical_url : '/' + this.getCurrentCategory.url_path
+    );
+    const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href;
+    const canonicalCategoryLink = this.getCurrentCategory.canonical_url
+      ? this.getCurrentCategory.canonical_url
+      : "/" + this.getCurrentCategory.url_path;
     let metaData = [
       {
-        property: 'og:url',
-        content: (config.ogtagsBaseUrl ? config.ogtagsBaseUrl : '') + canonicalCategoryLink
+        property: "og:url",
+        content:
+          (config.ogtagsBaseUrl ? config.ogtagsBaseUrl : "") +
+          canonicalCategoryLink
       },
       {
-        property: 'og:title',
+        property: "og:title",
         content: htmlDecode(meta_title || name)
       },
       {
-        property: 'og:type',
-        content: 'website'
+        property: "og:type",
+        content: "website"
       },
       {
-        property: 'og:description',
-        content: meta_description ? meta_descriptionHtmlAfter : ''
+        property: "og:description",
+        content: meta_description ? meta_descriptionHtmlAfter : ""
       },
       {
-        property: 'og:image',
-        content: config.images.baseUrl + '1200/630/resize/catalog/category/' + (this.getCurrentCategory.google_feed_img ? this.getCurrentCategory.google_feed_img : this.getCurrentCategory.image)
+        property: "og:image",
+        content:
+          config.images.baseUrl +
+          "1200/630/resize/catalog/category/" +
+          (this.getCurrentCategory.google_feed_img
+            ? this.getCurrentCategory.google_feed_img
+            : this.getCurrentCategory.image)
       }
-    ]
+    ];
     if (meta_description) {
       metaData.push({
-        vmid: 'description',
-        name: 'description',
+        vmid: "description",
+        name: "description",
         content: meta_descriptionHtmlAfter
-      })
+      });
     } else {
       metaData.push({
-        vmid: 'description',
-        name: 'description',
+        vmid: "description",
+        name: "description",
         content: metaDescriptionCat
-      })
+      });
     }
     // const meta = meta_description
     //   ? [
@@ -1133,21 +1230,20 @@ export default {
     //   ]
     //   : []
 
-
     return {
-      link: [{ rel: 'canonical', href: canonicalCategoryLink }],
+      link: [{ rel: "canonical", href: canonicalCategoryLink }],
       title: htmlDecode(meta_title || name),
-      titleTemplate: '%s',
+      titleTemplate: "%s",
       meta: metaData
-    }
+    };
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @font-face {
-  font-family: 'Oblik';
-  src: url('/assets/fonts/Oblik_Bold.otf');
+  font-family: "Oblik";
+  src: url("/assets/fonts/Oblik_Bold.otf");
 }
 
 @media screen and (min-width: 1901px) {
@@ -1202,7 +1298,7 @@ $border-radius: 5px;
     line-height: 20px;
   }
   @media screen and (min-width: 320px) and (max-width: 374px) {
-    padding:0;
+    padding: 0;
   }
 }
 @media screen and (min-width: 768px) {
@@ -1302,7 +1398,7 @@ $border-radius: 5px;
       color: #29275b;
       font-weight: bold;
       font-size: 3.733vw;
-      font-family: 'Arial';
+      font-family: "Arial";
     }
     .mobile-sorting1 p {
       font-family: Arial;
@@ -1350,8 +1446,8 @@ $border-radius: 5px;
     border-bottom: 2px solid #ebebeb;
     border-top: 2px solid #ebebeb;
     margin-top: 5px;
-     background: #fffefc;
-     padding: 10px 0;
+    background: #fffefc;
+    padding: 10px 0;
     .row {
       margin-top: 0px;
     }
@@ -1369,7 +1465,7 @@ $border-radius: 5px;
       line-height: 40px;
       text-align: center;
       width: 100%;
-      font-family: 'Oblik';
+      font-family: "Oblik";
       color: #2a2857;
       margin-top: 0px;
       margin-block-end: 0;
@@ -1407,7 +1503,7 @@ $border-radius: 5px;
   .mobile-filters {
     display: block;
   }
- .dropd1 {
+  .dropd1 {
     height: 43px;
     display: -ms-flexbox;
     display: flex;
@@ -1419,9 +1515,9 @@ $border-radius: 5px;
     border: 1px solid #dedede;
     width: 100%;
     margin: 0 0px 0px 0px;
-}
+  }
   .mobile-filters-button {
-   height: 45px;
+    height: 45px;
     display: -ms-flexbox;
     display: flex;
     align-items: center;
@@ -1442,7 +1538,7 @@ $border-radius: 5px;
       color: #434343;
       font-weight: bold;
       font-size: 12px;
-      font-family: 'Arial';
+      font-family: "Arial";
       @media screen and (max-width: 625px) {
       }
     }
@@ -1463,7 +1559,7 @@ $border-radius: 5px;
     .sorting1 {
       display: block;
       line-height: 33px;
-          padding-right: 0;
+      padding-right: 0;
     }
     .dropd1 {
       line-height: 47px;
@@ -1535,7 +1631,7 @@ $border-radius: 5px;
   margin: 7px 0px 0px 0px;
   padding-left: 8px;
   font-size: 17px;
-  color: #071A44;
+  color: #071a44;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   @media screen and (max-width: 1278px) and (min-width: 1024px) {
@@ -1586,15 +1682,15 @@ $border-radius: 5px;
   border-radius: 5px;
 }
 .firstcol p {
-  color: #071A44;
+  color: #071a44;
   font-size: 14px;
-  font-family: 'Arial';
+  font-family: "Arial";
   line-height: 19px;
   margin: 8px 0 9px 0;
 }
 .firstcol h1 {
-  font-family: 'Oblik';
-  color: #071A44;
+  font-family: "Oblik";
+  color: #071a44;
   font-size: 32px;
   margin: 5px 0 0 0;
 }
@@ -1721,7 +1817,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
   display: inline-flex;
 }
 .sorting label {
-  color: #071A44;
+  color: #071a44;
   font-weight: bold;
   margin: 7px 9px 0px 15px;
   font-size: 17px;
@@ -1738,7 +1834,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
   }
 }
 .totalprods {
-  color: #071A44;
+  color: #071a44;
   font-weight: bold;
   // padding-right: 10px;
   margin: 7px 0px 0px 11px;
@@ -1759,12 +1855,12 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     width: auto;
   }
   p {
-    color: #071A44;
+    color: #071a44;
     font-weight: bold;
     padding-right: 6px;
     margin: 7px 0px 0px 0px;
     margin-left: 5px;
-    font-family: 'Arial';
+    font-family: "Arial";
     font-size: 17px;
     @media screen and (max-width: 1278px) and (min-width: 1024px) {
       font-size: 15px;
@@ -1781,7 +1877,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
   padding-right: 10px;
   margin: 9px 0px 0px 0px;
   margin-left: 5px;
-  font-family: 'Arial';
+  font-family: "Arial";
   font-size: 16px;
   @media (min-width: 900px) and (max-width: 1278px) {
     font-size: 14px;
@@ -1801,7 +1897,7 @@ p.col-xs-12.end-md.m0.pb20.cl-secondary.totolprodno {
     margin: 7px 4px 0px 0px;
     font-size: 16px;
     font-weight: bold;
-    color: #071A44;
+    color: #071a44;
   }
 }
 .secondhead {
@@ -1934,57 +2030,54 @@ p {
 }
 
 .container {
-    padding-right: 45px !important;
-    padding-left: 45px !important;
+  padding-right: 45px !important;
+  padding-left: 45px !important;
 }
-@media screen and (max-width: 1199px)
-{
-.container {
+@media screen and (max-width: 1199px) {
+  .container {
     padding-left: 40px !important;
     padding-right: 40px !important;
+  }
 }
-}
-@media screen and (max-width: 991px) 
-{
-.container {
+@media screen and (max-width: 991px) {
+  .container {
     padding-left: 28px !important;
     padding-right: 28px !important;
+  }
 }
-}
-@media screen and (max-width: 767px) 
-{
-.container {
+@media screen and (max-width: 767px) {
+  .container {
     padding-left: 8px !important;
     padding-right: 8px !important;
-}
-span.sortbycleartxt {
+  }
+  span.sortbycleartxt {
     width: 100%;
     margin-left: auto;
-}
-.dropd1 .sort-by {
+  }
+  .dropd1 .sort-by {
     display: flex;
     justify-content: center;
     align-content: center;
-}
+  }
 }
 @media screen and (min-width: 650px) and (max-width: 767px) {
   div#category {
     padding-top: 20px !important;
-}
+  }
 }
 </style>
 <style lang="scss">
 .dropd1 .sort-by select.cl-secondary {
-    border: none;
-    width: auto;
-    background: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px !important;
-    color: #434343;
+  border: none;
+  width: auto;
+  background: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px !important;
+  color: #434343;
 }
-.category-bottom-content{
-    border-top: 1px solid #9c9a9a;
-    border-bottom: 1px solid #9c9a9a;
+.category-bottom-content {
+  border-top: 1px solid #9c9a9a;
+  border-bottom: 1px solid #9c9a9a;
 }
 </style>
