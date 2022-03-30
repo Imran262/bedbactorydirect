@@ -18,7 +18,7 @@ export const GoogleGtagModule: StorefrontModule = function ({ store, router, app
           id: appConfig.globalSiteTag.id
         },
         includes: [{
-          id: appConfig.globalSiteTag.GA4_id || 'G-MQ0RMQSH9J'
+          id: appConfig.globalSiteTag.GA4_id || 'G-Q5973J67QM'
         }],
         pageTrackerTemplate (to, from) {
           // Need to identify if its a category route.

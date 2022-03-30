@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div
-        :class="['cms-content Category page', { container: sync }]"
+        :class="['V-html cms-content Category page', { container: sync }]"
         v-if="getCmsData"
         v-html="getCmsData.content"
         />
@@ -30,6 +30,18 @@ export default {
       required: false,
     },
   },
+  mounted () {
+    console.log("19375 ");
+    console.log("19375 Here for category footer block");
+    let contentWrapper = document.getElementsByClassName('footer-block-click')[0]
+    let anchor = contentWrapper?.getElementsByTagName('a')
+    console.log("19375 Mounted contentWrapper",contentWrapper);
+    console.log("19375 Mounted anchor",anchor,contentWrapper && anchor);
+    if (contentWrapper && anchor) {
+      console.log("19375 Mounted calling anchortoRouter function");
+      this.anchortoRouter()
+    }
+  },
   serverPrefetch() {
     return this.fetchCmsBlock();
   },
@@ -38,7 +50,36 @@ export default {
       this.fetchCmsBlock();
     }
   },
+  updated () {
+    this.$nextTick(() => {
+      this.anchortoRouter()
+    })
+  },
   methods: {
+    anchortoRouter () {
+      console.log("19375 In anchortoRouter function",document.getElementsByClassName('footer-block-click').length);
+      if (document.getElementsByClassName('footer-block-click')) {
+        let contentWrapper = document.getElementsByClassName('footer-block-click')[0]
+        let anchor = contentWrapper?.getElementsByTagName('a')
+        console.log("19375  anchor",anchor ,"\nContentWrapper",contentWrapper?.getElementsByTagName('a'));
+        if (contentWrapper?.getElementsByTagName('a')) {
+          [...anchor].forEach((anchoreTag) => {
+            anchoreTag.setAttribute('onclick', 'return false;');
+            anchoreTag.addEventListener('click', () => {
+              let isExternalLink = anchoreTag.hasAttribute('target')
+              if (!isExternalLink) {
+                this.navigate(anchoreTag.pathname)
+              } else {
+                window.location = anchoreTag.href
+              }
+            })
+          })
+        }
+      }
+    },
+    navigate (path) {
+      this.$router.push(`${path}`)
+    },
     fetchCmsBlock() {
       let queryKey = "";
       let queryValue = "";

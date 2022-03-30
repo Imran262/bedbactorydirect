@@ -1,6 +1,6 @@
 <template>
   <div class="maincart">
-   <!-- totals {{totals}}
+    <!-- totals {{totals}}
    <br/>
    productsInCart {{JSON.stringify (productsInCart)}} -->
     <div class="container">
@@ -36,10 +36,10 @@
               class="col-md-12 sb-special-main"
               v-if="
                 !addAllBtnClicked &&
-                productsIncludesTileProduct &&
-                totalPriceToSendInCall !== 0 &&
-                productsHasAdhesivesAndGroutCheck &&
-                groutAddedOrNoThanks
+                  productsIncludesTileProduct &&
+                  totalPriceToSendInCall !== 0 &&
+                  productsHasAdhesivesAndGroutCheck &&
+                  groutAddedOrNoThanks
               "
             >
               <div class="row">
@@ -147,7 +147,7 @@
                 />
               </div>
               <button-outline
-              :class="' Discount-Voucher'"
+                :class="' Discount-Voucher'"
                 :disabled="!couponCode"
                 @click.native="setCoupon"
                 >{{ $t("Add discount code") }}
@@ -156,8 +156,9 @@
           </div>
         </div>
 
-        <div class="Total col-lg-4 col-md-12 col-xs-12 total-box-inner">
-          <Retailfinancev12 :currentPrice="(getGrandTotal() ? getGrandTotal() : '0')" :key="getGrandTotal()"/>
+        <div
+          class="Total col-lg-4 col-md-12 col-xs-12 total-box-inner YYYYYYYYYYYYYYYYYYYY"
+        >
           <div class="cart-summary-main" id="cart-summary-main">
             <div class="inner-total bg-cl-primary">
               <div
@@ -264,9 +265,13 @@
                 @click="expressCheckout"
               />
             </div> -->
+
+            <Retailfinancev12
+              :currentPrice="getGrandTotal() ? getGrandTotal() : '0'"
+              :key="getGrandTotal()"
+            />
           </div>
         </div>
-       
       </div>
     </div>
   </div>
@@ -292,7 +297,7 @@ import _ from "lodash";
 export default {
   data() {
     return {
-       updatedPrice:0,
+      updatedPrice: 0,
       regular: true,
       addCouponPressed: false,
       sorted: [],
@@ -301,7 +306,7 @@ export default {
       discount: false,
       allGroutsAdhesivesDataArray: {},
       allGroutsAdhesives: {
-        data: [],
+        data: []
       },
       totalPriceOfGroutAdhesive: 0,
       totalPriceToSendInCall: 0,
@@ -317,27 +322,27 @@ export default {
       groutAddedOrNoThanks: true,
       discountCheck: false,
       productsIncludesTileProduct: false,
-      grandTotal: 0,
+      grandTotal: 0
     };
   },
   mixins: [VueOfflineMixin, CartSummary, MeasureProductClick],
   components: {
-     Retailfinancev12,
+    Retailfinancev12,
     V12calculator,
     ProductCartPage,
     ButtonFull,
     ButtonOutline,
-    BaseInput,
+    BaseInput
   },
   async mounted() {
     await this.checkCart();
     await this.getGrandTotal();
     await this.discountAppliedCheck();
-    console.log("1012 1235 in Mounted ",this.grandTotal);
+    console.log("1012 1235 in Mounted ", this.grandTotal);
     if (this.grandTotal) {
       await this.sendCartClick({
         productsInCart: this.productsInCart,
-        grandTotal: this.grandTotal,
+        grandTotal: this.grandTotal
       });
     }
     // window.addEventListener('scroll', this.handleScroll)
@@ -351,7 +356,7 @@ export default {
       productsInCart: "cart/getCartItems",
       appliedCoupon: "cart/getCoupon",
       totals: "cart/getTotals",
-      getCartToken: "cart/getCartToken",
+      getCartToken: "cart/getCartToken"
     }),
     checkIfAnyGroutAdhesive() {
       if (this.cartHasGroutAdhesive && this.cartHasGroutAdhesive.length > 0) {
@@ -360,15 +365,17 @@ export default {
       return true;
     },
     nonzeroProduct() {
-      return this.productsInCart.filter((item) => {
-        if(item.totals && item.totals.price_incl_tax ){
+      return this.productsInCart.filter(item => {
+        if (item.totals && item.totals.price_incl_tax) {
           return item.totals.price_incl_tax > 0;
-        }else{
-          console.log("1012 in non zero product this item has no totals",item.totals);
-
+        } else {
+          console.log(
+            "1012 in non zero product this item has no totals",
+            item.totals
+          );
         }
       });
-    },
+    }
     // productsHasAdhesivesAndGrouts () {
     //   if (!this.productsInCart || this.productsInCart.length === 0) {
     //     return false
@@ -392,20 +399,30 @@ export default {
   },
   async beforeMount() {
     await this.checkCart();
-    console.log("1012 in before mount  ", this.productsInCart.length,JSON.stringify(this.productsInCart));
+    console.log(
+      "1012 in before mount  ",
+      this.productsInCart.length,
+      JSON.stringify(this.productsInCart)
+    );
     if (this.productsInCart.length === 0) {
       console.log("1012 Cart is Empty ");
       this.$router.push(this.localizedRoute("/"));
     }
     this.$bus.$on("carPageUpdate", ({ productId }) => {
-      console.log("1012 carPageUpdate grout adhesive is ",this.hasGroutAdhesives);
+      console.log(
+        "1012 carPageUpdate grout adhesive is ",
+        this.hasGroutAdhesives
+      );
       if (productId in this.hasGroutAdhesives) {
         delete this.hasGroutAdhesives[productId];
         this.groutAdhesivesOnCart();
       }
     });
     this.$bus.$on("has-grout-adhesive", ({ recommendation, productId }) => {
-      console.log("1012 has-grout-adhesive grout adhesive is ",this.hasGroutAdhesives);
+      console.log(
+        "1012 has-grout-adhesive grout adhesive is ",
+        this.hasGroutAdhesives
+      );
       if (productId in this.hasGroutAdhesives) {
         this.hasGroutAdhesives[productId].recommendation = recommendation;
       } else {
@@ -415,7 +432,10 @@ export default {
     });
 
     this.$bus.$on("quantity-updated", ({ sqm, productId }) => {
-      console.log("1012 quantity-updated grout adhesive is ",this.ProductsHasAdhesiveGrouts);
+      console.log(
+        "1012 quantity-updated grout adhesive is ",
+        this.ProductsHasAdhesiveGrouts
+      );
       if (productId in this.ProductsHasAdhesiveGrouts) {
         this.ProductsHasAdhesiveGrouts[productId].sqm = sqm;
       } else {
@@ -425,14 +445,17 @@ export default {
     });
 
     this.$bus.$on("minSqmValue", ({ minSqmVal, productId, sqm }) => {
-       console.log("1012 minSqmValue grout adhesive is ",this.ProductsHasAdhesiveGrouts);
+      console.log(
+        "1012 minSqmValue grout adhesive is ",
+        this.ProductsHasAdhesiveGrouts
+      );
       if (productId in this.ProductsHasAdhesiveGrouts) {
         this.ProductsHasAdhesiveGrouts[productId].minSqmValue = minSqmVal;
         this.ProductsHasAdhesiveGrouts[productId].sqm = sqm;
       } else {
         this.ProductsHasAdhesiveGrouts[productId] = {
           minSqmValue: minSqmVal,
-          sqm,
+          sqm
         };
       }
       this.productsHasAdhesivesAndGrouts();
@@ -440,13 +463,17 @@ export default {
     this.$bus.$on(
       "remove-grout-adhesive-section",
       ({ doesNotHasGroutAdhesiveSection, productId }) => {
-        console.log("1012 minSqmValue grout adhesive is ",this.ProductsHasAdhesiveGrouts);
+        console.log(
+          "1012 minSqmValue grout adhesive is ",
+          this.ProductsHasAdhesiveGrouts
+        );
         if (productId in this.groutAdhesiveAddedOrNoThanks) {
-          this.groutAdhesiveAddedOrNoThanks[productId].check =
-            doesNotHasGroutAdhesiveSection;
+          this.groutAdhesiveAddedOrNoThanks[
+            productId
+          ].check = doesNotHasGroutAdhesiveSection;
         } else {
           this.groutAdhesiveAddedOrNoThanks[productId] = {
-            check: doesNotHasGroutAdhesiveSection,
+            check: doesNotHasGroutAdhesiveSection
           };
         }
         this.groutAndAdhesiveAddedOrNoThanks();
@@ -460,7 +487,13 @@ export default {
     totals: {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
-          console.log("1012 Totals being updated",newVal !== oldVal ,newVal , oldVal,this.getGrandTotal());
+          console.log(
+            "1012 Totals being updated",
+            newVal !== oldVal,
+            newVal,
+            oldVal,
+            this.getGrandTotal()
+          );
           // Re-fetch the GrandTotal
           this.getGrandTotal();
           // if (this.grandTotal) {
@@ -468,41 +501,50 @@ export default {
           // }
         }
       },
-      deep: true,
+      deep: true
     },
-    productsInCart: function (oldVal) {
+    productsInCart: function(oldVal) {
       this.discountAppliedCheck();
       if (oldVal.length === 0 && this.$route.name === "cart") {
         console.log("1012 products in cart are zero");
         this.$router.push("/");
       }
     },
+    async $route(to, from) {
+      console.log("kamran mushtaq is here");
+    }
   },
   metaInfo() {
     return {
       title: "",
-      titleTemplate: "Shopping Cart",
+      titleTemplate: "Shopping Cart"
     };
   },
   methods: {
-       setPrice(data) {
-      console.log("7778855 Current price is ",data);
-      let price = data.special ?(data.original - data.special === 0) ? data.original : data.special : data.original
-      console.log("778855 current calculated price is ",price);
+    setPrice(data) {
+      console.log("7778855 Current price is ", data);
+      let price = data.special
+        ? data.original - data.special === 0
+          ? data.original
+          : data.special
+        : data.original;
+      console.log("778855 current calculated price is ", price);
       this.updatedPrice = price;
       this.calculatedProductPrice = data;
     },
     ...mapActions({
-      applyCoupon: "cart/applyCoupon",
+      applyCoupon: "cart/applyCoupon"
     }),
     updateScroll() {
       if (this.$route.name === "cart") {
         // document.getElementById('app').style.overflowX  = "unset";
-         if (window.innerWidth > 768)
-      {
-        document.getElementById('app').style.overflowX  = "unset";
-      }
-        document.getElementById("viewport").style.overflow = "unset";
+        // if (window.innerWidth > 768) {
+        document.getElementById("app").style.overflowX = "unset";
+        // }
+        document.getElementById("viewport").style.overflowX = "unset";
+        document.getElementsByTagName("body")[0].style.overflowX = "hidden";
+        document.getElementsByTagName("body")[0].style.height = "100vh";
+        document.getElementsByTagName("html")[0].style.overflowX = "hidden";
       }
     },
     checkCart() {
@@ -522,7 +564,7 @@ export default {
     getGrandTotal() {
       if (this.totals && this.totals.length > 0) {
         let grandTotal = this.totals.filter(
-          (item) => item.code === "grand_total"
+          item => item.code === "grand_total"
         );
         if (
           grandTotal &&
@@ -538,11 +580,11 @@ export default {
     discountAppliedCheck() {
       if (this.totals && this.totals.length > 0) {
         let discountCheck = [];
-        this.totals.forEach((item) => {
+        this.totals.forEach(item => {
           discountCheck.push(item.code && item.code === "discount");
         });
         this.discountCheck =
-          discountCheck.filter((check) => check === true).length > 0;
+          discountCheck.filter(check => check === true).length > 0;
         return this.discountCheck;
       }
     },
@@ -557,7 +599,7 @@ export default {
         }
       }
       this.groutAddedOrNoThanks =
-        booleans.filter((bool) => bool === false).length > 0;
+        booleans.filter(bool => bool === false).length > 0;
       return this.groutAddedOrNoThanks;
     },
     productsHasAdhesivesAndGrouts() {
@@ -577,7 +619,7 @@ export default {
         }
       }
       this.productsHasAdhesivesAndGroutCheck =
-        booleans.filter((bool) => bool === true).length > 0;
+        booleans.filter(bool => bool === true).length > 0;
       return this.productsHasAdhesivesAndGroutCheck;
     },
     groutAdhesivesOnCart() {
@@ -591,7 +633,7 @@ export default {
         }
       }
       this.productsIncludesTileProduct =
-        booleans.filter((bool) => bool === true).length > 0;
+        booleans.filter(bool => bool === true).length > 0;
       return this.productsIncludesTileProduct;
     },
     addAllTotalPrice(singleProductTotal) {
@@ -622,11 +664,14 @@ export default {
       await this.$store
         .dispatch("groutadhesive/groutAdhesiveGetRecommendations", {
           data: {
-            quote_id: this.getCartToken,
-          },
+            quote_id: this.getCartToken
+          }
         })
-        .then((resp) => {
-          console.log("1012 in checkCartHasGroutAdhesiveAttachedToProduct ",resp);
+        .then(resp => {
+          console.log(
+            "1012 in checkCartHasGroutAdhesiveAttachedToProduct ",
+            resp
+          );
           let response = JSON.parse(resp);
           if (response.success) {
             this.cartHasGroutAdhesive = response.data;
@@ -678,7 +723,7 @@ export default {
         tax: taxAmt,
         product: JSON.stringify(this.getProducts())
           .replace(/[^a-zA-Z_ : & 0-9 .]/g, "")
-          .replace(/[:]/g, "="),
+          .replace(/[:]/g, "=")
       };
       EventBus.$emit("notification-progress-start", i18n.t("Please wait..."));
       axios.post(url, data).then(({ data }) => {
@@ -712,7 +757,7 @@ export default {
           message: i18n.t(
             "You've entered an incorrect coupon code. Please try again."
           ),
-          action1: { label: i18n.t("OK") },
+          action1: { label: i18n.t("OK") }
         });
       }
     },
@@ -725,11 +770,12 @@ export default {
       ) {
         groutAdhesive[0].map((item, key) => {
           if (this.allGroutsAdhesivesDataArray[item.product_id]) {
-            this.allGroutsAdhesivesDataArray[item.product_id][item.recomm_id] =
-              item;
+            this.allGroutsAdhesivesDataArray[item.product_id][
+              item.recomm_id
+            ] = item;
           } else {
             this.allGroutsAdhesivesDataArray[item.product_id] = {
-              [item.recomm_id]: { item },
+              [item.recomm_id]: { item }
             };
           }
         });
@@ -757,9 +803,9 @@ export default {
       updatedObjectValues.total_recommendations = this.totalPriceToSendInCall;
       await this.$store
         .dispatch("groutadhesive/groutAdhesiveAddRecommendationsFunction", {
-          data: updatedObjectValues,
+          data: updatedObjectValues
         })
-        .then((res) => {
+        .then(res => {
           let response = JSON.parse(res);
           if (response.success) {
             this.addAllBtnClicked = true;
@@ -773,11 +819,11 @@ export default {
     async pullCartSync() {
       await this.$store.dispatch("cart/sync", {
         forceClientState: false,
-        forceSync: true,
+        forceSync: true
       });
       await this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
       this.$forceUpdate();
-    },
+    }
     // handleScroll (event) {
     //   var SAFETY_MARGIN = 20
     //   const FOOTER_HEIGHT = document.getElementsByClassName('footer-main')[0]
@@ -806,7 +852,13 @@ export default {
     //     }
     //   }
     // }
-  },
+  }
+  // created() {
+  //   this.updateScroll();
+  // }
+  // beforeRouteLeave(to, from, next) {
+  //   console.log("rajahere", to, from);
+  // }
 };
 </script>
 
@@ -816,17 +868,28 @@ export default {
   src: url("/assets/fonts/Oblik_Bold.otf");
 }
 
+.cart-summary-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .V-12-retail-Finance {
+    margin-left: 0 !important;
+  }
+}
+
 .paypalBtn {
   cursor: pointer;
 }
-
 .maincart {
   background-color: #f2f2f2 !important;
 
   //  overflow: auto;
   @media (max-width: 767px) {
     background-color: #ffffff !important;
-    margin-top: 10px;
+    margin-top: 15px;
+    padding-top: unset !important;
   }
 
   .grandTotalMobile {
@@ -847,6 +910,9 @@ export default {
     @media (max-width: 767px) {
       padding-top: 15px;
     }
+    @media (max-width: 991px) {
+      padding-top: 20px;
+    }
   }
 
   .topSticky {
@@ -859,7 +925,7 @@ export default {
   }
 
   .cart-summary-main {
-    width: 412px;
+    // width: 412px;
     // position: fixed;
     // // z-index: 1;
     // top: auto;
@@ -923,13 +989,10 @@ export default {
 
     .inner-total {
       width: 92%;
-
-      float: right;
-
+      // float: right;
+      // height: 100%;
       background-color: #ffff;
-
       border: 1px solid #bfc3cb !important;
-
       @media (max-width: 767px) {
         width: 99%;
       }
@@ -1048,7 +1111,7 @@ export default {
     // padding: 30px 20px 70px 20px;
     height: 70px;
     display: flex;
-    align-items: center
+    align-items: center;
   }
 
   .checkoutbutton {
@@ -1096,8 +1159,17 @@ export default {
 
   @media (min-width: 767px) {
     .total-box-inner {
+      position: relative;
+    }
+    .cart-summary-main {
+      position: -moz-sticky;
+      position: -ms-sticky;
+      position: -o-sticky;
       position: sticky;
-      top: 70px;
+      position: -webkit-sticky;
+      top: 0;
+      max-height: 100%;
+      // padding-left: 2rem;
     }
   }
 
@@ -1297,18 +1369,16 @@ export default {
 }
 
 @media (max-width: 1200px) and (min-width: 992px) {
-    .total-box-inner .V-12-retail-Finance.cart-V-12{
-   margin-left: 24px !important;
-    width: 88%;
-}
+  .total-box-inner .V-12-retail-Finance.cart-V-12 {
+    //  margin-left: 24px !important;
+    width: 92%;
+  }
   .sb-congragulation-text > p {
     font-size: 13px;
   }
-
   .maincart .cart-summary-main {
     width: 310px;
   }
-
   .sb-add-all-button > button {
     font-size: 14px;
 
@@ -1342,8 +1412,7 @@ export default {
   }
 
   .maincart .Total .inner-total {
-    float: unset;
-
+    // float: unset;
     width: 100%;
   }
 
@@ -1505,13 +1574,13 @@ export default {
 
 @media screen and (max-width: 991px) {
   .uz_mb_top_checkout {
-    display: block;
+    display: flex !important;
     background-color: #fff;
-    // border-bottom: 2px solid #dddddd;
-    // border-top: 2px solid #dddddd;
-    display: inline-flex !important;
-    margin-top: 8px;
-    width: 102% !important;
+    padding: 11px 3px;
+    align-items: center;
+  }
+  .maincart {
+    padding-top: 2rem;
   }
   .uz_top_grand_price {
     color: #29275b;
@@ -1530,19 +1599,20 @@ export default {
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 6px;
+    margin-top: 3px;
   }
   .uz_top_grand_price {
     color: #29275b;
     font-family: Arial;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 0px;
+    margin: 0;
   }
   .grid12-12.price {
     white-space: nowrap !important;
   }
   .sb-button.button.btn-proceed-checkout.override-btn-checkout.btn-checkout {
-    margin-top: 10px;
+    // margin-top: 10px;
     margin-left: 0 !important;
     width: 100%;
     text-transform: uppercase;
@@ -1572,71 +1642,55 @@ export default {
     padding-right: 0px;
   }
   .uz-proceed-checkout {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
   }
 }
 
 .uz_mb_top_checkout {
   display: none;
 }
-
-@media screen and (min-width: 320px) and (max-width: 390px) {
-  .sb-button.button.btn-proceed-checkout.override-btn-checkout.btn-checkout {
-    min-width: 198px !important;
-  }
-  .padding-right {
-    padding-right: 0px;
-  }
-}
-
-@media screen and (min-width: 376px) and (max-width: 500px) {
-  .padding-right {
-    padding-right: 0px;
-  }
-}
 .hidden-xs {
-    display: inherit !important;
+  display: inherit !important;
 }
 .Discount-Voucher {
-    border: 2px solid #071a44;
-    border-radius: 3px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    min-height: auto;
-    font-family: Arial;
-    font-weight: bold;
-    text-transform: uppercase;
-    background: #071a44;
+  border: 2px solid #071a44;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  min-height: auto;
+  font-family: Arial;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #071a44;
 }
 .total-box-inner .V-12-retail-Finance.cart-V-12 {
-    position: absolute;
-    bottom: 0;
-    margin-left: 32px;
-    margin-bottom: 10px;
-    background: #ffff;
-     @media (max-width: 991px){
-    margin-left: 0;
+  // position: absolute;
+  // bottom: 0;
+  // margin-left: 32px;
+  //  margin: 1.5rem auto 3rem;
+  background: #ffff;
+  @media (max-width: 991px) {
+    // margin-left: 0;
     width: 100%;
-     }
-       @media (max-width: 767px){
-    width: 97% !important;
-    margin-left: 5px !important;
-     }
-       @media (max-width: 480px){
-    width: 94% !important;
-     }
+  }
+  @media (max-width: 767px) {
+    width: 100% !important;
+    // margin-left: 5px !important;
+  }
+  @media (max-width: 480px) {
+    // width: 94% !important;
+  }
 }
 .total-box-inner {
-      height: 480px;
-       }
- @media (max-width: 1201px){
-   .total-box-inner {
-      // height: 580px;
-       @media (max-width: 991px){
-         height: 510px !important;
-       }
+  // min-height: 580px;
+}
+@media (max-width: 1201px) {
+  .total-box-inner {
+    // height: 580px;
+    @media (max-width: 991px) {
+      //  height: 615px !important;
     }
- }
+  }
+}
 </style>
-
