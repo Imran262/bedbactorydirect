@@ -218,11 +218,6 @@ export default {
       console.log("7456321 In header",to.path , from.path);
       console.log("789456 In Header in cart", this.$route, to, from);
       if (to.name === "cart") {
-        this.$store.dispatch("cart/sync", {
-          forceClientState: false,
-          forceSync: true
-        });
-        this.$store.dispatch("cart/syncTotals", { forceServerSync: true });
         // console.log("789456 Header ", this.productsInCart.length);
         if (this.productsInCart.length === 0) {
           // console.log("789456 Cart is Empty ");

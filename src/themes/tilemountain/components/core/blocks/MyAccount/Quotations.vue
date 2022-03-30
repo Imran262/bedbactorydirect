@@ -119,7 +119,23 @@
               data-v-e79937e8=""
               type="button"
               data-testid="addToCart"
-              class="back-button no-outline button_left button-full brdr-none w-100 px10 py15 :bg-cl-th-secondary ripple weight-400 h4 cl-white sans-serif fs-medium add-btn"
+              class="
+                back-button
+                no-outline
+                button_left button-full
+                brdr-none
+                w-100
+                px10
+                py15
+                :bg-cl-th-secondary
+                ripple
+                weight-400
+                h4
+                cl-white
+                sans-serif
+                fs-medium
+                add-btn
+              "
             >
               Back
             </router-link>
@@ -137,9 +153,27 @@
                   path: '/my-account/orders/' + quoteVal.order_entity_id,
                   query: {},
                 }"
-                class="f_right f_right_vieworder button_right no-outline button-full block brdr-none w-100 px10 py20 :bg-cl-th-secondary ripple weight-400 h4 cl-white sans-serif fs-medium add-btn"
+                class="
+                  f_right f_right_vieworder
+                  button_right
+                  no-outline
+                  button-full
+                  block
+                  brdr-none
+                  w-100
+                  px10
+                  py20
+                  :bg-cl-th-secondary
+                  ripple
+                  weight-400
+                  h4
+                  cl-white
+                  sans-serif
+                  fs-medium
+                  add-btn
+                "
               >
-                {{ 'View Order' }}
+                {{ "View Order" }}
               </router-link>
             </template>
             <template v-else>
@@ -148,8 +182,26 @@
                 data-v-e79937e8=""
                 type="button"
                 data-testid="addToCart"
-                class="f_right button_right no-outline button-full block brdr-none w-100 px10 py15 :bg-cl-th-secondary ripple weight-400 h4 cl-white sans-serif fs-medium add-btn"
-                @click="quoteAddToCart(quoteVal.quote_number)"
+                class="
+                  f_right
+                  button_right
+                  no-outline
+                  button-full
+                  block
+                  brdr-none
+                  w-100
+                  px10
+                  py15
+                  :bg-cl-th-secondary
+                  ripple
+                  weight-400
+                  h4
+                  cl-white
+                  sans-serif
+                  fs-medium
+                  add-btn
+                "
+                @click="quoteAddToCart(quoteVal.quote_number, index)"
               >
                 Add to BASKET
               </button>
@@ -162,77 +214,131 @@
 </template>
 
 <script>
-import dateFormat from 'dateformat'
-import { currentStoreView } from '@vue-storefront/core/lib/multistore'
-import MyProfile from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyProfile'
-import { mapGetters } from "vuex"
-import { getThumbnailPath } from '@vue-storefront/core/helpers'
-import { notifications } from '@vue-storefront/core/modules/cart/helpers'
-import i18n from '@vue-storefront/i18n'
-import { CartService } from '@vue-storefront/core/data-resolver'
+import dateFormat from 'dateformat';
+import { currentStoreView } from '@vue-storefront/core/lib/multistore';
+import MyProfile from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyProfile';
+import { mapGetters } from 'vuex';
+import { getThumbnailPath } from '@vue-storefront/core/helpers';
+import { notifications } from '@vue-storefront/core/modules/cart/helpers';
+import i18n from '@vue-storefront/i18n';
+import { CartService } from '@vue-storefront/core/data-resolver';
+import axios from 'axios';
+import config from 'config';
 
 export default {
-  Name: "Quotations",
+  Name: 'Quotations',
   data () {
     return {
       quoteData: [],
       firstQuoteId: null
-    }
+    };
   },
   mixins: [MyProfile],
+  created () {
+    var self = this;
+    self.$nextTick(() => {
+      self.loaded = true;
+    });
+  },
   async mounted () {
     await this.$store.dispatch(
-      'quotesystem/quoteSystemFunction',
-      { customerId: this.currentUser.id }
-    ).then((resp) => {
-      console.log("1122 response is ",resp);
-      const firstQuote = resp[Object.keys(resp)[0]]
-      this.firstQuoteId = firstQuote.entity_id
-      this.quoteData = resp
-
-      let convertedOrder = []
-      for (var prop in resp) {
-        if (resp.hasOwnProperty(prop)) {
-          convertedOrder.push(resp[prop].converted_order)
-        }
-      }
-    })
-      .catch((err) => {
-        console.log('err occured from api call', err)
+      'quotesystem/quoteSystemFunction', {
+        customerId: this.currentUser.id
       })
+      .then(resp => {
+        console.log('1122 response is ', resp);
+        const firstQuote = resp[Object.keys(resp)[0]];
+        this.firstQuoteId = firstQuote.entity_id;
+        this.quoteData = resp;
+
+        let convertedOrder = [];
+        for (var prop in resp) {
+          if (resp.hasOwnProperty(prop)) {
+            convertedOrder.push(resp[prop].converted_order);
+          }
+        }
+      })
+      .catch(err => {
+        console.log('err occured from api call', err);
+      });
   },
   computed: {
     ...mapGetters({
-      getCartToken: "cart/getCartToken",
-      getUserToken: "user/getToken",
+      shippingMethods: 'checkout/getShippingMethods',
+      getCartToken: 'cart/getCartToken',
+      getUserToken: 'user/getToken'
     }),
     storeView () {
-      return currentStoreView()
+      return currentStoreView();
     }
   },
   methods: {
+    async getProduct (psku) {
+      return this.$store.dispatch('product/single', {
+        options: { sku: psku },
+        setCurrentProduct: false,
+        setCurrentCategoryPath: false,
+        selectDefaultVariant: false
+      });
+    },
     expiryDate (date) {
-      const d = new Date(date.replace(' ', 'T'))
-      d.setDate(d.getDate() + 30)
-      const finalDate = dateFormat(d, "dd-mm-yyyy")
-      return finalDate
+      const d = new Date(date.replace(' ', 'T'));
+      d.setDate(d.getDate() + 30);
+      const finalDate = dateFormat(d, 'dd-mm-yyyy');
+      return finalDate;
     },
     getQuoteProdImage (slug) {
-      return getThumbnailPath(slug, 186, 186)
+      return getThumbnailPath(slug, 186, 186);
     },
-    async addQuote (quoteId) {
-      await this.$store.dispatch('cart/clear', { disconnect: false })
-      await this.$store.dispatch(
-        'quotesystem/quoteSystemAddtoCart',
-        { ref_quoteId: quoteId, current_quoteId: this.getCartToken }
-      ).then((resp) => {
-        console.log('addtocartResponse', resp)
-        this.$router.push(this.localizedRoute('/my-account/'));
-      })
-        .catch((err) => {
-          console.log('err occured from api call', err)
+    async addQuote (quoteId, index) {
+      console.log(
+        '36521 Here to add quote ',
+        quoteId,
+        index,
+        this.quoteData[index]
+      );
+      await this.$store.dispatch('cart/clear', { disconnect: false });
+      let qouteProduct = this.quoteData[index].items[0];
+      console.log('36521 current product in qoute is new ', qouteProduct);
+      const URL = config.baseUrl.url + 'vueapi/ext/V12Finance/getSku';
+      let order = {
+        item_id: qouteProduct.itemid,
+        quote_id: quoteId
+      };
+      console.log('74123 Parameters for quote data are  ', order);
+      axios
+        .post(URL, order, {
+          headers: {
+            'Content-type': 'application/json'
+          }
         })
-      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
+        .then(async res => {
+          console.log(
+            '96521 789654 Received Quote Data with Parameters ',
+            order
+          );
+          let receivedQouteData = res.data.result;
+          console.log(
+            '96521 789654 Received quote data is ',
+            receivedQouteData
+          );
+          let self = this;
+          let index = 0;
+          for (index = 0; index < receivedQouteData.length; index++) {
+            let receivedQouteProduct = receivedQouteData[index];
+            console.log(
+              '96521 789654 Current Product is ',
+              receivedQouteProduct
+            );
+            await this.addProductToCart(receivedQouteProduct);
+            console.log("37915 Checking special price ",receivedQouteProduct.custom_price);
+            if (receivedQouteProduct.custom_price){
+              console.log("37915 About to call special price function");
+              await this.addSpecialPrice(quoteId,receivedQouteProduct.item_id,receivedQouteProduct.custom_price);
+            }
+            if (index+1 == receivedQouteData.length){
+              await this.saveQuoteId(quoteId);
+              await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
       await this.$store.dispatch("cart/sync", {
         forceClientState: false,
         forceSync: true,
@@ -240,36 +346,294 @@ export default {
       this.$forceUpdate()
       this.$bus.$emit('notification-progress-stop')
       this.$router.push(this.localizedRoute('/cart'))
-      await this.$store.dispatch("cart/sync", {
-        forceClientState: false,
-        forceSync: true,
-      })
-      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true })
-      console.log("789652365 about to send to cart page");
-      this.$router.push(this.localizedRoute('/cart'))
+              this.$bus.$emit('notification-progress-stop');
+            }
+          }
+        })
+
+        .catch(error => {
+          this.$bus.$emit('notification-progress-stop');
+          console.log(
+            '36521 Error occured while getting data for quote id  : ',
+            quoteId,
+            'Error is ',
+            error
+          );
+        });
     },
-    async quoteAddToCart (quoteId) {
-      const quoteItemData = await CartService.getItems()
-      if (!quoteItemData || !quoteItemData.result || quoteItemData.result.length <= 0) {
-        this.$bus.$emit('notification-progress-start', 'Processing ... ')
-        this.addQuote(quoteId)
+    addSpecialPrice(quoteId,itemId,price){
+      console.log("37915 In here to set Special price",this.$store.state);
+      let URL= "https://vue.bedfactorydirect.co.uk/vueapi/ext/quotesystem/setcustomprice"
+      let order ={
+        "quoteId": quoteId,
+        "cartId":this.$store.state.cart.cartServerToken,
+        "itemId":itemId,
+        "price":price,
+      }
+      axios
+        .post(URL, order, {
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+        .then(async res => {
+          console.log(
+            '96521 789654 Received Data After Setting Price ',
+            res
+          );
+
+        })
+        .catch(error => {
+          console.log(
+            '36521 Error occured while setting Custom price for item: ',itemId ,"\n with qouteId",
+            quoteId,
+            'Error is ',
+            error
+          );
+        });
+    },
+    saveQuoteId(quoteId){
+      console.log("37915 In here to set Special price",this.$store.state);
+      let URL= config.baseUrl.url+config.quoteSystem.saveQuoteId ;
+      let order ={
+        "quoteId": quoteId,
+        "cartId":this.$store.state.cart.cartServerToken
+      }
+      axios
+        .post(URL, order, {
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+        .then(async res => {
+          console.log(
+            '96521 789654 Received Data After Saving Quote and Cart ID ',
+            res
+          );
+
+        })
+        .catch(error => {
+          console.log(
+            '36521 Error occured while Saving Quote and Cart ID',order ,
+            'Error is ',
+            error
+          );
+        });
+    },
+    async addProductToCart (receivedQouteProduct) {
+      let simpleProductCheck = receivedQouteProduct.parentSku
+        ? receivedQouteProduct.parentSku === receivedQouteProduct.sku
+        : true;
+      console.log('Product check', simpleProductCheck);
+      let productSku = receivedQouteProduct.parentSku
+        ? receivedQouteProduct.parentSku
+        : receivedQouteProduct.sku;
+      console.log('95123654 Product Sku is ', productSku);
+
+      // if (receivedQouteProduct.parentSku === receivedQouteProduct.sku )
+      // {
+      // }
+      let actualProduct = await this.getProduct(productSku);
+      console.log(
+        '7456321 from API ',
+        JSON.stringify(receivedQouteProduct),
+        '\n\n\n actualProduct',
+        JSON.stringify(actualProduct),"\n\n\n\n\nNow we should be adding ",actualProduct.name
+      );
+      let updatedTestProduct = actualProduct;
+      if (simpleProductCheck) {
+        console.log('7456321 Its a simple product ', updatedTestProduct.qty);
+        // Simple Product
+        updatedTestProduct.qty = parseInt(receivedQouteProduct.qty);
+        // product_option
+        if (updatedTestProduct.product_option) {
+          updatedTestProduct.product_option =
+            receivedQouteProduct.product_option;
+        } else {
+          console.log('7456321 Its a simple product without any options');
+        }
+      } else {
+        // Configureable product
+        console.log('1230154 Its a configureable product');
+        let configureableOptionsActual =
+          updatedTestProduct.product_option.extension_attributes
+            .configurable_item_options;
+        let configureableOptionsQuoteProduct =
+          receivedQouteProduct.product_option.extension_attributes
+            .configurable_item_options;
+        console.log(
+          '1230154 configureableOptions',
+          configureableOptionsActual,
+          '\n\n',
+          configureableOptionsQuoteProduct
+        );
+        let productOption = 0;
+        let qouteProductOption = 0;
+        for (productOption in configureableOptionsActual) {
+          console.log(
+            '1230154 configureableOptions',
+            productOption,
+            configureableOptionsActual[productOption]
+          );
+          qouteProductOption = 0;
+          for (qouteProductOption in configureableOptionsQuoteProduct) {
+            console.log(
+              '1230154 configureableOptions',
+              qouteProductOption,
+              configureableOptionsQuoteProduct[qouteProductOption],
+              typeof configureableOptionsActual[productOption].option_id,
+              typeof configureableOptionsQuoteProduct[qouteProductOption]
+                .option_id
+            );
+            if (
+              parseInt(configureableOptionsActual[productOption].option_id) ===
+              configureableOptionsQuoteProduct[qouteProductOption].option_id
+            ) {
+              console.log(
+                '1230154 Ids matched',
+                configureableOptionsActual[productOption].option_value,
+                configureableOptionsQuoteProduct[qouteProductOption]
+                  .option_value
+              );
+              configureableOptionsActual[productOption].option_value =
+                configureableOptionsQuoteProduct[
+                  qouteProductOption
+                ].option_value;
+              console.log(
+                '1230154 configureableOptionsActual',
+                configureableOptionsActual,
+                configureableOptionsQuoteProduct
+              );
+            }
+          }
+        }
+        console.log(
+          '1230154 configureableOptionsActual',
+          configureableOptionsActual,
+          configureableOptionsQuoteProduct
+        );
+        updatedTestProduct.product_option.extension_attributes.configurable_item_options = configureableOptionsActual;
+        productOption = 0;
+        qouteProductOption = 0;
+        let optionsActualProduct = updatedTestProduct.options;
+        let optionsQoutesProduct = receivedQouteProduct.options;
+        for (productOption in optionsActualProduct) {
+          console.log(
+            '1230154 789 Options',
+            productOption,
+            optionsActualProduct[productOption]
+          );
+          qouteProductOption = 0;
+          for (qouteProductOption in optionsQoutesProduct) {
+            console.log(
+              '1230154 789 options ',
+              qouteProductOption,
+              optionsQoutesProduct[qouteProductOption],
+              optionsActualProduct[productOption].label ===
+                optionsQoutesProduct[qouteProductOption].label
+            );
+            if (
+              optionsActualProduct[productOption].label ===
+              optionsQoutesProduct[qouteProductOption].label
+            ) {
+              console.log(
+                '1230154 789 labels matched',
+                optionsActualProduct[productOption].label,
+                optionsQoutesProduct[qouteProductOption].label
+              );
+              optionsActualProduct[productOption].value =
+                optionsQoutesProduct[qouteProductOption].value;
+              let label = optionsActualProduct[
+                productOption
+              ].label.toLowerCase();
+              updatedTestProduct[label] = parseInt(receivedQouteProduct[label]);
+              console.log('1230154 789 Label ', updatedTestProduct[label]);
+            }
+          }
+        }
+        updatedTestProduct.options = optionsActualProduct;
+        delete updatedTestProduct.configuration;
+      }
+      updatedTestProduct.sku = receivedQouteProduct.sku;
+      updatedTestProduct.qty = parseInt(receivedQouteProduct.qty);
+      console.log('7456321 updatedTestProduct ', updatedTestProduct.qty);
+
+      console.log(
+        '7456321 updatedTestProduct ',
+        JSON.stringify(updatedTestProduct)
+      );
+
+      const diffLog = await this.$store.dispatch('cart/addItem', {
+        productToAdd: updatedTestProduct
+      });
+      this.$store.dispatch('cart/syncTotals', { forceServerSync: true });
+      this.$forceUpdate();
+      console.log('789456 Product adding to cart', diffLog);
+      diffLog.clientNotifications.forEach(notificationData => {
+        console.log('789456 Successfully added', notificationData);
+        // this.notifyUser(notificationData)
+      });
+    },
+    async addQuoteOriginal (quoteId) {
+      console.log('785214 Here to add qoute to cart', quoteId);
+      await this.$store.dispatch('cart/clear', { disconnect: false });
+      await this.$store
+        .dispatch('quotesystem/quoteSystemAddtoCart', {
+          ref_quoteId: quoteId,
+          current_quoteId: this.getCartToken
+        })
+        .then(resp => {
+          console.log('785214 addtocartResponse', resp);
+          this.$router.push(this.localizedRoute('/my-account/'));
+        })
+        .catch(err => {
+          console.log('err occured from api call', err);
+        });
+      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true });
+      await this.$store.dispatch('cart/sync', {
+        forceClientState: false,
+        forceSync: true
+      });
+      this.$forceUpdate();
+      this.$bus.$emit('notification-progress-stop');
+      this.$router.push(this.localizedRoute('/cart'));
+      await this.$store.dispatch('cart/sync', {
+        forceClientState: false,
+        forceSync: true
+      });
+      await this.$store.dispatch('cart/syncTotals', { forceServerSync: true });
+      console.log('789652365 about to send to cart page');
+      this.$router.push(this.localizedRoute('/cart'));
+    },
+    async quoteAddToCart (quoteId, index) {
+      const quoteItemData = await CartService.getItems();
+      if (
+        !quoteItemData ||
+        !quoteItemData.result ||
+        quoteItemData.result.length <= 0
+      ) {
+        this.$bus.$emit('notification-progress-start', 'Processing ... ');
+        this.addQuote(quoteId, index);
       } else {
         this.$store.dispatch('notification/spawnNotification', {
           type: 'warning',
           item: quoteId,
-          message: i18n.t('Once a quote is added, the current items in the basket will be removed. Are you Sure?'),
+          message: i18n.t(
+            'Once a quote is added, the current items in the basket will be removed. Are you Sure?'
+          ),
           action1: { label: i18n.t('Cancel'), action: 'close' },
           action2: {
-            label: i18n.t('Yes Please'), action: async () => {
-              this.$bus.$emit('notification-progress-start', 'Processing ... ')
-              this.addQuote(quoteId)
+            label: i18n.t('Yes Please'),
+            action: async () => {
+              this.$bus.$emit('notification-progress-start', 'Processing ... ');
+              this.addQuote(quoteId, index);
             }
           },
           hasNoTimeout: true
-        })
+        });
       }
     }
-  },
+  }
 };
 </script>
 
@@ -315,7 +679,7 @@ export default {
   font-weight: bold;
   color: #4f4f4f;
   font-size: 18px;
-  font-family: 'Oblik';
+  font-family: "Oblik";
 }
 .clr {
   color: #00a897;
@@ -329,7 +693,7 @@ export default {
   font-family: Arial;
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   line-height: 1.25;
 }
 
@@ -435,7 +799,7 @@ content: attr(aria-label);
 }
 .bold {
   font-weight: bold;
-  font-family: 'Oblik';
+  font-family: "Oblik";
 }
 .button_right {
   background-color: #29275b;

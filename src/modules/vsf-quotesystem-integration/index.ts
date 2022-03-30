@@ -3,8 +3,8 @@ import { coreHooks } from '@vue-storefront/core/hooks';
 import * as types from './store/mutation-types';
 import fetch from 'isomorphic-fetch';
 import config from 'config';
-const QUOTE_URL = config.quoteSystem.endpoint;
-const QUOTE_URL_CART = config.quoteSystem.addToCartEndpoint;
+const QUOTE_URL = config.baseUrl.url + config.quoteSystem.endpoint;
+const QUOTE_URL_CART = config.baseUrl.url + config.quoteSystem.addToCartEndpoint;
 
 const quoteSystemModuleStore = {
   namespaced: true,

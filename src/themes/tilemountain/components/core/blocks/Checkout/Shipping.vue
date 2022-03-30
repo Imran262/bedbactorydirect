@@ -7,6 +7,7 @@
             <div class="crafty-postcodelookup req-label">
               <label>Postcode</label>
               <input
+              ref="zipCodeRef"
                 type="text"
                 id="search-bar"
                 name="postcode"
@@ -1624,7 +1625,15 @@ export default {
     // const craftyPlugin = document.createElement('script')
     // craftyPlugin.setAttribute('src', '/assets/js/crafty_postcode.class.js')
     // document.head.appendChild(craftyPlugin)
-
+    setTimeout(() => {
+      console.log("a1b2c3d4 ",this.$refs.zipCodeRef, this.shipping,this.shipping.zipCode);
+      if (this.shipping.zipCode){
+        console.log("a1b2c3d4 in if ");
+        this.$refs.zipCodeRef.click()
+      }
+      console.log("a1b2c3d4 after ",this.$refs.zipCodeRef, this.shipping);
+    }, 1500);
+    
     setTimeout(() => {
       this.useMyAddress();
       let minimumDateSort = [];
