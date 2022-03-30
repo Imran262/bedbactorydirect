@@ -363,7 +363,7 @@ export default {
     },
     addSpecialPrice(quoteId,itemId,price){
       console.log("37915 In here to set Special price",this.$store.state);
-      let URL= "https://vue.bedfactorydirect.co.uk/vueapi/ext/quotesystem/setcustomprice"
+      let URL= config.baseUrl.url + "vueapi/ext/quotesystem/setcustomprice"
       let order ={
         "quoteId": quoteId,
         "cartId":this.$store.state.cart.cartServerToken,
