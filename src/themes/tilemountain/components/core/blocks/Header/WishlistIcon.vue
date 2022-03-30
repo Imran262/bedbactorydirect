@@ -1,14 +1,14 @@
 <template>
   <div class="bg-cl-transparent bg-location2 brdr-none headerIconsNew">
     <!-- <button type="button" class="bg-cl-transparent brdr-none p0 location"> -->
-      <router-link :to="localizedRoute('/bed-factory-stores')" exact>
-        <div class="iconContainer">
-          <img src="/assets/icons/location.svg" alt="location" />
-        </div>
-        <span class="showrooms">Showrooms</span>
-      </router-link>
+    <router-link :to="localizedRoute('/bed-factory-stores')" exact>
+      <div class="iconContainer">
+        <img src="/assets/icons/location.svg" alt="location" />
+      </div>
+      <span class="showrooms">Showrooms</span>
+    </router-link>
 
-      <!-- <span
+    <!-- <span
       class="whishlist-count absolute flex center-xs middle-xs border-box py0 px2 h6 lh16 weight-700 cl-white bg-cl-silver"
       v-cloak
       v-show="getWishlistItemsCount"
@@ -25,7 +25,6 @@ export default {
 </script>
 
 <style scoped>
-
 .headerIconsNew > a {
   display: flex;
   justify-content: center;
@@ -33,10 +32,11 @@ export default {
   flex-direction: column;
 }
 .headerIconsNew > a .iconContainer {
-    width: 18px;
+  width: 18px;
 }
-.headerIconsNew > a .iconContainer img{
-    max-width: 100%;
+.headerIconsNew > a .iconContainer img {
+  max-width: 100%;
+  vertical-align: unset !important;
 }
 
 .showrooms {
@@ -44,7 +44,7 @@ export default {
   font-size: 9px;
   font-weight: 600;
   font-family: "Roboto";
-  color: #2A275B;
+  color: #2a275b;
 }
 .whishlist-count {
   top: 7px;

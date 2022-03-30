@@ -12,7 +12,7 @@
       <div class="iconContainer">
         <img src="/assets/icons/basket.svg" alt="basket" />
         <span
-        class="
+          class="
           minicart-count
           absolute
           flex
@@ -26,13 +26,12 @@
           weight-700
           cl-white
         "
-        v-cloak
-        v-show="totalQuantity"
-        data-testid="minicartCount"
-        >{{ totalQuantity }}
-      </span>
+          v-cloak
+          v-show="totalQuantity"
+          data-testid="minicartCount"
+          >{{ totalQuantity }}
+        </span>
       </div>
-      
 
       <span
         v-if="totalQuantity > 0"
@@ -55,11 +54,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon';
-import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers';
+import { mapGetters, mapActions } from "vuex";
+import MicrocartIcon from "@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon";
+import { syncCartWhenLocalStorageChange } from "@vue-storefront/core/modules/cart/helpers";
 export default {
-  data () {
+  data() {
     return {
       onlyCutSizeSample: [],
       onlyFullSizeSample: []
@@ -67,7 +66,7 @@ export default {
   },
   watch: {
     totalItems: {
-      handler (newVal, oldVal) {
+      handler(newVal, oldVal) {
         if (oldVal === newVal) {
           this.getFullSampleItems();
           this.getCutSampleItems();
@@ -76,31 +75,31 @@ export default {
       deep: true
     }
   },
-  async mounted () {
+  async mounted() {
     await this.getFullSampleItems();
     await this.getCutSampleItems();
     syncCartWhenLocalStorageChange.addEventListener();
-    this.$once('hook:beforeDestroy', () => {
+    this.$once("hook:beforeDestroy", () => {
       syncCartWhenLocalStorageChange.removeEventListener();
     });
-    document.body.addEventListener('click', event => {
+    document.body.addEventListener("click", event => {
       this.closeMiniCart(event);
     });
   },
   computed: {
     ...mapGetters({
-      totalQuantity: 'cart/getItemsTotalQuantity',
-      totalItems: 'cart/getCartItems',
-      getTotals: 'cart/getTotals'
+      totalQuantity: "cart/getItemsTotalQuantity",
+      totalItems: "cart/getCartItems",
+      getTotals: "cart/getTotals"
     }),
-    getGrandTotal () {
+    getGrandTotal() {
       var grandTotal = 0;
       if (this.getTotals && this.getTotals.length > 0) {
         var totalItem = this.getTotals.filter(totalItemsInside => {
           if (
             totalItemsInside &&
             totalItemsInside.code &&
-            totalItemsInside.code === 'subtotal'
+            totalItemsInside.code === "subtotal"
           ) {
             grandTotal = totalItemsInside.value;
           }
@@ -110,56 +109,56 @@ export default {
     }
   },
   methods: {
-    showPopUp() { 
-     console.log('Your basket is currently empty')
-        this.$store.dispatch("notification/NewBasketNotification", {
-          type: "error",
-          message: this.$t("Your basket is currently empty"),
-          action5: { label: this.$t("CONTINUE SHOPPING") },
-        });
-      },
+    showPopUp() {
+      console.log("Your basket is currently empty");
+      this.$store.dispatch("notification/NewBasketNotification", {
+        type: "error",
+        message: this.$t("Your basket is currently empty"),
+        action5: { label: this.$t("CONTINUE SHOPPING") }
+      });
+    },
     ...mapActions({
-      openMicrocart: 'ui/toggleMicrocart'
+      openMicrocart: "ui/toggleMicrocart"
     }),
-    openMicrocartCustom (event) {
-      document.getElementsByClassName('microcart-sidebar')[0].style.display =
-        'block';
+    openMicrocartCustom(event) {
+      document.getElementsByClassName("microcart-sidebar")[0].style.display =
+        "block";
     },
-    leaveMicrocartCustom (event) {
-      document.getElementsByClassName('microcart-sidebar')[0].style.display =
-        'none';
+    leaveMicrocartCustom(event) {
+      document.getElementsByClassName("microcart-sidebar")[0].style.display =
+        "none";
     },
-    async getFullSampleItems () {
+    async getFullSampleItems() {
       this.onlyFullSizeSample = await this.totalItems.filter((item, index) => {
         return (
           item.totals &&
           item.totals.options &&
           item.totals.options.length > 0 &&
-          item.totals.options[0].value === 'Full Size'
+          item.totals.options[0].value === "Full Size"
         );
       });
       return this.onlyFullSizeSample;
     },
-    isTotalsLoaded () {
+    isTotalsLoaded() {
       let firstItem = this.totalItems?.[0];
       if (firstItem) {
         return firstItem.totals && firstItem.totals.options;
       }
       return true;
     },
-    async getCutSampleItems () {
+    async getCutSampleItems() {
       this.onlyCutSizeSample = await this.totalItems.filter((item, index) => {
         return (
           item.totals &&
           item.totals.options &&
           item.totals.options.length > 0 &&
-          item.totals.options[0].value === 'Cut Size'
+          item.totals.options[0].value === "Cut Size"
         );
       });
       return this.onlyCutSizeSample;
     },
-    toggleMicroCartCustom () {
-      console.log('from PSWP');
+    toggleMicroCartCustom() {
+      console.log("from PSWP");
       this.getFullSampleItems();
       this.getCutSampleItems();
       if (!this.isTotalsLoaded()) {
@@ -171,29 +170,29 @@ export default {
         this.totalItems.length <= 3 &&
         this.onlyCutSizeSample.length === this.totalItems.length
       ) {
-        this.$bus.$emit('modal-show', 'modal-quickcheckoutmodel');
+        this.$bus.$emit("modal-show", "modal-quickcheckoutmodel");
       } else if (
         this.onlyCutSizeSample.length > 3 &&
         this.onlyCutSizeSample.length === this.totalItems.length
       ) {
-        this.$router.push(this.localizedRoute('/cart'));
+        this.$router.push(this.localizedRoute("/cart"));
       } else if (
         this.onlyFullSizeSample.length > 0 &&
         this.onlyFullSizeSample.length === this.totalItems.length
       ) {
-        this.$router.push(this.localizedRoute('/checkout'));
+        this.$router.push(this.localizedRoute("/checkout"));
       } else if (
         this.onlyFullSizeSample.length === 0 &&
         this.onlyCutSizeSample.length === 0 &&
         this.totalItems.length > 0
       ) {
-        this.$router.push(this.localizedRoute('/cart'));
+        this.$router.push(this.localizedRoute("/cart"));
       } else if (this.totalItems.length > 0) {
-        this.$router.push(this.localizedRoute('/cart'));
+        this.$router.push(this.localizedRoute("/cart"));
       }
       if (this.totalItems.length === 0) {
-         console.log('show popUp successfull');
-         this.showPopUp();
+        console.log("show popUp successfull");
+        this.showPopUp();
         // this.$router.push(this.localizedRoute('/'))
         // var xCartDiv = document.getElementsByClassName('microcart-sidebar')[0]
         // console.log('xCartDiv',xCartDiv);
@@ -208,10 +207,10 @@ export default {
         // }
       }
     },
-    closeMiniCart (event) {
-      if (this.$route.name !== 'checkout') {
-        let ignoreClickOnMeElement = document.getElementById('minicarticon');
-        let isCartRemoveButton = document.getElementById('minicartnotclose');
+    closeMiniCart(event) {
+      if (this.$route.name !== "checkout") {
+        let ignoreClickOnMeElement = document.getElementById("minicarticon");
+        let isCartRemoveButton = document.getElementById("minicartnotclose");
         let isClickInsideElement = ignoreClickOnMeElement.contains(
           event.target
         );
@@ -225,12 +224,12 @@ export default {
           if (isClickInsideElementRemoveButton) {
           } else {
             let getClassForHide = document.getElementsByClassName(
-              'microcart-sidebar'
+              "microcart-sidebar"
             )[0];
-            getClassForHide.style.display = 'none';
-            if (!getClassForHide.classList.contains('fullCloseCart')) {
-              getClassForHide.classList.remove('openFullMiniCart');
-              getClassForHide.classList.add('fullCloseCart');
+            getClassForHide.style.display = "none";
+            if (!getClassForHide.classList.contains("fullCloseCart")) {
+              getClassForHide.classList.remove("openFullMiniCart");
+              getClassForHide.classList.add("fullCloseCart");
             }
           }
         }
@@ -249,6 +248,7 @@ export default {
   position: relative;
 }
 .iconContainer img {
+  vertical-align: unset !important;
   max-width: 100%;
 }
 .minicart-count {
@@ -286,7 +286,7 @@ export default {
   .cart {
     padding: 0;
   }
-  .price  {
+  .price {
     font-size: 9px;
   }
   .minicart-count {
@@ -294,18 +294,17 @@ export default {
   }
 }
 @media (max-width: 991px) {
-  .price  {
-      margin-top: 1px;
+  .price {
+    margin-top: 1px;
   }
-  
 }
 @media (min-width: 993px) {
-  .price  {
-      font-size: 10px;
+  .price {
+    font-size: 10px;
   }
 }
 @media (max-width: 991px) and (min-width: 768px) {
-   .minicart-count {
+  .minicart-count {
     left: 19px;
   }
 }
