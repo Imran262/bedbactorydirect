@@ -3,6 +3,7 @@ import { ProductConfiguration } from '@vue-storefront/core/modules/catalog/types
 
 const getAvailableFiltersByProduct = (product: Product) => {
   let filtersMap = {}
+  console.log('Final console', product.configurable_options)
   if (product && product.configurable_options) {
     product.configurable_options.forEach(configurableOption => {
       const type = configurableOption.attribute_code
