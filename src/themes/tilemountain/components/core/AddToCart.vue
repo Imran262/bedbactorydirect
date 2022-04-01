@@ -139,6 +139,7 @@ export default {
         document.getElementsByTagName('BODY')[0].style.overflow='hidden';
       }
       //  document.getElementsByTagName("BODY")[0].style.overflow='hidden';
+      console.log("745214 Product is ", JSON.stringify(product) );
         const diffLog = await this.$store.dispatch('cart/addItem', { productToAdd: product })
         console.log('789456 Product adding to cart')
         diffLog.clientNotifications.forEach(notificationData => {
