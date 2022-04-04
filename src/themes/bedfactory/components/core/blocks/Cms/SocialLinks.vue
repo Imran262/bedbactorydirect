@@ -1,36 +1,53 @@
 <template>
- <div class="social">
-        <a class="fb" href="https://www.facebook.com/bedfactorydirect" target="_blank">
-            <div class="circle facebook">
-                <i class="fa fa-facebook" />
-            </div>
-        </a>
-        <a class="fb" href="https://twitter.com/bedfactoryuk" target="_blank">
-            <div class="circle twitter">
-                <i class="fa fa-twitter" />
-            </div>
-        </a>
-        <a class="fb" href="https://www.pinterest.co.uk/bfdbeds" target="_blank">
-            <div class="circle pinterest">
-                <i class="fa fa-pinterest-p" />
-            </div>
-        </a>
-        <a class="fb" href="https://www.youtube.com/channel/UCCSWNWPxZ2PXm_24oe5rpkg" target="_blank">
-            <div class="circle youtube">
-                <i class="fa fa-play" aria-hidden="true" />
-            </div>
-        </a>
-        <a class="fb" href="https://uk.linkedin.com/in/bed-factory-direct-47520a116" target="_blank">
+  <div class="social">
+    <a
+      class="fb"
+      href="https://www.facebook.com/bedfactorydirect"
+      target="_blank"
+    >
+      <div class="circle facebook">
+        <!-- <i class="fa fa-facebook" /> -->
+        <img src="/assets/facebook-icon.svg" alt="" />
+      </div>
+    </a>
+    <a class="fb" href="https://twitter.com/bedfactoryuk" target="_blank">
+      <div class="circle twitter">
+        <!-- <i class="fa fa-twitter" /> -->
+        <img src="/assets/twitter-icon.svg" alt="" />
+      </div>
+    </a>
+    <a class="fb" href="https://www.pinterest.co.uk/bfdbeds" target="_blank">
+      <div class="circle pinterest">
+        <!-- <i class="fa fa-pinterest-p" /> -->
+        <img src="/assets/pinterest-icon.svg" alt="" />
+      </div>
+    </a>
+    <a
+      class="fb"
+      href="https://www.youtube.com/channel/UCCSWNWPxZ2PXm_24oe5rpkg"
+      target="_blank"
+    >
+      <div class="circle youtube">
+        <!-- <i class="fa fa-play" aria-hidden="true" /> -->
+        <img src="/assets/youtube-icon.svg" alt="" />
+      </div>
+    </a>
+    <!-- <a class="fb" href="https://uk.linkedin.com/in/bed-factory-direct-47520a116" target="_blank">
             <div class="circle linkedin">
                 <i class="fa fa-linkedin" />
             </div>
-        </a>
-        <a class="fb" href="https://www.instagram.com/bedfactorydirect" target="_blank">
-            <div class="circle instagram">
-                <i class="fa fa-instagram" />
-            </div>
-        </a>
-        <!-- <a v-for="(linkblock, index) in socialLinks" :key="index"
+        </a> -->
+    <a
+      class="fb"
+      href="https://www.instagram.com/bedfactorydirect"
+      target="_blank"
+    >
+      <div class="circle instagram">
+        <!-- <i class="fa fa-instagram" /> -->
+        <img src="/assets/instagram-icon.svg" alt="" />
+      </div>
+    </a>
+    <!-- <a v-for="(linkblock, index) in socialLinks" :key="index"
            title="Social Page link"
            class="fb"
            :href="linkblock.links"
@@ -39,44 +56,44 @@
             v-html="linkblock.socialicons"
          >
         </a> -->
-        </div>
+  </div>
 </template>
 
 <script>
-import cmsBlock from 'vsf-cms-block-mixin/components/cmsBlock';
+import cmsBlock from "vsf-cms-block-mixin/components/cmsBlock";
 
 export default {
-  name: 'sociallinks',
+  name: "sociallinks",
   mixins: [cmsBlock],
   computed: {
-    socialLinks () {
-           var homeSmallBlocks = [];
-           let sociallinks = ''
-           let icons = ''
-           let vari=''
+    socialLinks() {
+      var homeSmallBlocks = [];
+      let sociallinks = "";
+      let icons = "";
+      let vari = "";
       if (this.data) {
         var mbclasses = this.parsedContent.querySelectorAll(
           ".sb-white-background"
         );
         var i = 0;
         mbclasses.forEach((mbclass, index) => {
-       if(mbclass.querySelectorAll('a')){
-        let Socialhref = mbclass.querySelectorAll('a')
-        Socialhref.forEach((anchor, index) => {
-          sociallinks  = anchor.attributes['href'];
-          icons = anchor.innerHTML;
+          if (mbclass.querySelectorAll("a")) {
+            let Socialhref = mbclass.querySelectorAll("a");
+            Socialhref.forEach((anchor, index) => {
+              sociallinks = anchor.attributes["href"];
+              icons = anchor.innerHTML;
 
-          let linkobject = {
-          links: sociallinks,
-          socialicons: icons
-        }
-        homeSmallBlocks.push(linkobject)
-        })
-      }
+              let linkobject = {
+                links: sociallinks,
+                socialicons: icons
+              };
+              homeSmallBlocks.push(linkobject);
+            });
+          }
         });
       }
       return homeSmallBlocks;
-  }
+    }
   }
 };
 </script>
@@ -87,92 +104,45 @@ export default {
   font-display: block;
 }
 .circle {
-  height: 64px;
-  width: 64px;
-  background: #9d9d9d;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 17px;
-  margin-bottom: 25px;
+  height: 30px;
+  width: 30px;
+  // background: #fff;
+  border-radius: 5px;
+  margin-right: 0.2rem;
   display: inline-flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.fa {
-  color: #434243;
-  // font-size: 40px !important;
+
+.social {
+  text-align: right;
 }
- .social .instagram:hover {
+.social .instagram:hover {
   background: #e1306c;
 }
- .social .linkedin:hover {
+.social .linkedin:hover {
   background: #0077b5;
- }
+}
 .social .pinterest:hover {
   background: #bd081c;
 }
 .social .facebook:hover {
   background: #3b5999;
 }
- .social .play:hover {
+.social .play:hover {
   background: #cd201f;
- }
- .social .youtube:hover {
+}
+.social .youtube:hover {
   background: #cd201f;
- }
- .social .twitter:hover {
+}
+.social .twitter:hover {
   background: #55acee;
 }
- .social .instagram:hover .fa,
- .social .linkedin:hover .fa,
- .social .pinterest:hover .fa,
- .social .facebook:hover .fa,
- .social .youtube:hover .fa,
- .social .twitter:hover .fa {
-  color: #fff;
-}
-.fa-pinterest-p{
-  display: block !important;
-}
-.fa {
-    color: #434243;
-    // font-size: 30px !important;
-}
-@media only screen and (min-width: 499px) and (max-width: 768px){
-.circle {
-    height: 44px;
-    width: 44px;
-    padding: 3px;
-    margin-left: 2px;
-    margin-right: 5px !important;
-}
-.fa{
-  font-size: 22px !important;
-}
-}
-@media only screen and (min-width: 320px) and (max-width: 500px){
-.circle {
-    height: 25px;
-    width: 25px;
-    padding: 3px;
-    margin-left: 2px;
-    margin-right: 5px !important;
-}
-.fa{
-  font-size: 16px !important;
-}
-}
-input#input_370 {
-    border: 2px solid #24224d  !important;
-    text-align: center  !important;
-    height: 45px !important;
-    width: 45px !important;
-    border-radius: 7px;
-}
-</style>
-<style>
-.youtube{
-  padding-left: 5px;
+@media screen and (max-width: 767px) {
+  .social {
+    text-align: center !important;
+    padding: 1rem;
+  }
 }
 </style>

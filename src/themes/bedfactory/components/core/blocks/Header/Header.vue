@@ -11,8 +11,8 @@
       <header
         class="w-100 bg-cl-primary brdr-cl-secondary"
         :class="{
-          relativeHeader: scrollPosition < 100,
-          fixedHeader: scrollPosition > 100
+          relativeHeader: scrollPosition < 200,
+          fixedHeader: scrollPosition > 200
         }"
       >
         <div class="container px15">
@@ -120,7 +120,7 @@
         <hamburger-icon class="sb-mobile-menu pointer hidden-md" />
       </nav> -->
         <nav>
-          <header-menu class="navigation" />
+          <header-menu class="navigation ddddd" />
           <hamburger-icon
             v-if="
               (!isCheckoutPage && $route.name !== 'confirmorder') ||
@@ -131,6 +131,7 @@
           />
         </nav>
       </header>
+
       <div class="scroll" @click="animateToTop()">
         <span class="scrollimage"
           ><img src="/assets/icons/arrowupicon.png"

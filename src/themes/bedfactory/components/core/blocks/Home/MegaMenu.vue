@@ -25,7 +25,11 @@
               :class="links.customClassName"
               :key="index"
             >
-              <span @click="goto()" class="menuspan">
+              <span
+                @click="goto()"
+                class="menuspan"
+                :class="links.submenu ? 'hasSubMenu' : 'hasNoSubMenu'"
+              >
                 <router-link
                   :to="localizedRoute(links.link)"
                   class="level-top sb-forward"
@@ -84,9 +88,9 @@
                   </div>
                 </div>
               </div>
-              <div class="box">
+              <!-- <div class="box">
                 <div class="arrow-down"></div>
-              </div>
+              </div> -->
             </li>
           </ul>
         </div>
@@ -97,8 +101,8 @@
             class="usp-bar-border"
             v-if="
               !$device.isMobile &&
-              $route.name !== 'checkout' &&
-              $route.name !== 'Checkout'
+                $route.name !== 'checkout' &&
+                $route.name !== 'Checkout'
             "
             :identifier="'usp-bar-TM'"
           />
@@ -114,7 +118,7 @@ export default {
   name: "MegaMenu",
   mixins: [cmsBlock],
   components: {
-    UspBar,
+    UspBar
   },
   computed: {
     link() {
@@ -124,7 +128,7 @@ export default {
       if (this.data) {
         var mbclasses = this.parsedContent.querySelectorAll(".sb-menu");
 
-        [].forEach.call(mbclasses, (mbclass) => {
+        [].forEach.call(mbclasses, mbclass => {
           // do whatever
           // console.log('class - ' + i, mbclass.classNames);
           var menulink = [];
@@ -140,8 +144,9 @@ export default {
             menulink["customClassName"] = "";
           }
           if (mbclass.querySelector("a.sb-forward").attributes["href"]) {
-            menulink["link"] =
-              mbclass.querySelector("a.sb-forward").attributes["href"];
+            menulink["link"] = mbclass.querySelector("a.sb-forward").attributes[
+              "href"
+            ];
           } else {
             menulink["link"] = "#";
           }
@@ -177,15 +182,16 @@ export default {
               totalsubmenublocks = submenublockselements.length;
 
               var allsubmenublocks = [];
-              [].forEach.call(submenublockselements, (submenublockelement) => {
+              [].forEach.call(submenublockselements, submenublockelement => {
                 var submenublockls = [];
                 var submenublocklinks = [];
 
                 if (
                   submenublockelement.querySelector(".subcag-title").rawText
                 ) {
-                  var subblocktitle =
-                    submenublockelement.querySelector(".subcag-title").rawText;
+                  var subblocktitle = submenublockelement.querySelector(
+                    ".subcag-title"
+                  ).rawText;
                 } else {
                   var subblocktitle = "UnDefined";
                 }
@@ -196,7 +202,7 @@ export default {
                 var bulletullis = bulletul.querySelectorAll("li");
                 var bulletlicount = 0;
 
-                [].forEach.call(bulletullis, (bulletulli) => {
+                [].forEach.call(bulletullis, bulletulli => {
                   var submenulink = new Array(3);
 
                   var bulletullianchor = bulletulli.querySelector("a");
@@ -255,13 +261,13 @@ export default {
     },
     currRoute() {
       return this.$route.name;
-    },
+    }
   },
   data() {
     return {
       show: false,
       hovered: false,
-      windowWidth: 0,
+      windowWidth: 0
     };
   },
   mounted() {
@@ -284,15 +290,15 @@ export default {
         sort_by.classList.remove("hidden");
       }
       this.hovered = false;
-    },
+    }
   },
   watch: {
     currRoute(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.hovered = false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
@@ -300,7 +306,7 @@ export default {
   padding: 0px !important;
 }
 .bg-usp-bar {
-  background: #F1F8FF;
+  background: #f1f8ff;
 }
 .bg-menu {
   background: #071a44;
