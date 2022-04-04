@@ -25,10 +25,12 @@
                       type="email"
                       placeholder="Type your email here"
                       class="newsLetterInput w-100 emailInput"
+                      v-model="userEmail"
                     />
                     <input
                       type="submit"
                       value="Sign Up"
+                      @click="subscribe"
                       class="newsLetterInput signUpBtn"
                     />
                   </form>
@@ -269,7 +271,8 @@ export default {
   data() {
     return {
       cardsAccept: "/assets/payment-methods.svg",
-      windowWidth: 0
+      windowWidth: 0,
+      userEmail : ''
     };
   },
   beforeMount() {
@@ -277,6 +280,17 @@ export default {
     this.handleResize();
   },
   methods: {
+    async subscribe(){
+      const isSubscribed = await this.$store.dispatch('newsletter/subscribe', this.userEmail)
+
+        if (isSubscribed) {
+          this.$store.dispatch('notification/spawnNotification', {
+            type: 'success',
+            message: i18n.t('You have been successfully subscribed to our newsletter!'),
+            action1: { label: i18n.t('OK') }
+          })
+        }
+    },
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
