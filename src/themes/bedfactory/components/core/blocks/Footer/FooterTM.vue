@@ -263,7 +263,7 @@ import footerlinkmobile from "src/themes/bedfactory/components/core/blocks/Cms/F
 import BlockTitle from "theme/components/core/blocks/Cms/BlockTitle";
 import { getPathForStaticPage } from "theme/helpers";
 import sociallinks from "src/themes/bedfactory/components/core/blocks/Cms/SocialLinks";
-
+import i18n from '@vue-storefront/i18n'
 // import NewsLetter from "theme/components/core/blocks/Footer/NewsLetter";
 export default {
   mixins: [CurrentPage, footerlink, footerlinkmobile],
