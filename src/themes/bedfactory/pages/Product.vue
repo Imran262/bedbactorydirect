@@ -342,6 +342,7 @@
                 <div
                   class="cl-primary variants sizes basin_size"
                   v-if="getCurrentProduct.type_id == 'configurable'"
+                  :key="cutomRerenderotions"
                 >
                   <!-- It is a configurable product -->
                   <div
@@ -353,7 +354,7 @@
                   >
                     <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
                   </div>
-                  {{ getCurrentProduct.configurable_options }} imran
+                  {{ getProductOptionsConfigurable }} imran
                   <div
                     class="h5"
                     v-for="option in getProductOptionsConfigurable"
@@ -364,10 +365,10 @@
                       data-testid="variantsLabel"
                       :key="cutomRerender"
                     >
-                      {{ option.label }}
+                      {{ option.label }} askjdhgsakdasafdasd
                       <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                     </h4>
-                    <div class="row top-xs m0 variants-wrapper">
+                    <div class="row top-xs m0 variants-wrapper ???/">
                       <div
                         class="sizes basin_size"
                         v-if="option.label == 'Color'"
@@ -377,9 +378,8 @@
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select
+                            Please select color
                           </option>
-
                           <template
                             v-for="filter in getAvailableFilters[
                               option.attribute_code
@@ -404,6 +404,40 @@
 
                       <div
                         class="sizes basin_size"
+                        v-else-if="option.label == 'Size' && optionsFlag"
+                      >
+                        <!-- Size -->
+                        <!-- Here we are -->
+                        <select
+                          class="chevron-down-icon CustomSelectClass"
+                          @change="changeFilterCustom($event)"
+                        >
+                          <option disabled value="" :key="2378695843" selected>
+                            Please select abc ?? 1231
+                          </option>
+                          <template
+                            v-for="filter in getProductOptionsConfigurable[0]
+                              .values"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <size-selector
+                              class="mr10 mb10"
+                              v-for="filter in getAvailableFilters[option.attribute_code]"
+                              :key="filter.id"
+                              :variant="filter"
+                              :selected-filters="getSelectedFilters"
+                              @change="changeFilter"
+                            />-->
+                      </div>
+                      <div
+                        class="sizes basin_size"
                         v-else-if="option.label == 'Size'"
                       >
                         <!-- Size -->
@@ -413,7 +447,7 @@
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select
+                            Please select abc ??
                           </option>
                           <template
                             v-for="filter in getAvailableFilters[
@@ -440,6 +474,46 @@
                       <div
                         class="basin_size"
                         :class="option.attribute_code"
+                        v-else-if="
+                          option.attribute_code == 'colour' && optionsFlag
+                        "
+                      >
+                        <!-- {{option.attribute_code}}
+                          <br/> else -->
+                        <select
+                          class="chevron-down-icon CustomSelectClass"
+                          @change="changeFilterCustom($event)"
+                        >
+                          <option disabled value="" :key="2378695843" selected>
+                            Please select Imran waale mein ana chahiye
+                          </option>
+                          <template
+                            v-for="filter in getProductOptionsConfigurable[1]
+                              .values"
+                          >
+                            <option
+                              :key="filter.id"
+                              :value="JSON.stringify(filter)"
+                            >
+                              {{ filter.label }}
+                            </option>
+                          </template>
+                        </select>
+                        <!-- <span v-if="colorValidation" class="error1"
+                                    >Field is required</span
+                                  > -->
+                        <!-- <generic-selector
+                                  class="mr10 mb10"
+                                  v-for="filter in getAvailableFilters[option.attribute_code]"
+                                  :key="filter.id"
+                                  :variant="filter"
+                                  :selected-filters="getSelectedFilters"
+                                  @change="changeFilter"
+                                />-->
+                      </div>
+                      <div
+                        class="basin_size"
+                        :class="option.attribute_code"
                         v-else
                       >
                         <!-- {{option.attribute_code}}
@@ -449,7 +523,7 @@
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select
+                            Please select LJGDHLAD;LASD
                           </option>
                           <template
                             v-for="filter in getAvailableFilters[
@@ -491,7 +565,6 @@
                   </span> -->
                 </div>
               </div>
-
               <!-- <div
                 v-if="!getCurrentProduct.bundle_options"
                 class="product-pricing"
@@ -1104,6 +1177,9 @@ export default {
   data() {
     return {
       customImran: [],
+      cutomRerenderotions: 1,
+      generateKey: 1,
+      optionsFlag: false,
       cutomRerender: 1,
       SelectedOptions: [],
       unCheckfabrics: false,
@@ -1523,32 +1599,38 @@ export default {
       if (this.getProductOptions) {
         console.log('Yaaraaaaa', this.customImran, this.getProductOptions[1].values, this.getProductOptions)
         let productValuesIndex = 0
+        let customOptionsfiltered = []
         if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length == 1) {
-          let customOptionsfiltered = this.getProductOptions.filter((option, index) => {
+          this.getCurrentProduct.configurable_options.forEach((option, index) => {
             if (option.attribute_code === this.customImran[0].attribute_code) {
               productValuesIndex = index
             }
-            return option.attribute_code === this.customImran[0].attribute_code
+            if (option.attribute_code === this.customImran[0].attribute_code) {
+               customOptionsfiltered.push(option)
+            }
           })
-          console.log('Imran is here',customOptionsfiltered, customOptionsfiltered[0].values )
-          // let customOptions2=
-          customOptionsfiltered[0].values = customOptionsfiltered[0].values.filter((customOption, index) => {
+          let newCustomArrFiltered = JSON.parse(JSON.stringify(customOptionsfiltered));
+          console.log('Imran is here',newCustomArrFiltered, newCustomArrFiltered[0].values )
+          newCustomArrFiltered[0].values = newCustomArrFiltered[0].values.filter((customOption, index) => {
             let newFlag = false
             this.customImran.forEach((optionTo) => {
               if (optionTo.id == customOption.value_index) {
                 newFlag = true
+                console.log('optionTo.id',optionTo.id,'customOption.value_index',customOption.value_index )
               }
             })
             return newFlag
           })
-          // let finalfilteredVar = [...this.getProductOptions]
-          let finalfilteredVar = Object.create(this.getProductOptions);
-          console.log("customOptionsfiltered[0].values",customOptionsfiltered[0].values);
-          finalfilteredVar[productValuesIndex].values = [...customOptionsfiltered[0].values]
-          console.log('this print krwate',this.getProductOptions)
+          // newCustomArrFiltered[0].values = []
+          let finalfilteredVar = JSON.parse(JSON.stringify(this.getProductOptions));
+          finalfilteredVar[productValuesIndex].values = [...newCustomArrFiltered[0].values]
+          console.log('this print krwate',finalfilteredVar)
+          this.optionsFlag = true
+          this.cutomRerenderotions++
           return finalfilteredVar
         }
         else {
+          this.optionsFlag = false
           return this.getProductOptions
         }
       }
@@ -1777,6 +1859,12 @@ export default {
       
       }
     },
+    getProductOptionsConfigurable: {
+      handler() {
+        //   console.log("112255 state changed");
+        this.generateKey++
+      }
+    },
     getCurrentCustomOptions: {
       handler() {
         //   console.log("112255 state changed");
@@ -1966,6 +2054,7 @@ export default {
       // this.colorValidation = true;
       // console.log(" SelectedOptions 112233 change filter custom 1", event);
       let variant = JSON.parse(event.target.value);
+      console.log('variant.typ 11111', variant.type)
       // console.log(" SelectedOptions 112233 change filter custommm 12",variant);
       let newOptionSelected = true;
       if (this.SelectedOptions.length) {
@@ -2005,6 +2094,7 @@ export default {
       // console.log(" SelectedOptions currentProductConfiguration", configuration);
       // const changedConfig = Object.assign({}, configuration, { [filterOption.attribute_code]: filterOption })
       let changedConfig = Object.assign({}, configuration);
+      console.log('variant.type', variant.type)
       changedConfig[variant.type].id = variant.id;
       changedConfig[variant.type].label = variant.id;
       let i = 0;
