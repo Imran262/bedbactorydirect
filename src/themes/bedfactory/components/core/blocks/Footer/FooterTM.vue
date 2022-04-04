@@ -281,8 +281,10 @@ export default {
   },
   methods: {
     async subscribe(){
+      console.log("10120 here to add user to mailchimp ",this.userEmail);
       const isSubscribed = await this.$store.dispatch('newsletter/subscribe', this.userEmail)
-
+      
+      console.log("10120 Response for mailchimp subscription is ",isSubscribed);
         if (isSubscribed) {
           this.$store.dispatch('notification/spawnNotification', {
             type: 'success',
