@@ -28,7 +28,7 @@
                       v-model="userEmail"
                     />
                     <input
-                      type="submit"
+                      type="button"
                       value="Sign Up"
                       @click="subscribe"
                       class="newsLetterInput signUpBtn"
@@ -121,9 +121,11 @@
                 class="newsLetterInput w-100 emailInput"
               />
               <input
-                type="submit"
+                type="button"
                 value="Sign Up"
+                @click="subscribe"
                 class="newsLetterInput signUpBtn"
+                v-model="userEmail"
               />
             </form>
             <div class="emailMsg success">
@@ -290,8 +292,10 @@ export default {
             type: 'success',
             message: i18n.t('You have been successfully subscribed to our newsletter!'),
             action1: { label: i18n.t('OK') }
-          })
-        }
+          });
+         
+        };
+         
     },
     handleResize() {
       this.windowWidth = window.innerWidth;
@@ -345,6 +349,10 @@ export default {
 @import "~theme/css/helpers/functions/color";
 // my customization for footr starts here
 
+input:hover,
+input:focus {
+  border: none !important;
+}
 .acccards {
   display: flex;
   align-items: center;
