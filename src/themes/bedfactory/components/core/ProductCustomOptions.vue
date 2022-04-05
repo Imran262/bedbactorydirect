@@ -108,7 +108,10 @@
                   />
                 </div>
               </div>
-              <div class="custom-attribute-list height-adjust">
+              <div
+                class="custom-attribute-list"
+                :class="{ height_adjust: newHeightAdjust }"
+              >
                 <div
                   v-for="(value, vIndex) in option.values"
                   :key="vIndex + value.layer"
@@ -120,14 +123,9 @@
                     @click="
                       showOption(value, option);
                       setOption(option);
+                      addCustomHeight();
                     "
                   />
-                </div>
-              </div>
-
-              <div class="green-grad-main">
-                <div @click="confirmColor()" class="green-grad confirm-extra">
-                  CONFIRM COLOUR
                 </div>
               </div>
             </div>
@@ -258,6 +256,19 @@
             </span>
           </div>
         </div>
+        <div
+          v-if="
+            (option.iscolor == 1 ||
+              option.iscolor == '1' ||
+              option.iscolor == true) &&
+            color
+          "
+          class="green-grad-main"
+        >
+          <div @click="confirmColor()" class="green-grad confirm-extra">
+            CONFIRM COLOUR
+          </div>
+        </div>
       </div>
     </form>
   </div>
@@ -273,6 +284,7 @@ export default {
   components: {},
   data() {
     return {
+      newHeightAdjust: false,
       backEnd: config.backEnd,
       options: [],
       imageSrc: "",
@@ -312,6 +324,14 @@ export default {
     // this.product = this.currProduct;
     // this.product = this.getCurrentProduct;
   },
+  watch:{
+        $route(to, from) {
+         if (from.path !== to.path) {
+         this.newHeightAdjust = false;
+      }
+    },
+
+  },
   methods: {
     update() {
       this.$forceUpdate();
@@ -349,6 +369,11 @@ export default {
       this.colorName = value.title + ' | £' + value.price.toFixed(2);
       data1 = this.$refs.colorImage;
       this.imageSrc = value.option_type_id;
+    },
+       addCustomHeight(){
+      // let height = this.$refs.
+        this.newHeightAdjust = true;
+        console.log('505050 height change', this.newHeightAdjust );
     },
     setImage() {
       let data = this.$refs.colorImage[0].selectedOptions[0];
@@ -533,33 +558,37 @@ input[type="checkbox"] {
   margin-left: 0;
 }
 .select-img-display {
-  width: 96.7%;
-  margin-top: 10px;
+  width: 96%;
+  margin-top: 5px;
 }
 .select-img-display div img {
-  max-height: 200px;
+  max-height: 150px;
   width: 100%;
 }
 .custom-attribute-list {
   margin: 20px 0;
-  max-height: calc(100vh - 155px);
   /* height: 100%; */
-  overflow: auto;
+  overflow-y: auto;
+  height: calc(100vh - 185px);
+}
+.height_adjust {
+  overflow-y: auto;
+  height: calc(100vh - 335px);
 }
 .green-grad-main {
   background: #fafafa;
   height: 75px;
   /*width: 96.7%;*/
   width: 90%;
-  position: absolute;
-  bottom: 15px;
+  // position: absolute;
+  // bottom: 15px;
 }
 .green-grad.confirm-extra {
   width: 100%;
   max-width: calc(100% - 60px);
-  vertical-align: baseline;
-  position: absolute;
-  bottom: 22px;
+  // vertical-align: baseline;
+  // position: absolute;
+  // bottom: 22px;
   border-radius: 4px;
   padding: 0 1rem;
   line-height: 45px;
@@ -569,7 +598,7 @@ input[type="checkbox"] {
   font-weight: 600;
   display: inline-block;
   background: #57c9c0 no-repeat 100% 55%;
-  left: 0;
+  // left: 0;
   cursor: pointer;
 }
 @media (max-width: 767px) {
@@ -586,9 +615,9 @@ input[type="checkbox"] {
     width: 62px;
     height: 62px;
   }
-  .select-img-display div img {
-    max-height: 100px;
-  }
+  // .select-img-display div img {
+  //   max-height: 100px;
+  // }
   .green-grad.confirm-extra {
     width: 100%;
     max-width: calc(100% - 60px);
@@ -609,9 +638,9 @@ input[type="checkbox"] {
   .custom-attribute-list div {
     width: calc(16.5% - 8px);
   }
-  .select-img-display div img {
-    max-height: 100px;
-  }
+  // .select-img-display div img {
+  //   max-height: 100px;
+  // }
 }
 .select-color-icon {
   padding: 0;
@@ -635,9 +664,9 @@ select {
   /*padding: 2px 2px 2px 2px;*/
   border: none;
 }
-.basin_size {
-  width: 550px;
-}
+// .basin_size {
+//   width: 550px;
+// }
 @media (max-width: 1268px) {
   .basin_size {
     width: 400px;
@@ -687,7 +716,7 @@ h4.basin-head {
   transform: rotate(90deg);
 }
 .basin_size {
-  width: 95%;
+  width: 95% !important;
 }
 select.m0.no-outline.size-storage-select {
   width: 100%;

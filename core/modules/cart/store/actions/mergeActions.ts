@@ -2,7 +2,6 @@ import * as types from '@vue-storefront/core/modules/cart/store/mutation-types'
 import { Logger } from '@vue-storefront/core/lib/logger'
 import config from 'config'
 import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
-import axios from 'axios';
 import { CartService } from '@vue-storefront/core/data-resolver'
 import {
   productsEquals,
@@ -193,167 +192,14 @@ const mergeActions = {
       return diffLog.pushServerResponse({ status: resp.resultCode, sku: serverItem.sku, result: resp })
     }
 
-
-
-
-
-
-
-
     const productToAdd = await dispatch('getProductVariant', { serverItem })
     console.log('productToAdd', productToAdd, serverItem);
-    if (serverItem.childSku)
-    {
-      console.log("741654 this is a configurable product", serverItem.childSku);
-      let configurableOptions = [];
-      productToAdd.configurable_options.forEach(option => {
-        configurableOptions.push(option.attribute_code)
-      });
-      console.log("741654 Configurable options available are",configurableOptions);
-      productToAdd.configurable_children.forEach(child => {
-        console.log("741654 current child sku is ",child.sku , serverItem.childSku , child.sku ===  serverItem.childSku);
-        if (child.sku ===  serverItem.childSku )
-        {
-          console.log("741654 Child found with sku " ,child.sku , serverItem.childSku ); 
-          productToAdd.configurable_options.forEach(option => {
-            console.log('741654 current option is ',typeof option.attribute_code,option.attribute_code,typeof productToAdd[option.attribute_code],typeof child[option.attribute_code], productToAdd[option.attribute_code],child[option.attribute_code]);
-            productToAdd[option.attribute_code] = child[option.attribute_code]
-            productToAdd.sku = serverItem.childSku
-            
-            productToAdd.finalPrice = child.finalPrice
-
-            productToAdd.finalPriceInclTax = child.finalPriceInclTax
-            
-            productToAdd.finalPriceTax = child.finalPriceTax
-            
-            productToAdd.final_price = child.final_price
-            
-            productToAdd.final_price_incl_tax = child.final_price_incl_tax
-
-            productToAdd.final_price_tax = child.final_price_tax
-
-
-
-            productToAdd.originalPrice = child.originalPrice
-            
-            productToAdd.originalPriceInclTax = child.originalPriceInclTax
-            
-            productToAdd.originalPriceTax = child.originalPriceTax
-            
-            productToAdd.original_final_price = child.original_final_price
-
-            productToAdd.original_price = child.original_price
-
-            productToAdd.original_price_incl_tax = child.original_price_incl_tax
-            
-            productToAdd.original_price_tax = child.original_price_tax
-            
-            productToAdd.original_special_price = child.original_special_price
-            
-            productToAdd.price = child.price
-
-            productToAdd.priceInclTax = child.priceInclTax
-
-            productToAdd.priceTax = child.priceTax
-            
-            productToAdd.price_incl_tax = child.price_incl_tax
-            
-            productToAdd.price_tax = child.price_tax
-            
-            productToAdd.regular_price = child.regular_price
-
-
-
-            productToAdd.specialPrice = child.specialPrice
-
-            productToAdd.specialPriceInclTax = child.specialPriceInclTax
-            
-            productToAdd.specialPriceTax = child.specialPriceTax
-            
-            productToAdd.special_price = child.special_price
-
-            productToAdd.special_price_incl_tax = child.special_price_incl_tax
-            
-            productToAdd.special_price_tax = child.special_price_tax
-            
-            productToAdd.stock = child.stock
-            
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-            
-            // productToAdd.sku = child.childSku
-
-            
-            productToAdd.id = child.id
-            
-            
-            
-
-            console.log('741654 product to add becomes ',option.attribute_code,productToAdd[option.attribute_code],child[option.attribute_code],productToAdd.sku,productToAdd);
-          });
-        }
-      });
-      
-      
-    }
     if (productToAdd) {
       dispatch('addItem', { productToAdd, forceServerSilence: true })
       Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // const URL = "https://vue.bedfactorydirect.co.uk/vueapi/ext/V12Finance/getSku";
-    // let order = {
-    //   "item_id": serverItem.item_id,
-    //   "quote_id": serverItem.quote_id
-    // }
-    // axios.post(URL, order, {
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   }
-    // })
-    //   .then( res => {
-    //     // let v12Link = res.data.result.ApplicationFormUrl ;
-    //     console.log("1456321 responseIs", res);
-    //     serverItem.sku = res.data.result
-    //     const productToAdd = dispatch('getProductVariant', { serverItem })
-    //     console.log('1456321productToAdd', productToAdd, serverItem);
-    //     if (productToAdd) {
-    //       dispatch('addItem', { productToAdd, forceServerSilence: true })
-    //       Logger.debug('Product variant for given serverItem has not found', 'cart', serverItem)()
-    //     }
-    //     return diffLog
-
-    //   })
-    //   .catch(error => {
-    //     console.log("115599 Error", error);
-    //     // return 'v12Link'
-    //     return diffLog
-    //   });
+    return diffLog
   },
   async mergeServerItems({ dispatch }, { serverItems, clientItems, forceClientState, dryRun }) {
     const diffLog = createDiffLog()
@@ -362,53 +208,6 @@ const mergeActions = {
     for (const serverItem of definedServerItems) {
       try {
         console.log("74125 About to call merge srever Item 1", clientItems, "\t\t\t2 ", serverItem, "\t\t\t3 ", forceClientState, "\t\t\t4 ", dryRun);
-        const URL = config.baseUrl.url+"vueapi/ext/V12Finance/getSku";
-        let order = {
-          "item_id": serverItem.item_id,
-          "quote_id": serverItem.quote_id
-        }
-        let quoteItemCheck = false
-        let productSku2 = {
-          childsku:'',
-          sku:''
-        };
-      let productSku =  await axios.post(URL, order, {
-          headers: {
-            "Content-type": "application/json"
-          }
-        })
-          .then(res => {
-            // let v12Link = res.data.result.ApplicationFormUrl ;
-            console.log("1456321 14521 ",serverItem.name, res);
-            if(res.data.result.length>0)
-            {
-              quoteItemCheck = true;
-            }
-            productSku2 = res.data.result[0];
-            return res.data.result[0];
-
-          })
-          .catch(error => {
-            console.log("115599 Error", error);
-            return ''
-            
-          });
-        
-        if(quoteItemCheck){
-          console.log("1456321 product sku is ",productSku2.childsku !== productSku2.sku,productSku2.childsku , productSku2.sku,productSku, "next ",productSku2);
-          if (productSku2.childsku !== productSku2.sku){
-          console.log("741654 Its a configurable product");
-          serverItem['childSku'] = productSku2.childsku
-          serverItem.sku = productSku2.sku;
-          console.log("Now Server Item Becomes",serverItem );
-          
-          
-        }
-        else{
-          console.log("741654 Its a simple product");
-          serverItem.sku = productSku2.childsku;
-        }
-      }
         const mergeServerItemDiffLog = await dispatch('mergeServerItem', { clientItems, serverItem, forceClientState, dryRun })
         diffLog.merge(mergeServerItemDiffLog)
       } catch (e) {

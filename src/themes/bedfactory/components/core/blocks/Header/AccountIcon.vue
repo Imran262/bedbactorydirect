@@ -1,70 +1,69 @@
 <template>
-    <div
-      class="inline-flex relative dropdown headerIconsNew"
-      data-testid="accountButton"
-      @click.self="showMenu = true"
-      @keyup.enter="goToAccount"
-      tabindex="0"
-      role="button"
-      @mouseover="showMenu = true"
-      @mouseout="showMenu = false"
-      :aria-label="$t('Open my account')"
+  <div
+    class="inline-flex relative dropdown headerIconsNew"
+    data-testid="accountButton"
+    @click.self="showMenu = true"
+    @keyup.enter="goToAccount"
+    tabindex="0"
+    role="button"
+    @mouseover="showMenu = true"
+    @mouseout="showMenu = false"
+    :aria-label="$t('Open my account')"
+  >
+    <router-link
+      :to="localizedRoute('/customer/account/login')"
+      v-if="!currentUser"
     >
-      <router-link
-        :to="localizedRoute('/customer/account/login')"
-        v-if="!currentUser"
+      <!-- <button type="button" class="bg-cl-transparent brdr-none p0"> -->
+      <div class="iconContainer">
+        <img src="/assets/icons/user.svg" alt="user login" />
+      </div>
+      <span class="account">Account</span>
+      <!-- </button> -->
+    </router-link>
+    <router-link :to="localizedRoute('/my-account')" v-else>
+      <!-- <button type="button" class="bg-cl-transparent brdr-none p0"> -->
+      <div class="iconContainer">
+        <img src="/assets/icons/user.svg" alt="user login" />
+      </div>
+      <span class="account">Account</span>
+
+      <!-- </button> -->
+    </router-link>
+    <no-ssr>
+      <div
+        v-show="currentUser"
+        :class="[
+          'dropdown-content aalign-left sans-serif lh20 weight-400',
+          !showMenu ? 'dropdown-content__hidden' : ''
+        ]"
       >
-        <!-- <button type="button" class="bg-cl-transparent brdr-none p0"> -->
-        <div class="iconContainer">
-
-          <img src="/assets/icons/user.svg" alt="user login" />
-        </div>
-          <span class="account">Account</span>
-        <!-- </button> -->
-      </router-link>
-      <router-link :to="localizedRoute('/my-account')" v-else>
-        <!-- <button type="button" class="bg-cl-transparent brdr-none p0"> -->
-        <div class="iconContainer">
-          <img src="/assets/icons/user.svg" alt="user login" />
-        </div>
-          <span class="account">Account</span>
-
-        <!-- </button> -->
-      </router-link>
-      <no-ssr>
-        <div
-          v-show="currentUser"
-          :class="[
-            'dropdown-content aalign-left sans-serif lh20 weight-400',
-            !showMenu ? 'dropdown-content__hidden' : '',
-          ]"
-        >
-          <div class="py5">
-            <div
-              v-for="(page, index) in navigation"
-              :key="index"
-              @click="notify(page.title)"
-            >
-              <router-link
-                @click.native="showMenu = false"
-                class="no-underline block py10 px15"
-                :to="localizedRoute(page.link)"
-                >{{ page.title }}</router-link
-              >
-            </div>
-          </div>
-          <div class="py5 brdr-top-1 brdr-cl-bg-secondary">
-            <a
-              href="#"
+        <div class="py5">
+          <div
+            v-for="(page, index) in navigation"
+            :key="index"
+            @click="notify(page.title)"
+          >
+            <router-link
+              @click.native="showMenu = false"
               class="no-underline block py10 px15"
-              @click.prevent="logout"
-              >{{ $t("Logout") }}</a
+              :to="localizedRoute(page.link)"
+              >{{ page.title }}</router-link
             >
           </div>
         </div>
-      </no-ssr>
-    </div>
-    <!-- <router-link :to="localizedRoute('/my-account')" exact v-else>
+        <div class="py5 brdr-top-1 brdr-cl-bg-secondary">
+          <a
+            href="#"
+            class="no-underline block py10 px15"
+            @click.prevent="logout"
+            >{{ $t("Logout") }}</a
+          >
+        </div>
+      </div>
+    </no-ssr>
+  </div>
+  <!-- <router-link :to="localizedRoute('/my-account')" exact v-else>
    </router-link> -->
 </template>
 
@@ -74,7 +73,7 @@ import AccountIcon from "@vue-storefront/core/compatibility/components/blocks/He
 export default {
   mixins: [AccountIcon],
   components: {
-    "no-ssr": NoSSR,
+    "no-ssr": NoSSR
   },
   data() {
     return {
@@ -84,7 +83,7 @@ export default {
         { title: this.$t("Account Information"), link: "/my-account" },
         {
           title: this.$t("Address Book"),
-          link: "/my-account/shipping-details",
+          link: "/my-account/shipping-details"
         },
         { title: this.$t("My orders"), link: "/my-account/orders" },
         { title: this.$t("Quotations"), link: "/my-account/quotations" },
@@ -93,9 +92,9 @@ export default {
         //{ title: this.$t("My product reviews"), link: "#" },
         {
           title: this.$t("Recently viewed products"),
-          link: "/my-account/recently-viewed",
-        },
-      ],
+          link: "/my-account/recently-viewed"
+        }
+      ]
     };
   },
   methods: {
@@ -106,11 +105,11 @@ export default {
           message: this.$t(
             "This feature is not implemented yet! Please take a look at https://github.com/DivanteLtd/vue-storefront/issues for our Roadmap!"
           ),
-          action1: { label: this.$t("OK") },
+          action1: { label: this.$t("OK") }
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -126,17 +125,18 @@ $color-icon-hover: color(secondary, $colors-background);
   flex-direction: column;
 }
 .headerIconsNew > a .iconContainer {
-    width: 24px;
+  width: 24px;
 }
-.headerIconsNew > a .iconContainer img{
-    max-width: 100%;
+.headerIconsNew > a .iconContainer img {
+  max-width: 100%;
+  vertical-align: unset !important;
 }
 .account {
   display: block;
   font-size: 9px;
   font-weight: 600;
   font-family: "Roboto";
-  color: #2A275B;
+  color: #2a275b;
 }
 .dropdown {
   outline: none;
@@ -157,7 +157,6 @@ $color-icon-hover: color(secondary, $colors-background);
     background-color: #fff;
   }
   a {
-    
     &:hover,
     &:focus {
       opacity: 1;
@@ -186,8 +185,6 @@ $color-icon-hover: color(secondary, $colors-background);
 @media (min-width: 991px) {
   .account {
     font-size: 10px;
-    
   }
 }
-
 </style>

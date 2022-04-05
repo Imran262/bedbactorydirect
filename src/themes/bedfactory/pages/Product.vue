@@ -1854,6 +1854,7 @@ export default {
         }
         this.SelectedOptions = [];
         this.cartFlag = true;
+         this.isFabrics = false;
         this.cutomRerender++
         // this.isFabricText= false
       
@@ -5474,7 +5475,7 @@ h4.variants-label.basin-head {
   background-color: #071a44 !important;
 }
 .basin_size.colour {
-  width: 95%;
+  width: 95% !important;
 }
 
 button.VueCarousel-navigation-button.VueCarousel-navigation-prev {

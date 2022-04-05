@@ -598,6 +598,7 @@ export default {
             priceArrayFinal.sort((priceA, priceB) => {
               return priceA - priceB;
             });
+            console.log("145698 After the last comment 0/1 ");
             console.log(
               "145698 ",
               "\n priceArrayFinal",
@@ -619,17 +620,29 @@ export default {
               "\n priceArray",
               priceArray
             );
-            this.minPriceVal = parseInt(priceArrayFinal[0].toFixed());
-            this.maxPriceVal = parseInt(
+            console.log("145698 After the last comment 0 ");
+            if (priceArrayFinal.length > 0 ){
+              this.minPriceVal = parseInt(priceArrayFinal[0].toFixed());
+              this.maxPriceVal = parseInt(
               priceArrayFinal[priceArrayFinal.length - 1].toFixed()
+              
             );
             this.minPriceValOri = parseInt(priceArrayFinal[0].toFixed());
             this.maxPriceValOri = parseInt(
               priceArrayFinal[priceArrayFinal.length - 1].toFixed()
             );
+            }
+            console.log("145698 After the last comment 1 ");
+            
+            console.log("145698 After the last comment 2 ");
+            
+            console.log("145698 After the last comment 3 ");
+            
+            console.log("145698 After the last comment 4 ");
             setTimeout(() => {
               this.updateFilter = true;
             }, 1000);
+            //  console.log("145698 After the last comment",);
             this.styleArray = uniqueStyleFinal;
             this.styleArrayOri = uniqueStyleFinal;
             this.colorArray = uniqueColorFinal;
