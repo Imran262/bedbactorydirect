@@ -159,6 +159,7 @@ export default {
   },
   data () {
     return {
+      productData :[],
       itemThumbnail: []
     }
   },
@@ -172,7 +173,18 @@ export default {
       getProduct: 'product/single'
     })
   },
-  mounted () {
+  beforeMount(){
+    
+
+  },
+  async mounted () {
+    var self = this;
+    this.$bus.$on('current-order-data',(data)=>{
+      console.log("1014 Emit received 1 self this",data);
+        console.log("1014 Data assigned");
+        this.productData = data
+        console.log("1014 Data assigned",this.productData);
+    });
     this.singleOrderItems.forEach(async item => {
       if (!this.itemThumbnail[item.sku]) {
         const product = await this.getProduct({ options: { sku: item.sku } })
