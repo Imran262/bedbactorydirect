@@ -23,15 +23,16 @@
                   <form action="">
                     <input
                       type="email"
+                      required
                       placeholder="Type your email here"
                       class="newsLetterInput w-100 emailInput"
                       v-model="userEmail"
                     />
                     <input
-                      type="button"
+                      type="submit"
                       value="Sign Up"
-                      @click="subscribe"
-                      class="newsLetterInput signUpBtn"
+                      @click.prevent="subscribe"
+                      class="newsLetterInput signUpBtn button"
                     />
                   </form>
                   <div class="emailMsg success">
@@ -116,16 +117,17 @@
             </span>
             <form action="">
               <input
+                v-model="userEmail"
+                required
                 type="email"
                 placeholder="Type your email here"
                 class="newsLetterInput w-100 emailInput"
               />
               <input
-                type="button"
+                type="submit"
                 value="Sign Up"
-                @click="subscribe"
-                class="newsLetterInput signUpBtn"
-                v-model="userEmail"
+                @click.prevent="subscribe"
+                class="newsLetterInput signUpBtn button"
               />
             </form>
             <div class="emailMsg success">
@@ -266,6 +268,7 @@ import BlockTitle from "theme/components/core/blocks/Cms/BlockTitle";
 import { getPathForStaticPage } from "theme/helpers";
 import sociallinks from "src/themes/bedfactory/components/core/blocks/Cms/SocialLinks";
 import i18n from '@vue-storefront/i18n'
+import Button from 'src/modules/vsf-paypal-method/components/Button.vue';
 // import NewsLetter from "theme/components/core/blocks/Footer/NewsLetter";
 export default {
   mixins: [CurrentPage, footerlink, footerlinkmobile],
@@ -274,7 +277,8 @@ export default {
     return {
       cardsAccept: "/assets/payment-methods.svg",
       windowWidth: 0,
-      userEmail : ''
+        userEmail : '',
+        required: true
     };
   },
   beforeMount() {
@@ -283,19 +287,31 @@ export default {
   },
   methods: {
     async subscribe(){
-      console.log("10120 here to add user to mailchimp ",this.userEmail);
-      const isSubscribed = await this.$store.dispatch('newsletter/subscribe', this.userEmail)
-      
-      console.log("10120 Response for mailchimp subscription is ",isSubscribed);
-        if (isSubscribed) {
-          this.$store.dispatch('notification/spawnNotification', {
-            type: 'success',
-            message: i18n.t('You have been successfully subscribed to our newsletter!'),
-            action1: { label: i18n.t('OK') }
-          });
-         
-        };
-         
+      if(this.userEmail){
+            console.log("10120 here to add user to mailchimp ",this.userEmail);
+            const isSubscribed = await this.$store.dispatch('newsletter/subscribe', this.userEmail)
+            console.log("10120 Response for mailchimp subscription is ",isSubscribed);
+                if (isSubscribed) {
+                        console.log('1023 isSubscribed true',isSubscribed);
+                        this.$store.dispatch('notification/spawnNotification', {
+                        type: 'success',
+                        message: i18n.t('You have been successfully subscribed to our newsletter!'),
+                        action1: { label: i18n.t('OK') }
+                        });
+                        console.log('return is')
+                        return this.userEmail = '';
+                    }
+        }
+        else if(!this.userEmail){
+            console.log('empty emial address')
+        }
+          else if(!this.validEmail(this.userEmail)){
+            console.log("Email required")
+          } 
+     },
+    validEmail:function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
     },
     handleResize() {
       this.windowWidth = window.innerWidth;
@@ -333,7 +349,8 @@ export default {
     BlockTitle,
     FollowUsLik,
     trustPoilet,
-    sociallinks
+    sociallinks,
+    Button
   }
 };
 </script>
