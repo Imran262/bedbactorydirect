@@ -1,6 +1,7 @@
 <template>
   <div class="mb35" v-if="order">
     <!-- My order header -->
+    productData {{productData}}
     <div class="row mb15">
       <div class="col-xs-12 col-md-2 col-lg-1">
         <return-icon class="p12 icon pointer" />
@@ -174,16 +175,22 @@ export default {
     })
   },
   beforeMount(){
-    
+     var self = this;
+    this.$bus.$on('current-order-data',function(data){
+      console.log("1014 Emit received 1 self this before mount",data);
+        console.log("1014 Data assigned before mount");
+        this.productData = data
+        console.log("1014 Data assigned before mount",this.productData);
+    });
 
   },
   async mounted () {
     var self = this;
-    this.$bus.$on('current-order-data',(data)=>{
-      console.log("1014 Emit received 1 self this",data);
-        console.log("1014 Data assigned");
+    this.$bus.$on('current-order-data',function(data){
+      console.log("1014 Emit received 1 self this mount",data);
+        console.log("1014 Data assigned mount");
         this.productData = data
-        console.log("1014 Data assigned",this.productData);
+        console.log("1014 Data assigned mount",this.productData);
     });
     this.singleOrderItems.forEach(async item => {
       if (!this.itemThumbnail[item.sku]) {
