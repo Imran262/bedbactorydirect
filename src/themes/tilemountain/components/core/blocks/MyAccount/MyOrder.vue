@@ -171,6 +171,7 @@ export default {
   },
   data () {
     return {
+      productData :[],
       itemThumbnail: []
     }
   },
@@ -184,7 +185,24 @@ export default {
       getProduct: 'product/single'
     })
   },
-  mounted () {
+  beforeMount(){
+     var self = this;
+    this.$bus.$on('current-order-data',function(data){
+      console.log("1014 Emit received 1 self this before mount",data);
+        console.log("1014 Data assigned before mount");
+        this.productData = data
+        console.log("1014 Data assigned before mount",this.productData);
+    });
+
+  },
+  async mounted () {
+    var self = this;
+    this.$bus.$on('current-order-data',function(data){
+      console.log("1014 Emit received 1 self this mount",data);
+        console.log("1014 Data assigned mount");
+        this.productData = data
+        console.log("1014 Data assigned mount",this.productData);
+    });
     this.singleOrderItems.forEach(async item => {
       if (!this.itemThumbnail[item.sku]) {
         const product = await this.getProduct({ options: { sku: item.sku } })

@@ -173,7 +173,9 @@
                   add-btn
                 "
               >
+              <button @click="sendCurrentQuoteData(quoteVal.order_entity_id)">
                 {{ "View Order" }}
+                </button>
               </router-link>
             </template>
             <template v-else>
@@ -273,6 +275,22 @@ export default {
     }
   },
   methods: {
+    sendCurrentQuoteData(currentOrderID){
+      let orderOld = {}
+      console.log("1014 Current Order id is ",currentOrderID,this.quoteData);
+      var self =this;
+      this.quoteData.forEach(function(order,orderIndex){
+        console.log("1014 Current order under test is ",order.order_entity_id , currentOrderID , order.order_entity_id === currentOrderID);
+        if(order.order_entity_id === currentOrderID)
+        {
+          console.log("1014 This is an actual order with self1",order);
+          orderOld = order;
+         
+          return;
+        }
+      })
+       this.$bus.$emit('current-order-data',orderOld)
+    },
     async getProduct (psku) {
       return this.$store.dispatch('product/single', {
         options: { sku: psku },
