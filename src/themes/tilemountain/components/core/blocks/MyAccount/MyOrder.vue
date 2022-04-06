@@ -1,6 +1,7 @@
 <template>
   <div class="mb35" v-if="order">
-    <!-- My order header -->
+    <!-- My order header --><br/><br/>
+   returnData {{returnData}} <br/><br/><br/><br/>{{order}}
     <div class="row mb15">
       <div class="col-xs-12 col-md-2 col-lg-1">
         <return-icon class="p12 icon pointer" />
@@ -160,12 +161,16 @@ export default {
   data () {
     return {
       productData :[],
+      localProductData:[],
       itemThumbnail: []
     }
   },
   computed: {
     storeView () {
       return currentStoreView()
+    },
+    returnData(){
+      return this.localProductData
     }
   },
   methods: {
@@ -184,6 +189,11 @@ export default {
 
   },
   async mounted () {
+    setTimeout(function(){
+      this.localProductData = localStorage.getItem('orderData')
+    console.log("1014 201 After 4 localProductData",this.localProductData,);
+    },4000)
+    
     var self = this;
     this.$bus.$on('current-order-data',function(data){
       console.log("1014 Emit received 1 self this mount",data);

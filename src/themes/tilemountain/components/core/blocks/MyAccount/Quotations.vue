@@ -285,7 +285,10 @@ export default {
         {
           console.log("1014 This is an actual order with self1",order);
           orderOld = order;
-         
+          setTimeout(function(){
+             localStorage.setItem('orderData', JSON.stringify(order.items))
+           console.log("After 2 seconds 1014 orderData is ", localStorage.getItem('orderData'));
+          },2000)
           return;
         }
       })
