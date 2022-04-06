@@ -1,7 +1,6 @@
 <template>
   <div class="mb35" v-if="order">
     <!-- My order header -->
-    productData {{productData}}
     <div class="row mb15">
       <div class="col-xs-12 col-md-2 col-lg-1">
         <return-icon class="p12 icon pointer" />
