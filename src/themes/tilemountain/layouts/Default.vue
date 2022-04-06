@@ -1,8 +1,8 @@
 <template>
-  <div class="default-layout">
+  <div class="default-layout custom_height">
     <overlay v-if="overlayActive" />
     <loader />
-    <div id="viewport" class="w-100 relative">
+    <div id="viewport" class="w-100 relative viewPortCustomHeight">
       <main-header />
       <!-- <async-sidebar
         :async-component="SearchPanel"
@@ -201,4 +201,16 @@ export default {
 };
 </script>
 
-<style lang="scss" src="theme/css/main.scss"></style>
+<style lang="scss" src="theme/css/main.scss">
+</style>
+<style>
+.custom_height{
+  height: 100% !important
+}
+.viewPortCustomHeight{
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    min-height: calc(100vh - 0px);
+}
+ </style>

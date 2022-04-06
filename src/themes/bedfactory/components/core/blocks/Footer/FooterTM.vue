@@ -35,17 +35,18 @@
                       class="newsLetterInput signUpBtn button"
                     />
                   </form>
-                  <div class="emailMsg success">
+                  <div v-if="successText" class="emailMsg success">
                     <img src="/assets/green-tick.svg" alt="" />
-                    <span>You’ve successfully joined our mailing list</span>
+                    <span>You’ve successfully joined our mailing list.</span>
                   </div>
-                  <div class="emailMsg error">
+                  <div v-if="errorText" class="emailMsg error">
                     <img src="/assets/red-tick.svg" alt="" />
-                    <span>Please enter a valid email address</span>
+                    <span>Please enter a valid email address.</span>
                   </div>
-                  <span class="getInfoSmall">
+                  <span v-if="simpleText" class="getInfoSmall">
                     We won’t share your details with anyone else.
                   </span>
+                      <!-- <img class="manImg" src="/assets/footer/Vector.svg" alt="image"></img> -->
                   <!-- <h2>Follow Us</h2> -->
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 mt35">
@@ -278,7 +279,10 @@ export default {
       cardsAccept: "/assets/payment-methods.svg",
       windowWidth: 0,
         userEmail : '',
-        required: true
+        required: true,
+        successText: false,
+        errorText: false,
+        simpleText: true
     };
   },
   beforeMount() {
@@ -288,28 +292,37 @@ export default {
   methods: {
     async subscribe(){
       if(this.userEmail){
+         if(this.validEmail(this.userEmail)){
             console.log("10120 here to add user to mailchimp ",this.userEmail);
             const isSubscribed = await this.$store.dispatch('newsletter/subscribe', this.userEmail)
-            console.log("10120 Response for mailchimp subscription is ",isSubscribed);
+            // console.log("10120 Response for mailchimp subscription is ",isSubscribed);
                 if (isSubscribed) {
-                        console.log('1023 isSubscribed true',isSubscribed);
-                        this.$store.dispatch('notification/spawnNotification', {
-                        type: 'success',
-                        message: i18n.t('You have been successfully subscribed to our newsletter!'),
-                        action1: { label: i18n.t('OK') }
-                        });
-                        console.log('return is')
-                        return this.userEmail = '';
+                this.successText = true
+                this.simpleText = false
+                this.errorText = false
+                // console.log('1023 isSubscribed true',isSubscribed);
+                // this.$store.dispatch('notification/spawnNotification', {
+                // type: 'success',
+                // // message: i18n.t('You have been successfully subscribed to our newsletter!'),
+                // // action1: { label: i18n.t('OK') }
+                // });
+                // console.log('return is')
+                  this.userEmail = '';
                     }
+            }
+            else{
+            console.log("Email required")
+            this.errorText = true
+            }
         }
         else if(!this.userEmail){
+          this.errorText = true
+          this.successText = false
+          this.simpleText = false
             console.log('empty emial address')
         }
-          else if(!this.validEmail(this.userEmail)){
-            console.log("Email required")
-          } 
      },
-    validEmail:function(email) {
+    validEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
     },
@@ -448,6 +461,10 @@ span.getInfoSmall {
 }
 .footerContainer {
   background-color: #0b1a44;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  // position: relative;
 }
 .footer-main {
   padding: 2rem 0 0;
@@ -471,10 +488,10 @@ p {
   margin-bottom: 0.4rem;
   margin-top: 1rem;
 }
-.emailMsg.error,
-.emailMsg.success {
-  display: none;
-}
+// .emailMsg.error,
+// .emailMsg.success {
+//   display: none;
+// }
 .emailMsg > span {
   margin-left: 0.4rem;
 }

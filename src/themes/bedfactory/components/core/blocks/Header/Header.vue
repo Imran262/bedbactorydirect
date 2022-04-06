@@ -280,6 +280,7 @@ export default {
     });
   },
   mounted() {
+
     window.addEventListener("scroll", this.updateScroll);
     document.addEventListener("scroll", () => {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -290,9 +291,7 @@ export default {
       }
     });
   },
-  destroy() {
-    window.removeEventListener("scroll", this.updateScroll);
-  },
+
   methods: {
     animateToTop(e) {
       let scrollToTop = window.setInterval(function() {
@@ -325,7 +324,10 @@ export default {
       );
       this.lastScrollTop = this.scrollTop;
     }
-  }
+  },
+  destroy() {
+    window.removeEventListener("scroll", this.updateScroll);
+  },
 };
 </script>
 
