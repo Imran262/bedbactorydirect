@@ -15,6 +15,22 @@ const getAvailableFiltersByProduct = (product: Product) => {
   }
   return filtersMap
 }
+const getAvailableFiltersByProductCustom = (product) => {
+  let filtersMap = {}
+  // console.log('filter Final console', product,'filtersMap',filtersMap)
+  if (product) {
+    product.forEach(configurableOption => {
+      const type = configurableOption.attribute_code
+      const filterVariants = configurableOption.values.map(({ value_index, label }) => {
+        // console.log('filterVariants',filterVariants)
+        return { id: value_index, label, type }
+      })
+      filtersMap[type] = filterVariants
+      // console.log('filtersMap',filtersMap);
+    })
+  }
+  return filtersMap
+}
 
 const getSelectedFiltersByProduct = (product: Product, configuration: ProductConfiguration) => {
   if (!configuration) {
@@ -35,4 +51,4 @@ const getSelectedFiltersByProduct = (product: Product, configuration: ProductCon
   return selectedFilters
 }
 
-export { getAvailableFiltersByProduct, getSelectedFiltersByProduct }
+export { getAvailableFiltersByProduct, getSelectedFiltersByProduct, getAvailableFiltersByProductCustom }

@@ -342,7 +342,6 @@
                 <div
                   class="cl-primary variants sizes basin_size"
                   v-if="getCurrentProduct.type_id == 'configurable'"
-                  :key="cutomRerenderotions"
                 >
                   <!-- It is a configurable product -->
                   <div
@@ -354,7 +353,8 @@
                   >
                     <!-- {{ getCurrentProduct.errors | formatProductMessages }} -->
                   </div>
-                  {{ getProductOptionsConfigurable }} imran
+                  <!-- print value to show
+                   {{ getProductOptionsConfigurable }} -->
                   <div
                     class="h5"
                     v-for="option in getProductOptionsConfigurable"
@@ -365,7 +365,7 @@
                       data-testid="variantsLabel"
                       :key="cutomRerender"
                     >
-                      {{ option.label }} askjdhgsakdasafdasd
+                      {{ option.label }}
                       <!-- <span class="weight-700">{{ getOptionLabel(option) }}</span> -->
                     </h4>
                     <div class="row top-xs m0 variants-wrapper ???/">
@@ -401,23 +401,24 @@
                         @change="changeFilter"
                       />-->
                       </div>
-
                       <div
                         class="sizes basin_size"
                         v-else-if="option.label == 'Size' && optionsFlag"
                       >
                         <!-- Size -->
                         <!-- Here we are -->
+                        <!-- second show Please select abc -->
                         <select
                           class="chevron-down-icon CustomSelectClass"
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select abc ?? 1231
+                            Please select
                           </option>
                           <template
-                            v-for="filter in getProductOptionsConfigurable[0]
-                              .values"
+                            v-for="filter in getAvailableFiltersCustom[
+                              option.attribute_code
+                            ]"
                           >
                             <option
                               :key="filter.id"
@@ -427,14 +428,6 @@
                             </option>
                           </template>
                         </select>
-                        <!-- <size-selector
-                              class="mr10 mb10"
-                              v-for="filter in getAvailableFilters[option.attribute_code]"
-                              :key="filter.id"
-                              :variant="filter"
-                              :selected-filters="getSelectedFilters"
-                              @change="changeFilter"
-                            />-->
                       </div>
                       <div
                         class="sizes basin_size"
@@ -442,12 +435,13 @@
                       >
                         <!-- Size -->
                         <!-- Here we are -->
+                         <!-- first show Please select abc -->
                         <select
                           class="chevron-down-icon CustomSelectClass"
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select abc ??
+                            Please select
                           </option>
                           <template
                             v-for="filter in getAvailableFilters[
@@ -462,14 +456,6 @@
                             </option>
                           </template>
                         </select>
-                        <!-- <size-selector
-                              class="mr10 mb10"
-                              v-for="filter in getAvailableFilters[option.attribute_code]"
-                              :key="filter.id"
-                              :variant="filter"
-                              :selected-filters="getSelectedFilters"
-                              @change="changeFilter"
-                            />-->
                       </div>
                       <div
                         class="basin_size"
@@ -480,16 +466,21 @@
                       >
                         <!-- {{option.attribute_code}}
                           <br/> else -->
+                       <!-- print this element to show option 
+                        {{ getAvailableFiltersCustom[option.attribute_code] }} -->
+
+                        <!-- second show please select -->
                         <select
                           class="chevron-down-icon CustomSelectClass"
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select Imran waale mein ana chahiye
+                            Please select
                           </option>
                           <template
-                            v-for="filter in getProductOptionsConfigurable[1]
-                              .values"
+                            v-for="filter in getAvailableFiltersCustom[
+                              option.attribute_code
+                            ]"
                           >
                             <option
                               :key="filter.id"
@@ -499,31 +490,20 @@
                             </option>
                           </template>
                         </select>
-                        <!-- <span v-if="colorValidation" class="error1"
-                                    >Field is required</span
-                                  > -->
-                        <!-- <generic-selector
-                                  class="mr10 mb10"
-                                  v-for="filter in getAvailableFilters[option.attribute_code]"
-                                  :key="filter.id"
-                                  :variant="filter"
-                                  :selected-filters="getSelectedFilters"
-                                  @change="changeFilter"
-                                />-->
                       </div>
                       <div
                         class="basin_size"
                         :class="option.attribute_code"
                         v-else
                       >
-                        <!-- {{option.attribute_code}}
-                          <br/> else -->
+
+                       <!-- first select  please select show -->
                         <select
                           class="chevron-down-icon CustomSelectClass"
                           @change="changeFilterCustom($event)"
                         >
                           <option disabled value="" :key="2378695843" selected>
-                            Please select LJGDHLAD;LASD
+                            Please select
                           </option>
                           <template
                             v-for="filter in getAvailableFilters[
@@ -538,26 +518,7 @@
                             </option>
                           </template>
                         </select>
-                        <!-- <span v-if="colorValidation" class="error1"
-                                    >Field is required</span
-                                  > -->
-                        <!-- <generic-selector
-                                  class="mr10 mb10"
-                                  v-for="filter in getAvailableFilters[option.attribute_code]"
-                                  :key="filter.id"
-                                  :variant="filter"
-                                  :selected-filters="getSelectedFilters"
-                                  @change="changeFilter"
-                                />-->
                       </div>
-                      <!-- <span
-                        v-if="option.label == 'Size'"
-                        @click="openSizeGuide"
-                        class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
-                      >
-                        <i class="pr5 material-icons">accessibility</i>
-                        <span>{{ $t('Size guide') }}</span>
-                      </span>-->
                     </div>
                   </div>
                   <!-- <span class="error5" v-if="isFabricText">
@@ -585,7 +546,7 @@
                     <div class="row">
                       <div
                         class="col-lg-12 col-md-12 col-xs-12 border-tile-bottom first-child"
-                      > 
+                      >
                         <div
                           class="price serif price-infos"
                           :class="
@@ -693,7 +654,7 @@
                 </div>
               </div>
 
-              <!-- ////////   add to Basket button //////    -->
+              <!-- ///   add to Basket button //    -->
               <div class="add-to-cart row m0">
                 <div class="cart-items">
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 total-amount">
@@ -751,23 +712,13 @@
                       addtocartbuttonMobile
                     "
                   >
-                    <!-- <add-to-cart
-                    :product="getCurrentProduct"
-                    :disabled="
-                      isAddToCartDisabled || cartDisabledOnQuoteItemBased
-                    "
-                    class="add-btn"
-                    @Modal="modalshow"
-                    :sqm-val-updated="'0'"
-                  /> -->
-                    <!-- cart should be {{!cartFlag}}<br/><br/><br/><br/> -->
                     <template
                       v-if="
                         getCurrentProduct.custom_options &&
                         getCurrentProduct.custom_options.length > 0
                       "
                     >
-                      <!-- simple product button  -->
+                      <!-- Simple product button  -->
                       <add-to-cart
                         :product-options="sendProductCustomOptions"
                         :product="getCurrentProduct"
@@ -787,7 +738,7 @@
                         )
                       "
                     >
-                      <!-- no field here  -->
+                      <!-- NO field here updated -->
                       <add-to-cart
                         :product-options="sendProductCustomOptions"
                         :product="getCurrentProduct"
@@ -811,19 +762,6 @@
                         :outofStock="getStockStatus"
                       />
                     </template>
-
-                    <!-- <add-to-cart
-                    :product="getCurrentProduct"
-                    :disabled="
-                      isAddToCartDisabled || cartDisabledOnQuoteItemBased
-                    "
-                    class="add-btn"
-                    @Modal="modalshow"
-                    :sqm-val-updated="tileSqmQuantity"
-                    @update-sqm-qty="sqmQtyCheck"
-                    @update-tile-qty="tileQtyCheck"
-                    @atcPixel="atcPixel"
-                  /> -->
                     <span
                       class="mobile-cal-btn"
                       @click="show"
@@ -909,18 +847,6 @@
                         v-html="getCurrentProduct.description"
                       />
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-5">
-                      <ul class="attributes p0 pt5 m0">
-                        <product-attribute
-                          :key="attr.attribute_code"
-                          v-for="attr in getCustomAttributes"
-                          :product="getCurrentProduct"
-                          :attribute="attr"
-                          empty-placeholder="N/A"
-                        />
-                      </ul>
-                    </div>-->
-                    <!-- <div class="details-overlay" @click="showDetails" /> -->
                   </div>
                 </div>
               </div>
@@ -933,10 +859,6 @@
             @click="ProSpecificationsShowFn"
           >
             {{ $t("Specifications") }}
-            <!-- <span
-              id="product-Specifications-icon-id"
-              class="Icon-update icon-rotate delivery-info-icon1"
-            ></span> -->
           </h2>
           <div
             v-if="ProDeliveryShow"
@@ -968,15 +890,6 @@
             <div class="row between-md m0">
               <div class="col-xs-12 col-sm-12">
                 <div class="delivery-main">
-                  <!--<img src="/assets/free-delivery-icon.png" />
-                  <span>
-                    Order before 12pm for
-                    <router-link to="/i/deliveryinfo">
-                      <span class="purple">next working day delivery</span>
-                    </router-link>
-                  </span>-->
-                  <!-- BLock is {{getCurrentProduct.delivery_cms_block}} block -->
-                  <!-- <br /> -->
                   <cms-block
                     :identifier="
                       getCurrentProduct.delivery_cms_block
@@ -984,9 +897,6 @@
                         : 'delivery_Info'
                     "
                   />
-                  <!--<router-link to="/i/deliveryinfo">
-                    <span class="purple">delivery page</span>
-                  </router-link>-->
                 </div>
               </div>
             </div>
@@ -1089,6 +999,7 @@ import LazyHydrate from "vue-lazy-hydration";
 import { ProductOption } from "@vue-storefront/core/modules/catalog/components/ProductOption.ts";
 import {
   getAvailableFiltersByProduct,
+  getAvailableFiltersByProductCustom,
   getSelectedFiltersByProduct
 } from "@vue-storefront/core/modules/catalog/helpers/filters";
 import { isOptionAvailableAsync } from "@vue-storefront/core/modules/catalog/helpers/index";
@@ -1176,7 +1087,8 @@ export default {
   },
   data() {
     return {
-      customImran: [],
+      customArrayValues: [],
+      FinalCustomFilteredOptions: [],
       cutomRerenderotions: 1,
       generateKey: 1,
       optionsFlag: false,
@@ -1301,7 +1213,7 @@ export default {
           : 1
       ) {
         //for 1
-        console.log("14521 123 in 1");
+        // console.log("14521 123 in 1");
         if (this.getCurrentProduct.stock.qty > 0) {
           return 1;
         } else {
@@ -1309,7 +1221,7 @@ export default {
         }
       } else {
         //for 0
-        console.log("14521 123 in 0");
+        // console.log("14521 123 in 0");
         return 0;
       }
       //  return this.getCurrentProduct.stock.stock_status? this.getCurrentProduct.stock.stock_status : this.getCurrentProduct.stock.stock_status === 0 ? 0:1
@@ -1546,11 +1458,11 @@ export default {
                  (child, index) => {
                  if (child.stock.is_in_stock)
                   {
-                     flag = true; 
-                    } 
+                     flag = true;
+                    }
                   });
                } else {
-                 if ( this.getCurrentProduct.stock && this.getCurrentProduct.stock.is_in_stock) 
+                 if ( this.getCurrentProduct.stock && this.getCurrentProduct.stock.is_in_stock)
                 {
                  flag = true;
                }
@@ -1596,38 +1508,45 @@ export default {
       return this.getCurrentProduct.configurable_options;
     },
     getProductOptionsConfigurable() {
+      
       if (this.getProductOptions) {
-        console.log('Yaaraaaaa', this.customImran, this.getProductOptions[1].values, this.getProductOptions)
         let productValuesIndex = 0
         let customOptionsfiltered = []
-        if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length == 1) {
-          this.getCurrentProduct.configurable_options.forEach((option, index) => {
-            if (option.attribute_code === this.customImran[0].attribute_code) {
+        // console.log('2nd start',customOptionsfiltered)
+        if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length) {
+          // jb tak 2no field select krne h
+          // console.log('3rd console',this.getCurrentProduct.configurable_options.length,' equal to =',this.SelectedOptions.length)
+           this.getCurrentProduct.configurable_options.forEach((option, index) => {
+            //  console.log('for loop',option,'next',index)
+            if (option.attribute_code === this.customArrayValues[0].attribute_code) {
               productValuesIndex = index
             }
-            if (option.attribute_code === this.customImran[0].attribute_code) {
+            if (option.attribute_code === this.customArrayValues[0].attribute_code) {
                customOptionsfiltered.push(option)
             }
           })
           let newCustomArrFiltered = JSON.parse(JSON.stringify(customOptionsfiltered));
-          console.log('Imran is here',newCustomArrFiltered, newCustomArrFiltered[0].values )
+          // console.log('6th console',newCustomArrFiltered,'new Custom Arr Filtered.', newCustomArrFiltered[0].values )
           newCustomArrFiltered[0].values = newCustomArrFiltered[0].values.filter((customOption, index) => {
             let newFlag = false
-            this.customImran.forEach((optionTo) => {
+            this.customArrayValues.forEach((optionTo) => {
+              // filter values enter
               if (optionTo.id == customOption.value_index) {
                 newFlag = true
-                console.log('optionTo.id',optionTo.id,'customOption.value_index',customOption.value_index )
               }
             })
             return newFlag
           })
-          // newCustomArrFiltered[0].values = []
-          let finalfilteredVar = JSON.parse(JSON.stringify(this.getProductOptions));
-          finalfilteredVar[productValuesIndex].values = [...newCustomArrFiltered[0].values]
-          console.log('this print krwate',finalfilteredVar)
+          if (this.FinalCustomFilteredOptions.length) {
+            this.FinalCustomFilteredOptions[productValuesIndex].values = [...newCustomArrFiltered[0].values]
+          } else {
+            let finalfilteredVar = JSON.parse(JSON.stringify(this.getProductOptions));
+            finalfilteredVar[productValuesIndex].values = [...newCustomArrFiltered[0].values]
+            this.FinalCustomFilteredOptions = JSON.parse(JSON.stringify(finalfilteredVar))
+          }
           this.optionsFlag = true
           this.cutomRerenderotions++
-          return finalfilteredVar
+          return this.FinalCustomFilteredOptions
         }
         else {
           this.optionsFlag = false
@@ -1668,9 +1587,14 @@ export default {
         });
     },
     getAvailableFilters() {
-        console.log('select items', getAvailableFiltersByProduct(this.getCurrentProduct));
+        // console.log('select items', getAvailableFiltersByProduct(this.getCurrentProduct));
       return getAvailableFiltersByProduct(this.getCurrentProduct);
-    
+
+    },
+    getAvailableFiltersCustom() {
+      // console.log('select items again', getAvailableFiltersByProductCustom(this.getProductOptionsConfigurable));
+      return getAvailableFiltersByProductCustom(this.getProductOptionsConfigurable);
+
     },
     getSelectedFilters() {
       return getSelectedFiltersByProduct(
@@ -1740,7 +1664,7 @@ export default {
     ) {
       this.getCurrentProductCustomOptions();
     } else {
-      
+
       this.setConfigurableOption();
       console.log(" setConfigurableOption  998877 It is a a configurable product");
     }
@@ -1854,10 +1778,9 @@ export default {
         }
         this.SelectedOptions = [];
         this.cartFlag = true;
-         this.isFabrics = false;
         this.cutomRerender++
         // this.isFabricText= false
-      
+
       }
     },
     getProductOptionsConfigurable: {
@@ -1925,7 +1848,6 @@ export default {
       // );
       this.getCurrentProductCustomOptions();
       this.$store.state.product.current_custom_options = this.getCurrentProductCustomOptionsRedo;
-      // console.log("\n112266 After STATE is \n\n", this.$store.state.product);
       //  this.$store.dispatch('product/setCustomOptions', { product: this.getCurrentProduct, customOptions: {} });
     },
     HandleOnClickV12() {
@@ -1938,16 +1860,6 @@ export default {
       // let cOptions = this.$store.state.product;
       let currentOptions = {};
       let listOptions = [];
-      // console.log(
-      //   "Current custom Options are ",
-      //   this.getCurrentCustomOptions,
-      //   typeof this.getCurrentProduct,
-      //   typeof this.getCurrentProduct.custom_options
-      // );
-      // console.log(
-      //   "1122 custom options ",
-      //   this.getCurrentProduct.custom_options
-      // );
       if (this.getCurrentProduct.custom_options) {
         if (this.getCurrentProduct.custom_options.length > 0) {
           this.getCurrentProduct.custom_options.forEach((option, index) => {
@@ -1956,40 +1868,25 @@ export default {
                 option_id: option.option_id
               }
             };
-            //  currentOptions.push(obj2);
-            // currentOptions[index] = obj2;
             let value = null;
             if (this.$store.state.product.current_custom_options) {
-              // console.log("yes this.$store.state.product.current_custom_options");
+       
               if (
                 this.$store.state.product.current_custom_options[
                   option.option_id
                 ]
               ) {
-                // console.log(
-                //   "yes current_custom_options",
-                //   this.$store.state.product.current_custom_options[
-                //     option.option_id
-                //   ].option_value
-                // );
                 value = this.$store.state.product.current_custom_options[
                   option.option_id
                 ].option_value;
               }
             }
-            // this.$store.state.product.current_custom_options[option.option_id].option_value,
             currentOptions[option.option_id] = {
               option_id: option.option_id,
               option_value: value
             };
-            //   console.log("1122 option is ", obj2, listOptions, currentOptions);
           });
           this.productCurrentCustomOptions = currentOptions;
-          // console.log("112233 productCurrentCustomOptions", currentOptions);
-          // console.log(
-          //   "112233 productCurrentCustomOptionsTest",
-          //   this.productCurrentCustomOptions
-          // );
           return currentOptions;
         } else {
           return {};
@@ -1999,7 +1896,6 @@ export default {
       }
     },
     setConfigurableOption() {
-      // console.log('setConfigurableOption')
       const _ = require("lodash");
       let newObjList = [];
       let products = this.getCurrentProduct.configurable_children;
@@ -2046,9 +1942,7 @@ export default {
           newObjList.push(newObj);
         });
       } else {
-        // console.log("Length of Children is greater than zero");
       }
-      //  console.log("After All", newObjList);
       this.configurableChildren = newObjList;
     },
     changeFilterCustom(event) {
@@ -2061,7 +1955,6 @@ export default {
       if (this.SelectedOptions.length) {
         this.SelectedOptions.forEach((option, index) => {
           if (this.SelectedOptions[index] === variant.type) {
-            // console.log("SelectedOptions variant type 123 ");
             newOptionSelected = false;
             // this.isFabricText= false
           }
@@ -2069,13 +1962,11 @@ export default {
       }
       if (newOptionSelected) {
         this.SelectedOptions.push(variant.type);
-        // console.log("SelectedOptions push variant type 1234", variant);
       }
       if (
         this.getCurrentProduct.configurable_options.length ===
         this.SelectedOptions.length
       ) {
-        // console.log(" SelectedOptions two input is select then button enable");
         this.cartFlag = false;
       }
       let filterOption = Object.assign(
@@ -2120,7 +2011,7 @@ export default {
       // }
       let flag = false;
       delete changedConfig.label;
-      let customImranNew = []
+      let customArrayNewArray = []
       this.configurableChildren.forEach((child, childIndex) => {
         // console.log("7788");
         // console.log("7788 Child is ",child['size'].id,child['colour'].id, "Current Configuration",changedConfig['size'].id,changedConfig['colour'].id ,"\n",JSON.stringify(child)==JSON.stringify(changedConfig),"\n",child ,changedConfig);
@@ -2139,24 +2030,20 @@ export default {
         this.option = false;
 
 
-        // kjsabfd;kjsaf;lksafd
-        if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length == 1) {
-          console.log("Imran is always coming in hereee")
+        // chaparTuta new code
+        if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length) {
+          // console.log("always coming in here")
           if (child[variant.type].id == variant.id) {
-            
             let newArr = Object.entries(child).filter((childOption, index) => {
-              // console.log('childOption', childOption, index)
               return childOption[index] !== variant.type
             })
-            customImranNew.push(newArr[0][1])
-            // console.log('I am custom imran', this.customImran)
+            customArrayNewArray.push(newArr[0][1])
+            // console.log('I am custom value', this.customArrayValues)
           }
           // if (child[variant.type])
         }
 
-        // kjsabfd;kjsaf;lksafd
-
-
+        // chaparTuta new code
         if (JSON.stringify(child) == JSON.stringify(changedConfig)) {
           //  let variant = JSON.parse(event.target.value)
           // console.log("774455", "child matched will emit ", child.stock);
@@ -2177,8 +2064,8 @@ export default {
             // this.colorValidation2 = false;
             // this.colorValidation = false;
             // console.log("At the end of children 1234", flag);
-            if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length == 1) {
-                this.customImran = [...customImranNew]
+            if ( this.getCurrentProduct.configurable_options.length == 2 && this.SelectedOptions.length) {
+                this.customArrayValues = [...customArrayNewArray]
               }
             if (flag) {
               // console.log('At the end of children 1234567',flag)
@@ -5475,7 +5362,7 @@ h4.variants-label.basin-head {
   background-color: #071a44 !important;
 }
 .basin_size.colour {
-  width: 95% !important;
+  width: 95%;
 }
 
 button.VueCarousel-navigation-button.VueCarousel-navigation-prev {
