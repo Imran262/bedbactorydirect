@@ -292,6 +292,7 @@ export default {
   methods: {
     async subscribe(){
       if(this.userEmail){
+        console.log('Enter Text ')
          if(this.validEmail(this.userEmail)){
             console.log("10120 here to add user to mailchimp ",this.userEmail);
             const isSubscribed = await this.$store.dispatch('newsletter/subscribe', this.userEmail)
@@ -313,13 +314,15 @@ export default {
             else{
             console.log("Email required")
             this.errorText = true
+            this.simpleText = false
+            this.successText = false
             }
         }
         else if(!this.userEmail){
           this.errorText = true
           this.successText = false
           this.simpleText = false
-            console.log('empty emial address')
+          console.log('empty emial address')
         }
      },
     validEmail(email) {
