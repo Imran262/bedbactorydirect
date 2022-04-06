@@ -1,7 +1,7 @@
 <template>
 <div class="main_pro">
   <div class="mb35">
-  
+
     <!-- My profile header -->
     <div class="row mb15 main_pro1">
       <div class="col-xs-12 col-sm-6" :class="{ 'cl-accent' : !isEdited }">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-   
+
     <!-- My profile body (edit mode) -->
     <div class="row p20" v-if="isEdited">
       <base-input
@@ -204,7 +204,7 @@
             }
           ]"
         />
-<!-- 
+<!--
         <base-input
           class="col-xs-12 col-sm-6 mb10"
           type="text"
@@ -443,6 +443,7 @@ export default {
      border: 1px solid #b7b4b4;
     border-radius: 10px;
     padding: 7px;
+  background: #fff;
 }
 .main_pro1{
      border: 1px solid #b7b4b4;
@@ -454,7 +455,7 @@ export default {
 }
 h3{
     color: #fff;
-    
+
 }
 
 .bg-cl-mine-shaft {

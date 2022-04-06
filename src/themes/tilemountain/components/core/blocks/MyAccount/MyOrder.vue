@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="outer_border">
-      <div class="row fs16 mb35">
+      <div class="row fs16">
         <div class="col-xs-12">
           <div class="flexbox">
             <div class="heading latestHeading">{{ $t('Items ordered') }}</div>
@@ -37,6 +37,7 @@
               <tr>
                 <th class="lh20">
                   {{ $t('Product Name') }}
+
                 </th>
                 <th class="lh20">
                   {{ $t('SKU') }}
@@ -59,7 +60,6 @@
               <tr class="brdr-top-1 brdr-cl-bg-secondary" v-for="item in singleOrderItems" :key="item.item_id">
                 <td class="fs-medium lh25" :data-th="$t('Product Name')">
                   {{ item.name }}
-                  {{item}}
                 </td>
                 <td class="fs-medium lh25" :data-th="$t('SKU')">
                   {{ item.sku }}
@@ -73,7 +73,7 @@
                 <td class="fs-medium lh25" :data-th="$t('Subtotal')">
                   {{ item.row_total_incl_tax | price(storeView) }}
                 </td>
-                <td class="fs-medium lh25 order-details">
+                <td class="fs-medium lh25 order-details" :data-th="$t('Thumbnail')">
                   <product-image :image="{src: itemThumbnail[item.sku]}" />
                 </td>
               </tr>
@@ -188,7 +188,9 @@ export default {
     this.singleOrderItems.forEach(async item => {
       if (!this.itemThumbnail[item.sku]) {
         const product = await this.getProduct({ options: { sku: item.sku } })
+
         const thumbnail = productThumbnailPath(product)
+
         Vue.set(this.itemThumbnail, item.sku, getThumbnailPath(thumbnail, 280, 280))
       }
     })
@@ -223,8 +225,8 @@ $color-white-smoke: color(white-smoke);
 }
 .heading {
   text-align: center;
-  font-size: 28px;
-  font-family: obli,serif;
+  font-size: 24px;
+  font-family: oblik,serif;
   color: #fff;
 }
 .flexbox{
@@ -234,7 +236,7 @@ $color-white-smoke: color(white-smoke);
   flex-direction: row;
   background-color: #071a44;
   color: #fff;
-  padding: 8px;
+  padding:0 8px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
 }
@@ -244,6 +246,9 @@ table {
   border-bottom: unset;
   @media (max-width: 767px) {
     border-top: none;
+  }
+  @media (max-width: 992px) {
+    table-layout: fixed;
   }
 
   th, td {
@@ -263,7 +268,9 @@ table {
     @media (max-width: 1199px) {
       padding: 10px;
     }
-
+    @media (max-width: 992px) {
+      word-wrap: break-word;
+    }
   }
 
   thead {
@@ -278,13 +285,6 @@ table {
       @media (max-width: 767px) {
         display: block
       }
-
-      &:nth-child(even) {
-        td {
-          background-color: $color-white-smoke;
-        }
-      }
-
     }
 
     td {
@@ -362,7 +362,7 @@ table {
 
 a {
   color: #fff;
-  padding: 0 8px;
+  padding: 0;
   &:after {
     content: "";
     display: block;
@@ -395,6 +395,7 @@ address {
      border: 1px solid #b7b4b4;
     border-radius: 10px;
     padding: 7px;
+    background: #fff;
 }
 .main_pro1{
      border: 1px solid #b7b4b4;
