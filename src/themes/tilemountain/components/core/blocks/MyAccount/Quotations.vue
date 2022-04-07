@@ -151,7 +151,7 @@
               <router-link
                 :to="{
                   path: '/my-account/orders/' + quoteVal.order_entity_id,
-                  query: {},
+                  query: {currentuser : currentUser.id},
                 }"
                 class="
                   f_right f_right_vieworder
@@ -285,7 +285,10 @@ export default {
         {
           console.log("1014 This is an actual order with self1",order);
           orderOld = order;
-         
+          setTimeout(function(){
+             localStorage.setItem('orderData', JSON.stringify(order.items))
+           console.log("After 2 seconds 1014 orderData is ", localStorage.getItem('orderData'));
+          },100)
           return;
         }
       })
