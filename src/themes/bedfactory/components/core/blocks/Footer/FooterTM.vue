@@ -131,15 +131,15 @@
                 class="newsLetterInput signUpBtn button"
               />
             </form>
-            <div class="emailMsg success">
+            <div v-if="successText" class="emailMsg success">
               <img src="/assets/green-tick.svg" alt="" />
               <span>You’ve successfully joined our mailing list</span>
             </div>
-            <div class="emailMsg error">
+            <div v-if="errorText" class="emailMsg error">
               <img src="/assets/red-tick.svg" alt="" />
               <span>Please enter a valid email address</span>
             </div>
-            <span class="getInfoSmall">
+            <span v-if="simpleText" class="getInfoSmall">
               We won’t share your details with anyone else.
             </span>
           </div>
@@ -271,6 +271,7 @@ import { getPathForStaticPage } from "theme/helpers";
 import sociallinks from "src/themes/bedfactory/components/core/blocks/Cms/SocialLinks";
 import i18n from '@vue-storefront/i18n'
 import Button from 'src/modules/vsf-paypal-method/components/Button.vue';
+import { router } from 'core/app';
 // import NewsLetter from "theme/components/core/blocks/Footer/NewsLetter";
 export default {
   mixins: [CurrentPage, footerlink, footerlinkmobile],
@@ -313,7 +314,6 @@ export default {
                   setTimeout(() => {
                     this.userEmail = '';
                     this.successText = false
-                    console.log('Tiiime Out hereee');
                     this.simpleText = true
                 
                 },2000);
@@ -345,6 +345,15 @@ export default {
     getLinkFor(path) {
       return localizedRoute(getPathForStaticPage(path));
     }
+  },
+
+  watch: {
+        $route(to, from) {
+      if (from.path !== to.path) {
+        this.userEmail = ''
+      }
+    },
+
   },
   computed: {
     ...mapGetters({
