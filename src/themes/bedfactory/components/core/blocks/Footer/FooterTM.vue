@@ -271,7 +271,7 @@ import { getPathForStaticPage } from "theme/helpers";
 import sociallinks from "src/themes/bedfactory/components/core/blocks/Cms/SocialLinks";
 import i18n from '@vue-storefront/i18n'
 import Button from 'src/modules/vsf-paypal-method/components/Button.vue';
-import { router } from 'core/app';
+// import { router } from 'core/app';
 // import NewsLetter from "theme/components/core/blocks/Footer/NewsLetter";
 export default {
   mixins: [CurrentPage, footerlink, footerlinkmobile],
@@ -350,7 +350,10 @@ export default {
   watch: {
         $route(to, from) {
       if (from.path !== to.path) {
-        this.userEmail = ''
+        this.userEmail = '',
+        this.successText = false
+        this.errorText = false
+        this.simpleText = true
       }
     },
 
