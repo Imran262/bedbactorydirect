@@ -1,7 +1,6 @@
 <template>
   <div class="mb35" v-if="order">
-    <!-- My order header --><br/><br/>
-   returnData {{returnData}} <br/><br/><br/><br/>{{order}}
+    <!-- My order header -->
     <div class="row mb15">
       <div class="col-xs-12 col-md-2 col-lg-1">
         <return-icon class="p12 icon pointer" />
@@ -150,7 +149,7 @@ import ReturnIcon from 'theme/components/core/blocks/Header/ReturnIcon'
 import ProductImage from 'theme/components/core/ProductImage'
 import { getThumbnailPath, productThumbnailPath } from '@vue-storefront/core/helpers'
 import { currentStoreView } from '@vue-storefront/core/lib/multistore'
-import { mapActions } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
   mixins: [MyOrder],
@@ -162,15 +161,32 @@ export default {
     return {
       productData :[],
       localProductData:[],
-      itemThumbnail: []
+      itemThumbnail: [],
+      curentUser : '',
+      quoteData :[],
+      orderId : '',
+      currentQuote : []
     }
   },
   computed: {
+    ...mapGetters({
+      ordersHistory: 'user/getOrdersHistory'
+    }),
+    orderNew () {
+      return this.ordersHistory.find(order =>
+        parseInt(order.entity_id) === parseInt(this.$route.params.orderId)
+      )
+    },
     storeView () {
       return currentStoreView()
     },
     returnData(){
-      return this.localProductData
+      setTimeout(function(){
+        console.log("1014 Here to return Data",localStorage.getItem('orderData'));
+        this.localProductData = localStorage.getItem('orderData')
+        return localStorage.getItem('orderData')
+      },300)
+      
     }
   },
   methods: {
@@ -192,7 +208,7 @@ export default {
     setTimeout(function(){
       this.localProductData = localStorage.getItem('orderData')
     console.log("1014 201 After 4 localProductData",this.localProductData,);
-    },4000)
+    },200)
     
     var self = this;
     this.$bus.$on('current-order-data',function(data){
@@ -201,6 +217,40 @@ export default {
         this.productData = data
         console.log("1014 Data assigned mount",this.productData);
     });
+     this.curentUser = this.$route.query.currentuser
+     this.orderId = this.$route.params.orderId
+    console.log("1014 1021 order 12 n",this.curentUser,this.$route,this.$route.query.currentuser,this.orderNew,this.ordersHistory);
+   
+    // setTimeout(function(){
+    //   console.log("1014 1014 order 1 3  n",this.$route,this.$route.query,this.orderNew,this.ordersHistory);
+    // },200)
+    await this.$store.dispatch(
+      'quotesystem/quoteSystemFunction', {
+        customerId: this.curentUser
+      })
+      .then(resp => {
+        console.log('1014 1021 response is ', resp);
+        console.log('1014 1021 route is ', this.$route);
+
+        this.quoteData = resp;
+        resp.forEach((quote,index)=>{
+          if (quote.order_entity_id === this.orderId){
+            console.log("1021 Quote Matched",quote);
+            this.currentQuote = quote;
+
+          }
+        })
+        let convertedOrder = [];
+        for (var prop in resp) {
+          if (resp.hasOwnProperty(prop)) {
+            convertedOrder.push(resp[prop].converted_order);
+          }
+        }
+        console.log("1014 1014 Converted order is ",convertedOrder);
+      })
+      .catch(err => {
+        console.log('err occured from api call', err);
+      });
     this.singleOrderItems.forEach(async item => {
       if (!this.itemThumbnail[item.sku]) {
         const product = await this.getProduct({ options: { sku: item.sku } })

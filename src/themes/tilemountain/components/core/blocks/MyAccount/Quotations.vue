@@ -151,7 +151,7 @@
               <router-link
                 :to="{
                   path: '/my-account/orders/' + quoteVal.order_entity_id,
-                  query: {},
+                  query: {currentuser : currentUser.id},
                 }"
                 class="
                   f_right f_right_vieworder
@@ -288,7 +288,7 @@ export default {
           setTimeout(function(){
              localStorage.setItem('orderData', JSON.stringify(order.items))
            console.log("After 2 seconds 1014 orderData is ", localStorage.getItem('orderData'));
-          },2000)
+          },100)
           return;
         }
       })
