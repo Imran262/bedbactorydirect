@@ -46,7 +46,7 @@
                   <span v-if="simpleText" class="getInfoSmall">
                     We won’t share your details with anyone else.
                   </span>
-                      <!-- <img class="manImg" src="/assets/footer/Vector.svg" alt="image"></img> -->
+                  <!-- <img class="manImg" src="/assets/footer/Vector.svg" alt="image"></img> -->
                   <!-- <h2>Follow Us</h2> -->
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 mt35">
@@ -246,6 +246,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapGetters } from "vuex";
 import {
   currentStoreView,
@@ -308,8 +309,14 @@ export default {
                 // // action1: { label: i18n.t('OK') }
                 // });
                 // console.log('return is')
-                  this.userEmail = '';
                     }
+                  setTimeout(() => {
+                    this.userEmail = '';
+                    this.successText = false
+                    console.log('Tiiime Out hereee');
+                    this.simpleText = true
+                
+                },2000);
             }
             else{
             console.log("Email required")
