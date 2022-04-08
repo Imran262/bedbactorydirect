@@ -43,7 +43,7 @@
                     <img src="/assets/red-tick.svg" alt="" />
                     <span>Please enter a valid email address.</span>
                   </div>
-                  <span v-if="simpleText" class="getInfoSmall">
+                  <span class="getInfoSmall">
                     We won’t share your details with anyone else.
                   </span>
                   <!-- <img class="manImg" src="/assets/footer/Vector.svg" alt="image"></img> -->
@@ -139,7 +139,7 @@
               <img src="/assets/red-tick.svg" alt="" />
               <span>Please enter a valid email address</span>
             </div>
-            <span v-if="simpleText" class="getInfoSmall">
+            <span class="getInfoSmall">
               We won’t share your details with anyone else.
             </span>
           </div>
@@ -284,7 +284,7 @@ export default {
         required: true,
         successText: false,
         errorText: false,
-        simpleText: true
+        // simpleText: true
     };
   },
   beforeMount() {
@@ -301,7 +301,7 @@ export default {
             // console.log("10120 Response for mailchimp subscription is ",isSubscribed);
                 if (isSubscribed) {
                 this.successText = true
-                this.simpleText = false
+                // this.simpleText = false
                 this.errorText = false
                 // console.log('1023 isSubscribed true',isSubscribed);
                 // this.$store.dispatch('notification/spawnNotification', {
@@ -314,21 +314,21 @@ export default {
                   setTimeout(() => {
                     this.userEmail = '';
                     this.successText = false
-                    this.simpleText = true
+                    // this.simpleText = true
                 
                 },2000);
             }
             else{
             console.log("Email required")
             this.errorText = true
-            this.simpleText = false
+            // this.simpleText = false
             this.successText = false
             }
         }
         else if(!this.userEmail){
           this.errorText = true
           this.successText = false
-          this.simpleText = false
+          // this.simpleText = false
           console.log('empty emial address')
         }
      },
