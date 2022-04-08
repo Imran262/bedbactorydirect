@@ -157,8 +157,9 @@ export default {
       });
       return this.onlyCutSizeSample;
     },
-    toggleMicroCartCustom() {
-      console.log("from PSWP");
+    toggleMicroCartCustom () {
+      console.log('from PSWP');
+      this.$router.push(this.localizedRoute('/checkout'));
       this.getFullSampleItems();
       this.getCutSampleItems();
       if (!this.isTotalsLoaded()) {
