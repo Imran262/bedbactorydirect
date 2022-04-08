@@ -150,7 +150,7 @@
             >
               <router-link
                 :to="{
-                  path: '/my-account/orders/' + quoteVal.order_entity_id,
+                  path: '/my-account/quotation-orders/' + quoteVal.order_entity_id,
                   query: {currentuser : currentUser.id},
                 }"
                 class="
@@ -173,9 +173,7 @@
                   add-btn
                 "
               >
-              <button @click="sendCurrentQuoteData(quoteVal.order_entity_id)">
                 {{ "View Order" }}
-                </button>
               </router-link>
             </template>
             <template v-else>
@@ -275,25 +273,6 @@ export default {
     }
   },
   methods: {
-    sendCurrentQuoteData(currentOrderID){
-      let orderOld = {}
-      console.log("1014 Current Order id is ",currentOrderID,this.quoteData);
-      var self =this;
-      this.quoteData.forEach(function(order,orderIndex){
-        console.log("1014 Current order under test is ",order.order_entity_id , currentOrderID , order.order_entity_id === currentOrderID);
-        if(order.order_entity_id === currentOrderID)
-        {
-          console.log("1014 This is an actual order with self1",order);
-          orderOld = order;
-          setTimeout(function(){
-             localStorage.setItem('orderData', JSON.stringify(order.items))
-           console.log("After 2 seconds 1014 orderData is ", localStorage.getItem('orderData'));
-          },100)
-          return;
-        }
-      })
-       this.$bus.$emit('current-order-data',orderOld)
-    },
     async getProduct (psku) {
       return this.$store.dispatch('product/single', {
         options: { sku: psku },

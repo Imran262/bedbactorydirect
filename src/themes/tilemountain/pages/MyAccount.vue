@@ -16,14 +16,14 @@
 
     <div class="container pt45 pb35">
       <div class="row px20 pt0">
-        <div class="col-md-3 block">
+        <div class="col-12 col-md-3 block">
           <nav class="static-menu serif h4 mb35">
             <ul class="m0 p0 dashborad">
               <li v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
                 <router-link :to="localizedRoute(page.link)" class="cl-accent playimg">
                   {{ page.title }}
                 </router-link>
-                
+
               </li>
               <li class="py5 brdr-top-1 brdr-cl-bg-secondary">
                 <a
@@ -36,7 +36,7 @@
             </ul>
           </nav>
         </div>
-        <div class="col-md-9">
+        <div class="col-12 col-md-9">
           <no-ssr>
             <component :is="this.$props.activeBlock" />
           </no-ssr>
@@ -56,6 +56,7 @@ import MyDashboard from '../components/core/blocks/MyAccount/MyDashboard'
 import MyOrders from '../components/core/blocks/MyAccount/MyOrders'
 import Quotations from '../components/core/blocks/MyAccount/Quotations'
 import MyOrder from '../components/core/blocks/MyAccount/MyOrder'
+import MyQuotationOrder from '../components/core/blocks/MyAccount/MyQuotationOrder'
 import MyRecentlyViewed from '../components/core/blocks/MyAccount/MyRecentlyViewed'
 import NoSSR from 'vue-no-ssr'
 import { RecentlyViewedModule } from '@vue-storefront/core/modules/recently-viewed'
@@ -89,6 +90,7 @@ export default {
     MyDashboard,
     MyOrders,
     MyOrder,
+    MyQuotationOrder,
     MyRecentlyViewed,
     Quotations,
     'no-ssr': NoSSR
@@ -146,7 +148,7 @@ $color-tertiary: color(tertiary);
 
 
 li {
- 
+
   border-bottom: 1px solid #b7b4b4;
 }
 
@@ -184,10 +186,10 @@ background-color: transparent;
 }
 .router-link-exact-active{
   background-color:#071a44 !important;
-  color: #fff !important; 
+  color: #fff !important;
   .material-icons{
     color: #fff !important;
-    
+
   }
 }
 .back-color{

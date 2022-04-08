@@ -1,5 +1,5 @@
 <template>
-<div class="main_pro">
+  <div class="main_pro">
   <div class="mb35">
     <!-- My orders header -->
     <div class="row mb15 main_pro1">
@@ -60,9 +60,13 @@
               </td>
               <td class="fs-medium lh25">
                 <span class="relative dropdown">
-                  <i class="material-icons cl-secondary pointer">more_horiz</i>
+                  <i data-v-f2390ed2="" class="material-icons cl-secondary pointer"></i>
                   <div class="dropdown-content bg-cl-primary align-left sans-serif lh20 weight-400 fs-medium-small py5">
-                    <router-link class="no-underline block py10 px15" :to="localizedRoute(`/my-account/orders/${order.entity_id}`)">
+                    <router-link class="no-underline block py10 px15"
+                                 :to="{path: '/my-account/orders/' + order.entity_id,
+                                  query: {currentuser : order.customer_id},
+                            }"
+                    >
                       {{ $t('View order') }}
                     </router-link>
                     <a href="#" class="no-underline block py10 px15" @click.prevent="remakeOrder(skipGrouped(order.items))">{{ $t('Remake order') }}</a>

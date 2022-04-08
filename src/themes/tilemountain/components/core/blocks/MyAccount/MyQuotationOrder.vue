@@ -282,11 +282,11 @@ $color-white-smoke: color(white-smoke);
   justify-content: space-between;
   align-items: center;
   padding-top: 5px;
-
   @media (max-width: 767px) {
     align-items: flex-start;
     flex-direction: column;
   }
+
 }
 .outer_border {
   border: 1px solid #cccccc;
@@ -384,6 +384,7 @@ table {
           font-weight: 700;
           font-size: 15px;
           margin-right: 8px;
+
         }
       }
 
