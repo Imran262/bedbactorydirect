@@ -1,39 +1,41 @@
 <template>
   <div class="delivery_address">
     <div class="pl30 pr30 billing-details">
-    <div class="row">
-      <div class="col-xs-5 col-md-6 col-lg-6">
-        <h3 class="shipping-edit1">Shipping </h3>
-      </div>
-      <div class="col-xs-7 col-md-6 col-lg-6 ">
-        <div class="lh30 flex end-lg shiping-edit">
-          <a href="#" class="cl-tertiary flex" @click="editShipping">
-            <span class="pr5">
-              {{ $t("Edit shipping") }}
-            </span>
-            <i class="material-icons cl-tertiary">edit</i>
-          </a>
+      <div class="row">
+        <div class="col-xs-5 col-md-6 col-lg-6">
+          <h3 class="shipping-edit1">Shipping</h3>
+        </div>
+        <div class="col-xs-7 col-md-6 col-lg-6 ">
+          <div class="lh30 flex end-lg shiping-edit">
+            <a href="#" class="cl-tertiary flex" @click="editShipping">
+              <span class="pr5">
+                {{ $t("Edit shipping") }}
+              </span>
+              <i class="material-icons cl-tertiary">edit</i>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row pl20">
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row fs16 mb35 mobile-text">
-          <div
-            class="col-xs-12 h4"
-            data-testid="shippingAddressSummary"
-            v-if="shippingData.firstname"
-          >
-            <p>{{ shippingData.firstname }} {{ shippingData.lastname }}</p>
-            <p>
-              {{ shippingData.street }}
-              {{ shippingData.apartment ? " ," + shippingData.apartment : "" }}
-            </p>
-            <p>{{ shippingData.city }} , {{ shippingData.zip }}</p>
-            <p>
-              {{ shippingData.country }}
-            </p>
-            <!-- <p>
+      <div class="row pl20">
+        <div class="col-xs-12 col-sm-9 col-md-11">
+          <div class="row fs16 mb35 mobile-text">
+            <div
+              class="col-xs-12 h4"
+              data-testid="shippingAddressSummary"
+              v-if="shippingData.firstname"
+            >
+              <p>{{ shippingData.firstname }} {{ shippingData.lastname }}</p>
+              <p>
+                {{ shippingData.street }}
+                {{
+                  shippingData.apartment ? " ," + shippingData.apartment : ""
+                }}
+              </p>
+              <p>{{ shippingData.city }} , {{ shippingData.zip }}</p>
+              <p>
+                {{ shippingData.country }}
+              </p>
+              <!-- <p>
               <span v-if="shipping.state">{{ shipping.state }}, </span>
               <span>{{ getCountryName() }}</span>
             </p>
@@ -41,10 +43,10 @@
               <span class="pr15">{{ shipping.phoneNumber }}</span>
               <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
             </div> -->
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
     <div class="pt20 delivery-methods-detail">
       <div class="delivery-method-boxes pl30 pr30">
@@ -62,7 +64,7 @@
                 ref="chooseDate"
                 checked="checked"
                 @click="handleChooseDateClick"
-              >
+              />
               <span
                 class="checkmark black-border-checkmark"
                 :class="isCalendarSelected ? 'customselectedclass' : ''"
@@ -71,7 +73,10 @@
           </div>
           <div class="col-md-6 col-xs-12">
             <template v-if="getShippingMethodsWithoutDates.length > 0">
-              <span v-for="method in getShippingMethodsWithoutDates" :key="method.method_code">
+              <span
+                v-for="method in getShippingMethodsWithoutDates"
+                :key="method.method_code"
+              >
                 <label class="radioStyled">
                   Collection from Stoke Warehouse:
                   <input
@@ -85,8 +90,11 @@
                       $v.shipping.shippingMethod.$touch();
                       changeShippingMethod('fromInput');
                     "
-                  >
-                  <span class="checkmark black-border-checkmark no-checked" id="noChecked" />
+                  />
+                  <span
+                    class="checkmark black-border-checkmark no-checked"
+                    id="noChecked"
+                  />
                 </label>
               </span>
             </template>
@@ -95,30 +103,76 @@
       </div>
       <div class="home-delivery-box">
         <template v-if="getShippingMethodsWithRoyalMail.length !== 0">
-          <h3 class="pl30 pr30" v-if="selectedDeliveryMethod === 'homedelivery' && getSortedDates.length !== 1">
+          <h3
+            class="pl30 pr30"
+            v-if="
+              selectedDeliveryMethod === 'homedelivery' &&
+                getSortedDates.length !== 1
+            "
+          >
             Delivery Date
           </h3>
-          <label class="pl30 pr30" v-if="selectedDeliveryMethod === 'homedelivery' && getSortedDates.length !== 1">
-            Your order will be posted through the letterbox, no signature required
+          <label
+            class="pl30 pr30"
+            v-if="
+              selectedDeliveryMethod === 'homedelivery' &&
+                getSortedDates.length !== 1
+            "
+          >
+            Your order will be posted through the letterbox, no signature
+            required
           </label>
         </template>
         <template v-else>
-          <h3 class="pl30 pr30" v-if="selectedDeliveryMethod === 'homedelivery' && getSortedDates.length !== 1">
+          <h3
+            class="pl30 pr30"
+            v-if="
+              selectedDeliveryMethod === 'homedelivery' &&
+                getSortedDates.length !== 1
+            "
+          >
             Delivery Date
           </h3>
         </template>
-        <h3 class="pl30 pr30 hidden" v-if="selectedDeliveryMethod === 'warehouse'">
+        <h3
+          class="pl30 pr30 hidden"
+          v-if="selectedDeliveryMethod === 'warehouse'"
+        >
           Choose Collection Date
         </h3>
-        <h3 class="pl30 pr30" v-if="selectedDeliveryMethod === 'homedelivery' && getSortedDates.length === 1">
+        <h3
+          class="pl30 pr30"
+          v-if="
+            selectedDeliveryMethod === 'homedelivery' &&
+              getSortedDates.length === 1
+          "
+        >
           Shipping Date
         </h3>
-        <div class="cal-txt" :class="getShippingMethodsWithRoyalMail.length === 0 ? 'showDelSection':'hideDelSection'" v-if="selectedDeliveryMethod === 'homedelivery' && getSortedDates.length === 0">
-        <div class="OutOfstockItem" v-if="checkOutOfStockClass()">
-          <span>Out of Stock Item</span>
-          <p>Delivery Date currently unavailable. We will contact you when the goods are ready to ship.</p>
-        </div>
-          <p class="pl30 pr30" v-for="method in getShippingMethods" :key="method.method_code">
+        <div
+          class="cal-txt"
+          :class="
+            getShippingMethodsWithRoyalMail.length === 0
+              ? 'showDelSection'
+              : 'hideDelSection'
+          "
+          v-if="
+            selectedDeliveryMethod === 'homedelivery' &&
+              getSortedDates.length === 0
+          "
+        >
+          <div class="OutOfstockItem" v-if="checkOutOfStockClass()">
+            <span>Out of Stock Item</span>
+            <p>
+              Delivery Date currently unavailable. We will contact you when the
+              goods are ready to ship.
+            </p>
+          </div>
+          <p
+            class="pl30 pr30"
+            v-for="method in getShippingMethods"
+            :key="method.method_code"
+          >
             <label class="radioStyled">
               <span>{{ method.method_title }}</span>
               <input
@@ -132,7 +186,7 @@
                   $v.shipping.shippingMethod.$touch();
                   changeShippingMethod('fromInput');
                 "
-              >
+              />
               <span
                 class="checkmark black-border-checkmark shippingMethodAll"
                 :class="!radioCheckedFlag ? 'allunchecked' : ''"
@@ -140,17 +194,34 @@
             </label>
           </p>
         </div>
-        <div v-if="getSortedDates.length === 1 && selectedDeliveryMethod === 'homedelivery'">
-          <h5 class="pl30 pr30 mb10 delivery-msg-date" >
-            We currently have limited availability for {{ calenderHasSingleDate }}. Order now to secure your delivery slot.
+        <div
+          v-if="
+            getSortedDates.length === 1 &&
+              selectedDeliveryMethod === 'homedelivery'
+          "
+        >
+          <h5 class="pl30 pr30 mb10 delivery-msg-date">
+            We currently have limited availability for
+            {{ calenderHasSingleDate }}. Order now to secure your delivery slot.
           </h5>
           <div class="row singleDateRowData">
             <div class="col-md-6 col-xs-12 pl30 pr30 instruction one">
               <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
                 Special Delivery Instructions
               </h3>
-              <textarea row="20" cols="10" name="delivery-note" placeholder="Enter instructions" v-model.trim="shipping.deliveryNote" />
-              <input type="hidden" name="delivery-note-hidden" placeholder="Enter instructions" v-model.trim="shipping.deliveryNoteHidden">
+              <textarea
+                row="20"
+                cols="10"
+                name="delivery-note"
+                placeholder="Enter instructions"
+                v-model.trim="shipping.deliveryNote"
+              />
+              <input
+                type="hidden"
+                name="delivery-note-hidden"
+                placeholder="Enter instructions"
+                v-model.trim="shipping.deliveryNoteHidden"
+              />
             </div>
             <div class="col-md-6 col-xs-12 pl30 pr30 instruction two">
               <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
@@ -183,26 +254,47 @@
                       -1) ==
                       true
                   "
-                ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                  ><span
+                    v-html="
+                      parseTitle(
+                        slotData.customData.method_title,
+                        slotData.customData.price_incl_tax
+                      )
+                    "
+                  />
                 </template>
                 <template
                   v-if="
-                    (slotData.customData.method_code.indexOf('DPD') !==
-                      -1) ==
+                    (slotData.customData.method_code.indexOf('DPD') !== -1) ==
                       true
                   "
-                ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                  ><span
+                    v-html="
+                      parseTitle(
+                        slotData.customData.method_title,
+                        slotData.customData.price_incl_tax
+                      )
+                    "
+                  />
                 </template>
                 <template
                   v-if="
-                    (((slotData.customData.method_code.indexOf('Royal Mail') !==
+                    ((slotData.customData.method_code.indexOf('Royal Mail') !==
                       -1) ==
-                      true) ||
-                      ((slotData.customData.method_code.indexOf('Royal_Mail') !==
+                      true ||
+                      (slotData.customData.method_code.indexOf('Royal_Mail') !==
                         -1) ==
-                        true)) && getSortedDates.length !== 1
+                        true) &&
+                      getSortedDates.length !== 1
                   "
-                ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                  ><span
+                    v-html="
+                      parseTitle(
+                        slotData.customData.method_title,
+                        slotData.customData.price_incl_tax
+                      )
+                    "
+                  />
                 </template>
                 <template
                   v-if="
@@ -210,7 +302,14 @@
                       -1) ==
                       true
                   "
-                ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                  ><span
+                    v-html="
+                      parseTitle(
+                        slotData.customData.method_title,
+                        slotData.customData.price_incl_tax
+                      )
+                    "
+                  />
                 </template>
                 <input
                   type="radio"
@@ -224,13 +323,21 @@
                     selectedMethod = slotData.customData.method_code;
                   "
                   @click="dateAndTimeUpdate(slotData.customData.method_title)"
-                >
+                />
                 <span class="checkmarkbox" />
               </label>
             </div>
           </template>
         </div>
-        <div class="row pl30 pr30 calendar-area" :class="getShippingMethodsWithRoyalMail.length === 0 ? 'showDelSection':'hideDelSection'" v-else>
+        <div
+          class="row pl30 pr30 calendar-area"
+          :class="
+            getShippingMethodsWithRoyalMail.length === 0
+              ? 'showDelSection'
+              : 'hideDelSection'
+          "
+          v-else
+        >
           <div
             class="col-md-12 col-xs-12"
             v-if="
@@ -264,15 +371,23 @@
                 :disabled-dates="disabledDateFn"
               />
             </no-ssr>
-            <div class="cal-checkbox" v-if="selectedDeliveryMethod === 'homedelivery' && getKerbsideShppingMethods.length > 0">
+            <div
+              class="cal-checkbox"
+              v-if="
+                selectedDeliveryMethod === 'homedelivery' &&
+                  getKerbsideShppingMethods.length > 0
+              "
+            >
               <input
                 type="checkbox"
                 name="vehicle"
                 id="vehicle"
                 v-model="shipping.narrowRoad"
                 @click="narrowCheckedFn"
+              />
+              <label for="vehicle">
+                Narrow Road - Smaller Vehicle Advisable</label
               >
-              <label for="vehicle"> Narrow Road - Smaller Vehicle Advisable</label>
             </div>
           </div>
           <div
@@ -284,7 +399,10 @@
             "
           >
             <div class="calendar-ineer-main">
-              <div class="selected-collection-time" :class="!shipping.narrowRoad ? 'show': 'hide'">
+              <div
+                class="selected-collection-time"
+                :class="!shipping.narrowRoad ? 'show' : 'hide'"
+              >
                 <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
                   Select a Delivery Time
                 </h3>
@@ -303,11 +421,20 @@
                       <label class="label">
                         <template
                           v-if="
-                            (slotData.customData.method_code.indexOf('Kerbside') !==
+                            (slotData.customData.method_code.indexOf(
+                              'Kerbside'
+                            ) !==
                               -1) ==
                               true
                           "
-                        ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                          ><span
+                            v-html="
+                              parseTitle(
+                                slotData.customData.method_title,
+                                slotData.customData.price_incl_tax
+                              )
+                            "
+                          />
                         </template>
                         <template
                           v-else-if="
@@ -315,26 +442,54 @@
                               -1) ==
                               true
                           "
-                        ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                          ><span
+                            v-html="
+                              parseTitle(
+                                slotData.customData.method_title,
+                                slotData.customData.price_incl_tax
+                              )
+                            "
+                          />
                         </template>
                         <template
                           v-else-if="
-                            (((slotData.customData.method_code.indexOf('Royal Mail') !==
+                            ((slotData.customData.method_code.indexOf(
+                              'Royal Mail'
+                            ) !==
                               -1) ==
-                              true) ||
-                              ((slotData.customData.method_code.indexOf('Royal_Mail') !==
+                              true ||
+                              (slotData.customData.method_code.indexOf(
+                                'Royal_Mail'
+                              ) !==
                                 -1) ==
-                                true)) && getSortedDates.length !== 1
+                                true) &&
+                              getSortedDates.length !== 1
                           "
-                        ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                          ><span
+                            v-html="
+                              parseTitle(
+                                slotData.customData.method_title,
+                                slotData.customData.price_incl_tax
+                              )
+                            "
+                          />
                         </template>
                         <template
                           v-else-if="
-                            (slotData.customData.method_code.indexOf('Samples') !==
+                            (slotData.customData.method_code.indexOf(
+                              'Samples'
+                            ) !==
                               -1) ==
                               true
                           "
-                        ><span v-html="parseTitle(slotData.customData.method_title, slotData.customData.price_incl_tax)" />
+                          ><span
+                            v-html="
+                              parseTitle(
+                                slotData.customData.method_title,
+                                slotData.customData.price_incl_tax
+                              )
+                            "
+                          />
                         </template>
                         <!--<span v-if="selectedMethod == slotData.customData.method_code">
                       |
@@ -355,8 +510,10 @@
                             changeShippingMethod();
                             selectedMethod = slotData.customData.method_code;
                           "
-                          @click="dateAndTimeUpdate(slotData.customData.method_title)"
-                        >
+                          @click="
+                            dateAndTimeUpdate(slotData.customData.method_title)
+                          "
+                        />
                         <span class="checkmarkbox" />
                       </label>
                     </div>
@@ -367,8 +524,19 @@
                 <h3 v-if="selectedDeliveryMethod === 'homedelivery'">
                   Special Delivery Instructions
                 </h3>
-                <textarea row="20" cols="10" name="delivery-note" placeholder="Enter instructions" v-model.trim="shipping.deliveryNote" />
-                <input type="hidden" name="delivery-note-hidden" placeholder="Enter instructions" v-model.trim="shipping.deliveryNoteHidden">
+                <textarea
+                  row="20"
+                  cols="10"
+                  name="delivery-note"
+                  placeholder="Enter instructions"
+                  v-model.trim="shipping.deliveryNote"
+                />
+                <input
+                  type="hidden"
+                  name="delivery-note-hidden"
+                  placeholder="Enter instructions"
+                  v-model.trim="shipping.deliveryNoteHidden"
+                />
               </div>
             </div>
           </div>
@@ -392,10 +560,22 @@
               $v.shipping.shippingMethod.$error &&
                 !$v.shipping.shippingMethod.required
             "
-          >{{ $t('Field is required') }}</span>
+            >{{ $t("Field is required") }}</span
+          >
         </div>
 
-        <div class="delivery-btn" :class="getShippingMethodsWithRoyalMail.length === 0 ? 'showDeliBtnSection':'hideDeliBtnSection'" v-if="selectedDeliveryMethod === 'homedelivery' && getSortedDates.length > 1">
+        <div
+          class="delivery-btn"
+          :class="
+            getShippingMethodsWithRoyalMail.length === 0
+              ? 'showDeliBtnSection'
+              : 'hideDeliBtnSection'
+          "
+          v-if="
+            selectedDeliveryMethod === 'homedelivery' &&
+              getSortedDates.length > 1
+          "
+        >
           <div class="row">
             <div class="col-xs-12 col-md-6 my30 pl40 pr30">
               <button-full
@@ -403,67 +583,81 @@
                 ref="referenceShippingSubmit"
                 id="shippingSubmitBtnId"
                 v-if="homeDeliverySelected"
-                :class="deliveryBtnClicked ? 'newdateSelected': 'noNewdateSelected'"
+                :class="
+                  deliveryBtnClicked ? 'newdateSelected' : 'noNewdateSelected'
+                "
                 @click.native="
                   sendDataToCheckout();
                   dateSelected();
                 "
                 :disabled="
-                  $v.shipping.$invalid || getShippingMethods.length === 0 || (isCalendarSelected && shippingSlotsData.length === 0) || !deliveryBtnEnable
+                  $v.shipping.$invalid ||
+                    getShippingMethods.length === 0 ||
+                    (isCalendarSelected && shippingSlotsData.length === 0) ||
+                    !deliveryBtnEnable
                 "
               >
                 <span v-if="deliveryBtnClicked == true">
-                  {{ $t('Delivery: ') }} <span class="date-span" v-if="deliveryTimeDate">{{ deliveryTimeDate }} </span>
+                  {{ $t("Delivery: ") }}
+                  <span class="date-span" v-if="deliveryTimeDate"
+                    >{{ deliveryTimeDate }}
+                  </span>
                 </span>
                 <span v-else>
-                  {{ $t('Confirm Delivery: ') }} <span class="date-span" v-if="deliveryTimeDate">{{ deliveryTimeDate }} </span>
+                  {{ $t("Confirm Delivery: ") }}
+                  <span class="date-span" v-if="deliveryTimeDate"
+                    >{{ deliveryTimeDate }}
+                  </span>
                 </span>
               </button-full>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="editdate" v-if="displayEditButton && homeDeliverySelected">
+              <div
+                class="editdate"
+                v-if="displayEditButton && homeDeliverySelected"
+              >
                 <span @click="resetForm">Edit Delivery Date</span>
               </div>
             </div>
           </div>
         </div>
-        <NarrowModal :date-prop="narrowDateProp" />
+        <!-- <NarrowModal :date-prop="narrowDateProp" /> -->
       </div>
     </div>
   </div>
 </template>
 <script>
-import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
   unicodeAlphaNum
-} from '@vue-storefront/core/helpers/validators';
-import { Shipping } from '@vue-storefront/core/modules/checkout/components/Shipping';
-import DeliveryMethods from 'theme/components/core/blocks/Checkout/DeliveryMethods';
-import StoreLocation from 'theme/components/core/blocks/Checkout/StoreLocation';
-import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox';
-import BaseInput from 'theme/components/core/blocks/Form/BaseInput';
-import BaseSelect from 'theme/components/core/blocks/Form/BaseSelect';
-import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea';
-import ShippingMethod from 'theme/components/theme/blocks/ShippingMethod/ShippingMethodBlock';
-import ButtonFull from 'theme/components/theme/ButtonFull';
-import Tooltip from 'theme/components/core/Tooltip';
-import NoSSR from 'vue-no-ssr';
-import { mapGetters, mapActions } from 'vuex';
-import { CartService } from '@vue-storefront/core/data-resolver';
-import NarrowModal from 'theme/components/core/blocks/Checkout/NarrowModal';
-import config from 'config';
+} from "@vue-storefront/core/helpers/validators";
+import { Shipping } from "@vue-storefront/core/modules/checkout/components/Shipping";
+import DeliveryMethods from "theme/components/core/blocks/Checkout/DeliveryMethods";
+import StoreLocation from "theme/components/core/blocks/Checkout/StoreLocation";
+import BaseCheckbox from "theme/components/core/blocks/Form/BaseCheckbox";
+import BaseInput from "theme/components/core/blocks/Form/BaseInput";
+import BaseSelect from "theme/components/core/blocks/Form/BaseSelect";
+import BaseTextarea from "theme/components/core/blocks/Form/BaseTextarea";
+import ShippingMethod from "theme/components/theme/blocks/ShippingMethod/ShippingMethodBlock";
+import ButtonFull from "theme/components/theme/ButtonFull";
+import Tooltip from "theme/components/core/Tooltip";
+import NoSSR from "vue-no-ssr";
+import { mapGetters, mapActions } from "vuex";
+import { CartService } from "@vue-storefront/core/data-resolver";
+// import NarrowModal from "theme/components/core/blocks/Checkout/NarrowModal";
+import config from "config";
 import {
   addDays,
   addMonths,
   differenceInDays,
   differenceInMonths,
   parseISO
-} from 'date-fns';
+} from "date-fns";
 
 export default {
   inheritAttrs: false,
-  data () {
+  data() {
     return {
       date: this.getMinDate,
       radioCheckedFlag: false,
@@ -474,25 +668,25 @@ export default {
       shouldShowChooseDate: true,
       selectedMethod: null,
       isDaySelected: null,
-      calendarPriceCurrency: '£',
-      selectedDeliveryMethod: 'homedelivery',
+      calendarPriceCurrency: "£",
+      selectedDeliveryMethod: "homedelivery",
       displayEditButton: false,
       isDateSelected: false,
       homeDeliverySelected: true,
       deliveryBtnClicked: false,
-      deliveryTimeDate: '',
+      deliveryTimeDate: "",
       deliveryBtnEnable: false,
       narrowChecked: false,
-      narrowDateProp: '',
-      narrowDateMatch: '',
+      narrowDateProp: "",
+      narrowDateMatch: "",
       noOneField: config.checkoutNoOneField
     };
   },
-    props: {
+  props: {
     shippingData: {
       type: Object,
-      required: false,
-    },
+      required: false
+    }
   },
   components: {
     ButtonFull,
@@ -501,18 +695,20 @@ export default {
     BaseInput,
     BaseSelect,
     BaseTextarea,
-    'no-ssr': NoSSR,
-    'v-calendar': () => import('v-calendar/lib/components/date-picker.umd'),
+    "no-ssr": NoSSR,
+    "v-calendar": () => import("v-calendar/lib/components/date-picker.umd"),
     ShippingMethod,
     DeliveryMethods,
-    StoreLocation,
-    NarrowModal
+    StoreLocation
+    // NarrowModal
   },
   methods: {
-    async checkOutOfStockClass(){
-      let getClassOutofStock = await document.getElementsByClassName('table.cart-summary-product-table.product_out_of_stock');
+    async checkOutOfStockClass() {
+      let getClassOutofStock = await document.getElementsByClassName(
+        "table.cart-summary-product-table.product_out_of_stock"
+      );
     },
-      editShipping() {
+    editShipping() {
       let token = this.$route.query.token;
       if (config.paypalManual.mode === "sandbox") {
         window.location.href = `https://${config.paypalManual.approvalUrl.sandbox}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`;
@@ -520,21 +716,29 @@ export default {
         window.location.href = `https://${config.paypalManual.approvalUrl.live}/cgi-bin/webscr?cmd=_express-checkout&token=${token}`;
       }
     },
-    narrowCheckedFn () {
+    narrowCheckedFn() {
       if (!this.narrowChecked) {
         const resultArr = this.getSortedDates.filter((data, index) => {
           return this.getSortedDates.indexOf(data) === index;
-        })
+        });
         let narrowDate = new Date(resultArr[1]);
         this.narrowDateMatch = narrowDate;
-        if (!(this.convertDateToMatch(narrowDate) <= this.convertDateToMatch(this.date))) {
-          this.$bus.$emit('modal-show', 'modal-narrowroad')
+        if (
+          !(
+            this.convertDateToMatch(narrowDate) <=
+            this.convertDateToMatch(this.date)
+          )
+        ) {
+          this.$bus.$emit("modal-show", "modal-narrowroad");
           this.date = narrowDate;
           this.narrowCheckedAction(narrowDate);
         } else {
           this.narrowCheckedAction(this.date);
         }
-        this.shipping.deliveryNoteHidden = config.narrowRoad && config.narrowRoad.text ? config.narrowRoad.text : 'Narrow Lane - Smaller 7.5 toned lorry advisable';
+        this.shipping.deliveryNoteHidden =
+          config.narrowRoad && config.narrowRoad.text
+            ? config.narrowRoad.text
+            : "Narrow Lane - Smaller 7.5 toned lorry advisable";
         if (this.$refs.referenceShippingSubmit) {
           setTimeout(() => {
             this.$refs.referenceShippingSubmit.$el.click();
@@ -543,24 +747,25 @@ export default {
       } else {
         const resultArr = this.getSortedDates.filter((data, index) => {
           return this.getSortedDates.indexOf(data) === index;
-        })
+        });
         let narrowDate = new Date(resultArr[0]);
         this.date = narrowDate;
         this.narrowCheckedAction(narrowDate);
-        this.shipping.deliveryNote = '';
-        this.shipping.deliveryNoteHidden = '';
+        this.shipping.deliveryNote = "";
+        this.shipping.deliveryNoteHidden = "";
         if (this.$refs.referenceShippingSubmit) {
           setTimeout(() => {
             this.$refs.referenceShippingSubmit.$el.click();
           }, 500);
         }
       }
-      this.narrowChecked = !this.narrowChecked
+      this.narrowChecked = !this.narrowChecked;
     },
-    narrowCheckedAction (narrowDate) {
+    narrowCheckedAction(narrowDate) {
       let narrowDateFormat = this.convertDateToMatch(narrowDate);
-      let narrowDate4mat = narrowDateFormat.split('-');
-      let newnarrowDateFormat = narrowDate4mat[2] + '-' + narrowDate4mat[1] + '-' + narrowDate4mat[0];
+      let narrowDate4mat = narrowDateFormat.split("-");
+      let newnarrowDateFormat =
+        narrowDate4mat[2] + "-" + narrowDate4mat[1] + "-" + narrowDate4mat[0];
       this.narrowDateProp = newnarrowDateFormat;
       const thirdDateData = [
         ...this.getShippingMethods.map((shippingMethod, index) => ({
@@ -572,13 +777,14 @@ export default {
           customData: shippingMethod
         }))
       ];
-      const thirdDateDataArrayPush = []
-      const thirdDateDataArray = thirdDateData.find(date => {
-        let thirdDateFormat = this.convertDateToMatch(date.dates);
-        if (narrowDateFormat === thirdDateFormat) {
-          thirdDateDataArrayPush.push({ customData: date.customData });
-        }
-      }) || {};
+      const thirdDateDataArrayPush = [];
+      const thirdDateDataArray =
+        thirdDateData.find(date => {
+          let thirdDateFormat = this.convertDateToMatch(date.dates);
+          if (narrowDateFormat === thirdDateFormat) {
+            thirdDateDataArrayPush.push({ customData: date.customData });
+          }
+        }) || {};
       const attributes = thirdDateDataArrayPush.sort((a, b) => {
         const first = a.customData.method_code.charAt(
           a.customData.method_code.length - 1
@@ -588,108 +794,114 @@ export default {
         );
         return first - second;
       });
-      this.isDateSelected = true
+      this.isDateSelected = true;
       this.shippingSlotsData = attributes;
       this.selectedMethod = thirdDateDataArrayPush[0].customData.method_code;
-      this.shipping.methodCode = thirdDateDataArrayPush[0].customData.method_code;
+      this.shipping.methodCode =
+        thirdDateDataArrayPush[0].customData.method_code;
       this.manuallySetDateShippingMethod();
-      this.changeShippingMethod('handleOnClick');
+      this.changeShippingMethod("handleOnClick");
       this.calendarPriceCurrency = config.i18n.currencySign;
     },
-    dateAndTimeUpdate (dateTime) {
+    dateAndTimeUpdate(dateTime) {
       const regexDate = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const regexTime = /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
-      let DateFormat = '';
+      let DateFormat = "";
       if (dateTime && dateTime.match(regexDate)) {
         DateFormat = dateTime.match(regexDate)[0];
       }
-      let date = DateFormat.split('-');
-      let newDateFormat = date[0] + '/' + date[1] + '/' + date[2];
-      let timeFormat = '';
-      let timeFormat1 = '';
-      let timeFormat2 = '';
+      let date = DateFormat.split("-");
+      let newDateFormat = date[0] + "/" + date[1] + "/" + date[2];
+      let timeFormat = "";
+      let timeFormat1 = "";
+      let timeFormat2 = "";
       if (dateTime && dateTime.match(regexTime)) {
         timeFormat1 = dateTime.match(regexTime).slice(-2)[0];
         timeFormat2 = dateTime.match(regexTime).slice(-2)[1];
       }
-      timeFormat = timeFormat1 + '-' + timeFormat2;
+      timeFormat = timeFormat1 + "-" + timeFormat2;
       // this.deliveryTimeDate = timeFormat + ' ' + newDateFormat;
       this.deliveryTimeDate = newDateFormat;
       this.deliveryBtnEnable = true;
     },
-    parseTitle (data, price) {
+    parseTitle(data, price) {
       let priceWithCurrency = price;
       if (priceWithCurrency - Math.floor(priceWithCurrency) !== 0) {
-        priceWithCurrency = '£' + priceWithCurrency;
+        priceWithCurrency = "£" + priceWithCurrency;
       } else {
-        priceWithCurrency = '£' + priceWithCurrency + '.00';
+        priceWithCurrency = "£" + priceWithCurrency + ".00";
       }
       const regexDate = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const regexTime = /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
-      let DateFormat = '';
+      let DateFormat = "";
       if (data && data.match(regexDate)) {
         DateFormat = data.match(regexDate)[0];
       }
-      let date = DateFormat.split('-');
-      let newDateFormat = date[0] + '/' + date[1] + '/' + date[2];
-      let timeFormat = '';
-      let timeFormat1 = '';
-      let timeFormat2 = '';
+      let date = DateFormat.split("-");
+      let newDateFormat = date[0] + "/" + date[1] + "/" + date[2];
+      let timeFormat = "";
+      let timeFormat1 = "";
+      let timeFormat2 = "";
       if (data && data.match(regexTime)) {
         timeFormat1 = data.match(regexTime).slice(-2)[0];
         timeFormat2 = data.match(regexTime).slice(-2)[1];
       }
-      timeFormat = timeFormat1 + ' - ' + timeFormat2;
-      let newTitle = '<span class="timeClass">' + timeFormat + '</span><span class="dateClass"> ' + priceWithCurrency + '</span>';
+      timeFormat = timeFormat1 + " - " + timeFormat2;
+      let newTitle =
+        '<span class="timeClass">' +
+        timeFormat +
+        '</span><span class="dateClass"> ' +
+        priceWithCurrency +
+        "</span>";
       return newTitle;
     },
-    resetForm () {
+    resetForm() {
       if (this.date) {
-        this.$refs.shippingMethodRef.forEach((single) => {
+        this.$refs.shippingMethodRef.forEach(single => {
           if (single.checked) {
             single.checked = !single.checked;
             single.checked = false;
           }
         });
         this.shippingSlotsData = [];
-        this.date = '';
-        this.dateSelectButtonText = 'Confirm Delivery';
+        this.date = "";
+        this.dateSelectButtonText = "Confirm Delivery";
         this.isDateSelected = false;
         this.displayEditButton = false;
         this.deliveryBtnClicked = false;
-        this.deliveryTimeDate = '';
-        this.$emit('date-selected', this.isDateSelected)
+        this.deliveryTimeDate = "";
+        this.$emit("date-selected", this.isDateSelected);
       }
     },
-    checkIfFieldsAreFilled () {
+    checkIfFieldsAreFilled() {
       if (!this.$v.shipping.$invalid) {
         this.sendDataToCheckout();
       }
     },
-    resetCurrentShippingMethodFromTS () {
+    resetCurrentShippingMethodFromTS() {
       // this.resetCurrentShippingMethod();
     },
-    handleShippingMethodWithoutDateClick () {
+    handleShippingMethodWithoutDateClick() {
       if (this.isCalendarSelected) {
         this.isCalendarSelected = false;
         this.$refs.chooseDate.checked = false;
       }
-      this.selectedDeliveryMethod = 'warehouse';
+      this.selectedDeliveryMethod = "warehouse";
       this.homeDeliverySelected = false;
       this.isDateSelected = true;
-      this.$emit('date-selected', this.isDateSelected)
+      this.$emit("date-selected", this.isDateSelected);
       this.checkIfFieldsAreFilled();
-      var wareHuuseSelected = document.getElementById('noChecked');
-      wareHuuseSelected.classList.remove('no-checked');
+      var wareHuuseSelected = document.getElementById("noChecked");
+      wareHuuseSelected.classList.remove("no-checked");
     },
-    handleShippingMethodAll () {
+    handleShippingMethodAll() {
       this.radioCheckedFlag = true;
       this.isDateSelected = true;
       this.isCalendarSelected = true;
-      this.$emit('date-selected', this.isDateSelected)
+      this.$emit("date-selected", this.isDateSelected);
       this.checkIfFieldsAreFilled();
     },
-    async handleChooseDateClick () {
+    async handleChooseDateClick() {
       if (
         this.$refs.shippingMethodWithoutDate &&
         this.$refs.shippingMethodWithoutDate.length > 0
@@ -702,19 +914,19 @@ export default {
       this.isCalendarSelected = true;
       // const methodChecked = this.$refs.shippingMethodRef;
       this.manuallySetDateShippingMethod();
-      this.selectedDeliveryMethod = 'homedelivery';
+      this.selectedDeliveryMethod = "homedelivery";
       if (this.isDateSelected && !this.$v.shipping.$invalid) {
-        this.$emit('date-selected', this.isDateSelected)
+        this.$emit("date-selected", this.isDateSelected);
       } else {
-        this.$emit('date-selected', false)
+        this.$emit("date-selected", false);
       }
-      var wareHuuseSelected = document.getElementById('noChecked');
-      wareHuuseSelected.classList.add('no-checked');
+      var wareHuuseSelected = document.getElementById("noChecked");
+      wareHuuseSelected.classList.add("no-checked");
     },
-    handleOnClick (e) {
+    handleOnClick(e) {
       if (this.narrowDateMatch && e.attributes[0].dates[0].date) {
         if (this.narrowDateMatch > e.attributes[0].dates[0].date) {
-          document.getElementById('vehicle').click();
+          document.getElementById("vehicle").click();
         }
       }
       if (
@@ -732,17 +944,17 @@ export default {
           );
           return first - second;
         });
-        this.isDateSelected = true
+        this.isDateSelected = true;
         this.shippingSlotsData = attributes;
         this.selectedMethod = e.attributes[0].customData.method_code;
         this.shipping.methodCode = e.attributes[0].customData.method_code;
         this.manuallySetDateShippingMethod();
-        this.changeShippingMethod('handleOnClick');
+        this.changeShippingMethod("handleOnClick");
         this.calendarPriceCurrency = config.i18n.currencySign;
         // this.checkIfFieldsAreFilled();
       }
     },
-    manuallySetDateShippingMethod () {
+    manuallySetDateShippingMethod() {
       setTimeout(() => {
         let methodChecked = this.$refs.shippingMethodRef;
         if (methodChecked && methodChecked[0]) {
@@ -750,7 +962,7 @@ export default {
         }
       }, 500);
     },
-    async updateShippingOptions (setDefault = false) {
+    async updateShippingOptions(setDefault = false) {
       this.postcodelookup_blur = 1;
       try {
         await this.changeCountry();
@@ -758,11 +970,11 @@ export default {
           country_id: this.shipping.country,
           postcode: this.shipping.zipCode
         };
-        this.date = '';
+        this.date = "";
         this.shippingSlotsData = [];
         const { result } = await CartService.getShippingMethods(address);
         await this.$store.commit(
-          'checkout/checkout/SET_SHIPPING_METHOD',
+          "checkout/checkout/SET_SHIPPING_METHOD",
           result
         );
         if (
@@ -775,35 +987,35 @@ export default {
         console.error(error);
       }
     },
-    selectFirstShippingMethod () {
+    selectFirstShippingMethod() {
       if (this.isCalendarSelected && this.getSortedDates[0]) {
         setTimeout(async () => {
-          const selectionDate = this.getSortedDates[0].split('/');
+          const selectionDate = this.getSortedDates[0].split("/");
           const month = selectionDate[0];
           const day = selectionDate[1];
           const year = selectionDate[2];
-          const finalDate = [year, month, day].join('-');
+          const finalDate = [year, month, day].join("-");
           const dayObject = await document.querySelector(`.id-${finalDate}`)
             .firstChild.firstChild;
           await dayObject.click();
         }, 200);
       }
     },
-    changeDateOrder (date) {
+    changeDateOrder(date) {
       if (date) {
-        const dateArray = date.split('/');
+        const dateArray = date.split("/");
         const month = dateArray[0];
         const day = dateArray[1];
         const year = dateArray[2];
 
         const changedArray = [year, month, day];
-        return changedArray.join('-');
+        return changedArray.join("-");
       } else {
         // To make sure it doesnt return undefined values. In reference to FLOR-253
         return false;
       }
     },
-    getDateFromMethodCode (shippingMethod) {
+    getDateFromMethodCode(shippingMethod) {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       if (shippingMethod && shippingMethod.match(regex)) {
         return shippingMethod.match(regex)[0];
@@ -811,8 +1023,8 @@ export default {
         // console.log('Else', shippingMethod);
       }
     },
-    getAllDates (startDate, endDate, interval = 'DAY') {
-      if (interval === 'DAY') {
+    getAllDates(startDate, endDate, interval = "DAY") {
+      if (interval === "DAY") {
         const days = differenceInDays(endDate, startDate);
 
         return [...Array(days + 1).keys()]
@@ -822,7 +1034,7 @@ export default {
           });
       }
 
-      if (interval === 'MONTH') {
+      if (interval === "MONTH") {
         const months = differenceInMonths(endDate, startDate);
 
         return [...Array(months + 1).keys()]
@@ -830,12 +1042,12 @@ export default {
           .map(item => item.toISOString().slice(0, 10));
       }
     },
-    activateFindAddress () {
+    activateFindAddress() {
       this.postalcodelookup();
     },
-    async postalcodelookup () {
+    async postalcodelookup() {
       if (this.count++ < 1) {
-        const craftyplugin_args = document.createElement('script');
+        const craftyplugin_args = document.createElement("script");
         craftyplugin_args.innerHTML = `var cp_access_token = "680e7-065c3-ecff5-06677";
           var cp_obj_1 = CraftyPostcodeCreate();
           cp_obj_1.set("access_token", cp_access_token);
@@ -896,26 +1108,34 @@ export default {
            });`;
         document.head.appendChild(craftyplugin_args);
       }
-      var ele1 = document.getElementsByName('street-address')[0].value;
+      var ele1 = document.getElementsByName("street-address")[0].value;
       this.shipping.streetAddress = ele1;
-      var ele2 = document.getElementsByName('apartment-number')[0].value;
+      var ele2 = document.getElementsByName("apartment-number")[0].value;
       this.shipping.apartmentNumber = ele2;
-      var ele3 = document.getElementsByName('city')[0].value;
+      var ele3 = document.getElementsByName("city")[0].value;
       this.shipping.city = ele3;
-      if (this.shipping.city === 'JERSEY' || this.shipping.city === 'Jersey' || this.shipping.city === 'jersey') {
-        this.shipping.country = 'JE'
-      } else if (this.shipping.city === 'GUERNSEY' || this.shipping.city === 'Guernsey' || this.shipping.city === 'guernsey') {
-        this.shipping.country = 'GG'
+      if (
+        this.shipping.city === "JERSEY" ||
+        this.shipping.city === "Jersey" ||
+        this.shipping.city === "jersey"
+      ) {
+        this.shipping.country = "JE";
+      } else if (
+        this.shipping.city === "GUERNSEY" ||
+        this.shipping.city === "Guernsey" ||
+        this.shipping.city === "guernsey"
+      ) {
+        this.shipping.country = "GG";
       } else {
-        this.shipping.country = 'GB'
+        this.shipping.country = "GB";
       }
-      var ele4 = document.getElementsByName('state')[0].value;
+      var ele4 = document.getElementsByName("state")[0].value;
       this.shipping.state = ele4;
-      var ele5 = document.getElementsByName('postcode')[0].value;
+      var ele5 = document.getElementsByName("postcode")[0].value;
       this.shipping.zipCode = ele5;
-      var ele6 = document.getElementsByName('company-name')[0].value;
+      var ele6 = document.getElementsByName("company-name")[0].value;
       this.shipping.company = ele6;
-      await this.$store.commit('checkout/checkout/SAVE_SHIPPING_DETAILS', {
+      await this.$store.commit("checkout/checkout/SAVE_SHIPPING_DETAILS", {
         apartmentNumber: ele2,
         city: ele3,
         streetAddress: ele1,
@@ -926,12 +1146,12 @@ export default {
       await this.updateShippingOptions();
       await this.checkIfFieldsAreFilled();
     },
-    dateSelected: function () {
-      this.$emit('date-selected', this.isDateSelected);
+    dateSelected: function() {
+      this.$emit("date-selected", this.isDateSelected);
       this.deliveryBtnClicked = true;
       this.displayEditButton = true;
     },
-    selectRenderedDate () {
+    selectRenderedDate() {
       setTimeout(() => {
         const singleShippingMethod = this.$refs.singleShippingMethodRef;
         if (singleShippingMethod[0]) {
@@ -939,44 +1159,44 @@ export default {
         }
       }, 2000);
     },
-    convertDateToMatch (d) {
-      let dateParts = d.toString().split(' ');
+    convertDateToMatch(d) {
+      let dateParts = d.toString().split(" ");
       let dateMonths = {
-        Jan: '01',
-        Feb: '02',
-        Mar: '03',
-        Apr: '04',
-        May: '05',
-        Jun: '06',
-        Jul: '07',
-        Aug: '08',
-        Sep: '09',
-        Oct: '10',
-        Nov: '11',
-        Dec: '12'
+        Jan: "01",
+        Feb: "02",
+        Mar: "03",
+        Apr: "04",
+        May: "05",
+        Jun: "06",
+        Jul: "07",
+        Aug: "08",
+        Sep: "09",
+        Oct: "10",
+        Nov: "11",
+        Dec: "12"
       };
-      return dateParts[3] + '-' + dateMonths[dateParts[1]] + '-' + dateParts[2];
+      return dateParts[3] + "-" + dateMonths[dateParts[1]] + "-" + dateParts[2];
     }
   },
-  mounted () {
-       const craftyplugin = document.createElement('script');
-    craftyplugin.setAttribute('src', '/assets/js/crafty_postcode.class.js');
+  mounted() {
+    const craftyplugin = document.createElement("script");
+    craftyplugin.setAttribute("src", "/assets/js/crafty_postcode.class.js");
     document.head.appendChild(craftyplugin);
     // this.shipping.country = 'GB';
-    this.shipping.noOneField = ''
+    this.shipping.noOneField = "";
     if (this.shipping.narrowRoad && !this.shipping.narrowRoad) {
-      this.shipping.deliveryNote = ''
-      this.shipping.deliveryNoteHidden = ''
+      this.shipping.deliveryNote = "";
+      this.shipping.deliveryNoteHidden = "";
     }
     setTimeout(() => {
-      this.$refs.shippingMethodWithoutDateAll[0].click()
+      this.$refs.shippingMethodWithoutDateAll[0].click();
       let minimumDateSort = [];
       if (this.getShippingMethods) {
         minimumDateSort = this.getShippingMethods
-          .map((shippingMethod) =>
+          .map(shippingMethod =>
             this.getDateFromMethodCode(shippingMethod.method_code)
           )
-          .filter((dateStr) => dateStr !== undefined)
+          .filter(dateStr => dateStr !== undefined)
           .sort((a, b) => {
             var c = new Date(a);
             var d = new Date(b);
@@ -984,53 +1204,53 @@ export default {
           });
       }
       if (minimumDateSort[0] && !this.shipping.narrowRoad) {
-        const minDateMount = this.getSortedDates[0].split('/');
+        const minDateMount = this.getSortedDates[0].split("/");
         const monthMount = minDateMount[0];
         const dayMount = minDateMount[1];
         const yearMount = minDateMount[2];
-        const finalDate = [yearMount, monthMount, dayMount].join('-');
+        const finalDate = [yearMount, monthMount, dayMount].join("-");
         this.date = new Date(finalDate);
         this.narrowCheckedAction(this.date);
         this.manuallySetDateShippingMethod();
       }
       if (minimumDateSort[3] && this.shipping.narrowRoad) {
-        const minDateMount = this.getDateFromMethodCode(this.shipping.shippingMethod).split('/');
+        const minDateMount = this.getDateFromMethodCode(
+          this.shipping.shippingMethod
+        ).split("/");
         const monthMount = minDateMount[0];
         const dayMount = minDateMount[1];
         const yearMount = minDateMount[2];
-        const finalDate = [yearMount, monthMount, dayMount].join('-');
+        const finalDate = [yearMount, monthMount, dayMount].join("-");
         this.date = new Date(finalDate);
         this.narrowCheckedAction(this.date);
         this.manuallySetDateShippingMethod();
-        this.narrowChecked = true
+        this.narrowChecked = true;
       }
       if (this.getSortedDates && this.getSortedDates.length === 1) {
-        this.shipping.deliveryNote = ''
-        this.shipping.deliveryNoteHidden = ''
-        this.shipping.narrowRoad = false
+        this.shipping.deliveryNote = "";
+        this.shipping.deliveryNoteHidden = "";
+        this.shipping.narrowRoad = false;
       }
-      this.shipping.noOneField = ''
+      this.shipping.noOneField = "";
       if (!this.shipping.narrowRoad) {
-        this.shipping.deliveryNote = ''
-        this.shipping.deliveryNoteHidden = ''
+        this.shipping.deliveryNote = "";
+        this.shipping.deliveryNoteHidden = "";
       }
     }, 1000);
   },
-  created () {
- 
-  },
+  created() {},
   mixins: [Shipping],
   computed: {
     ...mapGetters({
-      getShippingMethods: 'shipping/getShippingMethods',
-      getPersonalDetails: 'checkout/getPersonalDetails',
-      getShippingDetails: 'checkout/getShippingDetails',
-      getCartToken: 'cart/getCartToken'
+      getShippingMethods: "shipping/getShippingMethods",
+      getPersonalDetails: "checkout/getPersonalDetails",
+      getShippingDetails: "checkout/getShippingDetails",
+      getCartToken: "cart/getCartToken"
     }),
-    calenderHasSingleDate () {
+    calenderHasSingleDate() {
       if (this.getSortedDates.length === 1) {
         let date = this.getSortedDates;
-        this.isDateSelected = true
+        this.isDateSelected = true;
         this.shippingSlotsData = this.filterSingleMethodAttribute;
         let shippingSlot = this.filterSingleMethodAttribute;
         this.selectedMethod = shippingSlot[0].customData.method_code;
@@ -1040,28 +1260,31 @@ export default {
         this.dateSelected();
         this.deliveryBtnEnable = true;
         this.isCalendarSelected = true;
-        const singleDate = date[0].split('/');
+        const singleDate = date[0].split("/");
         const sngmonth = singleDate[0];
         const sngday = singleDate[1];
         const sngyear = singleDate[2];
-        return [sngday, sngmonth, sngyear].join('-');
+        return [sngday, sngmonth, sngyear].join("-");
       }
     },
-    filterSingleMethodAttribute () {
+    filterSingleMethodAttribute() {
       if (this.attributes && this.attributes.length > 0) {
         return this.attributes.filter((attribute, index) => {
-          return attribute.customData && attribute.customData.carrier_code === 'customshipping';
+          return (
+            attribute.customData &&
+            attribute.customData.carrier_code === "customshipping"
+          );
         });
       }
     },
-    returnShippingMethod () {
+    returnShippingMethod() {
       let selectedMethod = null;
-      this.$bus.$on('delivery-method', data => {
+      this.$bus.$on("delivery-method", data => {
         this.selectedDeliveryMethod = data;
         // console.log(this.selectedDeliveryMethod);
       });
     },
-    getShippingMethodsWithoutDates () {
+    getShippingMethodsWithoutDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const regexString = /^collection/g;
       let shippingArrayWithoutDate = this.getShippingMethods.filter(
@@ -1076,7 +1299,7 @@ export default {
       );
       return shippingArrayWithoutDates;
     },
-    getShippingMethodsWithRoyalMail () {
+    getShippingMethodsWithRoyalMail() {
       const regexStringRoyal = /^Royal/g;
       let shippingArrayWithRoyal = this.getShippingMethods.filter(
         shippingMethod =>
@@ -1084,30 +1307,44 @@ export default {
           !regexStringRoyal.test(shippingMethod.method_title)
       );
       if (shippingArrayWithRoyal.length > 0) {
-        if (document.getElementsByClassName('hideDelSection') && document.getElementsByClassName('hideDelSection').length > 0 && document.getElementsByClassName('hideDelSection') !== null && document.getElementsByClassName('hideDelSection') !== '') {
-          document.getElementsByClassName('hideDelSection')[0].style.display = 'none';
+        if (
+          document.getElementsByClassName("hideDelSection") &&
+          document.getElementsByClassName("hideDelSection").length > 0 &&
+          document.getElementsByClassName("hideDelSection") !== null &&
+          document.getElementsByClassName("hideDelSection") !== ""
+        ) {
+          document.getElementsByClassName("hideDelSection")[0].style.display =
+            "none";
         }
         if (this.$refs.shippingMethodWithoutDateAll) {
-          this.$refs.shippingMethodWithoutDateAll[0].click()
+          this.$refs.shippingMethodWithoutDateAll[0].click();
         }
         this.manuallySetDateShippingMethod();
         if (this.$refs.referenceShippingSubmit) {
-          document.getElementsByClassName('hideDeliBtnSection')[0].style.display = 'none';
+          document.getElementsByClassName(
+            "hideDeliBtnSection"
+          )[0].style.display = "none";
           this.$refs.referenceShippingSubmit.$el.click();
         }
       }
       return shippingArrayWithRoyal;
     },
-    getShippingMethodsWithDates () {
+    getShippingMethodsWithDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const shippingArrayWithDates = this.getShippingMethods.filter(
         shippingMethod => regex.test(shippingMethod.method_title)
       );
       return shippingArrayWithDates;
     },
-    countryOptions () {
-      this.shipping.firstName = this.getPersonalDetails && this.getPersonalDetails.firstName ? this.getPersonalDetails.firstName.trim() : '';
-      this.shipping.lastName = this.getPersonalDetails && this.getPersonalDetails.lastName ? this.getPersonalDetails.lastName.trim() : '';
+    countryOptions() {
+      this.shipping.firstName =
+        this.getPersonalDetails && this.getPersonalDetails.firstName
+          ? this.getPersonalDetails.firstName.trim()
+          : "";
+      this.shipping.lastName =
+        this.getPersonalDetails && this.getPersonalDetails.lastName
+          ? this.getPersonalDetails.lastName.trim()
+          : "";
       return this.countries.map(item => {
         return {
           value: item.code,
@@ -1115,15 +1352,15 @@ export default {
         };
       });
     },
-    getKerbsideShppingMethods () {
+    getKerbsideShppingMethods() {
       const regexNewString = /^Kerbside/g;
-      let shippingArrayWithKerbside = []
+      let shippingArrayWithKerbside = [];
       shippingArrayWithKerbside = this.getShippingMethods.filter(
         shippingMethod => shippingMethod.method_code.match(regexNewString)
       );
       return shippingArrayWithKerbside;
     },
-    attributes () {
+    attributes() {
       return [
         // Attributes for dates
         ...this.getShippingMethods.map((shippingMethod, index) => ({
@@ -1140,7 +1377,7 @@ export default {
         }))
       ];
     },
-    disabledDateFn () {
+    disabledDateFn() {
       const dotteddates = this.getSortedDates.map(item =>
         this.changeDateOrder(item)
       );
@@ -1150,34 +1387,34 @@ export default {
       );
       return finalDateArray;
     },
-    getMinDate () {
+    getMinDate() {
       if (this.getSortedDates[0]) {
-        const minDate = this.getSortedDates[0].split('/');
+        const minDate = this.getSortedDates[0].split("/");
         const month = minDate[0];
         const day = minDate[1];
         const year = minDate[2];
-        const finalDate = [year, month, day].join('-');
+        const finalDate = [year, month, day].join("-");
         return new Date(finalDate);
       }
     },
-    getMaxDate () {
+    getMaxDate() {
       if (this.getSortedDates[0]) {
         const maxDate = this.getSortedDates[
           this.getSortedDates.length - 1
-        ].split('/');
+        ].split("/");
         const month = maxDate[0];
         const day = maxDate[1];
         const year = maxDate[2];
-        const finalDate = [year, month, day].join('-');
+        const finalDate = [year, month, day].join("-");
         return new Date(finalDate);
       }
     },
-    getSortedDates () {
+    getSortedDates() {
       return this.getShippingMethods
-        .map((shippingMethod) =>
+        .map(shippingMethod =>
           this.getDateFromMethodCode(shippingMethod.method_code)
         )
-        .filter((dateStr) => dateStr !== undefined)
+        .filter(dateStr => dateStr !== undefined)
         .sort((a, b) => {
           var c = new Date(a);
           var d = new Date(b);
@@ -1187,7 +1424,7 @@ export default {
     }
   },
   watch: {
-    getShippingMethodsWithoutDates () {
+    getShippingMethodsWithoutDates() {
       if (
         this.getShippingMethodsWithDates.length > 0 &&
         this.getShippingMethodsWithoutDates.length === 0
@@ -1196,23 +1433,23 @@ export default {
         this.shouldShowChooseDate = false;
       }
     },
-    isCalendarSelected () {
+    isCalendarSelected() {
       // this.selectFirstShippingMethod();
     },
-    getShippingMethodsWithRoyalMail (value) {
+    getShippingMethodsWithRoyalMail(value) {
       if (value.length !== 0) {
-        this.dateSelected()
-        this.sendDataToCheckout()
+        this.dateSelected();
+        this.sendDataToCheckout();
       }
     },
-    returnShippingMethod (value) {
+    returnShippingMethod(value) {
       let selectedMethod = null;
-      this.$bus.$on('delivery-method', data => {
+      this.$bus.$on("delivery-method", data => {
         this.selectedDeliveryMethod = data;
       });
     }
   },
-  destroyed () {
+  destroyed() {
     this.radioCheckedFlag = false;
   },
   validations: {
@@ -1261,12 +1498,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- input.empty{
-    background-color: #FAEBE7 !important;
-  }
-  input:focus{
-    background-color: #edf7fd !important;
-  }
+input.empty {
+  background-color: #faebe7 !important;
+}
+input:focus {
+  background-color: #edf7fd !important;
+}
 
 .delivery-method {
   display: flex;
@@ -1279,21 +1516,20 @@ export default {
 .shipping-last-name {
   display: none;
 }
-.shiping-edit{
-      float: right;
+.shiping-edit {
+  float: right;
 }
-@media (max-width: 767px){
-  .shiping-edit{
-      float: right;
-      padding: 15px;
-}
-  .shipping-edit1{
-     
-      padding: 15px;
-}
-.mobile-text{
-      margin-top: -29px;
-}
+@media (max-width: 767px) {
+  .shiping-edit {
+    float: right;
+    padding: 15px;
+  }
+  .shipping-edit1 {
+    padding: 15px;
+  }
+  .mobile-text {
+    margin-top: -29px;
+  }
 }
 .crafty-postcodelookup input.postalcode-lookup {
   border: 0px;
@@ -1325,12 +1561,12 @@ div#crafty_postcode_result_display_1 {
   display: none;
 }
 
-.delivery-msg-date{
+.delivery-msg-date {
   font-family: Arial, Helvetica, sans-serif;
   text-align: left;
   display: block;
   padding-bottom: 30px;
-  color: #EB008B;
+  color: #eb008b;
   font-size: 16px;
   font-weight: 500;
 }
@@ -1399,7 +1635,7 @@ button.find-address {
     display: none;
 
     h3 {
-      color: #3A3E3D;
+      color: #3a3e3d;
       font-size: 22px;
       width: 100%;
       font-weight: 600;
@@ -1415,7 +1651,7 @@ button.find-address {
   border: 1px solid #bdbdbd;
 
   h3 {
-    color: #3A3E3D;
+    color: #3a3e3d;
     font-size: 22px;
     width: 100%;
     font-weight: 600;
@@ -1428,36 +1664,36 @@ button.find-address {
     border-bottom: 1px solid #bdbdbd;
 
     p {
-      color: #ED008C;
+      color: #ed008c;
       font-weight: 600;
       font-size: 15px;
     }
   }
-  .OutOfstockItem{
-      padding-left: 30px;
-      padding-top: 17px;
-    span{
-      color: #ED008C;
+  .OutOfstockItem {
+    padding-left: 30px;
+    padding-top: 17px;
+    span {
+      color: #ed008c;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 15.66px;
       font-weight: bold;
     }
-    p{
+    p {
       color: #484647;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 15.66px;
       font-weight: normal;
       margin-top: 13px;
     }
-    @media(max-width: 767px){
-    padding-left: 16px;
-    padding-top: 9px;
-    span{
-      font-size: 12px;
-    }
-    p{
-      padding-left: 0 !important;
-    }
+    @media (max-width: 767px) {
+      padding-left: 16px;
+      padding-top: 9px;
+      span {
+        font-size: 12px;
+      }
+      p {
+        padding-left: 0 !important;
+      }
     }
   }
   .cl-error {
@@ -1483,7 +1719,7 @@ button.find-address {
   border-top: 1px solid #bdbdbd;
 
   button {
-    background: #2BA897;
+    background: #2ba897;
     color: #fff;
     padding: 15px;
     display: block;
@@ -1493,33 +1729,33 @@ button.find-address {
   }
 
   .newdateSelected {
-    background: #1D1B4A;
+    background: #1d1b4a;
   }
 
   .editdate {
     margin-top: 43px;
     text-decoration: underline;
-    color: #ED008C;
+    color: #ed008c;
     font-size: 14px;
     cursor: pointer;
   }
 }
 .delivery_address[data-v-d800afc2] {
-    padding: 30px 0px 0px 0px;
+  padding: 30px 0px 0px 0px;
 }
 
 .billing-details {
   background: #fff;
-padding-top: 20px;
-    padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 15px;
   position: relative;
   border-bottom: 1px solid #bdbdbd;
   border-left: 1px solid #bdbdbd;
   border-right: 1px solid #bdbdbd;
-    border-top: 1px solid #bdbdbd;
+  border-top: 1px solid #bdbdbd;
 
   h3 {
-color: #3A3E3D;
+    color: #3a3e3d;
     font-size: 22px;
     width: 100%;
     font-weight: 600;
@@ -1552,7 +1788,7 @@ color: #3A3E3D;
     font-size: 14px;
     color: #00998c;
   }
-  
+
   p {
     color: #676767;
   }
@@ -1589,7 +1825,7 @@ color: #3A3E3D;
   }
 
   button {
-    background-color:#29275b;
+    background-color: #29275b;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 600;
@@ -1630,28 +1866,27 @@ color: #3A3E3D;
   }
 }
 
-
 .selected-collection-time {
-  .selected-collection-time-inner{
+  .selected-collection-time-inner {
     height: auto;
     overflow-y: auto;
   }
-  .selected-collection-time-inner::-webkit-scrollbar-track{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-    border-radius: 5px
+  .selected-collection-time-inner::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+    border-radius: 5px;
   }
-  .selected-collection-time-inner::-webkit-scrollbar{
+  .selected-collection-time-inner::-webkit-scrollbar {
     width: 5px;
-    background-color: #F5F5F5;
-    border-radius: 5px
+    background-color: #f5f5f5;
+    border-radius: 5px;
   }
-  .selected-collection-time-inner::-webkit-scrollbar-thumb{
+  .selected-collection-time-inner::-webkit-scrollbar-thumb {
     background-color: #676566;
-    border-radius: 5px
+    border-radius: 5px;
   }
   h3 {
-    color: #3A3E3D;
+    color: #3a3e3d;
     font-size: 16px;
     width: 100%;
     font-weight: 600;
@@ -1687,7 +1922,7 @@ color: #3A3E3D;
     height: 18px !important;
     width: 18px !important;
     border-radius: 50%;
-    border: 1px solid #ED008C !important;
+    border: 1px solid #ed008c !important;
     margin-left: 0px !important;
   }
 
@@ -1706,7 +1941,7 @@ color: #3A3E3D;
   }
 
   .checkmarkbox:after {
-    content: '' !important;
+    content: "" !important;
     position: absolute;
     display: none;
     top: 3.5px !important;
@@ -1714,36 +1949,36 @@ color: #3A3E3D;
     width: 10px !important;
     height: 10px !important;
     border-radius: 50% !important;
-    background: #ED008C !important;
+    background: #ed008c !important;
     border: none !important;
     border-width: none !important;
   }
 }
 
- .instruction{
-    margin-top: 20px;
-    h3 {
-      color: #3A3E3D;
-      font-size: 16px;
-      width: 100%;
-      font-weight: 600;
-      margin-top: 0px;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    textarea{
-      width: 93%;
-      height: 26px;
-      border-radius: 0px;
-      padding: 10px;
-      border: 1px solid #bdbdbd;
-      outline: none;
-      resize: none;
-      color: #9b9b9b;
-      font-size: 14px;
-    }
+.instruction {
+  margin-top: 20px;
+  h3 {
+    color: #3a3e3d;
+    font-size: 16px;
+    width: 100%;
+    font-weight: 600;
+    margin-top: 0px;
+    font-family: Arial, Helvetica, sans-serif;
   }
+  textarea {
+    width: 93%;
+    height: 26px;
+    border-radius: 0px;
+    padding: 10px;
+    border: 1px solid #bdbdbd;
+    outline: none;
+    resize: none;
+    color: #9b9b9b;
+    font-size: 14px;
+  }
+}
 
-@media(min-width: 991px) and (max-width: 1200px){
+@media (min-width: 991px) and (max-width: 1200px) {
   .cal-checkbox label {
     font-size: 11px;
   }
@@ -1783,14 +2018,14 @@ color: #3A3E3D;
     padding: 0px 8px 10px 8px;
   }
   .home-delivery-box .cal-txt {
-    border:none;
+    border: none;
   }
   .delivery-methods-detail {
     .delivery-method-boxes {
       padding-right: 20px;
       padding-left: 20px;
     }
-    h3{
+    h3 {
       color: #2a275c !important;
       font-size: 20.44px !important;
     }
@@ -1799,7 +2034,7 @@ color: #3A3E3D;
     padding-right: 15px;
     padding-left: 15px;
   }
-  .home-delivery-box .cal-txt p{
+  .home-delivery-box .cal-txt p {
     padding-right: 15px;
     padding-left: 15px;
     font-size: 12px;
@@ -1810,19 +2045,19 @@ color: #3A3E3D;
     padding-right: 25px;
     padding-left: 25px;
   }
-  .selected-collection-time h3{
+  .selected-collection-time h3 {
     padding: 0px !important;
     font-size: 16px !important;
     text-align: left;
     margin-bottom: 10px;
-    color: #3A3E3D !important;
+    color: #3a3e3d !important;
   }
-  .instruction h3{
+  .instruction h3 {
     padding: 0px !important;
     font-size: 16px !important;
     text-align: left;
     margin-bottom: 10px;
-    color: #3A3E3D !important;
+    color: #3a3e3d !important;
   }
   .cal-checkbox label {
     font-size: 12px;
@@ -1851,7 +2086,7 @@ p.phone-text {
 
   label {
     top: -9px;
-    color: #3A3E3D;
+    color: #3a3e3d;
     float: left;
     position: relative;
     font-size: 14px;
@@ -1859,7 +2094,7 @@ p.phone-text {
   }
 
   .req-label label:after {
-    content: '*';
+    content: "*";
     color: #ef0b0b;
     position: absolute;
     right: -10px;
@@ -1880,14 +2115,14 @@ span.checkmark.black-border-checkmark.no-checked:after {
   display: none;
 }
 .col-md-6.col-xs-12.pl30.pr30.instruction h3 {
-  color: #3A3E3D;
+  color: #3a3e3d;
   font-size: 22px;
   width: 100%;
   font-weight: 600;
   margin-top: 10px;
   font-family: oblik;
 }
-.NOone-req-label{
+.NOone-req-label {
   padding: 0px 0px 0px 0px;
 }
 .NOone-req-label:after {
@@ -1898,7 +2133,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
 }
 
 .instruction.two h3 {
-  color: #3A3E3D;
+  color: #3a3e3d;
   font-size: 14px !important;
   width: 100%;
   font-weight: 400 !important;
@@ -1906,8 +2141,11 @@ span.checkmark.black-border-checkmark.no-checked:after {
   font-family: oblik;
 }
 
-#checkout .delivery-methods-detail input:checked ~ span.checkmark.black-border-checkmark.shippingMethodAll {
-  border: 1px solid #EB008B !important;
+#checkout
+  .delivery-methods-detail
+  input:checked
+  ~ span.checkmark.black-border-checkmark.shippingMethodAll {
+  border: 1px solid #eb008b !important;
   height: 19px;
   width: 19px;
   top: 5px;
@@ -1920,18 +2158,24 @@ span.checkmark.black-border-checkmark.no-checked:after {
   padding-left: 30px;
 }
 
-#checkout .delivery-methods-detail input:checked ~ .checkmark.shippingMethodAll:after {
+#checkout
+  .delivery-methods-detail
+  input:checked
+  ~ .checkmark.shippingMethodAll:after {
   top: 3.5px !important;
   left: 4.82px !important;
   width: 10px !important;
   height: 10px !important;
   border-radius: 50% !important;
-  background: #EB008B !important;
+  background: #eb008b !important;
   margin: 0 !important;
-  border: #EB008B;
+  border: #eb008b;
 }
 
-#checkout .delivery-methods-detail input:checked ~ .checkmark.shippingMethodAll.allunchecked:after {
+#checkout
+  .delivery-methods-detail
+  input:checked
+  ~ .checkmark.shippingMethodAll.allunchecked:after {
   display: none !important;
 }
 @media (min-width: 320px) and (max-width: 480px) {
@@ -1942,16 +2186,16 @@ span.checkmark.black-border-checkmark.no-checked:after {
 </style>
 <style lang="scss">
 .line.relative .billing-details .second-address input {
-    background-color: #edf7fd !important;
-  }
-.selected-collection-time .label{
+  background-color: #edf7fd !important;
+}
+.selected-collection-time .label {
   height: 25px;
 }
-.selected-collection-time .label .timeClass{
+.selected-collection-time .label .timeClass {
   float: left;
   margin-top: 4px;
 }
-.selected-collection-time .label .dateClass{
+.selected-collection-time .label .dateClass {
   float: right;
   margin-top: 4px;
 }
@@ -2005,7 +2249,6 @@ span.checkmark.black-border-checkmark.no-checked:after {
 
 .calendar-right {
   display: flex;
-
 }
 
 .calendar-ineer-main {
@@ -2037,7 +2280,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
   }
 
   .vc-highlights {
-    background: #ED008C;
+    background: #ed008c;
 
     .vc-day-layer {
       border: none;
@@ -2053,7 +2296,7 @@ span.checkmark.black-border-checkmark.no-checked:after {
     }
 
     &:hover {
-      background: #ED008C;
+      background: #ed008c;
     }
   }
 
@@ -2149,30 +2392,30 @@ span.checkmark.black-border-checkmark.no-checked:after {
   .billing-details input {
     border-radius: 0px !important;
   }
-  .billing-details .base-input{
+  .billing-details .base-input {
     min-height: auto;
   }
   .billing-details .pl30,
-  .billing-details .pr30{
+  .billing-details .pr30 {
     padding-right: 15px;
     padding-left: 15px;
   }
   .billing-details .street-name.company-input {
     margin-top: 7px !important;
   }
-  .billing-details .street-name.company-input label{
+  .billing-details .street-name.company-input label {
     top: -8px !important;
   }
-  .billing-details select{
+  .billing-details select {
     border-radius: 0px !important;
   }
-  .billing-details .country-req-label label{
+  .billing-details .country-req-label label {
     top: -25px !important;
   }
   .billing-details .street-name label,
   .billing-details .shipping-phone-number label,
   .billing-details .city-label label,
-  .billing-details .mobile-number label{
+  .billing-details .mobile-number label {
     top: -12px !important;
   }
   .billing-details .second-address {
@@ -2181,11 +2424,11 @@ span.checkmark.black-border-checkmark.no-checked:after {
   .detail-checkbox {
     display: none;
   }
-  .calendar-area{
+  .calendar-area {
     padding-right: 15px;
     padding-left: 15px;
   }
-  .calendar-area .calendar-box{
+  .calendar-area .calendar-box {
     padding-right: 0px;
     padding-left: 0px;
   }
@@ -2204,17 +2447,17 @@ span.postcodelookup-required {
   float: left;
 }
 
-@media(min-width: 991px) and (max-width: 1200px) {
+@media (min-width: 991px) and (max-width: 1200px) {
   .vc-day-box-center-center {
     padding: 3px !important;
   }
   .selected-collection-time .label[data-v-8fa66812] {
     font-size: 12px;
   }
-  .selected-collection-time .label .timeClass{
+  .selected-collection-time .label .timeClass {
     font-size: 12px;
   }
-  .selected-collection-time .label .dateClass{
+  .selected-collection-time .label .dateClass {
     font-size: 12px;
   }
 }
