@@ -1,6 +1,6 @@
 <template>
   <div class="back-color" id="my_account">
-     <div class="bg-cl-secondary py15 pl20">
+    <div class="bg-cl-secondary py15 pl20">
       <div class="container">
         <breadcrumbs
           :with-homepage="true"
@@ -73,8 +73,8 @@ export default {
         { title: this.$t('Address Book'), link: '/my-account/shipping-details' },
         { title: this.$t('My orders'), link: '/my-account/orders' },
         { title: this.$t('Quotations'), link: '/my-account/quotations' },
-        //{ title: this.$t('My loyalty card'), link: '#card' },
-        //{ title: this.$t('My product reviews'), link: '#reviews' },
+        // { title: this.$t('My loyalty card'), link: '#card' },
+        // { title: this.$t('My product reviews'), link: '#reviews' },
         { title: this.$t('Newsletter'), link: '/my-account/newsletter' },
         { title: this.$t('Recently viewed products'), link: '/my-account/recently-viewed' }
       ],
@@ -114,19 +114,30 @@ export default {
     }
   },
   mounted () {
-    this.myAccountBreadcrumb = this.$route.name.replace(/-/g," ");
-    console.log('my router mounted:',this.$route);
-
+    this.myAccountBreadcrumb = this.$route.name.replace(/-/g, ' ');
+    console.log('my router mounted:', this.$route);
   },
   created () {
-    console.log('my router created:',this.$route);
+    console.log('my router created:', this.$route);
     this.currentRoute = this.$route.path
   },
   watch: {
     $route: function (to, from) {
-      this.myAccountBreadcrumb = to.name.replace(/-/g," ");
-      console.log("1015 Current route is ",this.currentRoute , "\t\t\tcurrent path is ",this.$route.path)
-      this.currentRoute = this.$route.path;
+      this.myAccountBreadcrumb = to.name.replace(/-/g, ' ');
+      console.log('121 to:' + to.name + '\t\t\t from:' + from.name)
+      if (to.name == 'my-order' && from.name == 'my-orders') {
+        this.currentRoute = '/my-account/orders';
+        console.log('121 here 1')
+      } else if (to.name == 'my-quotation-order' && from.name == 'quotations') {
+        this.currentRoute = '/my-account/quotations';
+        console.log('121 here 2')
+
+      } else {
+        this.currentRoute = this.$route.path;
+        console.log('121 here 3')
+
+      }
+      console.log('121 this.currentRoute', this.currentRoute)
     }
   },
   metaInfo () {
@@ -156,7 +167,6 @@ $color-tertiary: color(tertiary);
     font-family: oblik !important;
     background-color: #fff;
 }
-
 
 li {
 

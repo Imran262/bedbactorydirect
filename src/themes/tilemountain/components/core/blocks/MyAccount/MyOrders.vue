@@ -87,6 +87,11 @@ export default {
     storeView () {
       return currentStoreView()
     }
+  },
+  watch: {
+    $route: function (to, from) {
+      console.log("420 to: ",to , "\t\t\t420 from ",from);
+    }
   }
 }
 </script>
