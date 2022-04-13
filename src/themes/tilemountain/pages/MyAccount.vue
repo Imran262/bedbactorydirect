@@ -19,19 +19,18 @@
         <div class="col-12 col-md-3 block">
           <nav class="static-menu serif h4 mb35">
             <ul class="m0 p0 dashborad">
-              <li v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
-                <router-link :to="localizedRoute(page.link)" class="cl-accent playimg">
+              <li v-for="(page, index) in navigation" :key="index" @click="notify(page.title,$event)">
+                <router-link :to="localizedRoute(page.link)" :class="currentRoute === page.link ? 'routerActive' : '' " class="cl-accent playimg">
                   {{ page.title }}
                 </router-link>
-
               </li>
               <li class="py5 brdr-top-1 brdr-cl-bg-secondary">
                 <a
                   href="#"
                   class="no-underline block py10 px15 NewClasss"
                   @click.prevent="logout"
-                >{{ $t('Logout') }}</a
                 >
+                  {{ $t('Logout') }}</a>
               </li>
             </ul>
           </nav>
@@ -79,7 +78,8 @@ export default {
         { title: this.$t('Newsletter'), link: '/my-account/newsletter' },
         { title: this.$t('Recently viewed products'), link: '/my-account/recently-viewed' }
       ],
-      myAccountBreadcrumb: 'My Account'
+      myAccountBreadcrumb: 'My Account',
+      currentRoute: null
     }
   },
   components: {
@@ -100,7 +100,10 @@ export default {
   },
   mixins: [MyAccount, AccountButton],
   methods: {
-    notify (title) {
+    notify (title, e) {
+      document.querySelector('.playimg').classList.remove('routerActive')
+      e.target.classList.add('routerActive')
+
       if (title === 'My loyalty card' || title === 'My product reviews') {
         this.$store.dispatch('notification/spawnNotification', {
           type: 'warning',
@@ -112,10 +115,18 @@ export default {
   },
   mounted () {
     this.myAccountBreadcrumb = this.$route.name.replace(/-/g," ");
+    console.log('my router mounted:',this.$route);
+
+  },
+  created () {
+    console.log('my router created:',this.$route);
+    this.currentRoute = this.$route.path
   },
   watch: {
     $route: function (to, from) {
       this.myAccountBreadcrumb = to.name.replace(/-/g," ");
+      console.log("1015 Current route is ",this.currentRoute , "\t\t\tcurrent path is ",this.$route.path)
+      this.currentRoute = this.$route.path;
     }
   },
   metaInfo () {
@@ -184,13 +195,12 @@ background-color: transparent;
     padding: 15px;
   }
 }
-.router-link-exact-active{
+.routerActive{
   background-color:#071a44 !important;
   color: #fff !important;
-  .material-icons{
-    color: #fff !important;
-
-  }
+}
+.routerActive.playimg{
+  background-image: url(/assets/icons/accplay-white.svg);
 }
 .back-color{
   background-color: #f2f2f2;
