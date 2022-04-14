@@ -311,12 +311,12 @@ export default {
                 // });
                 // console.log('return is')
                     }
-                  setTimeout(() => {
-                    this.userEmail = '';
-                    this.successText = false
-                    // this.simpleText = true
+                //   setTimeout(() => {
+                //     this.userEmail = '';
+                //     this.successText = false
+                //     // this.simpleText = true
                 
-                },2000);
+                // },2000);
             }
             else{
             console.log("Email required")
