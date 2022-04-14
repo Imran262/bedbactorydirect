@@ -90,7 +90,7 @@
                 <h2>{{ $t("Your Basket") }}</h2>
               </div>
               <!-- typeof product.options ,typeof product.totals.options ,typeof product.product_option.extension_attributes.custom_options.configurable_item_options  ,'\n', product
-              
+
               products
               {{typeof productsInCart[2].options}}<br/>
               {{typeof productsInCart[2].totals.options}}<br/>
@@ -538,13 +538,13 @@ export default {
     updateScroll() {
       if (this.$route.name === "cart") {
         // document.getElementById('app').style.overflowX  = "unset";
-        // if (window.innerWidth > 768) {
-        document.getElementById("app").style.overflowX = "unset";
-        // }
-        document.getElementById("viewport").style.overflowX = "unset";
-        document.getElementsByTagName("body")[0].style.overflowX = "hidden";
-        document.getElementsByTagName("body")[0].style.height = "100vh";
-        document.getElementsByTagName("html")[0].style.overflowX = "hidden";
+        if (window.innerWidth > 768) {
+          document.getElementById("app").style.overflowX = "unset";
+          document.getElementById("viewport").style.overflowX = "unset";
+          document.getElementsByTagName("body")[0].style.overflowX = "hidden";
+          document.getElementsByTagName("html")[0].style.overflowX = "hidden";
+          document.getElementsByTagName("body")[0].style.height = "100vh";
+        }
       }
     },
     checkCart() {
@@ -867,6 +867,7 @@ export default {
   font-family: "Oblik";
   src: url("/assets/fonts/Oblik_Bold.otf");
 }
+
 
 .cart-summary-main {
   display: flex;
@@ -1693,4 +1694,9 @@ export default {
     }
   }
 }
+</style>
+<style>
+  body{
+    -webkit-overflow-scrolling:touch;
+  }
 </style>
