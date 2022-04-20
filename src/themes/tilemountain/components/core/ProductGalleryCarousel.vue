@@ -1,16 +1,18 @@
 <template>
   <div>
     <div class="media-gallery-carousel" id="media-gallery-carousel">
-      <VueSlickCarousel v-bind="mainCarousel"
-        :infinite=false
+      <VueSlickCarousel
+        v-bind="mainCarousel"
+        :infinite="false"
         ref="carousel"
-        :draggable = false
+        :draggable="false"
         :per-page="1"
         :touch-drag="true"
         class="main-gallery-thumbnail"
-        :speed=500
+        :speed="500"
         @beforeChange="beforeChange"
-        @afterChange="pageChange">
+        @afterChange="pageChange"
+      >
         <div v-for="(images, index) in gallery" :key="images.src">
           <figure
             v-show="index === 0 || !singleThumbnail"
@@ -34,15 +36,15 @@
               "
               :data-size="'' + 900 + 'x' + 900"
             >
-              <img v-lazy="images.src" :alt="productName" />
+              <img v-if="images.src" :alt="productName" />
             </a>
             <a
               v-else
-                :href="
+              :href="
                 galleryZoom[index]
                   ? getImageFullSize(galleryZoom[index].image)
                   : images.src
-                "
+              "
               :data-size="'' + 2300 + 'x' + 2300"
             >
               <iframe
@@ -57,75 +59,92 @@
                 v-if="images.video"
                 width="560"
                 height="315"
-                loading="lazy"
                 :src="getEmbedUrlNoJsApi(images)"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               />
-              <img v-else-if="index <= 1" :src="images.src" :alt="productName" />
-              <img v-else v-lazy="images.src" :alt="productName" />
+              <img
+                v-else-if="index <= 1"
+                :src="images.src"
+                :alt="productName"
+              />
+              <img v-else :src="images.src" :alt="productName" />
             </a>
 
             <figcaption v-if="galleryZoom[index]">
               {{ getImageTypeName(galleryZoom[index].image) }}
             </figcaption>
-          
-            <div class="image_label_one" v-if="productLabel && productLabel !== '0' && productLabel.length>1">
+
+            <div
+              class="image_label_one"
+              v-if="
+                productLabel && productLabel !== '0' && productLabel.length > 1
+              "
+            >
               <img
                 class="image_label"
-                :src="backEnd+'/pub/media/'+productLabel" @error="imgPlaceholder"
+                :src="backEnd + '/pub/media/' + productLabel"
+                @error="imgPlaceholder"
                 alt="product label"
               />
-              
             </div>
           </figure>
-          
         </div>
       </VueSlickCarousel>
-      </div>
-      <div class="Galleries" v-if="!$device.isMobile && gallery.length > 1">
-        <div class="main-gallery">
+    </div>
+    <div class="Galleries" v-if="!$device.isMobile && gallery.length > 1">
+      <div class="main-gallery">
         <VueSlickCarousel
           v-bind="settingABCD"
-          :infinite=false
+          :infinite="false"
           ref="c2"
-          :draggable = false
-          :slidesToShow='4'
-          :slidesToScroll='4'
-          :rows='1'
-          :initialSlide='0'
+          :draggable="false"
+          :slidesToShow="4"
+          :slidesToScroll="4"
+          :rows="1"
+          :initialSlide="0"
           class="thumbnail-arrows"
-           :speed=300
-          @afterChange="pageChange">
+          :speed="300"
+          @afterChange="pageChange"
+        >
           >
-        <div v-for="(images, index) in gallery" :key="images.src">
-
-          <div v-if="images.video" class="youtubeIcon"></div>
-          <img :src="images.src" :alt="productName" id="thumnail" :class="{'active-img-slide': selected ? images.src == selected : (!firstslideIndex ? index == 0 : index === 'noone'), 'drag-active' : index === firstslideIndex }"   @click="onSelect(index,images.src)" />
-
-        </div>
-      </VueSlickCarousel>
+          <div v-for="(images, index) in gallery" :key="images.src">
+            <div v-if="images.video" class="youtubeIcon"></div>
+            <img
+              :src="images.src"
+              :alt="productName"
+              id="thumnail"
+              :class="{
+                'active-img-slide': selected
+                  ? images.src == selected
+                  : !firstslideIndex
+                  ? index == 0
+                  : index === 'noone',
+                'drag-active': index === firstslideIndex,
+              }"
+              @click="onSelect(index, images.src)"
+            />
+          </div>
+        </VueSlickCarousel>
       </div>
-        <div class="Viewgallery" >
-          <a @click="openFigureGallery()"> View Gallery +</a>
-        </div>
+      <div class="Viewgallery">
+        <a @click="openFigureGallery()"> View Gallery +</a>
       </div>
+    </div>
 
-      <img
-        class="zoom-in material-icons p15 cl-bgs-tertiary pointer for-desktop"
-        ref="play"
-        v-show="isVideo.length > 0"
-        v-lazy="''"
-        alt="play"
-      />
-      <img
-        class="zoom-in material-icons p15 cl-bgs-tertiary pointer for-mobile"
-        ref="playMobile"
-        v-show="isVideo.length > 0"
-        v-lazy="''"
-        alt="play mobile"
-      />
+    <img
+      class="zoom-in material-icons p15 cl-bgs-tertiary pointer for-desktop"
+      ref="play"
+      v-show="isVideo.length > 0"
+      alt="play"
+    />
+    <img
+      class="zoom-in material-icons p15 cl-bgs-tertiary pointer for-mobile"
+      ref="playMobile"
+      v-show="isVideo.length > 0"
+      alt="play mobile"
+    />
 
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="pswp__bg" />
@@ -150,7 +169,10 @@
               title="Close (Esc)"
             />
 
-            <button class="pswp__button pswp__button--share" title="Share"> </button>
+            <button
+              class="pswp__button pswp__button--share"
+              title="Share"
+            ></button>
 
             <button
               class="pswp__button pswp__button--fs"
@@ -191,7 +213,6 @@
     </div>
   </div>
 </template>
-
 <script>
  import VueSlickCarousel from 'vue-slick-carousel'
  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
@@ -283,7 +304,7 @@ export default {
       },
       
       settingABCD:{
-        "lazyLoad" : 'onDemand',
+        // "lazyLoad" : 'onDemand',
         "responsive": [
           {
             "breakpoint": 1320,
@@ -673,7 +694,6 @@ export default {
           });
           gallery.init()
         }
-
         // loop through all gallery elements and bind events
         var galleryElements = document.querySelectorAll(gallerySelector)
         for (var i = 0, l = galleryElements.length; i < l; i++) {
@@ -784,10 +804,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/animations/transitions';
+@import "~theme/css/animations/transitions";
 
-.Galleries{
-  display:flex;
+.Galleries {
+  display: flex;
   margin-top: 12px;
 }
 
@@ -803,13 +823,13 @@ export default {
   pointer-events: none;
 }
 
-.main-gallery{
-  width:79%;
+.main-gallery {
+  width: 79%;
   @media (max-width: 1199px) {
-    width:76%;
+    width: 76%;
   }
   @media (max-width: 991px) {
-    width:84%;
+    width: 84%;
   }
 }
 
@@ -821,7 +841,6 @@ export default {
     width: 16%;
   }
 }
-
 
 @media screen and (min-width: 768px) {
   .margan {
@@ -865,11 +884,11 @@ export default {
 .for-mobile {
   display: none;
 }
-@media (max-width: 480px){
-.cls-Class{
-  position: relative;
-  padding-bottom: 100%;
-}
+@media (max-width: 480px) {
+  .cls-Class {
+    position: relative;
+    padding-bottom: 100%;
+  }
 }
 </style>
 
@@ -887,20 +906,20 @@ export default {
   }
 }
 @media screen and (min-width: 992px) and (max-width: 1199px) {
-    .thumbnail-arrows {
-      .slick-slide{
-        padding:0px !important;
-        padding-top: 5px !important;
-      }
+  .thumbnail-arrows {
+    .slick-slide {
+      padding: 0px !important;
+      padding-top: 5px !important;
     }
+  }
 }
 @media screen and (min-width: 1200px) and (max-width: 1300px) {
-    .thumbnail-arrows {
-      .slick-slide{
-        padding:2px !important;
-        padding-top: 5px !important;
-      }
+  .thumbnail-arrows {
+    .slick-slide {
+      padding: 2px !important;
+      padding-top: 5px !important;
     }
+  }
 }
 
 .videoDiv {
@@ -912,8 +931,8 @@ export default {
   position: relative;
   text-align: center;
   height: 100%;
-  .main-gallery-thumbnail{
-    img{
+  .main-gallery-thumbnail {
+    img {
       cursor: pointer;
     }
   }
@@ -926,11 +945,11 @@ export default {
     }
   }
 }
-.Viewgallery{
-    width:21%;
-    padding-top: 40px;
+.Viewgallery {
+  width: 21%;
+  padding-top: 40px;
 
- a{
+  a {
     padding-left: 14px;
     font-weight: bold;
     color: #29275b;
@@ -940,82 +959,82 @@ export default {
     text-decoration: underline;
   }
 }
-  .thumbnail-arrows .slick-prev {
-    left: -14px;
-    @media (max-width: 991px) {
-      left: -4px;
-    }
-     &:before{
-      content: '\2192';
-      background: transparent;
-      color: transparent;
-      background: url(/assets/back.svg) no-repeat;
-    }
+.thumbnail-arrows .slick-prev {
+  left: -14px;
+  @media (max-width: 991px) {
+    left: -4px;
   }
-  .thumbnail-arrows .slick-next {
-    right: -20px;
-    @media (max-width: 991px) {
-      right: -4px;
-    }
-    &:before{
-      content: '\2192';
-      background: transparent;
-      color: transparent;
-      background: url(/assets/next.svg) no-repeat;
-    }
-
+  &:before {
+    content: "\2192";
+    background: transparent;
+    color: transparent;
+    background: url(/assets/back.svg) no-repeat;
   }
-  .thumbnail-arrows {
-    padding-left: 7px;
-    .slick-track {
-      min-width: 100%;
-    }
-    .slick-slide {
-      padding: 4px;
-      cursor: pointer;
-      position: relative;
-      max-width: 110px;
+}
+.thumbnail-arrows .slick-next {
+  right: -20px;
+  @media (max-width: 991px) {
+    right: -4px;
+  }
+  &:before {
+    content: "\2192";
+    background: transparent;
+    color: transparent;
+    background: url(/assets/next.svg) no-repeat;
+  }
+}
+.thumbnail-arrows {
+  padding-left: 7px;
+  .slick-track {
+    min-width: 100%;
+  }
+  .slick-slide {
+    padding: 4px;
+    cursor: pointer;
+    position: relative;
+    max-width: 110px;
+    outline: 0 !important;
+    & *,
+    &:focus {
       outline: 0 !important;
-      & *,
-      &:focus{
-        outline: 0 !important;
-      }
-      @media (max-width: 1320px) {
-        max-width: initial;
-      }
-      @media (max-width: 991px) {
-        max-width: 144px;
-        display: flex !important;
-        justify-content: center;
-      }
-      @media (max-width: 790px) {
-        max-width: 141px;
-      }
-      @media (max-width: 768px) {
-        max-width: 139px;
-      }
+    }
+    @media (max-width: 1320px) {
+      max-width: initial;
+    }
+    @media (max-width: 991px) {
+      max-width: 144px;
+      display: flex !important;
+      justify-content: center;
+    }
+    @media (max-width: 790px) {
+      max-width: 141px;
+    }
+    @media (max-width: 768px) {
+      max-width: 139px;
+    }
 
-      // &.slick-current.slick-active {
-      //   img {
-      //     border-color: #29275b;
-      //   }
-      // }
-      .active-img-slide, .drag-active {
-        border-color: #29275b;
-      }
-    }
-     img{
-      border: 2px solid #2e525a6e;
-      max-height: 100px;
-      max-width: 100px;
-      cursor: pointer;
-      width: 100%;
-    }
-    .videoDiv{
-      width: 100px;
-      max-height:100px ;
+    // &.slick-current.slick-active {
+    //   img {
+    //     border-color: #29275b;
+    //   }
+    // }
+    .active-img-slide,
+    .drag-active {
+      border-color: #29275b;
     }
   }
+  img {
+    border: 2px solid #2e525a6e;
+    max-height: 100px;
+    max-width: 100px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .videoDiv {
+    width: 100px;
+    max-height: 100px;
+  }
+}
 #iframe_container {
   position: absolute;
   top: 0px;
@@ -1100,12 +1119,12 @@ export default {
   color: #29275b;
   padding: 0;
   width: 0;
-  margin-right: 14px
+  margin-right: 14px;
 }
 
 .rightArrow {
-    position: relative;
-    left: -13px;
+  position: relative;
+  left: -13px;
 }
 
 .prod-gallery-thumbnails-carousel .VueCarousel-navigation button:focus {
@@ -1145,7 +1164,7 @@ export default {
   .product-recent-listing-carousel .VueCarousel-navigation-prev {
     left: 13% !important;
     transform: translateY(-50%) translateX(-100%) !important;
-    font-family: 'system' !important;
+    font-family: "system" !important;
     background-color: #29275b !important;
     opacity: 0.7;
     color: white !important;
@@ -1155,7 +1174,7 @@ export default {
   .product-recent-listing-carousel .VueCarousel-navigation-next {
     right: 13% !important;
     transform: translateY(-50%) translateX(100%);
-    font-family: 'system';
+    font-family: "system";
     background-color: #29275b !important;
     opacity: 0.7;
     color: white !important;
@@ -1168,7 +1187,7 @@ export default {
   .product-recent-listing-carousel .VueCarousel-navigation-prev {
     left: 8% !important;
     transform: translateY(-50%) translateX(-100%) !important;
-    font-family: 'system' !important;
+    font-family: "system" !important;
     background-color: #29275b !important;
     opacity: 0.7;
     color: white !important;
@@ -1178,7 +1197,7 @@ export default {
   .product-recent-listing-carousel .VueCarousel-navigation-next {
     right: 8% !important;
     transform: translateY(-50%) translateX(100%);
-    font-family: 'system';
+    font-family: "system";
     background-color: #29275b !important;
     opacity: 0.7;
     color: white !important;
@@ -1188,8 +1207,8 @@ export default {
 }
 
 @media (max-width: 767px) {
-.Galleries{
-  display:none !important;
+  .Galleries {
+    display: none !important;
   }
 
   .video-wrapper #iframe_container {
@@ -1203,9 +1222,9 @@ export default {
     font-size: 36px;
     padding: 0px;
   }
-  @media (min-width: 480px){
-  .media-gallery {
-    min-height: auto !important;
+  @media (min-width: 480px) {
+    .media-gallery {
+      min-height: auto !important;
     }
   }
   .media-zoom-carousel__slide .product-image.product-image--width {
@@ -1243,26 +1262,25 @@ export default {
   //     top: 0px;
   //   }
   // }
-  
+
   .slick-dots {
-}
-.slick-dots li button {
+  }
+  .slick-dots li button {
     cursor: pointer;
     border: 0;
     outline: none;
     background: #f9f9f900 !important;
-}
-.slick-dots li button:before {
+  }
+  .slick-dots li button:before {
     // font-family: 'slick';
     font-size: 16px;
     opacity: 1;
     color: #dcdcdc !important;
-}
-.slick-dots li.slick-active button:before {
-    color: #EE4C56 !important;
-        opacity: 1;
-}
-
+  }
+  .slick-dots li.slick-active button:before {
+    color: #ee4c56 !important;
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1320px) {
@@ -1280,15 +1298,15 @@ figure {
 }
 
 figure img {
- max-width: 100%;
+  max-width: 100%;
 }
 @media (max-width: 767px) {
- figure img {
-  // width: auto !important;
-}
+  figure img {
+    // width: auto !important;
+  }
 }
 
- .pswp__img{
+.pswp__img {
   height: auto !important;
 }
 
@@ -1296,10 +1314,10 @@ figure img {
   background: rgb(0, 0, 0) !important;
 }
 @media (min-width: 480px) {
-img.pswp__img {
+  img.pswp__img {
     transform: translateY(80px);
     height: auto !important;
-}
+  }
 }
 // .pswp__button--share {
 //     background-position: -45px -44px;
@@ -1334,10 +1352,10 @@ img.pswp__img {
 // div#media-gallery-carousel figcaption {
 //   display: none;
 // }
-div.bt-product-gallery .leftArrow{
+div.bt-product-gallery .leftArrow {
   visibility: hidden;
 }
-div.bt-product-gallery .rightArrow{
+div.bt-product-gallery .rightArrow {
   visibility: hidden;
 }
 </style>
