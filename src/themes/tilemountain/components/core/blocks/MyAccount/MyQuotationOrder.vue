@@ -8,7 +8,7 @@
       <div class="col-xs-10 col-md-11">
         <div class="displayFlex">
           <h3 class="m0 mb5 mt5 orderNo">
-            <span>Order # {{ localProductData[0].order_id }}</span>
+            <span>Order # {{currentQuote.converted_order}}</span>
           </h3>
           <span>{{ order.created_at | date('LLL', storeView) }}</span>
         </div>
@@ -20,9 +20,7 @@
       <div class="row fs16">
         <div class="col-xs-12">
           <div class="flexbox">
-            <div class="heading latestHeading">
-              {{ $t('Items ordered') }}
-            </div>
+            <div class="heading latestHeading">{{ $t('Items ordered') }}</div>
           </div>
           <table class="brdr-1 brdr-cl-bg-secondary">
             <thead>
@@ -48,28 +46,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="brdr-top-1 brdr-cl-bg-secondary" if="localProductData" v-for="item in localProductData[0].items" :key="item.sku">
+              <tr class="brdr-top-1 brdr-cl-bg-secondary" v-for="item in currentQuote.items" :key="item.item_id">
                 <td class="fs-medium lh25" :data-th="$t('Product Name')">
                   {{ item.name }}
                 </td>
                 <td class="fs-medium lh25" :data-th="$t('SKU')">
-                  {{ item.sku }}
+                  {{ item.product_sku }}
                 </td>
                 <td class="fs-medium lh25" :data-th="$t('Price')">
-                  {{ item.price | price(storeView) }}
+                  {{ item.price_incl_tax | price(storeView) }}
                 </td>
                 <td class="fs-medium lh25 align-center" :data-th="$t('Qty')">
-                  {{ item.qty }}
+                  {{ item.items.qty }}
                 </td>
                 <td class="fs-medium lh25" :data-th="$t('Subtotal')">
-                  {{ item.subtotal | price(storeView) }}
+                  {{ item.row_total_incl_tax | price(storeView) }}
                 </td>
                 <td class="fs-medium lh25 order-details" :data-th="$t('Thumbnail')">
                   <img
                     class="center quote-detail-image"
                     :src="getQuoteProdImage(item.image)"
                     alt="quoteimage"
-                  >
+                  />
                 </td>
               </tr>
             </tbody>
@@ -78,41 +76,31 @@
                 <td colspan="5" class="align-right">
                   {{ $t('Subtotal') }}
                 </td>
-                <td class="align-right">
-                  {{ order.subtotal | price(storeView) }}
-                </td>
+                <td class="align-right">{{ order.subtotal | price(storeView) }}</td>
               </tr>
               <tr>
                 <td colspan="5" class="align-right">
                   {{ $t('Shipping') }}
                 </td>
-                <td class="align-right">
-                  {{ order.shipping_amount | price(storeView) }}
-                </td>
+                <td class="align-right">{{ order.shipping_amount | price(storeView) }}</td>
               </tr>
               <tr>
                 <td colspan="5" class="align-right">
                   {{ $t('Tax') }}
                 </td>
-                <td class="align-right">
-                  {{ order.tax_amount + order.discount_tax_compensation_amount | price(storeView) }}
-                </td>
+                <td class="align-right">{{ order.tax_amount + order.discount_tax_compensation_amount | price(storeView) }}</td>
               </tr>
               <tr v-if="order.discount_amount">
                 <td colspan="5" class="align-right">
                   {{ $t('Discount') }}
                 </td>
-                <td class="align-right">
-                  {{ order.discount_amount | price(storeView) }}
-                </td>
+                <td class="align-right">{{ order.discount_amount | price(storeView) }}</td>
               </tr>
               <tr>
                 <td colspan="5" class="align-right">
                   {{ $t('Grand total') }}
                 </td>
-                <td class="align-right">
-                  {{ order.grand_total | price(storeView) }}
-                </td>
+                <td class="align-right">{{ order.grand_total | price(storeView) }}</td>
               </tr>
             </tfoot>
           </table>
@@ -120,40 +108,38 @@
       </div>
       <div class="row fs16 order-page-infos mb20">
         <div class="col-xs-12">
-          <div class="flexbox">
-            <div class="heading latestHeading">
-              {{ $t('Order information') }}
+            <div class="flexbox">
+              <div class="heading latestHeading">{{ $t('Order information') }}</div>
             </div>
-          </div>
-          <div class="orderInformationBox">
-            <div class="row">
-              <div class="col-sm-6 col-md-6" v-if="shippingAddress">
-                <h5>{{ $t('Shipping address') }}</h5>
-                <address>
-                  <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
-                  <p>{{ shippingAddress.street[0] }} {{ shippingAddress.street[1] }}</p>
-                  <p>{{ shippingAddress.postcode }} {{ shippingAddress.city }}</p>
-                  <p>{{ shippingAddress.country }}</p>
-                </address>
+            <div class="orderInformationBox">
+              <div class="row">
+                <div class="col-sm-6 col-md-6" v-if="shippingAddress">
+                  <h5>{{ $t('Shipping address') }}</h5>
+                  <address>
+                    <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
+                    <p>{{ shippingAddress.street[0] }} {{ shippingAddress.street[1] }}</p>
+                    <p>{{ shippingAddress.postcode }} {{ shippingAddress.city }}</p>
+                    <p>{{ shippingAddress.country }}</p>
+                  </address>
+                </div>
+                <div class="col-sm-6 col-md-6" v-if="order.shipping_description">
+                  <h5>{{ $t('Shipping method') }}</h5>
+                  <p>{{ order.shipping_description }}</p>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <h5>{{ $t('Billing address') }}</h5>
+                  <address>
+                    <p>{{ billingAddress.firstname }} {{ billingAddress.lastname }}</p>
+                    <p>{{ billingAddress.street[0] }} {{ billingAddress.street[1] }}</p>
+                    <p>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
+                    <p>{{ billingAddress.country }}</p>
+                  </address>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <h5>{{ $t('Payment method') }}</h5>
+                  <p>{{ paymentMethod }}</p>
+                </div>
               </div>
-              <div class="col-sm-6 col-md-6" v-if="order.shipping_description">
-                <h5>{{ $t('Shipping method') }}</h5>
-                <p>{{ order.shipping_description }}</p>
-              </div>
-              <div class="col-sm-6 col-md-6">
-                <h5>{{ $t('Billing address') }}</h5>
-                <address>
-                  <p>{{ billingAddress.firstname }} {{ billingAddress.lastname }}</p>
-                  <p>{{ billingAddress.street[0] }} {{ billingAddress.street[1] }}</p>
-                  <p>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
-                  <p>{{ billingAddress.country }}</p>
-                </address>
-              </div>
-              <div class="col-sm-6 col-md-6">
-                <h5>{{ $t('Payment method') }}</h5>
-                <p>{{ paymentMethod }}</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -168,10 +154,7 @@ import ReturnIcon from 'theme/components/core/blocks/Header/ReturnIcon'
 import ProductImage from 'theme/components/core/ProductImage'
 import { getThumbnailPath, productThumbnailPath } from '@vue-storefront/core/helpers'
 import { currentStoreView } from '@vue-storefront/core/lib/multistore'
-import { mapActions, mapGetters } from 'vuex'
-import axios from 'axios';
-import config from 'config';
-import { notifications } from '@vue-storefront/core/modules/cart/helpers';
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
   mixins: [MyOrder],
@@ -181,13 +164,13 @@ export default {
   },
   data () {
     return {
-      productData: [],
-      localProductData: [],
+      productData :[],
+      localProductData:[],
       itemThumbnail: [],
-      curentUser: '',
-      quoteData: [],
-      orderId: '',
-      currentQuote: []
+      curentUser : '',
+      quoteData :[],
+      orderId : '',
+      currentQuote : []
     }
   },
   computed: {
@@ -201,6 +184,14 @@ export default {
     },
     storeView () {
       return currentStoreView()
+    },
+    returnData(){
+      setTimeout(function(){
+        console.log("1014 Here to return Data",localStorage.getItem('orderData'));
+        this.localProductData = localStorage.getItem('orderData')
+        return localStorage.getItem('orderData')
+      },300)
+
     }
   },
   methods: {
@@ -210,41 +201,73 @@ export default {
     getQuoteProdImage (slug) {
       return getThumbnailPath(slug, 125, 125);
     },
+  },
+  beforeMount(){
+     var self = this;
+    this.$bus.$on('current-order-data',function(data){
+      console.log("1014 Emit received 1 self this before mount",data);
+        console.log("1014 Data assigned before mount");
+        this.productData = data
+        console.log("1014 Data assigned before mount",this.productData);
+    });
 
-  async getOrderData () {
-      let productReviewsUrl = config.api.url + config.quoteSystem.getOrderData 
-      let orderId = this.$route.params.orderId;
-      const article = { orderId: orderId }
-      await axios.post(productReviewsUrl, article, {
-        headers: {
-          'Content-type': 'application/json'
-        }
+  },
+  async mounted () {
+    setTimeout(function(){
+      this.localProductData = localStorage.getItem('orderData')
+    console.log("1014 201 After 4 localProductData",this.localProductData,);
+    },200)
+
+    var self = this;
+    this.$bus.$on('current-order-data',function(data){
+      console.log("1014 Emit received 1 self this mount",data);
+        console.log("1014 Data assigned mount");
+        this.productData = data
+        console.log("1014 Data assigned mount",this.productData);
+    });
+     this.curentUser = this.$route.query.currentuser
+     this.orderId = this.$route.params.orderId
+    console.log("1014 1021 order 12 n",this.curentUser,this.$route,this.$route.query.currentuser,this.orderNew,this.ordersHistory);
+
+    // setTimeout(function(){
+    //   console.log("1014 1014 order 1 3  n",this.$route,this.$route.query,this.orderNew,this.ordersHistory);
+    // },200)
+    await this.$store.dispatch(
+      'quotesystem/quoteSystemFunction', {
+        customerId: this.curentUser
       })
-        .then(r => {
-          console.log('raja check', r.data.result);
-          if (r.data.code) {
-            this.localProductData = r.data.result
+      .then(resp => {
+        console.log('1014 1021 response is ', resp);
+        console.log('1014 1021 route is ', this.$route);
+
+        this.quoteData = resp;
+        resp.forEach((quote,index)=>{
+          if (quote.order_entity_id === this.orderId){
+            console.log("1021 Quote Matched",quote);
+            this.currentQuote = quote;
+
           }
         })
-        .catch(error => {
-          this.notifyUser(
-            notifications.createNotification({
-              type: 'error',
-              message: 'Failed to Post a Question'
-            })
-          );
-        })
-    }
+        let convertedOrder = [];
+        for (var prop in resp) {
+          if (resp.hasOwnProperty(prop)) {
+            convertedOrder.push(resp[prop].converted_order);
+          }
+        }
+        console.log("1014 1014 Converted order is ",convertedOrder);
+      })
+      .catch(err => {
+        console.log('err occured from api call', err);
+      });
+    this.singleOrderItems.forEach(async item => {
+      if (!this.itemThumbnail[item.sku]) {
+        const product = await this.getProduct({ options: { sku: item.sku } })
 
-  },
-  mounted () {
-    this.getOrderData();
-  },
-  created () {
-    this.getOrderData();
-  },
-  beforeMount () {
-    this.getOrderData();
+        const thumbnail = productThumbnailPath(product)
+
+        Vue.set(this.itemThumbnail, item.sku, getThumbnailPath(thumbnail, 280, 280))
+      }
+    })
   }
 }
 </script>
@@ -259,11 +282,11 @@ $color-white-smoke: color(white-smoke);
   justify-content: space-between;
   align-items: center;
   padding-top: 5px;
-
   @media (max-width: 767px) {
     align-items: flex-start;
     flex-direction: column;
   }
+
 }
 .outer_border {
   border: 1px solid #cccccc;
@@ -361,6 +384,7 @@ table {
           font-weight: 700;
           font-size: 15px;
           margin-right: 8px;
+
         }
       }
 

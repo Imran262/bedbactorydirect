@@ -150,8 +150,8 @@
             >
               <router-link
                 :to="{
-                  path: '/my-account/orders/' + quoteVal.order_entity_id,
-                  query: {},
+                  path: '/my-account/quotation-orders/' + quoteVal.order_entity_id,
+                  query: {currentuser : currentUser.id},
                 }"
                 class="
                   f_right f_right_vieworder
@@ -300,7 +300,7 @@ export default {
       await this.$store.dispatch('cart/clear', { disconnect: false });
       let qouteProduct = this.quoteData[index].items[0];
       console.log('36521 current product in qoute is new ', qouteProduct);
-      const URL = config.baseUrl.url + 'vueapi/ext/V12Finance/getSku';
+      const URL = config.baseUrl.url + config.quoteSystem.getSku;
       let order = {
         item_id: qouteProduct.itemid,
         quote_id: quoteId
@@ -363,7 +363,7 @@ export default {
     },
     addSpecialPrice(quoteId,itemId,price){
       console.log("37915 In here to set Special price",this.$store.state);
-      let URL= config.baseUrl.url + "vueapi/ext/quotesystem/setcustomprice"
+      let URL= config.baseUrl.url +  config.quoteSystem.setCustomPrice
       let order ={
         "quoteId": quoteId,
         "cartId":this.$store.state.cart.cartServerToken,

@@ -55,6 +55,7 @@ let routes = [
   { name: 'my-dashboard', path: '/my-account/dashboard', component: MyAccount, props: { activeBlock: 'MyDashboard' } },
   { name: 'my-orders', path: '/my-account/orders', component: MyAccount, props: { activeBlock: 'MyOrders' } },
   { name: 'my-order', path: '/my-account/orders/:orderId', component: MyAccount, props: { activeBlock: 'MyOrder' } },
+  { name: 'my-quotation-order', path: '/my-account/quotation-orders/:orderId', component: MyAccount, props: { activeBlock: 'MyQuotationOrder' } },
   { name: 'my-recently-viewed', path: '/my-account/recently-viewed', component: MyAccount, props: { activeBlock: 'MyRecentlyViewed' } },
   { name: 'order-from-catalog', path: '/order-from-catalog', component: Static, props: { page: 'lorem', title: 'Order from catalog' } },
   { name: 'compare', path: '/compare', component: Compare, props: { title: 'Compare Products' } },
