@@ -65,6 +65,7 @@ export default {
      border: 1px solid #b7b4b4;
     border-radius: 10px;
     padding: 7px;
+  background: #fff;
 }
 .main_pro1{
      border: 1px solid #b7b4b4;

@@ -18,123 +18,135 @@
     <div class="row fs16 mb20">
       <div class="col-xs-12 h4">
         <p>{{ order.created_at | date('LLL', storeView) }}</p>
-        <p class="mt35">
-          <a href="#" class="underline" @click.prevent="remakeOrder(singleOrderItems)">{{ $t('Remake order') }}</a>
-        </p>
+<!--        <p class="mt35">-->
+<!--          <a href="#" class="underline" @click.prevent="remakeOrder(singleOrderItems)">{{ $t('Remake order') }}</a>-->
+<!--        </p>-->
       </div>
     </div>
-    <div class="row fs16 mb35">
-      <div class="col-xs-12 h4">
-        <h4>{{ $t('Items ordered') }}</h4>
-        <table class="brdr-1 brdr-cl-bg-secondary">
-          <thead>
-            <tr>
-              <th class="lh20">
-                {{ $t('Product Name') }}
-              </th>
-              <th class="lh20">
-                {{ $t('SKU') }}
-              </th>
-              <th class="lh20">
-                {{ $t('Price') }}
-              </th>
-              <th class="lh20">
-                {{ $t('Qty') }}
-              </th>
-              <th class="lh20">
-                {{ $t('Subtotal') }}
-              </th>
-              <th class="lh20">
-                {{ $t('Thumbnail') }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="brdr-top-1 brdr-cl-bg-secondary" v-for="item in singleOrderItems" :key="item.item_id">
-              <td class="fs-medium lh25" :data-th="$t('Product Name')">
-                {{ item.name }}
-              </td>
-              <td class="fs-medium lh25" :data-th="$t('SKU')">
-                {{ item.sku }}
-              </td>
-              <td class="fs-medium lh25" :data-th="$t('Price')">
-                {{ item.price_incl_tax | price(storeView) }}
-              </td>
-              <td class="fs-medium lh25 align-right" :data-th="$t('Qty')">
-                {{ item.qty_ordered }}
-              </td>
-              <td class="fs-medium lh25" :data-th="$t('Subtotal')">
-                {{ item.row_total_incl_tax | price(storeView) }}
-              </td>
-              <td class="fs-medium lh25 order-details">
-                <product-image :image="{src: itemThumbnail[item.sku]}" />
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr class="brdr-top-1 brdr-cl-bg-secondary">
-              <td colspan="5" class="align-right">
-                {{ $t('Subtotal') }}
-              </td>
-              <td>{{ order.subtotal | price(storeView) }}</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="align-right">
-                {{ $t('Shipping') }}
-              </td>
-              <td>{{ order.shipping_amount | price(storeView) }}</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="align-right">
-                {{ $t('Tax') }}
-              </td>
-              <td>{{ order.tax_amount + order.discount_tax_compensation_amount | price(storeView) }}</td>
-            </tr>
-            <tr v-if="order.discount_amount">
-              <td colspan="5" class="align-right">
-                {{ $t('Discount') }}
-              </td>
-              <td>{{ order.discount_amount | price(storeView) }}</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="align-right">
-                {{ $t('Grand total') }}
-              </td>
-              <td>{{ order.grand_total | price(storeView) }}</td>
-            </tr>
-          </tfoot>
-        </table>
+    <div class="outer_border">
+      <div class="row fs16">
+        <div class="col-xs-12">
+          <div class="flexbox">
+            <div class="heading latestHeading">{{ $t('Items ordered') }}</div>
+            <div class="">
+              <a href="#" class="underline" @click.prevent="remakeOrder(singleOrderItems)">{{ $t('Remake order') }}</a>
+            </div>
+          </div>
+          <table class="brdr-1 brdr-cl-bg-secondary">
+            <thead>
+              <tr>
+                <th class="lh20">
+                  {{ $t('Product Name') }}
+
+                </th>
+                <th class="lh20">
+                  {{ $t('SKU') }}
+                </th>
+                <th class="lh20">
+                  {{ $t('Price') }}
+                </th>
+                <th class="lh20">
+                  {{ $t('Qty') }}
+                </th>
+                <th class="lh20">
+                  {{ $t('Subtotal') }}
+                </th>
+                <th class="lh20">
+                  {{ $t('Thumbnail') }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="brdr-top-1 brdr-cl-bg-secondary" v-for="item in singleOrderItems" :key="item.item_id">
+                <td class="fs-medium lh25" :data-th="$t('Product Name')">
+                  {{ item.name }}
+                </td>
+                <td class="fs-medium lh25" :data-th="$t('SKU')">
+                  {{ item.sku }}
+                </td>
+                <td class="fs-medium lh25" :data-th="$t('Price')">
+                  {{ item.price_incl_tax | price(storeView) }}
+                </td>
+                <td class="fs-medium lh25 align-right" :data-th="$t('Qty')">
+                  {{ item.qty_ordered }}
+                </td>
+                <td class="fs-medium lh25" :data-th="$t('Subtotal')">
+                  {{ item.row_total_incl_tax | price(storeView) }}
+                </td>
+                <td class="fs-medium lh25 order-details" :data-th="$t('Thumbnail')">
+                  <product-image :image="{src: itemThumbnail[item.sku]}" />
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="brdr-top-1 brdr-cl-bg-secondary">
+                <td colspan="5" class="align-right">
+                  {{ $t('Subtotal') }}
+                </td>
+                <td>{{ order.subtotal | price(storeView) }}</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="align-right">
+                  {{ $t('Shipping') }}
+                </td>
+                <td>{{ order.shipping_amount | price(storeView) }}</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="align-right">
+                  {{ $t('Tax') }}
+                </td>
+                <td>{{ order.tax_amount + order.discount_tax_compensation_amount | price(storeView) }}</td>
+              </tr>
+              <tr v-if="order.discount_amount">
+                <td colspan="5" class="align-right">
+                  {{ $t('Discount') }}
+                </td>
+                <td>{{ order.discount_amount | price(storeView) }}</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="align-right">
+                  {{ $t('Grand total') }}
+                </td>
+                <td>{{ order.grand_total | price(storeView) }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="row fs16 mb35 order-page-infos">
-      <div class="col-xs-12 h4">
-        <h4>{{ $t('Order information') }}</h4>
-        <div class="row">
-          <div class="col-sm-6 col-md-3" v-if="shippingAddress">
-            <h5>{{ $t('Shipping address') }}</h5>
-            <address>
-              <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
-              <p>{{ shippingAddress.street[0] }} {{ shippingAddress.street[1] }}</p>
-              <p>{{ shippingAddress.postcode }} {{ shippingAddress.city }}</p>
-              <p>{{ shippingAddress.country }}</p>
-            </address>
-          </div>
-          <div class="col-sm-6 col-md-3" v-if="order.shipping_description">
-            <h5>{{ $t('Shipping method') }}</h5>
-            <p>{{ order.shipping_description }}</p>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <h5>{{ $t('Billing address') }}</h5>
-            <address>
-              <p>{{ billingAddress.firstname }} {{ billingAddress.lastname }}</p>
-              <p>{{ billingAddress.street[0] }} {{ billingAddress.street[1] }}</p>
-              <p>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
-              <p>{{ billingAddress.country }}</p>
-            </address>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <h5>{{ $t('Payment method') }}</h5>
-            <p>{{ paymentMethod }}</p>
+      <div class="row fs16 order-page-infos mb20">
+        <div class="col-xs-12">
+            <div class="flexbox">
+              <div class="heading latestHeading">{{ $t('Order information') }}</div>
+            </div>
+            <div class="orderInformationBox">
+              <div class="row">
+                <div class="col-sm-6 col-md-6" v-if="shippingAddress">
+                  <h5>{{ $t('Shipping address') }}</h5>
+                  <address>
+                    <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
+                    <p>{{ shippingAddress.street[0] }} {{ shippingAddress.street[1] }}</p>
+                    <p>{{ shippingAddress.postcode }} {{ shippingAddress.city }}</p>
+                    <p>{{ shippingAddress.country }}</p>
+                  </address>
+                </div>
+                <div class="col-sm-6 col-md-6" v-if="order.shipping_description">
+                  <h5>{{ $t('Shipping method') }}</h5>
+                  <p>{{ order.shipping_description }}</p>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <h5>{{ $t('Billing address') }}</h5>
+                  <address>
+                    <p>{{ billingAddress.firstname }} {{ billingAddress.lastname }}</p>
+                    <p>{{ billingAddress.street[0] }} {{ billingAddress.street[1] }}</p>
+                    <p>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
+                    <p>{{ billingAddress.country }}</p>
+                  </address>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <h5>{{ $t('Payment method') }}</h5>
+                  <p>{{ paymentMethod }}</p>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -176,7 +188,9 @@ export default {
     this.singleOrderItems.forEach(async item => {
       if (!this.itemThumbnail[item.sku]) {
         const product = await this.getProduct({ options: { sku: item.sku } })
+
         const thumbnail = productThumbnailPath(product)
+
         Vue.set(this.itemThumbnail, item.sku, getThumbnailPath(thumbnail, 280, 280))
       }
     })
@@ -189,19 +203,58 @@ export default {
 @import '~theme/css/helpers/functions/color';
 $color-tertiary: color(tertiary);
 $color-white-smoke: color(white-smoke);
+.outer_border {
+  border: 1px solid #cccccc;
+  border-radius: 15px;
+  background-color: #fff;
+}
+.orderInformationBox {
+  padding: 0 20px;
 
+  h5{
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  p{
+    font-size: 14px;
+    margin: 0;
+    margin-top: 5px;
+    line-height: 20px;
+  }
+
+}
+.heading {
+  text-align: center;
+  font-size: 24px;
+  font-family: oblik,serif;
+  color: #fff;
+}
+.flexbox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  background-color: #071a44;
+  color: #fff;
+  padding:0 8px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
 table {
   border-collapse: collapse;
   width: 100%;
-
+  border-bottom: unset;
   @media (max-width: 767px) {
     border-top: none;
+  }
+  @media (max-width: 992px) {
+    table-layout: fixed;
   }
 
   th, td {
     text-align: left;
     padding: 20px;
-    font-family: Arial;
+    font-family: Arial,serif;
 
     &.align-right {
       text-align: right;
@@ -215,7 +268,9 @@ table {
     @media (max-width: 1199px) {
       padding: 10px;
     }
-
+    @media (max-width: 992px) {
+      word-wrap: break-word;
+    }
   }
 
   thead {
@@ -230,13 +285,6 @@ table {
       @media (max-width: 767px) {
         display: block
       }
-
-      &:nth-child(even) {
-        td {
-          background-color: $color-white-smoke;
-        }
-      }
-
     }
 
     td {
@@ -273,14 +321,18 @@ table {
       }
 
       &:last-child {
-        td:last-child {
+        td {
          padding-bottom: 20px
         }
       }
-
+      td:first-child{
+        font-weight: bold;
+        font-family: "Oblik",serif;
+      }
     }
 
     td {
+      padding: 10px 20px;
       @media (max-width: 767px) {
         display: block
       }
@@ -309,6 +361,8 @@ table {
 }
 
 a {
+  color: #fff;
+  padding: 0;
   &:after {
     content: "";
     display: block;
@@ -317,7 +371,7 @@ a {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: $color-tertiary;
+    background-color: #fff;
   }
 
   &:hover {
@@ -341,6 +395,7 @@ address {
      border: 1px solid #b7b4b4;
     border-radius: 10px;
     padding: 7px;
+    background: #fff;
 }
 .main_pro1{
      border: 1px solid #b7b4b4;
@@ -359,7 +414,7 @@ h3{
     background-color: #29275b!important;
 }
 h1, h2, h3, h4, h5 {
-   font-family: oblik !important;
+   font-family: oblik,serif !important;
 }
 .cl-tertiary {
     color: #fff!important;

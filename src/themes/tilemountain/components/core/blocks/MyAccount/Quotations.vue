@@ -640,18 +640,18 @@ export default {
 <style>
 .outer_border {
   border: 1px solid #cccccc;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: #fff;
 }
 .heading {
-  text-align: center;
-  font-size: 28px;
+  text-align: left;
+  font-size: 24px;
   font-family: oblik;
   background-color: #071a44;
   color: #fff;
-  padding: 8px;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  padding: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 .heading.otherQuoteHeading {
   background-color: #29275b;
