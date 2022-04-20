@@ -211,7 +211,7 @@ export default {
       return getThumbnailPath(slug, 125, 125);
     },
 
-    async getOrderData () {
+  async getOrderData () {
       let productReviewsUrl = config.api.url + config.quoteSystem.getOrderData 
       let orderId = this.$route.params.orderId;
       const article = { orderId: orderId }
