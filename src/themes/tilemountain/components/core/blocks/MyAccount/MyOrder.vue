@@ -212,7 +212,7 @@ export default {
     },
 
     async getOrderData () {
-      let productReviewsUrl = config.api.url + '/vueapi/ext/quotesystem/getOrderData'
+      let productReviewsUrl = config.api.url + config.quoteSystem.getOrderData 
       let orderId = this.$route.params.orderId;
       const article = { orderId: orderId }
       await axios.post(productReviewsUrl, article, {
