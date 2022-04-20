@@ -13,7 +13,7 @@
                 name="postcode"
                 class="postalcode-lookup"
                 :class="{
-                  empty: shipping.zipCode === '' && postcodelookup_blur === 1,
+                  empty: shipping.zipCode === '' && postcodelookup_blur === 1
                 }"
                 placeholder=""
                 v-model="shipping.zipCode"
@@ -66,12 +66,12 @@
                   condition:
                     $v.shipping.firstName.$error &&
                     !$v.shipping.firstName.required,
-                  text: $t('Field is required'),
+                  text: $t('Field is required')
                 },
                 {
                   condition: !$v.shipping.firstName.minLength,
-                  text: $t('Name must have at least 2 letters.'),
-                },
+                  text: $t('Name must have at least 2 letters.')
+                }
               ]"
             />
 
@@ -88,8 +88,8 @@
                   condition:
                     $v.shipping.lastName.$error &&
                     !$v.shipping.lastName.required,
-                  text: $t('Field is required'),
-                },
+                  text: $t('Field is required')
+                }
               ]"
             />
             <base-input
@@ -116,8 +116,8 @@
                 {
                   condition:
                     $v.shipping.country.$error && !$v.shipping.country.required,
-                  text: $t('Field is required'),
-                },
+                  text: $t('Field is required')
+                }
               ]"
               v-model="shipping.country"
               autocomplete="country-name"
@@ -138,8 +138,8 @@
                   condition:
                     $v.shipping.streetAddress.$error &&
                     !$v.shipping.streetAddress.required,
-                  text: $t('Field is required'),
-                },
+                  text: $t('Field is required')
+                }
               ]"
             />
 
@@ -165,13 +165,13 @@
                 {
                   condition:
                     $v.shipping.city.$error && !$v.shipping.city.required,
-                  text: $t('Field is required'),
+                  text: $t('Field is required')
                 },
                 {
                   condition:
                     $v.shipping.city.$error && $v.shipping.city.required,
-                  text: $t('Please provide valid city name'),
-                },
+                  text: $t('Please provide valid city name')
+                }
               ]"
             />
 
@@ -215,13 +215,13 @@
                     $v.shipping.phoneNumber.$error &&
                     !$v.shipping.phoneNumber.required,
 
-                  text: $t('Field is required'),
+                  text: $t('Field is required')
                 },
                 {
                   condition: !$v.shipping.phoneNumber.maxLength,
 
-                  text: $t('Phone number maximum length is 11 digits'),
-                },
+                  text: $t('Phone number maximum length is 11 digits')
+                }
               ]"
             />
             <base-input
@@ -313,13 +313,13 @@
                       $v.shipping.phoneNumber.$error &&
                       !$v.shipping.phoneNumber.required,
 
-                    text: $t('Field is required'),
+                    text: $t('Field is required')
                   },
                   {
                     condition: !$v.shipping.phoneNumber.maxLength,
 
-                    text: $t('Phone number maximum length is 11 digits'),
-                  },
+                    text: $t('Phone number maximum length is 11 digits')
+                  }
                 ]"
               />
               <!-- <p>
@@ -390,14 +390,14 @@
           <template
             v-if="
               getShippingMethodsWithRoyalMail.length !== 0 &&
-              getShippingMethodsWithOOS.length == 0
+                getShippingMethodsWithOOS.length == 0
             "
           >
             <h3
               class="pl30 pr30"
               v-if="
                 selectedDeliveryMethod === 'homedelivery' &&
-                getSortedDates.length !== 1
+                  getSortedDates.length !== 1
               "
             >
               Delivery Date 1
@@ -406,8 +406,8 @@
               class="pl30 pr30"
               v-if="
                 getShippingMethodsWithOOS.length == 0 &&
-                selectedDeliveryMethod === 'homedelivery' &&
-                getSortedDates.length !== 1
+                  selectedDeliveryMethod === 'homedelivery' &&
+                  getSortedDates.length !== 1
               "
             >
               Your order will be posted through the letterbox, no signature
@@ -419,7 +419,7 @@
               class="pl30 pr30"
               v-if="
                 selectedDeliveryMethod === 'homedelivery' &&
-                getSortedDates.length !== 1
+                  getSortedDates.length !== 1
               "
             >
               Delivery Date 2
@@ -432,8 +432,8 @@
               class="OutOfstockItem"
               v-if="
                 getShippingMethodsWithOOS.length > 0 &&
-                selectedDeliveryMethod === 'homedelivery' &&
-                getSortedDates.length !== 1
+                  selectedDeliveryMethod === 'homedelivery' &&
+                  getSortedDates.length !== 1
               "
             >
               <span>Out of Stock Item</span>
@@ -446,14 +446,14 @@
           <template
             v-if="
               getShippingMethodsWithOOS.length == 0 &&
-              getShippingMethodsWithRoyalMail.length == 0
+                getShippingMethodsWithRoyalMail.length == 0
             "
           >
             <h3
               class="pl30 pr30"
               v-if="
                 selectedDeliveryMethod === 'homedelivery' &&
-                getSortedDates.length !== 1
+                  getSortedDates.length !== 1
               "
             >
               Select your prefered delivery day
@@ -474,7 +474,7 @@
             class="pl30 pr30"
             v-if="
               selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length === 1
+                getSortedDates.length === 1
             "
           >
             Shipping Date
@@ -489,7 +489,7 @@
             "
             v-if="
               selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length === 0
+                getSortedDates.length === 0
             "
           >
             <p
@@ -521,7 +521,7 @@
           <div
             v-if="
               getSortedDates.length === 1 &&
-              selectedDeliveryMethod === 'homedelivery'
+                selectedDeliveryMethod === 'homedelivery'
             "
           >
             <h5
@@ -574,8 +574,8 @@
               <div
                 v-if="
                   slotData &&
-                  slotData.customData &&
-                  slotData.customData.method_code
+                    slotData.customData &&
+                    slotData.customData.method_code
                 "
                 :key="slotData.customData.method_code"
                 class="calendar-right-inner hidden"
@@ -585,7 +585,7 @@
                     v-if="
                       (slotData.customData.method_code.indexOf('Kerbside') !==
                         -1) ==
-                      true
+                        true
                     "
                     ><span
                       v-html="
@@ -599,7 +599,7 @@
                   <template
                     v-if="
                       (slotData.customData.method_code.indexOf('DPD') !== -1) ==
-                      true
+                        true
                     "
                     ><span
                       v-html="
@@ -622,7 +622,7 @@
                         ) !==
                           -1) ==
                           true) &&
-                      getSortedDates.length !== 1
+                        getSortedDates.length !== 1
                     "
                     ><span
                       v-html="
@@ -637,7 +637,7 @@
                     v-if="
                       (slotData.customData.method_code.indexOf('Samples') !==
                         -1) ==
-                      true
+                        true
                     "
                     ><span
                       v-html="
@@ -679,10 +679,10 @@
               class="col-md-12 col-xs-12"
               v-if="
                 getMinDate &&
-                getMaxDate &&
-                disabledDateFn &&
-                attributes &&
-                shouldShowChooseDate
+                  getMaxDate &&
+                  disabledDateFn &&
+                  attributes &&
+                  shouldShowChooseDate
               "
             >
               <label class="radioStyled pre-del">
@@ -704,10 +704,10 @@
                 <v-calendar
                   v-if="
                     getMinDate &&
-                    getMaxDate &&
-                    disabledDateFn &&
-                    attributes &&
-                    isCalendarSelected
+                      getMaxDate &&
+                      disabledDateFn &&
+                      attributes &&
+                      isCalendarSelected
                   "
                   class="calendar col-md-6"
                   v-model="date"
@@ -728,8 +728,8 @@
                 class="calendar-right col-lg-6 col-md-6 col-xs-12"
                 v-if="
                   shippingSlotsData &&
-                  shippingSlotsData.length > 0 &&
-                  isCalendarSelected
+                    shippingSlotsData.length > 0 &&
+                    isCalendarSelected
                 "
               >
                 <div class="calendar-ineer-main">
@@ -737,8 +737,8 @@
                     <div
                       v-if="
                         slotData &&
-                        slotData.customData &&
-                        slotData.customData.method_code
+                          slotData.customData &&
+                          slotData.customData.method_code
                       "
                       :key="slotData.customData.method_code"
                       class="calendar-right-inner"
@@ -750,7 +750,7 @@
                               'Kerbside'
                             ) !==
                               -1) ==
-                            true
+                              true
                           "
                           >Pallet</template
                         >
@@ -758,7 +758,7 @@
                           v-if="
                             (slotData.customData.method_code.indexOf('DPD') !==
                               -1) ==
-                            true
+                              true
                           "
                           >DPD parcel</template
                         >
@@ -807,7 +807,7 @@
                 class="cal-checkbox"
                 v-if="
                   selectedDeliveryMethod === 'homedelivery' &&
-                  getKerbsideShppingMethods.length > 0
+                    getKerbsideShppingMethods.length > 0
                 "
               >
                 <input
@@ -841,7 +841,7 @@
               class="validation-error"
               v-if="
                 $v.shipping.shippingMethod.$error &&
-                !$v.shipping.shippingMethod.required
+                  !$v.shipping.shippingMethod.required
               "
               >{{ $t("Field is required") }}</span
             >
@@ -920,7 +920,7 @@
             "
             v-if="
               selectedDeliveryMethod === 'homedelivery' &&
-              getSortedDates.length > 1
+                getSortedDates.length > 1
             "
           >
             <div class="row" v-if="!fromCart">
@@ -939,8 +939,8 @@
                   "
                   :disabled="
                     $v.shipping.$invalid ||
-                    getShippingMethods.length === 0 ||
-                    (isCalendarSelected && shippingSlotsData.length === 0)
+                      getShippingMethods.length === 0 ||
+                      (isCalendarSelected && shippingSlotsData.length === 0)
                   "
                 >
                   <!-- <span v-if="deliveryBtnClicked == true">
@@ -968,7 +968,7 @@
             </div>
           </div>
         </template>
-        <NarrowModal :date-prop="narrowDateProp" />
+        <!-- <NarrowModal :date-prop="narrowDateProp" /> -->
       </div>
     </div>
   </div>
@@ -978,7 +978,7 @@
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import {
   unicodeAlpha,
-  unicodeAlphaNum,
+  unicodeAlphaNum
 } from "@vue-storefront/core/helpers/validators";
 import { Shipping } from "@vue-storefront/core/modules/checkout/components/Shipping";
 import DeliveryMethods from "theme/components/core/blocks/Checkout/DeliveryMethods";
@@ -993,14 +993,14 @@ import Tooltip from "theme/components/core/Tooltip";
 import NoSSR from "vue-no-ssr";
 import { mapGetters, mapActions } from "vuex";
 import { CartService } from "@vue-storefront/core/data-resolver";
-import NarrowModal from "theme/components/core/blocks/Checkout/NarrowModal";
+// import NarrowModal from "theme/components/core/blocks/Checkout/NarrowModal";
 import config from "config";
 import {
   addDays,
   addMonths,
   differenceInDays,
   differenceInMonths,
-  parseISO,
+  parseISO
 } from "date-fns";
 
 export default {
@@ -1034,7 +1034,7 @@ export default {
       canNotDeliver: false,
       showCalender: false,
       noMethodsFound: false,
-      methodMessage: "",
+      methodMessage: ""
     };
   },
   components: {
@@ -1048,14 +1048,14 @@ export default {
     "v-calendar": () => import("v-calendar/lib/components/date-picker.umd"),
     ShippingMethod,
     DeliveryMethods,
-    StoreLocation,
-    NarrowModal,
+    StoreLocation
+    // NarrowModal
   },
   props: {
     shippingData: {
       type: Object,
-      required: false,
-    },
+      required: false
+    }
   },
   methods: {
     showAvailableMethod() {
@@ -1138,16 +1138,17 @@ export default {
       if (this.productsInCart && this.productsInCart[0].custom_stock_status) {
         let getAllStockStatus = config.customStockStatus;
         let convertStockCodeToArray = Object.keys(getAllStockStatus).map(
-          (key) => getAllStockStatus[key]
+          key => getAllStockStatus[key]
         );
-        const comapreCustomStockCode =
-          this.productsInCart[0].custom_stock_status;
+        const comapreCustomStockCode = this.productsInCart[0]
+          .custom_stock_status;
         let checkAllStockCode = convertStockCodeToArray.includes(
           String(comapreCustomStockCode)
         );
         if (checkAllStockCode) {
-          let kerbsidePalletDeliveryClass =
-            document.getElementsByClassName("showDelSection")[0];
+          let kerbsidePalletDeliveryClass = document.getElementsByClassName(
+            "showDelSection"
+          )[0];
           if (kerbsidePalletDeliveryClass) {
             kerbsidePalletDeliveryClass.style.display = "none";
           }
@@ -1216,12 +1217,12 @@ export default {
               this.getDateFromMethodCode(shippingMethod.method_code)
             )
           ),
-          customData: shippingMethod,
-        })),
+          customData: shippingMethod
+        }))
       ];
       const thirdDateDataArrayPush = [];
       const thirdDateDataArray =
-        thirdDateData.find((date) => {
+        thirdDateData.find(date => {
           let thirdDateFormat = this.convertDateToMatch(date.dates);
           if (narrowDateFormat === thirdDateFormat) {
             thirdDateDataArrayPush.push({ customData: date.customData });
@@ -1247,8 +1248,7 @@ export default {
     },
     dateAndTimeUpdate(dateTime) {
       const regexDate = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
-      const regexTime =
-        /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
+      const regexTime = /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
       let DateFormat = "";
       if (dateTime && dateTime.match(regexDate)) {
         DateFormat = dateTime.match(regexDate)[0];
@@ -1275,8 +1275,7 @@ export default {
         priceWithCurrency = "£" + priceWithCurrency + ".00";
       }
       const regexDate = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
-      const regexTime =
-        /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
+      const regexTime = /((0?[0-9]|1[012])([:.][0-9]{2})?(\s?[ap]m)|([01]?[0-9]|2[0-3])([:.][0-9]{2})?)/g;
       let DateFormat = "";
       if (data && data.match(regexDate)) {
         DateFormat = data.match(regexDate)[0];
@@ -1301,7 +1300,7 @@ export default {
     },
     resetForm() {
       if (this.date) {
-        this.$refs.shippingMethodRef.forEach((single) => {
+        this.$refs.shippingMethodRef.forEach(single => {
           if (single.checked) {
             single.checked = !single.checked;
             single.checked = false;
@@ -1347,7 +1346,7 @@ export default {
         this.$refs.shippingMethodWithoutDate &&
         this.$refs.shippingMethodWithoutDate.length > 0
       ) {
-        this.$refs.shippingMethodWithoutDate.forEach((option) => {
+        this.$refs.shippingMethodWithoutDate.forEach(option => {
           if (option) option.checked = false;
         });
       }
@@ -1409,7 +1408,7 @@ export default {
         await this.changeCountry();
         const address = {
           country_id: this.shipping.country,
-          postcode: this.shipping.zipCode,
+          postcode: this.shipping.zipCode
         };
         this.date = "";
         this.shippingSlotsData = [];
@@ -1469,8 +1468,8 @@ export default {
         const days = differenceInDays(endDate, startDate);
 
         return [...Array(days + 1).keys()]
-          .map((i) => addDays(startDate, i))
-          .map((item) => {
+          .map(i => addDays(startDate, i))
+          .map(item => {
             return item.toISOString().slice(0, 10);
           });
       }
@@ -1479,8 +1478,8 @@ export default {
         const months = differenceInMonths(endDate, startDate);
 
         return [...Array(months + 1).keys()]
-          .map((i) => addMonths(startDate, i))
-          .map((item) => item.toISOString().slice(0, 10));
+          .map(i => addMonths(startDate, i))
+          .map(item => item.toISOString().slice(0, 10));
       }
     },
     activateFindAddress() {
@@ -1583,12 +1582,12 @@ export default {
         streetAddress: ele1,
         company: ele6,
         state: ele4,
-        zipCode: ele5,
+        zipCode: ele5
       });
       await this.updateShippingOptions();
       await this.checkIfFieldsAreFilled();
     },
-    dateSelected: function () {
+    dateSelected: function() {
       this.$emit("date-selected", true);
       this.deliveryBtnClicked = true;
       this.displayEditButton = false;
@@ -1615,10 +1614,10 @@ export default {
         Sep: "09",
         Oct: "10",
         Nov: "11",
-        Dec: "12",
+        Dec: "12"
       };
       return dateParts[3] + "-" + dateMonths[dateParts[1]] + "-" + dateParts[2];
-    },
+    }
   },
   mounted() {
     // For Crafty Plugin
@@ -1639,10 +1638,10 @@ export default {
       let minimumDateSort = [];
       if (this.getShippingMethods) {
         minimumDateSort = this.getShippingMethods
-          .map((shippingMethod) =>
+          .map(shippingMethod =>
             this.getDateFromMethodCode(shippingMethod.method_code)
           )
-          .filter((dateStr) => dateStr !== undefined)
+          .filter(dateStr => dateStr !== undefined)
           .sort((a, b) => {
             var c = new Date(a);
             var d = new Date(b);
@@ -1699,7 +1698,7 @@ export default {
       getPersonalDetails: "checkout/getPersonalDetails",
       getShippingDetails: "checkout/getShippingDetails",
       getCartToken: "cart/getCartToken",
-      productsInCart: "cart/getCartItems",
+      productsInCart: "cart/getCartItems"
     }),
     fromCart() {
       return this.fullPath.includes("PayerID") ? true : false;
@@ -1739,7 +1738,7 @@ export default {
     },
     returnShippingMethod() {
       let selectedMethod = null;
-      this.$bus.$on("delivery-method", (data) => {
+      this.$bus.$on("delivery-method", data => {
         this.selectedDeliveryMethod = data;
         // console.log(this.selectedDeliveryMethod);
       });
@@ -1748,12 +1747,12 @@ export default {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const regexString = /^collection/g;
       let shippingArrayWithoutDate = this.getShippingMethods.filter(
-        (shippingMethod) =>
+        shippingMethod =>
           regex.test(shippingMethod.method_code) !==
           !regex.test(shippingMethod.method_code)
       );
       const shippingArrayWithoutDates = shippingArrayWithoutDate.filter(
-        (shippingMethod) =>
+        shippingMethod =>
           regexString.test(shippingMethod.carrier_title) ===
           !regexString.test(shippingMethod.carrier_title)
       );
@@ -1762,7 +1761,7 @@ export default {
     getShippingMethodsWithRoyalMail() {
       const regexStringRoyal = /^Royal/g;
       let shippingArrayWithRoyal = this.getShippingMethods.filter(
-        (shippingMethod) =>
+        shippingMethod =>
           regexStringRoyal.test(shippingMethod.method_title) ===
           !regexStringRoyal.test(shippingMethod.method_title)
       );
@@ -1800,7 +1799,7 @@ export default {
     getShippingMethodsWithOOS() {
       const regexStringOOS = /^Back/g;
       let shippingArrayWithOOS = this.getShippingMethods.filter(
-        (shippingMethod) =>
+        shippingMethod =>
           regexStringOOS.test(shippingMethod.carrier_title) ===
           !regexStringOOS.test(shippingMethod.carrier_title)
       );
@@ -1809,7 +1808,7 @@ export default {
     getShippingMethodsWithDates() {
       const regex = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
       const shippingArrayWithDates = this.getShippingMethods.filter(
-        (shippingMethod) => regex.test(shippingMethod.method_title)
+        shippingMethod => regex.test(shippingMethod.method_title)
       );
       return shippingArrayWithDates;
     },
@@ -1822,10 +1821,10 @@ export default {
         this.getPersonalDetails && this.getPersonalDetails.lastName
           ? this.getPersonalDetails.lastName.trim()
           : "";
-      return this.countries.map((item) => {
+      return this.countries.map(item => {
         return {
           value: item.code,
-          label: item.name,
+          label: item.name
         };
       });
     },
@@ -1833,7 +1832,7 @@ export default {
       const regexNewString = /^Kerbside/g;
       let shippingArrayWithKerbside = [];
       shippingArrayWithKerbside = this.getShippingMethods.filter(
-        (shippingMethod) => shippingMethod.method_code.match(regexNewString)
+        shippingMethod => shippingMethod.method_code.match(regexNewString)
       );
       return shippingArrayWithKerbside;
     },
@@ -1850,17 +1849,17 @@ export default {
           //   label: `The price is ${shippingMethod.price_incl_tax}`,
           //   hideIndicator: true
           // },
-          customData: shippingMethod,
-        })),
+          customData: shippingMethod
+        }))
       ];
     },
     disabledDateFn() {
-      const dotteddates = this.getSortedDates.map((item) =>
+      const dotteddates = this.getSortedDates.map(item =>
         this.changeDateOrder(item)
       );
       const allDatesArr = this.getAllDates(this.getMinDate, this.getMaxDate);
       const finalDateArray = allDatesArr.filter(
-        (singleDate) => !dotteddates.includes(singleDate)
+        singleDate => !dotteddates.includes(singleDate)
       );
       return finalDateArray;
     },
@@ -1876,8 +1875,9 @@ export default {
     },
     getMaxDate() {
       if (this.getSortedDates[0]) {
-        const maxDate =
-          this.getSortedDates[this.getSortedDates.length - 1].split("/");
+        const maxDate = this.getSortedDates[
+          this.getSortedDates.length - 1
+        ].split("/");
         const month = maxDate[0];
         const day = maxDate[1];
         const year = maxDate[2];
@@ -1887,17 +1887,17 @@ export default {
     },
     getSortedDates() {
       return this.getShippingMethods
-        .map((shippingMethod) =>
+        .map(shippingMethod =>
           this.getDateFromMethodCode(shippingMethod.method_code)
         )
-        .filter((dateStr) => dateStr !== undefined)
+        .filter(dateStr => dateStr !== undefined)
         .sort((a, b) => {
           var c = new Date(a);
           var d = new Date(b);
           return c - d;
           // return a > b ? 1 : a < b ? -1 : 0;
         });
-    },
+    }
   },
   watch: {
     getShippingMethodsWithoutDates() {
@@ -1920,10 +1920,10 @@ export default {
     },
     returnShippingMethod(value) {
       let selectedMethod = null;
-      this.$bus.$on("delivery-method", (data) => {
+      this.$bus.$on("delivery-method", data => {
         this.selectedDeliveryMethod = data;
       });
-    },
+    }
   },
   destroyed() {
     this.radioCheckedFlag = false;
@@ -1933,43 +1933,43 @@ export default {
       firstName: {
         required,
         minLength: minLength(2),
-        unicodeAlpha,
+        unicodeAlpha
       },
       lastName: {
         required,
-        unicodeAlpha,
+        unicodeAlpha
       },
       country: {
-        required,
+        required
       },
       streetAddress: {
         required,
-        unicodeAlphaNum,
+        unicodeAlphaNum
       },
       shippingMethod: {
-        required,
+        required
       },
       zipCode: {
         required,
         minLength: minLength(3),
-        unicodeAlphaNum,
+        unicodeAlphaNum
       },
       city: {
         required,
-        unicodeAlpha,
+        unicodeAlpha
       },
       phoneNumber: {
         required,
-        maxLength: maxLength(11),
+        maxLength: maxLength(11)
       },
       mobile: {
-        maxLength: maxLength(11),
+        maxLength: maxLength(11)
       },
       newsLetter: {
-        maxLength: maxLength(11),
-      },
-    },
-  },
+        maxLength: maxLength(11)
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -3263,6 +3263,6 @@ span.delivery-date {
   }
 }
 #shippingSubmitBtnId {
-    background: #071a44;
+  background: #071a44;
 }
 </style>
