@@ -2224,11 +2224,9 @@ export default {
     },
     showColorPicker() {
       this.colorPickerCheck = true;
-      //  document.body.style.overflow("hidden");
-      //  let scrollDisable = document.getElementsByTagName("body");
-      //  scrollDisable.style.overflow("hidden");
-      //    console.log( "  document.body",scrollDisable);
-      document.body.style.overflow = "hidden";
+      if (window.innerWidth > 768) {
+        document.body.style.overflow = "hidden";
+      }
     },
     hideColorPicker() {
       this.colorPickerCheck = false;
@@ -2237,7 +2235,9 @@ export default {
         this.isFabrics = true;
         this.unCheckfabrics = false;
       }
-      document.body.style.overflowY = "scroll";
+      if (window.innerWidth > 768) {
+        document.body.style.overflowY = "scroll";
+      }
     },
     setReviews() {
       try {
@@ -2606,7 +2606,9 @@ export default {
     modalshow() {
       this.showModal = true;
       let x = document.getElementsByTagName("BODY")[0];
-      x.style.overflow = "hidden";
+      if (window.innerWidth > 768) {
+        x.style.overflow = "hidden";
+      }
     },
     modalShowTwo() {
       this.modalTwo = true;
