@@ -29,7 +29,16 @@
       <meta itemprop="url" content="https://www.bedfactorydirect.co.uk/" />
     </div>
       <div class="container">
-        <ul>
+        <div class="breadcrumbs h5 cl-gray">
+        <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
+          <router-link :to="localizedRoute('/')" class="cl-tertiary links">
+           Home </router-link
+          >/
+        </span>
+        <!-- <span class="cl-mine-shaft">Swatches Page</span> -->
+         <strong class="cl-mine-shaft">{{ cmsPageContent.title }}</strong>
+      </div>
+        <!-- <ul>
           <li class="home">
             <a href="/" title="Go to Home Page">Home</a>
             <span>/ </span>
@@ -38,7 +47,7 @@
           <li class="cms_page">
             <strong>{{ cmsPageContent.title }}</strong>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
     <template v-if="cmsPageContent.identifier == 'clearance'">
@@ -306,6 +315,15 @@ export default {
   font-family: 'Oblik-regular';
   src: url('/assets/fonts/Oblik-Regular.otf');
 }
+.cl-mine-shaft{
+  font-weight: 500;
+  margin-left: 5px;
+}
+/* .home-breadcrumb-icon a {
+  width: 15px;
+  float: left;
+  margin: 1px 2.5px 0 0;
+} */
 .cmspage {
   overflow: hidden;
   background-color: #f2f2f2;
@@ -1893,13 +1911,15 @@ ul.homecategory-grid {
 .breadcrumbs-new.breadcrumbs li strong {
   color: #c9c5e6;
 }
-.breadcrumbs-new.breadcrumbs li span {
+/* .breadcrumbs-new.breadcrumbs li span {
   background: url(/assets/pix.png) -20px -129px no-repeat;
-}
+} */
 .breadcrumbs {
+  display: flex;
+  align-items: center;
   background-color: transparent;
   padding: 15px 0;
-  float: left;
+  /* float: left; */
   width: 100%;
 }
 .breadcrumbs ul {
@@ -1910,16 +1930,16 @@ ul.homecategory-grid {
   display: inline;
 }
 .breadcrumbs a {
-  display: block;
-  float: left;
-  font-size: 12px;
-  color: #888;
+  /* display: block;
+  float: left; */
+  /* font-size: 12px; */
+  color: #333;
   font-family: Arial, Helvetica, sans-serif;
 }
 .breadcrumbs a:hover {
   color: #ca0413;
 }
-.breadcrumbs li span {
+/* .breadcrumbs li span {
   background: url(/assets/pix.png) 0 -129px no-repeat;
   width: 7px;
   height: 5px;
@@ -1928,7 +1948,7 @@ ul.homecategory-grid {
   float: left;
   text-indent: -9999px;
   overflow: hidden;
-}
+} */
 .breadcrumbs li strong {
   font-weight: 400;
   display: block;

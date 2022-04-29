@@ -1,16 +1,13 @@
 <template>
   <div class="main-top">
     <div class="container">
-      <div class="breadcrumbs cl-gray">
+      <div class="breadcrumbs h5 cl-gray">
         <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
           <router-link :to="localizedRoute('/')" class="cl-tertiary links">
-            <img
-              class="home-breadcrumb-icon-img"
-              src="/assets/home-breadcrumb-icon.svg"
-            /> </router-link
+           Home </router-link
           >/
         </span>
-        <span class="cl-mine-shaft">Price Match</span>
+        <strong class="cl-mine-shaft">Price Match</strong>
       </div>
       <div class="mobile-view">
         <div class="row">
@@ -769,19 +766,23 @@ label {
 }
 </style>
 <style>
-.breadcrumbs span {
+/* .breadcrumbs span {
   color: #54575b;
   padding: 0px 2.5px;
-}
-.cl-gray {
+} */
+/* .cl-gray {
   margin-top: 2rem;
+} */
+.cl-mine-shaft{
+  font-weight: 500;
+  margin-left: 5px;
 }
 
-img.home-breadcrumb-icon-img {
+/* img.home-breadcrumb-icon-img {
   width: 15px;
   float: left;
   margin: 1px 2.5px 0 0;
-}
+} */
 .main-top {
   overflow: hidden;
 }
@@ -1001,10 +1002,18 @@ input:-webkit-autofill:active {
   border-radius: 4px;
 }
 .breadcrumbs {
+  display: flex;
+  align-items: center;
   background-color: transparent;
   padding: 15px 0;
-  float: left;
+  /* float: left; */
   width: 100%;
+}
+.breadcrumbs a{
+color: #333;
+}
+.breadcrumbs a:hover{
+  color: #ca0413;
 }
 @media (max-width: 767px) {
   .breadcrumbs {

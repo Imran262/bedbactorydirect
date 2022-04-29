@@ -11,7 +11,7 @@
     >
       <router-link :to="'/'" itemprop="item">
         <span class="no-padding" itemprop="name"> Home </span>
-      </router-link>
+      </router-link>/
       <meta itemprop="position" :content="'1'" />
     </span>
     <span
