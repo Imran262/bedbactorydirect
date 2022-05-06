@@ -4,11 +4,8 @@
       <div class="breadcrumbs mt10 h5 cl-gray">
         <span class="home-breadcrumb-icon product-page-home-breadcrumb-icon">
           <router-link :to="localizedRoute('/')" class="cl-tertiary links">
-            <img
-              class="home-breadcrumb-icon-img"
-              src="/assets/home-breadcrumb-icon.svg"
-            /> </router-link
-          >|
+           Home </router-link
+          >/
         </span>
         <span class="cl-mine-shaft">Swatches Page</span>
       </div>
@@ -1080,17 +1077,23 @@ input[type="email"]:focus {
 .breadcrumbs {
   padding-top: 1rem;
 }
+.breadcrumbs a{
+  color: #54575b;
+}
+.breadcrumbs a:hover {
+    color: #ca0413;
+}
 
 .breadcrumbs span {
   color: #54575b;
   padding: 0px 2.5px;
 }
 
-img.home-breadcrumb-icon-img {
+/* img.home-breadcrumb-icon-img {
   width: 15px;
   float: left;
   margin: 1px 2.5px 0 0;
-}
+} */
 .swatch-basket {
   background: #eee;
   border-radius: 4px;
