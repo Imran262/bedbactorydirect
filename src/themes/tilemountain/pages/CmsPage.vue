@@ -211,17 +211,17 @@ export default {
           window.Trustpilot.loadFromElement(element[i])
         }
         //  },1000)
-        
+
       }
     };
 
       // console.log(" 741258 ",document.getElementsByClassName('trustpilot-widget').length);
-      
+
     },
     showdescription () {
       this.showdesc = true
     },
-    selectClasss (url) {   
+    selectClasss (url) {
       let className = ''
       if (
         url == 'deliveryinfo' ||
@@ -310,7 +310,6 @@ export default {
   font-family: 'Oblik';
   src: url('/assets/fonts/Oblik_Bold.otf');
 }
-
 @font-face {
   font-family: 'Oblik-regular';
   src: url('/assets/fonts/Oblik-Regular.otf');
