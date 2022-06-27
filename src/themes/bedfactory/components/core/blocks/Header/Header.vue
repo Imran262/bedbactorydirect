@@ -223,6 +223,7 @@ export default {
         if (this.productsInCart.length === 0) {
           // console.log("789456 Cart is Empty ");
           this.$router.push(this.localizedRoute("/"));
+
         }
       }
       if (from.name === "cart" && to.name !== "checkout") {
